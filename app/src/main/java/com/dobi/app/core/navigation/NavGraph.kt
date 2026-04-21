@@ -113,8 +113,16 @@ fun DobiNavGraph(
                 onNavigateToConceptList = { navController.navigate(Screen.ConceptList) },
                 onNavigateToHomeworkLog = { navController.navigate(Screen.HomeworkLog) },
                 onRequestParentAccess = {
-                    navController.navigate(Screen.RoleSelection) {
-                        popUpTo(0) { inclusive = true }
+                    // Pop back to RoleSelection using the pop animation (slide back)
+                    val popped = navController.popBackStack(
+                        route = Screen.RoleSelection,
+                        inclusive = false
+                    )
+                    if (!popped) {
+                        // Fallback: RoleSelection not in the stack (e.g. paired child device launched straight into ChildHome)
+                        navController.navigate(Screen.RoleSelection) {
+                            popUpTo(0) { inclusive = true }
+                        }
                     }
                 }
             )
