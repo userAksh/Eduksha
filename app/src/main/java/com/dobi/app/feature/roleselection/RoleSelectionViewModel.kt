@@ -2,26 +2,55 @@ package com.dobi.app.feature.roleselection
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dobi.app.domain.model.UserRole
-import com.dobi.app.domain.usecase.SelectRoleUseCase
+import com.dobi.app.domain.repository.ChildRepository
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RoleSelectionViewModel @Inject constructor(
-    private val selectRoleUseCase: SelectRoleUseCase
+    private val auth: FirebaseAuth,
+    private val childRepository: ChildRepository
 ) : ViewModel() {
 
-    private val _navigationEvent = MutableSharedFlow<UserRole>()
-    val navigationEvent = _navigationEvent.asSharedFlow()
+    sealed class NavEvent {
+        object ToPhoneAuth : NavEvent()
+        object ToParentHome : NavEvent()
+        object ToSelectChild : NavEvent()
+        object ShowNoParentDialog : NavEvent()
+        object ShowNoChildrenDialog : NavEvent()
+    }
 
-    fun onRoleSelected(role: UserRole) {
+    private val _navEvent = MutableSharedFlow<NavEvent>()
+    val navEvent = _navEvent.asSharedFlow()
+
+    fun onParentSelected() {
         viewModelScope.launch {
-            selectRoleUseCase(role)
-            _navigationEvent.emit(role)
+            if (auth.currentUser != null) {
+                _navEvent.emit(NavEvent.ToParentHome)
+            } else {
+                _navEvent.emit(NavEvent.ToPhoneAuth)
+            }
+        }
+    }
+
+    fun onChildSelected() {
+        viewModelScope.launch {
+            val uid = auth.currentUser?.uid
+            if (uid == null) {
+                _navEvent.emit(NavEvent.ShowNoParentDialog)
+                return@launch
+            }
+            val children = childRepository.getChildren(uid).first()
+            if (children.isEmpty()) {
+                _navEvent.emit(NavEvent.ShowNoChildrenDialog)
+            } else {
+                _navEvent.emit(NavEvent.ToSelectChild)
+            }
         }
     }
 }

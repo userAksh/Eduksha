@@ -26,7 +26,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,32 +46,68 @@ import com.dobi.app.core.ui.theme.DobiPrimary
 import com.dobi.app.core.ui.theme.DobiTextPrimary
 import com.dobi.app.core.ui.theme.DobiTextSecondary
 import com.dobi.app.core.ui.theme.DobiTheme
-import com.dobi.app.domain.model.UserRole
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
 
 // ── Entry point wired to ViewModel ────────────────────────────────────────────
 
 @Composable
 fun RoleSelectionScreen(
-    onStudentSelected: () -> Unit,
-    onParentSelected: () -> Unit,
+    onNavigateToPhoneAuth: () -> Unit,
+    onNavigateToParentHome: () -> Unit,
+    onNavigateToSelectChild: () -> Unit,
     viewModel: RoleSelectionViewModel = hiltViewModel()
 ) {
+    var showNoParentDialog by remember { mutableStateOf(false) }
+    var showNoChildrenDialog by remember { mutableStateOf(false) }
+
     LaunchedEffect(Unit) {
-        viewModel.navigationEvent.collect { role ->
-            when (role) {
-                UserRole.STUDENT -> onStudentSelected()
-                UserRole.PARENT -> onParentSelected()
+        viewModel.navEvent.collect { event ->
+            when (event) {
+                RoleSelectionViewModel.NavEvent.ToPhoneAuth -> onNavigateToPhoneAuth()
+                RoleSelectionViewModel.NavEvent.ToParentHome -> onNavigateToParentHome()
+                RoleSelectionViewModel.NavEvent.ToSelectChild -> onNavigateToSelectChild()
+                RoleSelectionViewModel.NavEvent.ShowNoParentDialog -> showNoParentDialog = true
+                RoleSelectionViewModel.NavEvent.ShowNoChildrenDialog -> showNoChildrenDialog = true
             }
         }
     }
 
-    RoleSelectionContent(onRoleSelected = viewModel::onRoleSelected)
+    if (showNoParentDialog) {
+        AlertDialog(
+            onDismissRequest = { showNoParentDialog = false },
+            title = { Text("No Parent Account") },
+            text = { Text("A parent needs to create an account first before a child can log in.") },
+            confirmButton = {
+                TextButton(onClick = { showNoParentDialog = false }) { Text("Got it") }
+            }
+        )
+    }
+
+    if (showNoChildrenDialog) {
+        AlertDialog(
+            onDismissRequest = { showNoChildrenDialog = false },
+            title = { Text("No Child Profiles") },
+            text = { Text("Ask your parent to add your profile from their account.") },
+            confirmButton = {
+                TextButton(onClick = { showNoChildrenDialog = false }) { Text("Got it") }
+            }
+        )
+    }
+
+    RoleSelectionContent(
+        onParentSelected = viewModel::onParentSelected,
+        onChildSelected = viewModel::onChildSelected
+    )
 }
 
 // ── Pure UI (previewable) ──────────────────────────────────────────────────────
 
 @Composable
-private fun RoleSelectionContent(onRoleSelected: (UserRole) -> Unit) {
+private fun RoleSelectionContent(
+    onParentSelected: () -> Unit,
+    onChildSelected: () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -108,9 +147,9 @@ private fun RoleSelectionContent(onRoleSelected: (UserRole) -> Unit) {
             RoleCard(
                 emoji = "👦",
                 avatarBackground = Color(0xFFDBEAFE),
-                title = "Student",
+                title = "Child",
                 description = "I want to track\nmy learning",
-                onClick = { onRoleSelected(UserRole.STUDENT) }
+                onClick = onChildSelected
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -120,7 +159,7 @@ private fun RoleSelectionContent(onRoleSelected: (UserRole) -> Unit) {
                 avatarBackground = Color(0xFFDBEAFE),
                 title = "Parent",
                 description = "I want to track my\nchild's learning",
-                onClick = { onRoleSelected(UserRole.PARENT) }
+                onClick = onParentSelected
             )
 
             Spacer(modifier = Modifier.weight(1f))
@@ -263,7 +302,7 @@ private fun DisclaimerRow() {
         Text(text = "🔒", fontSize = 13.sp)
         Spacer(modifier = Modifier.width(5.dp))
         Text(
-            text = "This is a temporary login. No sign up required.",
+            text = "Parent login required. Children are added by parents.",
             style = MaterialTheme.typography.bodySmall,
             color = DobiTextSecondary,
             textAlign = TextAlign.Center
@@ -277,6 +316,6 @@ private fun DisclaimerRow() {
 @Composable
 private fun RoleSelectionPreview() {
     DobiTheme {
-        RoleSelectionContent(onRoleSelected = {})
+        RoleSelectionContent(onParentSelected = {}, onChildSelected = {})
     }
 }
