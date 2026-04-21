@@ -708,7 +708,7 @@ private fun StepperBar(currentStep: Int) {
             .fillMaxWidth()
             .background(Color.White)
             .padding(horizontal = 24.dp, vertical = 16.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.Top
     ) {
         steps.forEachIndexed { index, label ->
             val stepNum = index + 1
@@ -723,7 +723,7 @@ private fun StepperBar(currentStep: Int) {
                         .background(
                             when {
                                 isDone || isActive -> DobiPrimary
-                                else -> DobiBorder
+                                else -> DobiPrimaryContainer
                             }
                         ),
                     contentAlignment = Alignment.Center
@@ -739,7 +739,7 @@ private fun StepperBar(currentStep: Int) {
                         Text(
                             "$stepNum",
                             style = MaterialTheme.typography.labelMedium.copy(fontWeight = SFProBold),
-                            color = if (isActive) Color.White else DobiTextTertiary
+                            color = if (isActive) Color.White else DobiPrimary
                         )
                     }
                 }
@@ -755,9 +755,9 @@ private fun StepperBar(currentStep: Int) {
                 Box(
                     modifier = Modifier
                         .weight(1f)
+                        .padding(top = 15.dp)
                         .height(2.dp)
-                        .padding(bottom = 16.dp)
-                        .background(if (currentStep > stepNum) DobiPrimary else DobiBorder)
+                        .background(if (currentStep > stepNum) DobiPrimary else DobiPrimaryContainer)
                 )
             }
         }
