@@ -93,7 +93,11 @@ fun DobiNavGraph(
                 onNavigateToChildHome = { childId ->
                     navController.navigate(Screen.ChildHome(childId))
                 },
-                onNavigateToAddChild = { navController.navigate(Screen.AddChild) },
+                onNavigateToAddChild = {
+                    navController.navigate(Screen.AddChild) {
+                        popUpTo<Screen.ParentHome> { inclusive = true }
+                    }
+                },
                 onNavigateToRoleSelection = {
                     navController.navigate(Screen.RoleSelection) {
                         popUpTo(0) { inclusive = true }

@@ -68,6 +68,12 @@ fun ParentHomeScreen(
         viewModel.navToRoleSelection.collect { onNavigateToRoleSelection() }
     }
 
+    LaunchedEffect(uiState.isLoading, uiState.children.size) {
+        if (!uiState.isLoading && uiState.children.isEmpty()) {
+            onNavigateToAddChild()
+        }
+    }
+
     Scaffold(
         containerColor = DobiPrimary,
         floatingActionButton = {
