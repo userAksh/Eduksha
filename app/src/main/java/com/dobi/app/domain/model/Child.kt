@@ -7,5 +7,6 @@ data class Child(
     val board: String = "CBSE",
     val parentId: String = "",
     val gender: String = "boy",
-    val dateOfBirth: String = ""
+    val dateOfBirth: String = "",
+    val pin: String = ""
 )

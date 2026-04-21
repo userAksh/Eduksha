@@ -92,34 +92,11 @@ class AuthRepositoryImpl @Inject constructor(
                 ParentProfile(
                     uid = uid,
                     name = doc.getString("name") ?: "",
-                    phone = doc.getString("phone") ?: "",
-                    pin = doc.getString("pin") ?: ""
+                    phone = doc.getString("phone") ?: ""
                 )
             } else null
         } catch (e: Exception) {
             null
-        }
-    }
-
-    override suspend fun savePin(pin: String): Result<Unit> {
-        val uid = auth.currentUser?.uid ?: return Result.failure(IllegalStateException("Not signed in"))
-        return try {
-            firestore.collection("parents").document(uid)
-                .set(mapOf("pin" to pin), com.google.firebase.firestore.SetOptions.merge())
-                .await()
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-
-    override suspend fun verifyPin(pin: String): Boolean {
-        val uid = auth.currentUser?.uid ?: return false
-        return try {
-            val doc = firestore.collection("parents").document(uid).get().await()
-            doc.getString("pin") == pin
-        } catch (e: Exception) {
-            false
         }
     }
 

@@ -1,7 +1,9 @@
-package com.dobi.app.feature.pin
+package com.dobi.app.feature.childpin
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,7 +21,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -51,26 +52,24 @@ import com.dobi.app.core.ui.theme.DobiTextSecondary
 import com.dobi.app.core.ui.theme.DobiTextTertiary
 import com.dobi.app.core.ui.theme.SFProBold
 import com.dobi.app.core.ui.theme.SFProMedium
+import com.dobi.app.core.ui.theme.SFProSemiBold
 
 @Composable
-fun EnterPinScreen(
-    onCancel: () -> Unit,
-    onVerified: () -> Unit,
-    viewModel: EnterPinViewModel = hiltViewModel()
+fun EnterChildPinScreen(
+    onBack: () -> Unit,
+    onNavigateToChildHome: (String) -> Unit,
+    onForgotPin: () -> Unit,
+    viewModel: EnterChildPinViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var pin by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
-        viewModel.navToParentHome.collect { onVerified() }
+        viewModel.navToChildHome.collect(onNavigateToChildHome)
     }
-
-    LaunchedEffect(uiState) {
-        if (uiState is EnterPinViewModel.UiState.Error) pin = ""
+    LaunchedEffect(uiState.error) {
+        if (uiState.error != null) pin = ""
     }
-
-    val isVerifying = uiState is EnterPinViewModel.UiState.Verifying
-    val error = (uiState as? EnterPinViewModel.UiState.Error)?.message
 
     Column(
         modifier = Modifier
@@ -85,15 +84,15 @@ fun EnterPinScreen(
                 .padding(horizontal = 8.dp, vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = onCancel) {
+            IconButton(onClick = onBack) {
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Cancel",
+                    contentDescription = "Back",
                     tint = DobiTextPrimary
                 )
             }
             Text(
-                text = "Parent Access",
+                text = "Enter PIN",
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = SFProBold),
                 color = DobiTextPrimary,
                 modifier = Modifier.weight(1f),
@@ -116,10 +115,10 @@ fun EnterPinScreen(
                 Text("🔒", fontSize = 44.sp)
             }
 
-            Spacer(Modifier.height(24.dp))
+            Spacer(Modifier.height(22.dp))
 
             Text(
-                text = "Enter PIN to switch",
+                text = uiState.childName.ifBlank { "Enter PIN" },
                 fontSize = 22.sp,
                 fontWeight = SFProBold,
                 color = DobiTextPrimary,
@@ -128,7 +127,7 @@ fun EnterPinScreen(
             )
             Spacer(Modifier.height(8.dp))
             Text(
-                text = "Enter your 4-digit PIN to go back to parent view.",
+                text = "Enter the 4-digit PIN to open this profile.",
                 fontSize = 14.sp,
                 color = DobiTextSecondary,
                 textAlign = TextAlign.Center,
@@ -141,7 +140,7 @@ fun EnterPinScreen(
             BasicTextField(
                 value = pin,
                 onValueChange = { new ->
-                    if (new.length <= 4 && !isVerifying) {
+                    if (!uiState.isVerifying && new.length <= 4) {
                         val digits = new.filter { it.isDigit() }
                         pin = digits
                         viewModel.clearError()
@@ -184,7 +183,7 @@ fun EnterPinScreen(
                 }
             )
 
-            if (error != null) {
+            if (uiState.error != null) {
                 Spacer(Modifier.height(14.dp))
                 Box(
                     modifier = Modifier
@@ -194,7 +193,7 @@ fun EnterPinScreen(
                         .padding(horizontal = 14.dp, vertical = 10.dp)
                 ) {
                     Text(
-                        text = "⚠️  $error",
+                        text = "⚠️  ${uiState.error}",
                         fontSize = 13.sp,
                         fontWeight = SFProMedium,
                         color = DobiError
@@ -202,14 +201,22 @@ fun EnterPinScreen(
                 }
             }
 
-            if (isVerifying) {
-                Spacer(Modifier.height(20.dp))
-                CircularProgressIndicator(
-                    color = DobiPrimary,
-                    strokeWidth = 2.dp,
-                    modifier = Modifier.size(24.dp).align(Alignment.CenterHorizontally)
-                )
-            }
+            Spacer(Modifier.height(28.dp))
+
+            Text(
+                text = "Forgot PIN?",
+                fontSize = 14.sp,
+                fontWeight = SFProSemiBold,
+                color = DobiPrimary,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                        onClick = onForgotPin
+                    )
+            )
         }
     }
 }

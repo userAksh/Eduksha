@@ -12,7 +12,5 @@ interface AuthRepository {
     suspend fun verifyOtp(verificationId: String, otp: String): Result<FirebaseUser>
     suspend fun saveParentProfile(name: String, phone: String)
     suspend fun getParentProfile(): ParentProfile?
-    suspend fun savePin(pin: String): Result<Unit>
-    suspend fun verifyPin(pin: String): Boolean
     fun signOut()
 }

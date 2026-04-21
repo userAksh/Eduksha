@@ -186,6 +186,7 @@ fun AddChildScreen(
                     onGenderChange = viewModel::updateGender,
                     onGradeChange = viewModel::updateGrade,
                     onBoardChange = viewModel::updateBoard,
+                    onPinChange = viewModel::updatePin,
                     onSave = viewModel::saveChild
                 )
                 AddChildStep.DONE -> DoneStep(
@@ -364,6 +365,7 @@ private fun DetailsStep(
     onGenderChange: (Gender) -> Unit,
     onGradeChange: (Int) -> Unit,
     onBoardChange: (String) -> Unit,
+    onPinChange: (String) -> Unit,
     onSave: () -> Unit
 ) {
     var gradeExpanded by remember { mutableStateOf(false) }
@@ -526,6 +528,56 @@ private fun DetailsStep(
                 }
             }
 
+            Spacer(Modifier.height(22.dp))
+
+            FieldLabel("4-digit PIN for this child")
+            Spacer(Modifier.height(6.dp))
+            Text(
+                text = "Parent or child will enter this PIN to open this profile.",
+                fontSize = 12.sp,
+                color = DobiTextSecondary,
+                lineHeight = 16.sp
+            )
+            Spacer(Modifier.height(10.dp))
+            androidx.compose.foundation.text.BasicTextField(
+                value = draft.pin,
+                onValueChange = onPinChange,
+                keyboardOptions = KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.NumberPassword),
+                decorationBox = {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        repeat(4) { index ->
+                            val char = draft.pin.getOrNull(index)
+                            val isCurrent = draft.pin.length == index
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(52.dp)
+                                    .border(
+                                        width = if (isCurrent) 2.dp else 1.5.dp,
+                                        color = if (isCurrent || char != null) DobiPrimary else DobiBorder,
+                                        shape = RoundedCornerShape(12.dp)
+                                    )
+                                    .background(
+                                        color = if (char != null) DobiPrimaryContainer else Color.White,
+                                        shape = RoundedCornerShape(12.dp)
+                                    ),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = if (char != null) "●" else if (isCurrent) "·" else "",
+                                    fontSize = if (char != null) 20.sp else 24.sp,
+                                    fontWeight = SFProBold,
+                                    color = if (char != null) DobiPrimary else DobiTextTertiary
+                                )
+                            }
+                        }
+                    }
+                }
+            )
+
             if (error != null) {
                 Spacer(Modifier.height(12.dp))
                 ErrorBox(error)
@@ -537,7 +589,7 @@ private fun DetailsStep(
                 onClick = onSave,
                 modifier = Modifier.fillMaxWidth().height(56.dp),
                 shape = RoundedCornerShape(16.dp),
-                enabled = draft.name.isNotBlank() && !isSaving,
+                enabled = draft.name.isNotBlank() && draft.pin.length == 4 && !isSaving,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = DobiPrimary,
                     disabledContainerColor = DobiPrimaryLight.copy(alpha = 0.35f)

@@ -11,10 +11,9 @@ import com.dobi.app.feature.childhome.ChildHomeScreen
 import com.dobi.app.feature.conceptdetail.ConceptDetailScreen
 import com.dobi.app.feature.conceptlist.ConceptListScreen
 import com.dobi.app.feature.homework.HomeworkLogScreen
+import com.dobi.app.feature.childpin.EnterChildPinScreen
 import com.dobi.app.feature.pairing.EnterPairingCodeScreen
 import com.dobi.app.feature.parenthome.ParentHomeScreen
-import com.dobi.app.feature.pin.EnterPinScreen
-import com.dobi.app.feature.pin.SetPinScreen
 import com.dobi.app.feature.roleselection.RoleSelectionScreen
 import com.dobi.app.feature.selectchild.SelectChildScreen
 
@@ -64,11 +63,6 @@ fun DobiNavGraph(
 
         composable<Screen.OtpVerification> {
             OtpVerificationScreen(
-                onNavigateToSetPin = {
-                    navController.navigate(Screen.SetPin) {
-                        popUpTo<Screen.RoleSelection> { inclusive = true }
-                    }
-                },
                 onNavigateToParentHome = {
                     navController.navigate(Screen.ParentHome) {
                         popUpTo<Screen.RoleSelection> { inclusive = true }
@@ -77,25 +71,21 @@ fun DobiNavGraph(
             )
         }
 
-        composable<Screen.SetPin> {
-            SetPinScreen(
-                onDone = {
-                    // ParentHome auto-redirects to AddChild if no children exist yet
-                    navController.navigate(Screen.ParentHome) {
-                        popUpTo<Screen.SetPin> { inclusive = true }
+        composable<Screen.EnterChildPin> {
+            EnterChildPinScreen(
+                onBack = { navController.popBackStack() },
+                onNavigateToChildHome = { childId ->
+                    navController.navigate(Screen.ChildHome(childId)) {
+                        popUpTo<Screen.EnterChildPin> { inclusive = true }
                     }
-                }
+                },
+                onForgotPin = { navController.navigate(Screen.PinRecovery) }
             )
         }
 
-        composable<Screen.EnterPin> {
-            EnterPinScreen(
-                onCancel = { navController.popBackStack() },
-                onVerified = {
-                    navController.navigate(Screen.ParentHome) {
-                        popUpTo<Screen.ChildHome> { inclusive = true }
-                    }
-                }
+        composable<Screen.PinRecovery> {
+            com.dobi.app.feature.childpin.PinRecoveryScreen(
+                onBack = { navController.popBackStack() }
             )
         }
 
@@ -113,7 +103,7 @@ fun DobiNavGraph(
         composable<Screen.SelectChild> {
             SelectChildScreen(
                 onChildSelected = { childId ->
-                    navController.navigate(Screen.ChildHome(childId))
+                    navController.navigate(Screen.EnterChildPin(childId))
                 }
             )
         }
@@ -122,14 +112,18 @@ fun DobiNavGraph(
             ChildHomeScreen(
                 onNavigateToConceptList = { navController.navigate(Screen.ConceptList) },
                 onNavigateToHomeworkLog = { navController.navigate(Screen.HomeworkLog) },
-                onRequestParentAccess = { navController.navigate(Screen.EnterPin) }
+                onRequestParentAccess = {
+                    navController.navigate(Screen.RoleSelection) {
+                        popUpTo(0) { inclusive = true }
+                    }
+                }
             )
         }
 
         composable<Screen.ParentHome> {
             ParentHomeScreen(
                 onNavigateToChildHome = { childId ->
-                    navController.navigate(Screen.ChildHome(childId))
+                    navController.navigate(Screen.EnterChildPin(childId))
                 },
                 onNavigateToAddChild = {
                     navController.navigate(Screen.AddChild)

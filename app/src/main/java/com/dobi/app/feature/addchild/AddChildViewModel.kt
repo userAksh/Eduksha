@@ -27,7 +27,8 @@ data class ChildDraft(
     val name: String = "",
     val gender: Gender = Gender.BOY,
     val grade: Int = 5,
-    val board: String = "CBSE"
+    val board: String = "CBSE",
+    val pin: String = ""
 )
 
 enum class AddChildStep { WELCOME, DETAILS, DONE }
@@ -80,7 +81,8 @@ class AddChildViewModel @Inject constructor(
                         name = child.name,
                         gender = Gender.fromKey(child.gender),
                         grade = child.grade,
-                        board = child.board
+                        board = child.board,
+                        pin = child.pin
                     )
                 }
                 AddChildStep.DETAILS
@@ -93,6 +95,7 @@ class AddChildViewModel @Inject constructor(
     fun updateGender(v: Gender) { _draft.value = _draft.value.copy(gender = v) }
     fun updateGrade(v: Int) { _draft.value = _draft.value.copy(grade = v) }
     fun updateBoard(v: String) { _draft.value = _draft.value.copy(board = v) }
+    fun updatePin(v: String) { _draft.value = _draft.value.copy(pin = v.filter { it.isDigit() }.take(4)) }
 
     fun saveChild() {
         val parentId = auth.currentUser?.uid ?: return
@@ -109,7 +112,8 @@ class AddChildViewModel @Inject constructor(
                     grade = d.grade,
                     board = d.board,
                     parentId = parentId,
-                    gender = d.gender.key
+                    gender = d.gender.key,
+                    pin = d.pin
                 )
                 childRepository.updateChild(child)
             } else {
@@ -118,7 +122,8 @@ class AddChildViewModel @Inject constructor(
                     grade = d.grade,
                     board = d.board,
                     parentId = parentId,
-                    gender = d.gender.key
+                    gender = d.gender.key,
+                    pin = d.pin
                 )
                 childRepository.addChild(child)
             }

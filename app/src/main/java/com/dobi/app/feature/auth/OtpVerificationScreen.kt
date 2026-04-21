@@ -55,7 +55,6 @@ private val ErrorRed = Color(0xFFDC2626)
 
 @Composable
 fun OtpVerificationScreen(
-    onNavigateToSetPin: () -> Unit,
     onNavigateToParentHome: () -> Unit,
     viewModel: OtpVerificationViewModel = hiltViewModel()
 ) {
@@ -64,7 +63,6 @@ fun OtpVerificationScreen(
     LaunchedEffect(Unit) {
         viewModel.navEvent.collect { event ->
             when (event) {
-                OtpVerificationViewModel.NavEvent.ToSetPin -> onNavigateToSetPin()
                 OtpVerificationViewModel.NavEvent.ToParentHome -> onNavigateToParentHome()
             }
         }
