@@ -31,7 +31,6 @@ import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Shield
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
@@ -93,37 +92,26 @@ fun ParentHomeScreen(
         return
     }
 
-    Box(modifier = Modifier.fillMaxSize().background(PageBg)) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            HeaderBlock(
-                parentName = uiState.profile?.name ?: "",
-                onSignOut = viewModel::signOut
-            )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(PageBg)
+    ) {
+        HeaderBlock(
+            parentName = uiState.profile?.name ?: "",
+            onSignOut = viewModel::signOut
+        )
 
-            ContentBlock(
-                children = uiState.children,
-                onNavigateToChildHome = onNavigateToChildHome,
-                onAddChild = onNavigateToAddChild,
-                modifier = Modifier
-                    .weight(1f)
-                    .offset(y = (-24).dp)
-            )
-
-            BottomNav()
-        }
-
-        FloatingActionButton(
-            onClick = onNavigateToAddChild,
-            containerColor = DobiPrimary,
-            contentColor = Color.White,
-            shape = CircleShape,
+        ContentBlock(
+            children = uiState.children,
+            onNavigateToChildHome = onNavigateToChildHome,
+            onAddChild = onNavigateToAddChild,
             modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(end = 20.dp, bottom = 88.dp)
-                .size(56.dp)
-        ) {
-            Icon(Icons.Default.Add, contentDescription = "Add child", modifier = Modifier.size(24.dp))
-        }
+                .weight(1f)
+                .offset(y = (-24).dp)
+        )
+
+        BottomNav()
     }
 }
 
@@ -179,32 +167,6 @@ private fun HeaderBlock(parentName: String, onSignOut: () -> Unit) {
                 )
             }
 
-            Column(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Color.White.copy(alpha = 0.15f))
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = null,
-                        onClick = onSignOut
-                    )
-                    .padding(horizontal = 12.dp, vertical = 8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ExitToApp,
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(18.dp)
-                )
-                Spacer(Modifier.height(2.dp))
-                Text(
-                    text = "Sign out",
-                    fontSize = 11.sp,
-                    fontWeight = SFProMedium,
-                    color = Color.White
-                )
-            }
         }
     }
 }
@@ -299,14 +261,14 @@ private fun ChildStatCard(child: Child, onClick: () -> Unit) {
             ),
         shape = RoundedCornerShape(18.dp),
         color = Color.White,
-        shadowElevation = 6.dp,
+        shadowElevation = 2.dp,
         tonalElevation = 0.dp
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(
                     modifier = Modifier
-                        .size(68.dp)
+                        .size(58.dp)
                         .clip(CircleShape)
                         .background(DobiPrimarySoft),
                     contentAlignment = Alignment.Center
@@ -319,7 +281,7 @@ private fun ChildStatCard(child: Child, onClick: () -> Unit) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = child.name,
-                        fontSize = 20.sp,
+                        fontSize = 16.sp,
                         fontWeight = SFProBold,
                         color = DobiTextPrimary
                     )
@@ -389,11 +351,11 @@ private fun InfoChip(text: String) {
         modifier = Modifier
             .clip(RoundedCornerShape(8.dp))
             .background(DobiPrimaryContainer)
-            .padding(horizontal = 10.dp, vertical = 5.dp)
+            .padding(horizontal = 10.dp)
     ) {
         Text(
             text = text,
-            fontSize = 12.sp,
+            fontSize = 10.sp,
             fontWeight = SFProSemiBold,
             color = DobiPrimary
         )
