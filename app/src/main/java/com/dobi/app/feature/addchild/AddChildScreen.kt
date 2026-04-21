@@ -185,8 +185,8 @@ private fun WelcomeStep(onStart: () -> Unit) {
             Image(
                 painter = painterResource(id = R.drawable.ic_parents_child),
                 contentDescription = null,
-                modifier = Modifier.size(140.dp),
-                contentScale = ContentScale.Fit
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
             )
         }
 
