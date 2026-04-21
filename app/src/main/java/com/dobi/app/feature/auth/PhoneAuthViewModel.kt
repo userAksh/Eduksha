@@ -18,12 +18,6 @@ class PhoneAuthViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    data class PrefillState(
-        val name: String = "",
-        val phone: String = "",
-        val isReturning: Boolean = false
-    )
-
     sealed class UiState {
         object Idle : UiState()
         object Loading : UiState()
@@ -42,30 +36,8 @@ class PhoneAuthViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
     val uiState = _uiState.asStateFlow()
 
-    private val _prefill = MutableStateFlow(PrefillState())
-    val prefill = _prefill.asStateFlow()
-
     private val _navEvent = MutableSharedFlow<NavEvent>()
     val navEvent = _navEvent.asSharedFlow()
-
-    init {
-        loadPrefill()
-    }
-
-    private fun loadPrefill() {
-        viewModelScope.launch {
-            val existing = authRepository.getParentProfile()
-            if (existing != null) {
-                // Strip +91 prefix for the input field
-                val localPhone = existing.phone.removePrefix("+91").removePrefix("91").takeLast(10)
-                _prefill.value = PrefillState(
-                    name = existing.name,
-                    phone = localPhone,
-                    isReturning = true
-                )
-            }
-        }
-    }
 
     fun sendOtp(name: String, phone: String, activity: Activity) {
         viewModelScope.launch {
