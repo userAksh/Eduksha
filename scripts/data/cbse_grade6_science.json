@@ -1,0 +1,736 @@
+{
+  "metadata": {
+    "grade": 6,
+    "board": "CBSE",
+    "subject": "Science",
+    "subjectColor": "#22C55E",
+    "subjectIcon": "🔬",
+    "generatedAt": "2026-04-19"
+  },
+  "units": [
+    {
+      "id": "sci6_u01",
+      "name": "Food: Where Does It Come From?",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "sci6_c001",
+          "name": "Sources of Food — Plants",
+          "description": "Plants are a major source of food for humans and animals. We eat different parts of plants — roots, stems, leaves, flowers, fruits, and seeds. Examples include carrots (root), potato (stem), spinach (leaf), cauliflower (flower), mango (fruit), and wheat (seed).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["plant food sources", "food from plants", "edible plant parts"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c002",
+          "name": "Sources of Food — Animals",
+          "description": "Animals provide us with food products like milk, eggs, meat, fish, and honey. These are called animal products. Milk gives us dairy items like butter, cheese, and curd. Bees collect nectar and make honey.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["animal food sources", "food from animals", "animal products"],
+          "prerequisites": [],
+          "order": 2
+        },
+        {
+          "id": "sci6_c003",
+          "name": "Herbivores, Carnivores, and Omnivores",
+          "description": "Animals are classified based on what they eat. Herbivores eat only plants (cow, deer, rabbit). Carnivores eat only other animals (lion, eagle, shark). Omnivores eat both plants and animals (humans, bears, crows).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["types of animals based on food", "food habits of animals", "eating habits"],
+          "prerequisites": ["sci6_c001", "sci6_c002"],
+          "order": 3
+        },
+        {
+          "id": "sci6_c004",
+          "name": "Edible Parts of a Plant",
+          "description": "Different parts of a plant are edible. Root — carrot, radish, beetroot. Stem — potato, sugarcane, ginger. Leaf — spinach, cabbage, curry leaves. Flower — broccoli, cauliflower. Fruit — mango, tomato, apple. Seed — wheat, rice, mustard.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["plant parts we eat", "parts of plant as food"],
+          "prerequisites": ["sci6_c001"],
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "sci6_u02",
+      "name": "Components of Food",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "sci6_c005",
+          "name": "Nutrients in Food",
+          "description": "Food contains nutrients that our body needs to stay healthy and grow. The five main nutrients are: Carbohydrates (energy), Proteins (growth and repair), Fats (energy store), Vitamins (protection), and Minerals (body functions). Water and dietary fibre are also essential.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["food components", "types of nutrients", "what is in food"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c006",
+          "name": "Carbohydrates",
+          "description": "Carbohydrates are the main source of energy for the body. They are found in rice, wheat, potato, bread, sugar, and maize. Starch and sugar are two types of carbohydrates. The iodine test is used to detect starch — iodine turns blue-black in the presence of starch.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["starch", "sugars", "energy foods", "carbs"],
+          "prerequisites": ["sci6_c005"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c007",
+          "name": "Proteins",
+          "description": "Proteins are called body-building foods because they help in growth and repair of body cells. Rich sources include pulses (dal), eggs, meat, fish, milk, cheese, and nuts. The test for protein uses copper sulphate and caustic soda solution — a violet colour indicates presence of protein.",
+          "expectedDifficulty": "OK",
+          "aliases": ["body-building foods", "protein sources"],
+          "prerequisites": ["sci6_c005"],
+          "order": 3
+        },
+        {
+          "id": "sci6_c008",
+          "name": "Fats",
+          "description": "Fats provide more energy than carbohydrates and are stored in the body for later use. Sources include butter, ghee, oil, nuts, and meat. The paper test is used to detect fats — fat leaves a translucent (greasy) spot on paper.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["lipids", "energy-storing foods", "fat sources"],
+          "prerequisites": ["sci6_c005"],
+          "order": 4
+        },
+        {
+          "id": "sci6_c009",
+          "name": "Vitamins and Minerals",
+          "description": "Vitamins protect the body from diseases and help in proper functioning. Key vitamins: A (eyesight), B (nerves), C (immunity, gums), D (bones). Minerals like calcium (bones and teeth), iron (blood), and iodine (thyroid) are needed in small amounts but are critical.",
+          "expectedDifficulty": "OK",
+          "aliases": ["vitamins", "minerals", "protective foods", "micronutrients"],
+          "prerequisites": ["sci6_c005"],
+          "order": 5
+        },
+        {
+          "id": "sci6_c010",
+          "name": "Deficiency Diseases",
+          "description": "When a nutrient is missing from the diet over a long period, the body develops a deficiency disease. Examples: Vitamin A deficiency → Night blindness. Vitamin C deficiency → Scurvy (bleeding gums). Vitamin D deficiency → Rickets (weak bones). Iron deficiency → Anaemia. Iodine deficiency → Goitre.",
+          "expectedDifficulty": "OK",
+          "aliases": ["diseases due to lack of nutrients", "nutritional deficiency", "malnutrition diseases"],
+          "prerequisites": ["sci6_c009"],
+          "order": 6
+        },
+        {
+          "id": "sci6_c011",
+          "name": "Balanced Diet",
+          "description": "A balanced diet contains all nutrients in the right proportions — carbohydrates, proteins, fats, vitamins, minerals, water, and roughage. It keeps us healthy, provides energy, and prevents deficiency diseases. The requirement varies by age, gender, and physical activity.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["healthy diet", "what is a balanced diet", "nutrition"],
+          "prerequisites": ["sci6_c005", "sci6_c006", "sci6_c007", "sci6_c008", "sci6_c009"],
+          "order": 7
+        }
+      ]
+    },
+    {
+      "id": "sci6_u03",
+      "name": "Fibre to Fabric",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "sci6_c012",
+          "name": "Natural and Synthetic Fibres",
+          "description": "Fibres are thin thread-like strands used to make fabric. Natural fibres come from plants (cotton, jute, flax) or animals (wool, silk). Synthetic fibres are man-made from chemicals (nylon, polyester). Natural fibres are breathable and biodegradable; synthetic fibres are durable and cheaper.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["types of fibres", "plant fibres", "animal fibres", "man-made fibres"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c013",
+          "name": "Cotton — From Plant to Fibre",
+          "description": "Cotton comes from the cotton plant (Gossypium). The cotton bolls are harvested and the seeds are separated from fibres by a process called ginning. Cotton grows in warm, humid climates. India (Gujarat, Maharashtra) is a major producer. Cotton fabric is comfortable, absorbs sweat, and is suitable for hot weather.",
+          "expectedDifficulty": "OK",
+          "aliases": ["cotton plant", "ginning", "cotton fabric"],
+          "prerequisites": ["sci6_c012"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c014",
+          "name": "Jute — Properties and Uses",
+          "description": "Jute comes from the jute plant (Corchorus) and is known as the 'golden fibre'. The stems are soaked in water (retting) to separate the fibres. Jute is used to make sacks, mats, ropes, and carpets. West Bengal is the largest jute-producing state in India.",
+          "expectedDifficulty": "OK",
+          "aliases": ["jute fibre", "golden fibre", "retting"],
+          "prerequisites": ["sci6_c012"],
+          "order": 3
+        },
+        {
+          "id": "sci6_c015",
+          "name": "Spinning and Weaving",
+          "description": "Spinning is the process of twisting fibres into yarn using a charkha or spinning machine. Weaving is the process of arranging two sets of yarn (warp and weft) at right angles on a loom to make fabric. Knitting uses a single yarn looped together with needles to make fabric.",
+          "expectedDifficulty": "OK",
+          "aliases": ["making fabric", "yarn to fabric", "charkha", "loom", "weaving vs knitting"],
+          "prerequisites": ["sci6_c013"],
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "sci6_u04",
+      "name": "Sorting Materials into Groups",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "sci6_c016",
+          "name": "Properties of Materials",
+          "description": "Materials can be grouped based on their properties: appearance (shiny or dull), hardness (hard or soft), texture (rough or smooth), flexibility (flexible or rigid), and solubility (soluble or insoluble in water). Understanding these properties helps us choose the right material for the right purpose.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["material properties", "characteristics of materials"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c017",
+          "name": "Transparency, Translucency, and Opacity",
+          "description": "Transparent materials allow light to pass through completely (clear glass, water). Translucent materials allow only some light to pass through (frosted glass, butter paper, thin cloth). Opaque materials do not allow any light to pass through (wood, metal, brick). This property is important in choosing materials for windows, containers, etc.",
+          "expectedDifficulty": "OK",
+          "aliases": ["transparent objects", "opaque objects", "translucent materials", "light through materials"],
+          "prerequisites": ["sci6_c016"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c018",
+          "name": "Solubility in Water",
+          "description": "Some substances dissolve in water (soluble) like salt, sugar, and copper sulphate. Others do not dissolve (insoluble) like sand, chalk, and oil. A solution is a uniform mixture of a solute dissolved in a solvent. Miscible liquids mix with water (vinegar, alcohol); immiscible liquids do not (oil).",
+          "expectedDifficulty": "OK",
+          "aliases": ["soluble and insoluble", "dissolving in water", "solution"],
+          "prerequisites": ["sci6_c016"],
+          "order": 3
+        },
+        {
+          "id": "sci6_c019",
+          "name": "Floating and Sinking",
+          "description": "Objects that are lighter than water (less dense) float; objects that are heavier than water (more dense) sink. Shape also matters — a lump of clay sinks but the same clay shaped into a boat floats. Density, not just weight, determines whether an object floats or sinks.",
+          "expectedDifficulty": "OK",
+          "aliases": ["float or sink", "density and floating", "buoyancy basics"],
+          "prerequisites": ["sci6_c016"],
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "sci6_u05",
+      "name": "Separation of Substances",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "sci6_c020",
+          "name": "Handpicking and Threshing",
+          "description": "Handpicking is used to separate larger impurities from a mixture by hand (e.g., removing stones from rice). Threshing is the process of separating grain from stalks by beating the harvested crop against a hard surface or using a threshing machine. Used for wheat, rice, and other crops.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["handpicking method", "threshing grain"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c021",
+          "name": "Winnowing",
+          "description": "Winnowing separates lighter components (husk, chaff) from heavier components (grain) using wind or blowing air. The mixture is dropped from a height and wind blows the lighter husk away while the heavier grain falls straight down. Used by farmers to clean grains after threshing.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["winnowing method", "separating husk from grain"],
+          "prerequisites": ["sci6_c020"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c022",
+          "name": "Sieving",
+          "description": "Sieving separates mixtures based on the size of particles using a sieve (mesh). Smaller particles pass through the holes while larger particles are retained. Used to separate flour from bran, fine sand from coarse gravel, or to remove lumps from flour.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["sieve", "sieving method", "separating by size"],
+          "prerequisites": [],
+          "order": 3
+        },
+        {
+          "id": "sci6_c023",
+          "name": "Sedimentation and Decantation",
+          "description": "Sedimentation is the settling of insoluble heavy particles (sediment) to the bottom of a liquid when left undisturbed. Decantation is the process of carefully pouring out the clear liquid on top without disturbing the sediment. Used to separate mud from water.",
+          "expectedDifficulty": "OK",
+          "aliases": ["sedimentation", "decantation", "settling of particles"],
+          "prerequisites": ["sci6_c018"],
+          "order": 4
+        },
+        {
+          "id": "sci6_c024",
+          "name": "Filtration",
+          "description": "Filtration separates insoluble solid particles from a liquid using a filter (like filter paper or cloth). The liquid that passes through is called the filtrate; the solid that remains is the residue. Filtration cannot separate dissolved substances — only suspended (undissolved) particles.",
+          "expectedDifficulty": "OK",
+          "aliases": ["filtration method", "filter paper", "filtrate and residue"],
+          "prerequisites": ["sci6_c023"],
+          "order": 5
+        },
+        {
+          "id": "sci6_c025",
+          "name": "Evaporation",
+          "description": "Evaporation separates a dissolved solid (solute) from a liquid (solvent) by heating. The liquid evaporates as water vapour, leaving the solid behind. Example: boiling salt water leaves salt crystals. Used to obtain salt from sea water in salt pans.",
+          "expectedDifficulty": "OK",
+          "aliases": ["evaporation method", "separating dissolved solids", "salt from seawater"],
+          "prerequisites": ["sci6_c018"],
+          "order": 6
+        }
+      ]
+    },
+    {
+      "id": "sci6_u06",
+      "name": "Changes Around Us",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "sci6_c026",
+          "name": "Reversible Changes",
+          "description": "A reversible change can be undone — the material can be brought back to its original state. Examples: melting of ice, dissolving sugar in water, stretching a rubber band, folding paper, inflating a balloon. No new substance is formed in reversible changes.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["reversible changes examples", "changes that can be undone"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c027",
+          "name": "Irreversible Changes",
+          "description": "An irreversible change cannot be undone — the original material cannot be recovered. Examples: burning wood, cooking food, rusting of iron, curdling of milk, ripening of fruit, setting of cement. A new substance is usually formed. These are often chemical changes.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["irreversible changes examples", "permanent changes", "chemical changes"],
+          "prerequisites": ["sci6_c026"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c028",
+          "name": "Physical vs Chemical Changes",
+          "description": "Physical changes affect only the form or appearance of a substance — no new substance is formed and the change is usually reversible (melting, cutting, dissolving). Chemical changes produce one or more new substances with different properties and are usually irreversible (burning, rusting, cooking, fermentation).",
+          "expectedDifficulty": "OK",
+          "aliases": ["physical and chemical changes", "types of changes"],
+          "prerequisites": ["sci6_c026", "sci6_c027"],
+          "order": 3
+        },
+        {
+          "id": "sci6_c029",
+          "name": "Expansion and Contraction",
+          "description": "Most materials expand (increase in size) when heated and contract (decrease in size) when cooled. This is due to the faster movement of particles on heating. Examples: gaps are left between railway tracks and bridges to allow for expansion. Liquids expand more than solids; gases expand most.",
+          "expectedDifficulty": "OK",
+          "aliases": ["thermal expansion", "expansion on heating", "contraction on cooling"],
+          "prerequisites": ["sci6_c026"],
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "sci6_u07",
+      "name": "Getting to Know Plants",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "sci6_c030",
+          "name": "Types of Plants",
+          "description": "Plants are classified by size and structure. Herbs are small plants with soft green stems (mint, grass, wheat). Shrubs are medium-sized with woody branches near the base (rose, henna, lemon). Trees are tall with a hard thick stem called a trunk (mango, banyan, pine). Creepers lie on the ground (pumpkin, watermelon). Climbers use support to grow upward (money plant, grape).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["herbs shrubs trees", "types of plants classification", "creepers and climbers"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c031",
+          "name": "Stem — Structure and Functions",
+          "description": "The stem supports the plant and holds leaves, flowers, and fruits. It conducts water and minerals from roots to leaves (upward) and food from leaves to other parts (downward) through vascular bundles (xylem and phloem). Some stems store food (potato, ginger). Some stems are modified for climbing (tendrils in grapes).",
+          "expectedDifficulty": "OK",
+          "aliases": ["functions of stem", "stem structure", "vascular bundles in stem"],
+          "prerequisites": ["sci6_c030"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c032",
+          "name": "Leaf — Structure and Parts",
+          "description": "A leaf has a flat green blade called the lamina, a stalk called the petiole, and veins that form the venation. Venation can be reticulate (net-like, in dicots like mango) or parallel (in monocots like grass, banana). Leaves are green due to chlorophyll pigment which is essential for photosynthesis.",
+          "expectedDifficulty": "OK",
+          "aliases": ["parts of a leaf", "leaf structure", "venation", "lamina petiole"],
+          "prerequisites": ["sci6_c030"],
+          "order": 3
+        },
+        {
+          "id": "sci6_c033",
+          "name": "Photosynthesis",
+          "description": "Photosynthesis is the process by which green plants make their own food using sunlight, water (from roots), and carbon dioxide (from air). Chlorophyll in leaves absorbs sunlight. Glucose (sugar) is produced and oxygen is released as a byproduct. This is why plants are called producers and are the base of all food chains.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["how plants make food", "food making in plants", "chlorophyll", "CO2 and sunlight"],
+          "prerequisites": ["sci6_c031", "sci6_c032"],
+          "order": 4
+        },
+        {
+          "id": "sci6_c034",
+          "name": "Roots — Types and Functions",
+          "description": "Roots anchor the plant in the soil and absorb water and minerals. Taproot system has one main root with smaller lateral roots (mango, mustard, carrot — dicots). Fibrous root system has many thin roots of similar size growing from the stem base (wheat, grass, maize — monocots). Some roots store food (carrot, radish, beet) and some absorb oxygen from air (mangrove).",
+          "expectedDifficulty": "OK",
+          "aliases": ["taproot fibrous root", "functions of roots", "root types"],
+          "prerequisites": ["sci6_c030"],
+          "order": 5
+        },
+        {
+          "id": "sci6_c035",
+          "name": "Flower — Parts and Functions",
+          "description": "A flower is the reproductive part of the plant. It contains: Sepals (protect the bud), Petals (attract pollinators), Stamens (male part — produce pollen), and Pistil/Carpel (female part — contains ovule). Pollination transfers pollen from stamen to pistil, leading to fertilisation and seed formation.",
+          "expectedDifficulty": "OK",
+          "aliases": ["parts of a flower", "stamen pistil", "pollination", "flower structure"],
+          "prerequisites": ["sci6_c030"],
+          "order": 6
+        }
+      ]
+    },
+    {
+      "id": "sci6_u08",
+      "name": "Body Movements",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "sci6_c036",
+          "name": "Bones and Skeleton",
+          "description": "The human skeleton is made up of about 206 bones. The skeleton gives the body its shape, supports and protects internal organs (skull protects brain, rib cage protects heart and lungs), and helps in movement. Bones are hard due to calcium and phosphorus. Where two bones meet is called a joint.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["human skeleton", "bones in human body", "functions of skeleton"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c037",
+          "name": "Types of Joints",
+          "description": "Joints allow bones to move. Ball and socket joint allows movement in all directions (shoulder, hip). Hinge joint allows back-and-forth movement in one direction (knee, elbow, fingers). Pivotal joint allows rotation (neck — atlas and axis vertebrae). Fixed/immovable joints allow no movement (skull bones). Cartilage at joints acts as a cushion.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["ball and socket joint", "hinge joint", "pivotal joint", "types of joints", "movable joints"],
+          "prerequisites": ["sci6_c036"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c038",
+          "name": "Muscles and Movement",
+          "description": "Muscles are attached to bones and cause movement by contracting (shortening) and relaxing. Muscles work in pairs — when one contracts, the other relaxes (e.g., bicep and tricep in the arm). Muscles can only pull, not push. Tendons connect muscles to bones; ligaments connect bones to bones.",
+          "expectedDifficulty": "OK",
+          "aliases": ["how muscles work", "muscle pairs", "tendons and ligaments", "bicep tricep"],
+          "prerequisites": ["sci6_c036"],
+          "order": 3
+        },
+        {
+          "id": "sci6_c039",
+          "name": "Movement in Other Animals",
+          "description": "Different animals move in different ways based on their body structure. Earthworm — uses muscles and setae (tiny bristles) for crawling. Snail — muscular foot with slime. Fish — streamlined body, fins, and tail for swimming. Birds — wings (hollow bones, flight muscles), legs for walking. Snakes — S-shaped curves using ribs and muscles.",
+          "expectedDifficulty": "OK",
+          "aliases": ["locomotion in animals", "how animals move", "earthworm movement", "fish movement"],
+          "prerequisites": ["sci6_c036"],
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "sci6_u09",
+      "name": "The Living Organisms and Their Surroundings",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "sci6_c040",
+          "name": "Habitat — Types",
+          "description": "A habitat is the natural home of an organism where it gets food, shelter, water, and all conditions needed for survival. Major types: Terrestrial habitats (land) — forests, grasslands, deserts, mountains. Aquatic habitats (water) — freshwater (ponds, rivers, lakes) and marine (seas, oceans). Organisms in a habitat are adapted to their specific environment.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["types of habitats", "what is habitat", "terrestrial aquatic habitat"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c041",
+          "name": "Adaptation in Desert Organisms",
+          "description": "Deserts are hot and dry with very little water. Desert plants (like cacti) have thick fleshy stems to store water, leaves modified to spines to reduce water loss, and deep or wide roots. Desert animals (like camel) have humps to store fat, can drink large amounts of water at once, and produce very little urine to conserve water.",
+          "expectedDifficulty": "OK",
+          "aliases": ["desert adaptation", "cactus adaptations", "camel adaptations", "adaptation in arid regions"],
+          "prerequisites": ["sci6_c040"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c042",
+          "name": "Adaptation in Aquatic Organisms",
+          "description": "Aquatic plants have air spaces in stems to float and carry oxygen. Roots are small or absent (water hyacinth, lotus). Fish have streamlined bodies, gills to breathe dissolved oxygen, and fins for swimming. Aquatic mammals like dolphins have blowholes for breathing. Some plants float (duckweed), others are submerged (seagrass).",
+          "expectedDifficulty": "OK",
+          "aliases": ["water plant adaptations", "fish adaptation", "aquatic habitat adaptation", "adaptation in water"],
+          "prerequisites": ["sci6_c040"],
+          "order": 3
+        },
+        {
+          "id": "sci6_c043",
+          "name": "Characteristics of Living Things",
+          "description": "Living organisms share these characteristics: They need food (nutrition), they breathe (respiration), they excrete waste, they respond to stimuli (sensitivity), they grow, they reproduce, and they move (even plants show movement — towards light). Non-living things like rocks, water, and air do not show all these characteristics.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["living vs non-living", "characteristics of life", "life processes"],
+          "prerequisites": [],
+          "order": 4
+        },
+        {
+          "id": "sci6_c044",
+          "name": "Biotic and Abiotic Components",
+          "description": "An ecosystem has biotic (living) and abiotic (non-living) components. Biotic: plants, animals, fungi, bacteria. Abiotic: sunlight, temperature, water, air, soil, humidity. Both are interdependent. For example, plants need sunlight, water, and soil (abiotic) to grow, and animals depend on plants (biotic) for food.",
+          "expectedDifficulty": "OK",
+          "aliases": ["biotic abiotic", "living and non-living components of ecosystem", "ecosystem components"],
+          "prerequisites": ["sci6_c040", "sci6_c043"],
+          "order": 5
+        }
+      ]
+    },
+    {
+      "id": "sci6_u10",
+      "name": "Motion and Measurement of Distances",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "sci6_c045",
+          "name": "Standard Units of Measurement",
+          "description": "Before standard units existed, people used body parts (hand span, cubit, foot) to measure — these were inaccurate since they vary from person to person. The International System of Units (SI) provides standard units accepted worldwide. The SI unit of length is the metre (m). Smaller units: centimetre (cm), millimetre (mm). Larger: kilometre (km). 1 m = 100 cm = 1000 mm.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["SI units", "standard units", "units of length", "metre centimetre"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c046",
+          "name": "Measuring Length Correctly",
+          "description": "To measure length accurately: place the ruler flat on the surface, align the zero mark with one end of the object, read the measurement at the other end. Avoid parallax error by reading the scale at eye level directly above the mark. A measuring tape is used for curved surfaces; a metre rule for straight lengths.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["how to measure length", "using a ruler", "avoiding parallax error", "measuring instruments"],
+          "prerequisites": ["sci6_c045"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c047",
+          "name": "Types of Motion",
+          "description": "Motion is the change in position of an object over time. Types: Rectilinear (straight line) — a falling stone, car on a straight road. Circular motion — hands of a clock, fan blades, Earth around the Sun. Periodic (oscillatory) motion — repeats after a fixed time interval — pendulum, swing. Some objects can have more than one type of motion simultaneously.",
+          "expectedDifficulty": "OK",
+          "aliases": ["rectilinear motion", "circular motion", "periodic motion", "types of motion"],
+          "prerequisites": [],
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "sci6_u11",
+      "name": "Light, Shadows, and Reflections",
+      "order": 11,
+      "concepts": [
+        {
+          "id": "sci6_c048",
+          "name": "Luminous and Non-Luminous Objects",
+          "description": "Objects that produce their own light are luminous (the Sun, stars, a burning candle, an electric bulb). Objects that do not produce their own light are non-luminous (Moon, book, chair). The Moon reflects sunlight — it is non-luminous. Light travels in straight lines, which is why shadows are formed.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["sources of light", "luminous non-luminous objects", "light sources"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c049",
+          "name": "Formation and Properties of Shadows",
+          "description": "A shadow is formed when an opaque object blocks light. For a shadow to form you need: a source of light, an opaque object, and a screen. Shadows are always formed on the opposite side from the light source. Shadow size depends on the distance of the object from the light source — closer to source = larger shadow. Shadows have no colour.",
+          "expectedDifficulty": "OK",
+          "aliases": ["shadow formation", "why shadows form", "properties of shadow"],
+          "prerequisites": ["sci6_c048", "sci6_c017"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c050",
+          "name": "Pinhole Camera",
+          "description": "A pinhole camera is a simple device that demonstrates that light travels in a straight line. It is a dark box with a tiny hole on one side and a screen on the other. Light passes through the pinhole and forms an inverted (upside-down) image of the outside object on the screen. The image is formed because rays from the top and bottom of an object cross at the pinhole.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["pinhole camera working", "camera obscura", "inverted image"],
+          "prerequisites": ["sci6_c048"],
+          "order": 3
+        },
+        {
+          "id": "sci6_c051",
+          "name": "Reflection of Light",
+          "description": "When light hits a smooth, shiny surface (like a mirror), it bounces back — this is called reflection. Mirrors form images that appear to be as far behind the mirror as the object is in front. The image is virtual (cannot be caught on screen), erect (upright), and laterally inverted (left-right reversed). Rough surfaces scatter light in all directions (diffuse reflection).",
+          "expectedDifficulty": "OK",
+          "aliases": ["reflection", "mirror image", "law of reflection", "types of reflection"],
+          "prerequisites": ["sci6_c048"],
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "sci6_u12",
+      "name": "Electricity and Circuits",
+      "order": 12,
+      "concepts": [
+        {
+          "id": "sci6_c052",
+          "name": "Electric Cell and Battery",
+          "description": "An electric cell converts chemical energy into electrical energy. It has two terminals — positive (+) and negative (–). A battery is two or more cells connected together. The cell provides the 'push' (voltage) that makes current flow in a circuit. Common types: dry cell (AA, AAA), button cell (watches), lead-acid battery (vehicles).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["electric cell", "battery", "positive and negative terminal"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c053",
+          "name": "Electric Circuit — Open and Closed",
+          "description": "An electric circuit is a path through which electricity flows. A closed circuit has a complete unbroken path — current flows and the bulb glows. An open circuit has a break in the path — current cannot flow and the bulb does not glow. A circuit includes a source (cell), connecting wires, and a load (bulb, motor). A switch opens or closes the circuit.",
+          "expectedDifficulty": "OK",
+          "aliases": ["open circuit closed circuit", "electric circuit", "circuit diagram"],
+          "prerequisites": ["sci6_c052"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c054",
+          "name": "Conductors and Insulators",
+          "description": "Conductors allow electric current to pass through them easily. Examples: metals (copper, aluminium, iron), graphite, human body, water. Insulators do not allow electric current to pass. Examples: rubber, plastic, wood, glass, dry air, cloth. Electric wires use copper (conductor) coated with plastic (insulator) for safety.",
+          "expectedDifficulty": "OK",
+          "aliases": ["conductors", "insulators", "materials that conduct electricity"],
+          "prerequisites": ["sci6_c053"],
+          "order": 3
+        },
+        {
+          "id": "sci6_c055",
+          "name": "Electric Switch",
+          "description": "A switch controls the flow of electricity in a circuit. When the switch is ON (closed), the circuit is complete and current flows. When the switch is OFF (open), the circuit is broken and current stops. Switches are made of conductors but have an insulating casing. Examples: light switches, push buttons, toggles.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["electric switch working", "on off switch", "switch in circuit"],
+          "prerequisites": ["sci6_c053"],
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "sci6_u13",
+      "name": "Fun with Magnets",
+      "order": 13,
+      "concepts": [
+        {
+          "id": "sci6_c056",
+          "name": "Magnetic and Non-Magnetic Materials",
+          "description": "A magnet attracts magnetic materials — mainly iron, nickel, and cobalt. Materials like aluminium, copper, wood, plastic, rubber, and glass are not attracted by magnets (non-magnetic). Steel (iron alloy) is magnetic. This property is used in separating magnetic materials from waste (e.g., separating iron filings from sand).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["magnetic materials", "what magnets attract", "non-magnetic materials"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c057",
+          "name": "Properties of Magnets",
+          "description": "Key properties of magnets: Every magnet has two poles — North (N) and South (S). Like poles repel each other (N-N, S-S), unlike poles attract (N-S). The force of attraction is strongest at the poles. A freely suspended magnet always points North-South (used in compass). If a magnet is broken, each piece becomes a complete magnet with two poles.",
+          "expectedDifficulty": "OK",
+          "aliases": ["magnet poles", "attraction and repulsion", "properties of magnets", "like poles repel"],
+          "prerequisites": ["sci6_c056"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c058",
+          "name": "Magnetic Compass and Directions",
+          "description": "A magnetic compass has a freely pivoting magnetic needle that always aligns along the North-South direction due to the Earth's magnetic field. The North pole of the needle points to geographic North. Compasses are used for navigation by hikers, ships, and pilots. Smartphones also use digital compasses based on the same principle.",
+          "expectedDifficulty": "OK",
+          "aliases": ["magnetic compass", "finding directions using magnet", "compass needle"],
+          "prerequisites": ["sci6_c057"],
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "sci6_u14",
+      "name": "Water",
+      "order": 14,
+      "concepts": [
+        {
+          "id": "sci6_c059",
+          "name": "Water Cycle",
+          "description": "The water cycle is the continuous movement of water between the Earth's surface and the atmosphere. Key processes: Evaporation (water from oceans/lakes turns into vapour due to solar heat), Transpiration (water vapour released by plants), Condensation (water vapour cools and forms clouds/water droplets), Precipitation (water falls as rain, snow, or hail), Collection (water collects in oceans, rivers, lakes, groundwater).",
+          "expectedDifficulty": "OK",
+          "aliases": ["hydrological cycle", "evaporation condensation precipitation", "water cycle steps"],
+          "prerequisites": ["sci6_c025"],
+          "order": 1
+        },
+        {
+          "id": "sci6_c060",
+          "name": "Groundwater and Water Table",
+          "description": "Rainwater seeps into the ground through soil and rock layers and collects underground as groundwater. The upper level of groundwater stored underground is called the water table. Wells and tube wells draw water from below the water table. When rain is scarce or too much water is pumped out, the water table falls — this is called depletion of groundwater.",
+          "expectedDifficulty": "OK",
+          "aliases": ["groundwater", "water table", "wells and water", "underground water"],
+          "prerequisites": ["sci6_c059"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c061",
+          "name": "Water Conservation",
+          "description": "Freshwater is limited and must be conserved. Methods: Rainwater harvesting (collecting rainwater in tanks or pits to recharge groundwater). Drip irrigation (supplying water directly to plant roots). Fixing leaking taps. Reusing water (washing machine water to mop floors). Afforestation (planting trees helps groundwater recharge). Reducing industrial water pollution.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["conserving water", "rainwater harvesting", "water saving methods", "drip irrigation"],
+          "prerequisites": ["sci6_c059", "sci6_c060"],
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "sci6_u15",
+      "name": "Air Around Us",
+      "order": 15,
+      "concepts": [
+        {
+          "id": "sci6_c062",
+          "name": "Composition of Air",
+          "description": "Air is a mixture of gases. Approximate composition: Nitrogen (78%) — most abundant, used by plants for protein synthesis. Oxygen (21%) — needed for respiration and burning. Carbon dioxide (0.03%) — used by plants for photosynthesis. Noble gases (argon, etc.) (~1%). Water vapour and dust particles are also present. Air has no colour, taste, or smell.",
+          "expectedDifficulty": "OK",
+          "aliases": ["what is air made of", "components of air", "gases in air", "nitrogen oxygen in air"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c063",
+          "name": "Oxygen and Its Importance",
+          "description": "Oxygen makes up about 21% of air and is essential for life. All living organisms (except some bacteria) need oxygen for respiration (to release energy from food). Oxygen also supports combustion (burning). The amount of oxygen in the atmosphere is maintained by plants producing oxygen through photosynthesis. Deep-sea divers and astronauts carry oxygen cylinders.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["importance of oxygen", "oxygen in respiration", "oxygen and burning"],
+          "prerequisites": ["sci6_c062", "sci6_c033"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c064",
+          "name": "Air Pollution",
+          "description": "Air pollution occurs when harmful substances enter the air. Major pollutants: smoke from factories and vehicles (carbon monoxide, sulphur dioxide), burning of fuels, crop burning, dust. Effects: respiratory diseases (asthma, bronchitis), acid rain (damages buildings and crops), global warming. Ways to reduce: use public transport, plant trees, use cleaner fuels, avoid burning waste.",
+          "expectedDifficulty": "OK",
+          "aliases": ["air pollution causes effects", "pollutants in air", "acid rain", "air quality"],
+          "prerequisites": ["sci6_c062"],
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "sci6_u16",
+      "name": "Garbage In, Garbage Out",
+      "order": 16,
+      "concepts": [
+        {
+          "id": "sci6_c065",
+          "name": "Biodegradable and Non-Biodegradable Waste",
+          "description": "Biodegradable waste can be broken down by microorganisms (bacteria, fungi) into harmless substances. Examples: food scraps, vegetable peels, paper, cotton, leaves, wood. Non-biodegradable waste cannot be broken down naturally and persists in the environment for hundreds of years. Examples: plastic, glass, metals, Styrofoam. Separation of these two types is the first step in waste management.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["biodegradable waste", "non-biodegradable waste", "types of waste", "degradable materials"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c066",
+          "name": "Composting",
+          "description": "Composting is the process of converting biodegradable waste (kitchen scraps, leaves, vegetable peels) into compost — a rich organic fertiliser. Microorganisms break down the organic matter. The compost is then used to improve soil quality for plants. Vermicomposting uses earthworms to speed up decomposition. Composting reduces the amount of waste sent to landfills.",
+          "expectedDifficulty": "OK",
+          "aliases": ["composting process", "making compost", "vermicomposting", "organic waste to fertiliser"],
+          "prerequisites": ["sci6_c065"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c067",
+          "name": "Recycling and the 3Rs",
+          "description": "The 3Rs of waste management: Reduce (use less — buy only what you need, avoid single-use plastics), Reuse (use items multiple times — cloth bags, refillable bottles), Recycle (convert waste into new products — paper, glass, metals, and some plastics can be recycled). Recycling saves raw materials, energy, and reduces pollution. Paper recycling saves trees.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["reduce reuse recycle", "3Rs", "recycling", "waste management"],
+          "prerequisites": ["sci6_c065"],
+          "order": 3
+        },
+        {
+          "id": "sci6_c068",
+          "name": "Landfills and Their Problems",
+          "description": "A landfill is a designated area where waste is dumped and buried. Problems: Leachate (polluted liquid from waste) seeps into soil and contaminates groundwater. Decomposing waste produces methane (greenhouse gas). Landfills take up large areas of land. Non-biodegradable waste remains in landfills for centuries. Proper waste segregation and recycling can significantly reduce landfill use.",
+          "expectedDifficulty": "OK",
+          "aliases": ["landfill", "garbage dump", "problems of landfills", "waste disposal"],
+          "prerequisites": ["sci6_c065"],
+          "order": 4
+        }
+      ]
+    }
+  ]
+}
