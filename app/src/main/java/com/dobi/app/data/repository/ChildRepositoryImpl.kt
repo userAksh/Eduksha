@@ -28,12 +28,13 @@ class ChildRepositoryImpl @Inject constructor(
         awaitClose { listener.remove() }
     }
 
-    override suspend fun addChild(child: Child): Result<Unit> {
+    override suspend fun addChild(child: Child): Result<Child> {
         return try {
             val ref = firestore.collection("parents").document(child.parentId)
                 .collection("children").document()
-            ref.set(child.copy(id = ref.id)).await()
-            Result.success(Unit)
+            val saved = child.copy(id = ref.id)
+            ref.set(saved).await()
+            Result.success(saved)
         } catch (e: Exception) {
             Result.failure(e)
         }

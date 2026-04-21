@@ -68,7 +68,8 @@ fun DobiNavGraph(
                     navController.navigate(Screen.ParentHome) {
                         popUpTo<Screen.AddChild> { inclusive = true }
                     }
-                }
+                },
+                onNavigateBack = { navController.popBackStack() }
             )
         }
 

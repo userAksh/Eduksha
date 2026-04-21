@@ -13,12 +13,21 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-data class ChildForm(
-    val id: Int,
+enum class Gender(val display: String, val emoji: String, val key: String) {
+    BOY("Boy", "👦", "boy"),
+    GIRL("Girl", "👧", "girl"),
+    OTHER("Other", "🧒", "other")
+}
+
+data class ChildDraft(
     val name: String = "",
+    val dateOfBirth: String = "",
+    val gender: Gender = Gender.BOY,
     val grade: Int = 5,
     val board: String = "CBSE"
 )
+
+enum class AddChildStep { WELCOME, DETAILS, CLASS_BOARD, DONE }
 
 @HiltViewModel
 class AddChildViewModel @Inject constructor(
@@ -26,62 +35,76 @@ class AddChildViewModel @Inject constructor(
     private val childRepository: ChildRepository
 ) : ViewModel() {
 
-    sealed class UiState {
-        object Idle : UiState()
-        object Saving : UiState()
-        data class Error(val message: String) : UiState()
-    }
+    private val _step = MutableStateFlow(AddChildStep.WELCOME)
+    val step = _step.asStateFlow()
 
-    private val _forms = MutableStateFlow(listOf(ChildForm(id = 0)))
-    val forms = _forms.asStateFlow()
+    private val _draft = MutableStateFlow(ChildDraft())
+    val draft = _draft.asStateFlow()
 
-    private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
-    val uiState = _uiState.asStateFlow()
+    private val _addedChildren = MutableStateFlow<List<Child>>(emptyList())
+    val addedChildren = _addedChildren.asStateFlow()
+
+    private val _isSaving = MutableStateFlow(false)
+    val isSaving = _isSaving.asStateFlow()
+
+    private val _error = MutableStateFlow<String?>(null)
+    val error = _error.asStateFlow()
 
     private val _navToParentHome = MutableSharedFlow<Unit>()
     val navToParentHome = _navToParentHome.asSharedFlow()
 
-    fun addForm() {
-        val nextId = (_forms.value.maxOfOrNull { it.id } ?: -1) + 1
-        _forms.value = _forms.value + ChildForm(id = nextId)
-    }
+    fun startAdding() { _step.value = AddChildStep.DETAILS }
 
-    fun removeForm(id: Int) {
-        if (_forms.value.size > 1) {
-            _forms.value = _forms.value.filter { it.id != id }
+    fun goBack() {
+        _step.value = when (_step.value) {
+            AddChildStep.DETAILS -> AddChildStep.WELCOME
+            AddChildStep.CLASS_BOARD -> AddChildStep.DETAILS
+            else -> _step.value
         }
     }
 
-    fun updateName(id: Int, name: String) {
-        _forms.value = _forms.value.map { if (it.id == id) it.copy(name = name) else it }
+    fun updateName(v: String) { _draft.value = _draft.value.copy(name = v) }
+    fun updateDob(v: String) { _draft.value = _draft.value.copy(dateOfBirth = v) }
+    fun updateGender(v: Gender) { _draft.value = _draft.value.copy(gender = v) }
+    fun updateGrade(v: Int) { _draft.value = _draft.value.copy(grade = v) }
+    fun updateBoard(v: String) { _draft.value = _draft.value.copy(board = v) }
+
+    fun continueToClassBoard() {
+        _error.value = null
+        _step.value = AddChildStep.CLASS_BOARD
     }
 
-    fun updateGrade(id: Int, grade: Int) {
-        _forms.value = _forms.value.map { if (it.id == id) it.copy(grade = grade) else it }
-    }
-
-    fun updateBoard(id: Int, board: String) {
-        _forms.value = _forms.value.map { if (it.id == id) it.copy(board = board) else it }
-    }
-
-    fun saveAll() {
+    fun saveChild() {
         val parentId = auth.currentUser?.uid ?: return
-        val validForms = _forms.value.filter { it.name.isNotBlank() }
-        if (validForms.isEmpty()) return
-
         viewModelScope.launch {
-            _uiState.value = UiState.Saving
-            var hasError = false
-            validForms.forEach { form ->
-                childRepository.addChild(
-                    Child(name = form.name.trim(), grade = form.grade, board = form.board, parentId = parentId)
-                ).onFailure { hasError = true }
-            }
-            if (hasError) {
-                _uiState.value = UiState.Error("Some children couldn't be saved. Please try again.")
-            } else {
-                _navToParentHome.emit(Unit)
-            }
+            _isSaving.value = true
+            _error.value = null
+            val d = _draft.value
+            val child = Child(
+                name = d.name.trim(),
+                grade = d.grade,
+                board = d.board,
+                parentId = parentId,
+                gender = d.gender.key,
+                dateOfBirth = d.dateOfBirth
+            )
+            childRepository.addChild(child)
+                .onSuccess { saved ->
+                    _addedChildren.value = _addedChildren.value + saved
+                    _draft.value = ChildDraft()
+                    _step.value = AddChildStep.DONE
+                }
+                .onFailure { _error.value = it.message ?: "Failed to save. Please try again." }
+            _isSaving.value = false
         }
+    }
+
+    fun addAnotherChild() {
+        _draft.value = ChildDraft()
+        _step.value = AddChildStep.DETAILS
+    }
+
+    fun finish() {
+        viewModelScope.launch { _navToParentHome.emit(Unit) }
     }
 }
