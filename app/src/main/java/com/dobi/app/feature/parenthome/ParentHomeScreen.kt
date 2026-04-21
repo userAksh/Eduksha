@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
@@ -103,7 +104,9 @@ fun ParentHomeScreen(
                 children = uiState.children,
                 onNavigateToChildHome = onNavigateToChildHome,
                 onAddChild = onNavigateToAddChild,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier
+                    .weight(1f)
+                    .offset(y = (-24).dp)
             )
 
             BottomNav()
@@ -133,7 +136,7 @@ private fun HeaderBlock(parentName: String, onSignOut: () -> Unit) {
             .fillMaxWidth()
             .background(DobiPrimary)
             .systemBarsPadding()
-            .padding(horizontal = 20.dp, vertical = 20.dp)
+            .padding(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 48.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -217,13 +220,13 @@ private fun ContentBlock(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+        shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         color = PageBg,
         shadowElevation = 0.dp
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(horizontal = 20.dp, vertical = 20.dp)
+            contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 20.dp)
         ) {
             item {
                 Row(
