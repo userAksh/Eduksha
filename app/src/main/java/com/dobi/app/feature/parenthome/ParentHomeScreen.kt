@@ -299,18 +299,19 @@ private fun ChildStatCard(child: Child, onClick: () -> Unit) {
             ),
         shape = RoundedCornerShape(18.dp),
         color = Color.White,
-        shadowElevation = 0.dp
+        shadowElevation = 6.dp,
+        tonalElevation = 0.dp
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(
                     modifier = Modifier
-                        .size(72.dp)
+                        .size(68.dp)
                         .clip(CircleShape)
                         .background(DobiPrimarySoft),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(avatarEmoji, fontSize = 40.sp)
+                    Text(avatarEmoji, fontSize = 34.sp)
                 }
 
                 Spacer(Modifier.width(14.dp))
@@ -415,7 +416,7 @@ private fun StatItem(
         Row(verticalAlignment = Alignment.CenterVertically) {
             Box(
                 modifier = Modifier
-                    .size(28.dp)
+                    .size(22.dp)
                     .clip(CircleShape)
                     .background(iconBg),
                 contentAlignment = Alignment.Center
@@ -424,13 +425,13 @@ private fun StatItem(
                     imageVector = icon,
                     contentDescription = null,
                     tint = iconTint,
-                    modifier = Modifier.size(16.dp)
+                    modifier = Modifier.size(13.dp)
                 )
             }
             Spacer(Modifier.width(6.dp))
             Text(
                 text = value,
-                fontSize = 18.sp,
+                fontSize = 17.sp,
                 fontWeight = SFProBold,
                 color = DobiTextPrimary
             )
@@ -440,7 +441,8 @@ private fun StatItem(
             text = label,
             fontSize = 11.sp,
             fontWeight = SFProRegular,
-            color = DobiTextSecondary
+            color = DobiTextSecondary,
+            maxLines = 1
         )
     }
 }
@@ -450,8 +452,9 @@ private fun VerticalSeparator() {
     Box(
         modifier = Modifier
             .width(1.dp)
-            .height(40.dp)
+            .height(36.dp)
             .background(DividerColor)
+            .padding(horizontal = 0.dp)
     )
 }
 
