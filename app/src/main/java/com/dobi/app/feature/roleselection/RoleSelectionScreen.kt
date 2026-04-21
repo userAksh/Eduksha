@@ -42,6 +42,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dobi.app.core.ui.theme.DobiBackground
+import com.dobi.app.core.ui.theme.SFProBold
+import com.dobi.app.core.ui.theme.SFProSemiBold
+import com.dobi.app.core.ui.theme.SFProMedium
+import com.dobi.app.core.ui.theme.SFProRegular
+import com.dobi.app.core.ui.theme.SFProLight
 import com.dobi.app.core.ui.theme.DobiPrimary
 import com.dobi.app.core.ui.theme.DobiTextPrimary
 import com.dobi.app.core.ui.theme.DobiTextSecondary
@@ -192,7 +197,7 @@ private fun DobiLogoRow() {
         Text(
             text = "Dobi",
             style = MaterialTheme.typography.headlineSmall.copy(
-                fontWeight = FontWeight.Bold,
+                fontWeight = SFProBold,
                 color = DobiPrimary
             )
         )
@@ -252,7 +257,7 @@ private fun RoleCard(
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleLarge.copy(
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = SFProBold,
                         color = DobiPrimary
                     )
                 )

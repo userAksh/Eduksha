@@ -56,6 +56,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dobi.app.core.ui.components.DobiBottomNavBar
 import com.dobi.app.core.ui.components.childNavItems
 import com.dobi.app.core.ui.theme.DobiBackground
+import com.dobi.app.core.ui.theme.SFProBold
+import com.dobi.app.core.ui.theme.SFProSemiBold
+import com.dobi.app.core.ui.theme.SFProMedium
+import com.dobi.app.core.ui.theme.SFProRegular
+import com.dobi.app.core.ui.theme.SFProLight
 import com.dobi.app.core.ui.theme.DobiPrimary
 import com.dobi.app.core.ui.theme.DobiTextPrimary
 import com.dobi.app.core.ui.theme.DobiTextSecondary
@@ -339,7 +344,7 @@ private fun UnitRow(unit: UnitGroup, onClick: () -> Unit) {
         Text(
             text = unit.unitName,
             style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.SemiBold,
+            fontWeight = SFProSemiBold,
             color = DobiTextPrimary,
             modifier = Modifier.weight(1f)
         )

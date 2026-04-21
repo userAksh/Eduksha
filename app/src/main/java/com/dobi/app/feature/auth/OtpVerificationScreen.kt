@@ -41,6 +41,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dobi.app.core.ui.theme.DobiPrimary
+import com.dobi.app.core.ui.theme.SFProBold
+import com.dobi.app.core.ui.theme.SFProSemiBold
+import com.dobi.app.core.ui.theme.SFProMedium
+import com.dobi.app.core.ui.theme.SFProRegular
+import com.dobi.app.core.ui.theme.SFProLight
 import com.dobi.app.core.ui.theme.DobiPrimaryContainer
 import com.dobi.app.core.ui.theme.DobiPrimaryLight
 import com.dobi.app.core.ui.theme.DobiTextPrimary
@@ -114,7 +119,7 @@ private fun OtpContent(
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = "Verify your number",
-                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = SFProBold),
                     color = Color.White
                 )
                 Spacer(modifier = Modifier.height(6.dp))
@@ -142,7 +147,7 @@ private fun OtpContent(
                 ) {
                     Text(
                         text = "Enter OTP",
-                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
+                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = SFProSemiBold),
                         color = DobiTextPrimary
                     )
                     Spacer(modifier = Modifier.height(16.dp))
@@ -180,7 +185,7 @@ private fun OtpContent(
                                         Text(
                                             text = char?.toString() ?: if (isCurrent) "·" else "",
                                             fontSize = if (char != null) 22.sp else 28.sp,
-                                            fontWeight = FontWeight.Bold,
+                                            fontWeight = SFProBold,
                                             color = if (char != null) DobiPrimary else Color(0xFFCBD5E1),
                                             textAlign = TextAlign.Center
                                         )
@@ -230,7 +235,7 @@ private fun OtpContent(
                         } else {
                             Text(
                                 "Verify & Continue",
-                                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                                style = MaterialTheme.typography.titleSmall.copy(fontWeight = SFProBold),
                                 color = Color.White
                             )
                         }

@@ -52,6 +52,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dobi.app.core.ui.theme.DobiBackground
+import com.dobi.app.core.ui.theme.SFProBold
+import com.dobi.app.core.ui.theme.SFProSemiBold
+import com.dobi.app.core.ui.theme.SFProMedium
+import com.dobi.app.core.ui.theme.SFProRegular
+import com.dobi.app.core.ui.theme.SFProLight
 import com.dobi.app.core.ui.theme.DobiError
 import com.dobi.app.core.ui.theme.DobiErrorContainer
 import com.dobi.app.core.ui.theme.DobiPrimary
@@ -150,7 +155,7 @@ private fun ConceptDetailContent(
         Text(
             text = concept.name,
             style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
+            fontWeight = SFProBold,
             color = DobiTextPrimary
         )
 
@@ -254,7 +259,7 @@ private fun ConceptDetailContent(
             } else {
                 Text(
                     "Mark as Done",
-                    fontWeight = FontWeight.SemiBold,
+                    fontWeight = SFProSemiBold,
                     fontSize = 15.sp,
                     color = Color.White
                 )
@@ -287,7 +292,7 @@ private fun SectionLabel(number: String, title: String) {
 private fun BreadcrumbChip(label: String) {
     SuggestionChip(
         onClick = {},
-        label = { Text(label, fontSize = 12.sp, fontWeight = FontWeight.Medium) },
+        label = { Text(label, fontSize = 12.sp, fontWeight = SFProMedium) },
         colors = SuggestionChipDefaults.suggestionChipColors(
             containerColor = DobiPrimaryContainer,
             labelColor = DobiPrimary
@@ -347,7 +352,7 @@ private fun WorkModeCard(
             Text(
                 text = title,
                 style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = SFProSemiBold,
                 color = if (selected) DobiPrimary else DobiTextPrimary
             )
             Spacer(Modifier.height(4.dp))
@@ -399,7 +404,7 @@ private fun DifficultyCard(
             Text(
                 text = label,
                 style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = SFProSemiBold,
                 color = if (selected) selectedColor else DobiTextPrimary
             )
             Spacer(Modifier.height(4.dp))

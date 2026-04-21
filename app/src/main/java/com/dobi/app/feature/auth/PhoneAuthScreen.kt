@@ -43,6 +43,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dobi.app.core.navigation.Screen
 import com.dobi.app.core.ui.theme.DobiPrimary
+import com.dobi.app.core.ui.theme.SFProBold
+import com.dobi.app.core.ui.theme.SFProSemiBold
+import com.dobi.app.core.ui.theme.SFProMedium
+import com.dobi.app.core.ui.theme.SFProRegular
+import com.dobi.app.core.ui.theme.SFProLight
 import com.dobi.app.core.ui.theme.DobiPrimaryContainer
 import com.dobi.app.core.ui.theme.DobiPrimaryLight
 import com.dobi.app.core.ui.theme.DobiTextPrimary
@@ -119,7 +124,7 @@ private fun PhoneAuthContent(
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = "Welcome to Dobi",
-                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = SFProBold),
                     color = Color.White
                 )
                 Spacer(modifier = Modifier.height(6.dp))
@@ -174,7 +179,7 @@ private fun PhoneAuthContent(
                             Text(
                                 text = "+91  ",
                                 color = DobiPrimary,
-                                fontWeight = FontWeight.SemiBold
+                                fontWeight = SFProSemiBold
                             )
                         },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
@@ -213,7 +218,7 @@ private fun PhoneAuthContent(
                         } else {
                             Text(
                                 "Send OTP",
-                                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                                style = MaterialTheme.typography.titleSmall.copy(fontWeight = SFProBold),
                                 color = Color.White
                             )
                         }
@@ -244,7 +249,7 @@ private fun PhoneAuthContent(
 private fun FieldLabel(text: String) {
     Text(
         text = text,
-        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
+        style = MaterialTheme.typography.labelLarge.copy(fontWeight = SFProSemiBold),
         color = DobiTextPrimary
     )
 }

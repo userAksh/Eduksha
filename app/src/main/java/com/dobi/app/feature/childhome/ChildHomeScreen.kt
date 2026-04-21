@@ -66,6 +66,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dobi.app.core.ui.components.DobiBottomNavBar
 import com.dobi.app.core.ui.components.childNavItems
 import com.dobi.app.core.ui.theme.DobiBackground
+import com.dobi.app.core.ui.theme.SFProBold
+import com.dobi.app.core.ui.theme.SFProSemiBold
+import com.dobi.app.core.ui.theme.SFProMedium
+import com.dobi.app.core.ui.theme.SFProRegular
+import com.dobi.app.core.ui.theme.SFProLight
 import com.dobi.app.core.ui.theme.DobiError
 import com.dobi.app.core.ui.theme.DobiErrorContainer
 import com.dobi.app.core.ui.theme.DobiPrimary
@@ -203,7 +208,7 @@ private fun ChildHomeContent(
                 Spacer(Modifier.width(8.dp))
                 Text(
                     "Start Learning",
-                    fontWeight = FontWeight.SemiBold,
+                    fontWeight = SFProSemiBold,
                     fontSize = 15.sp
                 )
             }
@@ -225,7 +230,7 @@ private fun ChildHomeContent(
                 Spacer(Modifier.width(8.dp))
                 Text(
                     "View Concepts",
-                    fontWeight = FontWeight.SemiBold,
+                    fontWeight = SFProSemiBold,
                     fontSize = 15.sp
                 )
             }
@@ -248,7 +253,7 @@ private fun ChildHomeContent(
                     "See all",
                     style = MaterialTheme.typography.bodyMedium,
                     color = DobiPrimary,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = SFProMedium
                 )
             }
             Spacer(Modifier.height(12.dp))
@@ -360,7 +365,7 @@ private fun RevisionModeRow(onRevisionModeClick: (Int) -> Unit) {
             text = "What would you like to revise?",
             style = MaterialTheme.typography.titleSmall,
             color = DobiTextPrimary,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = SFProSemiBold
         )
         Spacer(Modifier.height(10.dp))
         Row(
@@ -420,7 +425,7 @@ private fun RevisionCard(
             Text(
                 text = mode.title,
                 style = MaterialTheme.typography.bodySmall,
-                fontWeight = FontWeight.Bold,
+                fontWeight = SFProBold,
                 color = mode.accentColor,
                 textAlign = TextAlign.Center,
                 lineHeight = 16.sp
@@ -520,7 +525,7 @@ private fun RevisionDialog(
                     Text(
                         text = sheet.title,
                         style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = SFProBold,
                         color = DobiTextPrimary
                     )
                     Text(
@@ -557,7 +562,7 @@ private fun RevisionDialog(
                     .padding(vertical = 10.dp),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Medium,
+                fontWeight = SFProMedium,
                 color = DobiTextSecondary
             )
         }
@@ -609,7 +614,7 @@ private fun RevisionOptionRow(
                 Text(
                     text = option.title,
                     style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.SemiBold,
+                    fontWeight = SFProSemiBold,
                     color = DobiTextPrimary
                 )
                 Spacer(Modifier.height(2.dp))
@@ -654,7 +659,7 @@ private fun StreakBanner(streakDays: Int) {
                     Text(
                         text = "$streakDays days",
                         fontSize = 28.sp,
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = SFProBold,
                         color = Color.White
                     )
                 }
@@ -719,7 +724,7 @@ private fun LearningItemCard(item: TodayLearningItem, onClick: () -> Unit) {
                 Text(
                     text = item.conceptName,
                     style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.SemiBold,
+                    fontWeight = SFProSemiBold,
                     color = DobiTextPrimary
                 )
                 Spacer(Modifier.height(2.dp))
@@ -763,7 +768,7 @@ private fun StatusBadge(status: LearningStatus) {
             text = label,
             fontSize = 11.sp,
             color = fg,
-            fontWeight = FontWeight.Medium
+            fontWeight = SFProMedium
         )
     }
 }

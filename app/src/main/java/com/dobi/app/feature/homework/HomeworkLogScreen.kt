@@ -66,6 +66,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.dobi.app.core.ui.theme.DobiBackground
+import com.dobi.app.core.ui.theme.SFProBold
+import com.dobi.app.core.ui.theme.SFProSemiBold
+import com.dobi.app.core.ui.theme.SFProMedium
+import com.dobi.app.core.ui.theme.SFProRegular
+import com.dobi.app.core.ui.theme.SFProLight
 import com.dobi.app.core.ui.theme.DobiPrimary
 import com.dobi.app.core.ui.theme.DobiPrimaryContainer
 import com.dobi.app.core.ui.theme.DobiTextPrimary
@@ -121,7 +126,7 @@ fun HomeworkLogScreen(
                     Text(
                         "Log Homework",
                         style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = SFProBold,
                         color = DobiTextPrimary
                     )
                 },
@@ -284,7 +289,7 @@ fun HomeworkLogScreen(
                 } else {
                     Text(
                         "Save Homework",
-                        fontWeight = FontWeight.SemiBold,
+                        fontWeight = SFProSemiBold,
                         fontSize = 15.sp,
                         color = Color.White
                     )
@@ -303,7 +308,7 @@ private fun FieldLabel(text: String) {
     Text(
         text = text,
         style = MaterialTheme.typography.titleSmall,
-        fontWeight = FontWeight.SemiBold,
+        fontWeight = SFProSemiBold,
         color = DobiTextPrimary
     )
 }
@@ -336,7 +341,7 @@ private fun DateRow(displayDate: String, onClick: () -> Unit) {
         Text(
             text = displayDate,
             style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium,
+            fontWeight = SFProMedium,
             color = DobiTextPrimary,
             modifier = Modifier.weight(1f)
         )
@@ -344,7 +349,7 @@ private fun DateRow(displayDate: String, onClick: () -> Unit) {
             text = "Change",
             style = MaterialTheme.typography.bodySmall,
             color = DobiPrimary,
-            fontWeight = FontWeight.Medium
+            fontWeight = SFProMedium
         )
     }
 }
@@ -424,7 +429,7 @@ private fun AddPhotosButton(onClick: () -> Unit) {
         Text(
             text = "Add from Gallery",
             style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.SemiBold,
+            fontWeight = SFProSemiBold,
             color = DobiPrimary
         )
     }

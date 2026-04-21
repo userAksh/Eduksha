@@ -39,6 +39,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dobi.app.domain.model.Child
 import com.dobi.app.core.ui.theme.DobiPrimary
+import com.dobi.app.core.ui.theme.SFProBold
+import com.dobi.app.core.ui.theme.SFProSemiBold
+import com.dobi.app.core.ui.theme.SFProMedium
+import com.dobi.app.core.ui.theme.SFProRegular
+import com.dobi.app.core.ui.theme.SFProLight
 import com.dobi.app.core.ui.theme.DobiTextPrimary
 import com.dobi.app.core.ui.theme.DobiTextSecondary
 
@@ -85,7 +90,7 @@ fun SelectChildScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = "Select Profile",
-                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = SFProBold),
                     color = Color.White
                 )
                 Spacer(modifier = Modifier.height(4.dp))
@@ -173,7 +178,7 @@ private fun ChildProfileCard(child: Child, colorIndex: Int, onClick: () -> Unit)
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = child.name,
-                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = SFProBold),
                     color = DobiTextPrimary
                 )
                 Spacer(modifier = Modifier.height(3.dp))
@@ -212,7 +217,7 @@ private fun Chip(text: String, bg: Color, accent: Color) {
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+            style = MaterialTheme.typography.labelSmall.copy(fontWeight = SFProSemiBold),
             color = accent
         )
     }

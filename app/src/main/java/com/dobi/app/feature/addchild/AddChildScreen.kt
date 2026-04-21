@@ -72,6 +72,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dobi.app.domain.model.Child
 import com.dobi.app.core.ui.theme.DobiPrimary
+import com.dobi.app.core.ui.theme.SFProBold
+import com.dobi.app.core.ui.theme.SFProSemiBold
+import com.dobi.app.core.ui.theme.SFProMedium
+import com.dobi.app.core.ui.theme.SFProRegular
+import com.dobi.app.core.ui.theme.SFProLight
 import com.dobi.app.core.ui.theme.DobiPrimaryContainer
 import com.dobi.app.core.ui.theme.DobiPrimaryLight
 import com.dobi.app.core.ui.theme.DobiPrimarySoft
@@ -135,7 +140,7 @@ fun AddChildScreen(
                 }
                 Text(
                     text = "Add Child",
-                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = SFProBold),
                     color = DobiTextPrimary,
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center
@@ -202,7 +207,7 @@ private fun WelcomeStep(onStart: () -> Unit) {
 
         Text(
             text = "Add Your Child",
-            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold),
+            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = SFProBold),
             color = DobiPrimary,
             textAlign = TextAlign.Center
         )
@@ -251,7 +256,7 @@ private fun WelcomeStep(onStart: () -> Unit) {
             Spacer(Modifier.width(8.dp))
             Text(
                 "Add Your First Child",
-                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                style = MaterialTheme.typography.titleSmall.copy(fontWeight = SFProBold),
                 color = Color.White
             )
         }
@@ -271,7 +276,7 @@ private fun WelcomeStep(onStart: () -> Unit) {
             Column {
                 Text(
                     "Your child's data is safe and secure",
-                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.SemiBold),
+                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = SFProSemiBold),
                     color = DobiTextPrimary
                 )
                 Text(
@@ -307,16 +312,16 @@ private fun FeatureRow(emoji: String, bg: Color, title: String, subtitle: String
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = title,
-                fontSize = 17.sp,
-                fontWeight = FontWeight.Bold,
+                fontSize = 14.sp,
+                fontWeight = SFProBold,
                 lineHeight = 22.sp,
                 color = DobiTextPrimary
             )
             Spacer(Modifier.height(4.dp))
             Text(
                 text = subtitle,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Normal,
+                fontSize = 12.sp,
+                fontWeight = SFProRegular,
                 lineHeight = 20.sp,
                 color = DobiTextSecondary
             )
@@ -375,7 +380,7 @@ private fun DetailsStep(
 
             Text(
                 "Child Details",
-                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = SFProBold),
                 color = DobiTextPrimary
             )
             Text(
@@ -472,7 +477,7 @@ private fun DetailsStep(
                             Spacer(Modifier.width(5.dp))
                             Text(
                                 gender.display,
-                                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = SFProSemiBold),
                                 color = if (selected) Color.White else DobiTextSecondary
                             )
                         }
@@ -499,7 +504,7 @@ private fun DetailsStep(
             ) {
                 Text(
                     "Continue",
-                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = SFProBold),
                     color = Color.White
                 )
                 Spacer(Modifier.width(8.dp))
@@ -542,7 +547,7 @@ private fun ClassBoardStep(
 
             Text(
                 "Class & Board",
-                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = SFProBold),
                 color = DobiTextPrimary
             )
             Text(
@@ -575,7 +580,7 @@ private fun ClassBoardStep(
                 Column {
                     Text(
                         draft.name.ifBlank { "Your child" },
-                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = SFProBold),
                         color = DobiPrimary
                     )
                     if (draft.dateOfBirth.isNotBlank()) {
@@ -663,7 +668,7 @@ private fun ClassBoardStep(
                 } else {
                     Text(
                         "Save Child",
-                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = SFProBold),
                         color = Color.White
                     )
                     Spacer(Modifier.width(8.dp))
@@ -715,7 +720,7 @@ private fun DoneStep(
 
             Text(
                 "Added Children",
-                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = SFProBold),
                 color = DobiTextPrimary
             )
             Text(
@@ -750,7 +755,7 @@ private fun DoneStep(
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
                             child.name,
-                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = SFProBold),
                             color = DobiTextPrimary
                         )
                         Text(
@@ -768,7 +773,7 @@ private fun DoneStep(
                         ) {
                             Text(
                                 "Primary",
-                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = SFProBold),
                                 color = DobiSuccess
                             )
                         }
@@ -814,7 +819,7 @@ private fun DoneStep(
                     Spacer(Modifier.width(10.dp))
                     Text(
                         "Add Another Child",
-                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = SFProSemiBold),
                         color = DobiPrimary
                     )
                 }
@@ -830,7 +835,7 @@ private fun DoneStep(
             ) {
                 Text(
                     "Continue to Home",
-                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = SFProBold),
                     color = Color.White
                 )
             }
@@ -880,7 +885,7 @@ private fun StepperBar(currentStep: Int) {
                     } else {
                         Text(
                             "$stepNum",
-                            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                            style = MaterialTheme.typography.labelMedium.copy(fontWeight = SFProBold),
                             color = if (isActive) Color.White else DobiTextTertiary
                         )
                     }
@@ -888,7 +893,7 @@ private fun StepperBar(currentStep: Int) {
                 Spacer(Modifier.height(4.dp))
                 Text(
                     label,
-                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = if (isActive) FontWeight.Bold else FontWeight.Normal),
+                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = if (isActive) SFProBold else SFProRegular),
                     color = if (isActive) DobiPrimary else DobiTextTertiary
                 )
             }
@@ -910,7 +915,7 @@ private fun StepperBar(currentStep: Int) {
 private fun FieldLabel(text: String) {
     Text(
         text,
-        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
+        style = MaterialTheme.typography.labelLarge.copy(fontWeight = SFProSemiBold),
         color = DobiTextPrimary
     )
 }

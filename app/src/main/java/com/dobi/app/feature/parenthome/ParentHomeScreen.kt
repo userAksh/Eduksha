@@ -44,6 +44,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dobi.app.domain.model.Child
 import com.dobi.app.core.ui.theme.DobiPrimary
+import com.dobi.app.core.ui.theme.SFProBold
+import com.dobi.app.core.ui.theme.SFProSemiBold
+import com.dobi.app.core.ui.theme.SFProMedium
+import com.dobi.app.core.ui.theme.SFProRegular
+import com.dobi.app.core.ui.theme.SFProLight
 import com.dobi.app.core.ui.theme.DobiTextPrimary
 import com.dobi.app.core.ui.theme.DobiTextSecondary
 
@@ -129,7 +134,7 @@ fun ParentHomeScreen(
                     ) {
                         Text(
                             text = uiState.profile?.name?.firstOrNull()?.uppercaseChar()?.toString() ?: "P",
-                            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                            style = MaterialTheme.typography.titleLarge.copy(fontWeight = SFProBold),
                             color = Color.White
                         )
                     }
@@ -139,7 +144,7 @@ fun ParentHomeScreen(
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
                             text = "Hello, ${uiState.profile?.name?.substringBefore(" ") ?: ""}! 👋",
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = SFProBold),
                             color = Color.White
                         )
                         Text(
@@ -176,7 +181,7 @@ fun ParentHomeScreen(
                         ) {
                             Text(
                                 text = "Your Children",
-                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = SFProBold),
                                 color = DobiTextPrimary,
                                 modifier = Modifier.weight(1f)
                             )
@@ -246,7 +251,7 @@ private fun ChildCard(child: Child, colorIndex: Int, onClick: () -> Unit) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = child.name,
-                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = SFProBold),
                     color = DobiTextPrimary
                 )
                 Spacer(modifier = Modifier.height(4.dp))
@@ -285,7 +290,7 @@ private fun Chip(text: String, bg: Color, accent: Color) {
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+            style = MaterialTheme.typography.labelSmall.copy(fontWeight = SFProSemiBold),
             color = accent
         )
     }
