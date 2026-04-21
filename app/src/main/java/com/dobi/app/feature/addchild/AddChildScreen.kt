@@ -49,6 +49,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -148,24 +154,46 @@ fun AddChildScreen(
             Spacer(modifier = Modifier.size(48.dp))
         }
 
-        when (step) {
-            AddChildStep.WELCOME -> WelcomeStep(onStart = viewModel::startAdding)
-            AddChildStep.DETAILS -> DetailsStep(
-                draft = draft,
-                isSaving = isSaving,
-                error = error,
-                isEditing = editingChildId != null,
-                onNameChange = viewModel::updateName,
-                onGenderChange = viewModel::updateGender,
-                onGradeChange = viewModel::updateGrade,
-                onBoardChange = viewModel::updateBoard,
-                onSave = viewModel::saveChild
+        // Stepper — stays fixed when moving between Details and Done
+        AnimatedVisibility(
+            visible = step != AddChildStep.WELCOME,
+            enter = fadeIn(tween(200)),
+            exit = fadeOut(tween(200))
+        ) {
+            StepperBar(
+                currentStep = when (step) {
+                    AddChildStep.DONE -> 2
+                    else -> 1
+                }
             )
-            AddChildStep.DONE -> DoneStep(
-                addedChildren = addedChildren,
-                onAddAnother = viewModel::addAnotherChild,
-                onFinish = viewModel::finish
-            )
+        }
+
+        // Step body — animated swap
+        Crossfade(
+            targetState = step,
+            animationSpec = tween(250),
+            label = "add-child-step",
+            modifier = Modifier.weight(1f)
+        ) { currentStep ->
+            when (currentStep) {
+                AddChildStep.WELCOME -> WelcomeStep(onStart = viewModel::startAdding)
+                AddChildStep.DETAILS -> DetailsStep(
+                    draft = draft,
+                    isSaving = isSaving,
+                    error = error,
+                    isEditing = editingChildId != null,
+                    onNameChange = viewModel::updateName,
+                    onGenderChange = viewModel::updateGender,
+                    onGradeChange = viewModel::updateGrade,
+                    onBoardChange = viewModel::updateBoard,
+                    onSave = viewModel::saveChild
+                )
+                AddChildStep.DONE -> DoneStep(
+                    addedChildren = addedChildren,
+                    onAddAnother = viewModel::addAnotherChild,
+                    onFinish = viewModel::finish
+                )
+            }
         }
     }
 }
@@ -350,8 +378,6 @@ private fun DetailsStep(
             .verticalScroll(rememberScrollState())
             .imePadding()
     ) {
-        StepperBar(currentStep = 1)
-
         Column(modifier = Modifier.padding(horizontal = 24.dp)) {
             Spacer(Modifier.height(20.dp))
 
@@ -562,8 +588,6 @@ private fun DoneStep(
             .fillMaxSize()
             .background(DobiBackground)
     ) {
-        StepperBar(currentStep = 2)
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -716,17 +740,28 @@ private fun StepperBar(currentStep: Int) {
             val isDone = stepNum < currentStep
             val isActive = stepNum == currentStep
 
+            val circleBg by animateColorAsState(
+                targetValue = if (isDone || isActive) DobiPrimary else DobiPrimaryContainer,
+                animationSpec = tween(300),
+                label = "circleBg"
+            )
+            val numberColor by animateColorAsState(
+                targetValue = if (isActive || isDone) Color.White else DobiPrimary,
+                animationSpec = tween(300),
+                label = "numberColor"
+            )
+            val labelColor by animateColorAsState(
+                targetValue = if (isActive) DobiPrimary else DobiTextTertiary,
+                animationSpec = tween(300),
+                label = "labelColor"
+            )
+
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Box(
                     modifier = Modifier
                         .size(32.dp)
                         .clip(CircleShape)
-                        .background(
-                            when {
-                                isDone || isActive -> DobiPrimary
-                                else -> DobiPrimaryContainer
-                            }
-                        ),
+                        .background(circleBg),
                     contentAlignment = Alignment.Center
                 ) {
                     if (isDone) {
@@ -740,7 +775,7 @@ private fun StepperBar(currentStep: Int) {
                         Text(
                             "$stepNum",
                             style = MaterialTheme.typography.labelMedium.copy(fontWeight = SFProBold),
-                            color = if (isActive) Color.White else DobiPrimary
+                            color = numberColor
                         )
                     }
                 }
@@ -748,17 +783,22 @@ private fun StepperBar(currentStep: Int) {
                 Text(
                     label,
                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = if (isActive) SFProSemiBold else SFProRegular),
-                    color = if (isActive) DobiPrimary else DobiTextTertiary
+                    color = labelColor
                 )
             }
 
             if (index < steps.size - 1) {
+                val lineColor by animateColorAsState(
+                    targetValue = if (currentStep > stepNum) DobiPrimary else DobiPrimaryContainer,
+                    animationSpec = tween(400),
+                    label = "lineColor"
+                )
                 Box(
                     modifier = Modifier
                         .weight(1f)
                         .padding(top = 15.dp)
                         .height(2.dp)
-                        .background(if (currentStep > stepNum) DobiPrimary else DobiPrimaryContainer)
+                        .background(lineColor)
                 )
             }
         }
