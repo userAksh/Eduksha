@@ -27,7 +27,7 @@ class OtpVerificationViewModel @Inject constructor(
     }
 
     sealed class NavEvent {
-        object ToAddChild : NavEvent()
+        object ToSetPin : NavEvent()
         object ToParentHome : NavEvent()
     }
 
@@ -50,7 +50,9 @@ class OtpVerificationViewModel @Inject constructor(
                     val existing = authRepository.getParentProfile()
                     if (existing == null) {
                         authRepository.saveParentProfile(name, "+91$phone")
-                        _navEvent.emit(NavEvent.ToAddChild)
+                        _navEvent.emit(NavEvent.ToSetPin)
+                    } else if (existing.pin.isBlank()) {
+                        _navEvent.emit(NavEvent.ToSetPin)
                     } else {
                         _navEvent.emit(NavEvent.ToParentHome)
                     }

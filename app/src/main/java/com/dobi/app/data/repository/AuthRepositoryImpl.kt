@@ -80,7 +80,7 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun saveParentProfile(name: String, phone: String) {
         val uid = auth.currentUser?.uid ?: return
         firestore.collection("parents").document(uid)
-            .set(mapOf("name" to name, "phone" to phone))
+            .set(mapOf("name" to name, "phone" to phone), com.google.firebase.firestore.SetOptions.merge())
             .await()
     }
 
@@ -92,11 +92,34 @@ class AuthRepositoryImpl @Inject constructor(
                 ParentProfile(
                     uid = uid,
                     name = doc.getString("name") ?: "",
-                    phone = doc.getString("phone") ?: ""
+                    phone = doc.getString("phone") ?: "",
+                    pin = doc.getString("pin") ?: ""
                 )
             } else null
         } catch (e: Exception) {
             null
+        }
+    }
+
+    override suspend fun savePin(pin: String): Result<Unit> {
+        val uid = auth.currentUser?.uid ?: return Result.failure(IllegalStateException("Not signed in"))
+        return try {
+            firestore.collection("parents").document(uid)
+                .set(mapOf("pin" to pin), com.google.firebase.firestore.SetOptions.merge())
+                .await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun verifyPin(pin: String): Boolean {
+        val uid = auth.currentUser?.uid ?: return false
+        return try {
+            val doc = firestore.collection("parents").document(uid).get().await()
+            doc.getString("pin") == pin
+        } catch (e: Exception) {
+            false
         }
     }
 

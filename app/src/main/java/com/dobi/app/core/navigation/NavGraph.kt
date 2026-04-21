@@ -13,6 +13,8 @@ import com.dobi.app.feature.conceptlist.ConceptListScreen
 import com.dobi.app.feature.homework.HomeworkLogScreen
 import com.dobi.app.feature.pairing.EnterPairingCodeScreen
 import com.dobi.app.feature.parenthome.ParentHomeScreen
+import com.dobi.app.feature.pin.EnterPinScreen
+import com.dobi.app.feature.pin.SetPinScreen
 import com.dobi.app.feature.roleselection.RoleSelectionScreen
 import com.dobi.app.feature.selectchild.SelectChildScreen
 
@@ -62,14 +64,36 @@ fun DobiNavGraph(
 
         composable<Screen.OtpVerification> {
             OtpVerificationScreen(
-                onNavigateToAddChild = {
-                    navController.navigate(Screen.AddChild) {
+                onNavigateToSetPin = {
+                    navController.navigate(Screen.SetPin) {
                         popUpTo<Screen.RoleSelection> { inclusive = true }
                     }
                 },
                 onNavigateToParentHome = {
                     navController.navigate(Screen.ParentHome) {
                         popUpTo<Screen.RoleSelection> { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable<Screen.SetPin> {
+            SetPinScreen(
+                onDone = {
+                    // ParentHome auto-redirects to AddChild if no children exist yet
+                    navController.navigate(Screen.ParentHome) {
+                        popUpTo<Screen.SetPin> { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable<Screen.EnterPin> {
+            EnterPinScreen(
+                onCancel = { navController.popBackStack() },
+                onVerified = {
+                    navController.navigate(Screen.ParentHome) {
+                        popUpTo<Screen.ChildHome> { inclusive = true }
                     }
                 }
             )
@@ -97,7 +121,8 @@ fun DobiNavGraph(
         composable<Screen.ChildHome> {
             ChildHomeScreen(
                 onNavigateToConceptList = { navController.navigate(Screen.ConceptList) },
-                onNavigateToHomeworkLog = { navController.navigate(Screen.HomeworkLog) }
+                onNavigateToHomeworkLog = { navController.navigate(Screen.HomeworkLog) },
+                onRequestParentAccess = { navController.navigate(Screen.EnterPin) }
             )
         }
 

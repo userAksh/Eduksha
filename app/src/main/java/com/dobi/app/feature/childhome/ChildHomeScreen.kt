@@ -89,10 +89,16 @@ import com.dobi.app.domain.model.TodayLearningItem
 fun ChildHomeScreen(
     onNavigateToConceptList: () -> Unit = {},
     onNavigateToHomeworkLog: () -> Unit = {},
+    onRequestParentAccess: () -> Unit = {},
     viewModel: ChildHomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var selectedTab by rememberSaveable { mutableIntStateOf(0) }
+
+    // Lock back button — child cannot return to parent view without the PIN gate
+    androidx.activity.compose.BackHandler(enabled = true) {
+        onRequestParentAccess()
+    }
 
     Scaffold(
         containerColor = DobiBackground,
