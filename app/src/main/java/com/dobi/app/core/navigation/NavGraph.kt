@@ -1,5 +1,9 @@
 package com.dobi.app.core.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -24,7 +28,23 @@ fun DobiNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = startDestination
+        startDestination = startDestination,
+        enterTransition = {
+            slideIntoContainer(SlideDirection.Start, animationSpec = tween(280)) +
+                fadeIn(tween(180))
+        },
+        exitTransition = {
+            slideOutOfContainer(SlideDirection.Start, animationSpec = tween(280)) +
+                fadeOut(tween(180))
+        },
+        popEnterTransition = {
+            slideIntoContainer(SlideDirection.End, animationSpec = tween(280)) +
+                fadeIn(tween(180))
+        },
+        popExitTransition = {
+            slideOutOfContainer(SlideDirection.End, animationSpec = tween(280)) +
+                fadeOut(tween(180))
+        }
     ) {
         composable<Screen.RoleSelection> {
             RoleSelectionScreen(
