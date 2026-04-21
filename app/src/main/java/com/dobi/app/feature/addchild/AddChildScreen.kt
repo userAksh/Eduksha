@@ -109,6 +109,7 @@ fun AddChildScreen(
     val addedChildren by viewModel.addedChildren.collectAsStateWithLifecycle()
     val isSaving by viewModel.isSaving.collectAsStateWithLifecycle()
     val error by viewModel.error.collectAsStateWithLifecycle()
+    val editingChildId by viewModel.editingChildId.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.navToParentHome.collect { onNavigateToParentHome() }
@@ -121,32 +122,30 @@ fun AddChildScreen(
             .systemBarsPadding()
     ) {
         // Top app bar
-        if (step != AddChildStep.DONE) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp, vertical = 4.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(onClick = {
-                    if (step == AddChildStep.WELCOME) onNavigateBack()
-                    else viewModel.goBack()
-                }) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back",
-                        tint = DobiTextPrimary
-                    )
-                }
-                Text(
-                    text = "Add Child",
-                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = SFProBold),
-                    color = DobiTextPrimary,
-                    modifier = Modifier.weight(1f),
-                    textAlign = TextAlign.Center
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = {
+                if (step == AddChildStep.WELCOME) onNavigateBack()
+                else viewModel.goBack()
+            }) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = DobiTextPrimary
                 )
-                Spacer(modifier = Modifier.size(48.dp))
             }
+            Text(
+                text = "Add Child",
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = SFProBold),
+                color = DobiTextPrimary,
+                modifier = Modifier.weight(1f),
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.size(48.dp))
         }
 
         when (step) {
@@ -155,6 +154,7 @@ fun AddChildScreen(
                 draft = draft,
                 isSaving = isSaving,
                 error = error,
+                isEditing = editingChildId != null,
                 onNameChange = viewModel::updateName,
                 onGenderChange = viewModel::updateGender,
                 onGradeChange = viewModel::updateGrade,
@@ -331,6 +331,7 @@ private fun DetailsStep(
     draft: ChildDraft,
     isSaving: Boolean,
     error: String?,
+    isEditing: Boolean,
     onNameChange: (String) -> Unit,
     onGenderChange: (Gender) -> Unit,
     onGradeChange: (Int) -> Unit,
@@ -520,7 +521,7 @@ private fun DetailsStep(
                     CircularProgressIndicator(color = Color.White, strokeWidth = 2.dp, modifier = Modifier.size(22.dp))
                 } else {
                     Text(
-                        "Save Child",
+                        if (isEditing) "Update Child" else "Save Child",
                         style = MaterialTheme.typography.titleSmall.copy(fontWeight = SFProBold),
                         color = Color.White
                     )

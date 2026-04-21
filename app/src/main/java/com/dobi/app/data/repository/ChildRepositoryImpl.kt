@@ -39,4 +39,16 @@ class ChildRepositoryImpl @Inject constructor(
             Result.failure(e)
         }
     }
+
+    override suspend fun updateChild(child: Child): Result<Child> {
+        return try {
+            firestore.collection("parents").document(child.parentId)
+                .collection("children").document(child.id)
+                .set(child)
+                .await()
+            Result.success(child)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }

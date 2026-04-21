@@ -16,7 +16,11 @@ import javax.inject.Inject
 enum class Gender(val display: String, val emoji: String, val key: String) {
     BOY("Boy", "👦", "boy"),
     GIRL("Girl", "👧", "girl"),
-    OTHER("Other", "🧒", "other")
+    OTHER("Other", "🧒", "other");
+
+    companion object {
+        fun fromKey(key: String): Gender = entries.find { it.key == key } ?: BOY
+    }
 }
 
 data class ChildDraft(
@@ -49,14 +53,38 @@ class AddChildViewModel @Inject constructor(
     private val _error = MutableStateFlow<String?>(null)
     val error = _error.asStateFlow()
 
+    private val _editingChildId = MutableStateFlow<String?>(null)
+    val editingChildId = _editingChildId.asStateFlow()
+
     private val _navToParentHome = MutableSharedFlow<Unit>()
     val navToParentHome = _navToParentHome.asSharedFlow()
 
-    fun startAdding() { _step.value = AddChildStep.DETAILS }
+    fun startAdding() {
+        _editingChildId.value = null
+        _draft.value = ChildDraft()
+        _step.value = AddChildStep.DETAILS
+    }
 
     fun goBack() {
         _step.value = when (_step.value) {
-            AddChildStep.DETAILS -> AddChildStep.WELCOME
+            AddChildStep.DETAILS -> {
+                _editingChildId.value = null
+                _draft.value = ChildDraft()
+                AddChildStep.WELCOME
+            }
+            AddChildStep.DONE -> {
+                // Prefill with the most recently added child so the user can edit it
+                _addedChildren.value.lastOrNull()?.let { child ->
+                    _editingChildId.value = child.id
+                    _draft.value = ChildDraft(
+                        name = child.name,
+                        gender = Gender.fromKey(child.gender),
+                        grade = child.grade,
+                        board = child.board
+                    )
+                }
+                AddChildStep.DETAILS
+            }
             else -> _step.value
         }
     }
@@ -68,30 +96,52 @@ class AddChildViewModel @Inject constructor(
 
     fun saveChild() {
         val parentId = auth.currentUser?.uid ?: return
+        val editingId = _editingChildId.value
         viewModelScope.launch {
             _isSaving.value = true
             _error.value = null
             val d = _draft.value
-            val child = Child(
-                name = d.name.trim(),
-                grade = d.grade,
-                board = d.board,
-                parentId = parentId,
-                gender = d.gender.key
-            )
-            childRepository.addChild(child)
-                .onSuccess { saved ->
-                    _addedChildren.value = _addedChildren.value + saved
-                    _draft.value = ChildDraft()
-                    _step.value = AddChildStep.DONE
+
+            val result = if (editingId != null) {
+                val child = Child(
+                    id = editingId,
+                    name = d.name.trim(),
+                    grade = d.grade,
+                    board = d.board,
+                    parentId = parentId,
+                    gender = d.gender.key
+                )
+                childRepository.updateChild(child)
+            } else {
+                val child = Child(
+                    name = d.name.trim(),
+                    grade = d.grade,
+                    board = d.board,
+                    parentId = parentId,
+                    gender = d.gender.key
+                )
+                childRepository.addChild(child)
+            }
+
+            result.onSuccess { saved ->
+                _addedChildren.value = if (editingId != null) {
+                    _addedChildren.value.map { if (it.id == editingId) saved else it }
+                } else {
+                    _addedChildren.value + saved
                 }
-                .onFailure { _error.value = it.message ?: "Failed to save. Please try again." }
+                _draft.value = ChildDraft()
+                _editingChildId.value = null
+                _step.value = AddChildStep.DONE
+            }.onFailure {
+                _error.value = it.message ?: "Failed to save. Please try again."
+            }
             _isSaving.value = false
         }
     }
 
     fun addAnotherChild() {
         _draft.value = ChildDraft()
+        _editingChildId.value = null
         _step.value = AddChildStep.DETAILS
     }
 
