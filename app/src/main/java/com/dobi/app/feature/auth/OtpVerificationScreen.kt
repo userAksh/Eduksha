@@ -21,6 +21,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -38,11 +40,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.dobi.app.core.ui.theme.DobiBackground
 import com.dobi.app.core.ui.theme.DobiPrimary
 import com.dobi.app.core.ui.theme.DobiPrimaryContainer
+import com.dobi.app.core.ui.theme.DobiPrimaryLight
 import com.dobi.app.core.ui.theme.DobiTextPrimary
 import com.dobi.app.core.ui.theme.DobiTextSecondary
+
+private val ErrorRed = Color(0xFFDC2626)
 
 @Composable
 fun OtpVerificationScreen(
@@ -79,91 +83,169 @@ private fun OtpContent(
     val isLoading = uiState is OtpVerificationViewModel.UiState.Loading
     val error = (uiState as? OtpVerificationViewModel.UiState.Error)?.message
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(DobiBackground)
-            .systemBarsPadding()
-            .imePadding()
-            .padding(horizontal = 24.dp)
-    ) {
-        Spacer(modifier = Modifier.height(48.dp))
-
-        Text(
-            text = "Verify your number",
-            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-            color = DobiTextPrimary
+    Box(modifier = Modifier.fillMaxSize()) {
+        // Coloured top band
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(240.dp)
+                .background(DobiPrimary)
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = "Enter the 6-digit code sent to +91 $phone",
-            style = MaterialTheme.typography.bodyMedium,
-            color = DobiTextSecondary
-        )
-
-        Spacer(modifier = Modifier.height(48.dp))
-
-        BasicTextField(
-            value = otp,
-            onValueChange = { if (it.length <= 6) otp = it.filter { c -> c.isDigit() } },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
-            decorationBox = {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+        Column(modifier = Modifier.fillMaxSize()) {
+            // Header
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 28.dp)
+                    .systemBarsPadding()
+                    .padding(top = 32.dp),
+                horizontalAlignment = Alignment.Start
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(52.dp)
+                        .clip(RoundedCornerShape(14.dp))
+                        .background(Color.White.copy(alpha = 0.2f)),
+                    contentAlignment = Alignment.Center
                 ) {
-                    repeat(6) { index ->
-                        val char = otp.getOrNull(index)
-                        val isFocused = otp.length == index
+                    Text(text = "📱", fontSize = 28.sp)
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Verify your number",
+                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                    color = Color.White
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(
+                    text = "Enter the 6-digit code sent to +91 $phone",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.White.copy(alpha = 0.8f)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .imePadding(),
+                shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+                color = Color(0xFFF5F7FF),
+                shadowElevation = 0.dp
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 24.dp, vertical = 36.dp)
+                ) {
+                    Text(
+                        text = "Enter OTP",
+                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
+                        color = DobiTextPrimary
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    BasicTextField(
+                        value = otp,
+                        onValueChange = { if (it.length <= 6) otp = it.filter { c -> c.isDigit() } },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+                        decorationBox = {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                repeat(6) { index ->
+                                    val char = otp.getOrNull(index)
+                                    val isCurrent = otp.length == index
+                                    Box(
+                                        modifier = Modifier
+                                            .weight(1f)
+                                            .height(56.dp)
+                                            .then(
+                                                if (isCurrent)
+                                                    Modifier.border(2.dp, DobiPrimary, RoundedCornerShape(14.dp))
+                                                else if (char != null)
+                                                    Modifier.border(2.dp, DobiPrimary.copy(alpha = 0.4f), RoundedCornerShape(14.dp))
+                                                else
+                                                    Modifier.border(1.5.dp, Color(0xFFCBD5E1), RoundedCornerShape(14.dp))
+                                            )
+                                            .background(
+                                                color = if (char != null) DobiPrimaryContainer else Color.White,
+                                                shape = RoundedCornerShape(14.dp)
+                                            ),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Text(
+                                            text = char?.toString() ?: if (isCurrent) "·" else "",
+                                            fontSize = if (char != null) 22.sp else 28.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = if (char != null) DobiPrimary else Color(0xFFCBD5E1),
+                                            textAlign = TextAlign.Center
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    )
+
+                    if (error != null) {
+                        Spacer(modifier = Modifier.height(14.dp))
                         Box(
                             modifier = Modifier
-                                .size(48.dp)
-                                .border(
-                                    width = if (isFocused) 2.dp else 1.dp,
-                                    color = if (isFocused) DobiPrimary else Color(0xFFE2E8F0),
-                                    shape = RoundedCornerShape(12.dp)
-                                )
-                                .background(
-                                    if (char != null) DobiPrimaryContainer else Color.White,
-                                    shape = RoundedCornerShape(12.dp)
-                                ),
-                            contentAlignment = Alignment.Center
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(Color(0xFFFEE2E2))
+                                .padding(horizontal = 14.dp, vertical = 10.dp)
                         ) {
                             Text(
-                                text = char?.toString() ?: "",
-                                fontSize = 22.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = DobiTextPrimary,
-                                textAlign = TextAlign.Center
+                                text = "⚠️  $error",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = ErrorRed
                             )
                         }
                     }
+
+                    Spacer(modifier = Modifier.height(32.dp))
+
+                    Button(
+                        onClick = { onVerify(otp) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(54.dp),
+                        shape = RoundedCornerShape(16.dp),
+                        enabled = otp.length == 6 && !isLoading,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = DobiPrimary,
+                            disabledContainerColor = DobiPrimaryLight.copy(alpha = 0.4f)
+                        )
+                    ) {
+                        if (isLoading) {
+                            CircularProgressIndicator(
+                                color = Color.White,
+                                strokeWidth = 2.dp,
+                                modifier = Modifier.size(22.dp)
+                            )
+                        } else {
+                            Text(
+                                "Verify & Continue",
+                                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                                color = Color.White
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Text(
+                        text = "Didn't receive the code? Check your messages or try again.",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = DobiTextSecondary,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
                 }
-            }
-        )
-
-        if (error != null) {
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(text = error, style = MaterialTheme.typography.bodySmall, color = Color(0xFFEF4444))
-        }
-
-        Spacer(modifier = Modifier.height(40.dp))
-
-        Button(
-            onClick = { onVerify(otp) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(52.dp),
-            shape = RoundedCornerShape(14.dp),
-            enabled = otp.length == 6 && !isLoading,
-            colors = ButtonDefaults.buttonColors(containerColor = DobiPrimary)
-        ) {
-            if (isLoading) {
-                CircularProgressIndicator(color = Color.White, strokeWidth = 2.dp, modifier = Modifier.height(20.dp))
-            } else {
-                Text("Verify OTP", style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold), color = Color.White)
             }
         }
     }
