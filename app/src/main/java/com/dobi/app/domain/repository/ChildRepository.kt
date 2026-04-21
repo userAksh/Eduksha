@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ChildRepository {
     fun getChildren(parentId: String): Flow<List<Child>>
+    suspend fun getChild(parentId: String, childId: String): Result<Child>
     suspend fun addChild(child: Child): Result<Child>
     suspend fun updateChild(child: Child): Result<Child>
 }

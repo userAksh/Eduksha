@@ -28,6 +28,18 @@ class ChildRepositoryImpl @Inject constructor(
         awaitClose { listener.remove() }
     }
 
+    override suspend fun getChild(parentId: String, childId: String): Result<Child> {
+        return try {
+            val doc = firestore.collection("parents").document(parentId)
+                .collection("children").document(childId).get().await()
+            val child = doc.toObject(Child::class.java)
+            if (child != null) Result.success(child)
+            else Result.failure(IllegalStateException("Child not found"))
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
     override suspend fun addChild(child: Child): Result<Child> {
         return try {
             val ref = firestore.collection("parents").document(child.parentId)
