@@ -30,11 +30,9 @@ class RoleSelectionViewModel @Inject constructor(
 
     fun onParentSelected() {
         viewModelScope.launch {
-            if (auth.currentUser != null) {
-                _navEvent.emit(NavEvent.ToParentHome)
-            } else {
-                _navEvent.emit(NavEvent.ToPhoneAuth)
-            }
+            // Always require phone + OTP verification from Role Selection so a child
+            // can't tap "I am a Parent" and reach the dashboard without authenticating.
+            _navEvent.emit(NavEvent.ToPhoneAuth)
         }
     }
 

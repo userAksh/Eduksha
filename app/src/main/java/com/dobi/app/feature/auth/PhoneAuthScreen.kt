@@ -66,6 +66,8 @@ fun PhoneAuthScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val activity = LocalContext.current as Activity
 
+    val prefill by viewModel.prefill.collectAsStateWithLifecycle()
+
     LaunchedEffect(Unit) {
         viewModel.navEvent.collect { event ->
             when (event) {
@@ -78,6 +80,7 @@ fun PhoneAuthScreen(
 
     PhoneAuthContent(
         uiState = uiState,
+        prefill = prefill,
         onSendOtp = { name, phone -> viewModel.sendOtp(name, phone, activity) }
     )
 }
@@ -85,10 +88,11 @@ fun PhoneAuthScreen(
 @Composable
 private fun PhoneAuthContent(
     uiState: PhoneAuthViewModel.UiState,
+    prefill: PhoneAuthViewModel.PrefillState,
     onSendOtp: (name: String, phone: String) -> Unit
 ) {
-    var name by remember { mutableStateOf("") }
-    var phone by remember { mutableStateOf("") }
+    var name by remember(prefill.name) { mutableStateOf(prefill.name) }
+    var phone by remember(prefill.phone) { mutableStateOf(prefill.phone) }
 
     val isLoading = uiState is PhoneAuthViewModel.UiState.Loading
     val error = (uiState as? PhoneAuthViewModel.UiState.Error)?.message
@@ -123,13 +127,16 @@ private fun PhoneAuthContent(
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "Welcome to Dobi",
+                    text = if (prefill.isReturning) "Verify it's you" else "Welcome to Dobi",
                     style = MaterialTheme.typography.headlineMedium.copy(fontWeight = SFProBold),
                     color = Color.White
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "Create your parent account to get started",
+                    text = if (prefill.isReturning)
+                        "Send OTP to your number to open the parent view."
+                    else
+                        "Create your parent account to get started",
                     style = MaterialTheme.typography.bodyMedium,
                     color = Color.White.copy(alpha = 0.8f)
                 )
