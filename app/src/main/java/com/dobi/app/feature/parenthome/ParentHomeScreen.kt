@@ -72,6 +72,7 @@ private val DividerColor = Color(0xFFF0F2F7)
 fun ParentHomeScreen(
     onNavigateToChildHome: (childId: String) -> Unit,
     onNavigateToAddChild: () -> Unit,
+    onRedirectToAddChild: () -> Unit,
     onNavigateToRoleSelection: () -> Unit,
     viewModel: ParentHomeViewModel = hiltViewModel()
 ) {
@@ -83,7 +84,7 @@ fun ParentHomeScreen(
 
     LaunchedEffect(uiState.isLoading, uiState.children.size) {
         if (!uiState.isLoading && uiState.children.isEmpty()) {
-            onNavigateToAddChild()
+            onRedirectToAddChild()
         }
     }
 

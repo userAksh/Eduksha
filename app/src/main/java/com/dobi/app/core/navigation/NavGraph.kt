@@ -94,6 +94,9 @@ fun DobiNavGraph(
                     navController.navigate(Screen.ChildHome(childId))
                 },
                 onNavigateToAddChild = {
+                    navController.navigate(Screen.AddChild)
+                },
+                onRedirectToAddChild = {
                     navController.navigate(Screen.AddChild) {
                         popUpTo<Screen.ParentHome> { inclusive = true }
                     }
