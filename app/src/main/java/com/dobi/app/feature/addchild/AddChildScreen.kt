@@ -49,6 +49,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -59,6 +60,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import com.dobi.app.R
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
@@ -178,9 +182,12 @@ private fun WelcomeStep(onStart: () -> Unit) {
                 .background(Color(0xFFEEF4FF)),
             contentAlignment = Alignment.Center
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("👨‍👩‍👦", fontSize = 72.sp)
-            }
+            Image(
+                painter = painterResource(id = R.drawable.ic_parents_child),
+                contentDescription = null,
+                modifier = Modifier.size(140.dp),
+                contentScale = ContentScale.Fit
+            )
         }
 
         Spacer(Modifier.height(24.dp))
@@ -199,7 +206,7 @@ private fun WelcomeStep(onStart: () -> Unit) {
             textAlign = TextAlign.Center
         )
 
-        Spacer(Modifier.height(28.dp))
+        Spacer(Modifier.height(18.dp))
 
         FeatureRow(
             emoji = "📊",
@@ -207,14 +214,14 @@ private fun WelcomeStep(onStart: () -> Unit) {
             title = "Track progress",
             subtitle = "See what your child is learning every day."
         )
-        Spacer(Modifier.height(12.dp))
+        Spacer(Modifier.height(8.dp))
         FeatureRow(
             emoji = "🏆",
             bg = Color(0xFFFFF7ED),
             title = "Spot what matters",
             subtitle = "Identify strengths and topics that need attention."
         )
-        Spacer(Modifier.height(12.dp))
+        Spacer(Modifier.height(8.dp))
         FeatureRow(
             emoji = "✅",
             bg = Color(0xFFECFDF5),
