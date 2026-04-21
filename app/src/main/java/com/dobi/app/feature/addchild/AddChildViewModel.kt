@@ -21,13 +21,12 @@ enum class Gender(val display: String, val emoji: String, val key: String) {
 
 data class ChildDraft(
     val name: String = "",
-    val dateOfBirth: String = "",
     val gender: Gender = Gender.BOY,
     val grade: Int = 5,
     val board: String = "CBSE"
 )
 
-enum class AddChildStep { WELCOME, DETAILS, CLASS_BOARD, DONE }
+enum class AddChildStep { WELCOME, DETAILS, DONE }
 
 @HiltViewModel
 class AddChildViewModel @Inject constructor(
@@ -58,21 +57,14 @@ class AddChildViewModel @Inject constructor(
     fun goBack() {
         _step.value = when (_step.value) {
             AddChildStep.DETAILS -> AddChildStep.WELCOME
-            AddChildStep.CLASS_BOARD -> AddChildStep.DETAILS
             else -> _step.value
         }
     }
 
     fun updateName(v: String) { _draft.value = _draft.value.copy(name = v) }
-    fun updateDob(v: String) { _draft.value = _draft.value.copy(dateOfBirth = v) }
     fun updateGender(v: Gender) { _draft.value = _draft.value.copy(gender = v) }
     fun updateGrade(v: Int) { _draft.value = _draft.value.copy(grade = v) }
     fun updateBoard(v: String) { _draft.value = _draft.value.copy(board = v) }
-
-    fun continueToClassBoard() {
-        _error.value = null
-        _step.value = AddChildStep.CLASS_BOARD
-    }
 
     fun saveChild() {
         val parentId = auth.currentUser?.uid ?: return
@@ -85,8 +77,7 @@ class AddChildViewModel @Inject constructor(
                 grade = d.grade,
                 board = d.board,
                 parentId = parentId,
-                gender = d.gender.key,
-                dateOfBirth = d.dateOfBirth
+                gender = d.gender.key
             )
             childRepository.addChild(child)
                 .onSuccess { saved ->

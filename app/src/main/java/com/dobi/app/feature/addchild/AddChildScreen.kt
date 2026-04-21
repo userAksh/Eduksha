@@ -153,16 +153,10 @@ fun AddChildScreen(
             AddChildStep.WELCOME -> WelcomeStep(onStart = viewModel::startAdding)
             AddChildStep.DETAILS -> DetailsStep(
                 draft = draft,
-                error = error,
-                onNameChange = viewModel::updateName,
-                onDobChange = viewModel::updateDob,
-                onGenderChange = viewModel::updateGender,
-                onContinue = viewModel::continueToClassBoard
-            )
-            AddChildStep.CLASS_BOARD -> ClassBoardStep(
-                draft = draft,
                 isSaving = isSaving,
                 error = error,
+                onNameChange = viewModel::updateName,
+                onGenderChange = viewModel::updateGender,
                 onGradeChange = viewModel::updateGrade,
                 onBoardChange = viewModel::updateBoard,
                 onSave = viewModel::saveChild
@@ -203,7 +197,7 @@ private fun WelcomeStep(onStart: () -> Unit) {
             )
         }
 
-        Spacer(Modifier.height(4.dp))
+        Spacer(Modifier.height(14.dp))
 
         Text(
             text = "Add Your Child",
@@ -313,11 +307,11 @@ private fun FeatureRow(emoji: String, bg: Color, title: String, subtitle: String
             Text(
                 text = title,
                 fontSize = 14.sp,
-                fontWeight = SFProBold,
+                fontWeight = SFProSemiBold,
                 lineHeight = 22.sp,
                 color = DobiTextPrimary
             )
-            Spacer(Modifier.height(4.dp))
+            Spacer(Modifier.height(2.dp))
             Text(
                 text = subtitle,
                 fontSize = 12.sp,
@@ -335,36 +329,18 @@ private fun FeatureRow(emoji: String, bg: Color, title: String, subtitle: String
 @Composable
 private fun DetailsStep(
     draft: ChildDraft,
+    isSaving: Boolean,
     error: String?,
     onNameChange: (String) -> Unit,
-    onDobChange: (String) -> Unit,
     onGenderChange: (Gender) -> Unit,
-    onContinue: () -> Unit
+    onGradeChange: (Int) -> Unit,
+    onBoardChange: (String) -> Unit,
+    onSave: () -> Unit
 ) {
-    var showDatePicker by remember { mutableStateOf(false) }
-    val datePickerState = rememberDatePickerState()
-
-    if (showDatePicker) {
-        DatePickerDialog(
-            onDismissRequest = { showDatePicker = false },
-            confirmButton = {
-                TextButton(onClick = {
-                    showDatePicker = false
-                    datePickerState.selectedDateMillis?.let { millis ->
-                        val fmt = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                        onDobChange(fmt.format(Date(millis)))
-                    }
-                }) { Text("OK", color = DobiPrimary) }
-            },
-            dismissButton = {
-                TextButton(onClick = { showDatePicker = false }) {
-                    Text("Cancel", color = DobiTextSecondary)
-                }
-            }
-        ) {
-            DatePicker(state = datePickerState)
-        }
-    }
+    var gradeExpanded by remember { mutableStateOf(false) }
+    var boardExpanded by remember { mutableStateOf(false) }
+    val grades = (2..9).toList()
+    val boards = listOf("CBSE", "ICSE")
 
     Column(
         modifier = Modifier
@@ -383,6 +359,7 @@ private fun DetailsStep(
                 style = MaterialTheme.typography.headlineSmall.copy(fontWeight = SFProBold),
                 color = DobiTextPrimary
             )
+            Spacer(Modifier.height(4.dp))
             Text(
                 "Tell us about your child.",
                 style = MaterialTheme.typography.bodyMedium,
@@ -425,31 +402,6 @@ private fun DetailsStep(
 
             Spacer(Modifier.height(18.dp))
 
-            FieldLabel("Date of Birth")
-            Spacer(Modifier.height(8.dp))
-            OutlinedTextField(
-                value = draft.dateOfBirth,
-                onValueChange = {},
-                placeholder = { Text("Select date of birth", color = DobiTextSecondary) },
-                leadingIcon = {
-                    Icon(Icons.Default.DateRange, contentDescription = null, tint = DobiTextSecondary)
-                },
-                trailingIcon = {
-                    Icon(Icons.Default.DateRange, contentDescription = null, tint = DobiPrimary)
-                },
-                readOnly = true,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = null
-                    ) { showDatePicker = true },
-                shape = RoundedCornerShape(14.dp),
-                colors = fieldColors()
-            )
-
-            Spacer(Modifier.height(18.dp))
-
             FieldLabel("Gender")
             Spacer(Modifier.height(10.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -485,166 +437,64 @@ private fun DetailsStep(
                 }
             }
 
-            if (error != null) {
-                Spacer(Modifier.height(12.dp))
-                ErrorBox(error)
-            }
-
-            Spacer(Modifier.height(28.dp))
-
-            Button(
-                onClick = onContinue,
-                modifier = Modifier.fillMaxWidth().height(56.dp),
-                shape = RoundedCornerShape(16.dp),
-                enabled = draft.name.isNotBlank(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = DobiPrimary,
-                    disabledContainerColor = DobiPrimaryLight.copy(alpha = 0.35f)
-                )
-            ) {
-                Text(
-                    "Continue",
-                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = SFProBold),
-                    color = Color.White
-                )
-                Spacer(Modifier.width(8.dp))
-                Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null, tint = Color.White)
-            }
-
-            Spacer(Modifier.height(32.dp))
-        }
-    }
-}
-
-// ── Step 2 — Class & Board ────────────────────────────────────────────────────
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun ClassBoardStep(
-    draft: ChildDraft,
-    isSaving: Boolean,
-    error: String?,
-    onGradeChange: (Int) -> Unit,
-    onBoardChange: (String) -> Unit,
-    onSave: () -> Unit
-) {
-    var gradeExpanded by remember { mutableStateOf(false) }
-    var boardExpanded by remember { mutableStateOf(false) }
-    val grades = (2..9).toList()
-    val boards = listOf("CBSE", "ICSE")
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(DobiBackground)
-            .verticalScroll(rememberScrollState())
-            .imePadding()
-    ) {
-        StepperBar(currentStep = 2)
-
-        Column(modifier = Modifier.padding(horizontal = 24.dp)) {
-            Spacer(Modifier.height(20.dp))
-
-            Text(
-                "Class & Board",
-                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = SFProBold),
-                color = DobiTextPrimary
-            )
-            Text(
-                "Select your child's class and board.",
-                style = MaterialTheme.typography.bodyMedium,
-                color = DobiTextSecondary
-            )
-
-            Spacer(Modifier.height(24.dp))
-
-            // Preview card
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(DobiPrimaryContainer)
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(52.dp)
-                        .clip(CircleShape)
-                        .background(Color.White),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(draft.gender.emoji, fontSize = 28.sp)
-                }
-                Spacer(Modifier.width(14.dp))
-                Column {
-                    Text(
-                        draft.name.ifBlank { "Your child" },
-                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = SFProBold),
-                        color = DobiPrimary
-                    )
-                    if (draft.dateOfBirth.isNotBlank()) {
-                        Text(
-                            "DOB: ${draft.dateOfBirth}",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = DobiTextSecondary
-                        )
-                    }
-                }
-            }
-
-            Spacer(Modifier.height(24.dp))
-
-            FieldLabel("Class")
-            Spacer(Modifier.height(8.dp))
-            ExposedDropdownMenuBox(expanded = gradeExpanded, onExpandedChange = { gradeExpanded = it }) {
-                OutlinedTextField(
-                    value = "Class ${draft.grade}",
-                    onValueChange = {},
-                    readOnly = true,
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(gradeExpanded) },
-                    modifier = Modifier.fillMaxWidth().menuAnchor(MenuAnchorType.PrimaryNotEditable),
-                    shape = RoundedCornerShape(14.dp),
-                    colors = fieldColors()
-                )
-                ExposedDropdownMenu(
-                    expanded = gradeExpanded,
-                    onDismissRequest = { gradeExpanded = false },
-                    containerColor = Color.White
-                ) {
-                    grades.forEach { grade ->
-                        DropdownMenuItem(
-                            text = { Text("Class $grade", color = DobiTextPrimary) },
-                            onClick = { onGradeChange(grade); gradeExpanded = false }
-                        )
-                    }
-                }
-            }
-
             Spacer(Modifier.height(18.dp))
 
-            FieldLabel("Board")
-            Spacer(Modifier.height(8.dp))
-            ExposedDropdownMenuBox(expanded = boardExpanded, onExpandedChange = { boardExpanded = it }) {
-                OutlinedTextField(
-                    value = draft.board,
-                    onValueChange = {},
-                    readOnly = true,
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(boardExpanded) },
-                    modifier = Modifier.fillMaxWidth().menuAnchor(MenuAnchorType.PrimaryNotEditable),
-                    shape = RoundedCornerShape(14.dp),
-                    colors = fieldColors()
-                )
-                ExposedDropdownMenu(
-                    expanded = boardExpanded,
-                    onDismissRequest = { boardExpanded = false },
-                    containerColor = Color.White
-                ) {
-                    boards.forEach { board ->
-                        DropdownMenuItem(
-                            text = { Text(board, color = DobiTextPrimary) },
-                            onClick = { onBoardChange(board); boardExpanded = false }
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Column(modifier = Modifier.weight(1f)) {
+                    FieldLabel("Class")
+                    Spacer(Modifier.height(8.dp))
+                    ExposedDropdownMenuBox(expanded = gradeExpanded, onExpandedChange = { gradeExpanded = it }) {
+                        OutlinedTextField(
+                            value = "Class ${draft.grade}",
+                            onValueChange = {},
+                            readOnly = true,
+                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(gradeExpanded) },
+                            modifier = Modifier.fillMaxWidth().menuAnchor(MenuAnchorType.PrimaryNotEditable),
+                            shape = RoundedCornerShape(14.dp),
+                            colors = fieldColors()
                         )
+                        ExposedDropdownMenu(
+                            expanded = gradeExpanded,
+                            onDismissRequest = { gradeExpanded = false },
+                            containerColor = Color.White
+                        ) {
+                            grades.forEach { grade ->
+                                DropdownMenuItem(
+                                    text = { Text("Class $grade", color = DobiTextPrimary) },
+                                    onClick = { onGradeChange(grade); gradeExpanded = false }
+                                )
+                            }
+                        }
+                    }
+                }
+
+                Spacer(Modifier.width(12.dp))
+
+                Column(modifier = Modifier.weight(1f)) {
+                    FieldLabel("Board")
+                    Spacer(Modifier.height(8.dp))
+                    ExposedDropdownMenuBox(expanded = boardExpanded, onExpandedChange = { boardExpanded = it }) {
+                        OutlinedTextField(
+                            value = draft.board,
+                            onValueChange = {},
+                            readOnly = true,
+                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(boardExpanded) },
+                            modifier = Modifier.fillMaxWidth().menuAnchor(MenuAnchorType.PrimaryNotEditable),
+                            shape = RoundedCornerShape(14.dp),
+                            colors = fieldColors()
+                        )
+                        ExposedDropdownMenu(
+                            expanded = boardExpanded,
+                            onDismissRequest = { boardExpanded = false },
+                            containerColor = Color.White
+                        ) {
+                            boards.forEach { board ->
+                                DropdownMenuItem(
+                                    text = { Text(board, color = DobiTextPrimary) },
+                                    onClick = { onBoardChange(board); boardExpanded = false }
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -660,8 +510,11 @@ private fun ClassBoardStep(
                 onClick = onSave,
                 modifier = Modifier.fillMaxWidth().height(56.dp),
                 shape = RoundedCornerShape(16.dp),
-                enabled = !isSaving,
-                colors = ButtonDefaults.buttonColors(containerColor = DobiPrimary)
+                enabled = draft.name.isNotBlank() && !isSaving,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = DobiPrimary,
+                    disabledContainerColor = DobiPrimaryLight.copy(alpha = 0.35f)
+                )
             ) {
                 if (isSaving) {
                     CircularProgressIndicator(color = Color.White, strokeWidth = 2.dp, modifier = Modifier.size(22.dp))
@@ -681,7 +534,7 @@ private fun ClassBoardStep(
     }
 }
 
-// ── Step 3 — Done ─────────────────────────────────────────────────────────────
+// ── Step 2 — Done ─────────────────────────────────────────────────────────────
 
 private val childCardColors = listOf(
     Pair(Color(0xFFDBEAFE), Color(0xFF1D4ED8)),
@@ -708,7 +561,7 @@ private fun DoneStep(
             .fillMaxSize()
             .background(DobiBackground)
     ) {
-        StepperBar(currentStep = 3)
+        StepperBar(currentStep = 2)
 
         Column(
             modifier = Modifier
@@ -849,7 +702,7 @@ private fun DoneStep(
 
 @Composable
 private fun StepperBar(currentStep: Int) {
-    val steps = listOf("Details", "Class & Board", "Done")
+    val steps = listOf("Details", "Done")
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -893,7 +746,7 @@ private fun StepperBar(currentStep: Int) {
                 Spacer(Modifier.height(4.dp))
                 Text(
                     label,
-                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = if (isActive) SFProBold else SFProRegular),
+                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = if (isActive) SFProSemiBold else SFProRegular),
                     color = if (isActive) DobiPrimary else DobiTextTertiary
                 )
             }
