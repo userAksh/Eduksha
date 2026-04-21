@@ -74,14 +74,24 @@ import com.dobi.app.domain.model.Child
 import com.dobi.app.core.ui.theme.DobiPrimary
 import com.dobi.app.core.ui.theme.DobiPrimaryContainer
 import com.dobi.app.core.ui.theme.DobiPrimaryLight
+import com.dobi.app.core.ui.theme.DobiPrimarySoft
 import com.dobi.app.core.ui.theme.DobiTextPrimary
 import com.dobi.app.core.ui.theme.DobiTextSecondary
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-private val FieldBorder = Color(0xFFCBD5E1)
-private val PageBg = Color(0xFFF5F7FF)
+import com.dobi.app.core.ui.theme.DobiBackground
+import com.dobi.app.core.ui.theme.DobiBorder
+import com.dobi.app.core.ui.theme.DobiSurface
+import com.dobi.app.core.ui.theme.DobiSurfaceAlt
+import com.dobi.app.core.ui.theme.DobiTextTertiary
+import com.dobi.app.core.ui.theme.DobiAccentOrange
+import com.dobi.app.core.ui.theme.DobiAccentOrangeBg
+import com.dobi.app.core.ui.theme.DobiSuccess
+import com.dobi.app.core.ui.theme.DobiSuccessContainer
+import com.dobi.app.core.ui.theme.DobiError
+import com.dobi.app.core.ui.theme.DobiErrorContainer
 
 @Composable
 fun AddChildScreen(
@@ -102,7 +112,7 @@ fun AddChildScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(DobiBackground)
             .systemBarsPadding()
     ) {
         // Top app bar
@@ -172,14 +182,12 @@ private fun WelcomeStep(onStart: () -> Unit) {
             .padding(horizontal = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(Modifier.height(16.dp))
 
-        // Illustration
         Box(
             modifier = Modifier
                 .size(220.dp)
                 .clip(CircleShape)
-                .background(Color(0xFFEEF4FF)),
+                .background(DobiPrimarySoft),
             contentAlignment = Alignment.Center
         ) {
             Image(
@@ -190,7 +198,7 @@ private fun WelcomeStep(onStart: () -> Unit) {
             )
         }
 
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(4.dp))
 
         Text(
             text = "Add Your Child",
@@ -210,21 +218,21 @@ private fun WelcomeStep(onStart: () -> Unit) {
 
         FeatureRow(
             emoji = "📊",
-            bg = Color(0xFFEEF4FF),
+            bg = DobiPrimaryContainer,
             title = "Track progress",
             subtitle = "See what your child is learning every day."
         )
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(6.dp))
         FeatureRow(
             emoji = "🏆",
-            bg = Color(0xFFFFF7ED),
+            bg = DobiAccentOrangeBg,
             title = "Spot what matters",
             subtitle = "Identify strengths and topics that need attention."
         )
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(6.dp))
         FeatureRow(
             emoji = "✅",
-            bg = Color(0xFFECFDF5),
+            bg = DobiSuccessContainer,
             title = "Encourage better",
             subtitle = "Motivate your child with goals and rewards."
         )
@@ -254,7 +262,7 @@ private fun WelcomeStep(onStart: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp))
-                .background(Color(0xFFF1F5F9))
+                .background(DobiPrimarySoft)
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -290,7 +298,7 @@ private fun FeatureRow(emoji: String, bg: Color, title: String, subtitle: String
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 14.dp),
+                .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
@@ -359,7 +367,7 @@ private fun DetailsStep(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(PageBg)
+            .background(DobiBackground)
             .verticalScroll(rememberScrollState())
             .imePadding()
     ) {
@@ -387,7 +395,7 @@ private fun DetailsStep(
                     modifier = Modifier
                         .size(96.dp)
                         .clip(CircleShape)
-                        .border(2.dp, Color(0xFFCBD5E1), CircleShape)
+                        .border(2.dp, DobiBorder, CircleShape)
                         .background(Color.White),
                     contentAlignment = Alignment.Center
                 ) {
@@ -453,7 +461,7 @@ private fun DetailsStep(
                             .background(if (selected) DobiPrimary else Color.White)
                             .border(
                                 1.5.dp,
-                                if (selected) DobiPrimary else FieldBorder,
+                                if (selected) DobiPrimary else DobiBorder,
                                 RoundedCornerShape(12.dp)
                             )
                             .clickable(
@@ -526,7 +534,7 @@ private fun ClassBoardStep(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(PageBg)
+            .background(DobiBackground)
             .verticalScroll(rememberScrollState())
             .imePadding()
     ) {
@@ -696,7 +704,7 @@ private fun DoneStep(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(PageBg)
+            .background(DobiBackground)
     ) {
         StepperBar(currentStep = 3)
 
@@ -728,7 +736,7 @@ private fun DoneStep(
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(16.dp))
                         .background(Color.White)
-                        .border(1.dp, Color(0xFFE8EEF8), RoundedCornerShape(16.dp))
+                        .border(1.dp, DobiBorder, RoundedCornerShape(16.dp))
                         .padding(14.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -758,20 +766,20 @@ private fun DoneStep(
                         Box(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(6.dp))
-                                .background(Color(0xFFDCFCE7))
+                                .background(DobiSuccessContainer)
                                 .padding(horizontal = 8.dp, vertical = 4.dp)
                         ) {
                             Text(
                                 "Primary",
                                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                                color = Color(0xFF15803D)
+                                color = DobiSuccess
                             )
                         }
                     } else {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowForward,
                             contentDescription = null,
-                            tint = Color(0xFFCBD5E1),
+                            tint = DobiBorder,
                             modifier = Modifier.size(18.dp)
                         )
                     }
@@ -860,7 +868,7 @@ private fun StepperBar(currentStep: Int) {
                         .background(
                             when {
                                 isDone || isActive -> DobiPrimary
-                                else -> Color(0xFFE8EEF8)
+                                else -> DobiBorder
                             }
                         ),
                     contentAlignment = Alignment.Center
@@ -876,7 +884,7 @@ private fun StepperBar(currentStep: Int) {
                         Text(
                             "$stepNum",
                             style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
-                            color = if (isActive) Color.White else Color(0xFF94A3B8)
+                            color = if (isActive) Color.White else DobiTextTertiary
                         )
                     }
                 }
@@ -884,7 +892,7 @@ private fun StepperBar(currentStep: Int) {
                 Text(
                     label,
                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = if (isActive) FontWeight.Bold else FontWeight.Normal),
-                    color = if (isActive) DobiPrimary else Color(0xFF94A3B8)
+                    color = if (isActive) DobiPrimary else DobiTextTertiary
                 )
             }
 
@@ -894,7 +902,7 @@ private fun StepperBar(currentStep: Int) {
                         .weight(1f)
                         .height(2.dp)
                         .padding(bottom = 16.dp)
-                        .background(if (currentStep > stepNum) DobiPrimary else Color(0xFFE8EEF8))
+                        .background(if (currentStep > stepNum) DobiPrimary else DobiBorder)
                 )
             }
         }
@@ -916,10 +924,10 @@ private fun ErrorBox(message: String) {
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(10.dp))
-            .background(Color(0xFFFEE2E2))
+            .background(DobiErrorContainer)
             .padding(horizontal = 14.dp, vertical = 10.dp)
     ) {
-        Text("⚠️  $message", style = MaterialTheme.typography.bodySmall, color = Color(0xFFDC2626))
+        Text("⚠️  $message", style = MaterialTheme.typography.bodySmall, color = DobiError)
     }
 }
 
@@ -930,6 +938,6 @@ private fun fieldColors() = OutlinedTextFieldDefaults.colors(
     focusedContainerColor = Color.White,
     unfocusedContainerColor = Color.White,
     focusedBorderColor = DobiPrimary,
-    unfocusedBorderColor = FieldBorder,
+    unfocusedBorderColor = DobiBorder,
     cursorColor = DobiPrimary
 )
