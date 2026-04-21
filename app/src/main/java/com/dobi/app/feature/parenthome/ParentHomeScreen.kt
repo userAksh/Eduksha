@@ -74,6 +74,18 @@ fun ParentHomeScreen(
         }
     }
 
+    // Don't render any home UI until we've confirmed children exist.
+    // While loading or when empty, show a plain screen — the LaunchedEffect
+    // above will redirect to AddChild if the list is empty.
+    if (uiState.children.isEmpty()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(DobiPrimary)
+        )
+        return
+    }
+
     Scaffold(
         containerColor = DobiPrimary,
         floatingActionButton = {
@@ -179,27 +191,14 @@ fun ParentHomeScreen(
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        when {
-                            uiState.isLoading -> {
-                                Box(
-                                    modifier = Modifier.fillMaxSize(),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    CircularProgressIndicator(color = DobiPrimary)
-                                }
-                            }
-                            uiState.children.isEmpty() -> EmptyChildrenState()
-                            else -> {
-                                LazyColumn {
-                                    itemsIndexed(uiState.children) { index, child ->
-                                        ChildCard(
-                                            child = child,
-                                            colorIndex = index,
-                                            onClick = { onNavigateToChildHome(child.id) }
-                                        )
-                                        Spacer(modifier = Modifier.height(12.dp))
-                                    }
-                                }
+                        LazyColumn {
+                            itemsIndexed(uiState.children) { index, child ->
+                                ChildCard(
+                                    child = child,
+                                    colorIndex = index,
+                                    onClick = { onNavigateToChildHome(child.id) }
+                                )
+                                Spacer(modifier = Modifier.height(12.dp))
                             }
                         }
                     }
@@ -292,28 +291,3 @@ private fun Chip(text: String, bg: Color, accent: Color) {
     }
 }
 
-@Composable
-private fun EmptyChildrenState() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 60.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = "👶", fontSize = 52.sp)
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "No children added yet",
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
-                color = DobiTextPrimary
-            )
-            Spacer(modifier = Modifier.height(6.dp))
-            Text(
-                text = "Tap + to add your first child",
-                style = MaterialTheme.typography.bodyMedium,
-                color = DobiTextSecondary
-            )
-        }
-    }
-}
