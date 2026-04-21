@@ -187,7 +187,7 @@ private fun WelcomeStep(onStart: () -> Unit) {
             modifier = Modifier
                 .size(220.dp)
                 .clip(CircleShape)
-                .background(DobiPrimarySoft),
+                .background(DobiPrimaryContainer),
             contentAlignment = Alignment.Center
         ) {
             Image(
@@ -222,16 +222,16 @@ private fun WelcomeStep(onStart: () -> Unit) {
             title = "Track progress",
             subtitle = "See what your child is learning every day."
         )
-        Spacer(Modifier.height(6.dp))
+        Spacer(Modifier.height(14.dp))
         FeatureRow(
-            emoji = "🏆",
-            bg = DobiAccentOrangeBg,
+            emoji = "🏅",
+            bg = Color(0xFFFCE7F3),
             title = "Spot what matters",
             subtitle = "Identify strengths and topics that need attention."
         )
-        Spacer(Modifier.height(6.dp))
+        Spacer(Modifier.height(14.dp))
         FeatureRow(
-            emoji = "✅",
+            emoji = "🛡️",
             bg = DobiSuccessContainer,
             title = "Encourage better",
             subtitle = "Motivate your child with goals and rewards."
@@ -288,41 +288,38 @@ private fun WelcomeStep(onStart: () -> Unit) {
 
 @Composable
 private fun FeatureRow(emoji: String, bg: Color, title: String, subtitle: String) {
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        color = Color.White,
-        shadowElevation = 0.dp,
-        tonalElevation = 0.dp
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 2.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .size(60.dp)
+                .clip(RoundedCornerShape(14.dp))
+                .background(bg),
+            contentAlignment = Alignment.Center
         ) {
-            Box(
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(bg),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(emoji, fontSize = 22.sp)
-            }
-            Spacer(Modifier.width(14.dp))
-            Column {
-                Text(
-                    title,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                    color = DobiTextPrimary
-                )
-                Text(
-                    subtitle,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = DobiTextSecondary
-                )
-            }
+            Text(emoji, fontSize = 30.sp)
+        }
+        Spacer(Modifier.width(16.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = title,
+                fontSize = 17.sp,
+                fontWeight = FontWeight.Bold,
+                lineHeight = 22.sp,
+                color = DobiTextPrimary
+            )
+            Spacer(Modifier.height(4.dp))
+            Text(
+                text = subtitle,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Normal,
+                lineHeight = 20.sp,
+                color = DobiTextSecondary
+            )
         }
     }
 }

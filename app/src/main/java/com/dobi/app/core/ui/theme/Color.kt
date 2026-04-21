@@ -10,7 +10,7 @@ val DobiPrimaryContainer = Color(0xFFDBEAFE)
 val DobiPrimarySoft = Color(0xFFEEF4FF)
 
 // ── Surfaces / Neutrals ───────────────────────────────────────────────────────
-val DobiBackground = Color(0xFFF5F8FF)
+val DobiBackground = Color(0xFFFFFFFF)
 val DobiSurface = Color(0xFFFFFFFF)
 val DobiSurfaceAlt = Color(0xFFF8FAFF)
 val DobiBorder = Color(0xFFE5EBF5)
