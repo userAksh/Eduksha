@@ -277,7 +277,7 @@ private fun FeatureRow(emoji: String, bg: Color, title: String, subtitle: String
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         color = Color.White,
-        shadowElevation = 1.dp,
+        shadowElevation = 0.dp,
         tonalElevation = 0.dp
     ) {
         Row(
