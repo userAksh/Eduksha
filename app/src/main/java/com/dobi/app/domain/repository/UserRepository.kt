@@ -5,5 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
     val userRole: Flow<UserRole?>
+    val linkedChildId: Flow<String?>
+    val linkedParentId: Flow<String?>
     suspend fun selectRole(role: UserRole)
+    suspend fun saveLinkedChild(parentId: String, childId: String)
 }

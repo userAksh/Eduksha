@@ -11,6 +11,7 @@ import com.dobi.app.feature.childhome.ChildHomeScreen
 import com.dobi.app.feature.conceptdetail.ConceptDetailScreen
 import com.dobi.app.feature.conceptlist.ConceptListScreen
 import com.dobi.app.feature.homework.HomeworkLogScreen
+import com.dobi.app.feature.pairing.EnterPairingCodeScreen
 import com.dobi.app.feature.parenthome.ParentHomeScreen
 import com.dobi.app.feature.roleselection.RoleSelectionScreen
 import com.dobi.app.feature.selectchild.SelectChildScreen
@@ -32,7 +33,19 @@ fun DobiNavGraph(
                         popUpTo<Screen.RoleSelection> { inclusive = true }
                     }
                 },
-                onNavigateToSelectChild = { navController.navigate(Screen.SelectChild) }
+                onNavigateToSelectChild = { navController.navigate(Screen.SelectChild) },
+                onNavigateToPairingCode = { navController.navigate(Screen.EnterPairingCode) }
+            )
+        }
+
+        composable<Screen.EnterPairingCode> {
+            EnterPairingCodeScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToChildHome = { childId ->
+                    navController.navigate(Screen.ChildHome(childId)) {
+                        popUpTo<Screen.RoleSelection> { inclusive = true }
+                    }
+                }
             )
         }
 

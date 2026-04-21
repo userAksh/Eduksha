@@ -12,6 +12,7 @@ import kotlinx.serialization.Serializable
     ) : Screen()
     @Serializable data object AddChild : Screen()
     @Serializable data object SelectChild : Screen()
+    @Serializable data object EnterPairingCode : Screen()
     @Serializable data class ChildHome(val childId: String) : Screen()
     @Serializable data object ParentHome : Screen()
     @Serializable data object ConceptList : Screen()

@@ -1,7 +1,9 @@
 package com.dobi.app.feature.parenthome
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,10 +33,13 @@ import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Shield
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -49,6 +54,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dobi.app.domain.model.Child
+import com.dobi.app.core.ui.theme.DobiError
 import com.dobi.app.core.ui.theme.DobiPrimary
 import com.dobi.app.core.ui.theme.DobiPrimaryContainer
 import com.dobi.app.core.ui.theme.DobiPrimarySoft
@@ -77,6 +83,7 @@ fun ParentHomeScreen(
     viewModel: ParentHomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val pairingDialog by viewModel.pairingDialog.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.navToRoleSelection.collect { onNavigateToRoleSelection() }
@@ -107,6 +114,7 @@ fun ParentHomeScreen(
             children = uiState.children,
             onNavigateToChildHome = onNavigateToChildHome,
             onAddChild = onNavigateToAddChild,
+            onPairDevice = viewModel::onPairDeviceTapped,
             modifier = Modifier
                 .weight(1f)
                 .offset(y = (-24).dp)
@@ -114,6 +122,8 @@ fun ParentHomeScreen(
 
         BottomNav()
     }
+
+    PairingDialog(state = pairingDialog, onDismiss = viewModel::dismissPairingDialog)
 }
 
 // ── Header (blue) ─────────────────────────────────────────────────────────────
@@ -179,6 +189,7 @@ private fun ContentBlock(
     children: List<Child>,
     onNavigateToChildHome: (String) -> Unit,
     onAddChild: () -> Unit,
+    onPairDevice: (Child) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -229,7 +240,11 @@ private fun ContentBlock(
             }
 
             items(children) { child ->
-                ChildStatCard(child = child, onClick = { onNavigateToChildHome(child.id) })
+                ChildStatCard(
+                    child = child,
+                    onClick = { onNavigateToChildHome(child.id) },
+                    onLongPress = { onPairDevice(child) }
+                )
                 Spacer(Modifier.height(14.dp))
             }
 
@@ -244,8 +259,9 @@ private fun ContentBlock(
 
 // ── Child stat card ───────────────────────────────────────────────────────────
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun ChildStatCard(child: Child, onClick: () -> Unit) {
+private fun ChildStatCard(child: Child, onClick: () -> Unit, onLongPress: () -> Unit) {
     val avatarEmoji = when (child.gender) {
         "girl" -> "👧"
         "other" -> "🧒"
@@ -255,10 +271,11 @@ private fun ChildStatCard(child: Child, onClick: () -> Unit) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(
+            .combinedClickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
-                onClick = onClick
+                onClick = onClick,
+                onLongClick = onLongPress
             ),
         shape = RoundedCornerShape(18.dp),
         color = Color.White,
@@ -572,4 +589,80 @@ private fun NavTab(
             color = if (active) DobiPrimary else DobiTextSecondary
         )
     }
+}
+
+// ── Pairing dialog ────────────────────────────────────────────────────────────
+
+@Composable
+private fun PairingDialog(
+    state: ParentHomeViewModel.PairingDialogState,
+    onDismiss: () -> Unit
+) {
+    if (state is ParentHomeViewModel.PairingDialogState.Hidden) return
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            val name = when (state) {
+                is ParentHomeViewModel.PairingDialogState.Loading -> state.child.name
+                is ParentHomeViewModel.PairingDialogState.Shown -> state.child.name
+                is ParentHomeViewModel.PairingDialogState.Error -> state.child.name
+                else -> ""
+            }
+            Text(
+                text = "Pair device for $name",
+                fontSize = 18.sp,
+                fontWeight = SFProBold,
+                color = DobiTextPrimary
+            )
+        },
+        text = {
+            Column {
+                when (state) {
+                    is ParentHomeViewModel.PairingDialogState.Loading -> {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            CircularProgressIndicator(color = DobiPrimary, strokeWidth = 2.dp, modifier = Modifier.size(20.dp))
+                            Spacer(Modifier.width(12.dp))
+                            Text("Generating code…", fontSize = 14.sp, color = DobiTextSecondary)
+                        }
+                    }
+                    is ParentHomeViewModel.PairingDialogState.Shown -> {
+                        Text(
+                            "Enter this 6-digit code on the child's device. It expires in 10 minutes.",
+                            fontSize = 14.sp,
+                            color = DobiTextSecondary,
+                            lineHeight = 20.sp
+                        )
+                        Spacer(Modifier.height(20.dp))
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(14.dp))
+                                .background(DobiPrimaryContainer)
+                                .padding(vertical = 18.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = state.code.chunked(3).joinToString("  "),
+                                fontSize = 32.sp,
+                                fontWeight = SFProBold,
+                                color = DobiPrimary,
+                                letterSpacing = 4.sp
+                            )
+                        }
+                    }
+                    is ParentHomeViewModel.PairingDialogState.Error -> {
+                        Text(state.message, fontSize = 14.sp, color = DobiError)
+                    }
+                    else -> {}
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Done", color = DobiPrimary, fontWeight = SFProSemiBold)
+            }
+        },
+        containerColor = Color.White
+    )
 }

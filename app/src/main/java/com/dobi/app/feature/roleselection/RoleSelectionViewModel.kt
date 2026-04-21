@@ -21,7 +21,7 @@ class RoleSelectionViewModel @Inject constructor(
         object ToPhoneAuth : NavEvent()
         object ToParentHome : NavEvent()
         object ToSelectChild : NavEvent()
-        object ShowNoParentDialog : NavEvent()
+        object ToPairingCode : NavEvent()
         object ShowNoChildrenDialog : NavEvent()
     }
 
@@ -42,7 +42,8 @@ class RoleSelectionViewModel @Inject constructor(
         viewModelScope.launch {
             val uid = auth.currentUser?.uid
             if (uid == null) {
-                _navEvent.emit(NavEvent.ShowNoParentDialog)
+                // No parent logged in on this device — child needs to pair via code
+                _navEvent.emit(NavEvent.ToPairingCode)
                 return@launch
             }
             val children = childRepository.getChildren(uid).first()

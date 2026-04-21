@@ -61,9 +61,9 @@ fun RoleSelectionScreen(
     onNavigateToPhoneAuth: () -> Unit,
     onNavigateToParentHome: () -> Unit,
     onNavigateToSelectChild: () -> Unit,
+    onNavigateToPairingCode: () -> Unit,
     viewModel: RoleSelectionViewModel = hiltViewModel()
 ) {
-    var showNoParentDialog by remember { mutableStateOf(false) }
     var showNoChildrenDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
@@ -72,21 +72,10 @@ fun RoleSelectionScreen(
                 RoleSelectionViewModel.NavEvent.ToPhoneAuth -> onNavigateToPhoneAuth()
                 RoleSelectionViewModel.NavEvent.ToParentHome -> onNavigateToParentHome()
                 RoleSelectionViewModel.NavEvent.ToSelectChild -> onNavigateToSelectChild()
-                RoleSelectionViewModel.NavEvent.ShowNoParentDialog -> showNoParentDialog = true
+                RoleSelectionViewModel.NavEvent.ToPairingCode -> onNavigateToPairingCode()
                 RoleSelectionViewModel.NavEvent.ShowNoChildrenDialog -> showNoChildrenDialog = true
             }
         }
-    }
-
-    if (showNoParentDialog) {
-        AlertDialog(
-            onDismissRequest = { showNoParentDialog = false },
-            title = { Text("No Parent Account") },
-            text = { Text("A parent needs to create an account first before a child can log in.") },
-            confirmButton = {
-                TextButton(onClick = { showNoParentDialog = false }) { Text("Got it") }
-            }
-        )
     }
 
     if (showNoChildrenDialog) {
