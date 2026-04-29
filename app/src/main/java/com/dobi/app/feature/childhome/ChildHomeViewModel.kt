@@ -5,8 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.dobi.app.core.navigation.Screen
-import com.dobi.app.domain.model.LearningStatus
-import com.dobi.app.domain.model.TodayLearningItem
 import com.dobi.app.domain.repository.ChildRepository
 import com.dobi.app.domain.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -27,39 +25,21 @@ class ChildHomeViewModel @Inject constructor(
 
     private val childId: String = savedStateHandle.toRoute<Screen.ChildHome>().childId
 
-    private val _uiState = MutableStateFlow(
-        ChildHomeUiState(
-            childName = "",
-            streakDays = 3,
-            todayItems = listOf(
-                TodayLearningItem(
-                    conceptId = "1",
-                    conceptName = "Addition of Fractions",
-                    subject = "Mathematics",
-                    unit = "Fractions",
-                    status = LearningStatus.COMPLETED
-                ),
-                TodayLearningItem(
-                    conceptId = "2",
-                    conceptName = "Subtraction of Fractions",
-                    subject = "Mathematics",
-                    unit = "Fractions",
-                    status = LearningStatus.COMPLETED
-                ),
-                TodayLearningItem(
-                    conceptId = "3",
-                    conceptName = "Water Cycle",
-                    subject = "Science",
-                    unit = "Our Environment",
-                    status = LearningStatus.IN_PROGRESS
-                )
-            )
-        )
-    )
+    private val _uiState = MutableStateFlow(ChildHomeUiState())
     val uiState = _uiState.asStateFlow()
 
     init {
+        registerActiveChild()
         loadChild()
+    }
+
+    private fun registerActiveChild() {
+        viewModelScope.launch {
+            val parentId = auth.currentUser?.uid
+                ?: userRepository.linkedParentId.first()
+                ?: ""
+            userRepository.saveLinkedChild(parentId, childId)
+        }
     }
 
     private fun loadChild() {
@@ -70,6 +50,7 @@ class ChildHomeViewModel @Inject constructor(
             childRepository.getChild(parentId, childId)
                 .onSuccess { child ->
                     _uiState.value = _uiState.value.copy(childName = child.name)
+                    userRepository.saveLinkedChildGrade(child.grade)
                 }
         }
     }

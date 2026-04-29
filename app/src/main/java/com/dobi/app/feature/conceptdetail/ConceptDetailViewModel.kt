@@ -14,13 +14,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ConceptDetailViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle,
     private val getConceptByIdUseCase: GetConceptByIdUseCase,
     private val saveCompletionUseCase: SaveCompletionUseCase
 ) : ViewModel() {
@@ -30,7 +32,30 @@ class ConceptDetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(ConceptDetailUiState())
     val uiState = _uiState.asStateFlow()
 
-    init { loadConcept() }
+    init {
+        loadConcept()
+        observeUploadResult()
+    }
+
+    private fun observeUploadResult() {
+        savedStateHandle.getStateFlow<String?>(KEY_UPLOAD_RESULT, null)
+            .onEach { kindKey ->
+                val mode = when (kindKey) {
+                    "class_work" -> WorkMode.CLASS_WORK
+                    "self_learning" -> WorkMode.SELF_LEARNING
+                    else -> null
+                }
+                if (mode != null) {
+                    _uiState.update { it.copy(selectedWorkMode = mode) }
+                    savedStateHandle[KEY_UPLOAD_RESULT] = null
+                }
+            }
+            .launchIn(viewModelScope)
+    }
+
+    companion object {
+        const val KEY_UPLOAD_RESULT = "uploaded_kind"
+    }
 
     private fun loadConcept() {
         viewModelScope.launch {

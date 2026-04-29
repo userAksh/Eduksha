@@ -15,9 +15,13 @@ class UserRepositoryImpl @Inject constructor(
     override val userRole: Flow<UserRole?> = userPreferences.userRole
     override val linkedChildId: Flow<String?> = userPreferences.linkedChildId
     override val linkedParentId: Flow<String?> = userPreferences.linkedParentId
+    override val linkedChildGrade: Flow<Int> = userPreferences.linkedChildGrade
 
     override suspend fun selectRole(role: UserRole) = userPreferences.saveRole(role)
 
     override suspend fun saveLinkedChild(parentId: String, childId: String) =
         userPreferences.saveLinkedChild(parentId, childId)
+
+    override suspend fun saveLinkedChildGrade(grade: Int) =
+        userPreferences.saveLinkedChildGrade(grade)
 }

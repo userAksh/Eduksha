@@ -19,9 +19,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.AutoStories
 import androidx.compose.material.icons.filled.BookmarkBorder
-import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.HelpOutline
+import androidx.compose.material.icons.filled.School
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -75,6 +76,8 @@ import com.dobi.app.domain.model.WorkMode
 @Composable
 fun ConceptDetailScreen(
     onNavigateBack: () -> Unit,
+    onAnswerQuestions: () -> Unit,
+    onUploadWork: (kindKey: String) -> Unit,
     viewModel: ConceptDetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -105,6 +108,8 @@ fun ConceptDetailScreen(
                 uiState = uiState,
                 onWorkModeSelected = viewModel::onWorkModeSelected,
                 onDifficultySelected = viewModel::onDifficultySelected,
+                onAnswerQuestions = onAnswerQuestions,
+                onUploadWork = onUploadWork,
                 onMarkAsDone = viewModel::onMarkAsDone,
                 modifier = Modifier.padding(innerPadding)
             )
@@ -140,6 +145,8 @@ private fun ConceptDetailContent(
     uiState: ConceptDetailUiState,
     onWorkModeSelected: (WorkMode) -> Unit,
     onDifficultySelected: (Difficulty) -> Unit,
+    onAnswerQuestions: () -> Unit,
+    onUploadWork: (kindKey: String) -> Unit,
     onMarkAsDone: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -180,23 +187,31 @@ private fun ConceptDetailContent(
         Spacer(Modifier.height(28.dp))
 
         // Section 1 — Work mode
-        SectionLabel(number = "1", title = "How did you work on this?")
+        SectionLabel(number = "1", title = "Show us how you studied this concept")
         Spacer(Modifier.height(12.dp))
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             WorkModeCard(
-                icon = Icons.Default.CameraAlt,
-                title = "Upload Work",
-                subtitle = "I uploaded my\nnotes or photos",
-                selected = uiState.selectedWorkMode == WorkMode.UPLOAD,
-                onClick = { onWorkModeSelected(WorkMode.UPLOAD) },
+                icon = Icons.Default.School,
+                title = "Upload Class Work",
+                subtitle = "Notes I made\nin class",
+                selected = uiState.selectedWorkMode == WorkMode.CLASS_WORK,
+                onClick = { onUploadWork("class_work") },
+                modifier = Modifier.weight(1f)
+            )
+            WorkModeCard(
+                icon = Icons.Default.AutoStories,
+                title = "Upload Self Learning",
+                subtitle = "Notes I made\non my own",
+                selected = uiState.selectedWorkMode == WorkMode.SELF_LEARNING,
+                onClick = { onUploadWork("self_learning") },
                 modifier = Modifier.weight(1f)
             )
             WorkModeCard(
                 icon = Icons.Default.HelpOutline,
                 title = "Answer Questions",
-                subtitle = "I practiced with\nquestions",
+                subtitle = "I practiced\nwith questions",
                 selected = uiState.selectedWorkMode == WorkMode.QUESTIONS,
-                onClick = { onWorkModeSelected(WorkMode.QUESTIONS) },
+                onClick = onAnswerQuestions,
                 modifier = Modifier.weight(1f)
             )
         }

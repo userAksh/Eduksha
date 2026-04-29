@@ -5,730 +5,640 @@
     "subject": "Science",
     "subjectColor": "#22C55E",
     "subjectIcon": "🔬",
-    "generatedAt": "2026-04-19"
+    "generatedAt": "2026-04-29",
+    "textbook": "NCERT Curiosity (2024) — Reprint 2026-27"
   },
   "units": [
     {
       "id": "sci6_u01",
-      "name": "Food: Where Does It Come From?",
+      "name": "The Wonderful World of Science",
       "order": 1,
       "concepts": [
         {
           "id": "sci6_c001",
-          "name": "Sources of Food — Plants",
-          "description": "Plants are a major source of food for humans and animals. We eat different parts of plants — roots, stems, leaves, flowers, fruits, and seeds. Examples include carrots (root), potato (stem), spinach (leaf), cauliflower (flower), mango (fruit), and wheat (seed).",
+          "name": "What Is Science?",
+          "description": "Science is a way of understanding the world around us. It is not just a collection of facts — it is a way of thinking, observing, and finding out by doing. Asking questions like 'why' and 'how', and looking for evidence-based answers, is at the heart of being a scientist. Cooking, gardening, fixing things, even playing — all these involve scientific thinking.",
           "expectedDifficulty": "EASY",
-          "aliases": ["plant food sources", "food from plants", "edible plant parts"],
+          "aliases": ["what is science", "scientific thinking", "curiosity"],
           "prerequisites": [],
           "order": 1
         },
         {
           "id": "sci6_c002",
-          "name": "Sources of Food — Animals",
-          "description": "Animals provide us with food products like milk, eggs, meat, fish, and honey. These are called animal products. Milk gives us dairy items like butter, cheese, and curd. Bees collect nectar and make honey.",
+          "name": "Asking Questions and Exploring",
+          "description": "Curiosity drives science. Scientists notice something interesting, ask questions, make a guess (hypothesis), test it through observations or experiments, and look at the results. Mistakes and unexpected results are valuable — they teach us something new. Doing science also means working together, sharing what we find, and building on each other's ideas. The journey of science is about exploring, not just memorising.",
           "expectedDifficulty": "EASY",
-          "aliases": ["animal food sources", "food from animals", "animal products"],
-          "prerequisites": [],
-          "order": 2
-        },
-        {
-          "id": "sci6_c003",
-          "name": "Herbivores, Carnivores, and Omnivores",
-          "description": "Animals are classified based on what they eat. Herbivores eat only plants (cow, deer, rabbit). Carnivores eat only other animals (lion, eagle, shark). Omnivores eat both plants and animals (humans, bears, crows).",
-          "expectedDifficulty": "EASY",
-          "aliases": ["types of animals based on food", "food habits of animals", "eating habits"],
-          "prerequisites": ["sci6_c001", "sci6_c002"],
-          "order": 3
-        },
-        {
-          "id": "sci6_c004",
-          "name": "Edible Parts of a Plant",
-          "description": "Different parts of a plant are edible. Root — carrot, radish, beetroot. Stem — potato, sugarcane, ginger. Leaf — spinach, cabbage, curry leaves. Flower — broccoli, cauliflower. Fruit — mango, tomato, apple. Seed — wheat, rice, mustard.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["plant parts we eat", "parts of plant as food"],
+          "aliases": ["scientific method", "asking questions", "doing science", "exploring"],
           "prerequisites": ["sci6_c001"],
-          "order": 4
+          "order": 2
         }
       ]
     },
     {
       "id": "sci6_u02",
-      "name": "Components of Food",
+      "name": "Diversity in the Living World",
       "order": 2,
       "concepts": [
         {
-          "id": "sci6_c005",
-          "name": "Nutrients in Food",
-          "description": "Food contains nutrients that our body needs to stay healthy and grow. The five main nutrients are: Carbohydrates (energy), Proteins (growth and repair), Fats (energy store), Vitamins (protection), and Minerals (body functions). Water and dietary fibre are also essential.",
+          "id": "sci6_c003",
+          "name": "Diversity in Plants and Animals Around Us",
+          "description": "The world around us has an enormous variety of plants and animals. They differ in size, shape, colour, where they live, and how they move and feed. By observing carefully, we can spot many differences and similarities — a sparrow, a butterfly, a peepal tree, and a cat are all very different yet all alive. This rich variety is called biodiversity.",
           "expectedDifficulty": "EASY",
-          "aliases": ["food components", "types of nutrients", "what is in food"],
+          "aliases": ["diversity in plants and animals", "biodiversity", "variety in living things"],
           "prerequisites": [],
           "order": 1
         },
         {
-          "id": "sci6_c006",
-          "name": "Carbohydrates",
-          "description": "Carbohydrates are the main source of energy for the body. They are found in rice, wheat, potato, bread, sugar, and maize. Starch and sugar are two types of carbohydrates. The iodine test is used to detect starch — iodine turns blue-black in the presence of starch.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["starch", "sugars", "energy foods", "carbs"],
-          "prerequisites": ["sci6_c005"],
+          "id": "sci6_c004",
+          "name": "How to Group Plants and Animals?",
+          "description": "Sorting things into groups makes them easier to study. Plants can be grouped by size and structure: herbs (small soft stems like mint, grass), shrubs (medium woody plants like rose), trees (tall with hard trunks like mango), creepers (lie on the ground like pumpkin), and climbers (use support like money plant). Animals can be grouped by where they live, what they eat, or how they move.",
+          "expectedDifficulty": "OK",
+          "aliases": ["grouping plants", "herbs shrubs trees", "creepers climbers", "classifying living things"],
+          "prerequisites": ["sci6_c003"],
           "order": 2
         },
         {
-          "id": "sci6_c007",
-          "name": "Proteins",
-          "description": "Proteins are called body-building foods because they help in growth and repair of body cells. Rich sources include pulses (dal), eggs, meat, fish, milk, cheese, and nuts. The test for protein uses copper sulphate and caustic soda solution — a violet colour indicates presence of protein.",
+          "id": "sci6_c005",
+          "name": "Plants and Animals in Different Surroundings",
+          "description": "Different plants and animals live in different surroundings — these surroundings are called habitats. A camel lives in the desert; a fish lives in water; a polar bear lives in icy regions. Each living thing has special features (adaptations) that help it survive in its habitat: thick fur in cold places, fins for swimming, deep roots in dry places. Habitats can be terrestrial (land) or aquatic (water).",
           "expectedDifficulty": "OK",
-          "aliases": ["body-building foods", "protein sources"],
-          "prerequisites": ["sci6_c005"],
+          "aliases": ["habitats", "adaptation", "terrestrial aquatic", "where animals live"],
+          "prerequisites": ["sci6_c003"],
           "order": 3
-        },
-        {
-          "id": "sci6_c008",
-          "name": "Fats",
-          "description": "Fats provide more energy than carbohydrates and are stored in the body for later use. Sources include butter, ghee, oil, nuts, and meat. The paper test is used to detect fats — fat leaves a translucent (greasy) spot on paper.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["lipids", "energy-storing foods", "fat sources"],
-          "prerequisites": ["sci6_c005"],
-          "order": 4
-        },
-        {
-          "id": "sci6_c009",
-          "name": "Vitamins and Minerals",
-          "description": "Vitamins protect the body from diseases and help in proper functioning. Key vitamins: A (eyesight), B (nerves), C (immunity, gums), D (bones). Minerals like calcium (bones and teeth), iron (blood), and iodine (thyroid) are needed in small amounts but are critical.",
-          "expectedDifficulty": "OK",
-          "aliases": ["vitamins", "minerals", "protective foods", "micronutrients"],
-          "prerequisites": ["sci6_c005"],
-          "order": 5
-        },
-        {
-          "id": "sci6_c010",
-          "name": "Deficiency Diseases",
-          "description": "When a nutrient is missing from the diet over a long period, the body develops a deficiency disease. Examples: Vitamin A deficiency → Night blindness. Vitamin C deficiency → Scurvy (bleeding gums). Vitamin D deficiency → Rickets (weak bones). Iron deficiency → Anaemia. Iodine deficiency → Goitre.",
-          "expectedDifficulty": "OK",
-          "aliases": ["diseases due to lack of nutrients", "nutritional deficiency", "malnutrition diseases"],
-          "prerequisites": ["sci6_c009"],
-          "order": 6
-        },
-        {
-          "id": "sci6_c011",
-          "name": "Balanced Diet",
-          "description": "A balanced diet contains all nutrients in the right proportions — carbohydrates, proteins, fats, vitamins, minerals, water, and roughage. It keeps us healthy, provides energy, and prevents deficiency diseases. The requirement varies by age, gender, and physical activity.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["healthy diet", "what is a balanced diet", "nutrition"],
-          "prerequisites": ["sci6_c005", "sci6_c006", "sci6_c007", "sci6_c008", "sci6_c009"],
-          "order": 7
         }
       ]
     },
     {
       "id": "sci6_u03",
-      "name": "Fibre to Fabric",
+      "name": "Mindful Eating: A Path to a Healthy Body",
       "order": 3,
       "concepts": [
         {
-          "id": "sci6_c012",
-          "name": "Natural and Synthetic Fibres",
-          "description": "Fibres are thin thread-like strands used to make fabric. Natural fibres come from plants (cotton, jute, flax) or animals (wool, silk). Synthetic fibres are man-made from chemicals (nylon, polyester). Natural fibres are breathable and biodegradable; synthetic fibres are durable and cheaper.",
+          "id": "sci6_c006",
+          "name": "What Do We Eat?",
+          "description": "We eat many different foods every day. Food gives us energy to move, helps our body grow, and keeps us healthy. The food we eat comes mainly from plants (rice, wheat, dal, vegetables, fruits) and animals (milk, eggs, fish, meat). Different parts of plants are edible — roots (carrot), stems (potato), leaves (spinach), fruits (mango), and seeds (rice).",
           "expectedDifficulty": "EASY",
-          "aliases": ["types of fibres", "plant fibres", "animal fibres", "man-made fibres"],
+          "aliases": ["what do we eat", "sources of food", "food from plants and animals"],
           "prerequisites": [],
           "order": 1
         },
         {
-          "id": "sci6_c013",
-          "name": "Cotton — From Plant to Fibre",
-          "description": "Cotton comes from the cotton plant (Gossypium). The cotton bolls are harvested and the seeds are separated from fibres by a process called ginning. Cotton grows in warm, humid climates. India (Gujarat, Maharashtra) is a major producer. Cotton fabric is comfortable, absorbs sweat, and is suitable for hot weather.",
+          "id": "sci6_c007",
+          "name": "What are the Components of Food?",
+          "description": "Food is made up of nutrients that the body needs. The main nutrients are: carbohydrates (give energy — rice, wheat, potato), proteins (build and repair the body — dal, eggs, milk), fats (store energy — ghee, butter, nuts), vitamins (protect from disease — fruits, vegetables), and minerals (needed in small amounts — calcium, iron). Water and roughage (dietary fibre) are also essential.",
           "expectedDifficulty": "OK",
-          "aliases": ["cotton plant", "ginning", "cotton fabric"],
-          "prerequisites": ["sci6_c012"],
+          "aliases": ["components of food", "nutrients", "carbohydrates proteins fats", "vitamins minerals"],
+          "prerequisites": ["sci6_c006"],
           "order": 2
         },
         {
-          "id": "sci6_c014",
-          "name": "Jute — Properties and Uses",
-          "description": "Jute comes from the jute plant (Corchorus) and is known as the 'golden fibre'. The stems are soaked in water (retting) to separate the fibres. Jute is used to make sacks, mats, ropes, and carpets. West Bengal is the largest jute-producing state in India.",
-          "expectedDifficulty": "OK",
-          "aliases": ["jute fibre", "golden fibre", "retting"],
-          "prerequisites": ["sci6_c012"],
+          "id": "sci6_c008",
+          "name": "How to Test Different Components of Food?",
+          "description": "Simple tests can detect nutrients in food. Iodine test: turns blue-black with starch (carbohydrates). Paper test: a fat sample leaves a translucent (greasy) spot on paper. Protein test: copper sulphate + caustic soda solution turns violet in the presence of protein. These tests are easy to do and show that even everyday foods contain measurable nutrients.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["testing nutrients", "iodine test for starch", "paper test for fat", "protein test"],
+          "prerequisites": ["sci6_c007"],
           "order": 3
         },
         {
-          "id": "sci6_c015",
-          "name": "Spinning and Weaving",
-          "description": "Spinning is the process of twisting fibres into yarn using a charkha or spinning machine. Weaving is the process of arranging two sets of yarn (warp and weft) at right angles on a loom to make fabric. Knitting uses a single yarn looped together with needles to make fabric.",
+          "id": "sci6_c009",
+          "name": "Balanced Diet",
+          "description": "A balanced diet contains all nutrients in the right proportions — carbohydrates, proteins, fats, vitamins, minerals, water, and fibre. It keeps us healthy, gives us energy, and helps the body grow. The right amount varies by age, gender, and activity. Eating too much of one nutrient or too little of another causes deficiency diseases (e.g., night blindness, scurvy, anaemia, goitre). Mindful eating means choosing food that is healthy and not wasted.",
           "expectedDifficulty": "OK",
-          "aliases": ["making fabric", "yarn to fabric", "charkha", "loom", "weaving vs knitting"],
-          "prerequisites": ["sci6_c013"],
-          "order": 4
-        }
-      ]
-    },
-    {
-      "id": "sci6_u04",
-      "name": "Sorting Materials into Groups",
-      "order": 4,
-      "concepts": [
-        {
-          "id": "sci6_c016",
-          "name": "Properties of Materials",
-          "description": "Materials can be grouped based on their properties: appearance (shiny or dull), hardness (hard or soft), texture (rough or smooth), flexibility (flexible or rigid), and solubility (soluble or insoluble in water). Understanding these properties helps us choose the right material for the right purpose.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["material properties", "characteristics of materials"],
-          "prerequisites": [],
-          "order": 1
-        },
-        {
-          "id": "sci6_c017",
-          "name": "Transparency, Translucency, and Opacity",
-          "description": "Transparent materials allow light to pass through completely (clear glass, water). Translucent materials allow only some light to pass through (frosted glass, butter paper, thin cloth). Opaque materials do not allow any light to pass through (wood, metal, brick). This property is important in choosing materials for windows, containers, etc.",
-          "expectedDifficulty": "OK",
-          "aliases": ["transparent objects", "opaque objects", "translucent materials", "light through materials"],
-          "prerequisites": ["sci6_c016"],
-          "order": 2
-        },
-        {
-          "id": "sci6_c018",
-          "name": "Solubility in Water",
-          "description": "Some substances dissolve in water (soluble) like salt, sugar, and copper sulphate. Others do not dissolve (insoluble) like sand, chalk, and oil. A solution is a uniform mixture of a solute dissolved in a solvent. Miscible liquids mix with water (vinegar, alcohol); immiscible liquids do not (oil).",
-          "expectedDifficulty": "OK",
-          "aliases": ["soluble and insoluble", "dissolving in water", "solution"],
-          "prerequisites": ["sci6_c016"],
-          "order": 3
-        },
-        {
-          "id": "sci6_c019",
-          "name": "Floating and Sinking",
-          "description": "Objects that are lighter than water (less dense) float; objects that are heavier than water (more dense) sink. Shape also matters — a lump of clay sinks but the same clay shaped into a boat floats. Density, not just weight, determines whether an object floats or sinks.",
-          "expectedDifficulty": "OK",
-          "aliases": ["float or sink", "density and floating", "buoyancy basics"],
-          "prerequisites": ["sci6_c016"],
-          "order": 4
-        }
-      ]
-    },
-    {
-      "id": "sci6_u05",
-      "name": "Separation of Substances",
-      "order": 5,
-      "concepts": [
-        {
-          "id": "sci6_c020",
-          "name": "Handpicking and Threshing",
-          "description": "Handpicking is used to separate larger impurities from a mixture by hand (e.g., removing stones from rice). Threshing is the process of separating grain from stalks by beating the harvested crop against a hard surface or using a threshing machine. Used for wheat, rice, and other crops.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["handpicking method", "threshing grain"],
-          "prerequisites": [],
-          "order": 1
-        },
-        {
-          "id": "sci6_c021",
-          "name": "Winnowing",
-          "description": "Winnowing separates lighter components (husk, chaff) from heavier components (grain) using wind or blowing air. The mixture is dropped from a height and wind blows the lighter husk away while the heavier grain falls straight down. Used by farmers to clean grains after threshing.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["winnowing method", "separating husk from grain"],
-          "prerequisites": ["sci6_c020"],
-          "order": 2
-        },
-        {
-          "id": "sci6_c022",
-          "name": "Sieving",
-          "description": "Sieving separates mixtures based on the size of particles using a sieve (mesh). Smaller particles pass through the holes while larger particles are retained. Used to separate flour from bran, fine sand from coarse gravel, or to remove lumps from flour.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["sieve", "sieving method", "separating by size"],
-          "prerequisites": [],
-          "order": 3
-        },
-        {
-          "id": "sci6_c023",
-          "name": "Sedimentation and Decantation",
-          "description": "Sedimentation is the settling of insoluble heavy particles (sediment) to the bottom of a liquid when left undisturbed. Decantation is the process of carefully pouring out the clear liquid on top without disturbing the sediment. Used to separate mud from water.",
-          "expectedDifficulty": "OK",
-          "aliases": ["sedimentation", "decantation", "settling of particles"],
-          "prerequisites": ["sci6_c018"],
+          "aliases": ["balanced diet", "deficiency diseases", "healthy eating", "mindful eating"],
+          "prerequisites": ["sci6_c007"],
           "order": 4
         },
         {
-          "id": "sci6_c024",
-          "name": "Filtration",
-          "description": "Filtration separates insoluble solid particles from a liquid using a filter (like filter paper or cloth). The liquid that passes through is called the filtrate; the solid that remains is the residue. Filtration cannot separate dissolved substances — only suspended (undissolved) particles.",
-          "expectedDifficulty": "OK",
-          "aliases": ["filtration method", "filter paper", "filtrate and residue"],
-          "prerequisites": ["sci6_c023"],
+          "id": "sci6_c010",
+          "name": "Millets: Nutrition-rich Cereals",
+          "description": "Millets like jowar, bajra, ragi, and sanwa are traditional Indian cereals. They are rich in protein, fibre, iron, and calcium. They grow well even in dry regions with little water and few fertilisers, making them climate-friendly. The United Nations declared 2023 as the International Year of Millets to revive their use. Adding millets to the diet helps both health and the environment.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["millets", "jowar bajra ragi", "international year of millets", "traditional cereals"],
+          "prerequisites": ["sci6_c009"],
           "order": 5
         },
         {
-          "id": "sci6_c025",
-          "name": "Evaporation",
-          "description": "Evaporation separates a dissolved solid (solute) from a liquid (solvent) by heating. The liquid evaporates as water vapour, leaving the solid behind. Example: boiling salt water leaves salt crystals. Used to obtain salt from sea water in salt pans.",
+          "id": "sci6_c011",
+          "name": "Food Miles: From Farm to Our Plate",
+          "description": "Food miles is the distance food travels from where it is grown to our plate. Eating local and seasonal food reduces food miles, supports nearby farmers, and saves fuel and packaging. Long-distance food (apples from another country, packaged snacks) uses more energy and adds to pollution. Buying from local markets and reducing food waste are simple ways to help the planet.",
           "expectedDifficulty": "OK",
-          "aliases": ["evaporation method", "separating dissolved solids", "salt from seawater"],
-          "prerequisites": ["sci6_c018"],
+          "aliases": ["food miles", "local food", "farm to plate", "reducing food waste"],
+          "prerequisites": [],
           "order": 6
         }
       ]
     },
     {
-      "id": "sci6_u06",
-      "name": "Changes Around Us",
-      "order": 6,
+      "id": "sci6_u04",
+      "name": "Exploring Magnets",
+      "order": 4,
       "concepts": [
         {
-          "id": "sci6_c026",
-          "name": "Reversible Changes",
-          "description": "A reversible change can be undone — the material can be brought back to its original state. Examples: melting of ice, dissolving sugar in water, stretching a rubber band, folding paper, inflating a balloon. No new substance is formed in reversible changes.",
+          "id": "sci6_c012",
+          "name": "Magnetic and Non-magnetic Materials",
+          "description": "A magnet attracts certain materials called magnetic materials — mainly iron, nickel, and cobalt. Materials that are not attracted are non-magnetic — like aluminium, copper, wood, plastic, rubber, and glass. Steel (an alloy of iron) is magnetic. This property is used to separate magnetic materials from waste, like iron filings from sand.",
           "expectedDifficulty": "EASY",
-          "aliases": ["reversible changes examples", "changes that can be undone"],
+          "aliases": ["magnetic materials", "non-magnetic materials", "what magnets attract"],
           "prerequisites": [],
           "order": 1
         },
         {
-          "id": "sci6_c027",
-          "name": "Irreversible Changes",
-          "description": "An irreversible change cannot be undone — the original material cannot be recovered. Examples: burning wood, cooking food, rusting of iron, curdling of milk, ripening of fruit, setting of cement. A new substance is usually formed. These are often chemical changes.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["irreversible changes examples", "permanent changes", "chemical changes"],
-          "prerequisites": ["sci6_c026"],
+          "id": "sci6_c013",
+          "name": "Poles of a Magnet",
+          "description": "Every magnet has two poles — North (N) and South (S). The pull of a magnet is strongest at the poles. Iron filings sprinkled around a bar magnet collect mostly at the ends, showing where the poles are. Even a tiny piece of a broken magnet has both N and S poles — you can never get a magnet with only one pole.",
+          "expectedDifficulty": "OK",
+          "aliases": ["poles of magnet", "north south pole", "magnetic field strongest at poles"],
+          "prerequisites": ["sci6_c012"],
           "order": 2
         },
         {
-          "id": "sci6_c028",
-          "name": "Physical vs Chemical Changes",
-          "description": "Physical changes affect only the form or appearance of a substance — no new substance is formed and the change is usually reversible (melting, cutting, dissolving). Chemical changes produce one or more new substances with different properties and are usually irreversible (burning, rusting, cooking, fermentation).",
+          "id": "sci6_c014",
+          "name": "Finding Directions",
+          "description": "A freely suspended magnet always points along the North-South direction. This is because the Earth itself behaves like a giant magnet. A magnetic compass is a small magnetic needle that pivots freely; the red (or marked) end points to geographic North. Compasses help travellers, hikers, ships, and pilots find their way. Smartphones also use digital compasses based on the same idea.",
           "expectedDifficulty": "OK",
-          "aliases": ["physical and chemical changes", "types of changes"],
-          "prerequisites": ["sci6_c026", "sci6_c027"],
+          "aliases": ["magnetic compass", "finding directions", "earth as a magnet", "compass needle"],
+          "prerequisites": ["sci6_c013"],
           "order": 3
         },
         {
-          "id": "sci6_c029",
-          "name": "Expansion and Contraction",
-          "description": "Most materials expand (increase in size) when heated and contract (decrease in size) when cooled. This is due to the faster movement of particles on heating. Examples: gaps are left between railway tracks and bridges to allow for expansion. Liquids expand more than solids; gases expand most.",
+          "id": "sci6_c015",
+          "name": "Attraction and Repulsion between Magnets",
+          "description": "Like poles of magnets repel each other (N and N push away, S and S push away). Unlike poles attract each other (N and S pull together). This is the rule of magnetic interaction. We can test it by bringing two bar magnets near each other slowly and feeling the push or pull. Repulsion is the surest test that an object is a magnet.",
           "expectedDifficulty": "OK",
-          "aliases": ["thermal expansion", "expansion on heating", "contraction on cooling"],
-          "prerequisites": ["sci6_c026"],
+          "aliases": ["like poles repel", "unlike poles attract", "attraction and repulsion of magnets"],
+          "prerequisites": ["sci6_c013"],
+          "order": 4
+        },
+        {
+          "id": "sci6_c016",
+          "name": "Fun with Magnets",
+          "description": "Magnets are used in many objects we use daily — fridge magnets, the speakers in earphones and TVs, electric motors, toys, magnetic latches on bags and cupboards, and credit/debit card strips. We can build simple things with magnets: a hanging compass, a magnet maze, or a paperclip lifter. Magnets should be kept away from electronic items like watches and TVs.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["uses of magnets", "everyday magnets", "fun with magnets"],
+          "prerequisites": ["sci6_c012"],
+          "order": 5
+        }
+      ]
+    },
+    {
+      "id": "sci6_u05",
+      "name": "Measurement of Length and Motion",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "sci6_c017",
+          "name": "How Do We Measure?",
+          "description": "Long ago, people measured length using parts of the body — handspan, foot, cubit (elbow to fingertip), and pace. The problem is that these vary from person to person, so the same measurement gave different answers. To fix this, the world agreed on standard units that everyone uses. This way, a 'metre' or a 'centimetre' means the same length to anyone, anywhere.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["how we measure", "handspan cubit foot", "need for standard units"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c018",
+          "name": "Standard Units",
+          "description": "The International System of Units (SI) provides standard units accepted worldwide. The SI unit of length is the metre (m). Smaller units: centimetre (cm) and millimetre (mm). Larger unit: kilometre (km). 1 metre = 100 cm = 1000 mm; 1 km = 1000 m. We use different units for different distances — millimetres for a pencil tip, centimetres for a notebook, metres for a room, kilometres for a city.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["SI units", "metre centimetre", "units of length", "kilometre"],
+          "prerequisites": ["sci6_c017"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c019",
+          "name": "Correct Way of Measuring Length",
+          "description": "To measure length correctly: place the ruler flat along the object so that the zero mark is at one end of the object; read the number at the other end at eye level (looking straight down to avoid parallax error). If the zero mark of the ruler is broken or worn, start from a clear mark and subtract. Use the right tool — a ruler for short straight things, a measuring tape for longer or curved things.",
+          "expectedDifficulty": "OK",
+          "aliases": ["measuring length", "ruler use", "parallax error", "correct measurement"],
+          "prerequisites": ["sci6_c018"],
+          "order": 3
+        },
+        {
+          "id": "sci6_c020",
+          "name": "Measuring the Length of a Curved Line",
+          "description": "Curved lines (like the edge of a leaf or a winding road on a map) cannot be measured directly with a straight ruler. One way: place a thread along the curve carefully, mark the end points, then straighten the thread and measure with a ruler. Another way: use a flexible measuring tape. Both methods give the length of the curve.",
+          "expectedDifficulty": "OK",
+          "aliases": ["measuring curved lines", "thread method", "measuring tape"],
+          "prerequisites": ["sci6_c019"],
+          "order": 4
+        },
+        {
+          "id": "sci6_c021",
+          "name": "Describing Position",
+          "description": "To describe where something is, we need a reference point — something we can compare its position to. 'The shop is 200 m from the school' uses the school as reference. 'The book is on the second shelf, third from the left' uses the shelf and the leftmost book as references. Without a reference, position has no meaning.",
+          "expectedDifficulty": "OK",
+          "aliases": ["describing position", "reference point", "where is something"],
+          "prerequisites": [],
+          "order": 5
+        },
+        {
+          "id": "sci6_c022",
+          "name": "Moving Things",
+          "description": "An object is in motion when its position changes with time — relative to a reference point. A bus moving on the road, the hands of a clock, a swinging pendulum, a falling leaf — all are in motion. An object that does not change position is at rest. Whether something is in motion or at rest depends on the chosen reference — a passenger sitting in a moving bus is at rest relative to the bus, but in motion relative to the road.",
+          "expectedDifficulty": "OK",
+          "aliases": ["motion and rest", "moving things", "relative motion"],
+          "prerequisites": ["sci6_c021"],
+          "order": 6
+        },
+        {
+          "id": "sci6_c023",
+          "name": "Types of Motion",
+          "description": "Motion can be of different types. Linear (rectilinear) motion: along a straight line — a falling stone, a marching column. Circular motion: along a circle — fan blades, hands of a clock, the Earth around the Sun. Periodic (oscillatory) motion: repeats after a fixed time — a swing, a pendulum. Some objects show more than one type at once — a bicycle wheel rotates while moving forward.",
+          "expectedDifficulty": "OK",
+          "aliases": ["types of motion", "linear motion", "circular motion", "periodic motion"],
+          "prerequisites": ["sci6_c022"],
+          "order": 7
+        }
+      ]
+    },
+    {
+      "id": "sci6_u06",
+      "name": "Materials Around Us",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "sci6_c024",
+          "name": "Observing Objects Around Us",
+          "description": "The world around us is full of objects made of different materials — wood, metal, plastic, glass, cloth, paper, rubber, and more. The same object can be made from different materials (a chair of wood, plastic, or metal), and the same material can be used for many objects. Choosing the right material for each purpose depends on its properties.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["objects and materials", "observing materials", "everyday materials"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci6_c025",
+          "name": "How to Group Materials?",
+          "description": "Materials can be grouped based on their properties. Some are hard (iron, glass), others soft (cotton, sponge). Some are shiny (metals), others dull (wood). Some are smooth, others rough. Some are transparent (let light pass through completely — clear glass), some translucent (let some light pass — frosted glass), some opaque (do not let light pass — wood, brick).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["grouping materials", "appearance hardness", "transparent opaque translucent"],
+          "prerequisites": ["sci6_c024"],
+          "order": 2
+        },
+        {
+          "id": "sci6_c026",
+          "name": "Different Properties of Materials",
+          "description": "Properties help us identify and choose materials. Lustre — shines when polished (metals). Hardness — resists scratching (diamond, iron). Solubility — dissolves in water (salt, sugar yes; sand, oil no). Floats or sinks — depends on density. Magnetic or non-magnetic. Electrical and heat conductivity. Each property is tested with simple experiments.",
+          "expectedDifficulty": "OK",
+          "aliases": ["properties of materials", "lustre hardness solubility", "floating sinking", "material properties"],
+          "prerequisites": ["sci6_c025"],
+          "order": 3
+        },
+        {
+          "id": "sci6_c027",
+          "name": "What Is Matter?",
+          "description": "All materials are made of matter. Matter is anything that has mass (a measure of how much stuff it contains) and takes up space (volume). Solids, liquids, and gases are all forms of matter. Mass is measured in grams (g) or kilograms (kg). Volume is measured in litres (L) or millilitres (mL). Even air has mass and takes up space — that is why a blown-up balloon is slightly heavier than an empty one.",
+          "expectedDifficulty": "OK",
+          "aliases": ["what is matter", "mass and volume", "matter has mass and volume"],
+          "prerequisites": ["sci6_c024"],
           "order": 4
         }
       ]
     },
     {
       "id": "sci6_u07",
-      "name": "Getting to Know Plants",
+      "name": "Temperature and its Measurement",
       "order": 7,
       "concepts": [
         {
-          "id": "sci6_c030",
-          "name": "Types of Plants",
-          "description": "Plants are classified by size and structure. Herbs are small plants with soft green stems (mint, grass, wheat). Shrubs are medium-sized with woody branches near the base (rose, henna, lemon). Trees are tall with a hard thick stem called a trunk (mango, banyan, pine). Creepers lie on the ground (pumpkin, watermelon). Climbers use support to grow upward (money plant, grape).",
+          "id": "sci6_c028",
+          "name": "Hot or Cold?",
+          "description": "We often describe things as hot or cold by touching them. But touch can be misleading — a metal handle and a wooden handle in the same room feel different to touch even though they are at the same temperature. So our sense of hot and cold is relative and not always accurate. We need a reliable way to measure how hot or cold something is.",
           "expectedDifficulty": "EASY",
-          "aliases": ["herbs shrubs trees", "types of plants classification", "creepers and climbers"],
+          "aliases": ["hot and cold", "feeling temperature", "sense of touch unreliable"],
           "prerequisites": [],
           "order": 1
         },
         {
-          "id": "sci6_c031",
-          "name": "Stem — Structure and Functions",
-          "description": "The stem supports the plant and holds leaves, flowers, and fruits. It conducts water and minerals from roots to leaves (upward) and food from leaves to other parts (downward) through vascular bundles (xylem and phloem). Some stems store food (potato, ginger). Some stems are modified for climbing (tendrils in grapes).",
-          "expectedDifficulty": "OK",
-          "aliases": ["functions of stem", "stem structure", "vascular bundles in stem"],
-          "prerequisites": ["sci6_c030"],
+          "id": "sci6_c029",
+          "name": "Temperature",
+          "description": "Temperature is a measurement of how hot or cold something is. Unlike touch, it gives the same answer to everyone. Temperature is measured in degrees Celsius (°C) — the scale used in India and most of the world. Important reference points: ice water freezes at 0°C; water boils at 100°C; normal human body temperature is about 37°C; a hot summer day in Delhi can reach 45°C.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["temperature", "degrees celsius", "freezing boiling point"],
+          "prerequisites": ["sci6_c028"],
           "order": 2
         },
         {
-          "id": "sci6_c032",
-          "name": "Leaf — Structure and Parts",
-          "description": "A leaf has a flat green blade called the lamina, a stalk called the petiole, and veins that form the venation. Venation can be reticulate (net-like, in dicots like mango) or parallel (in monocots like grass, banana). Leaves are green due to chlorophyll pigment which is essential for photosynthesis.",
+          "id": "sci6_c030",
+          "name": "Measuring Temperature",
+          "description": "A thermometer is the instrument used to measure temperature. A clinical thermometer measures human body temperature (range 35°C to 42°C); normal is about 37°C. A laboratory thermometer measures wider ranges (–10°C to 110°C). Always read the thermometer at eye level. Mercury thermometers are being replaced by safer digital thermometers. Place the thermometer in good contact with what you are measuring.",
           "expectedDifficulty": "OK",
-          "aliases": ["parts of a leaf", "leaf structure", "venation", "lamina petiole"],
-          "prerequisites": ["sci6_c030"],
+          "aliases": ["thermometer", "clinical thermometer", "laboratory thermometer", "measuring temperature"],
+          "prerequisites": ["sci6_c029"],
           "order": 3
-        },
-        {
-          "id": "sci6_c033",
-          "name": "Photosynthesis",
-          "description": "Photosynthesis is the process by which green plants make their own food using sunlight, water (from roots), and carbon dioxide (from air). Chlorophyll in leaves absorbs sunlight. Glucose (sugar) is produced and oxygen is released as a byproduct. This is why plants are called producers and are the base of all food chains.",
-          "expectedDifficulty": "HARD",
-          "aliases": ["how plants make food", "food making in plants", "chlorophyll", "CO2 and sunlight"],
-          "prerequisites": ["sci6_c031", "sci6_c032"],
-          "order": 4
-        },
-        {
-          "id": "sci6_c034",
-          "name": "Roots — Types and Functions",
-          "description": "Roots anchor the plant in the soil and absorb water and minerals. Taproot system has one main root with smaller lateral roots (mango, mustard, carrot — dicots). Fibrous root system has many thin roots of similar size growing from the stem base (wheat, grass, maize — monocots). Some roots store food (carrot, radish, beet) and some absorb oxygen from air (mangrove).",
-          "expectedDifficulty": "OK",
-          "aliases": ["taproot fibrous root", "functions of roots", "root types"],
-          "prerequisites": ["sci6_c030"],
-          "order": 5
-        },
-        {
-          "id": "sci6_c035",
-          "name": "Flower — Parts and Functions",
-          "description": "A flower is the reproductive part of the plant. It contains: Sepals (protect the bud), Petals (attract pollinators), Stamens (male part — produce pollen), and Pistil/Carpel (female part — contains ovule). Pollination transfers pollen from stamen to pistil, leading to fertilisation and seed formation.",
-          "expectedDifficulty": "OK",
-          "aliases": ["parts of a flower", "stamen pistil", "pollination", "flower structure"],
-          "prerequisites": ["sci6_c030"],
-          "order": 6
         }
       ]
     },
     {
       "id": "sci6_u08",
-      "name": "Body Movements",
+      "name": "A Journey through States of Water",
       "order": 8,
       "concepts": [
         {
-          "id": "sci6_c036",
-          "name": "Bones and Skeleton",
-          "description": "The human skeleton is made up of about 206 bones. The skeleton gives the body its shape, supports and protects internal organs (skull protects brain, rib cage protects heart and lungs), and helps in movement. Bones are hard due to calcium and phosphorus. Where two bones meet is called a joint.",
+          "id": "sci6_c031",
+          "name": "Investigating Water's Disappearing Act",
+          "description": "Water left in an open container slowly disappears — it does not really vanish, but turns into water vapour and mixes into the air. This is called evaporation. We see evaporation when wet clothes dry, a wet floor dries, or a glass of water slowly empties on a hot day. Evaporation happens at all temperatures but is faster when it is hotter, drier, or windier.",
           "expectedDifficulty": "EASY",
-          "aliases": ["human skeleton", "bones in human body", "functions of skeleton"],
+          "aliases": ["evaporation", "water disappearing", "wet clothes drying"],
           "prerequisites": [],
           "order": 1
         },
         {
-          "id": "sci6_c037",
-          "name": "Types of Joints",
-          "description": "Joints allow bones to move. Ball and socket joint allows movement in all directions (shoulder, hip). Hinge joint allows back-and-forth movement in one direction (knee, elbow, fingers). Pivotal joint allows rotation (neck — atlas and axis vertebrae). Fixed/immovable joints allow no movement (skull bones). Cartilage at joints acts as a cushion.",
-          "expectedDifficulty": "HARD",
-          "aliases": ["ball and socket joint", "hinge joint", "pivotal joint", "types of joints", "movable joints"],
-          "prerequisites": ["sci6_c036"],
+          "id": "sci6_c032",
+          "name": "Another Mystery — Where Do Water Drops Come From?",
+          "description": "When we put cold water in a glass on a warm day, tiny water drops form on the outside of the glass. These drops do not come through the glass — they form because water vapour in the surrounding air cools down on the cold surface and turns back into liquid water. This process is called condensation. It is the opposite of evaporation.",
+          "expectedDifficulty": "OK",
+          "aliases": ["condensation", "water drops on cold glass", "dew formation"],
+          "prerequisites": ["sci6_c031"],
           "order": 2
         },
         {
-          "id": "sci6_c038",
-          "name": "Muscles and Movement",
-          "description": "Muscles are attached to bones and cause movement by contracting (shortening) and relaxing. Muscles work in pairs — when one contracts, the other relaxes (e.g., bicep and tricep in the arm). Muscles can only pull, not push. Tendons connect muscles to bones; ligaments connect bones to bones.",
-          "expectedDifficulty": "OK",
-          "aliases": ["how muscles work", "muscle pairs", "tendons and ligaments", "bicep tricep"],
-          "prerequisites": ["sci6_c036"],
+          "id": "sci6_c033",
+          "name": "What are the Different States of Water?",
+          "description": "Water exists in three states. Solid (ice) — has fixed shape and volume. Liquid (water) — has fixed volume but takes the shape of its container. Gas (water vapour or steam) — has neither fixed shape nor fixed volume; it spreads out to fill any space. The same water moves between these three states without changing into a new substance.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["states of water", "solid liquid gas water", "ice water vapour"],
+          "prerequisites": [],
           "order": 3
         },
         {
-          "id": "sci6_c039",
-          "name": "Movement in Other Animals",
-          "description": "Different animals move in different ways based on their body structure. Earthworm — uses muscles and setae (tiny bristles) for crawling. Snail — muscular foot with slime. Fish — streamlined body, fins, and tail for swimming. Birds — wings (hollow bones, flight muscles), legs for walking. Snakes — S-shaped curves using ribs and muscles.",
+          "id": "sci6_c034",
+          "name": "How Can We Change the States of Water?",
+          "description": "Adding heat or removing heat changes the state of water. Heating ice → it melts to liquid water (melting). Heating liquid water → it boils into water vapour (boiling/evaporation). Cooling water vapour → it becomes liquid (condensation). Cooling liquid water → it freezes to ice (freezing). These changes are reversible — water can be brought back to its original state.",
           "expectedDifficulty": "OK",
-          "aliases": ["locomotion in animals", "how animals move", "earthworm movement", "fish movement"],
-          "prerequisites": ["sci6_c036"],
+          "aliases": ["melting freezing boiling", "changes of state water", "heating cooling water"],
+          "prerequisites": ["sci6_c033"],
           "order": 4
+        },
+        {
+          "id": "sci6_c035",
+          "name": "How Can Water be Evaporated Faster or Slower?",
+          "description": "Evaporation depends on several factors. Surface area: more surface area → faster evaporation (a saucer dries faster than a tall glass). Temperature: higher temperature → faster (clothes dry faster in sunshine). Wind: more wind → faster (clothes dry faster on a windy day). Humidity: drier air → faster. These factors explain why we hang clothes outside, and why a damp floor dries quickly with a fan on.",
+          "expectedDifficulty": "OK",
+          "aliases": ["factors affecting evaporation", "faster evaporation", "surface area temperature wind"],
+          "prerequisites": ["sci6_c031"],
+          "order": 5
+        },
+        {
+          "id": "sci6_c036",
+          "name": "Cooling Effect of Evaporation",
+          "description": "When water evaporates, it takes heat from its surroundings — this is why evaporation has a cooling effect. We sweat and the sweat evaporates from our skin to cool us down. Earthen pots (matkas) keep water cool because water seeps through the pot and evaporates from the outside. A pot-in-pot cooler uses the same idea to keep vegetables fresh without electricity.",
+          "expectedDifficulty": "OK",
+          "aliases": ["cooling effect of evaporation", "matka cooling", "sweating cools body", "pot-in-pot cooler"],
+          "prerequisites": ["sci6_c035"],
+          "order": 6
+        },
+        {
+          "id": "sci6_c037",
+          "name": "How Do Clouds Give Us Rain?",
+          "description": "The water cycle in nature is powered by the Sun. Sunlight heats water in oceans, rivers, and lakes — water evaporates and rises as vapour. As it rises, it cools and condenses into tiny droplets, forming clouds. When the droplets get heavy enough, they fall as rain (or snow or hail). The water collects in oceans, rivers, lakes, and underground — and the cycle continues.",
+          "expectedDifficulty": "OK",
+          "aliases": ["water cycle", "how clouds form", "rain formation", "evaporation condensation precipitation"],
+          "prerequisites": ["sci6_c032"],
+          "order": 7
         }
       ]
     },
     {
       "id": "sci6_u09",
-      "name": "The Living Organisms and Their Surroundings",
+      "name": "Methods of Separation in Everyday Life",
       "order": 9,
       "concepts": [
         {
-          "id": "sci6_c040",
-          "name": "Habitat — Types",
-          "description": "A habitat is the natural home of an organism where it gets food, shelter, water, and all conditions needed for survival. Major types: Terrestrial habitats (land) — forests, grasslands, deserts, mountains. Aquatic habitats (water) — freshwater (ponds, rivers, lakes) and marine (seas, oceans). Organisms in a habitat are adapted to their specific environment.",
+          "id": "sci6_c038",
+          "name": "Why Do We Separate Mixtures?",
+          "description": "Often the things we use in daily life are mixtures of two or more substances. We separate components from a mixture for many reasons — to remove harmful or useless impurities (stones from rice), to obtain useful components (salt from seawater, butter from milk), or to get the substance we want in pure form. Different methods are used depending on what is being separated.",
           "expectedDifficulty": "EASY",
-          "aliases": ["types of habitats", "what is habitat", "terrestrial aquatic habitat"],
+          "aliases": ["why separate mixtures", "purpose of separation", "removing impurities"],
           "prerequisites": [],
           "order": 1
         },
         {
-          "id": "sci6_c041",
-          "name": "Adaptation in Desert Organisms",
-          "description": "Deserts are hot and dry with very little water. Desert plants (like cacti) have thick fleshy stems to store water, leaves modified to spines to reduce water loss, and deep or wide roots. Desert animals (like camel) have humps to store fat, can drink large amounts of water at once, and produce very little urine to conserve water.",
-          "expectedDifficulty": "OK",
-          "aliases": ["desert adaptation", "cactus adaptations", "camel adaptations", "adaptation in arid regions"],
-          "prerequisites": ["sci6_c040"],
+          "id": "sci6_c039",
+          "name": "Handpicking, Threshing and Winnowing",
+          "description": "Handpicking is used to separate larger impurities by hand — like removing stones, husks, or insects from rice or dal. Threshing is the process of separating grains from stalks by beating the harvested crop on a hard surface or using a threshing machine. Winnowing separates lighter components (husk, chaff) from heavier grains using wind — the mixture is dropped from a height; wind blows the lighter husk away.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["handpicking threshing winnowing", "separating grains", "farming separation methods"],
+          "prerequisites": ["sci6_c038"],
           "order": 2
         },
         {
-          "id": "sci6_c042",
-          "name": "Adaptation in Aquatic Organisms",
-          "description": "Aquatic plants have air spaces in stems to float and carry oxygen. Roots are small or absent (water hyacinth, lotus). Fish have streamlined bodies, gills to breathe dissolved oxygen, and fins for swimming. Aquatic mammals like dolphins have blowholes for breathing. Some plants float (duckweed), others are submerged (seagrass).",
-          "expectedDifficulty": "OK",
-          "aliases": ["water plant adaptations", "fish adaptation", "aquatic habitat adaptation", "adaptation in water"],
-          "prerequisites": ["sci6_c040"],
+          "id": "sci6_c040",
+          "name": "Sieving",
+          "description": "Sieving separates components of different particle sizes using a sieve (a mesh). Smaller particles pass through the holes; larger particles stay back. Used to separate flour from bran, fine sand from gravel, or to remove lumps from flour. The size of the mesh decides what gets separated. At construction sites, large sieves separate fine sand from coarse pebbles.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["sieving", "separating by size", "sieve mesh"],
+          "prerequisites": ["sci6_c038"],
           "order": 3
         },
         {
-          "id": "sci6_c043",
-          "name": "Characteristics of Living Things",
-          "description": "Living organisms share these characteristics: They need food (nutrition), they breathe (respiration), they excrete waste, they respond to stimuli (sensitivity), they grow, they reproduce, and they move (even plants show movement — towards light). Non-living things like rocks, water, and air do not show all these characteristics.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["living vs non-living", "characteristics of life", "life processes"],
-          "prerequisites": [],
+          "id": "sci6_c041",
+          "name": "Sedimentation, Decantation and Filtration",
+          "description": "Sedimentation is the settling of insoluble heavy particles (sediment) at the bottom of a liquid when left undisturbed. Decantation is carefully pouring out the clear liquid from above without disturbing the sediment — used to separate mud from water. Filtration uses a filter (paper or cloth) to separate insoluble solids from a liquid; the liquid that passes through is the filtrate, the solid left behind is the residue.",
+          "expectedDifficulty": "OK",
+          "aliases": ["sedimentation decantation", "filtration", "filter paper", "muddy water separation"],
+          "prerequisites": ["sci6_c038"],
           "order": 4
         },
         {
-          "id": "sci6_c044",
-          "name": "Biotic and Abiotic Components",
-          "description": "An ecosystem has biotic (living) and abiotic (non-living) components. Biotic: plants, animals, fungi, bacteria. Abiotic: sunlight, temperature, water, air, soil, humidity. Both are interdependent. For example, plants need sunlight, water, and soil (abiotic) to grow, and animals depend on plants (biotic) for food.",
+          "id": "sci6_c042",
+          "name": "Evaporation and Condensation",
+          "description": "Evaporation separates a dissolved solid from a liquid. The liquid evaporates as vapour, leaving the solid behind. Common example: getting salt from seawater in salt pans — sunlight evaporates the water, leaving salt crystals. Condensation can be combined with evaporation to recover the liquid as well — the vapour is cooled to turn back into liquid. This is the principle of distillation.",
           "expectedDifficulty": "OK",
-          "aliases": ["biotic abiotic", "living and non-living components of ecosystem", "ecosystem components"],
-          "prerequisites": ["sci6_c040", "sci6_c043"],
+          "aliases": ["evaporation separation", "salt from seawater", "condensation distillation"],
+          "prerequisites": ["sci6_c038"],
           "order": 5
+        },
+        {
+          "id": "sci6_c043",
+          "name": "Churning and Magnetic Separation",
+          "description": "Churning separates a lighter component from a heavier liquid by stirring vigorously — used to obtain butter from curd (the lighter butter floats and is collected). Magnetic separation uses a magnet to pull out magnetic materials (like iron filings) from a non-magnetic mixture. Each method is chosen based on the difference in physical properties between the components being separated.",
+          "expectedDifficulty": "OK",
+          "aliases": ["churning butter", "magnetic separation", "iron filings"],
+          "prerequisites": ["sci6_c038"],
+          "order": 6
         }
       ]
     },
     {
       "id": "sci6_u10",
-      "name": "Motion and Measurement of Distances",
+      "name": "Living Creatures: Exploring their Characteristics",
       "order": 10,
       "concepts": [
         {
-          "id": "sci6_c045",
-          "name": "Standard Units of Measurement",
-          "description": "Before standard units existed, people used body parts (hand span, cubit, foot) to measure — these were inaccurate since they vary from person to person. The International System of Units (SI) provides standard units accepted worldwide. The SI unit of length is the metre (m). Smaller units: centimetre (cm), millimetre (mm). Larger: kilometre (km). 1 m = 100 cm = 1000 mm.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["SI units", "standard units", "units of length", "metre centimetre"],
+          "id": "sci6_c044",
+          "name": "What Sets the Living Apart from the Non-living?",
+          "description": "Living things share certain features that non-living things do not. They need food (nutrition), they breathe (respiration), they grow, they reproduce, they respond to stimuli (sensitivity), they excrete waste, and they show some kind of movement. A rock, a chair, water, or air do not show all these features. Some features (like growth or movement) can be tricky — even crystals grow, even cars move — but only living things show all features together.",
+          "expectedDifficulty": "OK",
+          "aliases": ["living vs non-living", "characteristics of living things", "life processes"],
           "prerequisites": [],
           "order": 1
         },
         {
-          "id": "sci6_c046",
-          "name": "Measuring Length Correctly",
-          "description": "To measure length accurately: place the ruler flat on the surface, align the zero mark with one end of the object, read the measurement at the other end. Avoid parallax error by reading the scale at eye level directly above the mark. A measuring tape is used for curved surfaces; a metre rule for straight lengths.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["how to measure length", "using a ruler", "avoiding parallax error", "measuring instruments"],
-          "prerequisites": ["sci6_c045"],
+          "id": "sci6_c045",
+          "name": "Essential Conditions for Germination of a Seed",
+          "description": "Germination is the process by which a seed grows into a tiny new plant (seedling). For germination, a seed needs three main conditions: water, air (oxygen), and the right temperature. Sunlight is not needed at the very start (the seed has stored food), but is needed soon after for the seedling to grow further. We can test these conditions with simple experiments using moong, gram, or rajma seeds.",
+          "expectedDifficulty": "OK",
+          "aliases": ["seed germination", "conditions for germination", "water air temperature"],
+          "prerequisites": ["sci6_c044"],
           "order": 2
         },
         {
-          "id": "sci6_c047",
-          "name": "Types of Motion",
-          "description": "Motion is the change in position of an object over time. Types: Rectilinear (straight line) — a falling stone, car on a straight road. Circular motion — hands of a clock, fan blades, Earth around the Sun. Periodic (oscillatory) motion — repeats after a fixed time interval — pendulum, swing. Some objects can have more than one type of motion simultaneously.",
-          "expectedDifficulty": "OK",
-          "aliases": ["rectilinear motion", "circular motion", "periodic motion", "types of motion"],
-          "prerequisites": [],
+          "id": "sci6_c046",
+          "name": "Growth and Movement in Plants",
+          "description": "Plants grow and also show movement, even though they do not walk like animals. The shoot grows upward (away from gravity, towards light); the root grows downward (into the soil). A plant kept near a window bends towards the light — this is called phototropism. The roots respond to gravity (geotropism) and to water (hydrotropism). Some flowers open in the morning and close at night.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["growth in plants", "movement in plants", "phototropism geotropism", "plants respond to light"],
+          "prerequisites": ["sci6_c045"],
           "order": 3
+        },
+        {
+          "id": "sci6_c047",
+          "name": "Life Cycle of a Plant",
+          "description": "The life cycle of a flowering plant: a seed germinates → seedling grows into a young plant → plant matures and flowers → flowers get pollinated and form fruits → fruits contain new seeds → seeds disperse and germinate to start the cycle again. Different plants take different lengths of time — a moong plant matures in weeks, a mango tree takes years. Each stage is essential.",
+          "expectedDifficulty": "OK",
+          "aliases": ["life cycle of plant", "seed to plant to seed", "plant stages"],
+          "prerequisites": ["sci6_c045"],
+          "order": 4
+        },
+        {
+          "id": "sci6_c048",
+          "name": "Life Cycle of Animals",
+          "description": "Animal life cycles vary widely. A butterfly: egg → larva (caterpillar) → pupa (cocoon) → adult butterfly — this is called metamorphosis. A frog: egg → tadpole (lives in water, has gills) → froglet → adult frog (lives on land, has lungs). Birds and most mammals are born or hatched as small versions of the adult and grow without major form changes. Each stage has a special role — feeding, growing, or reproducing.",
+          "expectedDifficulty": "OK",
+          "aliases": ["life cycle of animals", "metamorphosis", "butterfly frog life cycle", "egg larva adult"],
+          "prerequisites": ["sci6_c044"],
+          "order": 5
         }
       ]
     },
     {
       "id": "sci6_u11",
-      "name": "Light, Shadows, and Reflections",
+      "name": "Nature's Treasures",
       "order": 11,
       "concepts": [
         {
-          "id": "sci6_c048",
-          "name": "Luminous and Non-Luminous Objects",
-          "description": "Objects that produce their own light are luminous (the Sun, stars, a burning candle, an electric bulb). Objects that do not produce their own light are non-luminous (Moon, book, chair). The Moon reflects sunlight — it is non-luminous. Light travels in straight lines, which is why shadows are formed.",
+          "id": "sci6_c049",
+          "name": "Air",
+          "description": "Air is all around us. It is a mixture of gases — nitrogen (about 78%), oxygen (about 21%), small amounts of carbon dioxide, water vapour, and other gases. Air has no colour, taste, or smell. We need oxygen from air to breathe; plants need carbon dioxide for photosynthesis. Wind is moving air, used in sailing boats, windmills, and to cool us down. Air also holds water vapour that gives us clouds and rain.",
           "expectedDifficulty": "EASY",
-          "aliases": ["sources of light", "luminous non-luminous objects", "light sources"],
+          "aliases": ["composition of air", "nitrogen oxygen", "uses of air", "what is air"],
           "prerequisites": [],
           "order": 1
         },
         {
-          "id": "sci6_c049",
-          "name": "Formation and Properties of Shadows",
-          "description": "A shadow is formed when an opaque object blocks light. For a shadow to form you need: a source of light, an opaque object, and a screen. Shadows are always formed on the opposite side from the light source. Shadow size depends on the distance of the object from the light source — closer to source = larger shadow. Shadows have no colour.",
-          "expectedDifficulty": "OK",
-          "aliases": ["shadow formation", "why shadows form", "properties of shadow"],
-          "prerequisites": ["sci6_c048", "sci6_c017"],
+          "id": "sci6_c050",
+          "name": "Water",
+          "description": "Water is essential for all life. Sources include rain, rivers, lakes, ponds, oceans, springs, and groundwater (wells, tube wells). Only a small fraction of Earth's water is fresh and usable — most is salty seawater. We use water for drinking, cooking, washing, farming, industries, and electricity (hydroelectric power). Conserving water — fixing leaks, rainwater harvesting, drip irrigation — is everyone's responsibility.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["sources of water", "uses of water", "water conservation", "groundwater"],
+          "prerequisites": [],
           "order": 2
         },
         {
-          "id": "sci6_c050",
-          "name": "Pinhole Camera",
-          "description": "A pinhole camera is a simple device that demonstrates that light travels in a straight line. It is a dark box with a tiny hole on one side and a screen on the other. Light passes through the pinhole and forms an inverted (upside-down) image of the outside object on the screen. The image is formed because rays from the top and bottom of an object cross at the pinhole.",
-          "expectedDifficulty": "HARD",
-          "aliases": ["pinhole camera working", "camera obscura", "inverted image"],
-          "prerequisites": ["sci6_c048"],
+          "id": "sci6_c051",
+          "name": "Energy from the Sun",
+          "description": "The Sun is the ultimate source of energy on Earth. It gives us light and heat. Plants use sunlight to make food (photosynthesis); we and other animals get energy by eating plants. Solar energy can be directly used in solar cookers, solar water heaters, and solar panels (which convert sunlight into electricity). Sunlight also dries clothes, evaporates water (driving the water cycle), and drives the weather.",
+          "expectedDifficulty": "OK",
+          "aliases": ["solar energy", "energy from sun", "solar panels", "sun as source of energy"],
+          "prerequisites": [],
           "order": 3
         },
         {
-          "id": "sci6_c051",
-          "name": "Reflection of Light",
-          "description": "When light hits a smooth, shiny surface (like a mirror), it bounces back — this is called reflection. Mirrors form images that appear to be as far behind the mirror as the object is in front. The image is virtual (cannot be caught on screen), erect (upright), and laterally inverted (left-right reversed). Rough surfaces scatter light in all directions (diffuse reflection).",
-          "expectedDifficulty": "OK",
-          "aliases": ["reflection", "mirror image", "law of reflection", "types of reflection"],
-          "prerequisites": ["sci6_c048"],
+          "id": "sci6_c052",
+          "name": "Forests",
+          "description": "Forests are areas with many trees and other plants growing together, sheltering a great variety of animals, birds, insects, and microorganisms. Forests give us oxygen, wood, fruits, gum, honey, medicines, and fibres. They prevent soil erosion, bring rain, store carbon, and home tribal communities. Cutting forests (deforestation) leads to floods, droughts, and loss of wildlife. Planting more trees (afforestation) helps restore them.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["forests", "uses of forests", "deforestation afforestation", "importance of forests"],
+          "prerequisites": [],
           "order": 4
+        },
+        {
+          "id": "sci6_c053",
+          "name": "Soil, Rocks and Minerals",
+          "description": "Soil is the loose top layer of Earth's surface, formed by the breaking down of rocks over long times by wind, water, and weather. Soil supports plant growth and is home to many small organisms. Rocks are solid masses of minerals; common types include sandstone, limestone, granite, and marble. Minerals (like iron, copper, gold, salt, and mica) come from rocks and are used to make many things — vessels, jewellery, tools, and electronic items.",
+          "expectedDifficulty": "OK",
+          "aliases": ["soil rocks minerals", "types of rocks", "soil formation", "useful minerals"],
+          "prerequisites": [],
+          "order": 5
+        },
+        {
+          "id": "sci6_c054",
+          "name": "Fossil Fuels",
+          "description": "Fossil fuels — coal, petroleum (crude oil), and natural gas — formed underground from the remains of dead plants and animals buried millions of years ago. They are used as fuel for vehicles, generating electricity, and cooking (LPG). They release energy when burnt but also release carbon dioxide, contributing to air pollution and climate change. Fossil fuels take millions of years to form, so they will eventually run out — they are non-renewable.",
+          "expectedDifficulty": "OK",
+          "aliases": ["fossil fuels", "coal petroleum natural gas", "non-renewable energy"],
+          "prerequisites": [],
+          "order": 6
+        },
+        {
+          "id": "sci6_c055",
+          "name": "Renewable and Non-renewable Resources",
+          "description": "Natural resources are of two types. Renewable resources can be replenished naturally in a short time — sunlight, wind, water, forests (if managed well). Non-renewable resources take millions of years to form and will run out if used too much — fossil fuels, minerals. Using renewable resources (solar, wind, hydro) reduces pollution and saves non-renewable ones for the future.",
+          "expectedDifficulty": "OK",
+          "aliases": ["renewable non-renewable", "types of resources", "natural resources"],
+          "prerequisites": ["sci6_c054"],
+          "order": 7
+        },
+        {
+          "id": "sci6_c056",
+          "name": "Resources We Use — Saving for the Future",
+          "description": "Every resource we use comes from nature. Wasting them — leaving lights on, leaving taps running, throwing away usable things, buying too much — is unfair to other people, other living things, and to future generations. Simple habits help: switch off when not in use, fix leaks, walk or cycle for short trips, recycle paper and plastic, eat less wasteful food. Taking care of nature's treasures is everyone's job.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["saving resources", "conservation", "responsibility for nature"],
+          "prerequisites": [],
+          "order": 8
         }
       ]
     },
     {
       "id": "sci6_u12",
-      "name": "Electricity and Circuits",
+      "name": "Beyond Earth",
       "order": 12,
       "concepts": [
         {
-          "id": "sci6_c052",
-          "name": "Electric Cell and Battery",
-          "description": "An electric cell converts chemical energy into electrical energy. It has two terminals — positive (+) and negative (–). A battery is two or more cells connected together. The cell provides the 'push' (voltage) that makes current flow in a circuit. Common types: dry cell (AA, AAA), button cell (watches), lead-acid battery (vehicles).",
-          "expectedDifficulty": "EASY",
-          "aliases": ["electric cell", "battery", "positive and negative terminal"],
-          "prerequisites": [],
-          "order": 1
-        },
-        {
-          "id": "sci6_c053",
-          "name": "Electric Circuit — Open and Closed",
-          "description": "An electric circuit is a path through which electricity flows. A closed circuit has a complete unbroken path — current flows and the bulb glows. An open circuit has a break in the path — current cannot flow and the bulb does not glow. A circuit includes a source (cell), connecting wires, and a load (bulb, motor). A switch opens or closes the circuit.",
-          "expectedDifficulty": "OK",
-          "aliases": ["open circuit closed circuit", "electric circuit", "circuit diagram"],
-          "prerequisites": ["sci6_c052"],
-          "order": 2
-        },
-        {
-          "id": "sci6_c054",
-          "name": "Conductors and Insulators",
-          "description": "Conductors allow electric current to pass through them easily. Examples: metals (copper, aluminium, iron), graphite, human body, water. Insulators do not allow electric current to pass. Examples: rubber, plastic, wood, glass, dry air, cloth. Electric wires use copper (conductor) coated with plastic (insulator) for safety.",
-          "expectedDifficulty": "OK",
-          "aliases": ["conductors", "insulators", "materials that conduct electricity"],
-          "prerequisites": ["sci6_c053"],
-          "order": 3
-        },
-        {
-          "id": "sci6_c055",
-          "name": "Electric Switch",
-          "description": "A switch controls the flow of electricity in a circuit. When the switch is ON (closed), the circuit is complete and current flows. When the switch is OFF (open), the circuit is broken and current stops. Switches are made of conductors but have an insulating casing. Examples: light switches, push buttons, toggles.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["electric switch working", "on off switch", "switch in circuit"],
-          "prerequisites": ["sci6_c053"],
-          "order": 4
-        }
-      ]
-    },
-    {
-      "id": "sci6_u13",
-      "name": "Fun with Magnets",
-      "order": 13,
-      "concepts": [
-        {
-          "id": "sci6_c056",
-          "name": "Magnetic and Non-Magnetic Materials",
-          "description": "A magnet attracts magnetic materials — mainly iron, nickel, and cobalt. Materials like aluminium, copper, wood, plastic, rubber, and glass are not attracted by magnets (non-magnetic). Steel (iron alloy) is magnetic. This property is used in separating magnetic materials from waste (e.g., separating iron filings from sand).",
-          "expectedDifficulty": "EASY",
-          "aliases": ["magnetic materials", "what magnets attract", "non-magnetic materials"],
-          "prerequisites": [],
-          "order": 1
-        },
-        {
           "id": "sci6_c057",
-          "name": "Properties of Magnets",
-          "description": "Key properties of magnets: Every magnet has two poles — North (N) and South (S). Like poles repel each other (N-N, S-S), unlike poles attract (N-S). The force of attraction is strongest at the poles. A freely suspended magnet always points North-South (used in compass). If a magnet is broken, each piece becomes a complete magnet with two poles.",
+          "name": "Stars and Constellations",
+          "description": "Stars are huge balls of hot glowing gas, like our Sun. They appear small because they are very far away. They seem to twinkle because their light passes through Earth's atmosphere. A constellation is a group of stars that appears to form a recognisable pattern in the sky — like Ursa Major (Saptarishi or the Big Dipper), Orion (Mriga), Cassiopeia, and the Southern Cross. Different cultures saw different shapes and gave different names.",
           "expectedDifficulty": "OK",
-          "aliases": ["magnet poles", "attraction and repulsion", "properties of magnets", "like poles repel"],
-          "prerequisites": ["sci6_c056"],
-          "order": 2
+          "aliases": ["stars and constellations", "Saptarishi", "Ursa Major Orion", "twinkling stars"],
+          "prerequisites": [],
+          "order": 1
         },
         {
           "id": "sci6_c058",
-          "name": "Magnetic Compass and Directions",
-          "description": "A magnetic compass has a freely pivoting magnetic needle that always aligns along the North-South direction due to the Earth's magnetic field. The North pole of the needle points to geographic North. Compasses are used for navigation by hikers, ships, and pilots. Smartphones also use digital compasses based on the same principle.",
-          "expectedDifficulty": "OK",
-          "aliases": ["magnetic compass", "finding directions using magnet", "compass needle"],
+          "name": "Night Sky Watching",
+          "description": "Watching the night sky is one of the oldest joys for humans. On a clear, moonless night, away from city lights, we can see thousands of stars, planets, and the band of the Milky Way. Tools that help: a sky map, a torch with red filter, binoculars, or a small telescope. Stars stay in the same patterns over a night, but the patterns shift slowly with seasons. Ancient sailors and travellers used the night sky to navigate.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["night sky watching", "stargazing", "sky map", "navigation by stars"],
           "prerequisites": ["sci6_c057"],
-          "order": 3
-        }
-      ]
-    },
-    {
-      "id": "sci6_u14",
-      "name": "Water",
-      "order": 14,
-      "concepts": [
+          "order": 2
+        },
         {
           "id": "sci6_c059",
-          "name": "Water Cycle",
-          "description": "The water cycle is the continuous movement of water between the Earth's surface and the atmosphere. Key processes: Evaporation (water from oceans/lakes turns into vapour due to solar heat), Transpiration (water vapour released by plants), Condensation (water vapour cools and forms clouds/water droplets), Precipitation (water falls as rain, snow, or hail), Collection (water collects in oceans, rivers, lakes, groundwater).",
+          "name": "Our Solar System",
+          "description": "Our Solar System has the Sun at the centre with eight planets orbiting around it: Mercury, Venus, Earth, Mars (rocky inner planets), Jupiter, Saturn, Uranus, Neptune (gaseous outer planets). Many planets have moons; Earth has one. The Solar System also has dwarf planets (like Pluto), asteroids, and comets. The Sun's gravity holds everything in orbit. Light from the Sun takes about 8 minutes to reach Earth.",
           "expectedDifficulty": "OK",
-          "aliases": ["hydrological cycle", "evaporation condensation precipitation", "water cycle steps"],
-          "prerequisites": ["sci6_c025"],
-          "order": 1
+          "aliases": ["solar system", "planets in order", "sun and planets", "moons"],
+          "prerequisites": [],
+          "order": 3
         },
         {
           "id": "sci6_c060",
-          "name": "Groundwater and Water Table",
-          "description": "Rainwater seeps into the ground through soil and rock layers and collects underground as groundwater. The upper level of groundwater stored underground is called the water table. Wells and tube wells draw water from below the water table. When rain is scarce or too much water is pumped out, the water table falls — this is called depletion of groundwater.",
+          "name": "The Milky Way Galaxy",
+          "description": "Our Sun and Solar System are just a tiny part of a vast galaxy called the Milky Way. A galaxy is a huge collection of billions of stars held together by gravity. The Milky Way contains hundreds of billions of stars. From Earth, on a clear dark night away from city lights, the Milky Way appears as a hazy band of light arching across the sky.",
           "expectedDifficulty": "OK",
-          "aliases": ["groundwater", "water table", "wells and water", "underground water"],
+          "aliases": ["Milky Way galaxy", "our galaxy", "billions of stars"],
           "prerequisites": ["sci6_c059"],
-          "order": 2
+          "order": 4
         },
         {
           "id": "sci6_c061",
-          "name": "Water Conservation",
-          "description": "Freshwater is limited and must be conserved. Methods: Rainwater harvesting (collecting rainwater in tanks or pits to recharge groundwater). Drip irrigation (supplying water directly to plant roots). Fixing leaking taps. Reusing water (washing machine water to mop floors). Afforestation (planting trees helps groundwater recharge). Reducing industrial water pollution.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["conserving water", "rainwater harvesting", "water saving methods", "drip irrigation"],
-          "prerequisites": ["sci6_c059", "sci6_c060"],
-          "order": 3
-        }
-      ]
-    },
-    {
-      "id": "sci6_u15",
-      "name": "Air Around Us",
-      "order": 15,
-      "concepts": [
-        {
-          "id": "sci6_c062",
-          "name": "Composition of Air",
-          "description": "Air is a mixture of gases. Approximate composition: Nitrogen (78%) — most abundant, used by plants for protein synthesis. Oxygen (21%) — needed for respiration and burning. Carbon dioxide (0.03%) — used by plants for photosynthesis. Noble gases (argon, etc.) (~1%). Water vapour and dust particles are also present. Air has no colour, taste, or smell.",
+          "name": "The Universe",
+          "description": "The Universe is everything that exists — all stars, planets, galaxies, gas, dust, and even empty space. The Milky Way is just one of billions of galaxies in the universe. The universe is unimaginably large and is expanding. Space agencies like ISRO (India), NASA (USA), ESA (Europe) explore space using satellites, probes, and telescopes. India's recent successes include Chandrayaan and Aditya-L1.",
           "expectedDifficulty": "OK",
-          "aliases": ["what is air made of", "components of air", "gases in air", "nitrogen oxygen in air"],
-          "prerequisites": [],
-          "order": 1
-        },
-        {
-          "id": "sci6_c063",
-          "name": "Oxygen and Its Importance",
-          "description": "Oxygen makes up about 21% of air and is essential for life. All living organisms (except some bacteria) need oxygen for respiration (to release energy from food). Oxygen also supports combustion (burning). The amount of oxygen in the atmosphere is maintained by plants producing oxygen through photosynthesis. Deep-sea divers and astronauts carry oxygen cylinders.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["importance of oxygen", "oxygen in respiration", "oxygen and burning"],
-          "prerequisites": ["sci6_c062", "sci6_c033"],
-          "order": 2
-        },
-        {
-          "id": "sci6_c064",
-          "name": "Air Pollution",
-          "description": "Air pollution occurs when harmful substances enter the air. Major pollutants: smoke from factories and vehicles (carbon monoxide, sulphur dioxide), burning of fuels, crop burning, dust. Effects: respiratory diseases (asthma, bronchitis), acid rain (damages buildings and crops), global warming. Ways to reduce: use public transport, plant trees, use cleaner fuels, avoid burning waste.",
-          "expectedDifficulty": "OK",
-          "aliases": ["air pollution causes effects", "pollutants in air", "acid rain", "air quality"],
-          "prerequisites": ["sci6_c062"],
-          "order": 3
-        }
-      ]
-    },
-    {
-      "id": "sci6_u16",
-      "name": "Garbage In, Garbage Out",
-      "order": 16,
-      "concepts": [
-        {
-          "id": "sci6_c065",
-          "name": "Biodegradable and Non-Biodegradable Waste",
-          "description": "Biodegradable waste can be broken down by microorganisms (bacteria, fungi) into harmless substances. Examples: food scraps, vegetable peels, paper, cotton, leaves, wood. Non-biodegradable waste cannot be broken down naturally and persists in the environment for hundreds of years. Examples: plastic, glass, metals, Styrofoam. Separation of these two types is the first step in waste management.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["biodegradable waste", "non-biodegradable waste", "types of waste", "degradable materials"],
-          "prerequisites": [],
-          "order": 1
-        },
-        {
-          "id": "sci6_c066",
-          "name": "Composting",
-          "description": "Composting is the process of converting biodegradable waste (kitchen scraps, leaves, vegetable peels) into compost — a rich organic fertiliser. Microorganisms break down the organic matter. The compost is then used to improve soil quality for plants. Vermicomposting uses earthworms to speed up decomposition. Composting reduces the amount of waste sent to landfills.",
-          "expectedDifficulty": "OK",
-          "aliases": ["composting process", "making compost", "vermicomposting", "organic waste to fertiliser"],
-          "prerequisites": ["sci6_c065"],
-          "order": 2
-        },
-        {
-          "id": "sci6_c067",
-          "name": "Recycling and the 3Rs",
-          "description": "The 3Rs of waste management: Reduce (use less — buy only what you need, avoid single-use plastics), Reuse (use items multiple times — cloth bags, refillable bottles), Recycle (convert waste into new products — paper, glass, metals, and some plastics can be recycled). Recycling saves raw materials, energy, and reduces pollution. Paper recycling saves trees.",
-          "expectedDifficulty": "EASY",
-          "aliases": ["reduce reuse recycle", "3Rs", "recycling", "waste management"],
-          "prerequisites": ["sci6_c065"],
-          "order": 3
-        },
-        {
-          "id": "sci6_c068",
-          "name": "Landfills and Their Problems",
-          "description": "A landfill is a designated area where waste is dumped and buried. Problems: Leachate (polluted liquid from waste) seeps into soil and contaminates groundwater. Decomposing waste produces methane (greenhouse gas). Landfills take up large areas of land. Non-biodegradable waste remains in landfills for centuries. Proper waste segregation and recycling can significantly reduce landfill use.",
-          "expectedDifficulty": "OK",
-          "aliases": ["landfill", "garbage dump", "problems of landfills", "waste disposal"],
-          "prerequisites": ["sci6_c065"],
-          "order": 4
+          "aliases": ["the universe", "galaxies", "ISRO Chandrayaan", "space exploration"],
+          "prerequisites": ["sci6_c060"],
+          "order": 5
         }
       ]
     }

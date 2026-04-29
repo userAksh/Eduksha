@@ -1,8 +1,5 @@
 package com.dobi.app.feature.conceptlist
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -39,10 +36,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -53,8 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.dobi.app.core.ui.components.DobiBottomNavBar
-import com.dobi.app.core.ui.components.childNavItems
+import com.dobi.app.core.navigation.ConceptListMode
 import com.dobi.app.core.ui.theme.DobiBackground
 import com.dobi.app.core.ui.theme.SFProBold
 import com.dobi.app.core.ui.theme.SFProSemiBold
@@ -70,23 +63,20 @@ import com.dobi.app.core.ui.theme.DobiTheme
 
 @Composable
 fun ConceptListScreen(
+    mode: ConceptListMode = ConceptListMode.DEFAULT,
     onNavigateBack: () -> Unit = {},
     onConceptClick: (String) -> Unit = {},
+    onUnitClick: (String) -> Unit = {},
     viewModel: ConceptListViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    var selectedTab by rememberSaveable { mutableIntStateOf(1) } // Concepts tab active
 
     Scaffold(
         containerColor = DobiBackground,
         topBar = {
-            ConceptListTopBar(onNavigateBack = onNavigateBack)
-        },
-        bottomBar = {
-            DobiBottomNavBar(
-                items = childNavItems,
-                selectedIndex = selectedTab,
-                onItemSelected = { selectedTab = it }
+            ConceptListTopBar(
+                title = if (mode == ConceptListMode.PRACTISE_LESSON) "Pick a Lesson" else "Concepts",
+                onNavigateBack = onNavigateBack
             )
         }
     ) { innerPadding ->
@@ -108,8 +98,10 @@ fun ConceptListScreen(
                 uiState.subjectGroups.isEmpty() -> EmptyState(uiState.searchQuery)
                 else -> ConceptTree(
                     groups = uiState.subjectGroups,
+                    mode = mode,
                     onSubjectToggled = viewModel::onSubjectToggled,
                     onUnitToggled = viewModel::onUnitToggled,
+                    onUnitClick = onUnitClick,
                     onConceptClick = onConceptClick
                 )
             }
@@ -121,11 +113,11 @@ fun ConceptListScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ConceptListTopBar(onNavigateBack: () -> Unit) {
+private fun ConceptListTopBar(title: String, onNavigateBack: () -> Unit) {
     TopAppBar(
         title = {
             Text(
-                text = "Concepts",
+                text = title,
                 style = MaterialTheme.typography.titleLarge,
                 color = DobiTextPrimary
             )
@@ -200,10 +192,13 @@ private fun SearchBar(
 @Composable
 private fun ConceptTree(
     groups: List<SubjectGroup>,
+    mode: ConceptListMode,
     onSubjectToggled: (String) -> Unit,
     onUnitToggled: (String, String) -> Unit,
+    onUnitClick: (String) -> Unit,
     onConceptClick: (String) -> Unit
 ) {
+    val isPractise = mode == ConceptListMode.PRACTISE_LESSON
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         groups.forEach { group ->
             // Subject row
@@ -214,32 +209,32 @@ private fun ConceptTree(
                 )
             }
 
-            // Units + concepts (animated)
-            item(key = "units_${group.subject}") {
-                AnimatedVisibility(
-                    visible = group.isExpanded,
-                    enter = expandVertically(),
-                    exit = shrinkVertically()
-                ) {
-                    Column(modifier = Modifier.background(Color(0xFFF8FAFF))) {
-                        group.units.forEach { unit ->
+            if (group.isExpanded) {
+                group.units.forEach { unit ->
+                    item(key = "unit_${unit.unitId}") {
+                        Box(modifier = Modifier.background(Color(0xFFF8FAFF))) {
                             UnitRow(
                                 unit = unit,
-                                onClick = { onUnitToggled(group.subject, unit.unitId) }
-                            )
-                            AnimatedVisibility(
-                                visible = unit.isExpanded,
-                                enter = expandVertically(),
-                                exit = shrinkVertically()
-                            ) {
-                                Column {
-                                    unit.concepts.forEach { concept ->
-                                        ConceptRow(
-                                            name = concept.name,
-                                            onClick = { onConceptClick(concept.id) }
-                                        )
-                                    }
+                                isPractise = isPractise,
+                                onClick = {
+                                    if (isPractise) onUnitClick(unit.unitId)
+                                    else onUnitToggled(group.subject, unit.unitId)
                                 }
+                            )
+                        }
+                    }
+                    // Practise mode keeps concepts visible so a lesson OR concept can be
+                    // picked with one tap. Default mode expands only when the unit is toggled.
+                    if (isPractise || unit.isExpanded) {
+                        items(
+                            items = unit.concepts,
+                            key = { concept -> "concept_${concept.id}" }
+                        ) { concept ->
+                            Box(modifier = Modifier.background(Color(0xFFF8FAFF))) {
+                                ConceptRow(
+                                    name = concept.name,
+                                    onClick = { onConceptClick(concept.id) }
+                                )
                             }
                         }
                     }
@@ -318,7 +313,7 @@ private fun SubjectRow(group: SubjectGroup, onClick: () -> Unit) {
 // ── Unit row ───────────────────────────────────────────────────────────────────
 
 @Composable
-private fun UnitRow(unit: UnitGroup, onClick: () -> Unit) {
+private fun UnitRow(unit: UnitGroup, isPractise: Boolean, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -357,9 +352,13 @@ private fun UnitRow(unit: UnitGroup, onClick: () -> Unit) {
 
         Spacer(Modifier.width(8.dp))
 
+        val icon = when {
+            isPractise -> Icons.AutoMirrored.Filled.KeyboardArrowRight
+            unit.isExpanded -> Icons.Default.KeyboardArrowUp
+            else -> Icons.Default.KeyboardArrowDown
+        }
         Icon(
-            imageVector = if (unit.isExpanded) Icons.Default.KeyboardArrowUp
-                          else Icons.Default.KeyboardArrowDown,
+            imageVector = icon,
             contentDescription = null,
             tint = DobiTextSecondary,
             modifier = Modifier.size(18.dp)
@@ -474,8 +473,10 @@ private fun ConceptListPreview() {
                     )
                 )
             ),
+            mode = ConceptListMode.DEFAULT,
             onSubjectToggled = {},
             onUnitToggled = { _, _ -> },
+            onUnitClick = {},
             onConceptClick = {}
         )
     }

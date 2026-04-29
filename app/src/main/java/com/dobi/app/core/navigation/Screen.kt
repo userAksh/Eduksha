@@ -2,6 +2,9 @@ package com.dobi.app.core.navigation
 
 import kotlinx.serialization.Serializable
 
+@Serializable
+enum class ConceptListMode { DEFAULT, PRACTISE_LESSON }
+
 @Serializable sealed class Screen {
     @Serializable data object RoleSelection : Screen()
     @Serializable data object PhoneAuth : Screen()
@@ -17,7 +20,28 @@ import kotlinx.serialization.Serializable
     @Serializable data object PinRecovery : Screen()
     @Serializable data class ChildHome(val childId: String) : Screen()
     @Serializable data object ParentHome : Screen()
-    @Serializable data object ConceptList : Screen()
+    @Serializable data class ConceptList(
+        val mode: ConceptListMode = ConceptListMode.DEFAULT
+    ) : Screen()
     @Serializable data class ConceptDetail(val conceptId: String) : Screen()
+    @Serializable data class UnitDetail(val unitId: String) : Screen()
+    @Serializable data class UploadWork(
+        val unitId: String = "",
+        val kind: String,
+        val conceptId: String = ""
+    ) : Screen()
+    @Serializable data class AnswerQuestionsSource(
+        val unitId: String = "",
+        val conceptId: String = ""
+    ) : Screen()
+    @Serializable data class Quiz(
+        val unitId: String = "",
+        val conceptId: String = "",
+        val viewResult: Boolean = false,
+        val source: String = "curated",
+        val displayName: String = ""
+    ) : Screen()
     @Serializable data object HomeworkLog : Screen()
+    @Serializable data object ClassTestPrep : Screen()
+    @Serializable data object WriteAnswer : Screen()
 }

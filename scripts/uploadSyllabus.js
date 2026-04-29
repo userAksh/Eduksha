@@ -1,18 +1,25 @@
 /**
  * uploadSyllabus.js
  *
- * Uploads CBSE Grade 6 Science syllabus to Firestore.
+ * Uploads a syllabus JSON to Firestore.
  *
  * Setup:
  *   1. npm install firebase-admin
  *   2. Firebase Console → Project Settings → Service Accounts → Generate new private key
  *   3. Save the downloaded file as scripts/serviceAccountKey.json
- *   4. node uploadSyllabus.js
+ *
+ * Usage:
+ *   node uploadSyllabus.js                                # defaults to data/cbse_grade6_science.json
+ *   node uploadSyllabus.js data/cbse_grade7_science.json  # explicit file
  */
 
+const path = require("path");
 const admin = require("firebase-admin");
 const serviceAccount = require("./serviceAccountKey.json");
-const syllabusData = require("./data/cbse_grade6_science.json");
+
+const dataArg = process.argv[2] || "data/cbse_grade6_science.json";
+const dataPath = path.isAbsolute(dataArg) ? dataArg : path.resolve(__dirname, dataArg);
+const syllabusData = require(dataPath);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),

@@ -8,12 +8,20 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.dobi.app.feature.addchild.AddChildScreen
 import com.dobi.app.feature.auth.OtpVerificationScreen
 import com.dobi.app.feature.auth.PhoneAuthScreen
 import com.dobi.app.feature.childhome.ChildHomeScreen
 import com.dobi.app.feature.conceptdetail.ConceptDetailScreen
 import com.dobi.app.feature.conceptlist.ConceptListScreen
+import com.dobi.app.feature.unitdetail.UnitDetailScreen
+import com.dobi.app.feature.unitdetail.UnitDetailViewModel
+import com.dobi.app.feature.uploadwork.UploadWorkScreen
+import com.dobi.app.feature.answerquestions.QuestionSourceScreen
+import com.dobi.app.feature.quiz.QuizScreen
+import com.dobi.app.feature.classtestprep.ClassTestPrepScreen
+import com.dobi.app.feature.writeanswer.WriteAnswerScreen
 import com.dobi.app.feature.homework.HomeworkLogScreen
 import com.dobi.app.feature.childpin.EnterChildPinScreen
 import com.dobi.app.feature.pairing.EnterPairingCodeScreen
@@ -130,8 +138,14 @@ fun DobiNavGraph(
 
         composable<Screen.ChildHome> {
             ChildHomeScreen(
-                onNavigateToConceptList = { navController.navigate(Screen.ConceptList) },
+                onNavigateToConceptList = {
+                    navController.navigate(Screen.ConceptList(ConceptListMode.DEFAULT))
+                },
+                onNavigateToPractiseLesson = {
+                    navController.navigate(Screen.ConceptList(ConceptListMode.PRACTISE_LESSON))
+                },
                 onNavigateToHomeworkLog = { navController.navigate(Screen.HomeworkLog) },
+                onNavigateToClassTestPrep = { navController.navigate(Screen.ClassTestPrep) },
                 onRequestParentAccess = {
                     // Pop back to RoleSelection using the pop animation (slide back)
                     val popped = navController.popBackStack(
@@ -169,17 +183,115 @@ fun DobiNavGraph(
             )
         }
 
-        composable<Screen.ConceptList> {
+        composable<Screen.ConceptList> { entry ->
+            val route = entry.toRoute<Screen.ConceptList>()
             ConceptListScreen(
+                mode = route.mode,
                 onNavigateBack = { navController.popBackStack() },
                 onConceptClick = { conceptId ->
                     navController.navigate(Screen.ConceptDetail(conceptId))
+                },
+                onUnitClick = { unitId ->
+                    navController.navigate(Screen.UnitDetail(unitId))
                 }
             )
         }
 
-        composable<Screen.ConceptDetail> {
+        composable<Screen.ConceptDetail> { entry ->
+            val route = entry.toRoute<Screen.ConceptDetail>()
             ConceptDetailScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onAnswerQuestions = {
+                    navController.navigate(
+                        Screen.AnswerQuestionsSource(conceptId = route.conceptId)
+                    )
+                },
+                onUploadWork = { kindKey ->
+                    navController.navigate(
+                        Screen.UploadWork(kind = kindKey, conceptId = route.conceptId)
+                    )
+                }
+            )
+        }
+
+        composable<Screen.UnitDetail> { entry ->
+            val route = entry.toRoute<Screen.UnitDetail>()
+            UnitDetailScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onUploadWork = { kindKey ->
+                    navController.navigate(Screen.UploadWork(route.unitId, kindKey))
+                },
+                onAnswerQuestions = {
+                    navController.navigate(Screen.AnswerQuestionsSource(route.unitId))
+                }
+            )
+        }
+
+        composable<Screen.UploadWork> { entry ->
+            val route = entry.toRoute<Screen.UploadWork>()
+            UploadWorkScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onUploadComplete = { kindKey, quizCacheKey, displayName ->
+                    when (kindKey) {
+                        "self_learning" -> navController.navigate(
+                            Screen.Quiz(
+                                unitId = route.unitId,
+                                conceptId = route.conceptId,
+                                source = "ai"
+                            )
+                        ) { popUpTo<Screen.UploadWork> { inclusive = true } }
+
+                        "ai_test_prep" -> navController.navigate(
+                            Screen.Quiz(
+                                unitId = quizCacheKey,
+                                source = "ai",
+                                displayName = displayName
+                            )
+                        ) { popUpTo<Screen.UploadWork> { inclusive = true } }
+
+                        else -> {
+                            navController.previousBackStackEntry
+                                ?.savedStateHandle
+                                ?.set(UnitDetailViewModel.KEY_UPLOAD_RESULT, kindKey)
+                            navController.popBackStack()
+                        }
+                    }
+                }
+            )
+        }
+
+        composable<Screen.AnswerQuestionsSource> { entry ->
+            val route = entry.toRoute<Screen.AnswerQuestionsSource>()
+            QuestionSourceScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onPickCuratedSet = {
+                    navController.navigate(
+                        Screen.Quiz(unitId = route.unitId, conceptId = route.conceptId)
+                    )
+                },
+                onPickUploadAndGenerate = {
+                    navController.navigate(
+                        Screen.UploadWork(
+                            unitId = route.unitId,
+                            conceptId = route.conceptId,
+                            kind = "self_learning"
+                        )
+                    )
+                },
+                onViewLastResult = {
+                    navController.navigate(
+                        Screen.Quiz(
+                            unitId = route.unitId,
+                            conceptId = route.conceptId,
+                            viewResult = true
+                        )
+                    )
+                }
+            )
+        }
+
+        composable<Screen.Quiz> {
+            QuizScreen(
                 onNavigateBack = { navController.popBackStack() }
             )
         }
@@ -187,6 +299,44 @@ fun DobiNavGraph(
         composable<Screen.HomeworkLog> {
             HomeworkLogScreen(
                 onNavigateBack = { navController.popBackStack() }
+            )
+        }
+
+        composable<Screen.ClassTestPrep> {
+            ClassTestPrepScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onLaunchMcqQuiz = { key, displayName ->
+                    navController.navigate(
+                        Screen.Quiz(
+                            unitId = key,
+                            source = "ai",
+                            displayName = displayName
+                        )
+                    )
+                },
+                onLaunchWriteAnswers = {
+                    navController.navigate(Screen.WriteAnswer)
+                },
+                onLaunchAiPracticeUpload = {
+                    navController.navigate(
+                        Screen.UploadWork(kind = "ai_test_prep")
+                    )
+                }
+            )
+        }
+
+        composable<Screen.WriteAnswer> {
+            WriteAnswerScreen(
+                onBack = { navController.popBackStack() },
+                onLaunchAntiCheatQuiz = {
+                    navController.navigate(
+                        Screen.Quiz(
+                            unitId = com.dobi.app.feature.writeanswer.WriteAnswerViewModel.ANTI_CHEAT_KEY,
+                            source = "ai",
+                            displayName = "Quick check"
+                        )
+                    ) { popUpTo<Screen.WriteAnswer> { inclusive = true } }
+                }
             )
         }
     }

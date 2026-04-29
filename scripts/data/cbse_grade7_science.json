@@ -1,0 +1,565 @@
+{
+  "metadata": {
+    "grade": 7,
+    "board": "CBSE",
+    "subject": "Science",
+    "subjectColor": "#22C55E",
+    "subjectIcon": "🔬",
+    "generatedAt": "2026-04-29",
+    "textbook": "NCERT Curiosity (2024) — Reprint 2026-27"
+  },
+  "units": [
+    {
+      "id": "sci7_u01",
+      "name": "The Ever-Evolving World of Science",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "sci7_c001",
+          "name": "Science Keeps Growing — Happy Exploring!",
+          "description": "Science is not a finished story — it keeps growing as people ask new questions and find new evidence. What we know today is built on the work of generations before us, and new ideas may change what we believe tomorrow. The same curiosity that took ancient sailors across oceans and rocket scientists to the Moon is alive in every learner. The chapter invites students to explore, ask 'why', try things out, and keep wondering.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["happy exploring", "science is evolving", "curiosity in science", "asking questions"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci7_c002",
+          "name": "Indian Contributions to Science",
+          "description": "India has a long scientific tradition. Aryabhata explained eclipses and calculated the value of pi over 1500 years ago. Sushruta wrote one of the world's earliest surgical texts. C. V. Raman won a Nobel Prize for the Raman effect. Homi Bhabha pioneered nuclear research; Vikram Sarabhai built India's space program. ISRO continues this legacy with missions like Chandrayaan, Mangalyaan, and Aditya-L1.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Indian scientists", "Aryabhata Sushruta Raman", "ISRO Chandrayaan", "scientific heritage"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci7_u02",
+      "name": "Exploring Substances: Acidic, Basic, and Neutral",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "sci7_c003",
+          "name": "Nature — Our Science Laboratory",
+          "description": "Many of the things in our kitchens and gardens have hidden scientific properties. Some are sour (lemon, vinegar, tamarind, raw mango — these are acidic). Some are bitter and feel soapy (baking soda, soap, lime water — these are basic). Some are neither (water, sugar solution — these are neutral). Indicators are substances that change colour to tell us which group something belongs to. Litmus, turmeric, china rose, and hibiscus are natural indicators we can find at home.",
+          "expectedDifficulty": "OK",
+          "aliases": ["acids bases neutral", "natural indicators", "litmus turmeric china rose", "sour bitter taste"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci7_c004",
+          "name": "What Happens When Acidic and Basic Substances Mix?",
+          "description": "When an acid and a base are mixed in the right amounts, they cancel each other out — the mixture becomes neutral. This reaction is called neutralisation: Acid + Base → Salt + Water. Heat is also released. Neutralisation is easy to test with an indicator: if you keep adding base to an acidic solution, the indicator's colour shifts as the mixture changes from acidic → neutral → basic.",
+          "expectedDifficulty": "OK",
+          "aliases": ["neutralisation", "acid plus base", "salt and water", "neutral solution"],
+          "prerequisites": ["sci7_c003"],
+          "order": 2
+        },
+        {
+          "id": "sci7_c005",
+          "name": "Neutralisation in Daily Life",
+          "description": "Neutralisation explains many everyday remedies. Indigestion: stomach makes too much HCl → an antacid (a mild base like milk of magnesia) neutralises it. Ant or bee sting: the insect injects formic acid → applying baking soda (a base) gives relief. Soil: too acidic → farmers add lime; too basic → they add organic compost. Toothpaste (a mild base) neutralises mouth acids that cause tooth decay. Industries treat acidic waste before releasing it into rivers.",
+          "expectedDifficulty": "OK",
+          "aliases": ["antacid for indigestion", "ant sting baking soda", "soil pH", "toothpaste neutralisation", "neutralisation in daily life"],
+          "prerequisites": ["sci7_c004"],
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "sci7_u03",
+      "name": "Electricity: Circuits and their Components",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "sci7_c006",
+          "name": "A Torchlight",
+          "description": "A torchlight is a familiar object that lets us study electricity. Inside, it has cells (the source of energy), a bulb (which lights up), a switch (which turns the torch on or off), and metal strips connecting them. When the switch is on, the cells push current through the wires, the bulb's filament heats up and glows, and the torch lights. Looking inside a torch is a great way to understand a basic electric circuit.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["torchlight", "torch parts", "cells bulb switch", "electricity in torch"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci7_c007",
+          "name": "A Simple Electrical Circuit",
+          "description": "An electrical circuit is a closed path through which electric current flows. It needs a source (cell or battery), connecting wires, and a load (like a bulb). When the path is complete (closed circuit), current flows and the bulb lights. When the path is broken (open circuit), no current flows. A switch is a simple device that can open and close the circuit. Two or more cells joined together (positive of one to negative of next) form a battery.",
+          "expectedDifficulty": "OK",
+          "aliases": ["electric circuit", "open closed circuit", "battery cells", "complete circuit"],
+          "prerequisites": ["sci7_c006"],
+          "order": 2
+        },
+        {
+          "id": "sci7_c008",
+          "name": "Circuit Diagrams",
+          "description": "Drawing the actual cells and bulbs every time we describe a circuit is slow and unclear. Instead, scientists use standard symbols: cell (long line + short line), battery (multiple cells joined), bulb (circle with a cross), switch (a hinged line that opens or closes), and wires (straight lines). A circuit diagram uses these symbols to show how components are connected. Anyone who knows the symbols can read the circuit.",
+          "expectedDifficulty": "OK",
+          "aliases": ["circuit diagram", "circuit symbols", "drawing circuits", "standard symbols"],
+          "prerequisites": ["sci7_c007"],
+          "order": 3
+        },
+        {
+          "id": "sci7_c009",
+          "name": "Electrical Conductors and Insulators",
+          "description": "Materials that allow electric current to pass through them easily are conductors — metals like copper, aluminium, iron, and graphite. Materials that do not allow current to pass are insulators — rubber, plastic, wood, dry air, glass. This is why electric wires use copper (conductor) coated with plastic (insulator) for safety. Even our body conducts electricity, which is why touching live wires is dangerous.",
+          "expectedDifficulty": "OK",
+          "aliases": ["conductors insulators", "good conductors of electricity", "wire material", "safety with electricity"],
+          "prerequisites": ["sci7_c007"],
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "sci7_u04",
+      "name": "The World of Metals and Non-metals",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "sci7_c010",
+          "name": "Properties of Materials — Metals vs Non-metals",
+          "description": "Metals share several physical properties: lustre (they shine when polished), malleability (can be beaten into thin sheets like aluminium foil), ductility (can be drawn into wires like copper), good conductivity of heat and electricity, sonority (make a ringing sound when struck). Most are hard, dense, and have high melting points. Non-metals usually show the opposite — dull, brittle, poor conductors, not sonorous, lower melting/boiling points.",
+          "expectedDifficulty": "OK",
+          "aliases": ["properties of metals", "metals vs non-metals", "malleability ductility", "lustre sonority"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci7_c011",
+          "name": "Effect of Air and Water on Metals — Iron and Rusting",
+          "description": "Iron objects left in the open often develop a brownish coating called rust. Rusting is a chemical reaction in which iron reacts with oxygen and moisture: Iron + Oxygen + Water → Rust. Rust weakens iron objects. To prevent rusting we can paint, oil, galvanise (coat with zinc), chrome plate, or use stainless steel (an alloy of iron with chromium and nickel). Rusting is faster in coastal areas where the air is humid and salty.",
+          "expectedDifficulty": "OK",
+          "aliases": ["rusting", "iron and water", "rust prevention", "galvanisation stainless steel"],
+          "prerequisites": ["sci7_c010"],
+          "order": 2
+        },
+        {
+          "id": "sci7_c012",
+          "name": "Effect of Air and Water on Other Metals",
+          "description": "Different metals react to air and water in different ways. Copper develops a green coating over time (called patina). Silver tarnishes (turns black) due to reaction with sulphur compounds in air. Aluminium forms a thin, protective oxide layer that stops further reaction. Sodium and potassium react so violently with water that they catch fire — they are kept in oil. Gold and platinum hardly react with air or water, which is why they stay shiny for centuries.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["metals react with air water", "tarnishing", "copper patina", "reactivity of metals"],
+          "prerequisites": ["sci7_c011"],
+          "order": 3
+        },
+        {
+          "id": "sci7_c013",
+          "name": "Substances that Behave Differently from Metals",
+          "description": "Non-metals like sulphur, phosphorus, oxygen, nitrogen, and carbon do not show the typical metal properties. They are usually dull, brittle, and poor conductors of heat and electricity. Some are solids (sulphur), some gases (oxygen, nitrogen), and one (bromine) is a liquid at room temperature. Non-metals often react with metals — for example, oxygen + metal = metal oxide. Acids react with metals to release hydrogen gas (the 'pop' sound when a lit matchstick is brought near).",
+          "expectedDifficulty": "OK",
+          "aliases": ["non-metals", "non-metal properties", "hydrogen test", "metal reacts with acid"],
+          "prerequisites": ["sci7_c010"],
+          "order": 4
+        },
+        {
+          "id": "sci7_c014",
+          "name": "Are Non-metals Essential in Everyday Life?",
+          "description": "Non-metals are essential — without them, life would not exist. Oxygen for breathing; nitrogen for fertilisers and protein in our food; carbon as the basis of all living matter; chlorine to disinfect drinking water; iodine in medicines and table salt; sulphur in matchsticks and gunpowder; graphite (carbon) in pencils and electrodes. Each non-metal plays a unique role in industry, agriculture, medicine, or daily life.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["uses of non-metals", "non-metals in daily life", "oxygen nitrogen carbon", "essential non-metals"],
+          "prerequisites": ["sci7_c013"],
+          "order": 5
+        }
+      ]
+    },
+    {
+      "id": "sci7_u05",
+      "name": "Changes Around Us: Physical and Chemical",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "sci7_c015",
+          "name": "A Change in Appearance, Same Substance — Physical Change",
+          "description": "Some changes affect only the form, shape, size, or state of a substance — no new substance is formed. These are physical changes and are usually reversible. Examples: melting of ice (still water, just in a different state), dissolving sugar in water, tearing paper, beating metal into a sheet, stretching a rubber band, boiling water. The original substance can usually be brought back.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["physical change", "no new substance", "reversible changes", "shape size state change"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci7_c016",
+          "name": "A Change That Forms a New Substance — Chemical Change",
+          "description": "Other changes produce one or more new substances with different properties. These are chemical changes — usually irreversible. Common signs: change in colour, evolution of gas (bubbles), change in temperature (heat released or absorbed), formation of a precipitate, change in smell. Examples: burning wood, rusting iron, cooking food, curdling milk, ripening of fruit, photosynthesis in leaves.",
+          "expectedDifficulty": "OK",
+          "aliases": ["chemical change", "new substance formed", "signs of chemical change", "irreversible changes"],
+          "prerequisites": ["sci7_c015"],
+          "order": 2
+        },
+        {
+          "id": "sci7_c017",
+          "name": "Some Other Processes Involving Chemical Changes",
+          "description": "Many everyday processes are chemical changes. Photosynthesis: plants use sunlight, CO2, and water to make glucose. Respiration: animals break down glucose with oxygen to release energy. Fermentation: yeast breaks down sugar to make alcohol or carbon dioxide (used in baking, brewing, idli batter). Combustion: fuels burn in oxygen to release heat and light. In each, new substances are formed and the change cannot be easily reversed.",
+          "expectedDifficulty": "OK",
+          "aliases": ["chemical processes", "photosynthesis respiration fermentation", "combustion"],
+          "prerequisites": ["sci7_c016"],
+          "order": 3
+        },
+        {
+          "id": "sci7_c018",
+          "name": "Can Physical and Chemical Changes Occur Together?",
+          "description": "Yes — many real-world changes have both physical and chemical parts happening at once. When a candle burns: the wax melts (physical change) and the wax/wick burn to give CO2, water vapour, and soot (chemical change). When food cooks: water boils off (physical) and the food's chemistry changes — proteins coagulate, starches change colour (chemical). Looking carefully at any change can reveal both kinds happening side by side.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["physical and chemical change together", "candle burning", "cooking food", "combined changes"],
+          "prerequisites": ["sci7_c016"],
+          "order": 4
+        },
+        {
+          "id": "sci7_c019",
+          "name": "Are Changes Permanent?",
+          "description": "Whether a change can be reversed depends on what kind of change it is. Most physical changes can be reversed — melt ice → freeze water back. Most chemical changes are permanent — once paper is burned to ash, you cannot get the paper back. Some processes have multiple steps, where some can be reversed and others cannot. This idea — reversible vs permanent — helps us think about both the changes we want (cooking food) and the ones we want to prevent (rusting).",
+          "expectedDifficulty": "OK",
+          "aliases": ["reversible irreversible", "permanent changes", "can changes be undone"],
+          "prerequisites": ["sci7_c015"],
+          "order": 5
+        },
+        {
+          "id": "sci7_c020",
+          "name": "Are All Changes Desirable?",
+          "description": "Some changes are useful — cooking food makes it edible; ripening makes fruits tasty; baking turns batter into bread; setting of cement holds buildings. Other changes are unwanted — rusting damages iron; spoiling makes food unsafe; burning wastes useful materials. Understanding the chemistry helps us encourage good changes (composting, fermentation) and prevent bad ones (rusting, spoilage).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["desirable undesirable changes", "useful and harmful changes", "preventing bad changes"],
+          "prerequisites": ["sci7_c016"],
+          "order": 6
+        },
+        {
+          "id": "sci7_c021",
+          "name": "Some Slow Natural Changes",
+          "description": "Many changes in nature happen so slowly that we do not see them at once. Rocks weather into soil over centuries due to wind, water, and temperature changes. Caves form over thousands of years as water dissolves limestone. Fossil fuels formed from buried plants and animals over millions of years. The shape of mountains and coastlines changes slowly. These slow changes shape the Earth itself.",
+          "expectedDifficulty": "OK",
+          "aliases": ["slow natural changes", "weathering of rocks", "fossil fuel formation", "earth changes slowly"],
+          "prerequisites": [],
+          "order": 7
+        }
+      ]
+    },
+    {
+      "id": "sci7_u06",
+      "name": "Adolescence: A Stage of Growth and Change",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "sci7_c022",
+          "name": "Growing With Age — The Teenage Years",
+          "description": "Adolescence is the stage between childhood and adulthood, roughly ages 10 to 19. The body and mind grow and change rapidly. People grow taller; voices change; new feelings and interests develop. Each person grows at their own pace — there is no single 'right' age or pattern. Adolescence is also a time to develop healthy habits, learn new skills, and build relationships.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["adolescence", "teenage years", "growing up", "stages of life"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci7_c023",
+          "name": "Changes that Indicate Reproductive Capability",
+          "description": "During adolescence (puberty), the body becomes capable of reproduction. Visible changes: growth in height, development of body hair, changes in voice (especially in boys), and other changes specific to girls and boys. Internal changes happen too — controlled by hormones from special glands (pituitary, thyroid, and others). All these changes are healthy and normal. Talking to a parent, teacher, or trusted adult helps in handling questions.",
+          "expectedDifficulty": "OK",
+          "aliases": ["puberty", "physical changes adolescence", "hormones", "reproductive changes"],
+          "prerequisites": ["sci7_c022"],
+          "order": 2
+        },
+        {
+          "id": "sci7_c024",
+          "name": "Emotional and Behavioural Changes",
+          "description": "Adolescence brings new emotions and behaviours along with physical changes. Mood swings, wanting more independence, new friendships, sudden interest in appearance, and self-doubt are all common. These are caused partly by hormonal changes and partly by new social situations. Talking openly, journaling, exercising, and pursuing hobbies all help. There is no shame in asking for help when feeling overwhelmed.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["emotional changes", "mood swings adolescents", "behavioural changes", "growing up emotions"],
+          "prerequisites": ["sci7_c022"],
+          "order": 3
+        },
+        {
+          "id": "sci7_c025",
+          "name": "Making Adolescence a Joyful Experience",
+          "description": "Adolescence can be enjoyable with the right habits. Eat a balanced diet — carbohydrates (rice, roti), proteins (dal, eggs, milk, paneer), fats in moderation, and plenty of fruits and vegetables. Avoid junk food and sugary drinks. Get 8–10 hours of sleep. Exercise daily. Maintain personal hygiene. Avoid tobacco, alcohol, and drugs — they damage growing bodies and minds. Spend time on hobbies and outdoor play.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["healthy adolescence", "balanced diet", "sleep exercise", "avoiding tobacco alcohol"],
+          "prerequisites": ["sci7_c022"],
+          "order": 4
+        },
+        {
+          "id": "sci7_c026",
+          "name": "The 'Why' Question for Adolescence",
+          "description": "Why do these changes happen at this age? Adolescence prepares the body for adulthood — physically, emotionally, and socially. The brain rewires itself; the body becomes capable of independent life and reproduction; the personality begins to take its mature shape. Different cultures mark this transition with rituals or festivals. Understanding why these changes happen helps adolescents accept and enjoy them.",
+          "expectedDifficulty": "OK",
+          "aliases": ["why adolescence happens", "purpose of puberty", "preparing for adulthood"],
+          "prerequisites": ["sci7_c022"],
+          "order": 5
+        }
+      ]
+    },
+    {
+      "id": "sci7_u07",
+      "name": "Heat Transfer in Nature",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "sci7_c027",
+          "name": "Conduction of Heat",
+          "description": "Conduction is the transfer of heat through a solid by particle vibration, without the particles themselves moving from place. A metal spoon kept in hot tea quickly feels hot at the handle — heat travels through it by conduction. Metals are good conductors of heat; wood, plastic, and air are poor conductors (insulators). Cooking pots have metal bases (good conductor) and plastic/wood handles (insulator). Woollen clothes trap air, which is a poor conductor, keeping us warm.",
+          "expectedDifficulty": "OK",
+          "aliases": ["conduction of heat", "heat in solids", "good and bad conductors of heat", "insulators"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci7_c028",
+          "name": "Convection",
+          "description": "Convection transfers heat through fluids (liquids and gases) by actual movement of heated particles. When water is heated at the bottom of a pot, the hot water rises and cool water sinks to take its place — forming convection currents. The same happens with air: heated air rises (smoke goes up), cool air moves in. Sea breeze (cool air moving from sea to warm land during the day) and land breeze (cool air moving from land to warm sea at night) both work by convection.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["convection", "heat in liquids gases", "convection currents", "sea breeze land breeze"],
+          "prerequisites": ["sci7_c027"],
+          "order": 2
+        },
+        {
+          "id": "sci7_c029",
+          "name": "Radiation",
+          "description": "Radiation is the transfer of heat without needing any medium — it travels even through empty space. This is how heat from the Sun reaches Earth across vacuum, and how we feel warmth from a fire even at a distance. Dark, dull surfaces absorb and emit more radiation; shiny, light surfaces reflect more. That is why we wear light-coloured clothes in summer and dark in winter, and why solar water heaters use blackened panels.",
+          "expectedDifficulty": "OK",
+          "aliases": ["radiation of heat", "heat from sun", "vacuum heat transfer", "dark light absorption"],
+          "prerequisites": ["sci7_c027"],
+          "order": 3
+        },
+        {
+          "id": "sci7_c030",
+          "name": "Water Cycle",
+          "description": "Heat from the Sun drives the water cycle. Sunlight evaporates water from oceans, rivers, and lakes, turning it into water vapour. The vapour rises and cools high in the atmosphere, condensing into tiny droplets that form clouds. When droplets get heavy, they fall as rain (or snow or hail) — precipitation. The water collects in oceans, rivers, lakes, and groundwater, ready to evaporate again. The cycle is powered by the Sun's heat.",
+          "expectedDifficulty": "OK",
+          "aliases": ["water cycle", "evaporation condensation precipitation", "sun powers water cycle", "rain formation"],
+          "prerequisites": [],
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "sci7_u08",
+      "name": "Measurement of Time and Motion",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "sci7_c031",
+          "name": "Measurement of Time",
+          "description": "Time is measured using events that repeat at regular intervals. Long ago, people used the position of the Sun, water clocks, sand clocks, and sundials. Pendulum clocks were a big advance — the time period of a pendulum depends only on its length, not on the mass of the bob or how far it swings. Modern clocks use vibrating quartz crystals; atomic clocks are accurate to billionths of a second. The SI unit of time is the second (s).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["measuring time", "pendulum clock", "atomic clock", "units of time"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci7_c032",
+          "name": "Slow or Fast",
+          "description": "We say something is fast or slow by comparing how much distance it covers in a given time. A car that covers 100 km in 1 hour is fast; a person who walks 5 km in 1 hour is slow. To compare different objects fairly, we use speed. A speedometer in a vehicle shows current speed; an odometer measures total distance travelled. These are everyday examples of how we judge motion.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["slow or fast", "comparing speeds", "speedometer odometer"],
+          "prerequisites": [],
+          "order": 2
+        },
+        {
+          "id": "sci7_c033",
+          "name": "Speed",
+          "description": "Speed = Distance ÷ Time. The SI unit of speed is metres per second (m/s); we also use kilometres per hour (km/h). 1 m/s = 3.6 km/h. To find the speed of a moving car, we measure the distance it covers and the time taken. Average speed = total distance ÷ total time. Speed lets us compare and predict motion — at 60 km/h, a car covers 60 km in 1 hour, 30 km in half an hour.",
+          "expectedDifficulty": "OK",
+          "aliases": ["speed formula", "units of speed", "distance time speed", "average speed"],
+          "prerequisites": ["sci7_c032"],
+          "order": 3
+        },
+        {
+          "id": "sci7_c034",
+          "name": "Uniform and Non-uniform Linear Motion",
+          "description": "Linear motion is motion along a straight line. In uniform linear motion, the object covers equal distances in equal intervals of time — its speed is constant (e.g., a car cruising at 60 km/h). In non-uniform motion, the speed keeps changing (a car in city traffic, a runner during a race). A distance-time graph is a useful tool: a straight slanting line means uniform motion (slope = speed); a curved line means non-uniform motion.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["uniform non-uniform motion", "linear motion", "distance time graph", "constant speed"],
+          "prerequisites": ["sci7_c033"],
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "sci7_u09",
+      "name": "Life Processes in Animals",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "sci7_c035",
+          "name": "Nutrition in Animals — Steps and Human Digestive System",
+          "description": "Animal nutrition has five steps: ingestion (taking in food), digestion (breaking it into simpler substances), absorption (digested food enters the blood), assimilation (cells use the food), and egestion (undigested waste removed). The human digestive system is a long tube from mouth to anus: mouth (chewing + saliva) → oesophagus → stomach (HCl + digestive juices) → small intestine (most digestion + absorption via villi) → large intestine (water absorption) → rectum → anus. Liver and pancreas are associated glands.",
+          "expectedDifficulty": "OK",
+          "aliases": ["nutrition in animals", "human digestive system", "ingestion digestion absorption", "stomach intestines"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci7_c036",
+          "name": "Digestion in Grass-Eaters and Amoeba",
+          "description": "Cows and buffaloes (ruminants) swallow grass quickly into a special stomach chamber called the rumen, then bring it back to the mouth as cud and chew it slowly — this is rumination. Bacteria in their gut digest cellulose, which humans cannot. Amoeba is a single-celled organism that lives in pond water. It pushes out finger-like pseudopodia to surround food, forming a food vacuole where digestion happens. This shows that nutrition can occur even in a single cell.",
+          "expectedDifficulty": "OK",
+          "aliases": ["ruminants", "rumination cud", "amoeba feeding", "pseudopodia food vacuole"],
+          "prerequisites": ["sci7_c035"],
+          "order": 2
+        },
+        {
+          "id": "sci7_c037",
+          "name": "Respiration in Animals",
+          "description": "Respiration is the process by which living things release energy from food using oxygen. Aerobic respiration: Glucose + Oxygen → CO2 + Water + Energy. Different animals have different respiratory organs. Humans and mammals — lungs (with diaphragm and rib muscles for breathing). Fish — gills, which extract dissolved oxygen from water. Insects — tracheae (a network of tubes) with openings called spiracles. Earthworms — moist skin. Frogs — lungs and skin (when in water). Breathing rate increases when we exercise.",
+          "expectedDifficulty": "OK",
+          "aliases": ["respiration in animals", "lungs gills tracheae", "aerobic respiration", "earthworm skin breathing"],
+          "prerequisites": [],
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "sci7_u10",
+      "name": "Life Processes in Plants",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "sci7_c038",
+          "name": "How Do Plants Grow?",
+          "description": "Plants grow from seeds. A seed contains a tiny embryo and stored food. Given the right conditions — water, air, and warmth — the embryo wakes up and grows into a seedling (germination). The young plant develops roots that anchor it and absorb water and minerals; a stem that supports it; and leaves that make food. Different plants take different times to grow — a moong plant in weeks, a banyan tree over decades.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["how plants grow", "germination", "seed to plant", "stages of plant growth"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci7_c039",
+          "name": "How Do Plants Get Food — Photosynthesis and Other Modes",
+          "description": "Most plants make their own food (autotrophs) by photosynthesis. Chlorophyll in green leaves traps sunlight; roots absorb water; stomata take in CO2. Sunlight + Water + CO2 → Glucose + Oxygen. Glucose is stored as starch. Some plants cannot make their own food. Parasitic plants (Cuscuta/amarbel) take food from a host. Insectivorous plants (pitcher plant, Venus flytrap) trap insects to get nitrogen. Saprotrophs (fungi, mushrooms) feed on dead matter. Symbiosis (lichens, Rhizobium with legumes) is a partnership for food.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["photosynthesis", "modes of nutrition plants", "parasitic insectivorous saprotrophs", "symbiosis Rhizobium"],
+          "prerequisites": ["sci7_c038"],
+          "order": 2
+        },
+        {
+          "id": "sci7_c040",
+          "name": "Transport in Plants",
+          "description": "Plants move water, minerals, and food internally using two transport tissues. Xylem carries water and minerals upward from roots to leaves. Phloem carries food (made in leaves) to all parts of the plant. Water rises in tall trees due to root pressure and transpiration pull. Transpiration — loss of water vapour through stomata in leaves — keeps the upward flow going and also cools the plant on hot days.",
+          "expectedDifficulty": "OK",
+          "aliases": ["transport in plants", "xylem phloem", "transpiration", "water in plants"],
+          "prerequisites": [],
+          "order": 3
+        },
+        {
+          "id": "sci7_c041",
+          "name": "Do Plants Respire?",
+          "description": "Yes — plants respire just like animals. They take in oxygen and release carbon dioxide. Respiration happens day and night in all parts of a plant. During the day, photosynthesis is also happening, and the net effect is that plants release more oxygen than CO2. At night, only respiration happens. Roots get oxygen from air spaces in the soil; leaves use stomata; stems use small openings called lenticels.",
+          "expectedDifficulty": "OK",
+          "aliases": ["respiration in plants", "do plants breathe", "stomata lenticels", "plants release oxygen"],
+          "prerequisites": [],
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "sci7_u11",
+      "name": "Light: Shadows and Reflections",
+      "order": 11,
+      "concepts": [
+        {
+          "id": "sci7_c042",
+          "name": "Sources of Light",
+          "description": "Objects that produce their own light are called luminous — the Sun, stars, electric bulbs, candles, fireflies. Objects that do not produce their own light are non-luminous — the Moon, books, chairs, walls. We see non-luminous objects only because they reflect light from luminous ones. The Moon shines at night because it reflects sunlight.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["sources of light", "luminous non-luminous", "moon reflects sunlight"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci7_c043",
+          "name": "Does Light Travel in a Straight Line?",
+          "description": "Light travels in a straight line — this is why we cannot see around corners. We can show this with a simple experiment: line up three cards with small holes; only when the holes are perfectly aligned does light from a candle reach the eye. Bend any card and the light is blocked. This straight-line travel is why shadows form, and why we can see images in mirrors and through pinhole cameras.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["light straight line", "rectilinear propagation of light", "three card experiment"],
+          "prerequisites": ["sci7_c042"],
+          "order": 2
+        },
+        {
+          "id": "sci7_c044",
+          "name": "Light through Transparent, Translucent, and Opaque Materials",
+          "description": "Materials are grouped by how light passes through them. Transparent materials let almost all light pass — clear glass, water, air. We can see clearly through them. Translucent materials let some light pass but the image is blurred — frosted glass, butter paper, thin cloth. Opaque materials block all light — wood, brick, metal. Shadows are formed only by opaque objects.",
+          "expectedDifficulty": "OK",
+          "aliases": ["transparent translucent opaque", "materials and light", "light passes through materials"],
+          "prerequisites": ["sci7_c043"],
+          "order": 3
+        },
+        {
+          "id": "sci7_c045",
+          "name": "Shadow Formation",
+          "description": "A shadow forms when an opaque object blocks light. Three things are needed: a source of light, an opaque object, and a screen. Shadows form on the side opposite to the light source. Their size depends on distances — closer the object to the source, larger the shadow; farther, smaller. Shadows show only the outline of the object, not its colour. We use shadows in shadow puppetry, sundials, and to estimate the time of day.",
+          "expectedDifficulty": "OK",
+          "aliases": ["shadow formation", "how shadows form", "size of shadow", "shadow uses"],
+          "prerequisites": ["sci7_c043"],
+          "order": 4
+        },
+        {
+          "id": "sci7_c046",
+          "name": "Reflection of Light",
+          "description": "When light hits a smooth, shiny surface, it bounces back — this is reflection. Polished surfaces (mirrors, still water) reflect light in a clear, organised way (regular reflection) and form images. Rough surfaces (paper, walls) scatter light in all directions (diffuse reflection) — that is why we can see them but they do not form clear images. Reflection follows two rules: angle of incidence = angle of reflection; and the incident ray, reflected ray, and normal lie in the same plane.",
+          "expectedDifficulty": "OK",
+          "aliases": ["reflection of light", "laws of reflection", "regular diffuse reflection", "mirror reflection"],
+          "prerequisites": ["sci7_c042"],
+          "order": 5
+        },
+        {
+          "id": "sci7_c047",
+          "name": "Images Formed in a Plane Mirror",
+          "description": "A plane mirror produces an image that is virtual (cannot be caught on a screen), erect (upright), the same size as the object, at the same distance behind the mirror as the object is in front, and laterally inverted (left-right reversed). That is why ambulances have 'AMBULANCE' written in mirror writing — drivers in front see it normally in their rear-view mirror.",
+          "expectedDifficulty": "OK",
+          "aliases": ["plane mirror image", "image in mirror", "lateral inversion", "virtual image"],
+          "prerequisites": ["sci7_c046"],
+          "order": 6
+        },
+        {
+          "id": "sci7_c048",
+          "name": "Pinhole Camera",
+          "description": "A pinhole camera is a dark box with a tiny hole on one side and a screen on the other. Light from an object passes through the pinhole and forms an inverted (upside-down) image on the screen. The image is inverted because rays from the top and bottom of the object cross at the pinhole. This proves light travels in straight lines. A natural pinhole effect can be seen under a leafy tree during a solar eclipse — many small images of the crescent Sun appear on the ground.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["pinhole camera", "inverted image", "camera obscura", "how pinhole works"],
+          "prerequisites": ["sci7_c043"],
+          "order": 7
+        },
+        {
+          "id": "sci7_c049",
+          "name": "Making Some Useful Items — Periscope and Kaleidoscope",
+          "description": "Multiple mirrors give beautiful and useful effects. A periscope uses two mirrors at 45° to see over walls or out of submarines — light from the top mirror reflects to the bottom mirror, which reflects to the eye. A kaleidoscope uses three mirrors arranged in a triangle to create stunning symmetric patterns from small bits of coloured paper or beads. Both are simple to build at home with a few mirrors and cardboard.",
+          "expectedDifficulty": "OK",
+          "aliases": ["periscope", "kaleidoscope", "multiple reflections", "useful with mirrors"],
+          "prerequisites": ["sci7_c046"],
+          "order": 8
+        }
+      ]
+    },
+    {
+      "id": "sci7_u12",
+      "name": "Earth, Moon, and the Sun",
+      "order": 12,
+      "concepts": [
+        {
+          "id": "sci7_c050",
+          "name": "Rotation of the Earth — Day and Night",
+          "description": "The Earth spins on its own axis once every 24 hours — this is rotation. The side facing the Sun has day; the side away has night. Because of rotation, the Sun appears to rise in the East and set in the West. The Earth's axis is an imaginary line through the North and South poles, tilted at 23.5° to the perpendicular. Rotation also creates a slight bulge at the equator and flattening at the poles.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["rotation of earth", "day and night", "earth axis", "sunrise sunset"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci7_c051",
+          "name": "Revolution of the Earth — Year and Seasons",
+          "description": "While rotating on its axis, the Earth also moves around the Sun in an orbit. One full revolution takes about 365¼ days — that is why a year has 365 days, with one leap year of 366 days every 4 years. Because Earth's axis is tilted, different parts of Earth get more direct sunlight at different times of the year — this gives us seasons (summer, winter, monsoon, autumn). When the Northern Hemisphere is tilted toward the Sun, it is summer there; six months later, winter.",
+          "expectedDifficulty": "OK",
+          "aliases": ["revolution of earth", "year and seasons", "earth tilt seasons", "leap year"],
+          "prerequisites": ["sci7_c050"],
+          "order": 2
+        },
+        {
+          "id": "sci7_c052",
+          "name": "Eclipses — Solar and Lunar",
+          "description": "An eclipse happens when one heavenly body comes into the shadow of another. Solar eclipse: the Moon comes between the Sun and the Earth and blocks sunlight — happens only on a new Moon day. Never look at a solar eclipse with bare eyes; use special filters. Lunar eclipse: the Earth comes between the Sun and the Moon, blocking sunlight from reaching the Moon — happens only on a full Moon night. Lunar eclipses are safe to view directly.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["solar eclipse", "lunar eclipse", "types of eclipse", "eclipse safety"],
+          "prerequisites": ["sci7_c050"],
+          "order": 3
+        }
+      ]
+    }
+  ]
+}

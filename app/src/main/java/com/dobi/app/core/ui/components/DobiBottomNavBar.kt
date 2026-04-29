@@ -4,9 +4,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.School
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.MenuBook
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.School
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -27,7 +29,7 @@ data class NavItem(
 
 val childNavItems = listOf(
     NavItem("Home", Icons.Filled.Home, Icons.Outlined.Home),
-    NavItem("Concepts", Icons.Filled.MenuBook, Icons.Outlined.MenuBook),
+    NavItem("My Learnings", Icons.Filled.School, Icons.Outlined.School),
     NavItem("Profile", Icons.Filled.Person, Icons.Outlined.Person),
 )
 

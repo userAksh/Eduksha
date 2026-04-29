@@ -26,10 +26,19 @@ enum class Gender(val display: String, val emoji: String, val key: String) {
 data class ChildDraft(
     val name: String = "",
     val gender: Gender = Gender.BOY,
-    val grade: Int = 5,
+    val grade: Int = 6,
     val board: String = "CBSE",
     val pin: String = ""
-)
+) {
+    companion object {
+        // Boards/grades currently supported by the app's curated content.
+        val SUPPORTED_BOARDS: List<String> = listOf("CBSE")
+        val SUPPORTED_GRADES: List<Int> = listOf(6, 7)
+        // Shown disabled in pickers so parents can see what's coming.
+        val UPCOMING_BOARDS: List<String> = listOf("ICSE", "State Board")
+        val UPCOMING_GRADES: List<Int> = (1..12).filterNot { it in SUPPORTED_GRADES }
+    }
+}
 
 enum class AddChildStep { WELCOME, DETAILS, DONE }
 

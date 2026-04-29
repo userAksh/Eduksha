@@ -8,12 +8,13 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -28,11 +29,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -41,7 +42,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -56,7 +56,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -69,26 +68,22 @@ import com.dobi.app.core.ui.theme.DobiBackground
 import com.dobi.app.core.ui.theme.SFProBold
 import com.dobi.app.core.ui.theme.SFProSemiBold
 import com.dobi.app.core.ui.theme.SFProMedium
-import com.dobi.app.core.ui.theme.SFProRegular
-import com.dobi.app.core.ui.theme.SFProLight
-import com.dobi.app.core.ui.theme.DobiError
-import com.dobi.app.core.ui.theme.DobiErrorContainer
 import com.dobi.app.core.ui.theme.DobiPrimary
-import com.dobi.app.core.ui.theme.DobiPrimaryContainer
-import com.dobi.app.core.ui.theme.DobiSuccess
-import com.dobi.app.core.ui.theme.DobiSuccessContainer
 import com.dobi.app.core.ui.theme.DobiTextPrimary
 import com.dobi.app.core.ui.theme.DobiTextSecondary
 import com.dobi.app.core.ui.theme.DobiTheme
-import com.dobi.app.domain.model.LearningStatus
-import com.dobi.app.domain.model.TodayLearningItem
+import com.dobi.app.domain.model.ParentTask
+import com.dobi.app.domain.model.ParentTaskStatus
+import com.dobi.app.feature.mylearnings.MyLearningsContent
 
 // ── Entry point ────────────────────────────────────────────────────────────────
 
 @Composable
 fun ChildHomeScreen(
     onNavigateToConceptList: () -> Unit = {},
+    onNavigateToPractiseLesson: () -> Unit = {},
     onNavigateToHomeworkLog: () -> Unit = {},
+    onNavigateToClassTestPrep: () -> Unit = {},
     onRequestParentAccess: () -> Unit = {},
     viewModel: ChildHomeViewModel = hiltViewModel()
 ) {
@@ -126,13 +121,13 @@ fun ChildHomeScreen(
             0 -> ChildHomeContent(
                 uiState = uiState,
                 onStartLearning = onNavigateToConceptList,
-                onViewConcepts = onNavigateToConceptList,
-                onNavigateToConceptList = onNavigateToConceptList,
+                onNavigateToPractiseLesson = onNavigateToPractiseLesson,
                 onNavigateToHomeworkLog = onNavigateToHomeworkLog,
-                onItemClick = {},
+                onNavigateToClassTestPrep = onNavigateToClassTestPrep,
+                onTaskClick = {},
                 contentPadding = innerPadding
             )
-            1 -> TabPlaceholder("Concepts", innerPadding)
+            1 -> MyLearningsContent(contentPadding = innerPadding)
             2 -> TabPlaceholder("Profile", innerPadding)
         }
     }
@@ -144,10 +139,10 @@ fun ChildHomeScreen(
 private fun ChildHomeContent(
     uiState: ChildHomeUiState,
     onStartLearning: () -> Unit,
-    onViewConcepts: () -> Unit,
-    onNavigateToConceptList: () -> Unit,
+    onNavigateToPractiseLesson: () -> Unit,
     onNavigateToHomeworkLog: () -> Unit,
-    onItemClick: (String) -> Unit,
+    onNavigateToClassTestPrep: () -> Unit,
+    onTaskClick: (String) -> Unit,
     contentPadding: PaddingValues
 ) {
     var selectedModeIndex by remember { mutableStateOf<Int?>(null) }
@@ -157,122 +152,106 @@ private fun ChildHomeContent(
     Box(Modifier.fillMaxSize()) {
 
         LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(DobiBackground),
-        contentPadding = PaddingValues(
-            start = 20.dp,
-            end = 20.dp,
-            top = contentPadding.calculateTopPadding() + 28.dp,
-            bottom = contentPadding.calculateBottomPadding() + 16.dp
-        ),
-        verticalArrangement = Arrangement.spacedBy(0.dp)
-    ) {
-        // Greeting
-        item {
-            Text(
-                text = "Hi, ${uiState.childName}! \uD83D\uDC4B",
-                style = MaterialTheme.typography.headlineMedium,
-                color = DobiTextPrimary
-            )
-            Spacer(Modifier.height(4.dp))
-            Text(
-                text = "Keep up the great learning!",
-                style = MaterialTheme.typography.bodyMedium,
-                color = DobiTextSecondary
-            )
-            Spacer(Modifier.height(20.dp))
-        }
-
-        // Streak banner
-        item {
-            StreakBanner(streakDays = uiState.streakDays)
-            Spacer(Modifier.height(16.dp))
-        }
-
-        // Revision mode cards
-        item {
-            RevisionModeRow(onRevisionModeClick = { lastModeIndex = it; selectedModeIndex = it })
-            Spacer(Modifier.height(20.dp))
-        }
-
-        // CTAs
-        item {
-            Button(
-                onClick = onStartLearning,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(52.dp),
-                shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = DobiPrimary)
-            ) {
-                Icon(
-                    Icons.Default.PlayArrow,
-                    contentDescription = null,
-                    modifier = Modifier.size(20.dp)
-                )
-                Spacer(Modifier.width(8.dp))
+            modifier = Modifier
+                .fillMaxSize()
+                .background(DobiBackground),
+            contentPadding = PaddingValues(
+                start = 20.dp,
+                end = 20.dp,
+                top = contentPadding.calculateTopPadding() + 28.dp,
+                bottom = contentPadding.calculateBottomPadding() + 16.dp
+            ),
+            verticalArrangement = Arrangement.spacedBy(0.dp)
+        ) {
+            // Greeting
+            item {
                 Text(
-                    "Start Learning",
-                    fontWeight = SFProSemiBold,
-                    fontSize = 15.sp
-                )
-            }
-            Spacer(Modifier.height(12.dp))
-            OutlinedButton(
-                onClick = onViewConcepts,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(52.dp),
-                shape = RoundedCornerShape(12.dp),
-                border = BorderStroke(1.5.dp, DobiPrimary),
-                colors = ButtonDefaults.outlinedButtonColors(contentColor = DobiPrimary)
-            ) {
-                Icon(
-                    Icons.Default.MenuBook,
-                    contentDescription = null,
-                    modifier = Modifier.size(18.dp)
-                )
-                Spacer(Modifier.width(8.dp))
-                Text(
-                    "View Concepts",
-                    fontWeight = SFProSemiBold,
-                    fontSize = 15.sp
-                )
-            }
-            Spacer(Modifier.height(28.dp))
-        }
-
-        // Section header
-        item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    "Today's Learning",
-                    style = MaterialTheme.typography.titleMedium,
+                    text = "Hi, ${uiState.childName}! 👋",
+                    style = MaterialTheme.typography.headlineMedium,
                     color = DobiTextPrimary
                 )
+                Spacer(Modifier.height(4.dp))
                 Text(
-                    "See all",
+                    text = "Keep up the great learning!",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = DobiPrimary,
-                    fontWeight = SFProMedium
+                    color = DobiTextSecondary
                 )
+                Spacer(Modifier.height(20.dp))
             }
-            Spacer(Modifier.height(12.dp))
-        }
 
-        // Learning items
-        items(uiState.todayItems) { item ->
-            LearningItemCard(
-                item = item,
-                onClick = { onItemClick(item.conceptId) }
-            )
-            Spacer(Modifier.height(10.dp))
-        }
+            // Streak banner
+            item {
+                StreakBanner(streakDays = uiState.streakDays)
+                Spacer(Modifier.height(20.dp))
+            }
+
+            // Revision mode cards
+            item {
+                RevisionModeRow(onRevisionModeClick = { lastModeIndex = it; selectedModeIndex = it })
+                Spacer(Modifier.height(20.dp))
+            }
+
+            // Start Learning CTA
+            item {
+                Button(
+                    onClick = onStartLearning,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(52.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = DobiPrimary)
+                ) {
+                    Icon(
+                        Icons.Default.PlayArrow,
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(Modifier.width(8.dp))
+                    Text(
+                        "Start Learning",
+                        fontWeight = SFProSemiBold,
+                        fontSize = 15.sp
+                    )
+                }
+                Spacer(Modifier.height(28.dp))
+            }
+
+            // Tasks from parents — header
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        "Tasks from Parents",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = DobiTextPrimary,
+                        fontWeight = SFProSemiBold
+                    )
+                    if (uiState.parentTasks.isNotEmpty()) {
+                        Text(
+                            "See all",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = DobiPrimary,
+                            fontWeight = SFProMedium
+                        )
+                    }
+                }
+                Spacer(Modifier.height(12.dp))
+            }
+
+            // Tasks content
+            if (uiState.parentTasks.isEmpty()) {
+                item {
+                    ParentTasksEmptyCard()
+                }
+            } else {
+                items(uiState.parentTasks, key = { it.id }) { task ->
+                    ParentTaskCard(task = task, onClick = { onTaskClick(task.id) })
+                    Spacer(Modifier.height(12.dp))
+                }
+            }
         }  // end LazyColumn
 
         // Dim scrim
@@ -316,8 +295,9 @@ private fun ChildHomeContent(
                 onOptionClick = { optionIndex ->
                     selectedModeIndex = null
                     when {
-                        lastModeIndex == 0 && optionIndex == 0 -> onNavigateToConceptList()
+                        lastModeIndex == 0 && optionIndex == 0 -> onNavigateToPractiseLesson()
                         lastModeIndex == 0 && optionIndex == 1 -> onNavigateToHomeworkLog()
+                        lastModeIndex == 0 && optionIndex == 2 -> onNavigateToClassTestPrep()
                     }
                 }
             )
@@ -660,7 +640,7 @@ private fun StreakBanner(streakDays: Int) {
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = "\uD83D\uDD25", fontSize = 26.sp)
+                    Text(text = "🔥", fontSize = 26.sp)
                     Spacer(Modifier.width(8.dp))
                     Text(
                         text = "$streakDays days",
@@ -683,86 +663,265 @@ private fun StreakBanner(streakDays: Int) {
                     .background(Color.White.copy(alpha = 0.18f)),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = "\uD83D\uDE0A", fontSize = 28.sp)
+                Text(text = "😊", fontSize = 28.sp)
             }
         }
     }
 }
 
-// ── Learning item card ─────────────────────────────────────────────────────────
+// ── Parent tasks — empty state ─────────────────────────────────────────────────
 
 @Composable
-private fun LearningItemCard(item: TodayLearningItem, onClick: () -> Unit) {
+private fun ParentTasksEmptyCard() {
+    val warmTop = Color(0xFFFFF4E0)   // soft peach
+    val warmMid = Color(0xFFFFE8F1)   // soft pink
+    val warmEnd = Color(0xFFEEE8FF)   // soft lavender
+    val ctaAccent = Color(0xFFE67E22) // warm reward orange
+
+    BoxWithConstraints(
+        modifier = Modifier
+            .fillMaxWidth()
+            .shadow(
+                elevation = 10.dp,
+                shape = RoundedCornerShape(24.dp),
+                spotColor = ctaAccent.copy(alpha = 0.18f),
+                ambientColor = Color(0xFFB48BFF).copy(alpha = 0.08f)
+            )
+            .clip(RoundedCornerShape(24.dp))
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(warmTop, warmMid, warmEnd)
+                )
+            )
+            .border(
+                width = 1.dp,
+                color = Color.White.copy(alpha = 0.6f),
+                shape = RoundedCornerShape(24.dp)
+            )
+    ) {
+        // Decorative sparkles scattered around
+        Text(
+            text = "✨",
+            fontSize = 18.sp,
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(start = 18.dp, top = 14.dp)
+        )
+        Text(
+            text = "⭐",
+            fontSize = 14.sp,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(end = 22.dp, top = 28.dp)
+        )
+        Text(
+            text = "✨",
+            fontSize = 14.sp,
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(start = 26.dp, bottom = 22.dp)
+        )
+        Text(
+            text = "💫",
+            fontSize = 16.sp,
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(end = 18.dp, bottom = 14.dp)
+        )
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp, vertical = 28.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Gift-icon bubble with ring
+            Box(contentAlignment = Alignment.Center) {
+                Box(
+                    modifier = Modifier
+                        .size(92.dp)
+                        .clip(CircleShape)
+                        .background(Color.White.copy(alpha = 0.55f))
+                )
+                Box(
+                    modifier = Modifier
+                        .shadow(
+                            elevation = 10.dp,
+                            shape = CircleShape,
+                            spotColor = ctaAccent.copy(alpha = 0.45f),
+                            ambientColor = Color(0xFFFFB27A).copy(alpha = 0.3f)
+                        )
+                        .size(72.dp)
+                        .clip(CircleShape)
+                        .background(
+                            Brush.linearGradient(
+                                colors = listOf(Color(0xFFFFD08A), Color(0xFFFF9F6B))
+                            )
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "🎁", fontSize = 38.sp)
+                }
+            }
+
+            Spacer(Modifier.height(18.dp))
+
+            Text(
+                text = "Confident with your studies?",
+                fontSize = 17.sp,
+                fontWeight = SFProBold,
+                color = DobiTextPrimary,
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(Modifier.height(8.dp))
+
+            Text(
+                text = "Ask your parents to give you a task and win an assured reward upon submission.",
+                fontSize = 13.sp,
+                color = DobiTextSecondary,
+                textAlign = TextAlign.Center,
+                lineHeight = 19.sp
+            )
+
+            Spacer(Modifier.height(18.dp))
+
+            // Reward pill
+            Row(
+                modifier = Modifier
+                    .shadow(
+                        elevation = 4.dp,
+                        shape = RoundedCornerShape(22.dp),
+                        spotColor = ctaAccent.copy(alpha = 0.28f)
+                    )
+                    .clip(RoundedCornerShape(22.dp))
+                    .background(Color.White)
+                    .padding(horizontal = 14.dp, vertical = 9.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = "🏆", fontSize = 14.sp)
+                Spacer(Modifier.width(6.dp))
+                Text(
+                    text = "Earn your first reward",
+                    fontSize = 12.sp,
+                    fontWeight = SFProSemiBold,
+                    color = ctaAccent
+                )
+            }
+        }
+    }
+}
+
+// ── Parent task card ───────────────────────────────────────────────────────────
+
+@Composable
+private fun ParentTaskCard(task: ParentTask, onClick: () -> Unit) {
+    val accent = Color(0xFFE67E22)
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(12.dp), spotColor = Color(0x0D000000))
+            .shadow(
+                elevation = 3.dp,
+                shape = RoundedCornerShape(16.dp),
+                spotColor = Color(0x14000000)
+            )
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
                 onClick = onClick
             ),
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(0.dp)
     ) {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(14.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(16.dp)
         ) {
-            // Subject icon
-            Box(
-                modifier = Modifier
-                    .size(42.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(subjectColor(item.subject).copy(alpha = 0.12f)),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = subjectEmoji(item.subject), fontSize = 20.sp)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier
+                        .size(42.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(Color(0xFFFFF1E0)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "🎯", fontSize = 20.sp)
+                }
+                Spacer(Modifier.width(12.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = task.title,
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = SFProSemiBold,
+                        color = DobiTextPrimary
+                    )
+                    Spacer(Modifier.height(2.dp))
+                    Text(
+                        text = task.description,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = DobiTextSecondary,
+                        lineHeight = 16.sp,
+                        maxLines = 2
+                    )
+                }
+                Spacer(Modifier.width(8.dp))
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                    contentDescription = null,
+                    tint = DobiTextSecondary,
+                    modifier = Modifier.size(20.dp)
+                )
             }
 
-            Spacer(Modifier.width(12.dp))
+            Spacer(Modifier.height(12.dp))
 
-            // Name + breadcrumb + status
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = item.conceptName,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = SFProSemiBold,
-                    color = DobiTextPrimary
-                )
-                Spacer(Modifier.height(2.dp))
-                Text(
-                    text = "${item.subject} \u2022 ${item.unit}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = DobiTextSecondary
-                )
-                Spacer(Modifier.height(6.dp))
-                StatusBadge(item.status)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                // Reward chip
+                Row(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(Color(0xFFFFF4E0))
+                        .padding(horizontal = 8.dp, vertical = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = "🏆", fontSize = 11.sp)
+                    Spacer(Modifier.width(4.dp))
+                    Text(
+                        text = task.reward,
+                        fontSize = 11.sp,
+                        fontWeight = SFProSemiBold,
+                        color = accent
+                    )
+                }
+
+                if (task.dueLabel != null) {
+                    Spacer(Modifier.width(8.dp))
+                    Text(
+                        text = "• ${task.dueLabel}",
+                        fontSize = 11.sp,
+                        color = DobiTextSecondary,
+                        fontWeight = SFProMedium
+                    )
+                }
+
+                Spacer(Modifier.weight(1f))
+
+                ParentTaskStatusBadge(status = task.status)
             }
-
-            Spacer(Modifier.width(8.dp))
-
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                contentDescription = null,
-                tint = DobiTextSecondary,
-                modifier = Modifier.size(20.dp)
-            )
         }
     }
 }
 
-// ── Status badge ───────────────────────────────────────────────────────────────
-
 @Composable
-private fun StatusBadge(status: LearningStatus) {
+private fun ParentTaskStatusBadge(status: ParentTaskStatus) {
     val (bg, fg, label) = when (status) {
-        LearningStatus.COMPLETED -> Triple(DobiSuccessContainer, DobiSuccess, "✓  Completed")
-        LearningStatus.IN_PROGRESS -> Triple(DobiPrimaryContainer, DobiPrimary, "●  In Progress")
-        LearningStatus.NOT_STARTED -> Triple(Color(0xFFF1F5F9), DobiTextSecondary, "Not Started")
+        ParentTaskStatus.PENDING    -> Triple(Color(0xFFF1F5F9), DobiTextSecondary, "New")
+        ParentTaskStatus.IN_PROGRESS -> Triple(Color(0xFFDBEAFE), DobiPrimary, "In Progress")
+        ParentTaskStatus.SUBMITTED  -> Triple(Color(0xFFFEF3C7), Color(0xFFB45309), "Submitted")
+        ParentTaskStatus.COMPLETED  -> Triple(Color(0xFFDCFCE7), Color(0xFF15803D), "✓  Done")
     }
     Box(
         modifier = Modifier
@@ -777,24 +936,6 @@ private fun StatusBadge(status: LearningStatus) {
             fontWeight = SFProMedium
         )
     }
-}
-
-// ── Helpers ────────────────────────────────────────────────────────────────────
-
-private fun subjectColor(subject: String): Color = when (subject) {
-    "Mathematics" -> Color(0xFF2563EB)
-    "Science"     -> Color(0xFF22C55E)
-    "English"     -> Color(0xFF7C3AED)
-    "Social Studies" -> Color(0xFFF59E0B)
-    else          -> Color(0xFF64748B)
-}
-
-private fun subjectEmoji(subject: String): String = when (subject) {
-    "Mathematics" -> "➕"
-    "Science"     -> "\uD83D\uDD2C"   // 🔬
-    "English"     -> "\uD83D\uDCD6"   // 📖
-    "Social Studies" -> "\uD83C\uDF0D" // 🌍
-    else          -> "\uD83D\uDCDA"   // 📚
 }
 
 // ── Tab placeholder ────────────────────────────────────────────────────────────
@@ -819,25 +960,58 @@ private fun TabPlaceholder(label: String, padding: PaddingValues) {
 
 // ── Preview ────────────────────────────────────────────────────────────────────
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = true, name = "Empty tasks")
 @Composable
-private fun ChildHomePreview() {
+private fun ChildHomeEmptyPreview() {
     DobiTheme {
         ChildHomeContent(
             uiState = ChildHomeUiState(
                 childName = "Emma",
                 streakDays = 3,
-                todayItems = listOf(
-                    TodayLearningItem("1", "Addition of Fractions", "Mathematics", "Fractions", LearningStatus.COMPLETED),
-                    TodayLearningItem("2", "Subtraction of Fractions", "Mathematics", "Fractions", LearningStatus.COMPLETED),
-                    TodayLearningItem("3", "Water Cycle", "Science", "Our Environment", LearningStatus.IN_PROGRESS),
+                parentTasks = emptyList()
+            ),
+            onStartLearning = {},
+            onNavigateToPractiseLesson = {},
+            onNavigateToHomeworkLog = {},
+            onNavigateToClassTestPrep = {},
+            onTaskClick = {},
+            contentPadding = PaddingValues(0.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true, name = "With tasks")
+@Composable
+private fun ChildHomeWithTasksPreview() {
+    DobiTheme {
+        ChildHomeContent(
+            uiState = ChildHomeUiState(
+                childName = "Emma",
+                streakDays = 3,
+                parentTasks = listOf(
+                    ParentTask(
+                        id = "1",
+                        title = "Solve 20 word problems on fractions",
+                        description = "Use Chapter 4 examples. Show your working.",
+                        reward = "₹100",
+                        dueLabel = "Due Sunday",
+                        status = ParentTaskStatus.PENDING
+                    ),
+                    ParentTask(
+                        id = "2",
+                        title = "Write a paragraph on the water cycle",
+                        description = "150 words, in your own language.",
+                        reward = "30 min screen time",
+                        dueLabel = "Due today",
+                        status = ParentTaskStatus.IN_PROGRESS
+                    )
                 )
             ),
             onStartLearning = {},
-            onViewConcepts = {},
-            onNavigateToConceptList = {},
+            onNavigateToPractiseLesson = {},
             onNavigateToHomeworkLog = {},
-            onItemClick = {},
+            onNavigateToClassTestPrep = {},
+            onTaskClick = {},
             contentPadding = PaddingValues(0.dp)
         )
     }

@@ -370,8 +370,10 @@ private fun DetailsStep(
 ) {
     var gradeExpanded by remember { mutableStateOf(false) }
     var boardExpanded by remember { mutableStateOf(false) }
-    val grades = (2..9).toList()
-    val boards = listOf("CBSE", "ICSE")
+    val supportedGrades = ChildDraft.SUPPORTED_GRADES
+    val upcomingGrades = ChildDraft.UPCOMING_GRADES
+    val supportedBoards = ChildDraft.SUPPORTED_BOARDS
+    val upcomingBoards = ChildDraft.UPCOMING_BOARDS
 
     Column(
         modifier = Modifier
@@ -487,10 +489,30 @@ private fun DetailsStep(
                             onDismissRequest = { gradeExpanded = false },
                             containerColor = Color.White
                         ) {
-                            grades.forEach { grade ->
+                            supportedGrades.forEach { grade ->
                                 DropdownMenuItem(
                                     text = { Text("Class $grade", color = DobiTextPrimary) },
                                     onClick = { onGradeChange(grade); gradeExpanded = false }
+                                )
+                            }
+                            upcomingGrades.forEach { grade ->
+                                DropdownMenuItem(
+                                    text = {
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                            Text(
+                                                "Class $grade",
+                                                color = DobiTextTertiary,
+                                                modifier = Modifier.weight(1f)
+                                            )
+                                            Text(
+                                                "Coming soon",
+                                                fontSize = 11.sp,
+                                                color = DobiTextTertiary
+                                            )
+                                        }
+                                    },
+                                    enabled = false,
+                                    onClick = {}
                                 )
                             }
                         }
@@ -517,10 +539,30 @@ private fun DetailsStep(
                             onDismissRequest = { boardExpanded = false },
                             containerColor = Color.White
                         ) {
-                            boards.forEach { board ->
+                            supportedBoards.forEach { board ->
                                 DropdownMenuItem(
                                     text = { Text(board, color = DobiTextPrimary) },
                                     onClick = { onBoardChange(board); boardExpanded = false }
+                                )
+                            }
+                            upcomingBoards.forEach { board ->
+                                DropdownMenuItem(
+                                    text = {
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                            Text(
+                                                board,
+                                                color = DobiTextTertiary,
+                                                modifier = Modifier.weight(1f)
+                                            )
+                                            Text(
+                                                "Coming soon",
+                                                fontSize = 11.sp,
+                                                color = DobiTextTertiary
+                                            )
+                                        }
+                                    },
+                                    enabled = false,
+                                    onClick = {}
                                 )
                             }
                         }

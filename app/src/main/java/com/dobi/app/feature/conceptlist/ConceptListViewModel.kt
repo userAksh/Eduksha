@@ -3,18 +3,23 @@ package com.dobi.app.feature.conceptlist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dobi.app.domain.model.Concept
+import com.dobi.app.domain.repository.UserRepository
 import com.dobi.app.domain.usecase.GetConceptsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class ConceptListViewModel @Inject constructor(
-    private val getConceptsUseCase: GetConceptsUseCase
+    private val getConceptsUseCase: GetConceptsUseCase,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ConceptListUiState())
@@ -29,7 +34,8 @@ class ConceptListViewModel @Inject constructor(
 
     private fun loadConcepts() {
         viewModelScope.launch {
-            getConceptsUseCase(grade = 6, board = "CBSE")
+            userRepository.linkedChildGrade
+                .flatMapLatest { grade -> getConceptsUseCase(grade = grade, board = "CBSE") }
                 .catch { e -> _uiState.update { it.copy(isLoading = false, error = e.message) } }
                 .collect { concepts ->
                     val groups = buildGroups(concepts)

@@ -79,25 +79,22 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun saveParentProfile(name: String, phone: String) {
         val uid = auth.currentUser?.uid ?: return
-        firestore.collection("parents").document(uid)
-            .set(mapOf("name" to name, "phone" to phone), com.google.firebase.firestore.SetOptions.merge())
-            .await()
+        val docRef = firestore.collection("parents").document(uid)
+        val existing = docRef.get().await()
+        if (existing.exists()) return
+        docRef.set(mapOf("name" to name, "phone" to phone)).await()
     }
 
     override suspend fun getParentProfile(): ParentProfile? {
         val uid = auth.currentUser?.uid ?: return null
-        return try {
-            val doc = firestore.collection("parents").document(uid).get().await()
-            if (doc.exists()) {
-                ParentProfile(
-                    uid = uid,
-                    name = doc.getString("name") ?: "",
-                    phone = doc.getString("phone") ?: ""
-                )
-            } else null
-        } catch (e: Exception) {
-            null
-        }
+        val doc = firestore.collection("parents").document(uid).get().await()
+        return if (doc.exists()) {
+            ParentProfile(
+                uid = uid,
+                name = doc.getString("name") ?: "",
+                phone = doc.getString("phone") ?: ""
+            )
+        } else null
     }
 
     override fun signOut() = auth.signOut()
