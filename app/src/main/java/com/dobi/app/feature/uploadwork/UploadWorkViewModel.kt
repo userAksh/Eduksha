@@ -37,7 +37,8 @@ class UploadWorkViewModel @Inject constructor(
     private val route = savedStateHandle.toRoute<Screen.UploadWork>()
     private val kind: WorkUploadKind = WorkUploadKind.fromKey(route.kind)
     private val isAiTestPrep: Boolean = kind == WorkUploadKind.AI_TEST_PREP
-    private val isConceptScope: Boolean = !isAiTestPrep && route.conceptId.isNotBlank()
+    private val isTuition: Boolean = kind.isTuition
+    private val isConceptScope: Boolean = !isAiTestPrep && !isTuition && route.conceptId.isNotBlank()
     private val targetId: String = if (isConceptScope) route.conceptId else route.unitId
     private var resolvedUnitId: String = route.unitId
 
@@ -47,6 +48,20 @@ class UploadWorkViewModel @Inject constructor(
     init { loadContext() }
 
     private fun loadContext() {
+        if (isTuition) {
+            viewModelScope.launch {
+                val honorific = userRepository.tutorHonorific.first()
+                val name = userRepository.tutorName.first()
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        teacherHonorific = honorific,
+                        teacherName = name
+                    )
+                }
+            }
+            return
+        }
         if (isAiTestPrep) {
             val ctx = aiPracticeContextHolder.peek()
             if (ctx == null) {
@@ -154,9 +169,11 @@ class UploadWorkViewModel @Inject constructor(
     fun onSave() {
         if (!_uiState.value.canSave) return
         val state = _uiState.value
-        when (kind) {
-            WorkUploadKind.SELF_LEARNING, WorkUploadKind.AI_TEST_PREP -> generateQuiz(state)
-            WorkUploadKind.CLASS_WORK ->
+        when {
+            kind == WorkUploadKind.SELF_LEARNING || kind == WorkUploadKind.AI_TEST_PREP ->
+                generateQuiz(state)
+            else ->
+                // CLASS_WORK and all tuition uploads just save the photos for now.
                 _uiState.update { it.copy(isSaving = true, error = null, isSaved = true) }
         }
     }

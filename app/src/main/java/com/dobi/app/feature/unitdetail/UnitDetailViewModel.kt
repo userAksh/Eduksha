@@ -16,6 +16,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -108,11 +109,16 @@ class UnitDetailViewModel @Inject constructor(
 
         viewModelScope.launch {
             _uiState.update { it.copy(isSaving = true) }
+            val childId = userRepository.linkedChildId.first().orEmpty()
+            if (childId.isBlank()) {
+                _uiState.update { it.copy(isSaving = false, error = "Couldn't find your profile.") }
+                return@launch
+            }
             runCatching {
                 coveredConcepts.forEach { concept ->
                     saveCompletionUseCase(
                         Completion(
-                            childId = "default_child",
+                            childId = childId,
                             conceptId = concept.id,
                             effort = difficulty,
                             mode = mode

@@ -8,7 +8,10 @@ interface UserRepository {
     val linkedChildId: Flow<String?>
     val linkedParentId: Flow<String?>
     val linkedChildGrade: Flow<Int>
+    val tutorHonorific: Flow<String>
+    val tutorName: Flow<String>
     suspend fun selectRole(role: UserRole)
     suspend fun saveLinkedChild(parentId: String, childId: String)
     suspend fun saveLinkedChildGrade(grade: Int)
+    suspend fun saveTutor(honorific: String, name: String)
 }

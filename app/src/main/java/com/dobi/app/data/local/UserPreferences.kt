@@ -20,6 +20,8 @@ class UserPreferences @Inject constructor(
         private val KEY_LINKED_CHILD_ID = stringPreferencesKey("linked_child_id")
         private val KEY_LINKED_PARENT_ID = stringPreferencesKey("linked_parent_id")
         private val KEY_LINKED_CHILD_GRADE = intPreferencesKey("linked_child_grade")
+        private val KEY_TUTOR_HONORIFIC = stringPreferencesKey("tutor_honorific")
+        private val KEY_TUTOR_NAME = stringPreferencesKey("tutor_name")
         const val DEFAULT_GRADE = 6
     }
 
@@ -31,6 +33,8 @@ class UserPreferences @Inject constructor(
     val linkedParentId: Flow<String?> = dataStore.data.map { it[KEY_LINKED_PARENT_ID] }
     val linkedChildGrade: Flow<Int> =
         dataStore.data.map { it[KEY_LINKED_CHILD_GRADE] ?: DEFAULT_GRADE }
+    val tutorHonorific: Flow<String> = dataStore.data.map { it[KEY_TUTOR_HONORIFIC].orEmpty() }
+    val tutorName: Flow<String> = dataStore.data.map { it[KEY_TUTOR_NAME].orEmpty() }
 
     suspend fun saveRole(role: UserRole) {
         dataStore.edit { it[KEY_USER_ROLE] = role.name }
@@ -45,5 +49,12 @@ class UserPreferences @Inject constructor(
 
     suspend fun saveLinkedChildGrade(grade: Int) {
         dataStore.edit { it[KEY_LINKED_CHILD_GRADE] = grade }
+    }
+
+    suspend fun saveTutor(honorific: String, name: String) {
+        dataStore.edit {
+            it[KEY_TUTOR_HONORIFIC] = honorific
+            it[KEY_TUTOR_NAME] = name
+        }
     }
 }

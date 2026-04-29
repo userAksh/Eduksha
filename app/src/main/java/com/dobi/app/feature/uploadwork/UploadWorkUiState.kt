@@ -9,7 +9,9 @@ enum class WorkUploadKind(
     val key: String,
     val title: String,
     val ctaLabel: String,
-    val emptyHint: String
+    val emptyHint: String,
+    val isTuition: Boolean = false,
+    val isHomework: Boolean = false
 ) {
     CLASS_WORK(
         key = "class_work",
@@ -28,6 +30,43 @@ enum class WorkUploadKind(
         title = "AI Practice",
         ctaLabel = "Generate Quiz",
         emptyHint = "Snap pages from the lessons or concepts you picked"
+    ),
+    TUITION_WORK_LEARNING(
+        key = "tuition_work_learning",
+        title = "Today's Learning",
+        ctaLabel = "Save Today's Learning",
+        emptyHint = "Add photos of what you learned in tuition today",
+        isTuition = true
+    ),
+    TUITION_WORK_WRITTEN(
+        key = "tuition_work_written",
+        title = "Written Work",
+        ctaLabel = "Save Written Work",
+        emptyHint = "Add photos of the written work you did in tuition",
+        isTuition = true
+    ),
+    TUITION_WORK_TEST(
+        key = "tuition_work_test",
+        title = "Today's Test",
+        ctaLabel = "Save Today's Test",
+        emptyHint = "Add photos of the test your tutor gave today",
+        isTuition = true
+    ),
+    TUITION_HW_LEARNING(
+        key = "tuition_hw_learning",
+        title = "Homework — Today's Learning",
+        ctaLabel = "Save Homework Learning",
+        emptyHint = "Add photos of the reading or learning your tutor assigned",
+        isTuition = true,
+        isHomework = true
+    ),
+    TUITION_HW_WRITTEN(
+        key = "tuition_hw_written",
+        title = "Homework — Written Work",
+        ctaLabel = "Save Homework",
+        emptyHint = "Add photos of the homework written by you",
+        isTuition = true,
+        isHomework = true
     );
 
     companion object {

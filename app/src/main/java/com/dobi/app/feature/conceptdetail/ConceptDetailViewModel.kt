@@ -8,12 +8,14 @@ import com.dobi.app.core.navigation.Screen
 import com.dobi.app.domain.model.Completion
 import com.dobi.app.domain.model.Difficulty
 import com.dobi.app.domain.model.WorkMode
+import com.dobi.app.domain.repository.UserRepository
 import com.dobi.app.domain.usecase.GetConceptByIdUseCase
 import com.dobi.app.domain.usecase.SaveCompletionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
@@ -24,7 +26,8 @@ import javax.inject.Inject
 class ConceptDetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val getConceptByIdUseCase: GetConceptByIdUseCase,
-    private val saveCompletionUseCase: SaveCompletionUseCase
+    private val saveCompletionUseCase: SaveCompletionUseCase,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val conceptId: String = savedStateHandle.toRoute<Screen.ConceptDetail>().conceptId
@@ -78,10 +81,15 @@ class ConceptDetailViewModel @Inject constructor(
 
         viewModelScope.launch {
             _uiState.update { it.copy(isSaving = true) }
+            val childId = userRepository.linkedChildId.first().orEmpty()
+            if (childId.isBlank()) {
+                _uiState.update { it.copy(isSaving = false, error = "Couldn't find your profile.") }
+                return@launch
+            }
             runCatching {
                 saveCompletionUseCase(
                     Completion(
-                        childId = "default_child", // replaced after Firebase Auth is wired
+                        childId = childId,
                         conceptId = conceptId,
                         effort = difficulty,
                         mode = mode

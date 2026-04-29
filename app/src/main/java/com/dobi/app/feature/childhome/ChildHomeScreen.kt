@@ -34,7 +34,11 @@ import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -44,6 +48,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -84,6 +91,9 @@ fun ChildHomeScreen(
     onNavigateToPractiseLesson: () -> Unit = {},
     onNavigateToHomeworkLog: () -> Unit = {},
     onNavigateToClassTestPrep: () -> Unit = {},
+    onNavigateToTuitionWork: () -> Unit = {},
+    onNavigateToTuitionHomework: () -> Unit = {},
+    onNavigateToTuitionProblems: () -> Unit = {},
     onRequestParentAccess: () -> Unit = {},
     viewModel: ChildHomeViewModel = hiltViewModel()
 ) {
@@ -124,6 +134,10 @@ fun ChildHomeScreen(
                 onNavigateToPractiseLesson = onNavigateToPractiseLesson,
                 onNavigateToHomeworkLog = onNavigateToHomeworkLog,
                 onNavigateToClassTestPrep = onNavigateToClassTestPrep,
+                onNavigateToTuitionWork = onNavigateToTuitionWork,
+                onNavigateToTuitionHomework = onNavigateToTuitionHomework,
+                onNavigateToTuitionProblems = onNavigateToTuitionProblems,
+                onSaveTutor = viewModel::saveTutor,
                 onTaskClick = {},
                 contentPadding = innerPadding
             )
@@ -142,6 +156,10 @@ private fun ChildHomeContent(
     onNavigateToPractiseLesson: () -> Unit,
     onNavigateToHomeworkLog: () -> Unit,
     onNavigateToClassTestPrep: () -> Unit,
+    onNavigateToTuitionWork: () -> Unit,
+    onNavigateToTuitionHomework: () -> Unit,
+    onNavigateToTuitionProblems: () -> Unit,
+    onSaveTutor: (String, String) -> Unit,
     onTaskClick: (String) -> Unit,
     contentPadding: PaddingValues
 ) {
@@ -298,8 +316,14 @@ private fun ChildHomeContent(
                         lastModeIndex == 0 && optionIndex == 0 -> onNavigateToPractiseLesson()
                         lastModeIndex == 0 && optionIndex == 1 -> onNavigateToHomeworkLog()
                         lastModeIndex == 0 && optionIndex == 2 -> onNavigateToClassTestPrep()
+                        lastModeIndex == 1 && optionIndex == 0 -> onNavigateToTuitionWork()
+                        lastModeIndex == 1 && optionIndex == 1 -> onNavigateToTuitionHomework()
+                        lastModeIndex == 1 && optionIndex == 2 -> onNavigateToTuitionProblems()
                     }
-                }
+                },
+                tutorHonorific = uiState.tutorHonorific,
+                tutorName = uiState.tutorName,
+                onTutorSave = onSaveTutor
             )
         }
 
@@ -457,9 +481,9 @@ private val revisionSheetOptions = listOf(
         title = "Tuition Work",
         emoji = "📐",
         options = listOf(
-            RevisionOption("🎯", "Cover a Tuition Topic", "Work through a lesson from your tutor"),
-            RevisionOption("✅", "Complete an Assignment", "Finish work given by your tutor"),
-            RevisionOption("🔄", "Revise Before My Session", "Quick review before your next tuition class"),
+            RevisionOption("📚", "Upload Tuition Work", "Show what you did in today's class"),
+            RevisionOption("📝", "Upload Tuition Homework", "Share homework given by your tutor"),
+            RevisionOption("🤔", "Tuition Problems", "Share your problems with your parents"),
         )
     ),
     RevisionSheet(
@@ -477,10 +501,14 @@ private val revisionSheetOptions = listOf(
 private fun RevisionDialog(
     modeIndex: Int,
     onDismiss: () -> Unit,
-    onOptionClick: (Int) -> Unit = {}
+    onOptionClick: (Int) -> Unit = {},
+    tutorHonorific: String = "",
+    tutorName: String = "",
+    onTutorSave: (String, String) -> Unit = { _, _ -> }
 ) {
     val sheet = revisionSheetOptions[modeIndex]
     val mode = revisionModes[modeIndex]
+    val isTuition = modeIndex == 1
 
     Card(
         modifier = Modifier
@@ -522,6 +550,17 @@ private fun RevisionDialog(
                 }
             }
 
+            if (isTuition) {
+                Spacer(Modifier.height(14.dp))
+                TutorEditor(
+                    accent = mode.accentColor,
+                    iconBg = mode.iconBg,
+                    initialHonorific = tutorHonorific,
+                    initialName = tutorName,
+                    onSave = onTutorSave
+                )
+            }
+
             Spacer(Modifier.height(20.dp))
 
             sheet.options.forEachIndexed { index, option ->
@@ -551,6 +590,218 @@ private fun RevisionDialog(
                 fontWeight = SFProMedium,
                 color = DobiTextSecondary
             )
+        }
+    }
+}
+
+@Composable
+private fun TutorEditor(
+    accent: Color,
+    iconBg: Color,
+    initialHonorific: String,
+    initialName: String,
+    onSave: (String, String) -> Unit
+) {
+    var editing by remember { mutableStateOf(initialName.isBlank()) }
+    var honorific by remember(initialHonorific) {
+        mutableStateOf(initialHonorific.ifBlank { "Sir" })
+    }
+    var name by remember(initialName) { mutableStateOf(initialName) }
+
+    val containerBg = iconBg.copy(alpha = 0.6f)
+
+    if (!editing) {
+        // Saved state — friendly chip with pencil
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(14.dp))
+                .background(containerBg)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = { editing = true }
+                )
+                .padding(horizontal = 14.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text("👨‍🏫", fontSize = 22.sp)
+            Spacer(Modifier.width(10.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    "Your tutor",
+                    fontSize = 11.sp,
+                    color = accent,
+                    fontWeight = SFProSemiBold
+                )
+                Text(
+                    "$initialHonorific $initialName".trim(),
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = SFProSemiBold,
+                    color = DobiTextPrimary
+                )
+            }
+            Icon(
+                Icons.Default.Edit,
+                contentDescription = "Edit tutor",
+                tint = accent,
+                modifier = Modifier.size(18.dp)
+            )
+        }
+        return
+    }
+
+    // Editing state — Sir/Madam chips + name input
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(14.dp))
+            .background(containerBg)
+            .padding(14.dp)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("👨‍🏫", fontSize = 22.sp)
+            Spacer(Modifier.width(10.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = if (initialName.isBlank())
+                        "Who's your tutor?"
+                    else "Update your tutor",
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = SFProBold,
+                    color = DobiTextPrimary
+                )
+                Text(
+                    text = "We'll remember this for you",
+                    fontSize = 11.sp,
+                    color = DobiTextSecondary
+                )
+            }
+        }
+
+        Spacer(Modifier.height(12.dp))
+
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            listOf("Sir", "Madam").forEach { h ->
+                val selected = honorific == h
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(if (selected) accent else Color.White)
+                        .border(
+                            width = 1.dp,
+                            color = if (selected) accent else accent.copy(alpha = 0.3f),
+                            shape = RoundedCornerShape(10.dp)
+                        )
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null,
+                            onClick = { honorific = h }
+                        )
+                        .padding(horizontal = 14.dp, vertical = 8.dp)
+                ) {
+                    Text(
+                        text = h,
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = SFProSemiBold,
+                        color = if (selected) Color.White else accent
+                    )
+                }
+            }
+        }
+
+        Spacer(Modifier.height(10.dp))
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(10.dp))
+                .background(Color.White)
+                .border(1.dp, accent.copy(alpha = 0.3f), RoundedCornerShape(10.dp))
+                .padding(horizontal = 14.dp, vertical = 12.dp)
+        ) {
+            BasicTextField(
+                value = name,
+                onValueChange = { name = it.take(40) },
+                singleLine = true,
+                textStyle = TextStyle(
+                    fontSize = 14.sp,
+                    color = DobiTextPrimary,
+                    fontWeight = FontWeight.Normal
+                ),
+                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words),
+                modifier = Modifier.fillMaxWidth(),
+                decorationBox = { inner ->
+                    if (name.isEmpty()) {
+                        Text(
+                            "Tutor's name (e.g. Sharma)",
+                            fontSize = 14.sp,
+                            color = DobiTextSecondary
+                        )
+                    }
+                    inner()
+                }
+            )
+        }
+
+        Spacer(Modifier.height(10.dp))
+
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            if (initialName.isNotBlank()) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(Color.White)
+                        .border(1.dp, accent.copy(alpha = 0.3f), RoundedCornerShape(10.dp))
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null,
+                            onClick = { editing = false }
+                        )
+                        .padding(vertical = 10.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        "Cancel",
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = SFProSemiBold,
+                        color = accent
+                    )
+                }
+            }
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(if (name.isNotBlank()) accent else accent.copy(alpha = 0.4f))
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                        enabled = name.isNotBlank()
+                    ) {
+                        onSave(honorific, name.trim())
+                        editing = false
+                    }
+                    .padding(vertical = 10.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        Icons.Default.Check,
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Spacer(Modifier.width(6.dp))
+                    Text(
+                        "Save",
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = SFProBold,
+                        color = Color.White
+                    )
+                }
+            }
         }
     }
 }
@@ -974,6 +1225,10 @@ private fun ChildHomeEmptyPreview() {
             onNavigateToPractiseLesson = {},
             onNavigateToHomeworkLog = {},
             onNavigateToClassTestPrep = {},
+            onNavigateToTuitionWork = {},
+            onNavigateToTuitionHomework = {},
+            onNavigateToTuitionProblems = {},
+            onSaveTutor = { _, _ -> },
             onTaskClick = {},
             contentPadding = PaddingValues(0.dp)
         )
@@ -1011,6 +1266,10 @@ private fun ChildHomeWithTasksPreview() {
             onNavigateToPractiseLesson = {},
             onNavigateToHomeworkLog = {},
             onNavigateToClassTestPrep = {},
+            onNavigateToTuitionWork = {},
+            onNavigateToTuitionHomework = {},
+            onNavigateToTuitionProblems = {},
+            onSaveTutor = { _, _ -> },
             onTaskClick = {},
             contentPadding = PaddingValues(0.dp)
         )

@@ -44,4 +44,7 @@ enum class ConceptListMode { DEFAULT, PRACTISE_LESSON }
     @Serializable data object HomeworkLog : Screen()
     @Serializable data object ClassTestPrep : Screen()
     @Serializable data object WriteAnswer : Screen()
+    @Serializable data class UploadTuitionOptions(val parent: String) : Screen()
+    @Serializable data class TuitionLearning(val kindKey: String) : Screen()
+    @Serializable data object TuitionProblems : Screen()
 }

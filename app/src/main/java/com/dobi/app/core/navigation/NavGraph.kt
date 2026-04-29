@@ -17,6 +17,10 @@ import com.dobi.app.feature.conceptdetail.ConceptDetailScreen
 import com.dobi.app.feature.conceptlist.ConceptListScreen
 import com.dobi.app.feature.unitdetail.UnitDetailScreen
 import com.dobi.app.feature.unitdetail.UnitDetailViewModel
+import com.dobi.app.feature.tuitionlearning.TuitionLearningScreen
+import com.dobi.app.feature.tuitionproblems.TuitionProblemsScreen
+import com.dobi.app.feature.uploadtuition.TuitionUploadParent
+import com.dobi.app.feature.uploadtuition.UploadTuitionOptionsScreen
 import com.dobi.app.feature.uploadwork.UploadWorkScreen
 import com.dobi.app.feature.answerquestions.QuestionSourceScreen
 import com.dobi.app.feature.quiz.QuizScreen
@@ -146,6 +150,15 @@ fun DobiNavGraph(
                 },
                 onNavigateToHomeworkLog = { navController.navigate(Screen.HomeworkLog) },
                 onNavigateToClassTestPrep = { navController.navigate(Screen.ClassTestPrep) },
+                onNavigateToTuitionWork = {
+                    navController.navigate(Screen.UploadTuitionOptions(TuitionUploadParent.WORK.key))
+                },
+                onNavigateToTuitionHomework = {
+                    navController.navigate(Screen.UploadTuitionOptions(TuitionUploadParent.HOMEWORK.key))
+                },
+                onNavigateToTuitionProblems = {
+                    navController.navigate(Screen.TuitionProblems)
+                },
                 onRequestParentAccess = {
                     // Pop back to RoleSelection using the pop animation (slide back)
                     val popped = navController.popBackStack(
@@ -322,6 +335,31 @@ fun DobiNavGraph(
                         Screen.UploadWork(kind = "ai_test_prep")
                     )
                 }
+            )
+        }
+
+        composable<Screen.UploadTuitionOptions> { entry ->
+            val route = entry.toRoute<Screen.UploadTuitionOptions>()
+            UploadTuitionOptionsScreen(
+                parent = TuitionUploadParent.fromKey(route.parent),
+                onNavigateBack = { navController.popBackStack() },
+                onSelectKind = { kind ->
+                    // All five tuition kinds use the rich multi-subject + topic flow.
+                    navController.navigate(Screen.TuitionLearning(kindKey = kind.key))
+                }
+            )
+        }
+
+        composable<Screen.TuitionLearning> {
+            TuitionLearningScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onSavedNavigateBack = { navController.popBackStack() }
+            )
+        }
+
+        composable<Screen.TuitionProblems> {
+            TuitionProblemsScreen(
+                onNavigateBack = { navController.popBackStack() }
             )
         }
 

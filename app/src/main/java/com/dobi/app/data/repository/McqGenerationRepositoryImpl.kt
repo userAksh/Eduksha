@@ -143,13 +143,19 @@ class McqGenerationRepositoryImpl @Inject constructor(
             Grade: ${r.grade}
 
             Apply the 4-step procedure from the system prompt now:
-            1. Classify the upload (a/b/c/d/e).
-            2. Decide. If anything other than (a), refuse.
-            3. If refusing, mention the topic(s) above by name AND describe what you
-               actually saw.
-            4. Only on (a), generate exactly ${r.targetCount} questions with Bloom
-               mix recall=${r.bloomMix.recall}, understand=${r.bloomMix.understand},
-               apply=${r.bloomMix.apply}, analyze=${r.bloomMix.analyze}.
+            1. Classify EACH photo independently as (a/b/c/d/e). Number them in
+               upload order: photo 1, photo 2, …
+            2. Decide for the whole batch. Generate ONLY if EVERY photo is (a).
+               If even one photo is (b)/(c)/(d)/(e), refuse the entire batch and
+               name the offending photo(s) by index — do not silently proceed using
+               only the matching photos.
+            3. If refusing, mention the topic(s) above by name, list which photo(s)
+               are off-topic by 1-based index, and describe what each off-topic
+               photo actually is.
+            4. Only when every photo is (a), generate exactly ${r.targetCount}
+               questions with Bloom mix recall=${r.bloomMix.recall},
+               understand=${r.bloomMix.understand}, apply=${r.bloomMix.apply},
+               analyze=${r.bloomMix.analyze}.
 
             Reminder: a page that mixes Q&A from many chapters is case (c) and must
             be refused, even if one or two of its items happen to relate to the
@@ -194,9 +200,11 @@ class McqGenerationRepositoryImpl @Inject constructor(
             actually belongs to those exact topics.
 
             ────────────────────────────────────────────────────────────────────────
-            STEP 1 — INTERNALLY CLASSIFY THE UPLOAD (you must do this first)
+            STEP 1 — CLASSIFY EACH PHOTO INDIVIDUALLY (you must do this first)
             ────────────────────────────────────────────────────────────────────────
-            Before deciding anything, silently determine which of these the upload is:
+            The user may upload one OR multiple photos. Number them 1, 2, 3 … in
+            the order they were sent. For EACH photo independently, decide which
+            bucket it falls into:
               (a) A textbook chapter / notes from a SINGLE chapter that matches the
                   named lesson/concept.
               (b) A textbook chapter / notes from a SINGLE chapter that is NOT the
@@ -213,10 +221,13 @@ class McqGenerationRepositoryImpl @Inject constructor(
               (e) Unreadable / blurry / torn.
 
             ────────────────────────────────────────────────────────────────────────
-            STEP 2 — DECIDE
+            STEP 2 — DECIDE FOR THE WHOLE BATCH
             ────────────────────────────────────────────────────────────────────────
-            ✅ ONLY (a) → proceed to generation.
-            ❌ (b), (c), (d), (e) → REFUSE. Do NOT generate any questions.
+            ✅ ONLY when EVERY photo is (a) → proceed to generation.
+            ❌ If ANY photo is (b), (c), (d), or (e) → REFUSE THE ENTIRE BATCH.
+              Do NOT silently use only the matching photos and ignore the rest —
+              the student deserves to know one of their photos doesn't fit, so they
+              can remove it and re-upload the right pages.
 
             Critically: case (c) — mixed sample papers / mock tests / question banks
             — MUST be refused even if a couple of the questions on the page happen
@@ -229,8 +240,10 @@ class McqGenerationRepositoryImpl @Inject constructor(
             ────────────────────────────────────────────────────────────────────────
             When refusing, return ONLY:
               {"error": "<one short kid-friendly sentence>"}
-            with no questions. The sentence MUST mention the lesson the student
-            picked AND describe what you actually saw, e.g.:
+            with no questions.
+
+            For SINGLE-photo uploads, the sentence MUST mention the lesson the
+            student picked AND describe what you actually saw:
               - For (b): "These pages don't look like they're from '<lesson>'. They
                 look like they're about <what you saw>. Please upload pages from
                 the correct chapter."
@@ -239,8 +252,19 @@ class McqGenerationRepositoryImpl @Inject constructor(
                 textbook for that chapter."
               - For (d): "This doesn't look like a textbook page. Please snap your
                 chapter pages and try again."
-              - For (e): "These pages are too blurry to read clearly. Please retake
+              - For (e): "This page is too blurry to read clearly. Please retake
                 the photo with better lighting."
+
+            For MULTI-photo uploads where SOME match and SOME don't, you MUST name
+            the offending photo by 1-based index AND say what it actually is, so
+            the student knows which one to remove. Examples:
+              - "Photo 2 doesn't look like it's from '<lesson>' — it looks like
+                <what photo 2 actually is>. Please remove it and re-upload."
+              - "Photo 1 is a mixed sample paper, not pages from '<lesson>'. Please
+                remove it. Photo 2 looks fine — keep that one and try again."
+              - "Photos 1 and 3 don't look like they're from '<lesson>' (photo 1
+                is about <X>, photo 3 is about <Y>). Please remove them and re-upload."
+            If multiple photos are off-topic, list each by index with what it is.
 
             ────────────────────────────────────────────────────────────────────────
             STEP 4 — GENERATION (only when STEP 2 said proceed)

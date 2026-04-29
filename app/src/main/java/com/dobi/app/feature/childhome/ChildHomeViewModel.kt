@@ -11,7 +11,10 @@ import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,6 +34,24 @@ class ChildHomeViewModel @Inject constructor(
     init {
         registerActiveChild()
         loadChild()
+        observeTutor()
+    }
+
+    private fun observeTutor() {
+        combine(userRepository.tutorHonorific, userRepository.tutorName) { h, n -> h to n }
+            .onEach { (honorific, name) ->
+                _uiState.value = _uiState.value.copy(
+                    tutorHonorific = honorific,
+                    tutorName = name
+                )
+            }
+            .launchIn(viewModelScope)
+    }
+
+    fun saveTutor(honorific: String, name: String) {
+        viewModelScope.launch {
+            userRepository.saveTutor(honorific.trim(), name.trim())
+        }
     }
 
     private fun registerActiveChild() {

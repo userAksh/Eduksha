@@ -6,5 +6,7 @@ data class ChildHomeUiState(
     val childName: String = "",
     val streakDays: Int = 3,
     val parentTasks: List<ParentTask> = emptyList(),
+    val tutorHonorific: String = "",
+    val tutorName: String = "",
     val isLoading: Boolean = false
 )

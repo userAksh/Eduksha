@@ -185,34 +185,72 @@ fun UploadWorkScreen(
                 .padding(innerPadding)
                 .padding(horizontal = 20.dp, vertical = 8.dp)
         ) {
-            LessonContextCard(unitName = uiState.unitName, subject = uiState.subject)
+            if (uiState.kind.isTuition) {
+                TuitionContextCard(title = uiState.kind.title)
+            } else {
+                LessonContextCard(unitName = uiState.unitName, subject = uiState.subject)
+            }
             Spacer(Modifier.height(20.dp))
 
-            FieldLabel(text = "Teacher's Name")
+            FieldLabel(text = if (uiState.kind.isTuition) "Tutor's Name" else "Teacher's Name")
             Spacer(Modifier.height(10.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                listOf("Sir", "Madam").forEach { honorific ->
-                    HonorificChip(
-                        label = honorific,
-                        selected = uiState.teacherHonorific == honorific,
-                        onClick = { viewModel.onTeacherHonorificChanged(honorific) }
-                    )
-                }
-            }
-            Spacer(Modifier.height(10.dp))
-            OutlinedTextField(
-                value = uiState.teacherName,
-                onValueChange = { input ->
-                    if (input.all { it.isLetter() || it.isWhitespace() || it == '.' }) {
-                        viewModel.onTeacherNameChanged(input)
+            if (uiState.kind.isTuition) {
+                // Tutor name is set once on the home Tuition popup and reused — read only here.
+                val tutorDisplay = listOf(uiState.teacherHonorific, uiState.teacherName)
+                    .filter { it.isNotBlank() }
+                    .joinToString(" ")
+                    .ifBlank { "Add tutor's name from home screen" }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(14.dp))
+                        .background(Color(0xFFEDE9FE))
+                        .padding(horizontal = 14.dp, vertical = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text("👨‍🏫", fontSize = 20.sp)
+                    Spacer(Modifier.width(10.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            tutorDisplay,
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = SFProSemiBold,
+                            color = if (uiState.teacherName.isNotBlank()) DobiTextPrimary else DobiTextSecondary
+                        )
+                        if (uiState.teacherName.isNotBlank()) {
+                            Text(
+                                "Edit on home screen",
+                                fontSize = 11.sp,
+                                color = DobiTextSecondary
+                            )
+                        }
                     }
-                },
-                modifier = Modifier.fillMaxWidth(),
-                placeholder = { Text("e.g. Sharma", color = DobiTextSecondary) },
-                singleLine = true,
-                shape = RoundedCornerShape(14.dp),
-                colors = dobiTextFieldColors()
-            )
+                }
+            } else {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    listOf("Sir", "Madam").forEach { honorific ->
+                        HonorificChip(
+                            label = honorific,
+                            selected = uiState.teacherHonorific == honorific,
+                            onClick = { viewModel.onTeacherHonorificChanged(honorific) }
+                        )
+                    }
+                }
+                Spacer(Modifier.height(10.dp))
+                OutlinedTextField(
+                    value = uiState.teacherName,
+                    onValueChange = { input ->
+                        if (input.all { it.isLetter() || it.isWhitespace() || it == '.' }) {
+                            viewModel.onTeacherNameChanged(input)
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    placeholder = { Text("e.g. Sharma", color = DobiTextSecondary) },
+                    singleLine = true,
+                    shape = RoundedCornerShape(14.dp),
+                    colors = dobiTextFieldColors()
+                )
+            }
 
             Spacer(Modifier.height(24.dp))
 
@@ -300,6 +338,35 @@ fun UploadWorkScreen(
             }
 
             Spacer(Modifier.height(24.dp))
+        }
+    }
+}
+
+@Composable
+private fun TuitionContextCard(title: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(14.dp))
+            .background(DobiPrimaryContainer)
+            .padding(horizontal = 16.dp, vertical = 14.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text("📐", fontSize = 22.sp)
+        Spacer(Modifier.width(12.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                "Tuition",
+                fontSize = 11.sp,
+                color = DobiPrimary,
+                fontWeight = SFProSemiBold
+            )
+            Text(
+                title,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = SFProSemiBold,
+                color = DobiTextPrimary
+            )
         }
     }
 }
