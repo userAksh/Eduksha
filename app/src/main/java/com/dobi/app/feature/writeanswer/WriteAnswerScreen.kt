@@ -136,6 +136,13 @@ fun WriteAnswerScreen(
                     onSubmit = viewModel::submitNotebook,
                     onChangeMode = viewModel::goBackToModePicker
                 )
+                WritePhase.COLLECTING_TEXTBOOK -> TextbookCollect(
+                    state = uiState,
+                    onPhotosAdded = viewModel::onTextbookPhotosAdded,
+                    onPhotoRemoved = viewModel::onTextbookPhotoRemoved,
+                    onSubmit = viewModel::submitTextbook,
+                    onChangeMode = viewModel::goBackToModePicker
+                )
                 WritePhase.COLLECTING_PER_QUESTION -> PerQuestionCollect(
                     state = uiState,
                     onPhotoAdded = viewModel::onPerQuestionPhotoAdded,
@@ -305,8 +312,71 @@ private fun NotebookCollect(
         ) {
             Text("Submit Answers", color = Color.White, fontWeight = SFProSemiBold)
         }
-        Spacer(Modifier.height(8.dp))
-        ChangeModeLink(onChangeMode)
+        if (state.canChangeMode) {
+            Spacer(Modifier.height(8.dp))
+            ChangeModeLink(onChangeMode)
+        }
+        Spacer(Modifier.height(20.dp))
+    }
+}
+
+@Composable
+private fun TextbookCollect(
+    state: WriteAnswerUiState,
+    onPhotosAdded: (List<String>) -> Unit,
+    onPhotoRemoved: (String) -> Unit,
+    onSubmit: () -> Unit,
+    onChangeMode: () -> Unit
+) {
+    Column(Modifier.verticalScroll(rememberScrollState())) {
+        TopicChip(state.displayName)
+        Spacer(Modifier.height(16.dp))
+        Text(
+            "Snap the textbook pages",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = SFProBold,
+            color = DobiTextPrimary
+        )
+        Spacer(Modifier.height(4.dp))
+        Text(
+            "Take clear photos of the questions or chapter pages you want to practise. " +
+                "Dobi will make a few short-answer questions from them.",
+            color = DobiTextSecondary,
+            fontSize = 12.sp,
+            lineHeight = 16.sp
+        )
+        Spacer(Modifier.height(14.dp))
+        if (state.textbookPhotoUris.isNotEmpty()) {
+            PhotoStrip(state.textbookPhotoUris, onPhotoRemoved)
+            Spacer(Modifier.height(12.dp))
+        }
+        PhotoButtons(
+            onPicked = onPhotosAdded,
+            onCameraPicked = { onPhotosAdded(listOf(it)) }
+        )
+        state.error?.let {
+            Spacer(Modifier.height(14.dp))
+            Text(it, color = Color(0xFFEF4444), fontSize = 13.sp, lineHeight = 18.sp)
+        }
+        Spacer(Modifier.height(20.dp))
+        Button(
+            onClick = onSubmit,
+            enabled = state.canSubmitTextbook,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(52.dp),
+            shape = RoundedCornerShape(14.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = DobiPrimary,
+                disabledContainerColor = Color(0xFFBFD7F7)
+            )
+        ) {
+            Text("Generate Questions", color = Color.White, fontWeight = SFProSemiBold)
+        }
+        if (state.canChangeMode) {
+            Spacer(Modifier.height(8.dp))
+            ChangeModeLink(onChangeMode)
+        }
         Spacer(Modifier.height(20.dp))
     }
 }
@@ -365,8 +435,10 @@ private fun PerQuestionCollect(
         ) {
             Text("Submit Answers", color = Color.White, fontWeight = SFProSemiBold)
         }
-        Spacer(Modifier.height(8.dp))
-        ChangeModeLink(onChangeMode)
+        if (state.canChangeMode) {
+            Spacer(Modifier.height(8.dp))
+            ChangeModeLink(onChangeMode)
+        }
         Spacer(Modifier.height(20.dp))
     }
 }

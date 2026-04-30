@@ -2,6 +2,7 @@ package com.dobi.app.feature.conceptdetail
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -20,7 +21,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.AutoStories
+import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.HelpOutline
 import androidx.compose.material.icons.filled.School
 import androidx.compose.material3.Button
@@ -111,6 +114,7 @@ fun ConceptDetailScreen(
                 onAnswerQuestions = onAnswerQuestions,
                 onUploadWork = onUploadWork,
                 onMarkAsDone = viewModel::onMarkAsDone,
+                onToggleRevision = viewModel::onToggleRevisionMark,
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -129,11 +133,6 @@ private fun ConceptDetailTopBar(onNavigateBack: () -> Unit) {
                 Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = DobiTextPrimary)
             }
         },
-        actions = {
-            IconButton(onClick = {}) {
-                Icon(Icons.Default.BookmarkBorder, contentDescription = "Bookmark", tint = DobiTextPrimary)
-            }
-        },
         colors = TopAppBarDefaults.topAppBarColors(containerColor = DobiBackground)
     )
 }
@@ -148,6 +147,7 @@ private fun ConceptDetailContent(
     onAnswerQuestions: () -> Unit,
     onUploadWork: (kindKey: String) -> Unit,
     onMarkAsDone: () -> Unit,
+    onToggleRevision: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val concept = uiState.concept ?: return
@@ -173,6 +173,14 @@ private fun ConceptDetailContent(
             BreadcrumbChip(label = concept.subject)
             BreadcrumbChip(label = concept.unit)
         }
+
+        Spacer(Modifier.height(16.dp))
+
+        RevisionToggle(
+            isMarked = uiState.isMarkedForRevision,
+            isBusy = uiState.isTogglingRevision,
+            onClick = onToggleRevision
+        )
 
         Spacer(Modifier.height(16.dp))
 
@@ -430,5 +438,76 @@ private fun DifficultyCard(
                 lineHeight = 15.sp
             )
         }
+    }
+}
+
+// ── Revision toggle ────────────────────────────────────────────────────────────
+
+@Composable
+internal fun RevisionToggle(
+    isMarked: Boolean,
+    isBusy: Boolean,
+    onClick: () -> Unit
+) {
+    val accent = Color(0xFFF59E0B)
+    val containerColor = if (isMarked) accent.copy(alpha = 0.12f) else Color(0xFFF8FAFF)
+    val borderColor = if (isMarked) accent.copy(alpha = 0.5f) else Color(0xFFE5E7EB)
+    val titleColor = if (isMarked) accent else DobiTextPrimary
+    val title = if (isMarked) "Marked for Revision" else "Mark for Revision"
+    val subtitle = if (isMarked) "We'll keep this in your Need Revision list."
+    else "Tap to add this to your Need Revision list."
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(14.dp))
+            .background(containerColor)
+            .border(BorderStroke(1.dp, borderColor), RoundedCornerShape(14.dp))
+            .clickable(enabled = !isBusy, onClick = onClick)
+            .padding(14.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .size(40.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(if (isMarked) accent else Color.White),
+            contentAlignment = Alignment.Center
+        ) {
+            if (isBusy) {
+                CircularProgressIndicator(
+                    color = if (isMarked) Color.White else accent,
+                    modifier = Modifier.size(18.dp),
+                    strokeWidth = 2.dp
+                )
+            } else {
+                Icon(
+                    imageVector = if (isMarked) Icons.Default.Check else Icons.Default.BookmarkBorder,
+                    contentDescription = null,
+                    tint = if (isMarked) Color.White else accent,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        }
+        Spacer(Modifier.size(12.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = SFProSemiBold,
+                color = titleColor
+            )
+            Text(
+                text = subtitle,
+                style = MaterialTheme.typography.labelSmall,
+                color = DobiTextSecondary,
+                fontSize = 11.sp
+            )
+        }
+        Icon(
+            imageVector = if (isMarked) Icons.Default.Bookmark else Icons.Default.BookmarkBorder,
+            contentDescription = null,
+            tint = if (isMarked) accent else DobiTextSecondary,
+            modifier = Modifier.size(20.dp)
+        )
     }
 }

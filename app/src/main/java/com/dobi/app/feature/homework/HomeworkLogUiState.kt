@@ -11,6 +11,7 @@ data class HomeworkLogUiState(
     val selectedPhotoUris: List<String> = emptyList(),
     val isSaving: Boolean = false,
     val isSaved: Boolean = false,
+    val isValidatingPhotos: Boolean = false,
     val error: String? = null
 ) {
     val canSave: Boolean get() = subject.isNotBlank() && teacherName.isNotBlank() && !isSaving

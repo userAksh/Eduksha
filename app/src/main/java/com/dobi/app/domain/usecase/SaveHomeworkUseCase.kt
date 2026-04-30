@@ -7,6 +7,8 @@ import javax.inject.Inject
 class SaveHomeworkUseCase @Inject constructor(
     private val repository: HomeworkRepository
 ) {
-    suspend operator fun invoke(homework: Homework, localPhotoUriStrings: List<String>) =
-        repository.saveHomework(homework, localPhotoUriStrings)
+    suspend operator fun invoke(
+        homework: Homework,
+        localPhotoUriStrings: List<String>
+    ): List<String> = repository.saveHomework(homework, localPhotoUriStrings)
 }

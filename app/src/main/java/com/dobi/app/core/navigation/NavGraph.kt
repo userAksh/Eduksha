@@ -17,6 +17,15 @@ import com.dobi.app.feature.conceptdetail.ConceptDetailScreen
 import com.dobi.app.feature.conceptlist.ConceptListScreen
 import com.dobi.app.feature.unitdetail.UnitDetailScreen
 import com.dobi.app.feature.unitdetail.UnitDetailViewModel
+import com.dobi.app.feature.needrevision.NeedRevisionScreen
+import com.dobi.app.feature.revisit.RevisitDetailScreen
+import com.dobi.app.feature.revisit.RevisitSubjectsScreen
+import com.dobi.app.feature.testyourself.FORMAT_MCQ
+import com.dobi.app.feature.testyourself.FORMAT_SUBJECTIVE
+import com.dobi.app.feature.testyourself.SOURCE_AI
+import com.dobi.app.feature.testyourself.SOURCE_CURATED
+import com.dobi.app.feature.testyourself.TestYourselfChooserScreen
+import com.dobi.app.feature.testyourself.TestYourselfFormatScreen
 import com.dobi.app.feature.tuitionlearning.TuitionLearningScreen
 import com.dobi.app.feature.tuitionproblems.TuitionProblemsScreen
 import com.dobi.app.feature.uploadtuition.TuitionUploadParent
@@ -159,6 +168,15 @@ fun DobiNavGraph(
                 onNavigateToTuitionProblems = {
                     navController.navigate(Screen.TuitionProblems)
                 },
+                onNavigateToRevisitTopics = {
+                    navController.navigate(Screen.RevisitSubjects)
+                },
+                onNavigateToNeedRevision = {
+                    navController.navigate(Screen.NeedRevision)
+                },
+                onNavigateToTestYourself = {
+                    navController.navigate(Screen.ConceptList(ConceptListMode.TEST_YOURSELF))
+                },
                 onRequestParentAccess = {
                     // Pop back to RoleSelection using the pop animation (slide back)
                     val popped = navController.popBackStack(
@@ -202,10 +220,18 @@ fun DobiNavGraph(
                 mode = route.mode,
                 onNavigateBack = { navController.popBackStack() },
                 onConceptClick = { conceptId ->
-                    navController.navigate(Screen.ConceptDetail(conceptId))
+                    if (route.mode == ConceptListMode.TEST_YOURSELF) {
+                        navController.navigate(Screen.TestYourselfChooser(conceptId = conceptId))
+                    } else {
+                        navController.navigate(Screen.ConceptDetail(conceptId))
+                    }
                 },
                 onUnitClick = { unitId ->
-                    navController.navigate(Screen.UnitDetail(unitId))
+                    if (route.mode == ConceptListMode.TEST_YOURSELF) {
+                        navController.navigate(Screen.TestYourselfChooser(unitId = unitId))
+                    } else {
+                        navController.navigate(Screen.UnitDetail(unitId))
+                    }
                 }
             )
         }
@@ -360,6 +386,93 @@ fun DobiNavGraph(
         composable<Screen.TuitionProblems> {
             TuitionProblemsScreen(
                 onNavigateBack = { navController.popBackStack() }
+            )
+        }
+
+        composable<Screen.RevisitSubjects> {
+            RevisitSubjectsScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onTopicClick = { groupKey ->
+                    navController.navigate(Screen.RevisitDetail(groupKey))
+                }
+            )
+        }
+
+        composable<Screen.RevisitDetail> {
+            RevisitDetailScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onTakeQuiz = { unitId, conceptId ->
+                    navController.navigate(
+                        Screen.Quiz(unitId = unitId, conceptId = conceptId)
+                    )
+                },
+                onViewLastResult = { unitId, conceptId ->
+                    navController.navigate(
+                        Screen.Quiz(unitId = unitId, conceptId = conceptId, viewResult = true)
+                    )
+                }
+            )
+        }
+
+        composable<Screen.NeedRevision> {
+            NeedRevisionScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onOpenConcept = { conceptId ->
+                    navController.navigate(Screen.ConceptDetail(conceptId))
+                },
+                onOpenUnit = { unitId ->
+                    navController.navigate(Screen.UnitDetail(unitId))
+                }
+            )
+        }
+
+        composable<Screen.TestYourselfChooser> {
+            TestYourselfChooserScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onPickSource = { source, unitId, conceptId ->
+                    navController.navigate(
+                        Screen.TestYourselfFormat(
+                            source = source,
+                            unitId = unitId,
+                            conceptId = conceptId
+                        )
+                    )
+                }
+            )
+        }
+
+        composable<Screen.TestYourselfFormat> {
+            TestYourselfFormatScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onPickFormat = { source, format, unitId, conceptId ->
+                    when {
+                        source == SOURCE_CURATED && format == FORMAT_MCQ -> {
+                            navController.navigate(
+                                Screen.Quiz(
+                                    unitId = unitId,
+                                    conceptId = conceptId,
+                                    source = "curated"
+                                )
+                            )
+                        }
+                        source == SOURCE_AI && format == FORMAT_MCQ -> {
+                            navController.navigate(
+                                Screen.UploadWork(
+                                    unitId = unitId,
+                                    conceptId = conceptId,
+                                    kind = "self_learning"
+                                )
+                            )
+                        }
+                        format == FORMAT_SUBJECTIVE -> {
+                            // Both curated and AI subjective reuse the
+                            // Class Test Prep WriteAnswer pipeline. The
+                            // VM has already populated AiPracticeContextHolder
+                            // with the lesson/concept scope.
+                            navController.navigate(Screen.WriteAnswer)
+                        }
+                    }
+                }
             )
         }
 

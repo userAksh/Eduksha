@@ -36,7 +36,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.material.icons.filled.AutoStories
-import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.School
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -122,6 +121,7 @@ fun UnitDetailScreen(
                 onUploadWork = onUploadWork,
                 onAnswerQuestions = onAnswerQuestions,
                 onMarkAsDone = viewModel::onMarkAsDone,
+                onToggleRevision = viewModel::onToggleRevisionMark,
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -140,11 +140,6 @@ private fun UnitDetailTopBar(onNavigateBack: () -> Unit) {
                 Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = DobiTextPrimary)
             }
         },
-        actions = {
-            IconButton(onClick = {}) {
-                Icon(Icons.Default.BookmarkBorder, contentDescription = "Bookmark", tint = DobiTextPrimary)
-            }
-        },
         colors = TopAppBarDefaults.topAppBarColors(containerColor = DobiBackground)
     )
 }
@@ -160,6 +155,7 @@ private fun UnitDetailContent(
     onUploadWork: (kindKey: String) -> Unit,
     onAnswerQuestions: () -> Unit,
     onMarkAsDone: () -> Unit,
+    onToggleRevision: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -203,6 +199,14 @@ private fun UnitDetailContent(
             BreadcrumbChip(label = uiState.subject)
             BreadcrumbChip(label = "${uiState.concepts.size} concepts")
         }
+
+        Spacer(Modifier.height(16.dp))
+
+        com.dobi.app.feature.conceptdetail.RevisionToggle(
+            isMarked = uiState.isMarkedForRevision,
+            isBusy = uiState.isTogglingRevision,
+            onClick = onToggleRevision
+        )
 
         Spacer(Modifier.height(20.dp))
 

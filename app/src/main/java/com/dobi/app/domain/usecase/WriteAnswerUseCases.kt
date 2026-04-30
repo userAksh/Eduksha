@@ -17,6 +17,19 @@ class GenerateSubjectiveQuestionsUseCase @Inject constructor(
         repo.generateQuestions(scopeText, subject, grade, targetCount)
 }
 
+class GenerateSubjectiveFromImagesUseCase @Inject constructor(
+    private val repo: WriteAnswerRepository
+) {
+    suspend operator fun invoke(
+        scopeText: String,
+        subject: String,
+        grade: Int,
+        photoUris: List<String>,
+        targetCount: Int
+    ): Result<List<SubjectiveQuestion>> =
+        repo.generateQuestionsFromImages(scopeText, subject, grade, photoUris, targetCount)
+}
+
 class GradeStructuredAnswersUseCase @Inject constructor(
     private val repo: WriteAnswerRepository
 ) {

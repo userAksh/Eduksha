@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dobi.app.data.repository.AiPracticeContextHolder
 import com.dobi.app.data.repository.GeneratedQuizCache
+import com.dobi.app.data.repository.PreselectedWriteMode
 import com.dobi.app.domain.usecase.GenerateMcqFromImageUseCase
 import com.dobi.app.domain.usecase.GenerateMcqRequest
+import com.dobi.app.domain.usecase.GenerateSubjectiveFromImagesUseCase
 import com.dobi.app.domain.usecase.GenerateSubjectiveQuestionsUseCase
 import com.dobi.app.domain.usecase.GradeNotebookAnswersUseCase
 import com.dobi.app.domain.usecase.GradeStructuredAnswersUseCase
@@ -28,6 +30,7 @@ sealed class WriteAnswerNavEvent {
 class WriteAnswerViewModel @Inject constructor(
     private val aiPracticeContextHolder: AiPracticeContextHolder,
     private val generateQuestions: GenerateSubjectiveQuestionsUseCase,
+    private val generateQuestionsFromImages: GenerateSubjectiveFromImagesUseCase,
     private val gradeStructured: GradeStructuredAnswersUseCase,
     private val gradeNotebook: GradeNotebookAnswersUseCase,
     private val generateMcqUseCase: GenerateMcqFromImageUseCase,
@@ -54,8 +57,18 @@ class WriteAnswerViewModel @Inject constructor(
                 it.copy(
                     phase = WritePhase.MODE_PICKER,
                     displayName = ctx.displayName,
-                    subject = ctx.subject
+                    subject = ctx.subject,
+                    canChangeMode = ctx.preselectedWriteMode == null
                 )
+            }
+            // When the previous screen has already implied a mode (e.g.
+            // Test Yourself: curated → generated, AI → notebook), skip the
+            // mode picker and drop the child straight into that mode.
+            when (ctx.preselectedWriteMode) {
+                PreselectedWriteMode.GENERATED -> pickGeneratedMode()
+                PreselectedWriteMode.NOTEBOOK -> pickNotebookMode()
+                PreselectedWriteMode.AI_TEXTBOOK -> pickAiTextbookMode()
+                null -> Unit
             }
         }
     }
@@ -112,6 +125,55 @@ class WriteAnswerViewModel @Inject constructor(
 
     fun onNotebookPhotoRemoved(uri: String) {
         _uiState.update { it.copy(notebookPhotoUris = it.notebookPhotoUris - uri) }
+    }
+
+    fun pickAiTextbookMode() {
+        _uiState.update {
+            it.copy(mode = WriteMode.AI_FROM_TEXTBOOK, phase = WritePhase.COLLECTING_TEXTBOOK)
+        }
+    }
+
+    fun onTextbookPhotosAdded(uris: List<String>) {
+        _uiState.update { it.copy(textbookPhotoUris = it.textbookPhotoUris + uris) }
+    }
+
+    fun onTextbookPhotoRemoved(uri: String) {
+        _uiState.update { it.copy(textbookPhotoUris = it.textbookPhotoUris - uri) }
+    }
+
+    fun submitTextbook() {
+        val state = _uiState.value
+        if (!state.canSubmitTextbook) return
+        val ctx = aiPracticeContextHolder.peek() ?: return
+        _uiState.update { it.copy(phase = WritePhase.GENERATING_QUESTIONS, error = null) }
+        viewModelScope.launch {
+            val targetCount = computeQuestionCount(ctx.scopeText)
+            generateQuestionsFromImages(
+                scopeText = ctx.scopeText,
+                subject = ctx.subject,
+                grade = ctx.grade,
+                photoUris = state.textbookPhotoUris,
+                targetCount = targetCount
+            ).fold(
+                onSuccess = { qs ->
+                    _uiState.update {
+                        it.copy(
+                            questions = qs,
+                            phase = WritePhase.COLLECTING_PER_QUESTION
+                        )
+                    }
+                },
+                onFailure = { e ->
+                    Log.e(TAG, "Image question gen failed", e)
+                    _uiState.update {
+                        it.copy(
+                            phase = WritePhase.COLLECTING_TEXTBOOK,
+                            error = friendlyError(e.message)
+                        )
+                    }
+                }
+            )
+        }
     }
 
     fun onPerQuestionPhotoAdded(questionId: String, uri: String) {
@@ -200,10 +262,16 @@ class WriteAnswerViewModel @Inject constructor(
     fun launchAntiCheatQuiz() {
         val state = _uiState.value
         val ctx = aiPracticeContextHolder.peek() ?: return
-        val photos = if (state.mode == WriteMode.NOTEBOOK) {
-            state.notebookPhotoUris
-        } else {
-            state.photosByQuestionId.values.flatten().distinct()
+        val photos = when (state.mode) {
+            WriteMode.NOTEBOOK -> state.notebookPhotoUris
+            WriteMode.AI_FROM_TEXTBOOK -> {
+                // Anti-cheat MCQ should re-quiz from the textbook pages they
+                // generated questions from, not the per-question answer photos.
+                state.textbookPhotoUris.ifEmpty {
+                    state.photosByQuestionId.values.flatten().distinct()
+                }
+            }
+            else -> state.photosByQuestionId.values.flatten().distinct()
         }
         if (photos.isEmpty()) return
 
@@ -246,6 +314,7 @@ class WriteAnswerViewModel @Inject constructor(
                 mode = null,
                 error = null,
                 notebookPhotoUris = emptyList(),
+                textbookPhotoUris = emptyList(),
                 questions = emptyList(),
                 photosByQuestionId = emptyMap()
             )

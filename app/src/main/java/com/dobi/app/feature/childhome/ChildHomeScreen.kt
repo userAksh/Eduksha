@@ -94,6 +94,9 @@ fun ChildHomeScreen(
     onNavigateToTuitionWork: () -> Unit = {},
     onNavigateToTuitionHomework: () -> Unit = {},
     onNavigateToTuitionProblems: () -> Unit = {},
+    onNavigateToRevisitTopics: () -> Unit = {},
+    onNavigateToNeedRevision: () -> Unit = {},
+    onNavigateToTestYourself: () -> Unit = {},
     onRequestParentAccess: () -> Unit = {},
     viewModel: ChildHomeViewModel = hiltViewModel()
 ) {
@@ -137,6 +140,9 @@ fun ChildHomeScreen(
                 onNavigateToTuitionWork = onNavigateToTuitionWork,
                 onNavigateToTuitionHomework = onNavigateToTuitionHomework,
                 onNavigateToTuitionProblems = onNavigateToTuitionProblems,
+                onNavigateToRevisitTopics = onNavigateToRevisitTopics,
+                onNavigateToNeedRevision = onNavigateToNeedRevision,
+                onNavigateToTestYourself = onNavigateToTestYourself,
                 onSaveTutor = viewModel::saveTutor,
                 onTaskClick = {},
                 contentPadding = innerPadding
@@ -159,6 +165,9 @@ private fun ChildHomeContent(
     onNavigateToTuitionWork: () -> Unit,
     onNavigateToTuitionHomework: () -> Unit,
     onNavigateToTuitionProblems: () -> Unit,
+    onNavigateToRevisitTopics: () -> Unit,
+    onNavigateToNeedRevision: () -> Unit,
+    onNavigateToTestYourself: () -> Unit,
     onSaveTutor: (String, String) -> Unit,
     onTaskClick: (String) -> Unit,
     contentPadding: PaddingValues
@@ -319,6 +328,9 @@ private fun ChildHomeContent(
                         lastModeIndex == 1 && optionIndex == 0 -> onNavigateToTuitionWork()
                         lastModeIndex == 1 && optionIndex == 1 -> onNavigateToTuitionHomework()
                         lastModeIndex == 1 && optionIndex == 2 -> onNavigateToTuitionProblems()
+                        lastModeIndex == 2 && optionIndex == 0 -> onNavigateToRevisitTopics()
+                        lastModeIndex == 2 && optionIndex == 1 -> onNavigateToNeedRevision()
+                        lastModeIndex == 2 && optionIndex == 2 -> onNavigateToTestYourself()
                     }
                 },
                 tutorHonorific = uiState.tutorHonorific,
@@ -490,9 +502,9 @@ private val revisionSheetOptions = listOf(
         title = "Self Revision",
         emoji = "✨",
         options = listOf(
-            RevisionOption("🌱", "Explore a New Concept", "Pick something fresh and learn it today"),
-            RevisionOption("🔁", "Revisit Past Topics", "Go back and strengthen what you've studied"),
-            RevisionOption("🧠", "Test Yourself", "Quiz yourself to see how much you remember"),
+            RevisionOption("🔁", "Revisit Past Topics", "Go back to the topics you've completed and strengthen your understanding."),
+            RevisionOption("⚠️", "Need Revision", "Topics you might be forgetting. Revise them to stay sharp and confident."),
+            RevisionOption("🧠", "Test Yourself", "Practice with quizzes or generate AI questions from your textbook."),
         )
     )
 )
@@ -1228,6 +1240,9 @@ private fun ChildHomeEmptyPreview() {
             onNavigateToTuitionWork = {},
             onNavigateToTuitionHomework = {},
             onNavigateToTuitionProblems = {},
+            onNavigateToRevisitTopics = {},
+            onNavigateToNeedRevision = {},
+            onNavigateToTestYourself = {},
             onSaveTutor = { _, _ -> },
             onTaskClick = {},
             contentPadding = PaddingValues(0.dp)
@@ -1269,6 +1284,9 @@ private fun ChildHomeWithTasksPreview() {
             onNavigateToTuitionWork = {},
             onNavigateToTuitionHomework = {},
             onNavigateToTuitionProblems = {},
+            onNavigateToRevisitTopics = {},
+            onNavigateToNeedRevision = {},
+            onNavigateToTestYourself = {},
             onSaveTutor = { _, _ -> },
             onTaskClick = {},
             contentPadding = PaddingValues(0.dp)

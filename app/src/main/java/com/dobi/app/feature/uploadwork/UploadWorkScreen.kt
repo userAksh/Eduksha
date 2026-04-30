@@ -318,10 +318,15 @@ fun UploadWorkScreen(
                         modifier = Modifier.size(20.dp),
                         strokeWidth = 2.dp
                     )
-                    if (uiState.isGeneratingQuiz) {
+                    val busyLabel = when {
+                        uiState.isValidatingPhotos -> "Checking your photos…"
+                        uiState.isGeneratingQuiz -> "Reading your pages…"
+                        else -> ""
+                    }
+                    if (busyLabel.isNotBlank()) {
                         Spacer(Modifier.width(10.dp))
                         Text(
-                            "Reading your pages…",
+                            busyLabel,
                             fontWeight = SFProSemiBold,
                             fontSize = 14.sp,
                             color = Color.White

@@ -77,9 +77,13 @@ enum class WorkUploadKind(
 
 data class UploadWorkUiState(
     val kind: WorkUploadKind = WorkUploadKind.CLASS_WORK,
+    val unitId: String = "",
     val unitName: String = "",
+    val conceptId: String = "",
     val conceptName: String = "",
     val subject: String = "",
+    val subjectColor: String = "",
+    val subjectIcon: String = "",
     val teacherHonorific: String = "",
     val teacherName: String = "",
     val dateMillis: Long = System.currentTimeMillis(),
@@ -87,6 +91,7 @@ data class UploadWorkUiState(
     val isLoading: Boolean = true,
     val isSaving: Boolean = false,
     val isSaved: Boolean = false,
+    val isValidatingPhotos: Boolean = false,
     val isGeneratingQuiz: Boolean = false,
     val generatedQuiz: List<McqQuestion> = emptyList(),
     val generatedQuizCacheKey: String = "",

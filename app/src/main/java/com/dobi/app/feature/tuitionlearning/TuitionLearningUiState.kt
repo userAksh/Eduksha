@@ -27,6 +27,7 @@ data class TuitionLearningUiState(
     val isLoading: Boolean = true,
     val isSaving: Boolean = false,
     val isSaved: Boolean = false,
+    val isValidatingPhotos: Boolean = false,
     val error: String? = null
 ) {
     val tutorDisplay: String get() =

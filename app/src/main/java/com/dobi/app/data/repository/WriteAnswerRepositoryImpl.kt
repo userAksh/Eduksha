@@ -87,6 +87,58 @@ class WriteAnswerRepositoryImpl @Inject constructor(
         }
     }
 
+    private val imageQuestionGenModel: GenerativeModel by lazy {
+        buildModel("gemini-2.5-flash", QUESTION_GEN_SCHEMA, IMAGE_QUESTION_GEN_SYSTEM)
+    }
+
+    override suspend fun generateQuestionsFromImages(
+        scopeText: String,
+        subject: String,
+        grade: Int,
+        photoUris: List<String>,
+        targetCount: Int
+    ): Result<List<SubjectiveQuestion>> = withContext(Dispatchers.IO) {
+        runCatching {
+            require(photoUris.isNotEmpty()) { "No photos provided" }
+            val bitmaps = photoUris.mapNotNull { decodeBitmap(it) }
+            require(bitmaps.isNotEmpty()) { "Couldn't read uploaded photos" }
+            val prompt = """
+                $scopeText
+                Subject: $subject
+                Grade: $grade
+
+                The student has uploaded photos of their textbook / question pages
+                for the lesson above. Apply the photo-classification rule from the
+                system prompt:
+                  - If every photo is on-topic for the named lesson, generate
+                    exactly $targetCount short subjective questions ANCHORED in
+                    what's actually visible on those pages.
+                  - Otherwise refuse with {"error": "<kid-friendly sentence
+                    naming the topic and what you saw>"}.
+
+                Mix difficulty: roughly half short-answer (1–2 marks) and half
+                slightly deeper (3 marks). Prefer "explain", "why", "how",
+                "give an example".
+            """.trimIndent()
+            val input = content {
+                text(prompt)
+                bitmaps.forEach { image(it) }
+            }
+            val raw = imageQuestionGenModel.generateContent(input).text
+                ?: error("Empty response from Gemini")
+            val parsed = json.decodeFromString<QuestionGenResponse>(raw)
+            if (parsed.error != null) error(parsed.error)
+            parsed.questions.orEmpty().map {
+                SubjectiveQuestion(
+                    id = UUID.randomUUID().toString(),
+                    text = it.text,
+                    expectedKeywords = it.expectedKeywords,
+                    maxMarks = it.maxMarks
+                )
+            }.also { require(it.isNotEmpty()) { "Model returned no questions" } }
+        }
+    }
+
     override suspend fun gradeStructured(
         scopeText: String,
         subject: String,
@@ -312,6 +364,33 @@ class WriteAnswerRepositoryImpl @Inject constructor(
             compare, give an example, or apply the idea. Output only JSON matching
             the schema. If the topic input doesn't make sense, return
             {"error": "<reason>"}.
+        """.trimIndent()
+
+        private val IMAGE_QUESTION_GEN_SYSTEM = """
+            You are an Indian school-textbook tutor. The student uploads photos
+            of textbook pages or question pages and tells you which lesson they
+            cover. Your job is to generate short subjective questions ONLY when
+            the uploaded pages actually belong to that lesson.
+
+            STEP 1 — Classify EACH photo independently:
+              (a) textbook / notes / question page from the named lesson — proceed.
+              (b) different chapter from the same subject — refuse.
+              (c) mixed sample paper / mock test / question bank covering many
+                  chapters — refuse even if a few items overlap with the lesson.
+              (d) not from a textbook at all (random photo, screenshot, object) — refuse.
+              (e) unreadable / blurry / torn — refuse.
+
+            STEP 2 — Only when every photo is (a), generate the requested number
+            of subjective questions, each grounded in something actually visible
+            on the uploaded pages.
+
+            On refusal, return ONLY:
+              {"error": "<one short kid-friendly sentence that names the lesson
+              AND describes what you saw — e.g. 'These pages don't look like
+              they're from <lesson>; they look like a mixed sample paper.'>"}
+
+            Output only JSON matching the schema. Either `questions` with all
+            required fields, OR `error` — never both, never neither.
         """.trimIndent()
 
         private val GRADING_SYSTEM = """

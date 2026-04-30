@@ -120,10 +120,42 @@ fun QuizScreen(
         }
     ) { innerPadding ->
         when {
-            uiState.isLoading -> Box(
+            uiState.isLoading || uiState.isGeneratingCurated -> Box(
                 Modifier.fillMaxSize().padding(innerPadding),
                 contentAlignment = Alignment.Center
-            ) { CircularProgressIndicator(color = DobiPrimary) }
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    CircularProgressIndicator(color = DobiPrimary)
+                    if (uiState.isGeneratingCurated) {
+                        Spacer(Modifier.height(14.dp))
+                        Text(
+                            text = "Preparing your quiz…",
+                            color = DobiTextPrimary,
+                            fontSize = 14.sp
+                        )
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            text = "Dobi is making 10 questions for this lesson.",
+                            color = DobiTextSecondary,
+                            fontSize = 12.sp
+                        )
+                    }
+                }
+            }
+
+            uiState.error != null && uiState.questions.isEmpty() -> Column(
+                modifier = Modifier.fillMaxSize().padding(innerPadding).padding(32.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("😕", fontSize = 36.sp)
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = uiState.error!!,
+                    color = DobiTextPrimary,
+                    fontSize = 14.sp
+                )
+            }
 
             uiState.questions.isEmpty() -> EmptyBankState(
                 modifier = Modifier.fillMaxSize().padding(innerPadding),

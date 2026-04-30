@@ -5,8 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.dobi.app.core.navigation.Screen
+import com.dobi.app.data.repository.RevisionMarkRepository
 import com.dobi.app.domain.model.Completion
 import com.dobi.app.domain.model.Difficulty
+import com.dobi.app.domain.model.RevisionMark
+import com.dobi.app.domain.model.RevisionScope
 import com.dobi.app.domain.model.WorkMode
 import com.dobi.app.domain.repository.UserRepository
 import com.dobi.app.domain.usecase.GetConceptByIdUseCase
@@ -27,7 +30,8 @@ class ConceptDetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val getConceptByIdUseCase: GetConceptByIdUseCase,
     private val saveCompletionUseCase: SaveCompletionUseCase,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val revisionMarkRepository: RevisionMarkRepository
 ) : ViewModel() {
 
     private val conceptId: String = savedStateHandle.toRoute<Screen.ConceptDetail>().conceptId
@@ -38,6 +42,33 @@ class ConceptDetailViewModel @Inject constructor(
     init {
         loadConcept()
         observeUploadResult()
+        observeRevisionMark()
+    }
+
+    private fun observeRevisionMark() {
+        revisionMarkRepository.isMarked(RevisionScope.CONCEPT, conceptId)
+            .onEach { marked -> _uiState.update { it.copy(isMarkedForRevision = marked) } }
+            .launchIn(viewModelScope)
+    }
+
+    fun onToggleRevisionMark() {
+        val concept = _uiState.value.concept ?: return
+        if (_uiState.value.isTogglingRevision) return
+        viewModelScope.launch {
+            _uiState.update { it.copy(isTogglingRevision = true) }
+            val mark = RevisionMark(
+                scope = RevisionScope.CONCEPT.key,
+                targetId = concept.id,
+                name = concept.name,
+                subject = concept.subject,
+                subjectColor = concept.subjectColor,
+                subjectIcon = concept.subjectIcon,
+                unitId = concept.unitId,
+                unitName = concept.unit
+            )
+            revisionMarkRepository.toggle(mark)
+            _uiState.update { it.copy(isTogglingRevision = false) }
+        }
     }
 
     private fun observeUploadResult() {

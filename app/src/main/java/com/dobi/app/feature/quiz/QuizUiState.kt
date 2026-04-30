@@ -14,6 +14,7 @@ data class QuizUiState(
     val revealed: Set<Int> = emptySet(),
     val attemptsTaken: Int = 0,
     val isLoading: Boolean = true,
+    val isGeneratingCurated: Boolean = false,
     val error: String? = null
 ) {
     val canRetry: Boolean get() = attemptsTaken < MAX_ATTEMPTS

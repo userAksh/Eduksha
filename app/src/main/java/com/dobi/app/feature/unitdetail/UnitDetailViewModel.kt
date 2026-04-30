@@ -5,8 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.dobi.app.core.navigation.Screen
+import com.dobi.app.data.repository.RevisionMarkRepository
 import com.dobi.app.domain.model.Completion
 import com.dobi.app.domain.model.Difficulty
+import com.dobi.app.domain.model.RevisionMark
+import com.dobi.app.domain.model.RevisionScope
 import com.dobi.app.domain.model.WorkMode
 import com.dobi.app.domain.repository.UserRepository
 import com.dobi.app.domain.usecase.GetConceptsUseCase
@@ -30,7 +33,8 @@ class UnitDetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val getConceptsUseCase: GetConceptsUseCase,
     private val saveCompletionUseCase: SaveCompletionUseCase,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val revisionMarkRepository: RevisionMarkRepository
 ) : ViewModel() {
 
     private val unitId: String = savedStateHandle.toRoute<Screen.UnitDetail>().unitId
@@ -41,6 +45,33 @@ class UnitDetailViewModel @Inject constructor(
     init {
         loadUnit()
         observeUploadResult()
+        observeRevisionMark()
+    }
+
+    private fun observeRevisionMark() {
+        revisionMarkRepository.isMarked(RevisionScope.UNIT, unitId)
+            .onEach { marked -> _uiState.update { it.copy(isMarkedForRevision = marked) } }
+            .launchIn(viewModelScope)
+    }
+
+    fun onToggleRevisionMark() {
+        if (_uiState.value.isTogglingRevision) return
+        val state = _uiState.value
+        viewModelScope.launch {
+            _uiState.update { it.copy(isTogglingRevision = true) }
+            val mark = RevisionMark(
+                scope = RevisionScope.UNIT.key,
+                targetId = unitId,
+                name = state.unitName,
+                subject = state.subject,
+                subjectColor = state.subjectColor,
+                subjectIcon = state.subjectIcon,
+                unitId = unitId,
+                unitName = state.unitName
+            )
+            revisionMarkRepository.toggle(mark)
+            _uiState.update { it.copy(isTogglingRevision = false) }
+        }
     }
 
     private fun observeUploadResult() {

@@ -36,6 +36,27 @@ class McqGenerationRepositoryImpl @Inject constructor(
     private val primaryModel: GenerativeModel by lazy { buildModel("gemini-2.5-flash") }
     private val fallbackModel: GenerativeModel by lazy { buildModel("gemini-2.5-flash-lite") }
 
+    /**
+     * Text-only model used for the curated-quiz fallback path. Reusing the
+     * imageful [primaryModel] here doesn't work — its system prompt strictly
+     * expects uploaded photos and refuses with `{"error": ...}` when none are
+     * supplied, surfacing as "Couldn't prepare the quiz" to the child.
+     */
+    private val textModel: GenerativeModel by lazy {
+        // flash-lite is materially faster than flash on short structured
+        // outputs and is plenty for 10 grade-level MCQs. Latency on the
+        // curated fallback was hurting Test Yourself; this halves it.
+        Firebase.ai(backend = GenerativeBackend.vertexAI()).generativeModel(
+            modelName = "gemini-2.5-flash-lite",
+            generationConfig = generationConfig {
+                temperature = 0.3f
+                responseMimeType = "application/json"
+                responseSchema = MCQ_SCHEMA
+            },
+            systemInstruction = content { text(LESSON_SYSTEM_PROMPT) }
+        )
+    }
+
     private fun buildModel(name: String): GenerativeModel =
         Firebase.ai(backend = GenerativeBackend.vertexAI()).generativeModel(
             modelName = name,
@@ -46,6 +67,88 @@ class McqGenerationRepositoryImpl @Inject constructor(
             },
             systemInstruction = content { text(SYSTEM_PROMPT) }
         )
+
+    override suspend fun generateFromLesson(
+        subject: String,
+        grade: Int,
+        unitName: String,
+        conceptName: String,
+        conceptDescription: String,
+        targetCount: Int
+    ): Result<List<McqQuestion>> = withContext(Dispatchers.IO) {
+        runCatching {
+            val prompt = buildLessonPrompt(
+                subject = subject,
+                grade = grade,
+                unitName = unitName,
+                conceptName = conceptName,
+                conceptDescription = conceptDescription,
+                targetCount = targetCount
+            )
+            val input = content { text(prompt) }
+            val raw = textGenerateWithRetry(input)
+            val parsed = json.decodeFromString<McqResponse>(raw)
+            if (parsed.error != null) error(parsed.error)
+            parsed.questions.orEmpty().map { it.toDomain() }
+                .also { require(it.isNotEmpty()) { "Model returned no questions" } }
+        }
+    }
+
+    private suspend fun textGenerateWithRetry(input: Content): String {
+        val backoffsMs = longArrayOf(0, 1500, 4000)
+        var lastError: Throwable? = null
+        for (attempt in backoffsMs.indices) {
+            if (backoffsMs[attempt] > 0) delay(backoffsMs[attempt])
+            try {
+                val text = textModel.generateContent(input).text
+                if (!text.isNullOrBlank()) return text
+                error("Empty response from Gemini")
+            } catch (t: Throwable) {
+                lastError = t
+                Log.w(TAG, "Text model attempt ${attempt + 1} failed: ${t.message}")
+                if (!isRetryable(t)) throw t
+            }
+        }
+        throw lastError ?: IllegalStateException("Generation failed")
+    }
+
+    private fun buildLessonPrompt(
+        subject: String,
+        grade: Int,
+        unitName: String,
+        conceptName: String,
+        conceptDescription: String,
+        targetCount: Int
+    ): String {
+        val scope = if (conceptName.isNotBlank()) {
+            """
+                Lesson: $unitName
+                Concept (focus narrowly on this): $conceptName
+                Concept description: $conceptDescription
+            """.trimIndent()
+        } else {
+            "Lesson: $unitName"
+        }
+        return """
+            You are an Indian school-textbook tutor. Write $targetCount NCERT-style
+            multiple-choice questions for a Class $grade $subject student about the
+            topic below. The questions should match the difficulty and tone of the
+            CBSE textbook for this grade.
+
+            $scope
+
+            Rules:
+            - Exactly $targetCount questions, each with 4 options.
+            - One option clearly correct; wrong options must be plausible
+              misconceptions a real student that age would have — not random text.
+            - Cover the topic broadly: include some recall, some understanding,
+              some application questions.
+            - Each question carries a one-line kid-friendly explanation in
+              `explanation`. Leave `source_quote` blank for this prompt.
+            - Output JSON only, matching the provided schema. Either `questions`
+              with all required fields, OR `error` — never both, never neither.
+        """.trimIndent()
+    }
 
     override suspend fun generate(request: GenerateMcqRequest): Result<List<McqQuestion>> =
         withContext(Dispatchers.IO) {
@@ -285,6 +388,33 @@ class McqGenerationRepositoryImpl @Inject constructor(
             ────────────────────────────────────────────────────────────────────────
             Output only valid JSON matching the provided schema. Either "questions"
             with all required fields, OR "error" — never both, never neither.
+        """.trimIndent()
+
+        /**
+         * System prompt for the text-only curated fallback. Deliberately
+         * does not mention photos — the model must not refuse just because
+         * no images were attached.
+         */
+        private val LESSON_SYSTEM_PROMPT = """
+            You are an Indian school-textbook tutor. The user message names a
+            specific lesson or concept from the NCERT / CBSE syllabus. Your job
+            is to write multiple-choice questions that match the difficulty and
+            tone of the CBSE textbook for that grade and subject.
+
+            Rules:
+            - Write exactly the number of questions the user asks for.
+            - 4 options per question, exactly one correct.
+            - Wrong options must be plausible misconceptions a real student that
+              age would have — not random unrelated text.
+            - Cover the topic broadly (recall, understanding, application).
+            - Each question carries a one-line kid-friendly `explanation`.
+              Leave `source_quote` blank when no source page is provided.
+            - Do NOT invent facts that wouldn't appear in a Class 6 / 7 NCERT
+              textbook for this subject.
+            - Output ONLY valid JSON matching the schema. Use the `questions`
+              array on success; use `error` only if the requested topic is
+              outside the CBSE syllabus or otherwise impossible — never both,
+              never neither.
         """.trimIndent()
 
         private val MCQ_SCHEMA = Schema.obj(

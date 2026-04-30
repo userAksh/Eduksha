@@ -11,8 +11,18 @@ data class AiPracticeContext(
     val scopeText: String,
     val teacherHonorific: String = "",
     val teacherName: String = "",
-    val dateMillis: Long = System.currentTimeMillis()
+    val dateMillis: Long = System.currentTimeMillis(),
+    /**
+     * Optional hint for the WriteAnswer flow to skip its mode picker and
+     * jump straight into "notebook" (snap pre-written answers) or
+     * "generated" (Dobi makes questions, student answers each). Test
+     * Yourself uses this; Class Test Prep leaves it null so its picker
+     * still shows.
+     */
+    val preselectedWriteMode: PreselectedWriteMode? = null
 )
+
+enum class PreselectedWriteMode { NOTEBOOK, GENERATED, AI_TEXTBOOK }
 
 @Singleton
 class AiPracticeContextHolder @Inject constructor() {

@@ -11,6 +11,8 @@ data class ConceptDetailUiState(
     val isLoading: Boolean = true,
     val isSaving: Boolean = false,
     val isSaved: Boolean = false,
+    val isMarkedForRevision: Boolean = false,
+    val isTogglingRevision: Boolean = false,
     val error: String? = null
 ) {
     val canMarkAsDone: Boolean

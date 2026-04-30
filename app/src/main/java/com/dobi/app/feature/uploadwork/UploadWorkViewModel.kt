@@ -8,6 +8,10 @@ import android.util.Log
 import com.dobi.app.core.navigation.Screen
 import com.dobi.app.data.repository.AiPracticeContextHolder
 import com.dobi.app.data.repository.GeneratedQuizCache
+import com.dobi.app.data.repository.ImageScopeRequest
+import com.dobi.app.data.repository.ImageScopeValidator
+import com.dobi.app.data.repository.UploadEntryRepository
+import com.dobi.app.domain.model.UploadEntry
 import com.dobi.app.domain.repository.UserRepository
 import com.dobi.app.domain.usecase.GenerateMcqFromImageUseCase
 import com.dobi.app.domain.usecase.GenerateMcqRequest
@@ -31,7 +35,9 @@ class UploadWorkViewModel @Inject constructor(
     private val generateMcqFromImageUseCase: GenerateMcqFromImageUseCase,
     private val generatedQuizCache: GeneratedQuizCache,
     private val aiPracticeContextHolder: AiPracticeContextHolder,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val uploadEntryRepository: UploadEntryRepository,
+    private val imageScopeValidator: ImageScopeValidator
 ) : ViewModel() {
 
     private val route = savedStateHandle.toRoute<Screen.UploadWork>()
@@ -94,23 +100,33 @@ class UploadWorkViewModel @Inject constructor(
                     val unitName: String
                     val conceptName: String
                     val subject: String
+                    val subjectColor: String
+                    val subjectIcon: String
                     if (isConceptScope) {
                         val concept = allConcepts.firstOrNull { it.id == targetId }
                         conceptName = concept?.name.orEmpty()
                         unitName = concept?.unit.orEmpty()
                         subject = concept?.subject.orEmpty()
+                        subjectColor = concept?.subjectColor.orEmpty()
+                        subjectIcon = concept?.subjectIcon.orEmpty()
                         resolvedUnitId = concept?.unitId.orEmpty()
                     } else {
                         val first = allConcepts.firstOrNull { it.unitId == targetId }
                         conceptName = ""
                         unitName = first?.unit.orEmpty()
                         subject = first?.subject.orEmpty()
+                        subjectColor = first?.subjectColor.orEmpty()
+                        subjectIcon = first?.subjectIcon.orEmpty()
                     }
                     _uiState.update {
                         it.copy(
+                            unitId = resolvedUnitId,
                             unitName = unitName,
+                            conceptId = if (isConceptScope) targetId else "",
                             conceptName = conceptName,
                             subject = subject,
+                            subjectColor = subjectColor,
+                            subjectIcon = subjectIcon,
                             isLoading = false
                         )
                     }
@@ -170,13 +186,89 @@ class UploadWorkViewModel @Inject constructor(
         if (!_uiState.value.canSave) return
         val state = _uiState.value
         when {
-            kind == WorkUploadKind.SELF_LEARNING || kind == WorkUploadKind.AI_TEST_PREP ->
-                generateQuiz(state)
-            else ->
-                // CLASS_WORK and all tuition uploads just save the photos for now.
+            kind == WorkUploadKind.SELF_LEARNING -> {
+                // Generate quiz AND persist photos so they show on Revisit.
+                viewModelScope.launch {
+                    persistUpload(state)
+                    generateQuiz(state)
+                }
+            }
+            kind == WorkUploadKind.AI_TEST_PREP -> generateQuiz(state)
+            kind == WorkUploadKind.CLASS_WORK -> {
+                viewModelScope.launch {
+                    _uiState.update {
+                        it.copy(isSaving = true, isValidatingPhotos = true, error = null)
+                    }
+                    val grade = userRepository.linkedChildGrade.first()
+                    val topic = state.conceptName.ifBlank { state.unitName }
+                    val validation = imageScopeValidator.validate(
+                        ImageScopeRequest(
+                            subject = state.subject,
+                            grade = grade,
+                            topic = topic,
+                            lessonContext = state.unitName,
+                            artefactLabel = "class work",
+                            photoUris = state.selectedPhotoUris
+                        )
+                    )
+                    if (validation.isFailure) {
+                        _uiState.update {
+                            it.copy(
+                                isSaving = false,
+                                isValidatingPhotos = false,
+                                error = friendlyError(validation.exceptionOrNull()?.message)
+                            )
+                        }
+                        return@launch
+                    }
+                    _uiState.update { it.copy(isValidatingPhotos = false) }
+                    val result = uploadEntryRepository.save(
+                        entryFor(state),
+                        state.selectedPhotoUris
+                    )
+                    result.fold(
+                        onSuccess = {
+                            _uiState.update { it.copy(isSaving = false, isSaved = true) }
+                        },
+                        onFailure = { e ->
+                            Log.w("UploadWork", "Persist failed", e)
+                            _uiState.update {
+                                it.copy(
+                                    isSaving = false,
+                                    error = "Couldn't save: ${e.message ?: e::class.simpleName}"
+                                )
+                            }
+                        }
+                    )
+                }
+            }
+            else -> {
+                // Tuition kinds reach this code path only if a parent navigated
+                // directly to UploadWork (legacy paths). The richer Tuition
+                // flow handles persistence on its own.
                 _uiState.update { it.copy(isSaving = true, error = null, isSaved = true) }
+            }
         }
     }
+
+    /** Stores the uploaded photos + metadata so they appear on Revisit Past Topics. */
+    private suspend fun persistUpload(state: UploadWorkUiState): Boolean {
+        if (state.selectedPhotoUris.isEmpty()) return true
+        val result = uploadEntryRepository.save(entryFor(state), state.selectedPhotoUris)
+        result.onFailure { Log.w("UploadWork", "Persist failed", it) }
+        return result.isSuccess
+    }
+
+    private fun entryFor(state: UploadWorkUiState): UploadEntry = UploadEntry(
+        kind = kind.key,
+        subject = state.subject,
+        subjectColor = state.subjectColor,
+        subjectIcon = state.subjectIcon,
+        unitId = state.unitId,
+        unitName = state.unitName,
+        conceptId = state.conceptId,
+        conceptName = state.conceptName
+    )
 
     private fun generateQuiz(state: UploadWorkUiState) {
         viewModelScope.launch {

@@ -75,7 +75,11 @@ fun ConceptListScreen(
         containerColor = DobiBackground,
         topBar = {
             ConceptListTopBar(
-                title = if (mode == ConceptListMode.PRACTISE_LESSON) "Pick a Lesson" else "Concepts",
+                title = when (mode) {
+                    ConceptListMode.PRACTISE_LESSON -> "Pick a Lesson"
+                    ConceptListMode.TEST_YOURSELF -> "Test Yourself"
+                    else -> "Concepts"
+                },
                 onNavigateBack = onNavigateBack
             )
         }
@@ -198,7 +202,10 @@ private fun ConceptTree(
     onUnitClick: (String) -> Unit,
     onConceptClick: (String) -> Unit
 ) {
-    val isPractise = mode == ConceptListMode.PRACTISE_LESSON
+    // Both PRACTISE_LESSON and TEST_YOURSELF use the picker UX:
+    // tapping a lesson/concept navigates straight to the next screen.
+    val isPractise = mode == ConceptListMode.PRACTISE_LESSON ||
+        mode == ConceptListMode.TEST_YOURSELF
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         groups.forEach { group ->
             // Subject row

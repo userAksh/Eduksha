@@ -19,17 +19,25 @@ class HomeworkRepositoryImpl @Inject constructor(
     private val storage: FirebaseStorage
 ) : HomeworkRepository {
 
-    override suspend fun saveHomework(homework: Homework, localPhotoUriStrings: List<String>) {
+    override suspend fun saveHomework(
+        homework: Homework,
+        localPhotoUriStrings: List<String>
+    ): List<String> {
         val photoUrls = localPhotoUriStrings.map { uriString ->
             val ref = storage.reference
                 .child("homework_photos/${homework.childId}/${UUID.randomUUID()}.jpg")
-            suspendCancellableCoroutine { cont ->
-                ref.putFile(Uri.parse(uriString))
-                    .addOnSuccessListener { cont.resume(Unit) }
-                    .addOnFailureListener { cont.resumeWithException(it) }
-            }
+            // continueWithTask chains the upload -> downloadUrl on the same
+            // Task graph. Issuing downloadUrl in a separate suspend block
+            // after the upload's success listener can race against Storage's
+            // metadata commit and surface as "Object does not exist at
+            // location" (a 404).
             suspendCancellableCoroutine<String> { cont ->
-                ref.downloadUrl
+                ref.putFile(Uri.parse(uriString))
+                    .continueWithTask { task ->
+                        if (!task.isSuccessful) throw task.exception
+                            ?: IllegalStateException("Upload failed")
+                        ref.downloadUrl
+                    }
                     .addOnSuccessListener { cont.resume(it.toString()) }
                     .addOnFailureListener { cont.resumeWithException(it) }
             }
@@ -48,5 +56,6 @@ class HomeworkRepositoryImpl @Inject constructor(
                 .addOnSuccessListener { cont.resume(Unit) }
                 .addOnFailureListener { cont.resumeWithException(it) }
         }
+        return photoUrls
     }
 }

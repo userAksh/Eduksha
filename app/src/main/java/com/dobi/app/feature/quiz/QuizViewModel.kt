@@ -6,8 +6,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.dobi.app.core.navigation.Screen
 import com.dobi.app.data.repository.AttemptScope
+import com.dobi.app.data.repository.CuratedQuizCache
 import com.dobi.app.data.repository.GeneratedQuizCache
+import com.dobi.app.data.repository.McqGenerationRepository
 import com.dobi.app.data.repository.QuizAttemptRepository
+import com.dobi.app.domain.model.Concept
 import com.dobi.app.domain.repository.UserRepository
 import com.dobi.app.domain.usecase.GetConceptsUseCase
 import com.dobi.app.domain.usecase.GetCuratedQuestionsUseCase
@@ -30,6 +33,8 @@ class QuizViewModel @Inject constructor(
     private val getCuratedQuestionsUseCase: GetCuratedQuestionsUseCase,
     private val quizAttemptRepository: QuizAttemptRepository,
     private val generatedQuizCache: GeneratedQuizCache,
+    private val curatedQuizCache: CuratedQuizCache,
+    private val mcqGenerationRepository: McqGenerationRepository,
     private val userRepository: UserRepository
 ) : ViewModel() {
 
@@ -79,9 +84,46 @@ class QuizViewModel @Inject constructor(
                     }
                     val effectiveLessonName =
                         if (routeDisplayName.isNotBlank()) routeDisplayName else lessonName
-                    val questions = aiQuestions
-                        ?: if (isConceptScope) getCuratedQuestionsUseCase.forConcept(targetId)
-                           else getCuratedQuestionsUseCase(targetId)
+
+                    var questions = aiQuestions ?: if (isConceptScope) {
+                        getCuratedQuestionsUseCase.forConcept(targetId)
+                    } else {
+                        getCuratedQuestionsUseCase(targetId)
+                    }
+
+                    // Fallback for curated path: when the hand-written
+                    // CuratedQuestionBank doesn't cover this lesson/concept
+                    // we generate 10 MCQs from the syllabus content via
+                    // Gemini and cache them so retakes don't regenerate.
+                    if (!isAiSource && questions.isEmpty()) {
+                        val cached = curatedQuizCache.get(targetId)
+                        if (cached != null) {
+                            questions = cached
+                        } else {
+                            _uiState.update {
+                                it.copy(isLoading = false, isGeneratingCurated = true)
+                            }
+                            val grade = userRepository.linkedChildGrade.first()
+                            val generated = generateCuratedFallback(
+                                concepts = concepts,
+                                grade = grade
+                            )
+                            if (generated.isFailure) {
+                                _uiState.update {
+                                    it.copy(
+                                        isGeneratingCurated = false,
+                                        error = friendlyGenerationError(
+                                            generated.exceptionOrNull()?.message
+                                        )
+                                    )
+                                }
+                                return@collect
+                            }
+                            questions = generated.getOrNull().orEmpty()
+                            curatedQuizCache.put(targetId, questions)
+                        }
+                    }
+
                     _uiState.update {
                         it.copy(
                             unitName = effectiveLessonName,
@@ -93,10 +135,68 @@ class QuizViewModel @Inject constructor(
                             phase = if (viewResult && savedSelections.isNotEmpty()) {
                                 QuizPhase.DONE
                             } else QuizPhase.INTRO,
-                            isLoading = false
+                            isLoading = false,
+                            isGeneratingCurated = false
                         )
                     }
                 }
+        }
+    }
+
+    private suspend fun generateCuratedFallback(
+        concepts: List<Concept>,
+        grade: Int
+    ): Result<List<com.dobi.app.domain.model.McqQuestion>> {
+        val (subject, unitName, conceptName, conceptDescription) = if (isConceptScope) {
+            val concept = concepts.firstOrNull { it.id == targetId }
+            QuadStrings(
+                subject = concept?.subject.orEmpty(),
+                unitName = concept?.unit.orEmpty(),
+                conceptName = concept?.name.orEmpty(),
+                description = concept?.description.orEmpty()
+            )
+        } else {
+            val unitConcepts = concepts.filter { it.unitId == targetId }
+            val first = unitConcepts.firstOrNull()
+            // For unit-scope, stitch together every concept's name + description
+            // so Gemini can generate broadly across the lesson, not just one
+            // concept inside it.
+            QuadStrings(
+                subject = first?.subject.orEmpty(),
+                unitName = first?.unit.orEmpty(),
+                conceptName = "",
+                description = unitConcepts.joinToString("\n\n") { c ->
+                    "• ${c.name}: ${c.description}"
+                }
+            )
+        }
+        return mcqGenerationRepository.generateFromLesson(
+            subject = subject,
+            grade = grade,
+            unitName = unitName,
+            conceptName = conceptName,
+            conceptDescription = conceptDescription,
+            targetCount = 10
+        )
+    }
+
+    private data class QuadStrings(
+        val subject: String,
+        val unitName: String,
+        val conceptName: String,
+        val description: String
+    )
+
+    private fun friendlyGenerationError(raw: String?): String {
+        val msg = raw.orEmpty().trim().lowercase()
+        return when {
+            "unavailable" in msg || "overloaded" in msg || "503" in msg ->
+                "Dobi's brain is a little busy right now. Please try again in a minute."
+            "quota" in msg || "rate" in msg && "limit" in msg ->
+                "We've hit today's quiz limit. Try again later."
+            "network" in msg || "timeout" in msg || "unable to" in msg ->
+                "No internet right now. Check your connection and try again."
+            else -> "Couldn't prepare the quiz. Please try again."
         }
     }
 
