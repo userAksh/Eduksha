@@ -19,7 +19,16 @@ data class AiPracticeContext(
      * Yourself uses this; Class Test Prep leaves it null so its picker
      * still shows.
      */
-    val preselectedWriteMode: PreselectedWriteMode? = null
+    val preselectedWriteMode: PreselectedWriteMode? = null,
+    /**
+     * When the practice session was scoped to a single curated lesson or
+     * concept, these point back to it so the resulting subjective record
+     * can surface in the Self Revision → Revisit Past Topics flow.
+     */
+    val unitId: String = "",
+    val unitName: String = "",
+    val conceptId: String = "",
+    val conceptName: String = ""
 )
 
 enum class PreselectedWriteMode { NOTEBOOK, GENERATED, AI_TEXTBOOK }

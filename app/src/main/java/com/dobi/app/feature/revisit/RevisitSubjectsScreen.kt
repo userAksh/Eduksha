@@ -278,27 +278,74 @@ private fun TopicCard(topic: RevisitTopicCard, onClick: () -> Unit) {
 
 @Composable
 private fun MetaRow(topic: RevisitTopicCard) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        val (label, color) = revisedLabel(topic.latestTimestamp)
-        Box(
-            modifier = Modifier
-                .size(7.dp)
-                .clip(CircleShape)
-                .background(color)
-        )
-        Spacer(Modifier.width(6.dp))
+    Column {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            val (label, color) = revisedLabel(topic.latestTimestamp)
+            Box(
+                modifier = Modifier
+                    .size(7.dp)
+                    .clip(CircleShape)
+                    .background(color)
+            )
+            Spacer(Modifier.width(6.dp))
+            Text(
+                text = label,
+                color = color,
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Medium
+            )
+            Spacer(Modifier.weight(1f))
+            Text(
+                text = "📷 ${topic.photoCount} ${if (topic.photoCount == 1) "photo" else "photos"}",
+                color = DobiTextSecondary,
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Medium
+            )
+        }
+        if (topic.mcqLastPct != null || topic.subjectiveAttempts > 0) {
+            Spacer(Modifier.height(8.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                if (topic.mcqLastPct != null) {
+                    ResultPill(
+                        emoji = "📊",
+                        text = "${topic.mcqLastPct}% MCQ" +
+                            if (topic.mcqAttempts > 1) " · ${topic.mcqAttempts} tries" else "",
+                        bg = Color(0xFFDBEAFE),
+                        fg = Color(0xFF2563EB)
+                    )
+                    Spacer(Modifier.width(6.dp))
+                }
+                if (topic.subjectiveAttempts > 0) {
+                    ResultPill(
+                        emoji = "✍️",
+                        text = topic.subjectiveLastPct?.let { "${it}% Sub" }
+                            ?: "Sub" +
+                            if (topic.subjectiveAttempts > 1) " · ${topic.subjectiveAttempts} tries" else "",
+                        bg = Color(0xFFFEF3C7),
+                        fg = Color(0xFFD97706)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ResultPill(emoji: String, text: String, bg: Color, fg: Color) {
+    Row(
+        modifier = Modifier
+            .clip(RoundedCornerShape(8.dp))
+            .background(bg)
+            .padding(horizontal = 8.dp, vertical = 3.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(text = emoji, fontSize = 11.sp)
+        Spacer(Modifier.width(4.dp))
         Text(
-            text = label,
-            color = color,
-            fontSize = 11.sp,
-            fontWeight = FontWeight.Medium
-        )
-        Spacer(Modifier.weight(1f))
-        Text(
-            text = "📷 ${topic.photoCount} ${if (topic.photoCount == 1) "photo" else "photos"}",
-            color = DobiTextSecondary,
-            fontSize = 11.sp,
-            fontWeight = FontWeight.Medium
+            text = text,
+            color = fg,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.SemiBold
         )
     }
 }

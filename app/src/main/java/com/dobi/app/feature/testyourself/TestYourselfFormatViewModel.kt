@@ -217,7 +217,11 @@ class TestYourselfFormatViewModel @Inject constructor(
                 subject = state.subject,
                 grade = grade,
                 scopeText = scopeText,
-                preselectedWriteMode = mode
+                preselectedWriteMode = mode,
+                unitId = state.unitId,
+                unitName = state.unitName,
+                conceptId = if (state.isUnitScope) "" else state.conceptId,
+                conceptName = if (state.isUnitScope) "" else state.title
             )
         )
         return true

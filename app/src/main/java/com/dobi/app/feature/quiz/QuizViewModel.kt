@@ -222,8 +222,18 @@ class QuizViewModel @Inject constructor(
                 attemptsTaken = it.attemptsTaken + 1
             ) }
             if (!isAiSource) {
+                val correctCount = current.revealed.count { idx ->
+                    current.selections[idx] == current.questions.getOrNull(idx)?.correctIndex
+                }
+                val total = current.questions.size
                 viewModelScope.launch {
-                    quizAttemptRepository.recordAttempt(attemptScope, targetId, current.selections)
+                    quizAttemptRepository.recordAttempt(
+                        scope = attemptScope,
+                        targetId = targetId,
+                        selections = current.selections,
+                        correctCount = correctCount,
+                        totalQuestions = total
+                    )
                 }
             }
         } else {

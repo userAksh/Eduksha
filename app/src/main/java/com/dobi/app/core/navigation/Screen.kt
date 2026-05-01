@@ -59,4 +59,5 @@ enum class ConceptListMode { DEFAULT, PRACTISE_LESSON, TEST_YOURSELF }
         val unitId: String = "",
         val conceptId: String = ""
     ) : Screen()
+    @Serializable data class SubjectiveResult(val resultId: String) : Screen()
 }

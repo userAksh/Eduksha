@@ -35,10 +35,18 @@ class QuizAttemptRepository @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val userPreferences: UserPreferences
 ) {
-    private data class AttemptDoc(
+    data class QuizAttemptSummary(
         val attempts: Int = 0,
-        val selections: Map<Int, Int> = emptyMap()
-    )
+        val selections: Map<Int, Int> = emptyMap(),
+        val lastCorrect: Int = 0,
+        val lastTotal: Int = 0,
+        val lastUpdated: Long = 0L
+    ) {
+        val hasResult: Boolean get() = attempts > 0 && lastTotal > 0
+        val accuracyPct: Int get() =
+            if (lastTotal == 0) 0
+            else ((lastCorrect.toFloat() / lastTotal) * 100f).toInt()
+    }
 
     fun attempts(scope: AttemptScope, targetId: String): Flow<Int> =
         userPreferences.linkedChildId.flatMapLatest { childId ->
@@ -52,7 +60,20 @@ class QuizAttemptRepository @Inject constructor(
             else attemptDocFlow(childId, scope, targetId).map { it.selections }
         }
 
-    suspend fun recordAttempt(scope: AttemptScope, targetId: String, selections: Map<Int, Int>) {
+    /** All summaries across both unit + concept scopes for the active child. */
+    fun observeAllSummaries(): Flow<Map<Pair<AttemptScope, String>, QuizAttemptSummary>> =
+        userPreferences.linkedChildId.flatMapLatest { childId ->
+            if (childId.isNullOrBlank()) flowOf(emptyMap())
+            else allSummariesFlow(childId)
+        }
+
+    suspend fun recordAttempt(
+        scope: AttemptScope,
+        targetId: String,
+        selections: Map<Int, Int>,
+        correctCount: Int = 0,
+        totalQuestions: Int = 0
+    ) {
         val childId = userPreferences.linkedChildId.first().orEmpty()
         if (childId.isBlank() || targetId.isBlank()) return
         val docRef = firestore.collection("quiz_attempts")
@@ -68,6 +89,8 @@ class QuizAttemptRepository @Inject constructor(
                 mapOf(
                     "attempts" to (current + 1).toLong(),
                     "selections" to encodeSelections(selections),
+                    "lastCorrect" to correctCount.toLong(),
+                    "lastTotal" to totalQuestions.toLong(),
                     "lastUpdated" to System.currentTimeMillis()
                 )
             )
@@ -79,7 +102,7 @@ class QuizAttemptRepository @Inject constructor(
         childId: String,
         scope: AttemptScope,
         targetId: String
-    ): Flow<AttemptDoc> = callbackFlow {
+    ): Flow<QuizAttemptSummary> = callbackFlow {
         val docRef = firestore.collection("quiz_attempts")
             .document(childId)
             .collection(scope.collection)
@@ -88,12 +111,42 @@ class QuizAttemptRepository @Inject constructor(
             if (error != null) {
                 close(error); return@addSnapshotListener
             }
-            val attempts = snapshot?.getLong("attempts")?.toInt() ?: 0
-            val selections = parseSelections(snapshot?.getString("selections").orEmpty())
-            trySend(AttemptDoc(attempts, selections))
+            trySend(snapshot?.let(::toSummary) ?: QuizAttemptSummary())
         }
         awaitClose { listener.remove() }
     }
+
+    private fun allSummariesFlow(
+        childId: String
+    ): Flow<Map<Pair<AttemptScope, String>, QuizAttemptSummary>> = callbackFlow {
+        val map = mutableMapOf<Pair<AttemptScope, String>, QuizAttemptSummary>()
+        fun emit() = trySend(map.toMap())
+
+        val listeners = AttemptScope.values().map { scope ->
+            firestore.collection("quiz_attempts")
+                .document(childId)
+                .collection(scope.collection)
+                .addSnapshotListener { snap, error ->
+                    if (error != null) {
+                        close(error); return@addSnapshotListener
+                    }
+                    snap?.documents.orEmpty().forEach { doc ->
+                        map[scope to doc.id] = toSummary(doc)
+                    }
+                    emit()
+                }
+        }
+        awaitClose { listeners.forEach { it.remove() } }
+    }
+
+    private fun toSummary(snap: com.google.firebase.firestore.DocumentSnapshot): QuizAttemptSummary =
+        QuizAttemptSummary(
+            attempts = snap.getLong("attempts")?.toInt() ?: 0,
+            selections = parseSelections(snap.getString("selections").orEmpty()),
+            lastCorrect = snap.getLong("lastCorrect")?.toInt() ?: 0,
+            lastTotal = snap.getLong("lastTotal")?.toInt() ?: 0,
+            lastUpdated = snap.getLong("lastUpdated") ?: 0L
+        )
 
     private fun encodeSelections(selections: Map<Int, Int>): String =
         selections.entries.joinToString(",") { "${it.key}:${it.value}" }

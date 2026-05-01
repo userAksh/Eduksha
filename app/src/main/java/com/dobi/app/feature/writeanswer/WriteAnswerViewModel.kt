@@ -6,6 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.dobi.app.data.repository.AiPracticeContextHolder
 import com.dobi.app.data.repository.GeneratedQuizCache
 import com.dobi.app.data.repository.PreselectedWriteMode
+import com.dobi.app.data.repository.SubjectiveResultRepository
+import com.dobi.app.domain.model.GradingResult
+import com.dobi.app.domain.model.SubjectiveQuestion
+import com.dobi.app.domain.model.SubjectiveResult
+import com.dobi.app.domain.model.SubjectiveResultItem
 import com.dobi.app.domain.usecase.GenerateMcqFromImageUseCase
 import com.dobi.app.domain.usecase.GenerateMcqRequest
 import com.dobi.app.domain.usecase.GenerateSubjectiveFromImagesUseCase
@@ -34,7 +39,8 @@ class WriteAnswerViewModel @Inject constructor(
     private val gradeStructured: GradeStructuredAnswersUseCase,
     private val gradeNotebook: GradeNotebookAnswersUseCase,
     private val generateMcqUseCase: GenerateMcqFromImageUseCase,
-    private val generatedQuizCache: GeneratedQuizCache
+    private val generatedQuizCache: GeneratedQuizCache,
+    private val subjectiveResultRepository: SubjectiveResultRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(WriteAnswerUiState())
@@ -213,6 +219,7 @@ class WriteAnswerViewModel @Inject constructor(
                         }
                     } else {
                         _uiState.update { it.copy(phase = WritePhase.RESULTS, result = res) }
+                        persistSubjectiveResult(state.questions, res)
                     }
                 },
                 onFailure = { e ->
@@ -247,6 +254,7 @@ class WriteAnswerViewModel @Inject constructor(
                         }
                     } else {
                         _uiState.update { it.copy(phase = WritePhase.RESULTS, result = res) }
+                        persistSubjectiveResult(state.questions, res)
                     }
                 },
                 onFailure = { e ->
@@ -256,6 +264,53 @@ class WriteAnswerViewModel @Inject constructor(
                     }
                 }
             )
+        }
+    }
+
+    private fun persistSubjectiveResult(
+        questions: List<SubjectiveQuestion>,
+        result: GradingResult
+    ) {
+        val ctx = aiPracticeContextHolder.peek() ?: return
+        // Only surface in Revisit when scoped to a curated lesson/concept
+        // (Test Yourself path). Class Test Prep populates AiPracticeContext
+        // for free-form selections and shouldn't pollute Revisit.
+        if (ctx.unitId.isBlank() && ctx.conceptId.isBlank()) return
+
+        val byId = questions.associateBy { it.id }
+        val items = result.grades.map { g ->
+            val q = byId[g.questionId]
+            SubjectiveResultItem(
+                questionId = g.questionId,
+                questionText = q?.text ?: g.questionSeen,
+                answerSeen = g.answerSeen,
+                isAttempted = g.isAttempted,
+                isCorrect = g.isCorrect,
+                score = g.score,
+                softVerdict = g.softVerdict,
+                strictFeedback = g.strictFeedback
+            )
+        }
+        val accuracyPct = if (result.attemptedCount == 0) 0
+        else ((result.correctCount.toFloat() / result.attemptedCount) * 100f).toInt()
+
+        viewModelScope.launch {
+            subjectiveResultRepository.save(
+                SubjectiveResult(
+                    scope = if (ctx.conceptId.isNotBlank()) "concept" else "unit",
+                    targetId = if (ctx.conceptId.isNotBlank()) ctx.conceptId else ctx.unitId,
+                    displayName = ctx.displayName,
+                    subject = ctx.subject,
+                    unitId = ctx.unitId,
+                    unitName = ctx.unitName,
+                    conceptId = ctx.conceptId,
+                    conceptName = ctx.conceptName,
+                    attemptedCount = result.attemptedCount,
+                    correctCount = result.correctCount,
+                    accuracyPct = accuracyPct,
+                    items = items
+                )
+            ).onFailure { Log.w(TAG, "Subjective save failed", it) }
         }
     }
 

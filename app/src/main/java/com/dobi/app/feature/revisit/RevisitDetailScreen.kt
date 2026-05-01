@@ -62,6 +62,7 @@ fun RevisitDetailScreen(
     onNavigateBack: () -> Unit = {},
     onTakeQuiz: (unitId: String, conceptId: String) -> Unit = { _, _ -> },
     onViewLastResult: (unitId: String, conceptId: String) -> Unit = { _, _ -> },
+    onViewSubjectiveResult: (resultId: String) -> Unit = {},
     viewModel: RevisitDetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -108,6 +109,17 @@ fun RevisitDetailScreen(
                         ActionRow(
                             onTakeQuiz = { onTakeQuiz(uiState.quizUnitId, uiState.quizConceptId) },
                             onViewLastResult = { onViewLastResult(uiState.quizUnitId, uiState.quizConceptId) }
+                        )
+                        Spacer(Modifier.height(12.dp))
+                    }
+
+                    if (uiState.attempts.isNotEmpty()) {
+                        AttemptsSection(
+                            attempts = uiState.attempts,
+                            onMcqClick = {
+                                onViewLastResult(uiState.quizUnitId, uiState.quizConceptId)
+                            },
+                            onSubjectiveClick = onViewSubjectiveResult
                         )
                         Spacer(Modifier.height(12.dp))
                     }
@@ -207,6 +219,107 @@ private fun ActionRow(onTakeQuiz: () -> Unit, onViewLastResult: () -> Unit) {
 }
 
 @Composable
+private fun AttemptsSection(
+    attempts: List<RevisitAttemptItem>,
+    onMcqClick: () -> Unit,
+    onSubjectiveClick: (String) -> Unit
+) {
+    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+        Text(
+            text = "Attempts",
+            style = MaterialTheme.typography.titleSmall,
+            color = DobiTextPrimary
+        )
+        Spacer(Modifier.height(8.dp))
+        attempts.forEach { item ->
+            when (item) {
+                is RevisitAttemptItem.McqLast -> AttemptCard(
+                    emoji = "📊",
+                    title = "MCQ Quiz",
+                    subtitle = "${item.correct}/${item.total} correct" +
+                        if (item.attempts > 1) " · ${item.attempts} tries" else "",
+                    accuracyPct = item.accuracyPct,
+                    timestamp = item.timestamp,
+                    accent = Color(0xFF2563EB),
+                    bg = Color(0xFFDBEAFE),
+                    onClick = onMcqClick
+                )
+                is RevisitAttemptItem.Subjective -> AttemptCard(
+                    emoji = "✍️",
+                    title = "Written Answers",
+                    subtitle = "${item.correct}/${item.attempted} marked correct",
+                    accuracyPct = item.accuracyPct,
+                    timestamp = item.timestamp,
+                    accent = Color(0xFFD97706),
+                    bg = Color(0xFFFEF3C7),
+                    onClick = { onSubjectiveClick(item.resultId) }
+                )
+            }
+            Spacer(Modifier.height(8.dp))
+        }
+    }
+}
+
+@Composable
+private fun AttemptCard(
+    emoji: String,
+    title: String,
+    subtitle: String,
+    accuracyPct: Int,
+    timestamp: Long,
+    accent: Color,
+    bg: Color,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(14.dp))
+            .background(bg.copy(alpha = 0.5f))
+            .clickable(onClick = onClick)
+            .padding(12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .size(40.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .background(bg),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(text = emoji, fontSize = 18.sp)
+        }
+        Spacer(Modifier.width(12.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.bodyMedium,
+                color = DobiTextPrimary,
+                fontSize = 14.sp
+            )
+            Text(
+                text = subtitle,
+                style = MaterialTheme.typography.bodySmall,
+                color = DobiTextSecondary,
+                fontSize = 12.sp
+            )
+            Text(
+                text = formatRelative(timestamp),
+                style = MaterialTheme.typography.bodySmall,
+                color = DobiTextSecondary,
+                fontSize = 11.sp
+            )
+        }
+        Text(
+            text = "$accuracyPct%",
+            color = accent,
+            fontSize = 18.sp,
+            style = MaterialTheme.typography.titleMedium
+        )
+    }
+}
+
+@Composable
 private fun PhotoTile(url: String, onClick: () -> Unit) {
     Box(
         modifier = Modifier
@@ -258,4 +371,19 @@ private fun FullscreenPhoto(url: String, onDismiss: () -> Unit) {
 private fun formatDate(millis: Long): String {
     if (millis <= 0) return ""
     return SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(millis))
+}
+
+private fun formatRelative(millis: Long): String {
+    if (millis <= 0) return ""
+    val diff = System.currentTimeMillis() - millis
+    val mins = diff / 60_000
+    val hours = mins / 60
+    val days = hours / 24
+    return when {
+        mins < 1 -> "Just now"
+        mins < 60 -> "${mins}m ago"
+        hours < 24 -> "${hours}h ago"
+        days < 7 -> "${days}d ago"
+        else -> formatDate(millis)
+    }
 }

@@ -41,6 +41,7 @@ import com.dobi.app.feature.pairing.EnterPairingCodeScreen
 import com.dobi.app.feature.parenthome.ParentHomeScreen
 import com.dobi.app.feature.roleselection.RoleSelectionScreen
 import com.dobi.app.feature.selectchild.SelectChildScreen
+import com.dobi.app.feature.subjectiveresult.SubjectiveResultScreen
 
 @Composable
 fun DobiNavGraph(
@@ -410,7 +411,16 @@ fun DobiNavGraph(
                     navController.navigate(
                         Screen.Quiz(unitId = unitId, conceptId = conceptId, viewResult = true)
                     )
+                },
+                onViewSubjectiveResult = { resultId ->
+                    navController.navigate(Screen.SubjectiveResult(resultId))
                 }
+            )
+        }
+
+        composable<Screen.SubjectiveResult> {
+            SubjectiveResultScreen(
+                onNavigateBack = { navController.popBackStack() }
             )
         }
 

@@ -2,12 +2,18 @@ package com.dobi.app.feature.revisit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dobi.app.data.repository.AttemptScope
+import com.dobi.app.data.repository.QuizAttemptRepository
+import com.dobi.app.data.repository.SubjectiveResultRepository
 import com.dobi.app.data.repository.UploadEntryRepository
+import com.dobi.app.domain.model.SubjectiveResult
 import com.dobi.app.domain.model.UploadEntry
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,7 +37,15 @@ data class RevisitTopicCard(
     val photoCount: Int,
     val latestTimestamp: Long,
     val kindLabel: String,
-    val kindColor: String
+    val kindColor: String,
+    val unitId: String = "",
+    val conceptId: String = "",
+    /** Last MCQ score % if any attempts exist on this topic. */
+    val mcqLastPct: Int? = null,
+    val mcqAttempts: Int = 0,
+    /** Latest subjective accuracy % across all sessions on this topic. */
+    val subjectiveLastPct: Int? = null,
+    val subjectiveAttempts: Int = 0
 )
 
 data class RevisitSubjectsUiState(
@@ -44,9 +58,12 @@ data class RevisitSubjectsUiState(
     val totalTopicCount: Int = 0
 )
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class RevisitSubjectsViewModel @Inject constructor(
-    private val uploadEntryRepository: UploadEntryRepository
+    private val uploadEntryRepository: UploadEntryRepository,
+    private val quizAttemptRepository: QuizAttemptRepository,
+    private val subjectiveResultRepository: SubjectiveResultRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RevisitSubjectsUiState())
@@ -56,15 +73,21 @@ class RevisitSubjectsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            uploadEntryRepository.observeForActiveChild()
+            combine(
+                uploadEntryRepository.observeForActiveChild(),
+                quizAttemptRepository.observeAllSummaries(),
+                subjectiveResultRepository.observeForActiveChild()
+            ) { entries, summaries, subjectiveResults ->
+                Triple(entries, summaries, subjectiveResults)
+            }
                 .catch { e -> _uiState.update { it.copy(isLoading = false, error = e.message) } }
-                .collect { entries ->
+                .collect { (entries, summaries, subjectiveResults) ->
                     // Tuition uploads live in their own world (parent-facing
                     // tutoring log) — they shouldn't surface in Self Revision's
                     // Revisit Past Topics, which is for the child's own school
                     // work and homework.
                     val schoolEntries = entries.filterNot { it.isTuition }
-                    allTopics = buildTopics(schoolEntries)
+                    allTopics = buildTopics(schoolEntries, summaries, subjectiveResults)
                     val chips = buildChips(schoolEntries)
                     _uiState.update {
                         it.copy(
@@ -114,11 +137,37 @@ class RevisitSubjectsViewModel @Inject constructor(
         return listOf(all) + perSubject
     }
 
-    private fun buildTopics(entries: List<UploadEntry>): List<RevisitTopicCard> =
-        entries.groupBy { it.groupKey }
+    private fun buildTopics(
+        entries: List<UploadEntry>,
+        quizSummaries: Map<Pair<AttemptScope, String>, com.dobi.app.data.repository.QuizAttemptRepository.QuizAttemptSummary>,
+        subjectiveResults: List<SubjectiveResult>
+    ): List<RevisitTopicCard> {
+        val subjectiveByConcept = subjectiveResults
+            .filter { it.conceptId.isNotBlank() }
+            .groupBy { it.conceptId }
+        val subjectiveByUnit = subjectiveResults
+            .filter { it.conceptId.isBlank() && it.unitId.isNotBlank() }
+            .groupBy { it.unitId }
+
+        return entries.groupBy { it.groupKey }
             .map { (key, items) ->
                 val latest = items.maxBy { it.timestamp }
                 val (label, color) = kindStyle(latest.kind)
+
+                val mcqSummary = when {
+                    latest.conceptId.isNotBlank() ->
+                        quizSummaries[AttemptScope.CONCEPT to latest.conceptId]
+                    latest.unitId.isNotBlank() ->
+                        quizSummaries[AttemptScope.UNIT to latest.unitId]
+                    else -> null
+                }
+                val subjectiveList = when {
+                    latest.conceptId.isNotBlank() -> subjectiveByConcept[latest.conceptId].orEmpty()
+                    latest.unitId.isNotBlank() -> subjectiveByUnit[latest.unitId].orEmpty()
+                    else -> emptyList()
+                }
+                val latestSubjective = subjectiveList.maxByOrNull { it.timestamp }
+
                 RevisitTopicCard(
                     groupKey = key,
                     title = latest.displayTitle,
@@ -129,10 +178,17 @@ class RevisitSubjectsViewModel @Inject constructor(
                     photoCount = items.sumOf { it.photoUrls.size },
                     latestTimestamp = latest.timestamp,
                     kindLabel = label,
-                    kindColor = color
+                    kindColor = color,
+                    unitId = latest.unitId,
+                    conceptId = latest.conceptId,
+                    mcqLastPct = mcqSummary?.takeIf { it.hasResult }?.accuracyPct,
+                    mcqAttempts = mcqSummary?.attempts ?: 0,
+                    subjectiveLastPct = latestSubjective?.accuracyPct,
+                    subjectiveAttempts = subjectiveList.size
                 )
             }
             .sortedByDescending { it.latestTimestamp }
+    }
 
     private fun kindStyle(kind: String): Pair<String, String> = when (kind) {
         "class_work" -> "Class Work" to "#3B82F6"
