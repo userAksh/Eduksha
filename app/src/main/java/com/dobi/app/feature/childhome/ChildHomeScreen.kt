@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -60,6 +61,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
@@ -97,6 +99,8 @@ fun ChildHomeScreen(
     onNavigateToRevisitTopics: () -> Unit = {},
     onNavigateToNeedRevision: () -> Unit = {},
     onNavigateToTestYourself: () -> Unit = {},
+    onNavigateToStreakDashboard: () -> Unit = {},
+    onNavigateToInviteFriend: () -> Unit = {},
     onRequestParentAccess: () -> Unit = {},
     viewModel: ChildHomeViewModel = hiltViewModel()
 ) {
@@ -143,6 +147,8 @@ fun ChildHomeScreen(
                 onNavigateToRevisitTopics = onNavigateToRevisitTopics,
                 onNavigateToNeedRevision = onNavigateToNeedRevision,
                 onNavigateToTestYourself = onNavigateToTestYourself,
+                onNavigateToStreakDashboard = onNavigateToStreakDashboard,
+                onNavigateToInviteFriend = onNavigateToInviteFriend,
                 onSaveTutor = viewModel::saveTutor,
                 onTaskClick = {},
                 contentPadding = innerPadding
@@ -168,6 +174,8 @@ private fun ChildHomeContent(
     onNavigateToRevisitTopics: () -> Unit,
     onNavigateToNeedRevision: () -> Unit,
     onNavigateToTestYourself: () -> Unit,
+    onNavigateToStreakDashboard: () -> Unit,
+    onNavigateToInviteFriend: () -> Unit,
     onSaveTutor: (String, String) -> Unit,
     onTaskClick: (String) -> Unit,
     contentPadding: PaddingValues
@@ -208,7 +216,11 @@ private fun ChildHomeContent(
 
             // Streak banner
             item {
-                StreakBanner(streakDays = uiState.streakDays)
+                StreakBanner(
+                    streakDays = uiState.streakDays,
+                    onInviteFriend = onNavigateToInviteFriend,
+                    onViewDashboard = onNavigateToStreakDashboard
+                )
                 Spacer(Modifier.height(20.dp))
             }
 
@@ -888,47 +900,172 @@ private fun RevisionOptionRow(
 // ── Streak banner ──────────────────────────────────────────────────────────────
 
 @Composable
-private fun StreakBanner(streakDays: Int) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = DobiPrimary),
-        elevation = CardDefaults.cardElevation(0.dp)
+private fun StreakBanner(
+    streakDays: Int,
+    onInviteFriend: () -> Unit,
+    onViewDashboard: () -> Unit
+) {
+    val skyTop = Color(0xFFE7F1FF)
+    val skyBottom = Color(0xFFCFE2FF)
+    val accentBlue = Color(0xFF2F7DFF)
+    val titleNavy = Color(0xFF0F2A52)
+    val subtleBorder = Color(0xFFB9D4FF)
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .shadow(
+                elevation = 10.dp,
+                shape = RoundedCornerShape(22.dp),
+                spotColor = accentBlue.copy(alpha = 0.20f),
+                ambientColor = accentBlue.copy(alpha = 0.10f)
+            )
+            .clip(RoundedCornerShape(22.dp))
+            .background(
+                Brush.verticalGradient(colors = listOf(skyTop, skyBottom))
+            )
+            .border(1.dp, subtleBorder, RoundedCornerShape(22.dp))
     ) {
-        Row(
+        // Soft decorative flame in the top-right corner
+        Text(
+            text = "🔥",
+            fontSize = 130.sp,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .offset(x = 18.dp, y = (-22).dp)
+                .alpha(0.10f)
+        )
+
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 18.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(horizontal = 16.dp, vertical = 16.dp)
         ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = "🔥", fontSize = 26.sp)
-                    Spacer(Modifier.width(8.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier
+                        .size(46.dp)
+                        .clip(CircleShape)
+                        .background(Color.White)
+                        .border(2.dp, accentBlue.copy(alpha = 0.35f), CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "🔥", fontSize = 22.sp)
+                }
+                Spacer(Modifier.width(12.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    val hasStreak = streakDays > 0
                     Text(
-                        text = "$streakDays days",
-                        fontSize = 28.sp,
+                        text = if (hasStreak) "$streakDays-Day Streak"
+                        else "Start Your Streak!",
+                        fontSize = if (hasStreak) 22.sp else 20.sp,
                         fontWeight = SFProBold,
-                        color = Color.White
+                        color = titleNavy
+                    )
+                    Text(
+                        text = if (hasStreak) "You're on fire! Keep it going. 🔥"
+                        else "Upload today's chapter to light up day 1 🔥",
+                        fontSize = 12.sp,
+                        color = titleNavy.copy(alpha = 0.65f)
                     )
                 }
-                Spacer(Modifier.height(2.dp))
-                Text(
-                    text = "You're on a streak!",
-                    fontSize = 13.sp,
-                    color = Color.White.copy(alpha = 0.85f)
+            }
+
+            Spacer(Modifier.height(14.dp))
+
+            // 7-day progress dots
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                val labels = listOf("M", "T", "W", "T", "F", "S", "S")
+                val activeCount = streakDays.coerceIn(0, 7)
+                labels.forEachIndexed { idx, ch ->
+                    val active = idx < activeCount
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(28.dp)
+                                .clip(CircleShape)
+                                .background(Color.White)
+                                .border(
+                                    1.dp,
+                                    if (active) Color.Transparent else subtleBorder,
+                                    CircleShape
+                                ),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "🔥",
+                                fontSize = 14.sp,
+                                modifier = Modifier.alpha(if (active) 1f else 0.28f)
+                            )
+                        }
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            text = ch,
+                            fontSize = 10.sp,
+                            color = titleNavy.copy(alpha = if (active) 0.9f else 0.45f),
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                }
+            }
+
+            Spacer(Modifier.height(14.dp))
+
+            // CTAs
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                StreakActionButton(
+                    emoji = "👥",
+                    label = "Invite Friend",
+                    accent = accentBlue,
+                    modifier = Modifier.weight(1f),
+                    onClick = onInviteFriend
+                )
+                StreakActionButton(
+                    emoji = "📈",
+                    label = "Dashboard",
+                    accent = accentBlue,
+                    modifier = Modifier.weight(1f),
+                    onClick = onViewDashboard
                 )
             }
-            Box(
-                modifier = Modifier
-                    .size(56.dp)
-                    .clip(CircleShape)
-                    .background(Color.White.copy(alpha = 0.18f)),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "😊", fontSize = 28.sp)
-            }
         }
+    }
+}
+
+@Composable
+private fun StreakActionButton(
+    emoji: String,
+    label: String,
+    accent: Color,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = modifier
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color.White)
+            .clickable(onClick = onClick)
+            .padding(vertical = 11.dp, horizontal = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Text(text = emoji, fontSize = 16.sp)
+        Spacer(Modifier.width(6.dp))
+        Text(
+            text = label,
+            color = accent,
+            fontSize = 13.sp,
+            fontWeight = FontWeight.SemiBold
+        )
     }
 }
 
@@ -1243,6 +1380,8 @@ private fun ChildHomeEmptyPreview() {
             onNavigateToRevisitTopics = {},
             onNavigateToNeedRevision = {},
             onNavigateToTestYourself = {},
+            onNavigateToStreakDashboard = {},
+            onNavigateToInviteFriend = {},
             onSaveTutor = { _, _ -> },
             onTaskClick = {},
             contentPadding = PaddingValues(0.dp)
@@ -1287,6 +1426,8 @@ private fun ChildHomeWithTasksPreview() {
             onNavigateToRevisitTopics = {},
             onNavigateToNeedRevision = {},
             onNavigateToTestYourself = {},
+            onNavigateToStreakDashboard = {},
+            onNavigateToInviteFriend = {},
             onSaveTutor = { _, _ -> },
             onTaskClick = {},
             contentPadding = PaddingValues(0.dp)

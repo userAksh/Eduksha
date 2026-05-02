@@ -85,6 +85,7 @@ import com.dobi.app.domain.model.McqQuestion
 @Composable
 fun QuizScreen(
     onNavigateBack: () -> Unit,
+    onSnapSend: (displayName: String) -> Unit = {},
     viewModel: QuizViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -180,6 +181,12 @@ fun QuizScreen(
                 state = uiState,
                 onRetry = viewModel::retry,
                 onDone = onNavigateBack,
+                onSnapSend = if (uiState.showSnapAndSend) {
+                    {
+                        viewModel.markSnapSent()
+                        onSnapSend(uiState.unitName)
+                    }
+                } else null,
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -736,6 +743,7 @@ private fun QuizDone(
     state: QuizUiState,
     onRetry: () -> Unit,
     onDone: () -> Unit,
+    onSnapSend: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val attempted = state.selections.size
@@ -793,7 +801,8 @@ private fun QuizDone(
         ResultActionBar(
             canRetry = state.canRetry,
             onRetry = onRetry,
-            onDone = onDone
+            onDone = onDone,
+            onSnapSend = onSnapSend
         )
     }
 }
@@ -1074,7 +1083,8 @@ private fun ReviewPill(
 private fun ResultActionBar(
     canRetry: Boolean,
     onRetry: () -> Unit,
-    onDone: () -> Unit
+    onDone: () -> Unit,
+    onSnapSend: (() -> Unit)? = null
 ) {
     Row(
         modifier = Modifier
@@ -1104,14 +1114,19 @@ private fun ResultActionBar(
         }
 
         Button(
-            onClick = onDone,
+            onClick = onSnapSend ?: onDone,
             modifier = Modifier
-                .weight(if (canRetry) 1f else 1f)
+                .weight(1f)
                 .height(52.dp),
             shape = RoundedCornerShape(16.dp),
             colors = ButtonDefaults.buttonColors(containerColor = DobiPrimary)
         ) {
-            Text("Done", color = Color.White, fontWeight = SFProSemiBold, fontSize = 15.sp)
+            Text(
+                text = if (onSnapSend != null) "Snap & Send" else "Done",
+                color = Color.White,
+                fontWeight = SFProSemiBold,
+                fontSize = 15.sp
+            )
         }
     }
 }

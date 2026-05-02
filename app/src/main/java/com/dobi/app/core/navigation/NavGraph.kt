@@ -1,10 +1,12 @@
 package com.dobi.app.core.navigation
 
+import android.content.Intent
 import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -41,6 +43,10 @@ import com.dobi.app.feature.pairing.EnterPairingCodeScreen
 import com.dobi.app.feature.parenthome.ParentHomeScreen
 import com.dobi.app.feature.roleselection.RoleSelectionScreen
 import com.dobi.app.feature.selectchild.SelectChildScreen
+import com.dobi.app.feature.streak.ClanLeaderboardScreen
+import com.dobi.app.feature.streak.StreakHomeScreen
+import com.dobi.app.feature.streak.StreakShareOptionsScreen
+import com.dobi.app.feature.streak.StreakUploadPickerScreen
 import com.dobi.app.feature.subjectiveresult.SubjectiveResultScreen
 
 @Composable
@@ -151,6 +157,7 @@ fun DobiNavGraph(
         }
 
         composable<Screen.ChildHome> {
+            val shareContext = LocalContext.current
             ChildHomeScreen(
                 onNavigateToConceptList = {
                     navController.navigate(Screen.ConceptList(ConceptListMode.DEFAULT))
@@ -177,6 +184,21 @@ fun DobiNavGraph(
                 },
                 onNavigateToTestYourself = {
                     navController.navigate(Screen.ConceptList(ConceptListMode.TEST_YOURSELF))
+                },
+                onNavigateToStreakDashboard = {
+                    navController.navigate(Screen.StreakHome)
+                },
+                onNavigateToInviteFriend = {
+                    val intent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(
+                            Intent.EXTRA_TEXT,
+                            "Join me on Dobi! Let's keep our study streaks going together. 🔥"
+                        )
+                    }
+                    shareContext.startActivity(
+                        Intent.createChooser(intent, "Invite a friend")
+                    )
                 },
                 onRequestParentAccess = {
                     // Pop back to RoleSelection using the pop animation (slide back)
@@ -331,8 +353,32 @@ fun DobiNavGraph(
         }
 
         composable<Screen.Quiz> {
+            val quizContext = LocalContext.current
             QuizScreen(
-                onNavigateBack = { navController.popBackStack() }
+                onNavigateBack = { navController.popBackStack() },
+                onSnapSend = { displayName ->
+                    val text = "🔥 Today's streak unlocked! I just nailed a quiz on " +
+                        "\"$displayName\" on Dobi. Your turn!"
+                    val intent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, text)
+                    }
+                    quizContext.startActivity(
+                        Intent.createChooser(intent, "Share your streak")
+                    )
+                    val popped = navController.popBackStack(
+                        route = Screen.StreakHome,
+                        inclusive = false
+                    )
+                    if (!popped) {
+                        // Quiz launched from a flow that didn't go through
+                        // StreakHome (e.g. Practise Lesson) — navigate there
+                        // and clear the back stack down to ChildHome.
+                        navController.navigate(Screen.StreakHome) {
+                            popUpTo<Screen.ChildHome>()
+                        }
+                    }
+                }
             )
         }
 
@@ -421,6 +467,65 @@ fun DobiNavGraph(
         composable<Screen.SubjectiveResult> {
             SubjectiveResultScreen(
                 onNavigateBack = { navController.popBackStack() }
+            )
+        }
+
+        composable<Screen.StreakHome> {
+            StreakHomeScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToLeaderboard = {
+                    navController.navigate(Screen.ClanLeaderboard)
+                },
+                onUploadToday = {
+                    navController.navigate(Screen.StreakUploadPicker)
+                }
+            )
+        }
+
+        composable<Screen.ClanLeaderboard> {
+            ClanLeaderboardScreen(
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
+
+        composable<Screen.StreakUploadPicker> {
+            StreakUploadPickerScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onContinue = { resolved ->
+                    navController.navigate(
+                        Screen.StreakShareOptions(
+                            unitId = if (resolved.isUnitScope) resolved.unitId else "",
+                            conceptId = if (resolved.isUnitScope) "" else resolved.conceptId,
+                            displayName = resolved.displayName,
+                            subject = resolved.subject
+                        )
+                    )
+                }
+            )
+        }
+
+        composable<Screen.StreakShareOptions> {
+            StreakShareOptionsScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onLaunchQuiz = { cacheKey, displayName ->
+                    navController.navigate(
+                        Screen.Quiz(
+                            unitId = cacheKey,
+                            source = "ai",
+                            displayName = displayName
+                        )
+                    ) {
+                        // Pop the picker + share-options off so back from
+                        // the quiz lands on the streak dashboard.
+                        popUpTo<Screen.StreakHome>()
+                    }
+                },
+                onFinishedShareOnly = {
+                    navController.popBackStack(
+                        route = Screen.StreakHome,
+                        inclusive = false
+                    )
+                }
             )
         }
 

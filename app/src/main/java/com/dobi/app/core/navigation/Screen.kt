@@ -60,4 +60,13 @@ enum class ConceptListMode { DEFAULT, PRACTISE_LESSON, TEST_YOURSELF }
         val conceptId: String = ""
     ) : Screen()
     @Serializable data class SubjectiveResult(val resultId: String) : Screen()
+    @Serializable data object StreakHome : Screen()
+    @Serializable data object StreakUploadPicker : Screen()
+    @Serializable data class StreakShareOptions(
+        val unitId: String = "",
+        val conceptId: String = "",
+        val displayName: String,
+        val subject: String = ""
+    ) : Screen()
+    @Serializable data object ClanLeaderboard : Screen()
 }

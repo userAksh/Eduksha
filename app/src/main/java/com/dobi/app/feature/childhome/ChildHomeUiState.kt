@@ -4,7 +4,7 @@ import com.dobi.app.domain.model.ParentTask
 
 data class ChildHomeUiState(
     val childName: String = "",
-    val streakDays: Int = 3,
+    val streakDays: Int = 0,
     val parentTasks: List<ParentTask> = emptyList(),
     val tutorHonorific: String = "",
     val tutorName: String = "",

@@ -11,6 +11,7 @@ import com.dobi.app.data.repository.GeneratedQuizCache
 import com.dobi.app.data.repository.McqGenerationRepository
 import com.dobi.app.data.repository.QuizAttemptRepository
 import com.dobi.app.domain.model.Concept
+import com.dobi.app.domain.repository.StreakShareRepository
 import com.dobi.app.domain.repository.UserRepository
 import com.dobi.app.domain.usecase.GetConceptsUseCase
 import com.dobi.app.domain.usecase.GetCuratedQuestionsUseCase
@@ -35,7 +36,8 @@ class QuizViewModel @Inject constructor(
     private val generatedQuizCache: GeneratedQuizCache,
     private val curatedQuizCache: CuratedQuizCache,
     private val mcqGenerationRepository: McqGenerationRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val streakShareRepository: StreakShareRepository
 ) : ViewModel() {
 
     private val route = savedStateHandle.toRoute<Screen.Quiz>()
@@ -50,7 +52,23 @@ class QuizViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(QuizUiState())
     val uiState = _uiState.asStateFlow()
 
-    init { load() }
+    init {
+        load()
+        observeShareGate()
+    }
+
+    private fun observeShareGate() {
+        viewModelScope.launch {
+            streakShareRepository.hasSharedToday().collect { hasShared ->
+                _uiState.update { it.copy(showSnapAndSend = !hasShared) }
+            }
+        }
+    }
+
+    /** Called from the screen after the snap share intent has been fired. */
+    fun markSnapSent() {
+        viewModelScope.launch { streakShareRepository.markSharedToday() }
+    }
 
     private fun load() {
         viewModelScope.launch {
