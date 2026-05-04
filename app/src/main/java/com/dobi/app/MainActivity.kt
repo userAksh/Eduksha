@@ -4,6 +4,10 @@ import android.Manifest
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import com.dobi.app.data.local.UserPreferences
+import com.dobi.app.domain.repository.InviteRepository
+import kotlinx.coroutines.flow.first
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
@@ -38,6 +42,8 @@ class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
 
     @Inject lateinit var fcmTokenRepository: FcmTokenRepository
+    @Inject lateinit var inviteRepository: InviteRepository
+    @Inject lateinit var userPreferences: UserPreferences
 
     private var pendingDeeplink: Pair<String, String>? = null
 
@@ -46,6 +52,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         pendingDeeplink = readDeeplink(intent)
         lifecycleScope.launch { fcmTokenRepository.syncCurrentToken() }
+        maybeRunDebugInviteClaim(intent)
         setContent {
             DobiTheme {
                 val startDestination by viewModel.startDestination.collectAsStateWithLifecycle()
@@ -102,5 +109,36 @@ class MainActivity : ComponentActivity() {
         val role = intent.getStringExtra(DobiMessagingService.EXTRA_ROLE).orEmpty()
         if (taskId.isBlank()) return null
         return taskId to role
+    }
+
+    /**
+     * Debug-only invite-claim shortcut. The Play Install Referrer API only
+     * fires for installs that came through the Play Store, so locally-built
+     * APKs can't exercise the claim flow. To test against a real backend
+     * before publishing, launch with:
+     *
+     *   adb shell am start -n com.dobi.app/.MainActivity \
+     *       --es dobi_test_invite_code <code-from-createInvite>
+     *
+     * Stripped from release builds via BuildConfig.DEBUG.
+     */
+    private fun maybeRunDebugInviteClaim(intent: Intent?) {
+        if (!BuildConfig.DEBUG) return
+        val code = intent?.getStringExtra(EXTRA_TEST_INVITE_CODE)?.trim().orEmpty()
+        if (code.isBlank()) return
+        lifecycleScope.launch {
+            val childId = userPreferences.linkedChildId.first().orEmpty()
+            if (childId.isBlank()) {
+                Log.w(TAG, "Test claim skipped: no linked child yet")
+                return@launch
+            }
+            val outcome = inviteRepository.claimInvite(code, childId)
+            Log.i(TAG, "Test claim outcome=$outcome (code=$code)")
+        }
+    }
+
+    companion object {
+        private const val TAG = "MainActivity"
+        const val EXTRA_TEST_INVITE_CODE = "dobi_test_invite_code"
     }
 }

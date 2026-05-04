@@ -1,0 +1,39 @@
+rules_version = '2';
+
+// Dobi Firestore rules.
+//
+// Conservative starting point: parents read/write their own subtree, every
+// child doc is reachable only by the parent uid that owns it. The `invites`
+// collection is server-only — clients never touch it directly because the
+// `createInvite` / `claimInvite` Cloud Functions bypass these rules using
+// the Admin SDK.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /parents/{parentId} {
+      allow read, write: if request.auth != null && request.auth.uid == parentId;
+
+      match /children/{childId} {
+        allow read, write: if request.auth != null && request.auth.uid == parentId;
+      }
+    }
+
+    // Parent-task contracts live in a top-level collection so both the
+    // parent and the linked child device can read/write the same doc.
+    match /parentTaskRequests/{taskId} {
+      allow read, write: if request.auth != null
+        && resource != null
+        && request.auth.uid == resource.data.parentId;
+      // Allow the create when the doc is brand-new (resource == null) and
+      // the caller claims to be the parent on the new doc.
+      allow create: if request.auth != null
+        && request.resource.data.parentId == request.auth.uid;
+    }
+
+    // Friend invites — server-only. The Admin SDK in Cloud Functions still
+    // works because the SDK bypasses these rules entirely.
+    match /invites/{code} {
+      allow read, write: if false;
+    }
+  }
+}

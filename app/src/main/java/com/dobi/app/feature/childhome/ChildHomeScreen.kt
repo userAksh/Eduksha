@@ -69,8 +69,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import android.content.Intent
+import android.widget.Toast
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.flow.collectLatest
 import com.dobi.app.core.ui.components.DobiBottomNavBar
 import com.dobi.app.core.ui.components.childNavItems
 import com.dobi.app.core.ui.theme.DobiBackground
@@ -101,18 +106,49 @@ fun ChildHomeScreen(
     onNavigateToNeedRevision: () -> Unit = {},
     onNavigateToTestYourself: () -> Unit = {},
     onNavigateToStreakDashboard: () -> Unit = {},
-    onNavigateToInviteFriend: () -> Unit = {},
     onNavigateToEarnReward: () -> Unit = {},
     onNavigateToParentTask: (taskId: String) -> Unit = {},
+    onOpenUnit: (unitId: String) -> Unit = {},
+    onOpenConcept: (conceptId: String) -> Unit = {},
+    onOpenQuizResult: (unitId: String, conceptId: String) -> Unit = { _, _ -> },
+    onOpenSubjectiveResult: (resultId: String) -> Unit = {},
+    onOpenUploadGroup: (groupKey: String) -> Unit = {},
     onRequestParentAccess: () -> Unit = {},
     viewModel: ChildHomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var selectedTab by rememberSaveable { mutableIntStateOf(0) }
+    val context = LocalContext.current
 
     // Lock back button — child cannot return to parent view without the PIN gate
     androidx.activity.compose.BackHandler(enabled = true) {
         onRequestParentAccess()
+    }
+
+    // Invite Friend: VM asks the server for a fresh code, then we open the
+    // share sheet with the Play Store URL embedded with the install referrer.
+    LaunchedEffect(viewModel) {
+        viewModel.inviteEvents.collectLatest { event ->
+            when (event) {
+                is ChildHomeViewModel.InviteUiEvent.Share -> {
+                    val intent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(
+                            Intent.EXTRA_TEXT,
+                            "Join me on Dobi! Let's keep our study streaks going together. 🔥\n${event.url}"
+                        )
+                    }
+                    context.startActivity(Intent.createChooser(intent, "Invite a friend"))
+                }
+                is ChildHomeViewModel.InviteUiEvent.CreateFailed -> {
+                    Toast.makeText(
+                        context,
+                        "Couldn't create your invite link. Try again in a moment.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 
     Scaffold(
@@ -139,13 +175,38 @@ fun ChildHomeScreen(
                 onNavigateToNeedRevision = onNavigateToNeedRevision,
                 onNavigateToTestYourself = onNavigateToTestYourself,
                 onNavigateToStreakDashboard = onNavigateToStreakDashboard,
-                onNavigateToInviteFriend = onNavigateToInviteFriend,
+                onNavigateToInviteFriend = viewModel::onInviteFriendClicked,
                 onNavigateToEarnReward = onNavigateToEarnReward,
                 onSaveTutor = viewModel::saveTutor,
                 onTaskClick = onNavigateToParentTask,
                 contentPadding = innerPadding
             )
-            1 -> MyLearningsContent(contentPadding = innerPadding)
+            1 -> MyLearningsContent(
+                contentPadding = innerPadding,
+                onMarkClick = { mark ->
+                    if (com.dobi.app.domain.model.RevisionScope.fromKey(mark.scope)
+                        == com.dobi.app.domain.model.RevisionScope.UNIT
+                    ) {
+                        onOpenUnit(mark.targetId)
+                    } else {
+                        onOpenConcept(mark.targetId)
+                    }
+                },
+                onSeeAllRevision = onNavigateToNeedRevision,
+                onTodayItemClick = { entry ->
+                    when (val t = entry.navTarget) {
+                        is com.dobi.app.feature.mylearnings.TodayNavTarget.QuizResult ->
+                            onOpenQuizResult(t.unitId, t.conceptId)
+                        is com.dobi.app.feature.mylearnings.TodayNavTarget.Subjective ->
+                            onOpenSubjectiveResult(t.resultId)
+                        is com.dobi.app.feature.mylearnings.TodayNavTarget.ParentTask ->
+                            onNavigateToParentTask(t.taskId)
+                        is com.dobi.app.feature.mylearnings.TodayNavTarget.UploadGroup ->
+                            onOpenUploadGroup(t.groupKey)
+                        null -> Unit
+                    }
+                }
+            )
             2 -> TabPlaceholder("Profile", innerPadding)
         }
     }
@@ -215,6 +276,15 @@ private fun ChildHomeContent(
                     onViewDashboard = onNavigateToStreakDashboard
                 )
                 Spacer(Modifier.height(20.dp))
+            }
+
+            // Friends row — only shows once at least one friend was added via
+            // an invite link claim. Read-only chip list for now.
+            if (uiState.friends.isNotEmpty()) {
+                item {
+                    FriendsRow(friends = uiState.friends)
+                    Spacer(Modifier.height(20.dp))
+                }
             }
 
             // Revision mode cards
@@ -1068,6 +1138,56 @@ private fun StreakActionButton(
             color = accent,
             fontSize = 13.sp,
             fontWeight = FontWeight.SemiBold
+        )
+    }
+}
+
+// ── Friends row ────────────────────────────────────────────────────────────────
+
+@Composable
+private fun FriendsRow(friends: List<com.dobi.app.domain.model.Friend>) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = "Your friends",
+            style = MaterialTheme.typography.titleMedium,
+            color = DobiTextPrimary,
+            fontWeight = SFProSemiBold
+        )
+        Spacer(Modifier.height(10.dp))
+        androidx.compose.foundation.lazy.LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            items(friends, key = { "${it.parentId}/${it.childId}" }) { friend ->
+                FriendChip(friend)
+            }
+        }
+    }
+}
+
+@Composable
+private fun FriendChip(friend: com.dobi.app.domain.model.Friend) {
+    val emoji = if (friend.gender.equals("girl", ignoreCase = true)) "👧" else "🧑"
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.width(64.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(48.dp)
+                .clip(CircleShape)
+                .background(Color(0xFFEFF6FF)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(text = emoji, fontSize = 24.sp)
+        }
+        Spacer(Modifier.height(6.dp))
+        Text(
+            text = friend.name.ifBlank { "Friend" },
+            style = MaterialTheme.typography.bodySmall,
+            color = DobiTextPrimary,
+            fontWeight = SFProMedium,
+            maxLines = 1,
+            textAlign = TextAlign.Center
         )
     }
 }

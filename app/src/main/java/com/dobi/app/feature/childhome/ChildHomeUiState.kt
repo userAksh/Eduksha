@@ -1,5 +1,6 @@
 package com.dobi.app.feature.childhome
 
+import com.dobi.app.domain.model.Friend
 import com.dobi.app.domain.model.ParentTask
 
 data class ChildHomeUiState(
@@ -8,5 +9,6 @@ data class ChildHomeUiState(
     val parentTasks: List<ParentTask> = emptyList(),
     val tutorHonorific: String = "",
     val tutorName: String = "",
+    val friends: List<Friend> = emptyList(),
     val isLoading: Boolean = false
 )

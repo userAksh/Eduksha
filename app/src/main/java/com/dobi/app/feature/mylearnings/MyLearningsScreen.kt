@@ -18,15 +18,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,6 +42,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,12 +55,16 @@ import com.dobi.app.core.ui.theme.DobiPrimary
 import com.dobi.app.core.ui.theme.DobiPrimaryContainer
 import com.dobi.app.core.ui.theme.DobiSuccess
 import com.dobi.app.core.ui.theme.DobiSuccessContainer
+import com.dobi.app.core.ui.theme.DobiWarning
+import com.dobi.app.core.ui.theme.DobiWarningContainer
 import com.dobi.app.core.ui.theme.DobiTextPrimary
 import com.dobi.app.core.ui.theme.DobiTextSecondary
 import com.dobi.app.core.ui.theme.DobiTheme
 import com.dobi.app.core.ui.theme.SFProBold
 import com.dobi.app.core.ui.theme.SFProMedium
 import com.dobi.app.core.ui.theme.SFProSemiBold
+import com.dobi.app.domain.model.RevisionMark
+import com.dobi.app.domain.model.RevisionScope
 
 // ── Entry point ────────────────────────────────────────────────────────────────
 
@@ -63,24 +72,42 @@ import com.dobi.app.core.ui.theme.SFProSemiBold
 fun MyLearningsContent(
     contentPadding: PaddingValues,
     viewModel: MyLearningsViewModel = hiltViewModel(),
-    onSavedItemClick: (SavedItem) -> Unit = {},
+    onMarkClick: (RevisionMark) -> Unit = {},
+    onSeeAllRevision: () -> Unit = {},
     onTodayItemClick: (TodayLearningEntry) -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     MyLearningsLayout(
         uiState = uiState,
         contentPadding = contentPadding,
-        onSavedItemClick = onSavedItemClick,
-        onTodayItemClick = onTodayItemClick
+        onMarkClick = onMarkClick,
+        onUnmark = viewModel::onUnmark,
+        onSeeAllRevision = onSeeAllRevision,
+        onTodayItemClick = onTodayItemClick,
+        onOpenStory = viewModel::openStory,
+        onRetryNews = viewModel::retryLoadNews
     )
+
+    val selected = uiState.selectedStoryIndex
+    if (selected != null && uiState.currentAffairs.isNotEmpty()) {
+        NewspaperOverlay(
+            stories = uiState.currentAffairs,
+            startIndex = selected,
+            onDismiss = viewModel::closeStory
+        )
+    }
 }
 
 @Composable
 private fun MyLearningsLayout(
     uiState: MyLearningsUiState,
     contentPadding: PaddingValues,
-    onSavedItemClick: (SavedItem) -> Unit,
-    onTodayItemClick: (TodayLearningEntry) -> Unit
+    onMarkClick: (RevisionMark) -> Unit,
+    onUnmark: (RevisionMark) -> Unit,
+    onSeeAllRevision: () -> Unit,
+    onTodayItemClick: (TodayLearningEntry) -> Unit,
+    onOpenStory: (Int) -> Unit = {},
+    onRetryNews: () -> Unit = {}
 ) {
     LazyColumn(
         modifier = Modifier
@@ -127,33 +154,39 @@ private fun MyLearningsLayout(
         item { Spacer(Modifier.height(28.dp)) }
 
         // ── Section 2: Revision Hub ──
+        // Cap the inline list to the most recent few marks; the "See all"
+        // CTA in the section header routes to the full Need Revision screen.
+        val revisionPreview = uiState.revisionMarks.take(REVISION_PREVIEW_LIMIT)
+        val hasMore = uiState.revisionMarks.size > REVISION_PREVIEW_LIMIT
         item {
             SectionHeader(
                 title = "Revision Hub",
                 emoji = "📚",
-                trailing = if (uiState.savedItems.isNotEmpty()) "See all" else null
+                trailing = if (hasMore) "See all" else null,
+                onTrailingClick = onSeeAllRevision
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = "Lessons and concepts you saved from 'Pick a Lesson'.",
+                text = "Topics you've marked for revision.",
                 style = MaterialTheme.typography.bodySmall,
                 color = DobiTextSecondary
             )
             Spacer(Modifier.height(14.dp))
         }
 
-        if (uiState.savedItems.isEmpty()) {
+        if (revisionPreview.isEmpty()) {
             item { RevisionEmptyStateCard() }
         } else {
-            item {
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    contentPadding = PaddingValues(end = 4.dp)
-                ) {
-                    items(uiState.savedItems, key = { it.id }) { item ->
-                        SavedItemCard(item = item, onClick = { onSavedItemClick(item) })
-                    }
-                }
+            items(
+                revisionPreview,
+                key = { it.id.ifBlank { "${it.scope}/${it.targetId}" } }
+            ) { mark ->
+                RevisionItemCard(
+                    mark = mark,
+                    onClick = { onMarkClick(mark) },
+                    onUnmark = { onUnmark(mark) }
+                )
+                Spacer(Modifier.height(10.dp))
             }
         }
 
@@ -161,10 +194,25 @@ private fun MyLearningsLayout(
 
         // ── Section 3: Do You Know ──
         item {
-            SectionHeader(title = "Do You Know?", emoji = "💡")
+            val canOpen = uiState.currentAffairs.isNotEmpty()
+            SectionHeader(
+                title = "Do You Know?",
+                emoji = "💡",
+                trailing = when {
+                    canOpen -> "Open paper"
+                    uiState.isLoadingNews -> "Loading…"
+                    else -> "Retry"
+                },
+                onTrailingClick = {
+                    if (canOpen) onOpenStory(0) else onRetryNews()
+                },
+                onHeaderClick = {
+                    if (canOpen) onOpenStory(0) else onRetryNews()
+                }
+            )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = "Fresh stories from the last 24 hours.",
+                text = "Today's stories — tap any one to open the paper.",
                 style = MaterialTheme.typography.bodySmall,
                 color = DobiTextSecondary
             )
@@ -172,10 +220,19 @@ private fun MyLearningsLayout(
         }
 
         if (uiState.currentAffairs.isEmpty()) {
-            item { CurrentAffairsEmptyCard() }
+            item {
+                CurrentAffairsEmptyCard(
+                    isLoading = uiState.isLoadingNews,
+                    error = uiState.newsError,
+                    onRetry = onRetryNews
+                )
+            }
         } else {
-            items(uiState.currentAffairs, key = { it.id }) { news ->
-                CurrentAffairCard(news = news)
+            itemsIndexed(uiState.currentAffairs) { index, news ->
+                CurrentAffairCard(
+                    news = news,
+                    onClick = { onOpenStory(index) }
+                )
                 Spacer(Modifier.height(10.dp))
             }
         }
@@ -187,9 +244,17 @@ private fun MyLearningsLayout(
 // ── Section header ─────────────────────────────────────────────────────────────
 
 @Composable
-private fun SectionHeader(title: String, emoji: String, trailing: String? = null) {
+private fun SectionHeader(
+    title: String,
+    emoji: String,
+    trailing: String? = null,
+    onTrailingClick: () -> Unit = {},
+    onHeaderClick: (() -> Unit)? = null
+) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .let { if (onHeaderClick != null) it.clickable(onClick = onHeaderClick) else it },
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -208,11 +273,14 @@ private fun SectionHeader(title: String, emoji: String, trailing: String? = null
                 text = trailing,
                 style = MaterialTheme.typography.bodyMedium,
                 color = DobiPrimary,
-                fontWeight = SFProMedium
+                fontWeight = SFProMedium,
+                modifier = Modifier.clickable(onClick = onTrailingClick)
             )
         }
     }
 }
+
+private const val REVISION_PREVIEW_LIMIT = 3
 
 // ── Today: empty state ─────────────────────────────────────────────────────────
 
@@ -324,6 +392,7 @@ private fun styleFor(kind: TodayKind): TodayStyle = when (kind) {
 @Composable
 private fun TodayEntryCard(entry: TodayLearningEntry, onClick: () -> Unit) {
     val style = styleFor(entry.kind)
+    val accentColor = if (entry.status == TodayStatus.PENDING) DobiWarning else style.accent
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -347,13 +416,13 @@ private fun TodayEntryCard(entry: TodayLearningEntry, onClick: () -> Unit) {
                 .padding(14.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Accent strip
+            // Accent strip — switches to warning amber while still pending
             Box(
                 modifier = Modifier
                     .width(4.dp)
                     .height(48.dp)
                     .clip(RoundedCornerShape(3.dp))
-                    .background(style.accent)
+                    .background(accentColor)
             )
             Spacer(Modifier.width(12.dp))
 
@@ -383,11 +452,7 @@ private fun TodayEntryCard(entry: TodayLearningEntry, onClick: () -> Unit) {
                             .padding(horizontal = 6.dp, vertical = 2.dp)
                     )
                     Spacer(Modifier.width(6.dp))
-                    Text(
-                        text = entry.timeLabel,
-                        fontSize = 11.sp,
-                        color = DobiTextSecondary
-                    )
+                    StatusPill(entry.status)
                 }
                 Spacer(Modifier.height(4.dp))
                 Text(
@@ -406,105 +471,174 @@ private fun TodayEntryCard(entry: TodayLearningEntry, onClick: () -> Unit) {
                 )
             }
 
-            if (entry.scoreLabel != null) {
-                Column(horizontalAlignment = Alignment.End) {
-                    Text(
-                        text = entry.scoreLabel,
-                        fontSize = 15.sp,
-                        fontWeight = SFProBold,
-                        color = style.accent
-                    )
-                    Text(
-                        text = "score",
-                        fontSize = 10.sp,
-                        color = DobiTextSecondary
-                    )
-                }
-            } else {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                    contentDescription = null,
-                    tint = DobiTextSecondary,
-                    modifier = Modifier.size(20.dp)
+            Spacer(Modifier.width(10.dp))
+
+            Column(horizontalAlignment = Alignment.End) {
+                Text(
+                    text = entry.timeLabel,
+                    fontSize = 11.sp,
+                    color = DobiTextSecondary,
+                    maxLines = 1
                 )
+                Spacer(Modifier.height(4.dp))
+                when {
+                    entry.scoreLabel != null -> {
+                        Text(
+                            text = entry.scoreLabel,
+                            fontSize = 15.sp,
+                            fontWeight = SFProBold,
+                            color = style.accent
+                        )
+                        Text(
+                            text = "score",
+                            fontSize = 10.sp,
+                            color = DobiTextSecondary
+                        )
+                    }
+                    entry.status == TodayStatus.COMPLETED -> {
+                        Box(
+                            modifier = Modifier
+                                .size(28.dp)
+                                .clip(CircleShape)
+                                .background(DobiSuccessContainer),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Check,
+                                contentDescription = "Done",
+                                tint = DobiSuccess,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
+                    }
+                    else -> {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                            contentDescription = null,
+                            tint = DobiTextSecondary,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                }
             }
         }
     }
 }
-
-// ── Revision Hub: saved item card ──────────────────────────────────────────────
 
 @Composable
-private fun SavedItemCard(item: SavedItem, onClick: () -> Unit) {
-    val isLesson = item.kind == SavedKind.LESSON
-    val accent = if (isLesson) Color(0xFF2563EB) else Color(0xFF7C3AED)
-    val tint = if (isLesson) Color(0xFFDBEAFE) else Color(0xFFEDE9FE)
+private fun StatusPill(status: TodayStatus) {
+    val (label, fg, bg) = when (status) {
+        TodayStatus.COMPLETED -> Triple("Done", DobiSuccess, DobiSuccessContainer)
+        TodayStatus.PENDING -> Triple("Pending", DobiWarning, DobiWarningContainer)
+    }
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .clip(RoundedCornerShape(8.dp))
+            .background(bg)
+            .padding(horizontal = 6.dp, vertical = 2.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(5.dp)
+                .clip(CircleShape)
+                .background(fg)
+        )
+        Spacer(Modifier.width(4.dp))
+        Text(
+            text = label,
+            fontSize = 9.sp,
+            fontWeight = SFProSemiBold,
+            color = fg
+        )
+    }
+}
 
+// ── Revision Hub: item card (mirrors NeedRevisionScreen.RevisionItemCard) ──────
+
+@Composable
+private fun RevisionItemCard(
+    mark: RevisionMark,
+    onClick: () -> Unit,
+    onUnmark: () -> Unit
+) {
+    val accent = parseHexColor(mark.subjectColor)
+    val isUnit = RevisionScope.fromKey(mark.scope) == RevisionScope.UNIT
     Card(
         modifier = Modifier
-            .width(186.dp)
-            .shadow(
-                elevation = 6.dp,
-                shape = RoundedCornerShape(20.dp),
-                spotColor = accent.copy(alpha = 0.18f)
-            )
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null,
-                onClick = onClick
-            ),
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        elevation = CardDefaults.cardElevation(0.dp)
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
+        shape = RoundedCornerShape(18.dp),
+        colors = CardDefaults.cardColors(containerColor = accent.copy(alpha = 0.06f)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(14.dp)
+                .padding(14.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(tint),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(text = item.subjectEmoji, fontSize = 20.sp)
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(RoundedCornerShape(14.dp))
+                    .background(accent.copy(alpha = 0.18f)),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = mark.subjectIcon.ifBlank { "📘" }, fontSize = 24.sp)
+            }
+            Spacer(Modifier.width(12.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Default.Bookmark,
+                        contentDescription = null,
+                        tint = Color(0xFFF59E0B),
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Spacer(Modifier.width(4.dp))
+                    Text(
+                        text = if (isUnit) "Lesson" else "Concept",
+                        color = Color(0xFFF59E0B),
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
                 }
-                Spacer(Modifier.weight(1f))
+                Spacer(Modifier.height(2.dp))
                 Text(
-                    text = if (isLesson) "Lesson" else "Concept",
-                    fontSize = 10.sp,
-                    fontWeight = SFProSemiBold,
-                    color = accent,
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(6.dp))
-                        .background(tint)
-                        .padding(horizontal = 6.dp, vertical = 3.dp)
+                    text = mark.name,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = DobiTextPrimary,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 15.sp
+                )
+                Spacer(Modifier.height(2.dp))
+                val secondary = if (!isUnit && mark.unitName.isNotBlank())
+                    "${mark.subject} • ${mark.unitName}"
+                else mark.subject.ifBlank { "Topic" }
+                Text(
+                    text = secondary,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = DobiTextSecondary,
+                    fontSize = 12.sp
                 )
             }
-            Spacer(Modifier.height(12.dp))
-            Text(
-                text = item.title,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = SFProSemiBold,
-                color = DobiTextPrimary,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-                lineHeight = 18.sp
-            )
-            Spacer(Modifier.height(8.dp))
-            Text(
-                text = item.subject + (item.conceptCount?.let { " • $it concepts" } ?: ""),
-                style = MaterialTheme.typography.bodySmall,
-                color = DobiTextSecondary,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            IconButton(onClick = onUnmark) {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "Remove",
+                    tint = DobiTextSecondary,
+                    modifier = Modifier.size(18.dp)
+                )
+            }
         }
     }
 }
+
+private fun parseHexColor(hex: String): Color = runCatching {
+    if (hex.isBlank()) Color(0xFF94A3B8)
+    else Color(android.graphics.Color.parseColor(hex))
+}.getOrDefault(Color(0xFF94A3B8))
 
 @Composable
 private fun RevisionEmptyStateCard() {
@@ -538,14 +672,14 @@ private fun RevisionEmptyStateCard() {
             Spacer(Modifier.width(12.dp))
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    "Nothing saved yet",
+                    "No topics flagged yet",
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = SFProSemiBold,
                     color = DobiTextPrimary
                 )
                 Spacer(Modifier.height(2.dp))
                 Text(
-                    "Bookmark a lesson or concept from Pick a Lesson to revisit it here.",
+                    "Open a lesson or concept and tap Mark for Revision. We'll keep them here so you can come back to them later.",
                     style = MaterialTheme.typography.bodySmall,
                     color = DobiTextSecondary,
                     lineHeight = 17.sp
@@ -569,7 +703,7 @@ private fun categoryColor(category: String): Pair<Color, Color> = when (category
 }
 
 @Composable
-private fun CurrentAffairCard(news: CurrentAffair) {
+private fun CurrentAffairCard(news: CurrentAffair, onClick: () -> Unit = {}) {
     val (accent, tint) = categoryColor(news.category)
 
     Card(
@@ -579,6 +713,11 @@ private fun CurrentAffairCard(news: CurrentAffair) {
                 elevation = 3.dp,
                 shape = RoundedCornerShape(16.dp),
                 spotColor = Color(0x14000000)
+            )
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = onClick
             ),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -646,11 +785,26 @@ private fun CurrentAffairCard(news: CurrentAffair) {
 }
 
 @Composable
-private fun CurrentAffairsEmptyCard() {
+private fun CurrentAffairsEmptyCard(
+    isLoading: Boolean = false,
+    error: String? = null,
+    onRetry: () -> Unit = {}
+) {
+    val title = when {
+        isLoading -> "Putting today's paper together…"
+        error != null -> "Couldn't load today's paper"
+        else -> "Fresh stories coming soon"
+    }
+    val subtitle = when {
+        isLoading -> "Hand-picked, kid-safe stories. Just a few seconds…"
+        error != null -> error
+        else -> "We'll pull the day's interesting news for you every 24 hours."
+    }
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .border(1.dp, Color(0xFFE5EBF5), RoundedCornerShape(16.dp)),
+            .border(1.dp, Color(0xFFE5EBF5), RoundedCornerShape(16.dp))
+            .let { if (!isLoading) it.clickable(onClick = onRetry) else it },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFF8FAFF)),
         elevation = CardDefaults.cardElevation(0.dp)
@@ -665,26 +819,35 @@ private fun CurrentAffairsEmptyCard() {
                 modifier = Modifier
                     .size(44.dp)
                     .clip(CircleShape)
-                    .background(DobiSuccessContainer),
+                    .background(if (error != null) Color(0xFFFEE2E2) else DobiSuccessContainer),
                 contentAlignment = Alignment.Center
             ) {
-                Text("📰", fontSize = 22.sp)
+                Text(if (error != null) "📵" else "📰", fontSize = 22.sp)
             }
             Spacer(Modifier.width(12.dp))
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    "Fresh stories coming soon",
+                    title,
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = SFProSemiBold,
                     color = DobiTextPrimary
                 )
                 Spacer(Modifier.height(2.dp))
                 Text(
-                    "We'll pull the day's interesting news for you every 24 hours.",
+                    subtitle,
                     style = MaterialTheme.typography.bodySmall,
                     color = DobiTextSecondary,
                     lineHeight = 17.sp
                 )
+                if (error != null && !isLoading) {
+                    Spacer(Modifier.height(6.dp))
+                    Text(
+                        text = "Tap to retry",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = DobiPrimary,
+                        fontWeight = SFProMedium
+                    )
+                }
             }
         }
     }
@@ -699,7 +862,9 @@ private fun MyLearningsEmptyPreview() {
         MyLearningsLayout(
             uiState = MyLearningsUiState(),
             contentPadding = PaddingValues(0.dp),
-            onSavedItemClick = {},
+            onMarkClick = {},
+            onUnmark = {},
+            onSeeAllRevision = {},
             onTodayItemClick = {}
         )
     }
@@ -735,10 +900,35 @@ private fun MyLearningsPopulatedPreview() {
                         timeLabel = "2 hr ago"
                     )
                 ),
-                savedItems = listOf(
-                    SavedItem("s1", SavedKind.LESSON, "Food: Where Does It Come From?", "Science", "🔬", conceptCount = 6),
-                    SavedItem("s2", SavedKind.CONCEPT, "Addition of Fractions", "Mathematics", "➕"),
-                    SavedItem("s3", SavedKind.LESSON, "Our Environment", "Social Studies", "🌍", conceptCount = 4)
+                revisionMarks = listOf(
+                    RevisionMark(
+                        id = "r1",
+                        scope = "unit",
+                        targetId = "u1",
+                        name = "Food: Where Does It Come From?",
+                        subject = "Science",
+                        subjectColor = "#2563EB",
+                        subjectIcon = "🔬"
+                    ),
+                    RevisionMark(
+                        id = "r2",
+                        scope = "concept",
+                        targetId = "c1",
+                        name = "Addition of Fractions",
+                        subject = "Mathematics",
+                        subjectColor = "#7C3AED",
+                        subjectIcon = "➕",
+                        unitName = "Fractions"
+                    ),
+                    RevisionMark(
+                        id = "r3",
+                        scope = "unit",
+                        targetId = "u2",
+                        name = "Our Environment",
+                        subject = "Social Studies",
+                        subjectColor = "#16A34A",
+                        subjectIcon = "🌍"
+                    )
                 ),
                 currentAffairs = listOf(
                     CurrentAffair(
@@ -765,7 +955,9 @@ private fun MyLearningsPopulatedPreview() {
                 )
             ),
             contentPadding = PaddingValues(0.dp),
-            onSavedItemClick = {},
+            onMarkClick = {},
+            onUnmark = {},
+            onSeeAllRevision = {},
             onTodayItemClick = {}
         )
     }

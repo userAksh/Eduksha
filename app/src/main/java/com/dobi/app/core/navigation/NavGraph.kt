@@ -160,7 +160,6 @@ fun DobiNavGraph(
         }
 
         composable<Screen.ChildHome> {
-            val shareContext = LocalContext.current
             ChildHomeScreen(
                 onNavigateToConceptList = {
                     navController.navigate(Screen.ConceptList(ConceptListMode.DEFAULT))
@@ -191,23 +190,33 @@ fun DobiNavGraph(
                 onNavigateToStreakDashboard = {
                     navController.navigate(Screen.StreakHome)
                 },
-                onNavigateToInviteFriend = {
-                    val intent = Intent(Intent.ACTION_SEND).apply {
-                        type = "text/plain"
-                        putExtra(
-                            Intent.EXTRA_TEXT,
-                            "Join me on Dobi! Let's keep our study streaks going together. 🔥"
-                        )
-                    }
-                    shareContext.startActivity(
-                        Intent.createChooser(intent, "Invite a friend")
-                    )
-                },
                 onNavigateToEarnReward = {
                     navController.navigate(Screen.EarnRewardPicker)
                 },
                 onNavigateToParentTask = { taskId ->
                     navController.navigate(Screen.DoParentTask(taskId))
+                },
+                onOpenUnit = { unitId ->
+                    navController.navigate(Screen.UnitDetail(unitId))
+                },
+                onOpenConcept = { conceptId ->
+                    navController.navigate(Screen.ConceptDetail(conceptId))
+                },
+                onOpenQuizResult = { unitId, conceptId ->
+                    navController.navigate(
+                        Screen.Quiz(
+                            unitId = unitId,
+                            conceptId = conceptId,
+                            source = "curated",
+                            viewResult = true
+                        )
+                    )
+                },
+                onOpenSubjectiveResult = { resultId ->
+                    navController.navigate(Screen.SubjectiveResult(resultId))
+                },
+                onOpenUploadGroup = { groupKey ->
+                    navController.navigate(Screen.RevisitDetail(groupKey))
                 },
                 onRequestParentAccess = {
                     // Pop back to RoleSelection using the pop animation (slide back)
@@ -370,7 +379,7 @@ fun DobiNavGraph(
                 onNavigateBack = { navController.popBackStack() },
                 onSnapSend = { displayName ->
                     val text = "🔥 Today's streak unlocked! I just nailed a quiz on " +
-                        "\"$displayName\" on Dobi. Your turn!"
+                        "\"$displayName\" on Eduksha. Your turn!"
                     val intent = Intent(Intent.ACTION_SEND).apply {
                         type = "text/plain"
                         putExtra(Intent.EXTRA_TEXT, text)

@@ -87,9 +87,14 @@ dependencies {
      implementation("com.google.firebase:firebase-firestore-ktx")
      implementation("com.google.firebase:firebase-storage-ktx")
      implementation("com.google.firebase:firebase-messaging-ktx")
+     implementation("com.google.firebase:firebase-functions-ktx")
      implementation("com.google.firebase:firebase-ai")
      implementation("com.google.firebase:firebase-appcheck-playintegrity")
      debugImplementation("com.google.firebase:firebase-appcheck-debug")
+
+    // Play Install Referrer — used to attribute deferred deep-links from
+    // friend-invite shares to the new install on first launch.
+    implementation("com.android.installreferrer:installreferrer:2.2")
 
     // Testing
     testImplementation(libs.junit)

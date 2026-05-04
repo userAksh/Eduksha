@@ -40,13 +40,26 @@ class QuizAttemptRepository @Inject constructor(
         val selections: Map<Int, Int> = emptyMap(),
         val lastCorrect: Int = 0,
         val lastTotal: Int = 0,
-        val lastUpdated: Long = 0L
+        val lastUpdated: Long = 0L,
+        val displayName: String = "",
+        val subject: String = ""
     ) {
         val hasResult: Boolean get() = attempts > 0 && lastTotal > 0
         val accuracyPct: Int get() =
             if (lastTotal == 0) 0
             else ((lastCorrect.toFloat() / lastTotal) * 100f).toInt()
     }
+
+    /** Flat row used by the My Learnings → Today's Learning aggregator. */
+    data class RecentQuizAttempt(
+        val scope: AttemptScope,
+        val targetId: String,
+        val displayName: String,
+        val subject: String,
+        val lastCorrect: Int,
+        val lastTotal: Int,
+        val lastUpdated: Long
+    )
 
     fun attempts(scope: AttemptScope, targetId: String): Flow<Int> =
         userPreferences.linkedChildId.flatMapLatest { childId ->
@@ -72,7 +85,9 @@ class QuizAttemptRepository @Inject constructor(
         targetId: String,
         selections: Map<Int, Int>,
         correctCount: Int = 0,
-        totalQuestions: Int = 0
+        totalQuestions: Int = 0,
+        displayName: String = "",
+        subject: String = ""
     ) {
         val childId = userPreferences.linkedChildId.first().orEmpty()
         if (childId.isBlank() || targetId.isBlank()) return
@@ -84,6 +99,13 @@ class QuizAttemptRepository @Inject constructor(
         firestore.runTransaction { tx ->
             val snap = tx.get(docRef)
             val current = snap.getLong("attempts")?.toInt() ?: 0
+            // Preserve previously-stored display fields if the new caller
+            // didn't pass them (lets older call-sites update score without
+            // wiping the lesson title).
+            val existingDisplay = snap.getString("displayName").orEmpty()
+            val existingSubject = snap.getString("subject").orEmpty()
+            val nextDisplay = displayName.ifBlank { existingDisplay }
+            val nextSubject = subject.ifBlank { existingSubject }
             tx.set(
                 docRef,
                 mapOf(
@@ -91,11 +113,54 @@ class QuizAttemptRepository @Inject constructor(
                     "selections" to encodeSelections(selections),
                     "lastCorrect" to correctCount.toLong(),
                     "lastTotal" to totalQuestions.toLong(),
-                    "lastUpdated" to System.currentTimeMillis()
+                    "lastUpdated" to System.currentTimeMillis(),
+                    "displayName" to nextDisplay,
+                    "subject" to nextSubject
                 )
             )
             null
         }.await()
+    }
+
+    /**
+     * Streams a flat list of every quiz attempt across both unit and concept
+     * scopes for the active child, with display fields baked in. Used by
+     * Today's Learning to surface curated MCQ attempts (which never produce
+     * an UploadEntry).
+     */
+    fun observeRecent(): Flow<List<RecentQuizAttempt>> =
+        userPreferences.linkedChildId.flatMapLatest { childId ->
+            if (childId.isNullOrBlank()) flowOf(emptyList())
+            else recentFlow(childId)
+        }
+
+    private fun recentFlow(childId: String): Flow<List<RecentQuizAttempt>> = callbackFlow {
+        val map = mutableMapOf<Pair<AttemptScope, String>, RecentQuizAttempt>()
+        fun emit() = trySend(map.values.toList())
+
+        val listeners = AttemptScope.values().map { scope ->
+            firestore.collection("quiz_attempts")
+                .document(childId)
+                .collection(scope.collection)
+                .addSnapshotListener { snap, error ->
+                    if (error != null) {
+                        close(error); return@addSnapshotListener
+                    }
+                    snap?.documents.orEmpty().forEach { doc ->
+                        map[scope to doc.id] = RecentQuizAttempt(
+                            scope = scope,
+                            targetId = doc.id,
+                            displayName = doc.getString("displayName").orEmpty(),
+                            subject = doc.getString("subject").orEmpty(),
+                            lastCorrect = (doc.getLong("lastCorrect") ?: 0L).toInt(),
+                            lastTotal = (doc.getLong("lastTotal") ?: 0L).toInt(),
+                            lastUpdated = doc.getLong("lastUpdated") ?: 0L
+                        )
+                    }
+                    emit()
+                }
+        }
+        awaitClose { listeners.forEach { it.remove() } }
     }
 
     private fun attemptDocFlow(
@@ -145,7 +210,9 @@ class QuizAttemptRepository @Inject constructor(
             selections = parseSelections(snap.getString("selections").orEmpty()),
             lastCorrect = snap.getLong("lastCorrect")?.toInt() ?: 0,
             lastTotal = snap.getLong("lastTotal")?.toInt() ?: 0,
-            lastUpdated = snap.getLong("lastUpdated") ?: 0L
+            lastUpdated = snap.getLong("lastUpdated") ?: 0L,
+            displayName = snap.getString("displayName").orEmpty(),
+            subject = snap.getString("subject").orEmpty()
         )
 
     private fun encodeSelections(selections: Map<Int, Int>): String =

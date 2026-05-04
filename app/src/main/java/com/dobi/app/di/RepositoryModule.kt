@@ -1,7 +1,9 @@
 package com.dobi.app.di
 
+import com.dobi.app.data.repository.DailyNewsRepositoryImpl
 import com.dobi.app.data.repository.FcmTokenRepositoryImpl
 import com.dobi.app.data.repository.FriendSnapsRepositoryImpl
+import com.dobi.app.data.repository.InviteRepositoryImpl
 import com.dobi.app.data.repository.McqGenerationRepository
 import com.dobi.app.data.repository.McqGenerationRepositoryImpl
 import com.dobi.app.data.repository.ParentTaskRepositoryImpl
@@ -9,8 +11,10 @@ import com.dobi.app.data.repository.StreakShareRepositoryImpl
 import com.dobi.app.data.repository.WriteAnswerRepository
 import com.dobi.app.data.repository.WriteAnswerRepositoryImpl
 import com.dobi.app.data.repository.UserRepositoryImpl
+import com.dobi.app.domain.repository.DailyNewsRepository
 import com.dobi.app.domain.repository.FcmTokenRepository
 import com.dobi.app.domain.repository.FriendSnapsRepository
+import com.dobi.app.domain.repository.InviteRepository
 import com.dobi.app.domain.repository.ParentTaskRepository
 import com.dobi.app.domain.repository.StreakShareRepository
 import com.dobi.app.domain.repository.UserRepository
@@ -63,4 +67,16 @@ abstract class RepositoryModule {
     abstract fun bindFcmTokenRepository(
         impl: FcmTokenRepositoryImpl
     ): FcmTokenRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindInviteRepository(
+        impl: InviteRepositoryImpl
+    ): InviteRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindDailyNewsRepository(
+        impl: DailyNewsRepositoryImpl
+    ): DailyNewsRepository
 }

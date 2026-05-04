@@ -253,7 +253,9 @@ class QuizViewModel @Inject constructor(
                         targetId = targetId,
                         selections = current.selections,
                         correctCount = correctCount,
-                        totalQuestions = total
+                        totalQuestions = total,
+                        displayName = current.unitName,
+                        subject = current.subject
                     )
                 }
             }

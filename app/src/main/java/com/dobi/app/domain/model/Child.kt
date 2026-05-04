@@ -8,5 +8,6 @@ data class Child(
     val parentId: String = "",
     val gender: String = "boy",
     val dateOfBirth: String = "",
-    val pin: String = ""
+    val pin: String = "",
+    val friends: List<Friend> = emptyList()
 )
