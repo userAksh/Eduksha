@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.dobi.app.core.navigation.Screen
 import com.dobi.app.domain.repository.ChildRepository
+import com.dobi.app.domain.repository.FcmTokenRepository
+import com.dobi.app.domain.repository.ParentTaskRepository
 import com.dobi.app.domain.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +25,9 @@ class ChildHomeViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val auth: FirebaseAuth,
     private val userRepository: UserRepository,
-    private val childRepository: ChildRepository
+    private val childRepository: ChildRepository,
+    private val parentTaskRepository: ParentTaskRepository,
+    private val fcmTokenRepository: FcmTokenRepository
 ) : ViewModel() {
 
     private val childId: String = savedStateHandle.toRoute<Screen.ChildHome>().childId
@@ -35,6 +39,15 @@ class ChildHomeViewModel @Inject constructor(
         registerActiveChild()
         loadChild()
         observeTutor()
+        observeParentTasks()
+    }
+
+    private fun observeParentTasks() {
+        parentTaskRepository.observeForActiveChild()
+            .onEach { tasks ->
+                _uiState.value = _uiState.value.copy(parentTasks = tasks)
+            }
+            .launchIn(viewModelScope)
     }
 
     private fun observeTutor() {
@@ -60,6 +73,9 @@ class ChildHomeViewModel @Inject constructor(
                 ?: userRepository.linkedParentId.first()
                 ?: ""
             userRepository.saveLinkedChild(parentId, childId)
+            // Sync after the linked-parent/child prefs are written so the
+            // FCM token write knows where to land for child devices.
+            fcmTokenRepository.syncCurrentToken()
         }
     }
 

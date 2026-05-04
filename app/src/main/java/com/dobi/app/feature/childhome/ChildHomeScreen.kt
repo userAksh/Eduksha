@@ -83,6 +83,7 @@ import com.dobi.app.core.ui.theme.DobiTextSecondary
 import com.dobi.app.core.ui.theme.DobiTheme
 import com.dobi.app.domain.model.ParentTask
 import com.dobi.app.domain.model.ParentTaskStatus
+import com.dobi.app.domain.model.ParentTaskType
 import com.dobi.app.feature.mylearnings.MyLearningsContent
 
 // ── Entry point ────────────────────────────────────────────────────────────────
@@ -101,6 +102,8 @@ fun ChildHomeScreen(
     onNavigateToTestYourself: () -> Unit = {},
     onNavigateToStreakDashboard: () -> Unit = {},
     onNavigateToInviteFriend: () -> Unit = {},
+    onNavigateToEarnReward: () -> Unit = {},
+    onNavigateToParentTask: (taskId: String) -> Unit = {},
     onRequestParentAccess: () -> Unit = {},
     viewModel: ChildHomeViewModel = hiltViewModel()
 ) {
@@ -120,18 +123,6 @@ fun ChildHomeScreen(
                 selectedIndex = selectedTab,
                 onItemSelected = { selectedTab = it }
             )
-        },
-        floatingActionButton = {
-            if (selectedTab == 0) {
-                FloatingActionButton(
-                    onClick = {},
-                    containerColor = DobiPrimary,
-                    shape = CircleShape,
-                    modifier = Modifier.size(56.dp)
-                ) {
-                    Icon(Icons.Default.Add, contentDescription = "Log session", tint = Color.White)
-                }
-            }
         }
     ) { innerPadding ->
         when (selectedTab) {
@@ -149,8 +140,9 @@ fun ChildHomeScreen(
                 onNavigateToTestYourself = onNavigateToTestYourself,
                 onNavigateToStreakDashboard = onNavigateToStreakDashboard,
                 onNavigateToInviteFriend = onNavigateToInviteFriend,
+                onNavigateToEarnReward = onNavigateToEarnReward,
                 onSaveTutor = viewModel::saveTutor,
-                onTaskClick = {},
+                onTaskClick = onNavigateToParentTask,
                 contentPadding = innerPadding
             )
             1 -> MyLearningsContent(contentPadding = innerPadding)
@@ -176,6 +168,7 @@ private fun ChildHomeContent(
     onNavigateToTestYourself: () -> Unit,
     onNavigateToStreakDashboard: () -> Unit,
     onNavigateToInviteFriend: () -> Unit,
+    onNavigateToEarnReward: () -> Unit,
     onSaveTutor: (String, String) -> Unit,
     onTaskClick: (String) -> Unit,
     contentPadding: PaddingValues
@@ -283,12 +276,22 @@ private fun ChildHomeContent(
             // Tasks content
             if (uiState.parentTasks.isEmpty()) {
                 item {
-                    ParentTasksEmptyCard()
+                    ParentTasksEmptyCard(onClick = onNavigateToEarnReward)
                 }
             } else {
                 items(uiState.parentTasks, key = { it.id }) { task ->
                     ParentTaskCard(task = task, onClick = { onTaskClick(task.id) })
                     Spacer(Modifier.height(12.dp))
+                }
+                // Hide the "request another" CTA while a redo is pending — the
+                // child should finish the assigned redo before asking for more.
+                val hasRedoPending = uiState.parentTasks.any {
+                    it.status == ParentTaskStatus.REJECTED
+                }
+                if (!hasRedoPending) {
+                    item {
+                        RequestNextTaskRow(onClick = onNavigateToEarnReward)
+                    }
                 }
             }
         }  // end LazyColumn
@@ -1072,7 +1075,7 @@ private fun StreakActionButton(
 // ── Parent tasks — empty state ─────────────────────────────────────────────────
 
 @Composable
-private fun ParentTasksEmptyCard() {
+private fun ParentTasksEmptyCard(onClick: () -> Unit = {}) {
     val warmTop = Color(0xFFFFF4E0)   // soft peach
     val warmMid = Color(0xFFFFE8F1)   // soft pink
     val warmEnd = Color(0xFFEEE8FF)   // soft lavender
@@ -1098,6 +1101,7 @@ private fun ParentTasksEmptyCard() {
                 color = Color.White.copy(alpha = 0.6f),
                 shape = RoundedCornerShape(24.dp)
             )
+            .clickable(onClick = onClick)
     ) {
         // Decorative sparkles scattered around
         Text(
@@ -1253,14 +1257,14 @@ private fun ParentTaskCard(task: ParentTask, onClick: () -> Unit) {
                 Spacer(Modifier.width(12.dp))
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = task.title,
+                        text = parentTaskTitle(task),
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = SFProSemiBold,
                         color = DobiTextPrimary
                     )
                     Spacer(Modifier.height(2.dp))
                     Text(
-                        text = task.description,
+                        text = parentTaskDescription(task),
                         style = MaterialTheme.typography.bodySmall,
                         color = DobiTextSecondary,
                         lineHeight = 16.sp,
@@ -1279,32 +1283,25 @@ private fun ParentTaskCard(task: ParentTask, onClick: () -> Unit) {
             Spacer(Modifier.height(12.dp))
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                // Reward chip
-                Row(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(Color(0xFFFFF4E0))
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(text = "🏆", fontSize = 11.sp)
-                    Spacer(Modifier.width(4.dp))
-                    Text(
-                        text = task.reward,
-                        fontSize = 11.sp,
-                        fontWeight = SFProSemiBold,
-                        color = accent
-                    )
-                }
-
-                if (task.dueLabel != null) {
-                    Spacer(Modifier.width(8.dp))
-                    Text(
-                        text = "• ${task.dueLabel}",
-                        fontSize = 11.sp,
-                        color = DobiTextSecondary,
-                        fontWeight = SFProMedium
-                    )
+                if (task.subject.isNotBlank()) {
+                    Row(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(Color(0xFFFFF4E0))
+                            .padding(horizontal = 8.dp, vertical = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        if (task.subjectIcon.isNotBlank()) {
+                            Text(text = task.subjectIcon, fontSize = 11.sp)
+                            Spacer(Modifier.width(4.dp))
+                        }
+                        Text(
+                            text = task.subject,
+                            fontSize = 11.sp,
+                            fontWeight = SFProSemiBold,
+                            color = accent
+                        )
+                    }
                 }
 
                 Spacer(Modifier.weight(1f))
@@ -1316,12 +1313,79 @@ private fun ParentTaskCard(task: ParentTask, onClick: () -> Unit) {
 }
 
 @Composable
+private fun RequestNextTaskRow(onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(14.dp))
+            .background(Color(0xFFFFF7E6))
+            .border(1.dp, Color(0xFFFEEAB6), RoundedCornerShape(14.dp))
+            .clickable(onClick = onClick)
+            .padding(horizontal = 14.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(text = "🎁", fontSize = 18.sp)
+        Spacer(Modifier.width(10.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = "Request your next task",
+                color = DobiTextPrimary,
+                fontSize = 13.sp,
+                fontWeight = SFProSemiBold
+            )
+            Text(
+                text = "Pick another lesson and earn another reward.",
+                color = DobiTextSecondary,
+                fontSize = 11.sp
+            )
+        }
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+            contentDescription = null,
+            tint = Color(0xFFE67E22),
+            modifier = Modifier.size(20.dp)
+        )
+    }
+}
+
+private fun parentTaskTitle(task: ParentTask): String {
+    val scope = task.displayName.ifBlank { "your topic" }
+    return when (task.status) {
+        ParentTaskStatus.REQUESTED -> "Waiting for parent: $scope"
+        else -> when (task.type) {
+            ParentTaskType.REVISE_CHAPTER -> "Revise: $scope"
+            ParentTaskType.WRITE_QA -> "Write Q&A: $scope"
+            ParentTaskType.OUR_QUESTIONS -> "${task.mcqCount} questions: $scope"
+            ParentTaskType.CUSTOM -> "Task on: $scope"
+            null -> scope
+        }
+    }
+}
+
+private fun parentTaskDescription(task: ParentTask): String = when (task.status) {
+    ParentTaskStatus.REQUESTED -> "We've sent your topic to your parents. Hang tight!"
+    ParentTaskStatus.PENDING_REVIEW -> "Submitted. Waiting for parent to review."
+    ParentTaskStatus.ACCEPTED -> task.parentReviewNote.ifBlank { "Great job — your parent accepted it." }
+    ParentTaskStatus.REJECTED -> task.parentReviewNote.ifBlank {
+        "Your parent asked you to redo this. Try again."
+    }
+    ParentTaskStatus.ASSIGNED -> when (task.type) {
+        ParentTaskType.REVISE_CHAPTER -> "Revise the chapter and upload your revision photos."
+        ParentTaskType.WRITE_QA -> "Write Q&A from your textbook and upload the photo."
+        ParentTaskType.OUR_QUESTIONS -> "Answer ${task.mcqCount} quick questions on this topic."
+        ParentTaskType.CUSTOM -> task.customNote.ifBlank { "Open to see what your parent wrote." }
+        null -> "Open to start"
+    }
+}
+
+@Composable
 private fun ParentTaskStatusBadge(status: ParentTaskStatus) {
     val (bg, fg, label) = when (status) {
-        ParentTaskStatus.PENDING    -> Triple(Color(0xFFF1F5F9), DobiTextSecondary, "New")
-        ParentTaskStatus.IN_PROGRESS -> Triple(Color(0xFFDBEAFE), DobiPrimary, "In Progress")
-        ParentTaskStatus.SUBMITTED  -> Triple(Color(0xFFFEF3C7), Color(0xFFB45309), "Submitted")
-        ParentTaskStatus.COMPLETED  -> Triple(Color(0xFFDCFCE7), Color(0xFF15803D), "✓  Done")
+        ParentTaskStatus.REQUESTED      -> Triple(Color(0xFFF1F5F9), DobiTextSecondary, "Waiting…")
+        ParentTaskStatus.ASSIGNED       -> Triple(Color(0xFFDBEAFE), DobiPrimary, "To do")
+        ParentTaskStatus.PENDING_REVIEW -> Triple(Color(0xFFFEF3C7), Color(0xFFB45309), "Submitted")
+        ParentTaskStatus.ACCEPTED       -> Triple(Color(0xFFDCFCE7), Color(0xFF15803D), "✓  Done")
+        ParentTaskStatus.REJECTED       -> Triple(Color(0xFFFEE2E2), Color(0xFFB91C1C), "Redo")
     }
     Box(
         modifier = Modifier
@@ -1382,6 +1446,7 @@ private fun ChildHomeEmptyPreview() {
             onNavigateToTestYourself = {},
             onNavigateToStreakDashboard = {},
             onNavigateToInviteFriend = {},
+            onNavigateToEarnReward = {},
             onSaveTutor = { _, _ -> },
             onTaskClick = {},
             contentPadding = PaddingValues(0.dp)
@@ -1400,19 +1465,23 @@ private fun ChildHomeWithTasksPreview() {
                 parentTasks = listOf(
                     ParentTask(
                         id = "1",
-                        title = "Solve 20 word problems on fractions",
-                        description = "Use Chapter 4 examples. Show your working.",
-                        reward = "₹100",
-                        dueLabel = "Due Sunday",
-                        status = ParentTaskStatus.PENDING
+                        unitName = "Light, Shadows and Reflections",
+                        isUnitScope = true,
+                        subject = "Science",
+                        subjectIcon = "🔬",
+                        type = ParentTaskType.OUR_QUESTIONS,
+                        mcqCount = 10,
+                        status = ParentTaskStatus.ASSIGNED
                     ),
                     ParentTask(
                         id = "2",
-                        title = "Write a paragraph on the water cycle",
-                        description = "150 words, in your own language.",
-                        reward = "30 min screen time",
-                        dueLabel = "Due today",
-                        status = ParentTaskStatus.IN_PROGRESS
+                        unitName = "Fractions",
+                        conceptName = "Equivalent Fractions",
+                        isUnitScope = false,
+                        subject = "Math",
+                        subjectIcon = "🧮",
+                        type = ParentTaskType.REVISE_CHAPTER,
+                        status = ParentTaskStatus.PENDING_REVIEW
                     )
                 )
             ),
@@ -1428,6 +1497,7 @@ private fun ChildHomeWithTasksPreview() {
             onNavigateToTestYourself = {},
             onNavigateToStreakDashboard = {},
             onNavigateToInviteFriend = {},
+            onNavigateToEarnReward = {},
             onSaveTutor = { _, _ -> },
             onTaskClick = {},
             contentPadding = PaddingValues(0.dp)

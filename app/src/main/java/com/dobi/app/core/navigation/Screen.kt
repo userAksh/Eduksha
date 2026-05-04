@@ -39,7 +39,8 @@ enum class ConceptListMode { DEFAULT, PRACTISE_LESSON, TEST_YOURSELF }
         val conceptId: String = "",
         val viewResult: Boolean = false,
         val source: String = "curated",
-        val displayName: String = ""
+        val displayName: String = "",
+        val parentTaskId: String = ""
     ) : Screen()
     @Serializable data object HomeworkLog : Screen()
     @Serializable data object ClassTestPrep : Screen()
@@ -60,6 +61,9 @@ enum class ConceptListMode { DEFAULT, PRACTISE_LESSON, TEST_YOURSELF }
         val conceptId: String = ""
     ) : Screen()
     @Serializable data class SubjectiveResult(val resultId: String) : Screen()
+    @Serializable data object EarnRewardPicker : Screen()
+    @Serializable data class ParentTaskDetail(val taskId: String) : Screen()
+    @Serializable data class DoParentTask(val taskId: String) : Screen()
     @Serializable data object StreakHome : Screen()
     @Serializable data object StreakUploadPicker : Screen()
     @Serializable data class StreakShareOptions(

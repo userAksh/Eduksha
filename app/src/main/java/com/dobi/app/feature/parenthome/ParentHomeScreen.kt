@@ -54,6 +54,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dobi.app.domain.model.Child
+import com.dobi.app.domain.model.ParentTask
+import com.dobi.app.domain.model.ParentTaskStatus
+import com.dobi.app.domain.model.ParentTaskType
 import com.dobi.app.core.ui.theme.DobiError
 import com.dobi.app.core.ui.theme.DobiPrimary
 import com.dobi.app.core.ui.theme.DobiPrimaryContainer
@@ -80,6 +83,7 @@ fun ParentHomeScreen(
     onNavigateToAddChild: () -> Unit,
     onRedirectToAddChild: () -> Unit,
     onNavigateToRoleSelection: () -> Unit,
+    onNavigateToParentTask: (taskId: String) -> Unit = {},
     viewModel: ParentHomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -112,7 +116,9 @@ fun ParentHomeScreen(
 
         ContentBlock(
             children = uiState.children,
+            parentTasks = uiState.parentTasks,
             onNavigateToChildHome = onNavigateToChildHome,
+            onNavigateToParentTask = onNavigateToParentTask,
             onAddChild = onNavigateToAddChild,
             onPairDevice = viewModel::onPairDeviceTapped,
             modifier = Modifier
@@ -187,11 +193,19 @@ private fun HeaderBlock(parentName: String, onSignOut: () -> Unit) {
 @Composable
 private fun ContentBlock(
     children: List<Child>,
+    parentTasks: List<ParentTask>,
     onNavigateToChildHome: (String) -> Unit,
+    onNavigateToParentTask: (String) -> Unit,
     onAddChild: () -> Unit,
     onPairDevice: (Child) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val actionableTasks = parentTasks.filter {
+        it.status == ParentTaskStatus.REQUESTED || it.status == ParentTaskStatus.PENDING_REVIEW
+    }
+    val childById: Map<String, Child> = remember(children) {
+        children.associateBy { it.id }
+    }
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
@@ -202,6 +216,27 @@ private fun ContentBlock(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 20.dp)
         ) {
+            if (actionableTasks.isNotEmpty()) {
+                item {
+                    Text(
+                        text = "Tasks needing your attention",
+                        fontSize = 16.sp,
+                        fontWeight = SFProBold,
+                        color = DobiTextPrimary
+                    )
+                    Spacer(Modifier.height(10.dp))
+                }
+                items(actionableTasks, key = { it.id }) { task ->
+                    ParentActionableTaskCard(
+                        task = task,
+                        childName = childById[task.childId]?.name.orEmpty(),
+                        onClick = { onNavigateToParentTask(task.id) }
+                    )
+                    Spacer(Modifier.height(10.dp))
+                }
+                item { Spacer(Modifier.height(14.dp)) }
+            }
+
             item {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -665,4 +700,96 @@ private fun PairingDialog(
         },
         containerColor = Color.White
     )
+}
+
+// ── Parent task card (requests + reviews) ────────────────────────────────────
+
+@Composable
+private fun ParentActionableTaskCard(
+    task: ParentTask,
+    childName: String,
+    onClick: () -> Unit
+) {
+    val (accentBg, accentFg, label) = when (task.status) {
+        ParentTaskStatus.REQUESTED -> Triple(
+            Color(0xFFFFF4E0), Color(0xFFB45309), "New request"
+        )
+        ParentTaskStatus.PENDING_REVIEW -> Triple(
+            Color(0xFFEFF6FF), DobiPrimary, "Needs review"
+        )
+        else -> Triple(Color(0xFFF1F5F9), DobiTextSecondary, "")
+    }
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(14.dp))
+            .clickable(onClick = onClick),
+        color = Color.White,
+        shadowElevation = 1.dp,
+        shape = RoundedCornerShape(14.dp)
+    ) {
+        Row(
+            modifier = Modifier.padding(14.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
+                    .background(accentBg),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = task.subjectIcon.ifBlank { "📚" },
+                    fontSize = 20.sp
+                )
+            }
+            Spacer(Modifier.width(12.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = parentTaskHeadline(task),
+                    color = DobiTextPrimary,
+                    fontSize = 14.sp,
+                    fontWeight = SFProBold
+                )
+                Text(
+                    text = buildString {
+                        if (childName.isNotBlank()) append("$childName · ")
+                        append(if (task.isUnitScope) "Lesson" else "Concept")
+                        if (task.subject.isNotBlank()) append(" · ${task.subject}")
+                    },
+                    color = DobiTextSecondary,
+                    fontSize = 12.sp
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(accentBg)
+                    .padding(horizontal = 8.dp, vertical = 4.dp)
+            ) {
+                Text(
+                    text = label,
+                    fontSize = 11.sp,
+                    fontWeight = SFProSemiBold,
+                    color = accentFg
+                )
+            }
+        }
+    }
+}
+
+private fun parentTaskHeadline(task: ParentTask): String {
+    val scope = task.displayName.ifBlank { "a topic" }
+    return when (task.status) {
+        ParentTaskStatus.REQUESTED -> "Wants to study: $scope"
+        ParentTaskStatus.PENDING_REVIEW -> when (task.type) {
+            ParentTaskType.REVISE_CHAPTER -> "Submitted revision: $scope"
+            ParentTaskType.WRITE_QA -> "Submitted Q&A: $scope"
+            ParentTaskType.OUR_QUESTIONS -> "Quiz done: $scope"
+            ParentTaskType.CUSTOM -> "Submitted: $scope"
+            null -> "Submitted: $scope"
+        }
+        else -> scope
+    }
 }

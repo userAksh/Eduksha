@@ -11,6 +11,7 @@ import com.dobi.app.data.repository.GeneratedQuizCache
 import com.dobi.app.data.repository.McqGenerationRepository
 import com.dobi.app.data.repository.QuizAttemptRepository
 import com.dobi.app.domain.model.Concept
+import com.dobi.app.domain.repository.ParentTaskRepository
 import com.dobi.app.domain.repository.StreakShareRepository
 import com.dobi.app.domain.repository.UserRepository
 import com.dobi.app.domain.usecase.GetConceptsUseCase
@@ -37,7 +38,8 @@ class QuizViewModel @Inject constructor(
     private val curatedQuizCache: CuratedQuizCache,
     private val mcqGenerationRepository: McqGenerationRepository,
     private val userRepository: UserRepository,
-    private val streakShareRepository: StreakShareRepository
+    private val streakShareRepository: StreakShareRepository,
+    private val parentTaskRepository: ParentTaskRepository
 ) : ViewModel() {
 
     private val route = savedStateHandle.toRoute<Screen.Quiz>()
@@ -48,6 +50,7 @@ class QuizViewModel @Inject constructor(
     private val viewResult: Boolean = route.viewResult
     private val isAiSource: Boolean = route.source == "ai"
     private val routeDisplayName: String = route.displayName
+    private val parentTaskId: String = route.parentTaskId
 
     private val _uiState = MutableStateFlow(QuizUiState())
     val uiState = _uiState.asStateFlow()
@@ -239,11 +242,11 @@ class QuizViewModel @Inject constructor(
                 phase = QuizPhase.DONE,
                 attemptsTaken = it.attemptsTaken + 1
             ) }
+            val correctCount = current.revealed.count { idx ->
+                current.selections[idx] == current.questions.getOrNull(idx)?.correctIndex
+            }
+            val total = current.questions.size
             if (!isAiSource) {
-                val correctCount = current.revealed.count { idx ->
-                    current.selections[idx] == current.questions.getOrNull(idx)?.correctIndex
-                }
-                val total = current.questions.size
                 viewModelScope.launch {
                     quizAttemptRepository.recordAttempt(
                         scope = attemptScope,
@@ -251,6 +254,16 @@ class QuizViewModel @Inject constructor(
                         selections = current.selections,
                         correctCount = correctCount,
                         totalQuestions = total
+                    )
+                }
+            }
+            if (parentTaskId.isNotBlank()) {
+                viewModelScope.launch {
+                    parentTaskRepository.submitByChild(
+                        taskId = parentTaskId,
+                        photoUrls = emptyList(),
+                        score = correctCount,
+                        total = total
                     )
                 }
             }

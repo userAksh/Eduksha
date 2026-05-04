@@ -1,13 +1,17 @@
 package com.dobi.app.di
 
+import com.dobi.app.data.repository.FcmTokenRepositoryImpl
 import com.dobi.app.data.repository.FriendSnapsRepositoryImpl
 import com.dobi.app.data.repository.McqGenerationRepository
 import com.dobi.app.data.repository.McqGenerationRepositoryImpl
+import com.dobi.app.data.repository.ParentTaskRepositoryImpl
 import com.dobi.app.data.repository.StreakShareRepositoryImpl
 import com.dobi.app.data.repository.WriteAnswerRepository
 import com.dobi.app.data.repository.WriteAnswerRepositoryImpl
 import com.dobi.app.data.repository.UserRepositoryImpl
+import com.dobi.app.domain.repository.FcmTokenRepository
 import com.dobi.app.domain.repository.FriendSnapsRepository
+import com.dobi.app.domain.repository.ParentTaskRepository
 import com.dobi.app.domain.repository.StreakShareRepository
 import com.dobi.app.domain.repository.UserRepository
 import dagger.Binds
@@ -47,4 +51,16 @@ abstract class RepositoryModule {
     abstract fun bindFriendSnapsRepository(
         impl: FriendSnapsRepositoryImpl
     ): FriendSnapsRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindParentTaskRepository(
+        impl: ParentTaskRepositoryImpl
+    ): ParentTaskRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindFcmTokenRepository(
+        impl: FcmTokenRepositoryImpl
+    ): FcmTokenRepository
 }

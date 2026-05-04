@@ -15,6 +15,9 @@ import com.dobi.app.feature.addchild.AddChildScreen
 import com.dobi.app.feature.auth.OtpVerificationScreen
 import com.dobi.app.feature.auth.PhoneAuthScreen
 import com.dobi.app.feature.childhome.ChildHomeScreen
+import com.dobi.app.feature.earnreward.EarnRewardPickerScreen
+import com.dobi.app.feature.parenttask.DoParentTaskScreen
+import com.dobi.app.feature.parenttask.ParentTaskDetailScreen
 import com.dobi.app.feature.conceptdetail.ConceptDetailScreen
 import com.dobi.app.feature.conceptlist.ConceptListScreen
 import com.dobi.app.feature.unitdetail.UnitDetailScreen
@@ -200,6 +203,12 @@ fun DobiNavGraph(
                         Intent.createChooser(intent, "Invite a friend")
                     )
                 },
+                onNavigateToEarnReward = {
+                    navController.navigate(Screen.EarnRewardPicker)
+                },
+                onNavigateToParentTask = { taskId ->
+                    navController.navigate(Screen.DoParentTask(taskId))
+                },
                 onRequestParentAccess = {
                     // Pop back to RoleSelection using the pop animation (slide back)
                     val popped = navController.popBackStack(
@@ -233,6 +242,9 @@ fun DobiNavGraph(
                     navController.navigate(Screen.RoleSelection) {
                         popUpTo(0) { inclusive = true }
                     }
+                },
+                onNavigateToParentTask = { taskId ->
+                    navController.navigate(Screen.ParentTaskDetail(taskId))
                 }
             )
         }
@@ -485,6 +497,48 @@ fun DobiNavGraph(
         composable<Screen.ClanLeaderboard> {
             ClanLeaderboardScreen(
                 onNavigateBack = { navController.popBackStack() }
+            )
+        }
+
+        composable<Screen.EarnRewardPicker> {
+            EarnRewardPickerScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onRequestSent = { navController.popBackStack() }
+            )
+        }
+
+        composable<Screen.ParentTaskDetail> {
+            ParentTaskDetailScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onFinished = { navController.popBackStack() }
+            )
+        }
+
+        composable<Screen.DoParentTask> { entry ->
+            val route = entry.toRoute<Screen.DoParentTask>()
+            DoParentTaskScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onFinished = { navController.popBackStack() },
+                onRequestNextTask = {
+                    navController.navigate(Screen.EarnRewardPicker) {
+                        popUpTo<Screen.DoParentTask> { inclusive = true }
+                    }
+                },
+                onLaunchQuiz = { cacheKey, displayName ->
+                    navController.navigate(
+                        Screen.Quiz(
+                            unitId = cacheKey,
+                            source = "ai",
+                            displayName = displayName,
+                            parentTaskId = route.taskId
+                        )
+                    ) {
+                        // Remove the DoParentTask from the back-stack so the
+                        // child returns to home after the quiz, not back to
+                        // a stale "Start quiz" screen.
+                        popUpTo<Screen.DoParentTask> { inclusive = true }
+                    }
+                }
             )
         }
 
