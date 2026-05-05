@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delete your account — Eduksha</title>
+  <meta name="description" content="How to delete your Eduksha account and your child's data." />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/"><span class="brand-mark">E</span> Eduksha</a>
+      <nav class="nav">
+        <a href="/#features">Features</a>
+        <a href="/support">Support</a>
+        <a href="/" class="btn btn-ghost">Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="policy">
+      <h1>Delete your Eduksha account</h1>
+      <p class="updated">You can permanently delete your account and your child's data at any time. Here's how, and exactly what happens after.</p>
+
+      <h2>Option 1 — Delete from inside the app</h2>
+      <ol>
+        <li>Open Eduksha on the parent's phone.</li>
+        <li>Go to <strong>Profile</strong> (or the parent dashboard, depending on your role).</li>
+        <li>Tap <strong>Settings → Delete account</strong>.</li>
+        <li>Re-verify your phone number with a one-time password.</li>
+        <li>Confirm. Deletion is queued immediately.</li>
+      </ol>
+      <p class="muted">If you don't see the Delete-account option in your build of the app, you're on an older version — please use Option 2 below until you can update.</p>
+
+      <h2>Option 2 — Email request</h2>
+      <p>Send an email from the phone-linked email address (or include the registered phone number for verification) to:</p>
+      <p><a class="btn btn-primary" href="mailto:privacy@eduksha.in?subject=Delete%20my%20Eduksha%20account&body=Phone%20number%20linked%20to%20account%3A%20%0AParent%20name%3A%20%0AChild%20name(s)%20to%20delete%3A%20%0A%0AI%20confirm%20I%20am%20the%20parent%20and%20I%20want%20to%20delete%20all%20Eduksha%20data%20for%20this%20account.">Email privacy@eduksha.in</a></p>
+      <p>We confirm receipt within <strong>2 business days</strong> and complete the deletion within <strong>30 days</strong>.</p>
+
+      <h2>What gets deleted</h2>
+      <ul>
+        <li>Your parent profile (phone number, display name, FCM token).</li>
+        <li>Every child profile linked to your account (name, class, gender, PIN, friends list).</li>
+        <li>All uploaded photos in Cloud Storage (homework, self-learning, tuition).</li>
+        <li>All quiz attempts, written-answer results, parent-task records, streak counters.</li>
+        <li>All friend connections referencing your child profiles (the friends-of-friends will see the connection silently disappear).</li>
+      </ul>
+
+      <h2>What is retained briefly, and why</h2>
+      <ul>
+        <li><strong>Backup snapshots</strong> — Google Cloud retains backup copies for up to 90 days. They are not accessible to us during normal operation and are purged automatically.</li>
+        <li><strong>Aggregate counters</strong> — anonymous counters such as “number of quizzes generated” may persist; these contain no PII and cannot be linked back to your account.</li>
+        <li><strong>Compliance logs</strong> — security-event logs may persist up to 12 months as required by Indian law.</li>
+      </ul>
+
+      <h2>What is not deleted</h2>
+      <ul>
+        <li>Content you may have shared outside Eduksha (e.g. a streak screenshot you texted to a friend).</li>
+        <li>Records that we are legally required to keep — for example, tax records if you ever made a payment.</li>
+      </ul>
+
+      <h2>Reverting after deletion</h2>
+      <p>Deletion is permanent. Once a deletion request is processed, we cannot recover the account, the child profiles, or any uploaded content. If you change your mind during the 2-day grace period, email <a href="mailto:privacy@eduksha.in">privacy@eduksha.in</a> from the registered phone's email and we will pause the request.</p>
+
+      <h2>Questions</h2>
+      <p>Reach us at <a href="mailto:privacy@eduksha.in">privacy@eduksha.in</a>. For anything not deletion-related, <a href="mailto:hello@eduksha.in">hello@eduksha.in</a> is the better address.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="/"><span class="brand-mark">E</span> Eduksha</a>
+          <p>A learning companion for Indian families. Built with care, no ads, and a real privacy floor.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Product</h5>
+          <ul>
+            <li><a href="/#features">Features</a></li>
+            <li><a href="/#how">How it works</a></li>
+            <li><a href="/support">Support</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Legal</h5>
+          <ul>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+            <li><a href="/delete-account">Delete account</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Get in touch</h5>
+          <ul>
+            <li><a href="mailto:hello@eduksha.in">hello@eduksha.in</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="legal-line">
+        <span>© <span id="year">2026</span> Eduksha. Made in India.</span>
+        <span>Aligned to NCERT &amp; CBSE curriculum. Not affiliated with NCERT or CBSE.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
