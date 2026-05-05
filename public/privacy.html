@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Eduksha</title>
+  <meta name="description" content="How Eduksha collects, uses, and protects information for parents and children using our learning app." />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/"><span class="brand-mark">E</span> Eduksha</a>
+      <nav class="nav">
+        <a href="/#features">Features</a>
+        <a href="/support">Support</a>
+        <a href="/" class="btn btn-ghost">Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="policy">
+      <h1>Privacy Policy</h1>
+      <p class="updated">Effective date: 5 May 2026 · Last updated: 5 May 2026</p>
+
+      <p>This Privacy Policy explains what information Eduksha (“we”, “us”) collects when a parent and their child use the Eduksha mobile application and this website (together, the “Service”), how we use it, who we share it with, and the choices available to families.</p>
+      <p>Eduksha is operated as a personal venture from India and is intended for use by parents on behalf of their children, primarily aged 8–13. Parents are the account holders. Children use the Service through a parent-managed profile.</p>
+
+      <h2>1. Who this policy applies to</h2>
+      <p>The Service has two roles:</p>
+      <ul>
+        <li><strong>Parents</strong> — sign up with a phone number, set up child profiles, and review submissions.</li>
+        <li><strong>Children</strong> — use a child profile created by a parent. Children do not create their own accounts and do not log in with email or social-media credentials.</li>
+      </ul>
+      <p>Because Eduksha is directed in part to children under 13, we treat all child-profile data with the stricter standard required by India's Digital Personal Data Protection Act, 2023 (DPDPA) and, where applicable, the United States' Children's Online Privacy Protection Rule (COPPA) and the EU General Data Protection Regulation (GDPR). Parental consent — captured the first time a parent signs in — is required before any child profile is created.</p>
+
+      <h2>2. Information we collect</h2>
+      <p>We only collect the data we need to operate the Service. We do not buy data from third parties or build advertising profiles.</p>
+
+      <h3>From the parent</h3>
+      <ul>
+        <li>Phone number (used for OTP-based sign-in via Firebase Authentication).</li>
+        <li>Parent display name and avatar emoji, if provided.</li>
+        <li>Push notification token (Firebase Cloud Messaging) so we can notify you of pending reviews.</li>
+        <li>Device identifiers required by Google Play Integrity App Check to confirm the request is coming from a legitimate Eduksha install.</li>
+      </ul>
+
+      <h3>From / about the child</h3>
+      <ul>
+        <li>Child's first name (or nickname).</li>
+        <li>Class / grade and board (e.g. CBSE).</li>
+        <li>Gender (used only to pick a default avatar; never disclosed to third parties or other users).</li>
+        <li>Optional date of birth, if the parent provides one.</li>
+        <li>4-digit PIN set by the parent for the child's device (stored hashed).</li>
+        <li>Push notification token, if the child is on a paired device.</li>
+      </ul>
+
+      <h3>Activity created inside the app</h3>
+      <ul>
+        <li>Photos of homework, notes, and worksheets uploaded by the child.</li>
+        <li>Selected MCQ answers and last-attempt scores.</li>
+        <li>Written-answer text and the AI-generated feedback we return.</li>
+        <li>Tasks assigned by the parent, the child's submission, and the parent's review note.</li>
+        <li>Streak and milestone counters.</li>
+        <li>A short list of friend connections (parent ID, child ID, name, class), created only when one parent shares a referral link and another parent claims it for their child.</li>
+      </ul>
+
+      <h3>From the device / network</h3>
+      <ul>
+        <li>Approximate IP address (collected automatically by Google Cloud when the app talks to our servers — used for security and abuse prevention).</li>
+        <li>Crash and stability logs if you opt in to Google Play crash reporting.</li>
+        <li>Install-referrer code from Google Play, used once on first launch to attribute deferred deep-link friend invites.</li>
+      </ul>
+
+      <p>We do <strong>not</strong> collect: precise location, contacts, microphone audio, camera video (the camera permission is used only to take homework photos that the child manually submits), browsing history outside the app, or any social-media data.</p>
+
+      <h2>3. How we use the information</h2>
+      <table>
+        <thead>
+          <tr><th>What we do</th><th>What it relies on</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Sign you in and keep your session</td><td>Phone number + Firebase Auth</td></tr>
+          <tr><td>Show your child their daily learning, news, and lessons</td><td>Profile + activity records</td></tr>
+          <tr><td>Generate practice quizzes and grade written answers</td><td>Photo / text + Google Gemini API</td></tr>
+          <tr><td>Notify the parent or child about milestones and submissions</td><td>FCM token + activity records</td></tr>
+          <tr><td>Show streaks, accuracy, and topic counts in the Profile tab</td><td>Aggregated activity</td></tr>
+          <tr><td>Show kid-safe news in “Eduksha Times”</td><td>One Gemini call per day for the entire user base; no per-user data is sent</td></tr>
+          <tr><td>Connect children whose parents share a referral link</td><td>Friend connection records on both child profiles</td></tr>
+          <tr><td>Detect abuse and block fraudulent installs</td><td>Play Integrity App Check + IP address</td></tr>
+        </tbody>
+      </table>
+
+      <p>We do not use any of this information for behavioural advertising, profiling for marketing, or selling to data brokers.</p>
+
+      <h2>4. Who we share information with</h2>
+      <p>We share data only with the third parties strictly required to run the Service:</p>
+      <ul>
+        <li><strong>Google LLC / Firebase</strong> — authentication, Firestore database, Cloud Storage for photos, Cloud Functions, Cloud Messaging, App Check, Crashlytics (if enabled). Google acts as our data processor.</li>
+        <li><strong>Google Gemini API</strong> — receives a child's homework photo or written answer when generating quizzes / feedback. We do not include the child's name or any PII in the prompt; only the academic content. Per Google's API terms, prompts and outputs are not used to train Google's general-purpose models.</li>
+        <li><strong>Google Play / Android</strong> — install-referrer and notification delivery infrastructure.</li>
+      </ul>
+      <p>We do not share information with any other third party. We do not sell, rent, or trade personal data.</p>
+
+      <h2>5. Where data is stored</h2>
+      <p>Your data is stored on Google Cloud infrastructure (regions managed by Google, primarily Mumbai-based for Indian users). Photos are stored in Cloud Storage. Profile and activity records are stored in Firestore. We rely on Google's encryption-at-rest and TLS-in-transit by default.</p>
+
+      <h2>6. How long we keep it</h2>
+      <p>We retain data for as long as your account is active. If a parent deletes the account, child profile, or specific upload, we delete the underlying records and photos within 30 days. Backup copies are purged within an additional 90 days according to Google Cloud's normal retention. See <a href="/delete-account">Account Deletion</a> for the exact steps.</p>
+
+      <h2>7. Your rights</h2>
+      <p>Under DPDPA, GDPR, and similar regimes, you can:</p>
+      <ul>
+        <li><strong>Access</strong> the personal data we hold about you and your child.</li>
+        <li><strong>Correct</strong> inaccurate information from inside the app, or by emailing us.</li>
+        <li><strong>Delete</strong> your account and all child data — see <a href="/delete-account">here</a>.</li>
+        <li><strong>Object</strong> to specific processing.</li>
+        <li><strong>Withdraw consent</strong> at any time. Note that withdrawing consent will end the Service for the affected child profile.</li>
+        <li><strong>Lodge a complaint</strong> with India's Data Protection Board or your local supervisory authority.</li>
+      </ul>
+      <p>To exercise any of these rights, email <a href="mailto:privacy@eduksha.in">privacy@eduksha.in</a>. We will respond within 30 days.</p>
+
+      <h2>8. Children's privacy</h2>
+      <p>Eduksha is built for kids, and we take this seriously:</p>
+      <ul>
+        <li>No child can sign up without a parent's verified phone-OTP session creating their profile.</li>
+        <li>News and AI-generated content is filtered against a strict child-safety prompt that excludes violence, politics, religion, and scary or distressing themes.</li>
+        <li>The app contains no advertising, no behavioural tracking, no chat with strangers, and no in-app purchases targeted at children.</li>
+        <li>Friend connections are limited to other children whose parents have explicitly shared and claimed a referral link. Children cannot search for or contact other users.</li>
+        <li>If we ever learn a child has signed up without parental consent, we will delete the relevant data and the parent's record promptly.</li>
+      </ul>
+
+      <h2>9. Security</h2>
+      <p>We rely on Google Cloud's enterprise security stack: TLS for data in transit, AES-256 encryption at rest, and Firestore security rules that limit each parent / child to their own subtree. Cloud Functions are protected by App Check. Despite these controls, no system is perfectly secure, and we encourage you to use a strong password / lock on your device and not share OTPs or PINs.</p>
+
+      <h2>10. Changes to this policy</h2>
+      <p>We may update this policy from time to time as the Service evolves. The “Last updated” date at the top will reflect the most recent revision. Material changes will also be announced inside the app.</p>
+
+      <h2>11. Contact us</h2>
+      <p>For privacy questions, deletion requests, or anything in this document:</p>
+      <ul>
+        <li>Email: <a href="mailto:privacy@eduksha.in">privacy@eduksha.in</a></li>
+        <li>General support: <a href="mailto:hello@eduksha.in">hello@eduksha.in</a></li>
+      </ul>
+      <p>You can also reach the operator at the postal address listed in the Google Play store listing.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="/"><span class="brand-mark">E</span> Eduksha</a>
+          <p>A learning companion for Indian families. Built with care, no ads, and a real privacy floor.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Product</h5>
+          <ul>
+            <li><a href="/#features">Features</a></li>
+            <li><a href="/#how">How it works</a></li>
+            <li><a href="/support">Support</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Legal</h5>
+          <ul>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+            <li><a href="/delete-account">Delete account</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Get in touch</h5>
+          <ul>
+            <li><a href="mailto:hello@eduksha.in">hello@eduksha.in</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="legal-line">
+        <span>© <span id="year">2026</span> Eduksha. Made in India.</span>
+        <span>Aligned to NCERT &amp; CBSE curriculum. Not affiliated with NCERT or CBSE.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

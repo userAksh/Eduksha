@@ -1,0 +1,24 @@
+package com.dobi.app.feature.childprofile
+
+import com.dobi.app.domain.model.Friend
+
+data class ChildProfileUiState(
+    val isLoading: Boolean = true,
+    val name: String = "",
+    val grade: Int = 0,
+    val board: String = "CBSE",
+    val gender: String = "boy",
+    val streakDays: Int = 0,
+    val topicsCount: Int = 0,
+    val quizzesCount: Int = 0,
+    val averageAccuracyPct: Int = 0,
+    val subjects: List<SubjectStat> = emptyList(),
+    val friends: List<Friend> = emptyList()
+)
+
+data class SubjectStat(
+    val name: String,
+    val emoji: String,
+    val topicsCount: Int,
+    val accuracyPct: Int?
+)

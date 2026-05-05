@@ -89,6 +89,7 @@ import com.dobi.app.core.ui.theme.DobiTheme
 import com.dobi.app.domain.model.ParentTask
 import com.dobi.app.domain.model.ParentTaskStatus
 import com.dobi.app.domain.model.ParentTaskType
+import com.dobi.app.feature.childprofile.ChildProfileContent
 import com.dobi.app.feature.mylearnings.MyLearningsContent
 
 // ── Entry point ────────────────────────────────────────────────────────────────
@@ -207,7 +208,11 @@ fun ChildHomeScreen(
                     }
                 }
             )
-            2 -> TabPlaceholder("Profile", innerPadding)
+            2 -> ChildProfileContent(
+                contentPadding = innerPadding,
+                onInviteFriend = viewModel::onInviteFriendClicked,
+                onSwitchProfile = onRequestParentAccess
+            )
         }
     }
 }
