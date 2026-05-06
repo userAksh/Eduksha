@@ -64,4 +64,12 @@ class UserPreferences @Inject constructor(
     suspend fun markInviteClaimDone() {
         dataStore.edit { it[KEY_INVITE_CLAIMED] = true }
     }
+
+    /**
+     * Wipes every preference key. Used after account deletion so the next
+     * cold start lands on RoleSelection with a clean slate.
+     */
+    suspend fun clearAll() {
+        dataStore.edit { it.clear() }
+    }
 }

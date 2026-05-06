@@ -20,14 +20,24 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Logout
+import androidx.compose.material.icons.filled.DeleteForever
 import androidx.compose.material.icons.filled.PersonAdd
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
+import android.widget.Toast
+import kotlinx.coroutines.flow.collectLatest
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -60,15 +70,45 @@ fun ChildProfileContent(
     contentPadding: PaddingValues,
     onInviteFriend: () -> Unit,
     onSwitchProfile: () -> Unit,
+    onAccountDeleted: () -> Unit = {},
     viewModel: ChildProfileViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+
+    LaunchedEffect(viewModel) {
+        viewModel.deletionEvents.collectLatest { event ->
+            when (event) {
+                is ChildProfileViewModel.DeletionEvent.Completed -> {
+                    Toast.makeText(
+                        context,
+                        "Account deleted. Hope to see you again!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    onAccountDeleted()
+                }
+                is ChildProfileViewModel.DeletionEvent.Failed -> {
+                    Toast.makeText(context, event.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
     ChildProfileLayout(
         uiState = uiState,
         contentPadding = contentPadding,
         onInviteFriend = onInviteFriend,
-        onSwitchProfile = onSwitchProfile
+        onSwitchProfile = onSwitchProfile,
+        onDeleteAccountClick = viewModel::showDeleteDialog
     )
+
+    if (uiState.deleteDialogVisible) {
+        DeleteAccountDialog(
+            isDeleting = uiState.isDeleting,
+            onConfirm = viewModel::confirmDeleteAccount,
+            onDismiss = viewModel::dismissDeleteDialog
+        )
+    }
 }
 
 @Composable
@@ -76,7 +116,8 @@ private fun ChildProfileLayout(
     uiState: ChildProfileUiState,
     contentPadding: PaddingValues,
     onInviteFriend: () -> Unit,
-    onSwitchProfile: () -> Unit
+    onSwitchProfile: () -> Unit,
+    onDeleteAccountClick: () -> Unit = {}
 ) {
     LazyColumn(
         modifier = Modifier
@@ -119,6 +160,7 @@ private fun ChildProfileLayout(
 
         item { Spacer(Modifier.height(4.dp)) }
         item { SwitchProfileCard(onClick = onSwitchProfile) }
+        item { DeleteAccountCard(onClick = onDeleteAccountClick) }
     }
 }
 
@@ -603,6 +645,133 @@ private fun InvitePill(onClick: () -> Unit) {
 }
 
 // ── Switch profile / logout ────────────────────────────────────────────────────
+
+@Composable
+private fun DeleteAccountCard(onClick: () -> Unit) {
+    val danger = Color(0xFFEF4444)
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .border(1.dp, Color(0xFFFECACA), RoundedCornerShape(14.dp)),
+        shape = RoundedCornerShape(14.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF5F5)),
+        elevation = CardDefaults.cardElevation(0.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 14.dp, vertical = 14.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(36.dp)
+                    .clip(CircleShape)
+                    .background(Color(0xFFFEE2E2)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.DeleteForever,
+                    contentDescription = null,
+                    tint = danger,
+                    modifier = Modifier.size(18.dp)
+                )
+            }
+            Spacer(Modifier.width(12.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = "Delete account",
+                    fontSize = 14.sp,
+                    fontWeight = SFProSemiBold,
+                    color = danger
+                )
+                Spacer(Modifier.height(2.dp))
+                Text(
+                    text = "Permanently remove your account, every child profile, all uploads, and friend connections.",
+                    fontSize = 12.sp,
+                    color = DobiTextSecondary,
+                    lineHeight = 16.sp,
+                    fontWeight = FontWeight.Normal,
+                    textAlign = TextAlign.Start
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun DeleteAccountDialog(
+    isDeleting: Boolean,
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    val danger = Color(0xFFEF4444)
+    AlertDialog(
+        onDismissRequest = { if (!isDeleting) onDismiss() },
+        title = {
+            Text(
+                text = "Delete account?",
+                fontWeight = SFProBold,
+                color = DobiTextPrimary
+            )
+        },
+        text = {
+            Column {
+                Text(
+                    text = "This permanently deletes:",
+                    color = DobiTextPrimary,
+                    fontSize = 14.sp
+                )
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    text = "•  Every child profile under your account\n" +
+                        "•  All uploaded photos, quizzes, and written answers\n" +
+                        "•  Streaks, parent tasks, and friend connections\n" +
+                        "•  Your sign-in record",
+                    color = DobiTextSecondary,
+                    fontSize = 13.sp,
+                    lineHeight = 19.sp
+                )
+                Spacer(Modifier.height(10.dp))
+                Text(
+                    text = "This cannot be undone.",
+                    color = danger,
+                    fontSize = 13.sp,
+                    fontWeight = SFProSemiBold
+                )
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = onConfirm,
+                enabled = !isDeleting,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = danger,
+                    contentColor = Color.White
+                )
+            ) {
+                if (isDeleting) {
+                    CircularProgressIndicator(
+                        color = Color.White,
+                        strokeWidth = 2.dp,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Spacer(Modifier.width(8.dp))
+                    Text("Deleting…")
+                } else {
+                    Text("Delete forever")
+                }
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss, enabled = !isDeleting) {
+                Text("Cancel", color = DobiTextSecondary)
+            }
+        },
+        containerColor = Color.White
+    )
+}
 
 @Composable
 private fun SwitchProfileCard(onClick: () -> Unit) {

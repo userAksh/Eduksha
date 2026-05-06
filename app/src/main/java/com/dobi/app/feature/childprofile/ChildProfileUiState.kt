@@ -13,7 +13,9 @@ data class ChildProfileUiState(
     val quizzesCount: Int = 0,
     val averageAccuracyPct: Int = 0,
     val subjects: List<SubjectStat> = emptyList(),
-    val friends: List<Friend> = emptyList()
+    val friends: List<Friend> = emptyList(),
+    val deleteDialogVisible: Boolean = false,
+    val isDeleting: Boolean = false
 )
 
 data class SubjectStat(

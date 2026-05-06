@@ -1,14 +1,24 @@
 rules_version = '2';
 
-// Dobi Firestore rules.
+// Eduksha Firestore rules.
 //
-// Conservative starting point: parents read/write their own subtree, every
-// child doc is reachable only by the parent uid that owns it. The `invites`
-// collection is server-only — clients never touch it directly because the
-// `createInvite` / `claimInvite` Cloud Functions bypass these rules using
-// the Admin SDK.
+// Trust model:
+//   - Both parent and child devices authenticate as the parent's uid
+//     (the child device signs in with the same Firebase user via the
+//     pairing flow). So request.auth.uid is always the parentId.
+//   - Each child profile lives at parents/{parentId}/children/{childId}.
+//     Top-level activity collections (uploads, quiz_attempts, etc.) carry
+//     a `childId` field; they're authorised by checking that the auth.uid
+//     owns a child document with that id.
+//   - Server-only collections (invites, dobi_meta) deny all client traffic;
+//     Cloud Functions reach them via the Admin SDK and bypass rules.
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    function isParentOf(childId) {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/parents/$(request.auth.uid)/children/$(childId));
+    }
 
     match /parents/{parentId} {
       allow read, write: if request.auth != null && request.auth.uid == parentId;
@@ -34,6 +44,39 @@ service cloud.firestore {
     // works because the SDK bypasses these rules entirely.
     match /invites/{code} {
       allow read, write: if false;
+    }
+
+    // Daily-news global cache — server-only. Clients call the
+    // getDailyNews callable, which returns the cached payload directly.
+    match /dobi_meta/{doc} {
+      allow read, write: if false;
+    }
+
+    // Child-keyed activity collections. The doc must carry a `childId`
+    // belonging to the caller.
+    match /uploads/{id} {
+      allow create: if isParentOf(request.resource.data.childId);
+      allow read, update, delete: if isParentOf(resource.data.childId);
+    }
+
+    match /homeworks/{id} {
+      allow create: if isParentOf(request.resource.data.childId);
+      allow read, update, delete: if isParentOf(resource.data.childId);
+    }
+
+    match /subjective_results/{id} {
+      allow create: if isParentOf(request.resource.data.childId);
+      allow read, update, delete: if isParentOf(resource.data.childId);
+    }
+
+    // quiz_attempts/{childId}/{units|concepts}/{targetId} subtree.
+    // The `document=**` recursive wildcard catches every depth under the
+    // child id, including the (possibly absent) parent doc itself.
+    match /quiz_attempts/{childId} {
+      allow read, write: if isParentOf(childId);
+    }
+    match /quiz_attempts/{childId}/{document=**} {
+      allow read, write: if isParentOf(childId);
     }
   }
 }

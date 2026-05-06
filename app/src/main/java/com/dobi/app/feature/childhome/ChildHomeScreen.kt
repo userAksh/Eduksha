@@ -211,7 +211,8 @@ fun ChildHomeScreen(
             2 -> ChildProfileContent(
                 contentPadding = innerPadding,
                 onInviteFriend = viewModel::onInviteFriendClicked,
-                onSwitchProfile = onRequestParentAccess
+                onSwitchProfile = onRequestParentAccess,
+                onAccountDeleted = onRequestParentAccess
             )
         }
     }

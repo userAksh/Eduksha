@@ -1,21 +1,52 @@
 # Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# See http://developer.android.com/guide/developing/tools/proguard.html
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Keep stack traces readable in Play Console crash reports.
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# ── Firestore data classes ────────────────────────────────────────────────
+# We deserialize via `doc.toObject(SomeClass::class.java)` and
+# `data["field"] as ...` casts. R8 doesn't see those reflective entry
+# points, so every domain model must be kept verbatim along with its
+# no-arg constructor and field names.
+-keep class com.dobi.app.domain.model.** { *; }
+-keepclassmembers class com.dobi.app.domain.model.** {
+    <init>();
+    <init>(...);
+}
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Enums in domain.model are looked up by name (e.g. ParentTaskStatus.valueOf,
+# RevisionScope.fromKey reads the .name property). Keep their static methods.
+-keepclassmembers enum com.dobi.app.domain.model.** {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+# ── kotlinx.serialization (type-safe nav routes via @Serializable) ────────
+-keepattributes *Annotation*, InnerClasses
+
+-keepclassmembers @kotlinx.serialization.Serializable class * {
+    public static **$Companion Companion;
+    public static **$$serializer INSTANCE;
+}
+
+-keep class com.dobi.app.core.navigation.Screen { *; }
+-keep class com.dobi.app.core.navigation.Screen$* { *; }
+-keepclassmembers class com.dobi.app.core.navigation.Screen$* {
+    *** Companion;
+    kotlinx.serialization.KSerializer serializer(...);
+}
+
+-if class com.dobi.app.core.navigation.Screen$* {
+    static **$Companion Companion;
+}
+-keep class com.dobi.app.core.navigation.Screen$*$$serializer { *; }
+
+# ── Firebase already ships consumer-rules; these belt-and-braces lines
+# keep model classes referenced by Firestore + Crashlytics from being
+# stripped by aggressive optimization passes.
+-keepnames class com.google.firebase.** { *; }
+
+# ── Hilt generated code is already kept by the plugin's consumer rules.
+# (Listed here as a reminder; no extra directive required.)

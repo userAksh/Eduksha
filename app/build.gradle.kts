@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -7,6 +9,16 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.google.services)
 }
+
+// Release signing — populated from keystore.properties at the repo root.
+// File is gitignored. See RELEASE.md for the keystore generation command.
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties().apply {
+    if (keystorePropertiesFile.exists()) {
+        keystorePropertiesFile.inputStream().use { load(it) }
+    }
+}
+val hasReleaseKeystore = keystorePropertiesFile.exists()
 
 android {
     namespace = "com.dobi.app"
@@ -21,13 +33,28 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        if (hasReleaseKeystore) {
+            create("release") {
+                storeFile = rootProject.file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+            }
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            if (hasReleaseKeystore) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
     compileOptions {
@@ -90,7 +117,10 @@ dependencies {
      implementation("com.google.firebase:firebase-functions-ktx")
      implementation("com.google.firebase:firebase-ai")
      implementation("com.google.firebase:firebase-appcheck-playintegrity")
-     debugImplementation("com.google.firebase:firebase-appcheck-debug")
+     // Kept on the release classpath too because DobiApplication imports
+     // DebugAppCheckProviderFactory directly under a BuildConfig.DEBUG
+     // guard. R8 dead-code-eliminates the unreachable branch in release.
+     implementation("com.google.firebase:firebase-appcheck-debug")
 
     // Play Install Referrer — used to attribute deferred deep-links from
     // friend-invite shares to the new install on first launch.

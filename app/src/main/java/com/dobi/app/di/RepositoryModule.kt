@@ -1,6 +1,7 @@
 package com.dobi.app.di
 
 import com.dobi.app.data.repository.DailyNewsRepositoryImpl
+import com.dobi.app.data.repository.DeleteAccountRepositoryImpl
 import com.dobi.app.data.repository.FcmTokenRepositoryImpl
 import com.dobi.app.data.repository.FriendSnapsRepositoryImpl
 import com.dobi.app.data.repository.InviteRepositoryImpl
@@ -12,6 +13,7 @@ import com.dobi.app.data.repository.WriteAnswerRepository
 import com.dobi.app.data.repository.WriteAnswerRepositoryImpl
 import com.dobi.app.data.repository.UserRepositoryImpl
 import com.dobi.app.domain.repository.DailyNewsRepository
+import com.dobi.app.domain.repository.DeleteAccountRepository
 import com.dobi.app.domain.repository.FcmTokenRepository
 import com.dobi.app.domain.repository.FriendSnapsRepository
 import com.dobi.app.domain.repository.InviteRepository
@@ -79,4 +81,10 @@ abstract class RepositoryModule {
     abstract fun bindDailyNewsRepository(
         impl: DailyNewsRepositoryImpl
     ): DailyNewsRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindDeleteAccountRepository(
+        impl: DeleteAccountRepositoryImpl
+    ): DeleteAccountRepository
 }

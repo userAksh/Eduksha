@@ -2,16 +2,20 @@ package com.dobi.app.feature.childprofile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dobi.app.data.local.UserPreferences
 import com.dobi.app.data.repository.QuizAttemptRepository
 import com.dobi.app.data.repository.SubjectiveResultRepository
 import com.dobi.app.data.repository.UploadEntryRepository
 import com.dobi.app.domain.model.SubjectiveResult
 import com.dobi.app.domain.model.UploadEntry
 import com.dobi.app.domain.repository.ChildRepository
+import com.dobi.app.domain.repository.DeleteAccountRepository
 import com.dobi.app.domain.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
@@ -28,15 +32,62 @@ class ChildProfileViewModel @Inject constructor(
     private val childRepository: ChildRepository,
     private val uploadEntryRepository: UploadEntryRepository,
     private val subjectiveResultRepository: SubjectiveResultRepository,
-    private val quizAttemptRepository: QuizAttemptRepository
+    private val quizAttemptRepository: QuizAttemptRepository,
+    private val deleteAccountRepository: DeleteAccountRepository,
+    private val userPreferences: UserPreferences
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ChildProfileUiState())
     val uiState = _uiState.asStateFlow()
 
+    sealed interface DeletionEvent {
+        data object Completed : DeletionEvent
+        data class Failed(val message: String) : DeletionEvent
+    }
+
+    private val _deletionEvents = MutableSharedFlow<DeletionEvent>(extraBufferCapacity = 1)
+    val deletionEvents = _deletionEvents.asSharedFlow()
+
     init {
         loadChild()
         observeStats()
+    }
+
+    fun showDeleteDialog() {
+        _uiState.update { it.copy(deleteDialogVisible = true) }
+    }
+
+    fun dismissDeleteDialog() {
+        if (_uiState.value.isDeleting) return
+        _uiState.update { it.copy(deleteDialogVisible = false) }
+    }
+
+    fun confirmDeleteAccount() {
+        if (_uiState.value.isDeleting) return
+        _uiState.update { it.copy(isDeleting = true) }
+        viewModelScope.launch {
+            val result = deleteAccountRepository.deleteAccount()
+            result
+                .onSuccess {
+                    // Server side is wiped — clean local state too so the
+                    // next cold start can't resurrect a stale session.
+                    runCatching { userPreferences.clearAll() }
+                    runCatching { auth.signOut() }
+                    _uiState.update {
+                        it.copy(isDeleting = false, deleteDialogVisible = false)
+                    }
+                    _deletionEvents.tryEmit(DeletionEvent.Completed)
+                }
+                .onFailure { err ->
+                    _uiState.update { it.copy(isDeleting = false) }
+                    _deletionEvents.tryEmit(
+                        DeletionEvent.Failed(
+                            err.message?.takeIf { it.isNotBlank() }
+                                ?: "Couldn't delete the account. Please try again."
+                        )
+                    )
+                }
+        }
     }
 
     private fun loadChild() {

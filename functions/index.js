@@ -27,6 +27,8 @@ const { defineSecret } = require("firebase-functions/params");
 const { initializeApp } = require("firebase-admin/app");
 const { getFirestore, FieldValue } = require("firebase-admin/firestore");
 const { getMessaging } = require("firebase-admin/messaging");
+const { getAuth } = require("firebase-admin/auth");
+const { getStorage } = require("firebase-admin/storage");
 const logger = require("firebase-functions/logger");
 
 // Daily-news Gemini key. Set with:
@@ -557,4 +559,101 @@ async function fetchDailyNewsFromGemini() {
     throw new Error("Gemini returned no usable stories");
   }
   return cleaned;
+}
+
+// ── Account deletion ───────────────────────────────────────────────────────
+//
+// deleteAccount — caller must be authenticated; we use auth.uid as the
+// parentId. Wipes every Firestore doc and Storage object connected to the
+// parent and their children, then deletes the Auth user. Required by the
+// Google Play User Data policy.
+//
+// Order matters: Firestore + Storage first (we need the auth token to be
+// valid for cross-collection queries), Auth user last.
+
+exports.deleteAccount = onCall({ timeoutSeconds: 540 }, async (request) => {
+  if (!request.auth) {
+    throw new HttpsError("unauthenticated", "Sign in required");
+  }
+  const parentId = request.auth.uid;
+  logger.info(`deleteAccount: starting for parent=${parentId}`);
+
+  // 1. Discover the parent's children
+  const childrenSnap = await db.collection("parents").doc(parentId)
+    .collection("children").get();
+  const childIds = childrenSnap.docs.map((d) => d.id);
+  logger.info(`deleteAccount: found ${childIds.length} children`);
+
+  // 2. Delete top-level docs keyed by parentId
+  await deleteByQuery(
+    db.collection("parentTaskRequests").where("parentId", "==", parentId)
+  );
+  await deleteByQuery(
+    db.collection("invites").where("inviterParentId", "==", parentId)
+  );
+
+  // 3. Per-child cleanup
+  for (const childId of childIds) {
+    // Top-level child-keyed collections
+    await deleteByQuery(
+      db.collection("subjective_results").where("childId", "==", childId)
+    );
+    await deleteByQuery(
+      db.collection("uploads").where("childId", "==", childId)
+    );
+    await deleteByQuery(
+      db.collection("homeworks").where("childId", "==", childId)
+    );
+
+    // quiz_attempts/{childId}/{units|concepts}/* — nested subcollections
+    const quizDocRef = db.collection("quiz_attempts").doc(childId);
+    for (const sub of ["units", "concepts"]) {
+      const snap = await quizDocRef.collection(sub).get();
+      await Promise.all(snap.docs.map((d) => d.ref.delete()));
+    }
+    await quizDocRef.delete().catch(() => { /* doc may not exist */ });
+
+    // Storage objects under the child
+    try {
+      const bucket = getStorage().bucket();
+      await bucket.deleteFiles({ prefix: `uploads/${childId}/` });
+      await bucket.deleteFiles({ prefix: `homework_photos/${childId}/` });
+    } catch (err) {
+      logger.warn(
+        `deleteAccount: storage cleanup failed for child=${childId}: ${err.message}`
+      );
+    }
+
+    // Drop the child profile last
+    await db.collection("parents").doc(parentId)
+      .collection("children").doc(childId).delete();
+  }
+
+  // 4. The parent record itself
+  await db.collection("parents").doc(parentId).delete();
+
+  // 5. The Auth user — last, because deleting it invalidates the token.
+  try {
+    await getAuth().deleteUser(parentId);
+  } catch (err) {
+    logger.warn(`deleteAccount: deleteUser failed: ${err.message}`);
+  }
+
+  logger.info(`deleteAccount: finished for parent=${parentId}`);
+  return { ok: true, childrenDeleted: childIds.length };
+});
+
+async function deleteByQuery(query) {
+  const snap = await query.get();
+  if (snap.empty) return;
+  // Batch in chunks of 400 (Firestore batch ceiling is 500).
+  const chunks = [];
+  for (let i = 0; i < snap.docs.length; i += 400) {
+    chunks.push(snap.docs.slice(i, i + 400));
+  }
+  for (const chunk of chunks) {
+    const batch = db.batch();
+    chunk.forEach((doc) => batch.delete(doc.ref));
+    await batch.commit();
+  }
 }
