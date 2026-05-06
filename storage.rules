@@ -1,0 +1,38 @@
+rules_version = '2';
+
+// Eduksha Cloud Storage rules.
+//
+// Trust model mirrors firestore.rules: both parent and child devices
+// authenticate as the parent's uid. A child belongs to a parent when
+// `parents/{auth.uid}/children/{childId}` exists in Firestore.
+//
+// Storage paths used by the app:
+//   uploads/{childId}/<filename>          — homework, self-learning,
+//                                           tuition uploads
+//   homework_photos/{childId}/<filename>  — HomeworkLog mirror upload
+//
+// Anything else is denied so leaked path guesses can't read or write.
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isParentOf(childId) {
+      return request.auth != null
+        && firestore.exists(
+            /databases/(default)/documents/parents/$(request.auth.uid)/children/$(childId)
+          );
+    }
+
+    match /uploads/{childId}/{allPaths=**} {
+      allow read, write: if isParentOf(childId);
+    }
+
+    match /homework_photos/{childId}/{allPaths=**} {
+      allow read, write: if isParentOf(childId);
+    }
+
+    // Default deny.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
