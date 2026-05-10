@@ -7,9 +7,12 @@
   <meta name="description" content="Get help with Eduksha. FAQs, contact information, and how to report a problem." />
   <link rel="icon" type="image/png" href="/assets/logo.png" />
   <link rel="apple-touch-icon" href="/assets/logo.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#2f7dff" />
+  <link rel="alternate" hreflang="en" href="https://eduksha.in/support" />
+  <link rel="alternate" hreflang="hi" href="https://eduksha.in/hi/support" />
+  <link rel="alternate" hreflang="x-default" href="https://eduksha.in/support" />
+  <link rel="preload" href="/assets/fonts/sf_pro_regular.OTF" as="font" type="font/otf" crossorigin />
+  <link rel="preload" href="/assets/fonts/gilroy_bold.ttf" as="font" type="font/ttf" crossorigin />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
@@ -19,6 +22,7 @@
       <nav class="nav">
         <a href="/#features">Features</a>
         <a href="/support">Support</a>
+        <a href="/hi/support" class="lang-toggle" hreflang="hi" aria-label="हिंदी में पढ़ें">Change Language</a>
         <a href="/" class="btn btn-ghost">Home</a>
       </nav>
     </div>
@@ -31,9 +35,9 @@
 
       <h2>Contact us</h2>
       <ul>
-        <li><strong>General help:</strong> <a href="mailto:hello@eduksha.in">hello@eduksha.in</a></li>
-        <li><strong>Privacy &amp; data deletion:</strong> <a href="mailto:privacy@eduksha.in">privacy@eduksha.in</a></li>
-        <li><strong>Report inappropriate AI content:</strong> <a href="mailto:safety@eduksha.in">safety@eduksha.in</a> — we investigate within 72 hours.</li>
+        <li><strong>General help:</strong> <a href="mailto:team@eduksha.in">team@eduksha.in</a></li>
+        <li><strong>Privacy &amp; data deletion:</strong> <a href="mailto:team@eduksha.in">team@eduksha.in</a></li>
+        <li><strong>Report inappropriate AI content:</strong> <a href="mailto:team@eduksha.in">team@eduksha.in</a> — we investigate within 72 hours.</li>
       </ul>
       <p>Please include your registered phone number (last 4 digits is enough), the child's class, and a short description of what happened. Screenshots help.</p>
 
@@ -67,7 +71,7 @@
       <p>Yes — see <a href="/delete-account">Delete account</a> for instructions. Both an in-app option and an email request are available.</p>
 
       <h3>I think the app crashed / something is broken.</h3>
-      <p>Send us a quick note at <a href="mailto:hello@eduksha.in">hello@eduksha.in</a> with your phone make/model and what you were doing when it happened. If you opted into Google Play crash reporting we already see the stack trace, but a description from a real human helps a lot.</p>
+      <p>Send us a quick note at <a href="mailto:team@eduksha.in">team@eduksha.in</a> with your phone make/model and what you were doing when it happened. If you opted into Google Play crash reporting we already see the stack trace, but a description from a real human helps a lot.</p>
 
       <h2>Office hours</h2>
       <p>We respond to support emails within <strong>1–2 business days</strong> (IST). For privacy or safety reports, expect a response within 72 hours, often sooner.</p>
@@ -100,7 +104,7 @@
         <div class="footer-col">
           <h5>Get in touch</h5>
           <ul>
-            <li><a href="mailto:hello@eduksha.in">hello@eduksha.in</a></li>
+            <li><a href="mailto:team@eduksha.in">team@eduksha.in</a></li>
           </ul>
         </div>
       </div>
@@ -111,6 +115,43 @@
     </div>
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();
+    document.addEventListener('DOMContentLoaded',function(){
+      var KEY='eduksha-lang';
+      var isHi=location.pathname==='/hi'||location.pathname.indexOf('/hi/')===0;
+      var modal=document.getElementById('langModal');
+      if(!modal)return;
+      var open=function(){document.body.style.overflow='hidden';modal.classList.add('is-open');};
+      var close=function(){document.body.style.overflow='';modal.classList.remove('is-open');};
+      var saved=localStorage.getItem(KEY);
+      if(!saved){setTimeout(open,500);}
+      else if(saved==='hi'&&!isHi){var t=location.pathname==='/'?'/hi/':'/hi'+location.pathname;location.replace(t+location.search+location.hash);return;}
+      else if(saved==='en'&&isHi){var t=location.pathname.replace(/^\/hi\/?/,'/');location.replace(t+location.search+location.hash);return;}
+      modal.querySelectorAll('.lang-modal-btn').forEach(function(btn){btn.addEventListener('click',function(){var lang=btn.dataset.lang;localStorage.setItem(KEY,lang);if(lang==='hi'&&!isHi){location.href=location.pathname==='/'?'/hi/':'/hi'+location.pathname;}else if(lang==='en'&&isHi){location.href=location.pathname.replace(/^\/hi\/?/,'/');}else{close();}});});
+      document.querySelectorAll('.lang-toggle').forEach(function(t){t.addEventListener('click',function(e){e.preventDefault();open();});});
+      modal.addEventListener('click',function(e){if(e.target===modal)close();});
+      modal.querySelector('[data-close]').addEventListener('click',close);
+      document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+    });
+  </script>
+
+  <div class="lang-modal" id="langModal" role="dialog" aria-labelledby="langModalTitle" aria-modal="true">
+    <div class="lang-modal-card">
+      <button class="lang-modal-close" type="button" aria-label="Close" data-close>&times;</button>
+      <img src="/assets/logo.png" alt="Eduksha" class="lang-logo" />
+      <h2 id="langModalTitle">Choose your language</h2>
+      <p class="sub">Eduksha is available in English and Hindi.</p>
+      <div class="lang-modal-buttons">
+        <button class="lang-modal-btn" data-lang="en">
+          <span class="label">English</span>
+          <span class="sublabel">Continue in English</span>
+        </button>
+        <button class="lang-modal-btn" data-lang="hi">
+          <span class="label">हिंदी</span>
+          <span class="sublabel">हिंदी में जारी रखें</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

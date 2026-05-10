@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account delete करें — Eduksha</title>
+  <meta name="description" content="अपना Eduksha account और बच्चे का data कैसे delete करें — पूरा तरीक़ा यहाँ है।" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="apple-touch-icon" href="/assets/logo.png" />
+  <meta name="theme-color" content="#2f7dff" />
+  <link rel="alternate" hreflang="en" href="https://eduksha.in/delete-account" />
+  <link rel="alternate" hreflang="hi" href="https://eduksha.in/hi/delete-account" />
+  <link rel="alternate" hreflang="x-default" href="https://eduksha.in/delete-account" />
+  <link rel="preload" href="/assets/fonts/sf_pro_regular.OTF" as="font" type="font/otf" crossorigin />
+  <link rel="preload" href="/assets/fonts/gilroy_bold.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/hi/"><img class="brand-mark" src="/assets/logo.png" alt="Eduksha logo" /> Eduksha</a>
+      <nav class="nav">
+        <a href="/hi/#features">विशेषताएं</a>
+        <a href="/hi/support">सहायता</a>
+        <a href="/delete-account" class="lang-toggle" hreflang="en" aria-label="Read in English">भाषा बदलें</a>
+        <a href="/hi/" class="btn btn-ghost">होम</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="policy">
+      <h1>अपना Eduksha account delete करें</h1>
+      <p class="updated">आप जब चाहें, अपना account और बच्चे का सारा data हमेशा के लिए delete कर सकते हैं। तरीक़ा क्या है, और उसके बाद असल में क्या होता है — सब यहाँ रखा है।</p>
+
+      <p class="muted" style="font-size: 0.88rem; padding: 12px 16px; background: var(--surface-alt); border-radius: 8px; margin-bottom: 24px;">
+        <strong>नोट:</strong> यह हिंदी अनुवाद आपकी सुविधा के लिए है। किसी भी मतभेद की स्थिति में <a href="/delete-account">अंग्रेज़ी संस्करण</a> आधिकारिक माना जाएगा।
+      </p>
+
+      <h2>तरीक़ा 1 — ऐप के अंदर से</h2>
+      <ol>
+        <li>Parent वाले फ़ोन पर Eduksha खोलिए।</li>
+        <li><strong>Profile</strong> tab पर जाइए (या parent dashboard, आपकी role के हिसाब से)।</li>
+        <li><strong>Settings → Delete account</strong> पर tap कीजिए।</li>
+        <li>एक OTP से अपना फ़ोन number फिर से verify कीजिए।</li>
+        <li>Confirm कीजिए। Deletion request तुरंत queue में चली जाती है।</li>
+      </ol>
+      <p class="muted">अगर आपके ऐप में Delete-account का option नहीं दिख रहा, तो आप पुराने version पर हैं — तब तक नीचे वाला तरीक़ा 2 use कीजिए, जब तक आप update न कर लें।</p>
+
+      <h2>तरीक़ा 2 — Email request</h2>
+      <p>Phone-linked email address से (या verification के लिए registered phone number साथ में लिखकर) नीचे वाले पते पर ईमेल भेज दीजिए:</p>
+      <p><a class="btn btn-primary" href="mailto:team@eduksha.in?subject=Delete%20my%20Eduksha%20account&body=Phone%20number%20linked%20to%20account%3A%20%0AParent%20name%3A%20%0AChild%20name(s)%20to%20delete%3A%20%0A%0AI%20confirm%20I%20am%20the%20parent%20and%20I%20want%20to%20delete%20all%20Eduksha%20data%20for%20this%20account.">team@eduksha.in पर ईमेल भेजें</a></p>
+      <p>हम <strong>2 working days</strong> के अंदर ईमेल मिलने की पुष्टि करते हैं और <strong>30 दिन</strong> के अंदर deletion पूरा कर देते हैं।</p>
+
+      <h2>क्या-क्या delete होता है</h2>
+      <ul>
+        <li>आपकी parent profile (फ़ोन number, display name, FCM token)।</li>
+        <li>आपके account से जुड़ी हर बच्चे की profile (नाम, class, gender, PIN, friends list)।</li>
+        <li>Cloud Storage पर upload की गई सारी photos (homework, self-learning, tuition)।</li>
+        <li>हर quiz attempt, written-answer का result, parent-task record, streak counters।</li>
+        <li>आपके बच्चे की profile से जुड़े सारे friend connections (दोस्तों के दोस्तों को connection बस चुपचाप ग़ायब होता दिखेगा)।</li>
+      </ul>
+
+      <h2>थोड़े वक़्त के लिए क्या रहता है, और क्यों</h2>
+      <ul>
+        <li><strong>Backup snapshots</strong> — Google Cloud backup copies को 90 दिन तक रखता है। ये हमें normal operation में access नहीं होतीं और automatically मिट जाती हैं।</li>
+        <li><strong>Aggregate counters</strong> — gumnaam counters जैसे "अब तक कितने quizzes बने" बने रह सकते हैं; इनमें कोई PII नहीं होता और इन्हें वापस आपके account से जोड़ा नहीं जा सकता।</li>
+        <li><strong>Compliance logs</strong> — security-event logs भारतीय क़ानून के मुताबिक़ 12 महीने तक रह सकते हैं।</li>
+      </ul>
+
+      <h2>क्या delete नहीं होता</h2>
+      <ul>
+        <li>वो content जो आपने Eduksha के बाहर share किया हो (जैसे streak का screenshot जो किसी दोस्त को WhatsApp पर भेज दिया था)।</li>
+        <li>वो records जिन्हें रखना हमारे लिए क़ानूनन ज़रूरी है — मिसाल के तौर पर, अगर आपने कभी कोई payment किया हो तो tax records।</li>
+      </ul>
+
+      <h2>Delete के बाद वापस लौटना</h2>
+      <p>Deletion permanent है। एक बार request process हो जाए, तो हम न account, न बच्चे की profile, न ही कोई uploaded content वापस ला सकते हैं। हाँ — अगर 2 दिन की grace period के अंदर आपका मन बदल जाए, तो registered फ़ोन के ईमेल से <a href="mailto:team@eduksha.in">team@eduksha.in</a> पर लिखिए, हम request को रोक देंगे।</p>
+
+      <h2>सवाल पूछने हैं?</h2>
+      <p>हमसे <a href="mailto:team@eduksha.in">team@eduksha.in</a> पर बात कीजिए। Deletion से जुड़ी न हो तो किसी और बात के लिए <a href="mailto:team@eduksha.in">team@eduksha.in</a> ज़्यादा सही पता है।</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="/hi/"><img class="brand-mark" src="/assets/logo.png" alt="Eduksha logo" /> Eduksha</a>
+          <p>भारतीय परिवारों के लिए पढ़ाई का साथी। न ads, न दिखावा — बस एक असली privacy floor।</p>
+        </div>
+        <div class="footer-col">
+          <h5>App</h5>
+          <ul>
+            <li><a href="/hi/#features">क्या है ऐप में</a></li>
+            <li><a href="/hi/#how">कैसे काम करता है</a></li>
+            <li><a href="/hi/support">मदद चाहिए?</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Legal</h5>
+          <ul>
+            <li><a href="/hi/privacy">Privacy Policy</a></li>
+            <li><a href="/hi/terms">Terms of Service</a></li>
+            <li><a href="/hi/delete-account">Account delete करें</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>हमसे बात करें</h5>
+          <ul>
+            <li><a href="mailto:team@eduksha.in">team@eduksha.in</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="legal-line">
+        <span>© <span id="year">2026</span> Eduksha · भारत में बना</span>
+        <span>NCERT और CBSE पाठ्यक्रम के अनुसार। NCERT/CBSE से कोई संबंध नहीं।</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();
+    document.addEventListener('DOMContentLoaded',function(){
+      var KEY='eduksha-lang';
+      var isHi=location.pathname==='/hi'||location.pathname.indexOf('/hi/')===0;
+      var modal=document.getElementById('langModal');
+      if(!modal)return;
+      var open=function(){document.body.style.overflow='hidden';modal.classList.add('is-open');};
+      var close=function(){document.body.style.overflow='';modal.classList.remove('is-open');};
+      var saved=localStorage.getItem(KEY);
+      if(!saved){setTimeout(open,500);}
+      else if(saved==='hi'&&!isHi){var t=location.pathname==='/'?'/hi/':'/hi'+location.pathname;location.replace(t+location.search+location.hash);return;}
+      else if(saved==='en'&&isHi){var t=location.pathname.replace(/^\/hi\/?/,'/');location.replace(t+location.search+location.hash);return;}
+      modal.querySelectorAll('.lang-modal-btn').forEach(function(btn){btn.addEventListener('click',function(){var lang=btn.dataset.lang;localStorage.setItem(KEY,lang);if(lang==='hi'&&!isHi){location.href=location.pathname==='/'?'/hi/':'/hi'+location.pathname;}else if(lang==='en'&&isHi){location.href=location.pathname.replace(/^\/hi\/?/,'/');}else{close();}});});
+      document.querySelectorAll('.lang-toggle').forEach(function(t){t.addEventListener('click',function(e){e.preventDefault();open();});});
+      modal.addEventListener('click',function(e){if(e.target===modal)close();});
+      modal.querySelector('[data-close]').addEventListener('click',close);
+      document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+    });
+  </script>
+
+  <div class="lang-modal" id="langModal" role="dialog" aria-labelledby="langModalTitle" aria-modal="true">
+    <div class="lang-modal-card">
+      <button class="lang-modal-close" type="button" aria-label="Close" data-close>&times;</button>
+      <img src="/assets/logo.png" alt="Eduksha" class="lang-logo" />
+      <h2 id="langModalTitle">भाषा चुनें</h2>
+      <p class="sub">Eduksha English और हिंदी, दोनों में मौजूद है।</p>
+      <div class="lang-modal-buttons">
+        <button class="lang-modal-btn" data-lang="en">
+          <span class="label">English</span>
+          <span class="sublabel">English में पढ़ें</span>
+        </button>
+        <button class="lang-modal-btn" data-lang="hi">
+          <span class="label">हिंदी</span>
+          <span class="sublabel">हिंदी में पढ़ें</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

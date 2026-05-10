@@ -7,9 +7,12 @@
   <meta name="description" content="How Eduksha collects, uses, and protects information for parents and children using our learning app." />
   <link rel="icon" type="image/png" href="/assets/logo.png" />
   <link rel="apple-touch-icon" href="/assets/logo.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#2f7dff" />
+  <link rel="alternate" hreflang="en" href="https://eduksha.in/privacy" />
+  <link rel="alternate" hreflang="hi" href="https://eduksha.in/hi/privacy" />
+  <link rel="alternate" hreflang="x-default" href="https://eduksha.in/privacy" />
+  <link rel="preload" href="/assets/fonts/sf_pro_regular.OTF" as="font" type="font/otf" crossorigin />
+  <link rel="preload" href="/assets/fonts/gilroy_bold.ttf" as="font" type="font/ttf" crossorigin />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
@@ -19,6 +22,7 @@
       <nav class="nav">
         <a href="/#features">Features</a>
         <a href="/support">Support</a>
+        <a href="/hi/privacy" class="lang-toggle" hreflang="hi" aria-label="हिंदी में पढ़ें">Change Language</a>
         <a href="/" class="btn btn-ghost">Home</a>
       </nav>
     </div>
@@ -124,7 +128,7 @@
         <li><strong>Withdraw consent</strong> at any time. Note that withdrawing consent will end the Service for the affected child profile.</li>
         <li><strong>Lodge a complaint</strong> with India's Data Protection Board or your local supervisory authority.</li>
       </ul>
-      <p>To exercise any of these rights, email <a href="mailto:privacy@eduksha.in">privacy@eduksha.in</a>. We will respond within 30 days.</p>
+      <p>To exercise any of these rights, email <a href="mailto:team@eduksha.in">team@eduksha.in</a>. We will respond within 30 days.</p>
 
       <h2>8. Children's privacy</h2>
       <p>Eduksha is built for kids, and we take this seriously:</p>
@@ -145,8 +149,8 @@
       <h2>11. Contact us</h2>
       <p>For privacy questions, deletion requests, or anything in this document:</p>
       <ul>
-        <li>Email: <a href="mailto:privacy@eduksha.in">privacy@eduksha.in</a></li>
-        <li>General support: <a href="mailto:hello@eduksha.in">hello@eduksha.in</a></li>
+        <li>Email: <a href="mailto:team@eduksha.in">team@eduksha.in</a></li>
+        <li>General support: <a href="mailto:team@eduksha.in">team@eduksha.in</a></li>
       </ul>
       <p>You can also reach the operator at the postal address listed in the Google Play store listing.</p>
     </article>
@@ -178,7 +182,7 @@
         <div class="footer-col">
           <h5>Get in touch</h5>
           <ul>
-            <li><a href="mailto:hello@eduksha.in">hello@eduksha.in</a></li>
+            <li><a href="mailto:team@eduksha.in">team@eduksha.in</a></li>
           </ul>
         </div>
       </div>
@@ -189,6 +193,43 @@
     </div>
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();
+    document.addEventListener('DOMContentLoaded',function(){
+      var KEY='eduksha-lang';
+      var isHi=location.pathname==='/hi'||location.pathname.indexOf('/hi/')===0;
+      var modal=document.getElementById('langModal');
+      if(!modal)return;
+      var open=function(){document.body.style.overflow='hidden';modal.classList.add('is-open');};
+      var close=function(){document.body.style.overflow='';modal.classList.remove('is-open');};
+      var saved=localStorage.getItem(KEY);
+      if(!saved){setTimeout(open,500);}
+      else if(saved==='hi'&&!isHi){var t=location.pathname==='/'?'/hi/':'/hi'+location.pathname;location.replace(t+location.search+location.hash);return;}
+      else if(saved==='en'&&isHi){var t=location.pathname.replace(/^\/hi\/?/,'/');location.replace(t+location.search+location.hash);return;}
+      modal.querySelectorAll('.lang-modal-btn').forEach(function(btn){btn.addEventListener('click',function(){var lang=btn.dataset.lang;localStorage.setItem(KEY,lang);if(lang==='hi'&&!isHi){location.href=location.pathname==='/'?'/hi/':'/hi'+location.pathname;}else if(lang==='en'&&isHi){location.href=location.pathname.replace(/^\/hi\/?/,'/');}else{close();}});});
+      document.querySelectorAll('.lang-toggle').forEach(function(t){t.addEventListener('click',function(e){e.preventDefault();open();});});
+      modal.addEventListener('click',function(e){if(e.target===modal)close();});
+      modal.querySelector('[data-close]').addEventListener('click',close);
+      document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+    });
+  </script>
+
+  <div class="lang-modal" id="langModal" role="dialog" aria-labelledby="langModalTitle" aria-modal="true">
+    <div class="lang-modal-card">
+      <button class="lang-modal-close" type="button" aria-label="Close" data-close>&times;</button>
+      <img src="/assets/logo.png" alt="Eduksha" class="lang-logo" />
+      <h2 id="langModalTitle">Choose your language</h2>
+      <p class="sub">Eduksha is available in English and Hindi.</p>
+      <div class="lang-modal-buttons">
+        <button class="lang-modal-btn" data-lang="en">
+          <span class="label">English</span>
+          <span class="sublabel">Continue in English</span>
+        </button>
+        <button class="lang-modal-btn" data-lang="hi">
+          <span class="label">हिंदी</span>
+          <span class="sublabel">हिंदी में जारी रखें</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eduksha — भारतीय परिवारों के लिए रोज़ की पढ़ाई</title>
+  <meta name="description" content="भारतीय परिवारों के लिए पढ़ाई का साथी। चुने हुए NCERT lessons, AI quizzes, लिखित जवाबों पर feedback, बच्चों के लिए safe रोज़ का अख़बार, और एक असली parent dashboard — सब एक ऐप में।" />
+  <meta name="theme-color" content="#2f7dff" />
+  <meta property="og:title" content="Eduksha — भारतीय परिवारों के लिए रोज़ की पढ़ाई" />
+  <meta property="og:description" content="चुने हुए NCERT lessons, AI quizzes, बच्चों के लिए safe daily news, और एक असली parent dashboard — 8–13 साल के बच्चों के लिए।" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://eduksha.in/hi/" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="apple-touch-icon" href="/assets/logo.png" />
+  <link rel="alternate" hreflang="en" href="https://eduksha.in/" />
+  <link rel="alternate" hreflang="hi" href="https://eduksha.in/hi/" />
+  <link rel="alternate" hreflang="x-default" href="https://eduksha.in/" />
+  <link rel="preload" href="/assets/fonts/sf_pro_regular.OTF" as="font" type="font/otf" crossorigin />
+  <link rel="preload" href="/assets/fonts/gilroy_bold.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a class="brand" href="/hi/">
+        <img class="brand-mark" src="/assets/logo.png" alt="Eduksha logo" />
+        Eduksha
+      </a>
+      <nav class="nav">
+        <a href="#features">विशेषताएं</a>
+        <a href="#audience">परिवार के लिए</a>
+        <a href="#how">कैसे काम करता है</a>
+        <a href="#faq">सवाल-जवाब</a>
+        <a href="/" class="lang-toggle" hreflang="en" aria-label="Read in English">भाषा बदलें</a>
+        <a href="#cta" class="btn btn-primary btn-arrow">सूचित करें</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ─────────────────── Hero ─────────────────── -->
+    <section class="hero" id="home">
+      <span class="kid-deco book"   aria-hidden="true">📚</span>
+      <span class="kid-deco pencil" aria-hidden="true">✏️</span>
+      <span class="kid-deco star"   aria-hidden="true">⭐</span>
+      <span class="kid-deco plane"  aria-hidden="true">✈️</span>
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow reveal">रोज़ 15 मिनट · भारत में बना</span>
+          <h1 class="reveal delay-1">क्या आपको अपने बच्चे की पढ़ाई में कमी का पता <em>सिर्फ़ रिज़ल्ट के दिन</em> चलता है?</h1>
+          <p class="lead reveal delay-2">
+            स्कूल, ट्यूशन और होमवर्क सब होते हैं — लेकिन आपके बच्चे की असली learning progress कौन track करता है? Eduksha. पढ़ाई, revision और consistency पर रखें रोज़ नज़र।
+          </p>
+          <div class="hero-ctas reveal delay-3">
+            <a class="btn btn-primary btn-arrow" href="#cta">ऐप डाउनलोड करें</a>
+            <a class="btn btn-ghost" href="#how">कैसे काम करता है</a>
+          </div>
+          <div class="hero-stats reveal delay-4">
+            <div class="hero-stat">
+              <div class="v">Class <em>6–8</em></div>
+              <span class="l">NCERT &amp; CBSE</span>
+            </div>
+            <div class="hero-stat">
+              <div class="v"><em>15</em> मिनट</div>
+              <span class="l">रोज़</span>
+            </div>
+            <div class="hero-stat">
+              <div class="v"><em>0</em> ads</div>
+              <span class="l">हमेशा</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-art reveal delay-2" aria-hidden="true">
+          <div class="phone-frame front">
+            <div class="phone-screen shot">
+              <img src="/assets/screenshots/student_home.png" alt="Eduksha — बच्चे का Today's Learning home" />
+            </div>
+          </div>
+
+          <div class="phone-frame right">
+            <div class="phone-screen shot">
+              <img src="/assets/screenshots/parent_home.png" alt="Eduksha — पैरेंट dashboard, pending review के साथ" />
+            </div>
+          </div>
+
+          <div class="streak-tag">
+            <span class="sparkle-cluster near-streak" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="flame">🔥</span> Streak ज़िंदा · 7 दिन
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-indicator">Scroll</div>
+    </section>
+
+    <!-- ─────────────────── Trust strip ─────────────────── -->
+    <section class="trust">
+      <div class="container">
+        <div class="trust-row">
+          <div class="trust-item reveal"><span class="ico">i</span> भारत में बना</div>
+          <div class="trust-item reveal delay-1"><span class="ico">ii</span> NCERT-aligned</div>
+          <div class="trust-item reveal delay-2"><span class="ico">iii</span> बच्चों के लिए सुरक्षित</div>
+          <div class="trust-item reveal delay-3"><span class="ico">iv</span> Zero ads, हमेशा</div>
+          <div class="trust-item reveal delay-4"><span class="ico">v</span> DPDPA compliant</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────── I — What's inside ─────────────────── -->
+    <section id="features">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="roman">I — ऐप में क्या है</div>
+          <h2>एक ऐप, दो <em>दुनियाएँ</em>। बच्चे के लिए पढ़ाई, आपके लिए <em>पूरी नज़र</em>।</h2>
+          <p>एक ही download — पर अंदर दो अलग experiences, एक PIN से जुड़े हुए। बच्चे की तरफ़ क्या है, और आपकी तरफ़ क्या — रोज़ का साफ़ हिसाब यहाँ है।</p>
+        </div>
+
+        <div class="bento">
+          <div class="bento-card feature span-3 row-2 reveal">
+            <span class="bc-num">01</span>
+            <h3>Today's <em>Learning</em></h3>
+            <p>रोज़ बस 2-3 काम — न ज़्यादा, न बोझ। बच्चा करे, ऐप बंद करे, और बाक़ी दिन अपने हिसाब से जिए। पढ़ाई आदत बने, सज़ा नहीं।</p>
+            <div class="preview-feed">
+              <div class="pf-row"><span class="pf-t">Fractions · Quiz</span><span class="pf-s">Math</span><span class="pf-pct">80%</span></div>
+              <div class="pf-row"><span class="pf-t">प्रकाश-संश्लेषण</span><span class="pf-s">Science</span><span class="pf-pct">Done</span></div>
+              <div class="pf-row"><span class="pf-t">Word problems</span><span class="pf-s">Practice</span><span class="pf-pct">2 बाक़ी</span></div>
+            </div>
+          </div>
+
+          <div class="bento-card span-3 reveal delay-1">
+            <span class="bc-num">02</span>
+            <h3>AI <em>practice quiz</em></h3>
+            <p>हर NCERT chapter के लिए चुने हुए MCQs, और बच्चे के अपने notes से AI-generated practice questions। हर attempt का score track होता है — ताकि progress आपको और बच्चे, दोनों को साफ़ दिखे।</p>
+          </div>
+
+          <div class="bento-card span-3 reveal delay-2">
+            <span class="bc-num">03</span>
+            <h3>लिखित जवाबों पर <em>feedback</em></h3>
+            <p>Long-answer questions पर AI से एक सीधा-सादा feedback — ताकि बच्चा जवाब <em>लिखना</em> सीखे, सिर्फ़ सही option पर tick लगाना नहीं।</p>
+          </div>
+
+          <div class="bento-card span-2 reveal">
+            <span class="bc-num">04</span>
+            <h3>Streak जो पूरा परिवार <em>निभाए</em></h3>
+            <p>हर बच्चे की अपनी streak। आपको milestones दिखें, दोस्तों को streak — पर कभी guilt की वजह नहीं।</p>
+          </div>
+
+          <div class="bento-card span-2 reveal delay-1">
+            <span class="bc-num">05</span>
+            <h3>आप दें task, बच्चा करे <em>submit</em></h3>
+            <p>Chapter या अपनी मर्ज़ी का काम बच्चे को दीजिए। बच्चा करके भेजे। आप approve करें, redo माँगें, या एक छोटा-सा note छोड़ दें — सब ऐप के अंदर।</p>
+          </div>
+
+          <div class="bento-card span-2 reveal delay-2">
+            <span class="bc-num">06</span>
+            <h3>The Eduksha <em>Times</em></h3>
+            <p>हर 24 घंटे में ताज़ा, बच्चों के लिए safe रोज़ का अख़बार — सिर्फ़ भारत की inspiring कहानियाँ। असली अख़बार की तरह fold खुलता है।</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────── II — Every subject ─────────────────── -->
+    <section id="subjects">
+      <div class="container">
+        <div class="section-head center reveal">
+          <div class="roman">II — हर विषय</div>
+          <h2>स्कूल का हर <span class="wavy">विषय</span>, एक ही ऐप में।</h2>
+          <p>गुणा-भाग से लेकर इतिहास की कहानियों तक — हर NCERT और CBSE subject बच्चे के साथ। चुने हुए lessons, AI quizzes, और लिखित जवाबों पर feedback, सब एक जगह।</p>
+        </div>
+        <div class="subjects-grid">
+          <div class="subject-cards reveal">
+            <div class="subject-card peach">
+              <div class="sc-icon">📐</div>
+              <div class="sc-class">Class 6–8</div>
+              <h3>Math</h3>
+              <p>भिन्न, ज्यामिति, बीजगणित — हर sum का solution साथ।</p>
+              <a class="sc-cta" href="#cta">देखें →</a>
+            </div>
+            <div class="subject-card blue">
+              <div class="sc-icon">🔬</div>
+              <div class="sc-class">Class 6–8</div>
+              <h3>Science</h3>
+              <p>Biology, chemistry, physics — आसान भाषा में, बच्चों के लिए safe।</p>
+              <a class="sc-cta" href="#cta">देखें →</a>
+            </div>
+            <div class="subject-card green">
+              <div class="sc-icon">📚</div>
+              <div class="sc-class">Class 6–8</div>
+              <h3>English</h3>
+              <p>Grammar, comprehension, और लिखे हुए जवाबों पर feedback।</p>
+              <a class="sc-cta" href="#cta">देखें →</a>
+            </div>
+            <div class="subject-card mint">
+              <div class="sc-icon">🌍</div>
+              <div class="sc-class">Class 6–8</div>
+              <h3>Social Studies</h3>
+              <p>इतिहास, भूगोल, civics — कहानी की तरह, रटना नहीं।</p>
+              <a class="sc-cta" href="#cta">देखें →</a>
+            </div>
+          </div>
+          <div class="subjects-art reveal delay-1" aria-hidden="true">
+            <div class="phone-frame">
+              <div class="phone-screen shot">
+                <img src="/assets/screenshots/school_work.png" alt="Eduksha — ऐप के अंदर subjects की list" />
+              </div>
+            </div>
+            <span class="subject-chip c1"><span class="ch-emoji">📐</span> Math</span>
+            <span class="subject-chip c2"><span class="ch-emoji">🔬</span> Science</span>
+            <span class="subject-chip c3"><span class="ch-emoji">📚</span> English</span>
+            <span class="subject-chip c4"><span class="ch-emoji">🌍</span> Social</span>
+            <span class="subject-chip c5"><span class="ch-emoji">✏️</span> हिंदी</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────── III — For families ─────────────────── -->
+    <section id="audience" class="alt-bg">
+      <span class="kid-deco section-deco s1" aria-hidden="true">🎓</span>
+      <span class="kid-deco section-deco s2" aria-hidden="true">🌟</span>
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="roman">III — दोनों के लिए</div>
+          <h2>बच्चे की <em>दिलचस्पी</em> बनी रहे — और आपको <em>सब पता</em> रहे।</h2>
+        </div>
+        <div class="audience">
+          <div class="audience-card warm reveal">
+            <div class="tag">आपके बच्चे के लिए</div>
+            <h3>मार्क करें। टेस्ट दें। <em>शेयर</em> करें।</h3>
+            <p>ऐप खोलें, आज के टास्क पूरे करें, AI से बना छोटा-सा टेस्ट दें, अपनी स्ट्रीक शेयर करें। 15 मिनट का आसान रोज़ का तरीका।</p>
+            <ul>
+              <li><strong>School work, tuition, self-study</strong> — रोज़ track करें</li>
+              <li><strong>AI quick test</strong> — किसी भी chapter पर अभी attempt करें</li>
+              <li><strong>Daily report</strong> parent को भेजें — और नए task मांगें</li>
+              <li><strong>Streak</strong> friends के साथ share करें — और rewards पाएं</li>
+            </ul>
+          </div>
+          <div class="audience-card cool reveal delay-1">
+            <div class="tag">आप, माता-पिता के लिए</div>
+            <h3>अंदाज़ा लगाना बंद। अब असली <em>जानकारी</em>।</h3>
+            <p>हर दिन सोचते हैं कि बच्चे ने पढ़ाई की या नहीं? कम मार्क्स की चिंता? रोज़ की प्रगति, कहाँ पीछे है, और क्या बाक़ी है — सब एक क्लिक में देखें।</p>
+            <ul>
+              <li><strong>हर दिन की progress</strong> देखें — क्या complete, क्या pending, क्या चल रहा है</li>
+              <li><strong>कौन-से subject में पीछे</strong> — रोज़ साफ़ देखें</li>
+              <li>रोज़ चेक करें — <strong>homework time पर</strong> हो रहा है या नहीं</li>
+              <li>अपने task दें और <strong>daily-weekly report</strong> पाएं</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────── IV — Process ─────────────────── -->
+    <section id="how">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="roman">IV — कैसे शुरू करें</div>
+          <h2>चार step। फिर ये बस एक <em>आदत</em> है।</h2>
+        </div>
+        <div class="steps">
+          <div class="step reveal">
+            <span class="step-num">i</span>
+            <h4>आप sign up करें</h4>
+            <p>अपने फ़ोन पर OTP से login — बस 30 सेकंड। न Facebook, न Google, न कोई और account।</p>
+          </div>
+          <div class="step reveal delay-1">
+            <span class="step-num">ii</span>
+            <h4>बच्चे को जोड़ें</h4>
+            <p>नाम, class, board डालें। 4 अंकों का एक PIN set करें — वही PIN बच्चा अपने device पर लगाएगा।</p>
+          </div>
+          <div class="step reveal delay-2">
+            <span class="step-num">iii</span>
+            <h4>बच्चा पढ़े, अपने तरीक़े से</h4>
+            <p>Lessons, quizzes, homework, रोज़ का अख़बार — सब बच्चों वाले tab में, बिना किसी distraction के।</p>
+          </div>
+          <div class="step reveal delay-3">
+            <span class="step-num">iv</span>
+            <h4>आप review करें</h4>
+            <p>कुछ approve करना हो तो notification आ जाएगी। एक tap, काम हो गया, streak ज़िंदा।</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────── Safety ─────────────────── -->
+    <section id="safety">
+      <div class="container">
+        <div class="safety reveal">
+          <div>
+            <span class="eyebrow">बच्चों के लिए by default safe</span>
+            <h2>बच्चों की safety में कोई <em>compromise</em> नहीं।</h2>
+            <p>Eduksha 8–13 साल के बच्चों के लिए बना है — और हर design decision में बच्चों की safety सबसे पहले रखी है। नीचे है हमारी सबसे basic guarantee, जिसे हम कभी नहीं तोड़ते:</p>
+          </div>
+          <ul class="safety-list">
+            <li>कोई ad network नहीं। कोई tracking pixel नहीं। कोई social login नहीं।</li>
+            <li>News एक सख़्त prompt से बनती है: सिर्फ़ inspiring, educational, और भारत से जुड़ी। राजनीति, हिंसा या डराने वाली कोई भी बात device तक पहुँचने से पहले ही filter हो जाती है।</li>
+            <li>बच्चा parent PIN के बिना parent mode में नहीं जा सकता — कभी नहीं।</li>
+            <li>हर photo और जवाब transit में encrypted, और Google Cloud (Firestore + Cloud Storage) पर safe।</li>
+            <li>आप जब चाहें, अपने पूरे परिवार का data delete कर सकते हैं। <a href="/hi/delete-account">तरीक़ा यहाँ है</a>।</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────── V — FAQ ─────────────────── -->
+    <section id="faq" class="alt-bg">
+      <span class="kid-deco section-deco s1" aria-hidden="true">💡</span>
+      <span class="kid-deco section-deco s2" aria-hidden="true">📝</span>
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="roman">V — अक्सर पूछे जाने वाले सवाल</div>
+          <h2>Download से पहले parents जो <em>पूछते हैं</em>।</h2>
+        </div>
+        <div class="faq">
+          <details class="reveal">
+            <summary>क्या Eduksha सच में free है?</summary>
+            <p>हाँ। चुने हुए lessons, रोज़ का अख़बार, AI quizzes, parent review, streaks — पूरा core experience launch के समय बिल्कुल free है। आगे चलकर कुछ optional paid features ज़रूर आ सकते हैं, पर अभी जो आप देख रहे हैं वो हमेशा free ही रहेगा।</p>
+          </details>
+          <details class="reveal delay-1">
+            <summary>ये किस उम्र के बच्चों के लिए है?</summary>
+            <p>8 से 13 साल के बच्चों के लिए — content अभी NCERT और CBSE class 6-8 के हिसाब से है। हम धीरे-धीरे और classes भी add कर रहे हैं। अगर आपको कोई और class चाहिए तो हमें ईमेल कर दीजिए, हम सुनते हैं।</p>
+          </details>
+          <details class="reveal delay-2">
+            <summary>बच्चे की homework photos device से बाहर जाती हैं क्या?</summary>
+            <p>हाँ — photos Google Cloud Storage पर upload होती हैं ताकि "Revisit Past Topics" में हर device पर दिखें। ये भेजते वक़्त भी encrypted, server पर भी encrypted। परिवार के बाहर किसी से <em>शेयर नहीं</em> होतीं, और ads के लिए तो कभी नहीं। पूरी details हमारी <a href="/hi/privacy">Privacy Policy</a> में हैं।</p>
+          </details>
+          <details class="reveal delay-3">
+            <summary>AI content को बच्चों के लिए safe कैसे रखते हैं?</summary>
+            <p>हर Gemini prompt — रोज़ का अख़बार हो, quiz हो, या written-answer feedback — एक सख़्त kid-safety filter से गुज़रता है। राजनीति, धर्म, हिंसा, डराने वाली बातें — सब निकाल दी जाती हैं। हम output को भी check करते हैं। फिर भी कुछ ग़लत दिखे तो <a href="mailto:team@eduksha.in">team@eduksha.in</a> पर मेल कीजिए — 72 घंटे में जाँच होती है।</p>
+          </details>
+          <details class="reveal delay-4">
+            <summary>एक से ज़्यादा बच्चों के लिए use कर सकते हैं क्या?</summary>
+            <p>बिल्कुल। एक parent account में कई बच्चों की profile बन सकती हैं। हर बच्चे की अपनी streak, अपनी progress, अपने दोस्त, अपना review queue — और आप parent dashboard से एक tap में switch कर सकते हैं।</p>
+          </details>
+          <details class="reveal delay-4">
+            <summary>क्या बच्चा parent वाले फ़ोन पर ही use कर सकता है?</summary>
+            <p>हाँ। आप sign-in रहते हैं, और बच्चे की तरफ़ जाने के लिए उसका 4-digit PIN चाहिए। वापस parent view में लौटने के लिए फिर से authenticate करना पड़ता है — ताकि कोई गड़बड़ न हो।</p>
+          </details>
+          <details class="reveal delay-4">
+            <summary>अगर मैं सब कुछ delete करना चाहूँ तो?</summary>
+            <p>ऐप के Profile tab से account delete कर सकते हैं, या <a href="mailto:team@eduksha.in">team@eduksha.in</a> पर एक ईमेल भेज दीजिए। सारी photos, profiles, quiz attempts, और friend records 30 दिन के अंदर हट जाते हैं। Backup snapshots 90 दिन में पूरी तरह से साफ़। पूरे steps <a href="/hi/delete-account">Delete account</a> पर हैं।</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────── Final CTA ─────────────────── -->
+    <section id="cta" style="padding: 0 0 0;">
+      <div class="cta-strip reveal">
+        <span class="eyebrow center">Launch से पहले एक बात</span>
+        <h2>एक ऐसी पढ़ाई की <em>आदत</em> — जिसका बच्चा रोज़ इंतज़ार करे।</h2>
+        <p>Android ऐप बहुत जल्द Google Play पर आ रहा है। एक ईमेल भेज दीजिए, live होते ही आपको बता देंगे। कोई marketing list नहीं, कोई spam नहीं — बस एक launch ईमेल, बस।</p>
+        <a class="btn btn-primary btn-arrow" href="mailto:team@eduksha.in?subject=Eduksha%20launch%20notify%20karein&body=Namaste%20Eduksha%20team%2C%20jab%20app%20live%20ho%20to%20mujhe%20bata%20dijiye.%20Mera%20bachcha%20class%20%5Bclass%5D%20me%20hai.">मुझे बताइए जब launch हो</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="/hi/">
+            <img class="brand-mark" src="/assets/logo.png" alt="Eduksha logo" />
+            Eduksha
+          </a>
+          <p>भारतीय परिवारों के लिए पढ़ाई का साथी। न ads, न दिखावा — बस एक असली privacy floor।</p>
+        </div>
+        <div class="footer-col">
+          <h5>App</h5>
+          <ul>
+            <li><a href="#features">क्या है ऐप में</a></li>
+            <li><a href="#how">कैसे काम करता है</a></li>
+            <li><a href="#faq">सवाल-जवाब</a></li>
+            <li><a href="/hi/support">मदद चाहिए?</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Legal</h5>
+          <ul>
+            <li><a href="/hi/privacy">Privacy Policy</a></li>
+            <li><a href="/hi/terms">Terms of Service</a></li>
+            <li><a href="/hi/delete-account">Account delete करें</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>हमसे बात करें</h5>
+          <ul>
+            <li><a href="mailto:team@eduksha.in">team@eduksha.in</a></li></ul>
+        </div>
+      </div>
+      <div class="legal-line">
+        <span>© <span id="year">2026</span> Eduksha · भारत में बना</span>
+        <span>NCERT और CBSE पाठ्यक्रम के अनुसार। NCERT/CBSE से कोई संबंध नहीं।</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const progress = document.getElementById('scrollProgress');
+    const header = document.getElementById('siteHeader');
+    function onScroll() {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+      progress.style.width = pct + '%';
+      header.classList.toggle('scrolled', h.scrollTop > 12);
+    }
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    const statsIo = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const stats = e.target.querySelectorAll('.hero-stat');
+        stats.forEach((s, idx) => {
+          setTimeout(() => s.classList.add('is-counted'), idx * 180);
+        });
+        statsIo.unobserve(e.target);
+      });
+    }, { threshold: 0.5 });
+    const statsRow = document.querySelector('.hero-stats');
+    if (statsRow) statsIo.observe(statsRow);
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (id.length < 2) return;
+        const el = document.querySelector(id);
+        if (!el) return;
+        e.preventDefault();
+        const top = el.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+    });
+  
+    document.addEventListener('DOMContentLoaded',function(){
+      var KEY='eduksha-lang';
+      var isHi=location.pathname==='/hi'||location.pathname.indexOf('/hi/')===0;
+      var modal=document.getElementById('langModal');
+      if(!modal)return;
+      var open=function(){document.body.style.overflow='hidden';modal.classList.add('is-open');};
+      var close=function(){document.body.style.overflow='';modal.classList.remove('is-open');};
+      var saved=localStorage.getItem(KEY);
+      if(!saved){setTimeout(open,500);}
+      else if(saved==='hi'&&!isHi){var t=location.pathname==='/'?'/hi/':'/hi'+location.pathname;location.replace(t+location.search+location.hash);return;}
+      else if(saved==='en'&&isHi){var t=location.pathname.replace(/^\/hi\/?/,'/');location.replace(t+location.search+location.hash);return;}
+      modal.querySelectorAll('.lang-modal-btn').forEach(function(btn){btn.addEventListener('click',function(){var lang=btn.dataset.lang;localStorage.setItem(KEY,lang);if(lang==='hi'&&!isHi){location.href=location.pathname==='/'?'/hi/':'/hi'+location.pathname;}else if(lang==='en'&&isHi){location.href=location.pathname.replace(/^\/hi\/?/,'/');}else{close();}});});
+      document.querySelectorAll('.lang-toggle').forEach(function(t){t.addEventListener('click',function(e){e.preventDefault();open();});});
+      modal.addEventListener('click',function(e){if(e.target===modal)close();});
+      modal.querySelector('[data-close]').addEventListener('click',close);
+      document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+    });
+  </script>
+
+  <div class="lang-modal" id="langModal" role="dialog" aria-labelledby="langModalTitle" aria-modal="true">
+    <div class="lang-modal-card">
+      <button class="lang-modal-close" type="button" aria-label="Close" data-close>&times;</button>
+      <img src="/assets/logo.png" alt="Eduksha" class="lang-logo" />
+      <h2 id="langModalTitle">भाषा चुनें</h2>
+      <p class="sub">Eduksha English और हिंदी, दोनों में मौजूद है।</p>
+      <div class="lang-modal-buttons">
+        <button class="lang-modal-btn" data-lang="en">
+          <span class="label">English</span>
+          <span class="sublabel">English में पढ़ें</span>
+        </button>
+        <button class="lang-modal-btn" data-lang="hi">
+          <span class="label">हिंदी</span>
+          <span class="sublabel">हिंदी में पढ़ें</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
