@@ -183,7 +183,13 @@ class ParentTaskRepositoryImpl @Inject constructor(
             .whereEqualTo(field, value)
             .addSnapshotListener { snap, error ->
                 if (error != null) {
-                    close(error); return@addSnapshotListener
+                    // Don't propagate via close(error) — that lets the
+                    // exception bubble up viewModelScope on Dispatchers.Main
+                    // and crashes the app on PERMISSION_DENIED when Firestore
+                    // rules reject this listener (e.g. signed-out user with a
+                    // stale linkedChildId). Emit empty and complete cleanly so
+                    // the UI shows an empty list instead of crashing.
+                    trySend(emptyList()); close(); return@addSnapshotListener
                 }
                 val list = snap?.documents.orEmpty()
                     .mapNotNull { it.toParentTask() }

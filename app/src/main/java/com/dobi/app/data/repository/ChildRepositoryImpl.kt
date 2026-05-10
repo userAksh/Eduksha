@@ -19,7 +19,7 @@ class ChildRepositoryImpl @Inject constructor(
         val listener = firestore.collection("parents").document(parentId)
             .collection("children")
             .addSnapshotListener { snapshot, error ->
-                if (error != null) { close(error); return@addSnapshotListener }
+                if (error != null) { trySend(emptyList()); close(); return@addSnapshotListener }
                 val children = snapshot?.documents?.mapNotNull { doc ->
                     doc.toObject(Child::class.java)
                 } ?: emptyList()

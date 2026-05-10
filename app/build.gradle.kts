@@ -73,6 +73,7 @@ android {
 dependencies {
     // Core
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.activity.compose)
 
     // Lifecycle + ViewModel
@@ -107,6 +108,10 @@ dependencies {
 
     // Image loading
     implementation(libs.coil.compose)
+
+    // Media3 ExoPlayer — splash intro playback
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
 
     // Firebase
      implementation(platform(libs.firebase.bom))

@@ -91,7 +91,7 @@ class RevisionMarkRepository @Inject constructor(
             .whereEqualTo("childId", childId)
             .addSnapshotListener { snap, error ->
                 if (error != null) {
-                    close(error); return@addSnapshotListener
+                    trySend(emptyList()); close(); return@addSnapshotListener
                 }
                 val list = snap?.documents.orEmpty().mapNotNull { doc ->
                     runCatching {
@@ -121,7 +121,7 @@ class RevisionMarkRepository @Inject constructor(
             val listener = firestore.collection("revision_marks").document(docId)
                 .addSnapshotListener { snap, error ->
                     if (error != null) {
-                        close(error); return@addSnapshotListener
+                        trySend(null); close(); return@addSnapshotListener
                     }
                     val mark = if (snap != null && snap.exists()) {
                         RevisionMark(

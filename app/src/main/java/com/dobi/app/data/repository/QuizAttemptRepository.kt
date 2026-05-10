@@ -144,7 +144,7 @@ class QuizAttemptRepository @Inject constructor(
                 .collection(scope.collection)
                 .addSnapshotListener { snap, error ->
                     if (error != null) {
-                        close(error); return@addSnapshotListener
+                        emit(); close(); return@addSnapshotListener
                     }
                     snap?.documents.orEmpty().forEach { doc ->
                         map[scope to doc.id] = RecentQuizAttempt(
@@ -174,7 +174,7 @@ class QuizAttemptRepository @Inject constructor(
             .document(targetId)
         val listener = docRef.addSnapshotListener { snapshot, error ->
             if (error != null) {
-                close(error); return@addSnapshotListener
+                trySend(QuizAttemptSummary()); close(); return@addSnapshotListener
             }
             trySend(snapshot?.let(::toSummary) ?: QuizAttemptSummary())
         }
@@ -193,7 +193,7 @@ class QuizAttemptRepository @Inject constructor(
                 .collection(scope.collection)
                 .addSnapshotListener { snap, error ->
                     if (error != null) {
-                        close(error); return@addSnapshotListener
+                        emit(); close(); return@addSnapshotListener
                     }
                     snap?.documents.orEmpty().forEach { doc ->
                         map[scope to doc.id] = toSummary(doc)

@@ -34,6 +34,7 @@ import com.dobi.app.domain.repository.FcmTokenRepository
 import com.dobi.app.messaging.DobiMessagingService
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -53,9 +54,16 @@ class MainActivity : ComponentActivity() {
         pendingDeeplink = readDeeplink(intent)
         lifecycleScope.launch { fcmTokenRepository.syncCurrentToken() }
         maybeRunDebugInviteClaim(intent)
+        // SplashActivity resolves the start destination during video playback
+        // and passes it forward; falls back to MainViewModel when MainActivity
+        // is launched directly (e.g. an FCM notification tap).
+        val splashStart = intent.getStringExtra(SplashActivity.EXTRA_START_SCREEN)
+            ?.let { runCatching { Json.decodeFromString(Screen.serializer(), it) }.getOrNull() }
+
         setContent {
             DobiTheme {
-                val startDestination by viewModel.startDestination.collectAsStateWithLifecycle()
+                val viewModelStart by viewModel.startDestination.collectAsStateWithLifecycle()
+                val startDestination = splashStart ?: viewModelStart
                 val navController = rememberNavController()
                 var deeplink by remember { mutableStateOf(pendingDeeplink) }
 

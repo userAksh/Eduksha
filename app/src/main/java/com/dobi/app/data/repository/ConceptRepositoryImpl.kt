@@ -22,8 +22,7 @@ class ConceptRepositoryImpl @Inject constructor(
 
         val listener = query.addSnapshotListener { snapshot, error ->
             if (error != null) {
-                close(error)
-                return@addSnapshotListener
+                trySend(emptyList()); close(); return@addSnapshotListener
             }
             val concepts = snapshot?.documents?.mapNotNull { doc ->
                 runCatching {
@@ -61,7 +60,7 @@ class ConceptRepositoryImpl @Inject constructor(
         val docRef = firestore.collection("concepts").document(id)
 
         val listener = docRef.addSnapshotListener { snapshot, error ->
-            if (error != null) { close(error); return@addSnapshotListener }
+            if (error != null) { trySend(null); close(); return@addSnapshotListener }
             val concept = if (snapshot != null && snapshot.exists()) {
                 runCatching {
                     Concept(

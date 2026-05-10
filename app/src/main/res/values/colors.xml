@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="splash_background">#FF1E6BEF</color>
+    <!-- System splash + windowBackground + any cutout/nav fallback area.
+         Black so the cutout zone and gesture-nav band don't visually flash
+         white if the layout transiently doesn't extend into them. -->
+    <color name="splash_video_match">#FF000000</color>
 </resources>

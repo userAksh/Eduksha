@@ -115,7 +115,7 @@ class UploadEntryRepository @Inject constructor(
             .whereEqualTo("childId", childId)
             .addSnapshotListener { snap, error ->
                 if (error != null) {
-                    close(error); return@addSnapshotListener
+                    trySend(emptyList()); close(); return@addSnapshotListener
                 }
                 val list = snap?.documents.orEmpty().mapNotNull { doc ->
                     runCatching {
