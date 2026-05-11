@@ -14,6 +14,7 @@
   <link rel="preload" href="/assets/fonts/sf_pro_regular.OTF" as="font" type="font/otf" crossorigin />
   <link rel="preload" href="/assets/fonts/gilroy_bold.ttf" as="font" type="font/ttf" crossorigin />
   <link rel="stylesheet" href="/styles.css" />
+  <script src="/assets/analytics.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -88,6 +89,15 @@
 
       <p>हम <strong>नहीं लेते</strong>: आपकी exact location, contacts, microphone audio, camera video (camera permission सिर्फ़ उन homework photos के लिए है जिन्हें बच्चा ख़ुद submit करता है), ऐप के बाहर का browsing history, या कोई social-media data।</p>
 
+      <h3>Website (eduksha.in) पर visit करने वालों से</h3>
+      <p>ऐप से अलग, हमारी marketing website <a href="https://eduksha.in/">eduksha.in</a> पर तीन analytics tools चलते हैं — और सिर्फ़ तब जब आप cookie banner पर <strong>Accept</strong> करते हैं। अगर आप <strong>Decline</strong> करते हैं तो ये load ही नहीं होते:</p>
+      <ul>
+        <li><strong>Google Analytics 4</strong> (Google LLC) — page views, country (anonymised IP से), browser/device family, button clicks। हम traffic sources समझने के लिए use करते हैं। IP addresses store करने से पहले anonymise हो जाते हैं।</li>
+        <li><strong>Microsoft Clarity</strong> (Microsoft Corporation) — anonymised session recordings (mouse, scroll, click) और aggregated heatmaps। UX issues पकड़ने के लिए use होता है। Form fields (जैसे email input) mask रहते हैं — कभी record नहीं होते।</li>
+        <li><strong>Meta Pixel</strong> (Meta Platforms Inc.) — page views और conversion events (जैसे waitlist signup), Facebook/Instagram पर हम जो ads चलाते हैं उनकी performance measure करने के लिए। IP और एक hashed cookie identifier Meta को जाता है। सिर्फ़ marketing measurement के लिए — बच्चों की behavioural profiling नहीं होती।</li>
+      </ul>
+      <p>आप कभी भी consent वापस ले सकते हैं — browser में eduksha.in के cookies और local storage clear करें, फिर refresh कर दें — banner फिर से आ जाएगा और आप Decline चुन सकते हैं।</p>
+
       <h2>3. इस जानकारी का use कैसे होता है</h2>
       <table>
         <thead>
@@ -113,6 +123,9 @@
         <li><strong>Google LLC / Firebase</strong> — authentication, Firestore database, photos के लिए Cloud Storage, Cloud Functions, Cloud Messaging, App Check, Crashlytics (अगर enabled हो)। Google हमारे data processor के रूप में काम करता है।</li>
         <li><strong>Google Gemini API</strong> — quiz या feedback बनाते वक़्त बच्चे की homework photo या लिखा हुआ जवाब Gemini तक जाता है। Prompt में हम बच्चे का नाम या कोई PII (personal info) नहीं भेजते — सिर्फ़ academic content। Google की API terms के मुताबिक़, prompts और outputs को Google के general-purpose models train करने के लिए use नहीं किया जाता।</li>
         <li><strong>Google Play / Android</strong> — install-referrer और notification delivery का infrastructure।</li>
+        <li><strong>Google Analytics 4</strong> (सिर्फ़ website पर, cookie banner से opt-in) — anonymised page-view और event data, traffic analysis के लिए।</li>
+        <li><strong>Microsoft Clarity</strong> (सिर्फ़ website पर, cookie banner से opt-in) — anonymised session recordings और heatmaps, UX research के लिए। Form fields mask रहते हैं।</li>
+        <li><strong>Meta Pixel</strong> (सिर्फ़ website पर, cookie banner से opt-in) — page-view और conversion events, Facebook/Instagram ads की effectiveness measure करने के लिए।</li>
       </ul>
       <p>इनके अलावा हम किसी और third party के साथ कुछ share नहीं करते। हम personal data न बेचते हैं, न किराये पर देते, न उसका लेन-देन करते हैं।</p>
 

@@ -78,5 +78,35 @@ service cloud.firestore {
     match /quiz_attempts/{childId}/{document=**} {
       allow read, write: if isParentOf(childId);
     }
+
+    // Pre-launch waitlist signups from the marketing site (eduksha.in).
+    // Anyone may create a waitlist entry; reads/updates/deletes are admin-only
+    // (handled via Firebase Console or future Cloud Function).
+    // Schema is locked down to prevent injection of unrelated fields.
+    match /waitlist/{docId} {
+      // Two entry points: hero form (phone only, email blank) and bottom
+      // form (all four fields). Email and phone are individually optional;
+      // at least one must be present and valid.
+      allow create: if request.resource.data.keys().hasOnly(['parentName','phone','email','childClass','locale','source','createdAt'])
+                    && request.resource.data.parentName is string
+                    && request.resource.data.parentName.size() <= 60
+                    && request.resource.data.phone is string
+                    && (request.resource.data.phone.size() == 0
+                        || request.resource.data.phone.matches('^[6-9][0-9]{9}$'))
+                    && request.resource.data.email is string
+                    && request.resource.data.email.size() < 100
+                    && (request.resource.data.email.size() == 0
+                        || (request.resource.data.email.size() > 5
+                            && request.resource.data.email.matches('.+@.+[.].+')))
+                    && (request.resource.data.phone.size() > 0
+                        || request.resource.data.email.size() > 0)
+                    && request.resource.data.childClass is string
+                    && request.resource.data.childClass.size() < 30
+                    && request.resource.data.locale in ['en', 'hi']
+                    && request.resource.data.source is string
+                    && request.resource.data.source.size() < 200
+                    && request.resource.data.createdAt == request.time;
+      allow read, update, delete: if false;
+    }
   }
 }

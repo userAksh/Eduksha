@@ -315,7 +315,7 @@ img { max-width: 100%; height: auto; display: block; }
   gap: 32px;
   align-items: center;
 }
-.nav a {
+.nav a:not(.btn) {
   color: var(--ink-3);
   font-family: "SF Pro", sans-serif;
   font-size: 0.92rem;
@@ -488,6 +488,24 @@ img { max-width: 100%; height: auto; display: block; }
 @media (max-width: 800px) {
   .nav { gap: 14px; }
   .nav a:not(.btn):not(.lang-toggle) { display: none; }
+}
+@media (max-width: 540px) {
+  /* Compact header so brand + lang toggle + Sign Up fit on phone screens. */
+  .site-header .container { padding-top: 12px; padding-bottom: 12px; }
+  .brand { font-size: 1.05rem; gap: 8px; }
+  .brand-mark { width: 30px; height: 30px; }
+  .nav { gap: 8px; }
+  .nav .lang-toggle {
+    padding: 7px 11px;
+    font-size: 0.78rem;
+    gap: 5px;
+  }
+  .nav .lang-toggle::before { width: 12px; height: 12px; }
+  .site-header .nav .btn {
+    padding: 10px 18px;
+    font-size: 0.84rem;
+    gap: 6px;
+  }
 }
 
 /* ── Buttons (matches app's pill style) ───────────────────────── */
@@ -755,7 +773,7 @@ img { max-width: 100%; height: auto; display: block; }
 @media (max-width: 940px) {
   .hero { padding: 48px 0 80px; min-height: auto; }
   .hero-grid { grid-template-columns: 1fr; gap: 56px; }
-  .hero-art { order: -1; min-height: 480px; }
+  .hero-art { min-height: 440px; }
   .hero-art .phone-frame.right { display: none; }
   .today-tag { left: 4%; }
   .streak-tag { left: 4%; bottom: 4%; }
@@ -1516,13 +1534,17 @@ section { padding: 120px 0; position: relative; }
   display: grid; gap: 14px;
 }
 .audience-card li {
-  display: flex; align-items: flex-start; gap: 14px;
+  position: relative;
+  padding-left: 32px;
   font-size: 0.96rem;
   line-height: 1.55;
   color: var(--ink-3);
 }
 .audience-card li::before {
   content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
   width: 18px; height: 18px;
   border-radius: 50%;
   background: var(--primary);
@@ -1530,8 +1552,6 @@ section { padding: 120px 0; position: relative; }
   background-repeat: no-repeat;
   background-position: center;
   background-size: 11px;
-  flex-shrink: 0;
-  margin-top: 3px;
 }
 .audience-card.warm li::before { background-color: var(--accent); }
 
@@ -1892,6 +1912,10 @@ section { padding: 120px 0; position: relative; }
 .page-hero p { max-width: 640px; margin: 0 auto; font-size: 1.06rem; }
 
 /* ── Kid-friendly floating decorations ────────────────────────── */
+.hero-grid {
+  position: relative;
+  z-index: 1;
+}
 .kid-deco {
   position: absolute;
   pointer-events: none;
@@ -1924,7 +1948,7 @@ section { padding: 120px 0; position: relative; }
 }
 
 .kid-deco.book   { top: 12%; left: 6%;   animation: drift-a 11s var(--ease-cinema) infinite; }
-.kid-deco.pencil { top: 70%; left: 12%;  animation: drift-b 13s var(--ease-cinema) infinite -3s; font-size: 1.4rem; }
+.kid-deco.pencil { display: none; }
 .kid-deco.star   { top: 22%; right: 8%;  animation: drift-c 9s var(--ease-cinema) infinite -5s; font-size: 1.2rem; color: var(--accent); }
 .kid-deco.plane  { top: 82%; right: 14%; animation: drift-d 14s var(--ease-cinema) infinite -7s; font-size: 1.5rem; }
 
@@ -2014,6 +2038,247 @@ section { padding: 120px 0; position: relative; }
   background: var(--surface-alt);
 }
 .wave-divider svg { display: block; width: 100%; height: 100%; }
+
+/* ── Waitlist form (lives inside .cta-strip) ──────────────────── */
+.waitlist-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 520px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+/* Hero-context override: left-aligned, blue button, sits in the hero CTA area. */
+.waitlist-form--hero {
+  margin: 0 0 10px;
+  max-width: 480px;
+}
+.hero-free-note {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #16a34a;
+  margin: 0 0 40px;
+  letter-spacing: 0.01em;
+}
+@media (max-width: 540px) {
+  .waitlist-form--hero { margin-bottom: 8px; }
+  .hero-free-note { margin-bottom: 24px; font-size: 0.92rem; }
+}
+.waitlist-form--hero button[type="submit"] {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+  box-shadow: var(--shadow-blue);
+}
+.waitlist-form--hero button[type="submit"]:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+.hero-secondary-cta {
+  margin-bottom: 56px;
+}
+
+.waitlist-form input[type="email"],
+.waitlist-form input[type="text"],
+.waitlist-form input[type="tel"],
+.waitlist-form select {
+  flex: 1 1 200px;
+  min-width: 0;
+  padding: 14px 18px;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  font-family: "SF Pro", sans-serif;
+  font-size: 0.94rem;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  transition: border-color 200ms var(--ease), box-shadow 200ms var(--ease);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.waitlist-form input[type="email"]:focus,
+.waitlist-form input[type="text"]:focus,
+.waitlist-form input[type="tel"]:focus,
+.waitlist-form select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 6px 22px rgba(245, 158, 11, 0.32);
+}
+.waitlist-form select {
+  flex: 0 0 130px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a2b4a' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px;
+  padding-right: 36px;
+  cursor: pointer;
+}
+.waitlist-form button[type="submit"] {
+  flex: 0 0 auto;
+  padding: 14px 26px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--surface);
+  border: 1.5px solid var(--ink);
+  font-family: "SF Pro", sans-serif;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 200ms var(--ease), border-color 200ms var(--ease), transform 200ms var(--ease);
+}
+.waitlist-form button[type="submit"]:hover {
+  background: var(--primary-deep);
+  border-color: var(--primary-deep);
+  transform: translateY(-1px);
+}
+.waitlist-form.is-loading button[type="submit"] {
+  opacity: 0.6;
+  cursor: wait;
+}
+.waitlist-form .form-error {
+  color: #ef4444;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin: 6px 0 0;
+  width: 100%;
+  text-align: center;
+}
+.waitlist-success {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 22px 28px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: var(--surface);
+  max-width: 520px;
+  margin: 0 auto;
+  animation: cookie-rise 480ms var(--ease-cinema);
+}
+.waitlist-success .check {
+  display: inline-grid;
+  place-items: center;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+.waitlist-success h4 {
+  font-family: "Gilroy", sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--surface);
+  margin: 0;
+}
+.waitlist-success p {
+  color: rgba(255,255,255,0.85);
+  margin: 0;
+  font-size: 0.94rem;
+}
+@media (max-width: 540px) {
+  /* On phones, inputs stack full-width — drop the 999px pill radius
+     (which makes each row look like a giant stadium) for a rounded
+     rectangle, and tighten padding. */
+  .waitlist-form { flex-direction: column; align-items: stretch; gap: 12px; }
+  .waitlist-form input[type="email"],
+  .waitlist-form input[type="text"],
+  .waitlist-form input[type="tel"],
+  .waitlist-form select {
+    flex: 1 1 auto;
+    border-radius: 14px;
+    padding: 13px 16px;
+    font-size: 0.95rem;
+  }
+  .waitlist-form button[type="submit"] {
+    flex: 1 1 auto;
+    border-radius: 14px;
+    padding: 14px 22px;
+  }
+}
+
+/* ── Cookie consent banner ────────────────────────────────────── */
+.cookie-banner {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  left: 20px;
+  max-width: 460px;
+  margin-left: auto;
+  z-index: 90;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 22px 18px;
+  box-shadow: var(--shadow-lg);
+  animation: cookie-rise 480ms var(--ease-cinema);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+@keyframes cookie-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.cookie-banner h4 {
+  font-family: "Gilroy", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0 0 6px;
+  color: var(--ink);
+  letter-spacing: -0.012em;
+}
+.cookie-banner p {
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--ink-3);
+  margin: 0;
+}
+.cookie-banner p a {
+  color: var(--primary-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cookie-banner .cookie-actions {
+  display: flex;
+  gap: 10px;
+}
+.cookie-banner button {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-family: "SF Pro", sans-serif;
+  font-weight: 600;
+  font-size: 0.84rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 200ms var(--ease), color 200ms var(--ease), border-color 200ms var(--ease);
+}
+.cookie-banner .accept {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+}
+.cookie-banner .accept:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+.cookie-banner .reject {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border);
+}
+.cookie-banner .reject:hover {
+  background: var(--surface-alt);
+}
+@media (max-width: 540px) {
+  .cookie-banner { left: 12px; right: 12px; bottom: 12px; padding: 18px; }
+}
 
 /* ── Reduced motion ───────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
