@@ -22,3 +22,7 @@ keystore.properties
 
 # Firebase CLI local cache
 .firebase/
+
+# Kotlin compiler error logs (local-only, regenerated on build)
+.kotlin/
+

@@ -79,6 +79,25 @@ service cloud.firestore {
       allow read, write: if isParentOf(childId);
     }
 
+    // Curriculum content: read-only for any signed-in user. Seeding is
+    // admin-only via Firebase Console / Admin SDK (which bypasses rules).
+    match /concepts/{conceptId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    // Child-keyed activity: doc carries a `childId` field; only the
+    // owning parent can touch it. Mirrors uploads/homeworks pattern.
+    match /completions/{id} {
+      allow create: if isParentOf(request.resource.data.childId);
+      allow read, update, delete: if isParentOf(resource.data.childId);
+    }
+
+    match /revision_marks/{docId} {
+      allow create: if isParentOf(request.resource.data.childId);
+      allow read, update, delete: if isParentOf(resource.data.childId);
+    }
+
     // Pre-launch waitlist signups from the marketing site (eduksha.in).
     // Anyone may create a waitlist entry; reads/updates/deletes are admin-only
     // (handled via Firebase Console or future Cloud Function).

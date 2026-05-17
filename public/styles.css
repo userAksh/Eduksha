@@ -101,10 +101,14 @@ html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
   background: var(--bg);
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
   margin: 0;
+  max-width: 100vw;
+  position: relative;
   font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 16px;
@@ -554,8 +558,7 @@ img { max-width: 100%; height: auto; display: block; }
 /* ── Hero ─────────────────────────────────────────────────────── */
 .hero {
   position: relative;
-  min-height: 92vh;
-  padding: 64px 0 100px;
+  padding: 28px 0 80px;
   overflow: hidden;
   isolation: isolate;
   display: flex;
@@ -616,27 +619,27 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .hero-stats {
   display: flex;
-  gap: 56px;
-  padding-top: 28px;
+  gap: 40px;
+  padding-top: 24px;
   border-top: 1px solid var(--border);
   max-width: 540px;
 }
 .hero-stat .v {
   font-family: "Gilroy", "SF Pro", sans-serif;
-  font-size: 2.2rem;
+  font-size: 1.55rem;
   font-weight: 700;
   color: var(--ink);
-  line-height: 1;
-  letter-spacing: -0.02em;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
 }
 .hero-stat .v em { color: var(--primary); font-style: italic; font-weight: 700; }
 .hero-stat .l {
   font-family: "SF Pro", sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 2.4px;
+  font-size: 0.68rem;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
   color: var(--ink-soft);
-  margin-top: 8px;
+  margin-top: 6px;
   display: block;
   font-weight: 500;
 }
@@ -771,7 +774,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 @media (max-width: 940px) {
-  .hero { padding: 48px 0 80px; min-height: auto; }
+  .hero { padding: 16px 0 56px; min-height: auto; }
   .hero-grid { grid-template-columns: 1fr; gap: 56px; }
   .hero-art { min-height: 440px; }
   .hero-art .phone-frame.right { display: none; }
@@ -781,8 +784,15 @@ img { max-width: 100%; height: auto; display: block; }
   .hero-stats { gap: 28px; }
 }
 @media (max-width: 540px) {
-  .hero-stats { flex-wrap: wrap; gap: 22px; }
-  .hero-stat .v { font-size: 1.7rem; }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    padding-top: 20px;
+  }
+  .hero-stat { min-width: 0; }
+  .hero-stat .v { font-size: 1.05rem; line-height: 1.2; }
+  .hero-stat .l { font-size: 0.6rem; letter-spacing: 1.2px; margin-top: 4px; }
 }
 
 /* ── Phone mockup (matches in-app card style) ─────────────────── */
@@ -2104,6 +2114,130 @@ section { padding: 120px 0; position: relative; }
   border-color: var(--accent);
   box-shadow: 0 6px 22px rgba(245, 158, 11, 0.32);
 }
+
+/* Pulse highlight when a CTA scrolls to the form — directs the eye
+   to the phone field so visitors know exactly where to type. */
+@keyframes wlPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.55), 0 6px 22px rgba(245, 158, 11, 0.45); }
+  60%  { box-shadow: 0 0 0 14px rgba(245, 158, 11, 0),    0 6px 22px rgba(245, 158, 11, 0.45); }
+  100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0),       0 6px 22px rgba(245, 158, 11, 0); }
+}
+.waitlist-form.is-highlighting input[type="tel"],
+.waitlist-form.is-highlighting input:focus {
+  border-color: var(--accent);
+  animation: wlPulse 1.4s ease-out 2;
+}
+
+/* ── Signup sheet ─────────────────────────────────────────────────────
+   Bottom-sheet on mobile / centered modal on desktop. Opens when the
+   header "Sign up" button or any subject-card CTA is tapped. Single
+   focused form so the visitor sees ONE clear action and nothing else.
+   --------------------------------------------------------------------- */
+.signup-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  visibility: hidden;
+}
+.signup-sheet.is-open {
+  pointer-events: auto;
+  visibility: visible;
+}
+.signup-sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 24, 50, 0.55);
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+.signup-sheet.is-open .signup-sheet-backdrop {
+  opacity: 1;
+}
+.signup-sheet-card {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  border-radius: 24px 24px 0 0;
+  padding: 14px 22px calc(28px + env(safe-area-inset-bottom));
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.18);
+  transform: translateY(100%);
+  transition: transform 320ms cubic-bezier(0.22, 0.65, 0.34, 0.99);
+  max-height: 92vh;
+  overflow-y: auto;
+}
+.signup-sheet.is-open .signup-sheet-card {
+  transform: translateY(0);
+}
+.signup-sheet-handle {
+  width: 40px;
+  height: 4px;
+  background: #d8dde8;
+  border-radius: 999px;
+  margin: 4px auto 16px;
+}
+.signup-sheet-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: 0;
+  font-size: 26px;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 6px 10px;
+  line-height: 1;
+  z-index: 1;
+}
+.signup-sheet-close:hover { color: #1a2b4a; }
+.signup-sheet-card h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a2b4a;
+  margin: 0 0 8px;
+  text-align: center;
+  line-height: 1.25;
+}
+.signup-sheet-card > p.signup-sheet-sub {
+  text-align: center;
+  color: #475067;
+  font-size: 14px;
+  margin: 0 0 20px;
+  line-height: 1.45;
+}
+.signup-sheet-card .waitlist-form {
+  margin-bottom: 12px;
+}
+.signup-sheet-trust {
+  text-align: center;
+  font-size: 12px;
+  color: #6b7280;
+  margin: 14px 0 0;
+  line-height: 1.6;
+}
+.signup-sheet-trust strong { color: #1a2b4a; font-weight: 700; }
+@media (min-width: 720px) {
+  .signup-sheet-card {
+    bottom: auto;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    width: 92%;
+    max-width: 460px;
+    transform: translate(-50%, -48%) scale(0.96);
+    opacity: 0;
+    border-radius: 24px;
+    padding: 32px 28px;
+    transition: transform 220ms ease, opacity 220ms ease;
+  }
+  .signup-sheet.is-open .signup-sheet-card {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  .signup-sheet-handle { display: none; }
+}
 .waitlist-form select {
   flex: 0 0 130px;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a2b4a' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
@@ -2135,6 +2269,618 @@ section { padding: 120px 0; position: relative; }
 .waitlist-form.is-loading button[type="submit"] {
   opacity: 0.6;
   cursor: wait;
+}
+
+/* ── Touch-tap state hardening ──
+   On touch devices, buttons keep their :hover style after a tap until
+   the user taps elsewhere. That makes the button look "stuck" / changed
+   color / disabled. These rules suppress that by: (1) killing the grey
+   tap-highlight overlay, (2) disabling :hover on non-pointer devices,
+   and (3) removing the focus outline for mouse/touch focus (we keep it
+   for keyboard via :focus-visible). */
+.btn-primary,
+.btn,
+.waitlist-form button[type="submit"],
+.signup-sheet-close,
+.signup-sheet-card .waitlist-form button[type="submit"],
+.lang-modal-btn,
+a[data-open-sheet] {
+  -webkit-tap-highlight-color: transparent;
+}
+@media (hover: none) {
+  .btn-primary:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: none;
+    box-shadow: var(--shadow-blue);
+  }
+  .waitlist-form button[type="submit"]:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    transform: none;
+  }
+  .waitlist-form--hero button[type="submit"]:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: none;
+  }
+}
+.btn-primary:focus:not(:focus-visible),
+.waitlist-form button[type="submit"]:focus:not(:focus-visible),
+.signup-sheet-close:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Hero benefits bullets ──
+   Three scannable benefit lines replacing the long lead paragraph. */
+.hero-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 22px;
+  max-width: 480px;
+}
+.hero-benefits li {
+  position: relative;
+  padding: 6px 0 6px 30px;
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--ink);
+  font-weight: 500;
+}
+.hero-benefits li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
+.hero-benefits li strong { color: var(--ink); font-weight: 700; }
+
+/* ── Interactive quiz-style CTA card ──
+   Primary hero CTA. Looks like a tappable card (icon + 2-line text +
+   arrow) rather than a passive button. Premium blue treatment so it
+   reads as the main action, not an informational banner. */
+.quiz-cta-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 0 16px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 0;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep, #1e5fcc) 100%);
+  color: #fff;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 16px 36px rgba(47, 125, 255, 0.32);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 200ms var(--ease), box-shadow 200ms var(--ease);
+}
+.quiz-cta-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 44px rgba(47, 125, 255, 0.38);
+}
+@media (hover: none) {
+  .quiz-cta-card:hover { transform: none; box-shadow: 0 16px 36px rgba(47, 125, 255, 0.32); }
+}
+.quiz-cta-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.quiz-cta-body { flex: 1; min-width: 0; display: block; }
+.quiz-cta-title {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #fff;
+}
+.quiz-cta-sub {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.82);
+  letter-spacing: 0.02em;
+}
+.quiz-cta-arrow {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  transition: transform 200ms var(--ease);
+}
+.quiz-cta-card:hover .quiz-cta-arrow { transform: translateX(4px); }
+
+/* ── Hero urgency + trust micro-lines ──
+   Urgency is intentionally understated — a small italic muted line, not
+   a banner. The Founding Parent pills and trust line already carry the
+   stronger signals; the urgency just nudges. */
+.hero-urgency-line {
+  max-width: 480px;
+  margin: 0 0 6px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  font-size: 12.5px;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--ink-3);
+  line-height: 1.4;
+  letter-spacing: 0.005em;
+}
+.hero-trust-line {
+  max-width: 480px;
+  margin: 0 0 18px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-3);
+  letter-spacing: 0.01em;
+  line-height: 1.45;
+}
+
+/* ── Founding-parent rewards strip ──
+   Replaces the ₹10,000 coupons line with trust-based commitments. */
+.founding-rewards {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 480px;
+}
+.founding-rewards li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--primary-soft, rgba(47, 125, 255, 0.08));
+  border: 1px solid rgba(47, 125, 255, 0.18);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1.2;
+}
+.fr-icon { font-size: 13px; }
+
+/* ── Hero inline preview ──
+   Small product mockup that appears right below the CTA card on mobile.
+   Gives parents a visual peek at what the parent dashboard looks like
+   without making them scroll. Hidden on desktop (the larger hero-art
+   on the right already covers desktop). */
+.hero-inline-preview {
+  display: none;
+  max-width: 480px;
+  margin: 8px 0 18px;
+  text-align: center;
+}
+.hero-inline-frame {
+  display: inline-block;
+  width: 168px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 16px 40px rgba(15, 24, 50, 0.22);
+  border: 5px solid #fff;
+  transform: translateY(0);
+}
+.hero-inline-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.hero-inline-caption {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-3);
+  line-height: 1.4;
+}
+@media (max-width: 940px) {
+  .hero-inline-preview { display: block; }
+}
+
+/* ── Hero reassurance + social proof ── */
+.hero-reassurance {
+  max-width: 480px;
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+}
+.hero-social-proof {
+  max-width: 480px;
+  margin: -4px 0 22px;
+  padding: 8px 12px;
+  background: var(--primary-soft, rgba(47, 125, 255, 0.06));
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .hero-benefits { margin-bottom: 18px; }
+  .hero-benefits li { font-size: 15px; padding-left: 28px; }
+  .quiz-cta-card { padding: 14px 14px; gap: 12px; }
+  .quiz-cta-icon { width: 42px; height: 42px; font-size: 22px; }
+  .quiz-cta-title { font-size: 15px; }
+  .founding-rewards li { font-size: 11px; padding: 5px 10px; }
+  .hero-inline-frame { width: 140px; }
+  .hero-reassurance { font-size: 13.5px; }
+  .hero-social-proof { font-size: 11.5px; }
+}
+
+/* ── How Eduksha Works — 3-step section ──
+   Sits between the trust strip and Before/After. Visual: numbered cards
+   with a real product screenshot in each step so parents can SEE how the
+   loop works (child-side input → parent-side visibility → pattern read).
+   Also serves as the "child-side screenshot lower on page" surface. */
+.how-it-works {
+  padding: 64px 0 40px;
+  background: var(--bg);
+}
+.how-it-works .section-head { margin-bottom: 36px; }
+.hiw-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.hiw-step {
+  position: relative;
+  padding: 28px 22px 26px;
+  border-radius: 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 28px rgba(15, 24, 50, 0.06);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hiw-step-num {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  font-family: "Gilroy", "SF Pro", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--primary);
+  background: var(--primary-soft, rgba(47, 125, 255, 0.1));
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.hiw-step-shot {
+  width: 168px;
+  margin: 18px 0 20px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #fff;
+  border: 5px solid #fff;
+  box-shadow: 0 16px 36px rgba(15, 24, 50, 0.16);
+}
+.hiw-step-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.hiw-step h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.hiw-step p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-3);
+  margin: 0;
+  max-width: 280px;
+}
+@media (max-width: 940px) {
+  .hiw-grid { grid-template-columns: 1fr; gap: 16px; max-width: 460px; }
+  .how-it-works { padding: 48px 0 24px; }
+  .hiw-step { padding: 24px 20px 22px; }
+  .hiw-step-shot { width: 150px; margin: 14px 0 18px; }
+}
+
+/* ── Before vs After section ──
+   Side-by-side comparison that makes the transformation tangible. */
+.before-after {
+  padding: 56px 0 32px;
+  background: var(--bg);
+}
+.before-after .section-head { margin-bottom: 32px; }
+.ba-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 920px;
+  margin: 0 auto;
+}
+.ba-col {
+  padding: 24px 22px;
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.06);
+}
+.ba-before {
+  border: 1.5px solid rgba(239, 68, 68, 0.18);
+  background: rgba(239, 68, 68, 0.03);
+}
+.ba-after {
+  border: 1.5px solid rgba(34, 197, 94, 0.22);
+  background: rgba(34, 197, 94, 0.04);
+}
+.ba-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(239, 68, 68, 0.12);
+  color: #b91c1c;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.ba-tag-good { background: rgba(34, 197, 94, 0.14); color: #15803d; }
+.ba-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.ba-col ul li {
+  padding: 8px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.ba-col ul li:last-child { border-bottom: 0; }
+@media (max-width: 640px) {
+  .ba-grid { grid-template-columns: 1fr; gap: 14px; }
+  .before-after { padding: 40px 0 16px; }
+}
+
+/* ── Quiz sheet ──
+   Reuses signup-sheet base styles; adds progress bar, options, result. */
+.quiz-progress {
+  height: 4px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 8px 0 22px;
+}
+.quiz-progress-bar {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 320ms ease;
+}
+.quiz-step-label {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 8px;
+}
+.quiz-sheet h2 {
+  font-size: 19px;
+  text-align: center;
+  margin: 0 0 18px;
+  line-height: 1.35;
+}
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.quiz-option {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 180ms var(--ease), background 180ms var(--ease), transform 120ms var(--ease);
+}
+.quiz-option:hover { border-color: var(--accent); background: rgba(245, 158, 11, 0.05); }
+@media (hover: none) { .quiz-option:hover { border-color: var(--border); background: var(--surface); } }
+.quiz-option.is-picked {
+  border-color: var(--accent);
+  background: rgba(245, 158, 11, 0.12);
+}
+.quiz-option:focus:not(:focus-visible) { outline: none; }
+.quiz-result-badge {
+  text-align: center;
+  font-size: 48px;
+  margin: 4px 0 8px;
+}
+.quiz-score-bar {
+  height: 8px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 6px 0 18px;
+}
+.quiz-score-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #ef4444, #f59e0b, #22c55e);
+  border-radius: 999px;
+  transition: width 600ms ease;
+}
+.quiz-result-cta-note {
+  font-size: 14px;
+  color: var(--ink-3);
+  margin: 6px 0 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* ── Personalized Revision Plan card ──
+   Renders directly inside the quiz result step. The plan is the
+   "free utility" we deliver immediately after the quiz — derived
+   from the parent's 3 answers. Goal: make the parent feel they
+   already received concrete value before being asked for a phone
+   number. */
+.revision-plan {
+  margin: 14px 0 18px;
+  padding: 16px 16px 18px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(47, 125, 255, 0.05), rgba(47, 125, 255, 0.02));
+  border: 1px solid rgba(47, 125, 255, 0.18);
+}
+.rp-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.rp-tag {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.005em;
+  line-height: 1.3;
+}
+.rp-sub {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.rp-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.rp-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 12px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid rgba(15, 24, 50, 0.06);
+}
+.rp-ico {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--primary-soft, rgba(47, 125, 255, 0.1));
+  font-size: 15px;
+}
+.rp-item > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.rp-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.rp-text {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.5;
+}
+@media (max-width: 480px) {
+  .revision-plan { padding: 14px 12px 16px; }
+  .rp-item { padding: 10px 10px; gap: 10px; }
+  .rp-text { font-size: 13px; }
+}
+
+/* ── Quiz result: body text under the plan card ──
+   The observational "your child may be..." line. Sits between the plan
+   card and the WhatsApp/CTA cluster, so parents see the value first
+   and the explanation second. */
+.quiz-result-body {
+  margin: 14px 0 14px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+/* ── "What happens next" mini-steps under the phone input ──
+   Reduces uncertainty about what submitting the form actually does.
+   Three numbered chips, super compact. */
+.quiz-next-steps {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.quiz-next-steps li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink-3);
+  line-height: 1.4;
+}
+.ns-num {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--primary-soft, rgba(47, 125, 255, 0.12));
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 700;
 }
 .waitlist-form .form-error {
   color: #ef4444;

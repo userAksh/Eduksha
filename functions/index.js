@@ -20,7 +20,7 @@
  *   - Child device:  parents/{parentId}/children/{childId}.fcmToken
  */
 
-const { onDocumentWritten } = require("firebase-functions/v2/firestore");
+const { onDocumentWritten, onDocumentCreated } = require("firebase-functions/v2/firestore");
 const { onSchedule } = require("firebase-functions/v2/scheduler");
 const { onCall, HttpsError } = require("firebase-functions/v2/https");
 const { defineSecret } = require("firebase-functions/params");
@@ -30,6 +30,7 @@ const { getMessaging } = require("firebase-admin/messaging");
 const { getAuth } = require("firebase-admin/auth");
 const { getStorage } = require("firebase-admin/storage");
 const logger = require("firebase-functions/logger");
+const { google } = require("googleapis");
 
 // Daily-news Gemini key. Set with:
 //   firebase functions:secrets:set GEMINI_API_KEY
@@ -657,3 +658,63 @@ async function deleteByQuery(query) {
     await batch.commit();
   }
 }
+
+// ── Waitlist → Google Sheet sync ────────────────────────────────
+// Mirrors every new `waitlist/{docId}` write into a Google Sheet so the
+// marketing team has a live view of signups. The sheet ID is hard-coded
+// below — change SHEET_ID and redeploy if you switch sheets.
+//
+// Setup once:
+//   1. Create a Google Sheet
+//   2. Share it (Editor) with: dobi-ac085@appspot.gserviceaccount.com
+//   3. Enable the Sheets API at:
+//        https://console.cloud.google.com/apis/library/sheets.googleapis.com?project=dobi-ac085
+//   4. Set SHEET_ID below to the sheet's ID (the long string between /d/ and /edit in the URL)
+//   5. Deploy: firebase deploy --only functions:mirrorWaitlistToSheet
+const WAITLIST_SHEET_ID = "13P9xZ8LnIoCiZw-I-FseZs7yw957rbekrqsSQ0WbU3U";
+const WAITLIST_SHEET_RANGE = "Sheet1!A:H"; // columns: time | name | phone | email | class | locale | source | docId
+
+exports.mirrorWaitlistToSheet = onDocumentCreated(
+  "waitlist/{docId}",
+  async (event) => {
+    if (!WAITLIST_SHEET_ID || WAITLIST_SHEET_ID === "REPLACE_WITH_SHEET_ID") {
+      logger.warn("mirrorWaitlistToSheet: SHEET_ID not configured; skipping");
+      return;
+    }
+
+    const data = event.data?.data();
+    if (!data) return;
+
+    const docId = event.params.docId;
+    const createdAt =
+      data.createdAt?.toDate?.()?.toISOString?.() || new Date().toISOString();
+
+    const row = [
+      createdAt,
+      data.parentName || "",
+      data.phone || "",
+      data.email || "",
+      data.childClass || "",
+      data.locale || "",
+      data.source || "",
+      docId,
+    ];
+
+    try {
+      const auth = new google.auth.GoogleAuth({
+        scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+      });
+      const sheets = google.sheets({ version: "v4", auth });
+      await sheets.spreadsheets.values.append({
+        spreadsheetId: WAITLIST_SHEET_ID,
+        range: WAITLIST_SHEET_RANGE,
+        valueInputOption: "RAW",
+        insertDataOption: "INSERT_ROWS",
+        requestBody: { values: [row] },
+      });
+      logger.info(`mirrorWaitlistToSheet: appended ${docId} (phone=${data.phone || "—"})`);
+    } catch (err) {
+      logger.error(`mirrorWaitlistToSheet: failed for ${docId}: ${err.message}`, err);
+    }
+  }
+);

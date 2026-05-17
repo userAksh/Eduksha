@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
   <title>Eduksha — A daily learning ritual for Indian families</title>
   <meta name="description" content="A learning companion built for Indian families. Curated lessons, AI quizzes, written-answer feedback, a daily kid-safe newspaper, and a parent partner — all in one app." />
   <meta name="theme-color" content="#2f7dff" />
@@ -36,7 +36,7 @@
         <a href="#how">Process</a>
         <a href="#faq">FAQ</a>
         <a href="/hi/" class="lang-toggle" hreflang="hi" aria-label="हिंदी में पढ़ें">हिंदी</a>
-        <a href="#home" class="btn btn-primary btn-arrow">Sign up</a>
+        <a href="#home" class="btn btn-primary btn-arrow" data-open-quiz>Start Check</a>
       </nav>
     </div>
   </header>
@@ -50,42 +50,68 @@
       <span class="kid-deco plane"  aria-hidden="true">✈️</span>
       <div class="container hero-grid">
         <div>
-          <span class="eyebrow reveal">100% Free · Daily learning · Made in India</span>
-          <h1 class="reveal delay-1">Do you only realise your child is struggling on <em>Result Day</em>?</h1>
-          <p class="lead reveal delay-2">
-            School, tuition, and homework don't track your child's real progress — Eduksha does. Stay updated on learning, revision, and consistency before it's too late.
-          </p>
-          <form class="waitlist-form waitlist-form--hero reveal delay-3" data-source="hero-en" novalidate>
-            <input type="tel" name="phone" required placeholder="Phone number (10 digits)" autocomplete="tel" aria-label="Phone number" inputmode="tel" maxlength="14" />
-            <button type="submit">Sign up</button>
-          </form>
-          <p class="hero-free-note">✓ 100% free, forever — no payment ever required.</p>
-          <div class="hero-stats reveal delay-4">
+          <span class="eyebrow">🎯 Free Parent Check · 30 seconds · Get a personalized revision plan</span>
+          <h1>School aur tuition har roz — phir bhi bachcha kya <em>seekh raha hai</em> pata nahi?</h1>
+
+          <ul class="hero-benefits">
+            <li>Kya bachcha <strong>rozana revise</strong> karta hai</li>
+            <li>Kis subject mein <strong>weak</strong> hai</li>
+            <li>Roz <strong>kya seekh raha</strong> hai</li>
+          </ul>
+
+          <button type="button" class="quiz-cta-card" data-open-quiz aria-label="See what your child revises">
+            <span class="quiz-cta-icon" aria-hidden="true">🧠</span>
+            <span class="quiz-cta-body">
+              <span class="quiz-cta-title">See What Your Child Revises</span>
+              <span class="quiz-cta-sub">Parent Check · Takes only 30 seconds</span>
+            </span>
+            <span class="quiz-cta-arrow" aria-hidden="true">→</span>
+          </button>
+
+          <div class="hero-inline-preview" aria-hidden="true">
+            <div class="hero-inline-frame">
+              <img src="/assets/screenshots/parent_home.webp" alt="" width="540" height="1200" loading="lazy" decoding="async" />
+            </div>
+            <span class="hero-inline-caption">↑ Aapke parent dashboard ka preview — rozana progress at a glance</span>
+          </div>
+
+          <p class="hero-reassurance">Homework complete hona aur concepts samajhna — yeh alag cheezein hain.</p>
+          <p class="hero-urgency-line">⏰ No more surprise report cards. Result day se pehle learning gaps catch karein.</p>
+          <p class="hero-trust-line">100% free · No spam · Early access before public launch</p>
+
+          <ul class="founding-rewards">
+            <li><span class="fr-icon">⭐</span> Founding Parent access</li>
+            <li><span class="fr-icon">🚀</span> Priority onboarding</li>
+            <li><span class="fr-icon">🎯</span> Early access before public launch</li>
+          </ul>
+
+          <p class="hero-social-proof">🇮🇳 Built for Indian school students · CBSE &amp; NCERT focused · Class 2–8</p>
+          <div class="hero-stats">
             <div class="hero-stat">
               <div class="v">Class <em>2–8</em></div>
-              <span class="l">NCERT &amp; CBSE</span>
+              <span class="l">CBSE &amp; NCERT aligned</span>
             </div>
             <div class="hero-stat">
-              <div class="v"><em>15</em> mins</div>
-              <span class="l">A day</span>
+              <div class="v"><em>15</em> mins daily</div>
+              <span class="l">Small consistent habits</span>
             </div>
             <div class="hero-stat">
-              <div class="v"><em>AI</em> Tutor</div>
-              <span class="l">Always on</span>
+              <div class="v"><em>Parent</em> Insights</div>
+              <span class="l">Track revision &amp; progress</span>
             </div>
           </div>
         </div>
 
-        <div class="hero-art reveal delay-2" aria-hidden="true">
+        <div class="hero-art" aria-hidden="true">
           <div class="phone-frame front">
             <div class="phone-screen shot">
-              <img src="/assets/screenshots/student_home.png" alt="Eduksha — kid's Today's Learning home" />
+              <img src="/assets/screenshots/student_home.webp" alt="Eduksha — kid's Today's Learning home" width="540" height="1200" fetchpriority="high" decoding="async" />
             </div>
           </div>
 
           <div class="phone-frame right">
             <div class="phone-screen shot">
-              <img src="/assets/screenshots/parent_home.png" alt="Eduksha — parent dashboard with pending review" />
+              <img src="/assets/screenshots/parent_home.webp" alt="Eduksha — parent dashboard with pending review" width="540" height="1200" fetchpriority="high" decoding="async" />
             </div>
           </div>
 
@@ -96,7 +122,7 @@
         </div>
       </div>
 
-      <div class="scroll-indicator">Scroll</div>
+      <div class="scroll-indicator">↓ Dekho kaise kaam karta hai</div>
     </section>
 
     <!-- ─────────────────── Trust strip ─────────────────── -->
@@ -109,6 +135,78 @@
           <div class="trust-item reveal delay-3"><span class="ico">iv</span> Zero ads, ever</div>
           <div class="trust-item reveal delay-4"><span class="ico">v</span> DPDPA compliant</div>
           <div class="trust-item reveal delay-5"><span class="ico">vi</span> AI-powered learning</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────── How Eduksha Works ─────────────────── -->
+    <section class="how-it-works">
+      <div class="container">
+        <div class="section-head center reveal">
+          <div class="roman">How it works</div>
+          <h2>Eduksha 3 simple steps me <em>kaam</em> karta hai</h2>
+          <p>Bachche ke liye 15 minute. Aapke liye 1 click. Roz ka clear hisaab.</p>
+        </div>
+
+        <div class="hiw-grid">
+          <div class="hiw-step reveal">
+            <div class="hiw-step-num">01</div>
+            <div class="hiw-step-shot">
+              <img src="/assets/screenshots/student_home.webp" alt="Eduksha — bachche ka Today's Learning home screen" width="540" height="1200" loading="lazy" decoding="async" />
+            </div>
+            <h3>Bachcha rozana 15 min</h3>
+            <p>2–3 short tasks — quiz, revision, ek concept. Na bojh, na overload. Bus consistency.</p>
+          </div>
+
+          <div class="hiw-step reveal delay-1">
+            <div class="hiw-step-num">02</div>
+            <div class="hiw-step-shot">
+              <img src="/assets/screenshots/parent_home.webp" alt="Eduksha — parent dashboard with daily progress" width="540" height="1200" loading="lazy" decoding="async" />
+            </div>
+            <h3>Aap 1 click me dekhein</h3>
+            <p>Kya hua, kya miss, kis subject me weak — aapke parent dashboard pe rozana clear breakdown.</p>
+          </div>
+
+          <div class="hiw-step reveal delay-2">
+            <div class="hiw-step-num">03</div>
+            <div class="hiw-step-shot">
+              <img src="/assets/screenshots/school_work.webp" alt="Eduksha — subject-wise progress overview" width="540" height="1200" loading="lazy" decoding="async" />
+            </div>
+            <h3>Patterns saaf dikhe</h3>
+            <p>Streak, revision consistency, weak chapters — Result Day se pehle hi gaps catch ho jaate hain.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────── Before vs After ─────────────────── -->
+    <section class="before-after">
+      <div class="container">
+        <div class="section-head center reveal">
+          <h2>Aaj kya badlega <em>Eduksha</em> ke saath?</h2>
+          <p>Parents who use Eduksha stop guessing — they actually <em>know</em>.</p>
+        </div>
+        <div class="ba-grid">
+          <div class="ba-col ba-before reveal">
+            <div class="ba-tag">Without Eduksha</div>
+            <ul>
+              <li>❌ "Padha?" puchhna padta hai roz</li>
+              <li>❌ Homework theek se hua, pata nahi</li>
+              <li>❌ Pichhle hafte ka chapter yaad hai ya nahi — pata nahi</li>
+              <li>❌ Revision rehti hai miss</li>
+              <li>❌ Result Day par sudden surprise</li>
+            </ul>
+          </div>
+          <div class="ba-col ba-after reveal delay-1">
+            <div class="ba-tag ba-tag-good">With Eduksha</div>
+            <ul>
+              <li>✓ Rozana 1 click me bachche ki progress</li>
+              <li>✓ Kis subject me lag raha hai, saaf dikhe</li>
+              <li>✓ Revision kab hui, kab nahi — track</li>
+              <li>✓ Consistency habit ban-ti hai</li>
+              <li>✓ Result Day par koi surprise nahi</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -188,34 +286,34 @@
               <div class="sc-class">Class 2–8</div>
               <h3>Math</h3>
               <p>Fractions, geometry, algebra — quizzes with worked solutions.</p>
-              <a class="sc-cta" href="#cta">Explore →</a>
+              <a class="sc-cta" href="#cta" data-open-sheet>Explore →</a>
             </div>
             <div class="subject-card blue">
               <div class="sc-icon">🔬</div>
               <div class="sc-class">Class 2–8</div>
               <h3>Science</h3>
               <p>Biology, chemistry, physics — kid-safe AI explanations.</p>
-              <a class="sc-cta" href="#cta">Explore →</a>
+              <a class="sc-cta" href="#cta" data-open-sheet>Explore →</a>
             </div>
             <div class="subject-card green">
               <div class="sc-icon">📚</div>
               <div class="sc-class">Class 2–8</div>
               <h3>English</h3>
               <p>Grammar, comprehension, written-answer feedback.</p>
-              <a class="sc-cta" href="#cta">Explore →</a>
+              <a class="sc-cta" href="#cta" data-open-sheet>Explore →</a>
             </div>
             <div class="subject-card mint">
               <div class="sc-icon">🌍</div>
               <div class="sc-class">Class 2–8</div>
               <h3>Social Studies</h3>
               <p>History, geography, civics — story-driven lessons.</p>
-              <a class="sc-cta" href="#cta">Explore →</a>
+              <a class="sc-cta" href="#cta" data-open-sheet>Explore →</a>
             </div>
           </div>
           <div class="subjects-art reveal delay-1" aria-hidden="true">
             <div class="phone-frame">
               <div class="phone-screen shot">
-                <img src="/assets/screenshots/school_work.png" alt="Eduksha — subjects list inside the app" />
+                <img src="/assets/screenshots/school_work.webp" alt="Eduksha — subjects list inside the app" width="540" height="1200" loading="lazy" decoding="async" />
               </div>
             </div>
             <span class="subject-chip c1"><span class="ch-emoji">📐</span> Math</span>
@@ -466,16 +564,357 @@
     const statsRow = document.querySelector('.hero-stats');
     if (statsRow) statsIo.observe(statsRow);
 
+    // ── Signup sheet (bottom-sheet on mobile, modal on desktop) ──
+    // The sheet element appears later in the DOM than this script,
+    // so we look it up lazily inside each handler instead of caching
+    // a reference up-front (which would be null at script-parse time).
+    function getSignupSheet() { return document.getElementById('signupSheet'); }
+    function openSignupSheet(source) {
+      const sheet = getSignupSheet();
+      if (!sheet) return;
+      sheet.classList.add('is-open');
+      sheet.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        const input = sheet.querySelector('input[name="phone"]');
+        if (input) { try { input.focus({ preventScroll: true }); } catch (_) {} }
+      }, 340);
+      if (typeof window.eduTrack === 'function') {
+        window.eduTrack('signup_sheet_open', { source: source || 'unknown' });
+      }
+    }
+    function closeSignupSheet() {
+      const sheet = getSignupSheet();
+      if (!sheet) return;
+      // Did the visitor submit a form before closing? If not, they
+      // dismissed without signing up — record that separately.
+      const submittedInSheet = !!sheet.querySelector('.waitlist-success');
+      sheet.classList.remove('is-open');
+      sheet.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (!submittedInSheet && typeof window.eduTrack === 'function') {
+        window.eduTrack('signup_sheet_close_unsigned', {});
+      }
+    }
+    // Wire close-button + ESC handlers once the DOM is ready (the sheet
+    // element doesn't exist yet at script-parse time).
+    document.addEventListener('DOMContentLoaded', function () {
+      const sheet = getSignupSheet();
+      if (sheet) {
+        sheet.querySelectorAll('[data-close]').forEach(el => {
+          el.addEventListener('click', closeSignupSheet);
+        });
+      }
+      const quiz = document.getElementById('quizSheet');
+      if (quiz) {
+        quiz.querySelectorAll('[data-close-quiz]').forEach(el => {
+          el.addEventListener('click', closeQuizSheet);
+        });
+      }
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          if (sheet && sheet.classList.contains('is-open')) closeSignupSheet();
+          if (quiz && quiz.classList.contains('is-open')) closeQuizSheet();
+        }
+      });
+    });
+
+    // ── Learning Health Check quiz ─────────────────────────────────────
+    // Three lightweight questions that score 0–9. Lower scores get a
+    // more urgent message; higher scores get an "even-so" framing.
+    // Either way, the visitor sees personalised value before the phone ask.
+    const quizState = { step: 1, answers: {} };
+    function openQuizSheet(source) {
+      const quiz = document.getElementById('quizSheet');
+      if (!quiz) return;
+      quizState.step = 1;
+      quizState.answers = {};
+      quiz.querySelectorAll('.quiz-step').forEach(s => {
+        s.hidden = s.dataset.step !== '1';
+      });
+      quiz.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('is-picked'));
+      const bar = document.getElementById('quizProgressBar');
+      if (bar) bar.style.width = '25%';
+      quiz.classList.add('is-open');
+      quiz.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      if (typeof window.eduTrack === 'function') {
+        window.eduTrack('quiz_open', { source: source || 'hero' });
+      }
+    }
+    function closeQuizSheet() {
+      const quiz = document.getElementById('quizSheet');
+      if (!quiz) return;
+      // Did the visitor complete (reach result step) before closing?
+      const resultStep = quiz.querySelector('.quiz-step[data-step="result"]');
+      const completed = resultStep && !resultStep.hidden;
+      const submitted = !!quiz.querySelector('.waitlist-success');
+      quiz.classList.remove('is-open');
+      quiz.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (typeof window.eduTrack === 'function') {
+        if (!completed) {
+          window.eduTrack('quiz_abandoned', { stepReached: quizState.step });
+        } else if (!submitted) {
+          window.eduTrack('quiz_result_close_unsigned', { score: quizState.lastScore || 0 });
+        }
+      }
+    }
+    function advanceQuiz() {
+      const quiz = document.getElementById('quizSheet');
+      if (!quiz) return;
+      quiz.querySelectorAll('.quiz-step').forEach(s => { s.hidden = true; });
+      quizState.step += 1;
+      const bar = document.getElementById('quizProgressBar');
+      if (quizState.step <= 3) {
+        quiz.querySelector(`.quiz-step[data-step="${quizState.step}"]`).hidden = false;
+        if (bar) bar.style.width = `${(quizState.step / 4) * 100}%`;
+      } else {
+        showQuizResult();
+        if (bar) bar.style.width = '100%';
+      }
+    }
+    function showQuizResult() {
+      const quiz = document.getElementById('quizSheet');
+      const r = parseInt(quizState.answers.revision || 0);   // 1=rarely, 2=sometimes, 3=daily
+      const w = parseInt(quizState.answers.weakSubject || 0); // 1=no idea, 2=somewhat, 3=clearly
+      const t = parseInt(quizState.answers.studyTime || 0);   // 1=<30, 2=~1hr, 3=>2hr
+      const score = r + w + t;
+      quizState.lastScore = score;
+
+      // Pattern-based personalized insight. We pick the most actionable
+      // observation we can derive from the 3 answers — not a generic
+      // "you're at X%" score. The aim is for the parent to read it and
+      // say "haan, exactly yahi problem hai."
+      // Pattern → { emoji, title, body, plan{daily,weekly,watch} }.
+      // Body intentionally uses "your child may be..." observational tone —
+      // describing what we're seeing, not prescribing what's wrong.
+      // Plan is what the parent can start doing this week, derived from the
+      // same pattern — the personalized revision plan.
+      let result;
+
+      if (t >= 2 && r === 1) {
+        result = {
+          emoji: '⏳',
+          title: 'Your child may be studying without proper revision retention.',
+          body: 'Bachcha rozana time deta hai — par revision skip karta hai. Yeh effort-without-consistency wala pattern hai, jo exam ke time "padha tha par bhul gaya" mein dikhta hai.',
+          daily: 'Padhai shuru karne se pehle 10 min: kal ka topic dohrao. Naye chapter se pehle purane ka recap.',
+          weekly: 'Sunday revision day — 30 min mein poore hafte ka quick recap. Bachche ko khud bolne do, aap sirf suno.',
+          watch: 'Notes se padh ke jawaab de raha hai par apne shabdon mein nahi samjha pa raha — yahi retention gap hai.'
+        };
+      } else if (r === 3 && w === 1) {
+        result = {
+          emoji: '🎯',
+          title: 'Your child may be revising regularly — but without subject direction.',
+          body: 'Revision toh ho rahi hai, lekin aapko clearly nahi pata kahan focus chahiye. Bina is data ke, "general" revision karta hai — jo weak hai woh weak rehta hai.',
+          daily: '5 min: bachche se poochho "Aaj kaunsa topic sabse mushkil laga?" Wahi 2-3 min aur deepen karo.',
+          weekly: 'Friday: har subject ke 2 random topics par 1 question. Jahan hesitation ya extra time lagta hai — wahi weak signal.',
+          watch: 'Ek subject mein marks consistently dusre subjects se kam — yeh aapka weak subject hai.'
+        };
+      } else if (r === 1 && w === 1) {
+        result = {
+          emoji: '⚠️',
+          title: 'Your child\'s learning may be a complete blind spot for you right now.',
+          body: 'Revision rarely hoti hai, aur weak subject ka bhi clear idea nahi — yeh full blind spot hai. Result Day par "surprise" feel hota hai kyunki rozana visibility nahi.',
+          daily: '7 din ke liye 1 subject pick karo. Roz 1 simple question: "Aaj is subject mein kya kiya?" Bus, suno.',
+          weekly: 'Hafte ke end mein test — Monday ka topic ab bhi yaad hai? Yeh aapko retention level dikhayega.',
+          watch: '"Padh liya" bolta hai par 2 din baad explain nahi kar pata — yeh sabse important blind spot hai.'
+        };
+      } else if (t === 1 && r <= 2) {
+        result = {
+          emoji: '🌱',
+          title: 'Your child\'s daily study time may be too short for retention to build.',
+          body: 'Rozana 30 min se kam padhai aur revision consistency bhi nahi — Class 2–8 mein yeh foundation time hai. Abhi habit nahi banegi toh aage mushkil hogi.',
+          daily: '15 minute — same time, same jagah, har din. Quantity nahi, consistency build karo pehle.',
+          weekly: 'Naye subjects mat add karo. Ek hi subject ko 7 din deep karo, phir agle hafte next.',
+          watch: 'Bachcha resist kar raha hai ya bore ho raha hai? Time aur kam karo — overload hai.'
+        };
+      } else if (r === 3 && w === 3 && t >= 2) {
+        result = {
+          emoji: '✨',
+          title: 'You\'re already aware — Eduksha will give you the data layer underneath.',
+          body: 'Aap clearly engaged ho — revision, weak subject, study time sab pe nazar hai. Yahan se Eduksha aapko pattern-level data deta hai jo intuition se nahi milta.',
+          daily: 'Revision mein 5 min micro-quiz format add karo (questions, not re-reading). Recall test karta hai, na ki recognition.',
+          weekly: '2-hafte retention curve track karo — kya last hafte ka topic ab bhi crisp hai?',
+          watch: 'Accuracy plateau ho rahi hai (improve nahi ho rahi) — yahan Eduksha ke pattern insights game-changer hain.'
+        };
+      } else if (w === 1) {
+        result = {
+          emoji: '🔍',
+          title: 'Your child\'s weak subject may be invisible to you right now.',
+          body: 'Time aur revision thik-thaak hai — par aapko exactly nahi pata kahan focus chahiye. Bina subject-level data ke, effort spread out ho jata hai.',
+          daily: '1 hafte ke liye subject-wise time log karo — bachcha kis subject ko sabse last choose karta hai? Wahi weak hai.',
+          weekly: 'Friday: har subject ke 3 random topics par quick question. Hesitation pattern dekho.',
+          watch: 'Ek subject mein quick answers, dusre mein soch ke jawaab — yeh aapka clarity signal hai.'
+        };
+      } else if (r === 1) {
+        result = {
+          emoji: '🔁',
+          title: 'Your child\'s biggest gap may be daily revision consistency.',
+          body: 'Pehle padhe chapters revise nahi hote — yeh Class 2–8 mein exam time ka sabse bada problem hai. Naya padhte rehte ho, purana bhulte jaate ho.',
+          daily: 'Aaj ki homework se pehle 5 min: kal ke notes loudly padho. Sirf 5 min.',
+          weekly: 'Sunday — week ka revision day. Sab subjects ka 10-10 min quick recap.',
+          watch: 'Friday ko Monday ka topic test karo — agar yaad nahi, retention break hai.'
+        };
+      } else {
+        result = {
+          emoji: '🎯',
+          title: 'Your child\'s study pattern is decent — but clarity could go deeper.',
+          body: 'Revision aur subject-tracking mein thode gaps hain. Yahan se chhote-chhote habits add karne se Result Day pe surprise nahi hota.',
+          daily: '10 min revision + 30 min new learning — yeh ratio Class 2–8 ke liye ideal hai.',
+          weekly: 'Sunday: "Is hafte sabse mushkil kya laga?" — yahin se aapka weak signal milega.',
+          watch: 'Marks hafte-dar-hafte fluctuate ho rahe hain — yeh consistency gap ka signal hai.'
+        };
+      }
+
+      const titleEl = document.getElementById('quizResultTitle');
+      const bodyEl = document.getElementById('quizResultBody');
+      const emojiEl = document.getElementById('quizResultEmoji');
+      const rpDaily = document.getElementById('rpDaily');
+      const rpWeekly = document.getElementById('rpWeekly');
+      const rpWatch = document.getElementById('rpWatch');
+      if (titleEl) titleEl.textContent = result.title;
+      if (bodyEl) bodyEl.textContent = result.body;
+      if (emojiEl) emojiEl.textContent = result.emoji;
+      if (rpDaily) rpDaily.textContent = result.daily;
+      if (rpWeekly) rpWeekly.textContent = result.weekly;
+      if (rpWatch) rpWatch.textContent = result.watch;
+      quiz.querySelector('.quiz-step[data-step="result"]').hidden = false;
+      if (typeof window.eduTrack === 'function') {
+        window.eduTrack('quiz_complete', { score: score });
+      }
+    }
+    document.addEventListener('click', function (e) {
+      const opt = e.target.closest('.quiz-option');
+      if (opt) {
+        const q = opt.dataset.q;
+        const v = opt.dataset.value;
+        quizState.answers[q] = v;
+        opt.classList.add('is-picked');
+        if (typeof window.eduTrack === 'function') {
+          window.eduTrack('quiz_question_answered', {
+            question: q, value: v, step: quizState.step
+          });
+        }
+        setTimeout(advanceQuiz, 200);
+        return;
+      }
+      const launcher = e.target.closest('[data-open-quiz]');
+      if (launcher) {
+        e.preventDefault();
+        openQuizSheet(launcher.closest('header.site-header') ? 'header' : 'hero');
+      }
+      // FAQ accordion opens — track which questions parents actually
+      // want answered. Most concerning questions = most clicked.
+      const faq = e.target.closest('details > summary');
+      if (faq) {
+        const details = faq.parentElement;
+        // Fires AFTER the toggle, so check the new state
+        setTimeout(() => {
+          if (details.open && typeof window.eduTrack === 'function') {
+            window.eduTrack('faq_open', {
+              question: (faq.textContent || '').trim().slice(0, 80)
+            });
+          }
+        }, 50);
+      }
+      // Language toggle clicks — see if Hindi-clickers convert
+      // differently from English-stayers.
+      const langToggle = e.target.closest('.lang-toggle, .lang-modal-btn');
+      if (langToggle && typeof window.eduTrack === 'function') {
+        const target = langToggle.dataset.lang ||
+          ((langToggle.getAttribute('href') || '').indexOf('/hi') === 0 ? 'hi' : 'en');
+        window.eduTrack('language_toggle', {
+          to: target,
+          from: document.documentElement.lang || 'unknown'
+        });
+      }
+    });
+
+    // ── Scroll-depth milestones ──
+    // Fires once per session at 25/50/75/100% scroll depth so we know
+    // whether visitors get past the hero, see Before/After, reach FAQ.
+    const _depthFired = {};
+    function trackScrollDepth() {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      if (max <= 0) return;
+      const pct = Math.round((h.scrollTop / max) * 100);
+      [25, 50, 75, 100].forEach(threshold => {
+        if (pct >= threshold && !_depthFired[threshold]) {
+          _depthFired[threshold] = true;
+          if (typeof window.eduTrack === 'function') {
+            window.eduTrack('scroll_depth', { depth: threshold });
+          }
+        }
+      });
+    }
+    document.addEventListener('scroll', trackScrollDepth, { passive: true });
+
     // Smooth-scroll for hash links (offset for sticky header)
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', (e) => {
         const id = a.getAttribute('href');
         if (id.length < 2) return;
+
+        // Any anchor with data-open-sheet routes to the signup sheet
+        // instead of scrolling to the hero. Single-focus signup beats
+        // a scroll to an already-visible form.
+        if (a.hasAttribute('data-open-sheet')) {
+          e.preventDefault();
+          const source = a.closest('header.site-header') ? 'header'
+                       : a.closest('.subject-card')      ? 'subject-card'
+                       : a.closest('footer.site-footer') ? 'footer'
+                       : 'inline';
+          const label = (a.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 40);
+          if (typeof window.eduTrack === 'function') {
+            window.eduTrack('hero_cta_click', { source, label, target: 'sheet' });
+          }
+          openSignupSheet(source);
+          return;
+        }
+
         const el = document.querySelector(id);
         if (!el) return;
         e.preventDefault();
         const top = el.getBoundingClientRect().top + window.scrollY - 80;
         window.scrollTo({ top, behavior: 'smooth' });
+
+        // For non-sheet CTAs that point at hero/final CTA, still help the
+        // visitor: focus + pulse the phone field after scroll completes.
+        if (id === '#home' || id === '#cta') {
+          const form = id === '#home'
+            ? document.querySelector('.waitlist-form--hero')
+            : document.querySelector('#cta .waitlist-form');
+          if (form) {
+            setTimeout(() => {
+              const phone = form.querySelector('input[name="phone"]');
+              form.classList.add('is-highlighting');
+              if (phone) {
+                try { phone.focus({ preventScroll: true }); } catch (_) {}
+              }
+              setTimeout(() => form.classList.remove('is-highlighting'), 3000);
+            }, 550);
+          }
+        }
+
+        // Track which CTA the visitor clicked. Anything that scrolls
+        // to #home or #cta is funnelling toward the waitlist form, so
+        // we fire hero_cta_click → Meta 'InitiateCheckout' for the
+        // ones that matter to validation, plus a generic anchor click
+        // for everything else so we can see navigation patterns.
+        if (typeof window.eduTrack === 'function') {
+          const label = (a.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 40);
+          const source = a.closest('header.site-header') ? 'header'
+                       : a.closest('.subject-card')      ? 'subject-card'
+                       : a.closest('footer.site-footer') ? 'footer'
+                       : 'inline';
+          if (id === '#home' || id === '#cta') {
+            window.eduTrack('hero_cta_click', { source, label, target: id });
+          } else {
+            window.eduTrack('anchor_click', { source, label, target: id });
+          }
+        }
       });
     });
   
@@ -487,8 +926,7 @@
       var open=function(){document.body.style.overflow='hidden';modal.classList.add('is-open');};
       var close=function(){document.body.style.overflow='';modal.classList.remove('is-open');};
       var saved=localStorage.getItem(KEY);
-      if(!saved){setTimeout(open,500);}
-      else if(saved==='hi'&&!isHi){var t=location.pathname==='/'?'/hi/':'/hi'+location.pathname;location.replace(t+location.search+location.hash);return;}
+      if(saved==='hi'&&!isHi){var t=location.pathname==='/'?'/hi/':'/hi'+location.pathname;location.replace(t+location.search+location.hash);return;}
       else if(saved==='en'&&isHi){var t=location.pathname.replace(/^\/hi\/?/,'/');location.replace(t+location.search+location.hash);return;}
       modal.querySelectorAll('.lang-modal-btn').forEach(function(btn){btn.addEventListener('click',function(){var lang=btn.dataset.lang;localStorage.setItem(KEY,lang);if(lang==='hi'&&!isHi){location.href=location.pathname==='/'?'/hi/':'/hi'+location.pathname;}else if(lang==='en'&&isHi){location.href=location.pathname.replace(/^\/hi\/?/,'/');}else{close();}});});
       // Header lang-toggle: save preference then let the link navigate normally.
@@ -498,6 +936,114 @@
       document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
     });
   </script>
+
+  <!-- Signup sheet: bottom-sheet on mobile / centered modal on desktop.
+       Single focused signup flow opened by any "Sign up" CTA. -->
+  <div class="signup-sheet" id="signupSheet" role="dialog" aria-modal="true" aria-labelledby="signupSheetTitle" aria-hidden="true">
+    <div class="signup-sheet-backdrop" data-close></div>
+    <div class="signup-sheet-card">
+      <div class="signup-sheet-handle" aria-hidden="true"></div>
+      <button type="button" class="signup-sheet-close" aria-label="Close" data-close>×</button>
+      <h2 id="signupSheetTitle">Founding Parent banein</h2>
+      <p class="signup-sheet-sub">Pehli 500 Founding Parents ko milega <strong>launch-day par hi access</strong> + <strong>₹10,000 ke coupons &amp; gifts</strong>. Abhi neeche number daalein.</p>
+      <form class="waitlist-form" data-source="signup-sheet-en" novalidate>
+        <input type="tel" name="phone" required placeholder="Aapka mobile (10 digits)" autocomplete="tel" aria-label="Phone number" inputmode="tel" maxlength="14" />
+        <button type="submit">Founding Parent banein</button>
+      </form>
+      <p class="signup-sheet-trust">🇮🇳 Made in India · ✓ <strong>Hamesha free</strong> · 🚫 Koi spam, koi call nahi</p>
+    </div>
+  </div>
+
+  <!-- Learning Health Check quiz: delivers value FIRST, then asks for phone. -->
+  <div class="signup-sheet quiz-sheet" id="quizSheet" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="signup-sheet-backdrop" data-close-quiz></div>
+    <div class="signup-sheet-card">
+      <div class="signup-sheet-handle" aria-hidden="true"></div>
+      <button type="button" class="signup-sheet-close" aria-label="Close" data-close-quiz>×</button>
+      <div class="quiz-progress"><div class="quiz-progress-bar" id="quizProgressBar" style="width:25%"></div></div>
+
+      <div class="quiz-step" data-step="1">
+        <div class="quiz-step-label">Question 1 of 3</div>
+        <h2>Sach me — kya bachcha pehle padhe chapters ko revise karta hai?</h2>
+        <div class="quiz-options">
+          <button type="button" class="quiz-option" data-q="revision" data-value="3">Haan, almost rozana</button>
+          <button type="button" class="quiz-option" data-q="revision" data-value="2">Kabhi-kabhi</button>
+          <button type="button" class="quiz-option" data-q="revision" data-value="1">Bahut kam / shayad nahi</button>
+        </div>
+      </div>
+
+      <div class="quiz-step" data-step="2" hidden>
+        <div class="quiz-step-label">Question 2 of 3</div>
+        <h2>Aapko pata hai bachche ka sabse weak subject kaunsa hai?</h2>
+        <div class="quiz-options">
+          <button type="button" class="quiz-option" data-q="weakSubject" data-value="3">Haan, clearly pata hai</button>
+          <button type="button" class="quiz-option" data-q="weakSubject" data-value="2">Thoda andaza hai</button>
+          <button type="button" class="quiz-option" data-q="weakSubject" data-value="1">Sach kahein toh — nahi</button>
+        </div>
+      </div>
+
+      <div class="quiz-step" data-step="3" hidden>
+        <div class="quiz-step-label">Question 3 of 3</div>
+        <h2>Rozana bachcha kitna time padhai me deta hai? (school chhod ke)</h2>
+        <div class="quiz-options">
+          <button type="button" class="quiz-option" data-q="studyTime" data-value="1">30 min se kam</button>
+          <button type="button" class="quiz-option" data-q="studyTime" data-value="2">Karib 1 ghanta</button>
+          <button type="button" class="quiz-option" data-q="studyTime" data-value="3">2+ ghante</button>
+        </div>
+      </div>
+
+      <div class="quiz-step quiz-result" data-step="result" hidden>
+        <div class="quiz-result-badge" id="quizResultEmoji">📊</div>
+        <h2 id="quizResultTitle">Result loading…</h2>
+
+        <div class="revision-plan" aria-label="Personalized revision plan">
+          <div class="rp-header">
+            <span class="rp-tag">🎯 Your child's revision plan</span>
+            <span class="rp-sub">Based on your answers — start this week</span>
+          </div>
+          <ul class="rp-list">
+            <li class="rp-item">
+              <span class="rp-ico">⚡</span>
+              <div>
+                <span class="rp-label">Daily focus</span>
+                <span class="rp-text" id="rpDaily">—</span>
+              </div>
+            </li>
+            <li class="rp-item">
+              <span class="rp-ico">📅</span>
+              <div>
+                <span class="rp-label">Weekly anchor</span>
+                <span class="rp-text" id="rpWeekly">—</span>
+              </div>
+            </li>
+            <li class="rp-item">
+              <span class="rp-ico">👀</span>
+              <div>
+                <span class="rp-label">Watch out for</span>
+                <span class="rp-text" id="rpWatch">—</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <p class="signup-sheet-sub quiz-result-body" id="quizResultBody"></p>
+
+        <p class="quiz-result-cta-note">📲 WhatsApp pe paayein — <strong>full revision plan</strong> + <strong>Founding Parent access</strong>. Sirf number daalein:</p>
+        <form class="waitlist-form" data-source="quiz-en" novalidate>
+          <input type="tel" name="phone" required placeholder="Aapka mobile (10 digits)" autocomplete="tel" aria-label="Phone number" inputmode="tel" maxlength="14" />
+          <button type="submit">Get the plan 📲</button>
+        </form>
+
+        <ol class="quiz-next-steps" aria-label="What happens next">
+          <li><span class="ns-num">1</span> Number daalein</li>
+          <li><span class="ns-num">2</span> WhatsApp pe revision plan milega</li>
+          <li><span class="ns-num">3</span> Eduksha launch hote hi early access</li>
+        </ol>
+
+        <p class="signup-sheet-trust">🔒 Aapka number sirf revision plan + Eduksha early access ke liye use hoga. Koi spam, koi calls nahi.</p>
+      </div>
+    </div>
+  </div>
 
   <div class="lang-modal" id="langModal" role="dialog" aria-labelledby="langModalTitle" aria-modal="true">
     <div class="lang-modal-card">

@@ -78,6 +78,40 @@ function init() {
       });
     }
 
+    // Track the moment a visitor actually engages with the form
+    // (focuses the phone input). That's a much stronger intent signal
+    // than just opening the sheet.
+    const allInputs = form.querySelectorAll('input');
+    allInputs.forEach(inp => {
+      inp.addEventListener('focus', () => {
+        if (typeof window.eduTrack === 'function') {
+          window.eduTrack('form_field_focus', {
+            field: inp.name,
+            source: form.dataset.source || 'unknown'
+          });
+        }
+      }, { once: true });
+    });
+
+    // Validation failures should feel like an action, not a dead end —
+    // focus the offending field (Android pops the keyboard) and pulse
+    // the form to direct attention. Keeps the empty-button-tap from
+    // becoming a silent bounce.
+    function flagField(name) {
+      const field = form.querySelector(`input[name="${name}"]`);
+      if (field) {
+        try { field.focus({ preventScroll: false }); } catch (_) {}
+      }
+      form.classList.add('is-highlighting');
+      setTimeout(() => form.classList.remove('is-highlighting'), 2500);
+      if (typeof window.eduTrack === 'function') {
+        window.eduTrack('form_validation_error', {
+          field: name,
+          source: form.dataset.source || 'unknown'
+        });
+      }
+    }
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const errorEl = ensureErrorEl(form);
@@ -99,6 +133,7 @@ function init() {
 
       if (hasParentName && (!parentName || parentName.length < 2 || parentName.length > 60)) {
         errorEl.textContent = copy.invalidName;
+        flagField('parentName');
         return;
       }
 
@@ -111,12 +146,14 @@ function init() {
         else if (digits.length === 11 && digits.startsWith('0')) phone = digits.slice(1);
         if (!phone || !/^[6-9]\d{9}$/.test(phone)) {
           errorEl.textContent = copy.invalidPhone;
+          flagField('phone');
           return;
         }
       }
 
       if (hasEmail && (!email || !/.+@.+[.].+/.test(email) || email.length > 100)) {
         errorEl.textContent = copy.invalidEmail;
+        flagField('email');
         return;
       }
 
