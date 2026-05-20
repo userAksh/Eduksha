@@ -34,7 +34,10 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.material3.Surface
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.PlayArrow
@@ -272,6 +275,22 @@ private fun ChildHomeContent(
                     color = DobiTextSecondary
                 )
                 Spacer(Modifier.height(20.dp))
+            }
+
+            // Pending parent task bar — surfaces tasks the parent assigned
+            // (status ASSIGNED). Sits above the streak so it's the first
+            // call to action the child sees when there's work waiting.
+            val pendingFromParent = uiState.parentTasks.filter {
+                it.status == ParentTaskStatus.ASSIGNED
+            }
+            if (pendingFromParent.isNotEmpty()) {
+                item {
+                    PendingParentTaskBar(
+                        tasks = pendingFromParent,
+                        onClick = { taskId -> onTaskClick(taskId) },
+                    )
+                    Spacer(Modifier.height(16.dp))
+                }
             }
 
             // Streak banner
@@ -1337,6 +1356,131 @@ private fun ParentTasksEmptyCard(onClick: () -> Unit = {}) {
                     fontWeight = SFProSemiBold,
                     color = ctaAccent
                 )
+            }
+        }
+    }
+}
+
+// ── Pending parent-task bar ────────────────────────────────────────────────────
+// Surfaced above the streak banner whenever the child has at least one
+// ASSIGNED task from their parent. Tapping opens the most recent task; if
+// multiple tasks are waiting, the bar shows the count and still opens the
+// most recent (the child sees the others on the task screen).
+
+@Composable
+private fun PendingParentTaskBar(
+    tasks: List<ParentTask>,
+    onClick: (taskId: String) -> Unit,
+) {
+    if (tasks.isEmpty()) return
+    val mostRecent = tasks.maxByOrNull {
+        it.assignedAtMillis.takeIf { ts -> ts > 0L } ?: it.requestedAtMillis
+    } ?: tasks.first()
+    val moreCount = (tasks.size - 1).coerceAtLeast(0)
+
+    val accentBg = Color(0xFFFFF4E0)
+    val accentFg = Color(0xFFB45309)
+
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(18.dp),
+        color = Color.White,
+        shadowElevation = 2.dp,
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text(
+                    text = "Tasks needing your attention",
+                    fontSize = 15.sp,
+                    fontWeight = SFProBold,
+                    color = DobiTextPrimary,
+                    modifier = Modifier.weight(1f),
+                )
+                if (moreCount > 0) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(8.dp))
+                            .clickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = null,
+                                onClick = { onClick(mostRecent.id) },
+                            )
+                            .padding(horizontal = 4.dp, vertical = 4.dp),
+                    ) {
+                        Text(
+                            text = "View all",
+                            fontSize = 13.sp,
+                            fontWeight = SFProSemiBold,
+                            color = DobiPrimary,
+                        )
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                            contentDescription = null,
+                            tint = DobiPrimary,
+                            modifier = Modifier.size(16.dp),
+                        )
+                    }
+                }
+            }
+
+            Spacer(Modifier.height(14.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .clickable { onClick(mostRecent.id) },
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clip(CircleShape)
+                        .background(accentBg),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        text = mostRecent.subjectIcon.ifBlank { "📚" },
+                        fontSize = 24.sp,
+                    )
+                }
+                Spacer(Modifier.width(12.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = parentTaskTitle(mostRecent),
+                        color = DobiTextPrimary,
+                        fontSize = 14.sp,
+                        fontWeight = SFProBold,
+                        lineHeight = 18.sp,
+                    )
+                    Spacer(Modifier.height(2.dp))
+                    Text(
+                        text = buildString {
+                            append(if (mostRecent.isUnitScope) "Lesson" else "Concept")
+                            if (mostRecent.subject.isNotBlank()) append(" · ${mostRecent.subject}")
+                        },
+                        color = DobiTextSecondary,
+                        fontSize = 12.sp,
+                    )
+                }
+                Spacer(Modifier.width(8.dp))
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(accentBg)
+                        .padding(horizontal = 10.dp, vertical = 6.dp),
+                ) {
+                    Text(
+                        text = "New task",
+                        fontSize = 11.sp,
+                        fontWeight = SFProSemiBold,
+                        color = accentFg,
+                    )
+                }
             }
         }
     }

@@ -51,6 +51,11 @@ class QuizViewModel @Inject constructor(
     private val isAiSource: Boolean = route.source == "ai"
     private val routeDisplayName: String = route.displayName
     private val parentTaskId: String = route.parentTaskId
+    /** Non-blank when a parent opens a child's past attempt from the activity
+     *  log. We use it to look up the attempt doc explicitly instead of falling
+     *  back to UserPreferences.linkedChildId (which is blank on the parent). */
+    private val parentViewChildId: String = route.childId
+    private val isParentView: Boolean = viewResult && parentViewChildId.isNotBlank()
 
     private val _uiState = MutableStateFlow(QuizUiState())
     val uiState = _uiState.asStateFlow()
@@ -75,11 +80,31 @@ class QuizViewModel @Inject constructor(
 
     private fun load() {
         viewModelScope.launch {
-            val attempts = if (isAiSource) 0
-                else quizAttemptRepository.attempts(attemptScope, targetId).first()
-            val savedSelections = if (viewResult && !isAiSource) {
-                quizAttemptRepository.lastSelections(attemptScope, targetId).first()
-            } else emptyMap()
+            val attempts = when {
+                isAiSource -> 0
+                isParentView -> quizAttemptRepository
+                    .attemptsForChild(parentViewChildId, attemptScope, targetId).first()
+                else -> quizAttemptRepository.attempts(attemptScope, targetId).first()
+            }
+            val savedSelections = when {
+                isAiSource || !viewResult -> emptyMap()
+                isParentView -> quizAttemptRepository
+                    .lastSelectionsForChild(parentViewChildId, attemptScope, targetId).first()
+                else -> quizAttemptRepository.lastSelections(attemptScope, targetId).first()
+            }
+
+            // Parent-view: if no saved selections exist for this child + target,
+            // there's nothing to show. Don't fall through into INTRO (would
+            // look like "start a new quiz") — surface a clear error instead.
+            if (isParentView && savedSelections.isEmpty()) {
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        error = "We couldn't find a saved attempt for this quiz."
+                    )
+                }
+                return@launch
+            }
 
             val aiQuestions = if (isAiSource) generatedQuizCache.consume(targetId) else null
             if (isAiSource && aiQuestions.isNullOrEmpty()) {
@@ -91,6 +116,13 @@ class QuizViewModel @Inject constructor(
                 }
                 return@launch
             }
+
+            // When the parent assigned this quiz from Study Goals, they
+            // pre-generated and previewed the MCQs. Use the parent-curated set
+            // verbatim so the child sees the exact questions the parent saw.
+            val parentAssignedMcqs = if (parentTaskId.isNotBlank()) {
+                parentTaskRepository.getById(parentTaskId).getOrNull()?.assignedMcqs.orEmpty()
+            } else emptyList()
 
             userRepository.linkedChildGrade
                 .flatMapLatest { grade -> getConceptsUseCase(grade = grade, board = "CBSE") }
@@ -106,16 +138,29 @@ class QuizViewModel @Inject constructor(
                     val effectiveLessonName =
                         if (routeDisplayName.isNotBlank()) routeDisplayName else lessonName
 
-                    var questions = aiQuestions ?: if (isConceptScope) {
-                        getCuratedQuestionsUseCase.forConcept(targetId)
-                    } else {
-                        getCuratedQuestionsUseCase(targetId)
+                    var questions = when {
+                        parentAssignedMcqs.isNotEmpty() -> parentAssignedMcqs
+                        aiQuestions != null -> aiQuestions
+                        isConceptScope -> getCuratedQuestionsUseCase.forConcept(targetId)
+                        else -> getCuratedQuestionsUseCase(targetId)
                     }
 
                     // Fallback for curated path: when the hand-written
                     // CuratedQuestionBank doesn't cover this lesson/concept
                     // we generate 10 MCQs from the syllabus content via
                     // Gemini and cache them so retakes don't regenerate.
+                    // Skip on parent-view: the fallback needs the child's
+                    // grade (not on the parent's device) and we never want
+                    // to invoke Gemini just to render a past attempt.
+                    if (!isAiSource && questions.isEmpty() && isParentView) {
+                        _uiState.update {
+                            it.copy(
+                                isLoading = false,
+                                error = "This quiz's questions aren't available on your device. Open it on the child's device to review."
+                            )
+                        }
+                        return@collect
+                    }
                     if (!isAiSource && questions.isEmpty()) {
                         val cached = curatedQuizCache.get(targetId)
                         if (cached != null) {

@@ -43,6 +43,9 @@ import com.dobi.app.feature.writeanswer.WriteAnswerScreen
 import com.dobi.app.feature.homework.HomeworkLogScreen
 import com.dobi.app.feature.childpin.EnterChildPinScreen
 import com.dobi.app.feature.pairing.EnterPairingCodeScreen
+import com.dobi.app.feature.parentdashboard.ActivityDetailScreen
+import com.dobi.app.feature.parentdashboard.HomeworkSubmissionScreen
+import com.dobi.app.feature.parentdashboard.InsightsScreen
 import com.dobi.app.feature.parenthome.ParentHomeScreen
 import com.dobi.app.feature.roleselection.RoleSelectionScreen
 import com.dobi.app.feature.selectchild.SelectChildScreen
@@ -50,7 +53,9 @@ import com.dobi.app.feature.streak.ClanLeaderboardScreen
 import com.dobi.app.feature.streak.StreakHomeScreen
 import com.dobi.app.feature.streak.StreakShareOptionsScreen
 import com.dobi.app.feature.streak.StreakUploadPickerScreen
+import com.dobi.app.feature.studygoals.StudyGoalsScreen
 import com.dobi.app.feature.subjectiveresult.SubjectiveResultScreen
+import com.dobi.app.feature.webview.WebViewScreen
 
 @Composable
 fun DobiNavGraph(
@@ -254,10 +259,97 @@ fun DobiNavGraph(
                 },
                 onNavigateToParentTask = { taskId ->
                     navController.navigate(Screen.ParentTaskDetail(taskId))
+                },
+                onNavigateToActivityDetail = { categoryKey, childId ->
+                    navController.navigate(Screen.ActivityDetail(categoryKey, childId))
+                },
+                onNavigateToInsights = { childId ->
+                    navController.navigate(Screen.Insights(childId))
+                },
+                onNavigateToUploadGroup = { groupKey ->
+                    navController.navigate(Screen.RevisitDetail(groupKey))
+                },
+                onNavigateToQuizResult = { unitId, conceptId, childId ->
+                    navController.navigate(
+                        Screen.Quiz(
+                            unitId = unitId,
+                            conceptId = conceptId,
+                            source = "curated",
+                            viewResult = true,
+                            childId = childId,
+                        )
+                    )
+                },
+                onNavigateToSubjectiveResult = { resultId ->
+                    navController.navigate(Screen.SubjectiveResult(resultId))
+                },
+                onNavigateToHomework = { homeworkId ->
+                    navController.navigate(Screen.HomeworkSubmission(homeworkId))
+                },
+                onNavigateToWebView = { url, title ->
+                    navController.navigate(Screen.WebView(url, title))
+                },
+                onNavigateToStudyGoals = { childId ->
+                    navController.navigate(Screen.StudyGoals(childId))
+                },
+            )
+        }
+
+        composable<Screen.StudyGoals> {
+            StudyGoalsScreen(
+                onNavigateBack = { navController.popBackStack() },
+            )
+        }
+
+        composable<Screen.WebView> { entry ->
+            val route = entry.toRoute<Screen.WebView>()
+            WebViewScreen(
+                url = route.url,
+                title = route.title,
+                onNavigateBack = { navController.popBackStack() },
+            )
+        }
+
+        composable<Screen.Insights> {
+            InsightsScreen(
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
+
+        composable<Screen.ActivityDetail> { entry ->
+            val route = entry.toRoute<Screen.ActivityDetail>()
+            ActivityDetailScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onOpenUploadGroup = { groupKey ->
+                    navController.navigate(Screen.RevisitDetail(groupKey))
+                },
+                onOpenQuizResult = { unitId, conceptId ->
+                    navController.navigate(
+                        Screen.Quiz(
+                            unitId = unitId,
+                            conceptId = conceptId,
+                            source = "curated",
+                            viewResult = true,
+                            childId = route.childId
+                        )
+                    )
+                },
+                onOpenSubjectiveResult = { resultId ->
+                    navController.navigate(Screen.SubjectiveResult(resultId))
+                },
+                onOpenHomework = { homeworkId ->
+                    navController.navigate(Screen.HomeworkSubmission(homeworkId))
                 }
             )
         }
 
+        composable<Screen.HomeworkSubmission> { entry ->
+            val route = entry.toRoute<Screen.HomeworkSubmission>()
+            HomeworkSubmissionScreen(
+                homeworkId = route.homeworkId,
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
         composable<Screen.ConceptList> { entry ->
             val route = entry.toRoute<Screen.ConceptList>()
             ConceptListScreen(

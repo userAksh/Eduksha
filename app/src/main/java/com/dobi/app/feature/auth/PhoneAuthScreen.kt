@@ -1,23 +1,41 @@
 package com.dobi.app.feature.auth
 
 import android.app.Activity
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.Group
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -32,8 +50,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -41,20 +63,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dobi.app.R
 import com.dobi.app.core.navigation.Screen
+import com.dobi.app.core.ui.theme.DobiBorder
 import com.dobi.app.core.ui.theme.DobiPrimary
-import com.dobi.app.core.ui.theme.SFProBold
-import com.dobi.app.core.ui.theme.SFProSemiBold
-import com.dobi.app.core.ui.theme.SFProMedium
-import com.dobi.app.core.ui.theme.SFProRegular
-import com.dobi.app.core.ui.theme.SFProLight
-import com.dobi.app.core.ui.theme.DobiPrimaryContainer
+import com.dobi.app.core.ui.theme.DobiPrimaryDark
 import com.dobi.app.core.ui.theme.DobiPrimaryLight
+import com.dobi.app.core.ui.theme.DobiPrimarySoft
+import com.dobi.app.core.ui.theme.DobiSuccess
+import com.dobi.app.core.ui.theme.DobiSuccessContainer
 import com.dobi.app.core.ui.theme.DobiTextPrimary
 import com.dobi.app.core.ui.theme.DobiTextSecondary
+import com.dobi.app.core.ui.theme.DobiTextTertiary
 
-private val FieldBorder = Color(0xFFCBD5E1)
-private val FieldContainer = Color(0xFFF8FAFF)
+// ── Screen-local palette (matches the source design mockup exactly) ──
+private val HeroBackground = Color(0xFFF2F6FD)
+private val InputBorder = Color(0xFFE3E8F0)
+private val DividerLine = Color(0xFFE3E8F0)
 private val ErrorRed = Color(0xFFDC2626)
 
 @Composable
@@ -70,7 +95,9 @@ fun PhoneAuthScreen(
         viewModel.navEvent.collect { event ->
             when (event) {
                 is PhoneAuthViewModel.NavEvent.ToOtpVerification ->
-                    onNavigateToOtp(Screen.OtpVerification(event.verificationId, event.name, event.phone))
+                    onNavigateToOtp(
+                        Screen.OtpVerification(event.verificationId, event.name, event.phone)
+                    )
                 PhoneAuthViewModel.NavEvent.ToParentHome -> onNavigateToParentHome()
             }
         }
@@ -93,150 +120,402 @@ private fun PhoneAuthContent(
     val isLoading = uiState is PhoneAuthViewModel.UiState.Loading
     val error = (uiState as? PhoneAuthViewModel.UiState.Error)?.message
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        // Coloured top band
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(HeroBackground)
+    ) {
+        HeroSection()
+
+        FormCard(
+            name = name,
+            onNameChange = { name = it },
+            phone = phone,
+            onPhoneChange = { phone = it.filter { c -> c.isDigit() }.take(10) },
+            isLoading = isLoading,
+            error = error,
+            onSendOtp = { onSendOtp(name.trim(), phone.trim()) },
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
+// ── Top hero: brand row + headline + subtext on the left, illustration on the right ──
+// Mirrors the source mockup: hero region occupies ~38% of screen height; the
+// illustration fills the right ~52% of width and runs from just under the status
+// bar all the way down to the white card. The text column sits on the left.
+
+@Composable
+private fun HeroSection() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(380.dp)
+            .background(HeroBackground),
+        verticalAlignment = Alignment.Top
+    ) {
+        // Left — text column (45% of width)
+        Column(
+            modifier = Modifier
+                .weight(0.45f)
+                .fillMaxHeight()
+                .statusBarsPadding()
+                .padding(start = 22.dp, top = 16.dp, end = 4.dp)
+        ) {
+            BrandMark()
+            Spacer(modifier = Modifier.height(28.dp))
+            Text(
+                text = "Partner in your\nchild's learning",
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 26.sp,
+                lineHeight = 32.sp,
+                color = DobiTextPrimary
+            )
+            Spacer(modifier = Modifier.height(14.dp))
+            Text(
+                text = "Get insights, track progress and stay one step ahead.",
+                fontWeight = FontWeight.Normal,
+                fontSize = 14.sp,
+                lineHeight = 20.sp,
+                color = DobiTextSecondary
+            )
+        }
+        // Right — illustration (55% of width, full hero height, bottom-anchored)
+        Image(
+            painter = painterResource(id = R.drawable.parent_login_illustration),
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            alignment = Alignment.BottomEnd,
+            modifier = Modifier
+                .weight(0.55f)
+                .fillMaxHeight()
+        )
+    }
+}
+
+@Composable
+private fun BrandMark() {
+    Row(verticalAlignment = Alignment.CenterVertically) {
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(260.dp)
-                .background(DobiPrimary)
+                .size(48.dp)
+                .shadow(
+                    elevation = 8.dp,
+                    shape = RoundedCornerShape(14.dp),
+                    spotColor = DobiPrimary.copy(alpha = 0.15f)
+                )
+                .clip(RoundedCornerShape(14.dp))
+                .background(Color.White),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = painterResource(id = R.mipmap.ic_launcher),
+                contentDescription = null,
+                modifier = Modifier.size(38.dp)
+            )
+        }
+        Spacer(modifier = Modifier.width(12.dp))
+        Text(
+            text = "Dobi",
+            fontWeight = FontWeight.ExtraBold,
+            fontSize = 26.sp,
+            color = DobiTextPrimary
         )
+    }
+}
 
-        Column(modifier = Modifier.fillMaxSize()) {
-            // Header
+// ── White form card ──
+
+@Composable
+private fun FormCard(
+    name: String,
+    onNameChange: (String) -> Unit,
+    phone: String,
+    onPhoneChange: (String) -> Unit,
+    isLoading: Boolean,
+    error: String?,
+    onSendOtp: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+        color = Color.White,
+        shadowElevation = 0.dp
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .imePadding()
+                .navigationBarsPadding()
+        ) {
+            // Scrollable form content. Bottom padding reserves space for the
+            // pinned footer so the last item never overlaps it.
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 28.dp)
-                    .systemBarsPadding()
-                    .padding(top = 32.dp),
-                horizontalAlignment = Alignment.Start
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(horizontal = 24.dp)
+                    .padding(top = 28.dp, bottom = 56.dp)
             ) {
-                Box(
+                WelcomeRow()
+                Spacer(modifier = Modifier.height(28.dp))
+
+                FieldLabel(icon = Icons.Default.Person, label = "Your Name")
+                Spacer(modifier = Modifier.height(10.dp))
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = onNameChange,
+                    placeholder = {
+                        Text(
+                            "e.g. Rahul Sharma",
+                            color = DobiTextTertiary,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 15.sp
+                        )
+                    },
                     modifier = Modifier
-                        .size(52.dp)
-                        .clip(RoundedCornerShape(14.dp))
-                        .background(Color.White.copy(alpha = 0.2f)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(text = "😊", fontSize = 28.sp)
+                        .fillMaxWidth()
+                        .height(58.dp),
+                    shape = RoundedCornerShape(14.dp),
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words),
+                    colors = textFieldColors()
+                )
+
+                Spacer(modifier = Modifier.height(22.dp))
+
+                FieldLabel(icon = Icons.Default.Phone, label = "Phone Number")
+                Spacer(modifier = Modifier.height(10.dp))
+                PhoneField(value = phone, onValueChange = onPhoneChange)
+
+                if (error != null) {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Text(
+                        text = error,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 13.sp,
+                        color = ErrorRed
+                    )
                 }
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = "Welcome to Dobi",
-                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = SFProBold),
-                    color = Color.White
+
+                Spacer(modifier = Modifier.height(28.dp))
+
+                SendOtpButton(
+                    enabled = name.isNotBlank() && phone.length == 10 && !isLoading,
+                    isLoading = isLoading,
+                    onClick = onSendOtp
                 )
-                Spacer(modifier = Modifier.height(6.dp))
-                Text(
-                    text = "Create your parent account to get started",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White.copy(alpha = 0.8f)
-                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                TrustStrip()
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Form card
-            Surface(
+            // Footer pinned to the bottom of the card regardless of content height.
+            FooterDivider(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .imePadding(),
-                shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
-                color = Color(0xFFF5F7FF),
-                shadowElevation = 0.dp
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 24.dp, vertical = 28.dp)
-                ) {
-                    FieldLabel("Your Name")
-                    Spacer(modifier = Modifier.height(8.dp))
-                    OutlinedTextField(
-                        value = name,
-                        onValueChange = { name = it },
-                        placeholder = { Text("e.g. Rahul Sharma", color = DobiTextSecondary) },
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(14.dp),
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words),
-                        colors = textFieldColors()
-                    )
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp, vertical = 18.dp)
+            )
+        }
+    }
+}
 
-                    Spacer(modifier = Modifier.height(20.dp))
+@Composable
+private fun WelcomeRow() {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Box(
+            modifier = Modifier
+                .size(52.dp)
+                .clip(CircleShape)
+                .background(DobiPrimarySoft),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                imageVector = Icons.Default.Group,
+                contentDescription = null,
+                tint = DobiPrimary,
+                modifier = Modifier.size(26.dp)
+            )
+        }
+        Spacer(modifier = Modifier.width(16.dp))
+        Column {
+            Text(
+                text = "Welcome!",
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 22.sp,
+                color = DobiTextPrimary
+            )
+            Spacer(modifier = Modifier.height(2.dp))
+            Text(
+                text = "Create your parent account to get started",
+                fontWeight = FontWeight.Normal,
+                fontSize = 13.sp,
+                color = DobiTextSecondary
+            )
+        }
+    }
+}
 
-                    FieldLabel("Phone Number")
-                    Spacer(modifier = Modifier.height(8.dp))
-                    OutlinedTextField(
-                        value = phone,
-                        onValueChange = { if (it.length <= 10) phone = it.filter { c -> c.isDigit() } },
-                        placeholder = { Text("10-digit mobile number", color = DobiTextSecondary) },
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(14.dp),
-                        singleLine = true,
-                        prefix = {
-                            Text(
-                                text = "+91  ",
-                                color = DobiPrimary,
-                                fontWeight = SFProSemiBold
-                            )
-                        },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-                        colors = textFieldColors()
-                    )
+@Composable
+private fun FieldLabel(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    label: String
+) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = DobiPrimary,
+            modifier = Modifier.size(20.dp)
+        )
+        Spacer(modifier = Modifier.width(10.dp))
+        Text(
+            text = label,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 15.sp,
+            color = DobiTextPrimary
+        )
+    }
+}
 
-                    if (error != null) {
-                        Spacer(modifier = Modifier.height(12.dp))
-                        Text(
-                            text = error,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = ErrorRed
-                        )
-                    }
+@Composable
+private fun PhoneField(
+    value: String,
+    onValueChange: (String) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(58.dp)
+            .clip(RoundedCornerShape(14.dp))
+            .border(width = 1.dp, color = InputBorder, shape = RoundedCornerShape(14.dp))
+            .background(Color.White),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // Country prefix
+        Row(
+            modifier = Modifier.padding(start = 18.dp, end = 14.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "+91",
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp,
+                color = DobiPrimary
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = "▾",
+                fontSize = 14.sp,
+                color = DobiPrimary
+            )
+        }
+        // Divider
+        Box(
+            modifier = Modifier
+                .width(1.dp)
+                .height(28.dp)
+                .background(DividerLine)
+        )
+        // Number input (unstyled OutlinedTextField with no border, sits inside the parent row)
+        OutlinedTextField(
+            value = value,
+            onValueChange = onValueChange,
+            placeholder = {
+                Text(
+                    "10-digit mobile number",
+                    color = DobiTextTertiary,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 15.sp
+                )
+            },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            shape = RoundedCornerShape(0.dp),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color.Transparent,
+                unfocusedBorderColor = Color.Transparent,
+                disabledBorderColor = Color.Transparent,
+                focusedTextColor = DobiTextPrimary,
+                unfocusedTextColor = DobiTextPrimary,
+                focusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = Color.Transparent,
+                cursorColor = DobiPrimary
+            )
+        )
+    }
+}
 
-                    Spacer(modifier = Modifier.height(28.dp))
+@Composable
+private fun SendOtpButton(
+    enabled: Boolean,
+    isLoading: Boolean,
+    onClick: () -> Unit
+) {
+    val gradient = Brush.horizontalGradient(
+        colors = if (enabled) listOf(DobiPrimary, DobiPrimaryDark)
+        else listOf(DobiPrimaryLight.copy(alpha = 0.55f), DobiPrimaryLight.copy(alpha = 0.55f))
+    )
 
-                    Button(
-                        onClick = { onSendOtp(name.trim(), phone.trim()) },
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .shadow(
+                elevation = 10.dp,
+                shape = RoundedCornerShape(20.dp),
+                spotColor = DobiPrimary.copy(alpha = 0.35f)
+            )
+            .clip(RoundedCornerShape(20.dp))
+            .background(gradient)
+    ) {
+        Button(
+            onClick = onClick,
+            enabled = enabled,
+            modifier = Modifier.fillMaxSize(),
+            shape = RoundedCornerShape(20.dp),
+            contentPadding = PaddingValues(horizontal = 24.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent
+            )
+        ) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                if (isLoading) {
+                    CircularProgressIndicator(
+                        color = Color.White,
+                        strokeWidth = 2.dp,
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .height(54.dp),
-                        shape = RoundedCornerShape(16.dp),
-                        enabled = name.isNotBlank() && phone.length == 10 && !isLoading,
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = DobiPrimary,
-                            disabledContainerColor = DobiPrimaryLight.copy(alpha = 0.4f)
-                        )
-                    ) {
-                        if (isLoading) {
-                            CircularProgressIndicator(
-                                color = Color.White,
-                                strokeWidth = 2.dp,
-                                modifier = Modifier.size(22.dp)
-                            )
-                        } else {
-                            Text(
-                                "Send OTP",
-                                style = MaterialTheme.typography.titleSmall.copy(fontWeight = SFProBold),
-                                color = Color.White
-                            )
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
+                            .size(24.dp)
+                            .align(Alignment.Center)
+                    )
+                } else {
+                    Text(
+                        text = "Send OTP",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 17.sp,
+                        color = Color.White,
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                    // Right-aligned arrow inside a translucent circle
                     Box(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(DobiPrimaryContainer)
-                            .padding(horizontal = 14.dp, vertical = 10.dp)
+                            .align(Alignment.CenterEnd)
+                            .size(36.dp)
+                            .clip(CircleShape)
+                            .background(Color.White.copy(alpha = 0.22f)),
+                        contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = "🔒  An OTP will be sent to verify your number",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = DobiPrimary
+                        Icon(
+                            imageVector = Icons.Default.ArrowForward,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.size(18.dp)
                         )
                     }
                 }
@@ -246,12 +525,70 @@ private fun PhoneAuthContent(
 }
 
 @Composable
-private fun FieldLabel(text: String) {
-    Text(
-        text = text,
-        style = MaterialTheme.typography.labelLarge.copy(fontWeight = SFProSemiBold),
-        color = DobiTextPrimary
-    )
+private fun TrustStrip() {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Box(
+            modifier = Modifier
+                .size(44.dp)
+                .clip(CircleShape)
+                .background(DobiSuccessContainer),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                imageVector = Icons.Default.CheckCircle,
+                contentDescription = null,
+                tint = DobiSuccess,
+                modifier = Modifier.size(22.dp)
+            )
+        }
+        Spacer(modifier = Modifier.width(14.dp))
+        Column {
+            Text(
+                text = "Your number is safe with us.",
+                fontWeight = FontWeight.Bold,
+                fontSize = 14.sp,
+                color = DobiTextPrimary
+            )
+            Spacer(modifier = Modifier.height(2.dp))
+            Text(
+                text = "An OTP will be sent to verify your number.",
+                fontWeight = FontWeight.Normal,
+                fontSize = 12.sp,
+                color = DobiTextSecondary
+            )
+        }
+    }
+}
+
+@Composable
+private fun FooterDivider(modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Box(
+            modifier = Modifier
+                .width(40.dp)
+                .height(1.dp)
+                .background(DividerLine)
+        )
+        Spacer(modifier = Modifier.width(14.dp))
+        Text(
+            text = "Secure  •  Private  •  Trusted",
+            fontWeight = FontWeight.Medium,
+            fontSize = 12.sp,
+            color = DobiTextTertiary,
+            letterSpacing = 0.5.sp
+        )
+        Spacer(modifier = Modifier.width(14.dp))
+        Box(
+            modifier = Modifier
+                .width(40.dp)
+                .height(1.dp)
+                .background(DividerLine)
+        )
+    }
 }
 
 @Composable
@@ -261,6 +598,6 @@ private fun textFieldColors() = OutlinedTextFieldDefaults.colors(
     focusedContainerColor = Color.White,
     unfocusedContainerColor = Color.White,
     focusedBorderColor = DobiPrimary,
-    unfocusedBorderColor = FieldBorder,
+    unfocusedBorderColor = InputBorder,
     cursorColor = DobiPrimary
 )

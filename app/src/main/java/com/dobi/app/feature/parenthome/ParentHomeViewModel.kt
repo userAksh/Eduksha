@@ -141,4 +141,9 @@ class ParentHomeViewModel @Inject constructor(
         authRepository.signOut()
         viewModelScope.launch { _navToRoleSelection.emit(Unit) }
     }
+
+    fun sendReminder(taskId: String) {
+        if (taskId.isBlank()) return
+        viewModelScope.launch { parentTaskRepository.sendReminder(taskId) }
+    }
 }

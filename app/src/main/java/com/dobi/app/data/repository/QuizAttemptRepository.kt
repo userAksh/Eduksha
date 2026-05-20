@@ -73,6 +73,32 @@ class QuizAttemptRepository @Inject constructor(
             else attemptDocFlow(childId, scope, targetId).map { it.selections }
         }
 
+    /**
+     * Child-explicit variants used by the parent dashboard's view-result flow.
+     * The default [attempts] / [lastSelections] above look up the active child
+     * via UserPreferences — that's blank on the parent device, so we need to
+     * pass childId in explicitly.
+     */
+    fun attemptsForChild(childId: String, scope: AttemptScope, targetId: String): Flow<Int> =
+        if (childId.isBlank() || targetId.isBlank()) flowOf(0)
+        else attemptDocFlow(childId, scope, targetId).map { it.attempts }
+
+    fun lastSelectionsForChild(
+        childId: String,
+        scope: AttemptScope,
+        targetId: String
+    ): Flow<Map<Int, Int>> =
+        if (childId.isBlank() || targetId.isBlank()) flowOf(emptyMap())
+        else attemptDocFlow(childId, scope, targetId).map { it.selections }
+
+    fun summaryForChild(
+        childId: String,
+        scope: AttemptScope,
+        targetId: String
+    ): Flow<QuizAttemptSummary> =
+        if (childId.isBlank() || targetId.isBlank()) flowOf(QuizAttemptSummary())
+        else attemptDocFlow(childId, scope, targetId)
+
     /** All summaries across both unit + concept scopes for the active child. */
     fun observeAllSummaries(): Flow<Map<Pair<AttemptScope, String>, QuizAttemptSummary>> =
         userPreferences.linkedChildId.flatMapLatest { childId ->

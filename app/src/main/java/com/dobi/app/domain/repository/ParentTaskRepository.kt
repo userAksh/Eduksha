@@ -1,7 +1,9 @@
 package com.dobi.app.domain.repository
 
+import com.dobi.app.domain.model.McqQuestion
 import com.dobi.app.domain.model.ParentTask
 import com.dobi.app.domain.model.ParentTaskType
+import com.dobi.app.domain.model.SubjectiveQuestion
 import kotlinx.coroutines.flow.Flow
 
 interface ParentTaskRepository {
@@ -24,6 +26,35 @@ interface ParentTaskRepository {
         customNote: String,
         mcqCount: Int
     ): Result<Unit>
+
+    /**
+     * Parent creates a task and assigns it in one shot — bypassing the
+     * REQUESTED stage. Used when the parent initiates a revision/practice
+     * task from the dashboard (e.g., the Detailed Learning Report).
+     * The task is created with status [com.dobi.app.domain.model.ParentTaskStatus.ASSIGNED].
+     * Returns the new doc id.
+     */
+    suspend fun assignDirectlyByParent(
+        parentId: String,
+        childId: String,
+        unitId: String,
+        unitName: String,
+        conceptId: String,
+        conceptName: String,
+        isUnitScope: Boolean,
+        subject: String,
+        subjectColor: String,
+        subjectIcon: String,
+        type: ParentTaskType,
+        customNote: String = "",
+        mcqCount: Int = 5,
+        assignedMcqs: List<McqQuestion> = emptyList(),
+        assignedSubjectiveQs: List<SubjectiveQuestion> = emptyList(),
+    ): Result<String>
+
+    /** Parent taps "Send reminder" on an ASSIGNED task. Bumps `reminderSentAtMillis`;
+     *  Cloud Function watches that field and pushes FCM to the child. */
+    suspend fun sendReminder(taskId: String): Result<Unit>
 
     /** Child submits artefacts (already-uploaded URLs) and optional quiz score. */
     suspend fun submitByChild(

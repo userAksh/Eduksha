@@ -40,7 +40,11 @@ enum class ConceptListMode { DEFAULT, PRACTISE_LESSON, TEST_YOURSELF }
         val viewResult: Boolean = false,
         val source: String = "curated",
         val displayName: String = "",
-        val parentTaskId: String = ""
+        val parentTaskId: String = "",
+        /** When non-blank, the VM treats this as a parent viewing a specific
+         *  child's attempt — overrides UserPreferences.linkedChildId for the
+         *  attempt lookup. Only honored when viewResult is true. */
+        val childId: String = ""
     ) : Screen()
     @Serializable data object HomeworkLog : Screen()
     @Serializable data object ClassTestPrep : Screen()
@@ -73,4 +77,12 @@ enum class ConceptListMode { DEFAULT, PRACTISE_LESSON, TEST_YOURSELF }
         val subject: String = ""
     ) : Screen()
     @Serializable data object ClanLeaderboard : Screen()
+    @Serializable data class ActivityDetail(
+        val categoryKey: String,
+        val childId: String
+    ) : Screen()
+    @Serializable data class HomeworkSubmission(val homeworkId: String) : Screen()
+    @Serializable data class Insights(val childId: String) : Screen()
+    @Serializable data class WebView(val url: String, val title: String) : Screen()
+    @Serializable data class StudyGoals(val childId: String) : Screen()
 }

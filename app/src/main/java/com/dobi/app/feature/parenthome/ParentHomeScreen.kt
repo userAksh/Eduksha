@@ -31,11 +31,12 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Schedule
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
@@ -46,6 +47,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -57,10 +59,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dobi.app.R
@@ -81,7 +86,7 @@ import com.dobi.app.core.ui.theme.SFProBold
 import com.dobi.app.core.ui.theme.SFProMedium
 import com.dobi.app.core.ui.theme.SFProRegular
 import com.dobi.app.core.ui.theme.SFProSemiBold
-import com.dobi.app.feature.parentinsights.ParentInsightsContent
+import com.dobi.app.feature.parentdashboard.ParentDashboardScreen
 
 private val PageBg = Color(0xFFF3F6FD)
 private val StatOrange = Color(0xFFF59E0B)
@@ -93,7 +98,7 @@ private val AvatarPurple = Color(0xFF8B5CF6)
 private val AvatarPurpleBg = Color(0xFFEDE9FE)
 private val ProgressTrack = Color(0xFFE6EAF5)
 
-private enum class ParentTab { CHILDREN, INSIGHTS, SETTINGS }
+private enum class ParentTab { CHILDREN, DASHBOARD, SETTINGS }
 
 @Composable
 fun ParentHomeScreen(
@@ -102,6 +107,14 @@ fun ParentHomeScreen(
     onRedirectToAddChild: () -> Unit,
     onNavigateToRoleSelection: () -> Unit,
     onNavigateToParentTask: (taskId: String) -> Unit = {},
+    onNavigateToActivityDetail: (categoryKey: String, childId: String) -> Unit = { _, _ -> },
+    onNavigateToInsights: (childId: String) -> Unit = {},
+    onNavigateToUploadGroup: (groupKey: String) -> Unit = {},
+    onNavigateToQuizResult: (unitId: String, conceptId: String, childId: String) -> Unit = { _, _, _ -> },
+    onNavigateToSubjectiveResult: (resultId: String) -> Unit = {},
+    onNavigateToHomework: (homeworkId: String) -> Unit = {},
+    onNavigateToWebView: (url: String, title: String) -> Unit = { _, _ -> },
+    onNavigateToStudyGoals: (childId: String) -> Unit = {},
     viewModel: ParentHomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -144,13 +157,36 @@ fun ParentHomeScreen(
                     onNavigateToChildHome = onNavigateToChildHome,
                     onNavigateToParentTask = onNavigateToParentTask,
                     onAddChild = onNavigateToAddChild,
-                    onPairDevice = viewModel::onPairDeviceTapped
+                    onPairDevice = viewModel::onPairDeviceTapped,
+                    onSendReminder = viewModel::sendReminder,
                 )
-                ParentTab.INSIGHTS -> InsightsTabShell(
-                    onAddChild = onNavigateToAddChild
+                ParentTab.DASHBOARD -> DashboardTabShell(
+                    onAddChild = onNavigateToAddChild,
+                    onOpenActivity = onNavigateToActivityDetail,
+                    onOpenInsights = onNavigateToInsights,
+                    onOpenUploadGroup = onNavigateToUploadGroup,
+                    onOpenQuizResult = onNavigateToQuizResult,
+                    onOpenSubjectiveResult = onNavigateToSubjectiveResult,
+                    onOpenHomework = onNavigateToHomework,
                 )
-                ParentTab.SETTINGS -> SettingsTabShell(
-                    onSignOut = viewModel::signOut
+                ParentTab.SETTINGS -> ParentSettingsTab(
+                    profile = uiState.profile,
+                    children = uiState.children,
+                    onBack = { selectedTab = ParentTab.CHILDREN.ordinal },
+                    onAddChild = onNavigateToAddChild,
+                    onManageChildren = onNavigateToAddChild,
+                    onChildClick = { /* child profile screen — TBD */ },
+                    onPrivacyData = {
+                        onNavigateToWebView("https://eduksha.in/privacy.html", "Privacy & Data")
+                    },
+                    onFaq = {
+                        onNavigateToWebView("https://eduksha.in/#faq", "FAQ")
+                    },
+                    onHelpSupport = {
+                        onNavigateToWebView("https://eduksha.in/support.html", "Help & Support")
+                    },
+                    onStudyGoals = onNavigateToStudyGoals,
+                    onSignOut = viewModel::signOut,
                 )
             }
         }
@@ -175,17 +211,45 @@ private fun ChildrenTab(
     onNavigateToChildHome: (String) -> Unit,
     onNavigateToParentTask: (String) -> Unit,
     onAddChild: () -> Unit,
-    onPairDevice: (Child) -> Unit
+    onPairDevice: (Child) -> Unit,
+    onSendReminder: (String) -> Unit,
 ) {
-    val actionableTasks = parentTasks.filter {
-        it.status == ParentTaskStatus.REQUESTED || it.status == ParentTaskStatus.PENDING_REVIEW
+    val now = System.currentTimeMillis()
+    val twentyFourH = 24L * 60L * 60L * 1000L
+    val actionableTasks = parentTasks.filter { task ->
+        when (task.status) {
+            ParentTaskStatus.REQUESTED, ParentTaskStatus.PENDING_REVIEW -> true
+            // Stale ASSIGNED — assigned ≥24h ago and either never reminded
+            // or last reminder was also ≥24h ago. Surfaces a "Send reminder" CTA.
+            ParentTaskStatus.ASSIGNED ->
+                task.assignedAtMillis > 0L &&
+                    now - task.assignedAtMillis >= twentyFourH &&
+                    (task.reminderSentAtMillis == 0L ||
+                        now - task.reminderSentAtMillis >= twentyFourH)
+            else -> false
+        }
     }
     val childById: Map<String, Child> = remember(children) {
         children.associateBy { it.id }
     }
 
+    // Paint the system status bar in PageBg so the OS bar (network/battery)
+    // matches the screen background instead of showing scrolling content
+    // behind a transparent strip. Mirrors the pattern used in
+    // ParentDashboardScreen.
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as android.app.Activity).window
+            window.statusBarColor = PageBg.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = true
+        }
+    }
+
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding(),
         contentPadding = PaddingValues(bottom = 20.dp)
     ) {
         item {
@@ -199,6 +263,7 @@ private fun ChildrenTab(
                     actionableTasks = actionableTasks,
                     childById = childById,
                     onNavigateToParentTask = onNavigateToParentTask,
+                    onSendReminder = onSendReminder,
                     modifier = Modifier.padding(horizontal = 20.dp)
                 )
                 Spacer(Modifier.height(24.dp))
@@ -254,7 +319,6 @@ private fun HeaderRow(parentName: String) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .statusBarsPadding()
             .padding(start = 20.dp, end = 20.dp, top = 8.dp, bottom = 8.dp)
     ) {
         Row(
@@ -355,6 +419,7 @@ private fun TasksCard(
     actionableTasks: List<ParentTask>,
     childById: Map<String, Child>,
     onNavigateToParentTask: (String) -> Unit,
+    onSendReminder: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val firstTask = actionableTasks.first()
@@ -411,7 +476,8 @@ private fun TasksCard(
             ParentActionableTaskRow(
                 task = firstTask,
                 childName = childById[firstTask.childId]?.name.orEmpty(),
-                onClick = { onNavigateToParentTask(firstTask.id) }
+                onClick = { onNavigateToParentTask(firstTask.id) },
+                onSendReminder = { onSendReminder(firstTask.id) },
             )
         }
     }
@@ -876,126 +942,26 @@ private fun AddMoreChildrenCard(
 // ── Insights / Settings / Calendar tab shells ────────────────────────────────
 
 @Composable
-private fun InsightsTabShell(onAddChild: () -> Unit) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        SimpleTabHeader(title = "Insights", subtitle = "How your children are learning")
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .offset(y = (-24).dp),
-            shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
-            color = PageBg,
-            shadowElevation = 0.dp
-        ) {
-            ParentInsightsContent(onAddChild = onAddChild)
-        }
-    }
+private fun DashboardTabShell(
+    onAddChild: () -> Unit,
+    onOpenActivity: (categoryKey: String, childId: String) -> Unit,
+    onOpenInsights: (childId: String) -> Unit,
+    onOpenUploadGroup: (groupKey: String) -> Unit,
+    onOpenQuizResult: (unitId: String, conceptId: String, childId: String) -> Unit,
+    onOpenSubjectiveResult: (resultId: String) -> Unit,
+    onOpenHomework: (homeworkId: String) -> Unit,
+) {
+    ParentDashboardScreen(
+        onAddChild = onAddChild,
+        onOpenActivity = onOpenActivity,
+        onOpenInsights = onOpenInsights,
+        onOpenUploadGroup = onOpenUploadGroup,
+        onOpenQuizResult = onOpenQuizResult,
+        onOpenSubjectiveResult = onOpenSubjectiveResult,
+        onOpenHomework = onOpenHomework,
+    )
 }
 
-@Composable
-private fun SettingsTabShell(onSignOut: () -> Unit) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        SimpleTabHeader(title = "Settings", subtitle = "Account and preferences")
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .offset(y = (-24).dp),
-            shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
-            color = PageBg,
-            shadowElevation = 0.dp
-        ) {
-            SettingsPlaceholder(onSignOut = onSignOut)
-        }
-    }
-}
-
-@Composable
-private fun SimpleTabHeader(title: String, subtitle: String) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(DobiPrimary)
-            .statusBarsPadding()
-            .padding(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 48.dp)
-    ) {
-        Column {
-            Text(
-                text = title,
-                fontSize = 22.sp,
-                fontWeight = SFProBold,
-                color = Color.White
-            )
-            Spacer(Modifier.height(4.dp))
-            Text(
-                text = subtitle,
-                fontSize = 13.sp,
-                fontWeight = SFProRegular,
-                color = Color.White.copy(alpha = 0.85f)
-            )
-        }
-    }
-}
-
-@Composable
-private fun SettingsPlaceholder(onSignOut: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 20.dp, vertical = 24.dp)
-    ) {
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
-                    onClick = onSignOut
-                ),
-            shape = RoundedCornerShape(16.dp),
-            color = Color.White,
-            shadowElevation = 1.dp
-        ) {
-            Row(
-                modifier = Modifier.padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .background(Color(0xFFFFE4E6)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.ExitToApp,
-                        contentDescription = null,
-                        tint = DobiError,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-                Spacer(Modifier.width(14.dp))
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = "Sign out",
-                        fontSize = 15.sp,
-                        fontWeight = SFProSemiBold,
-                        color = DobiTextPrimary
-                    )
-                    Spacer(Modifier.height(2.dp))
-                    Text(
-                        text = "You'll need to sign in again to access this parent dashboard.",
-                        fontSize = 12.sp,
-                        fontWeight = SFProRegular,
-                        color = DobiTextSecondary,
-                        lineHeight = 16.sp
-                    )
-                }
-            }
-        }
-    }
-}
 
 // ── Bottom navigation ────────────────────────────────────────────────────────
 
@@ -1024,15 +990,15 @@ private fun BottomNav(
                 modifier = Modifier.weight(1f)
             )
             NavTab(
-                icon = Icons.Default.BarChart,
-                label = "Insights",
-                active = selectedTab == ParentTab.INSIGHTS,
-                onClick = { onTabSelected(ParentTab.INSIGHTS) },
+                icon = Icons.Default.Dashboard,
+                label = "Dashboard",
+                active = selectedTab == ParentTab.DASHBOARD,
+                onClick = { onTabSelected(ParentTab.DASHBOARD) },
                 modifier = Modifier.weight(1f)
             )
             NavTab(
-                icon = Icons.Default.Settings,
-                label = "Settings",
+                icon = Icons.Default.Person,
+                label = "Profile",
                 active = selectedTab == ParentTab.SETTINGS,
                 onClick = { onTabSelected(ParentTab.SETTINGS) },
                 modifier = Modifier.weight(1f)
@@ -1159,7 +1125,8 @@ private fun PairingDialog(
 private fun ParentActionableTaskRow(
     task: ParentTask,
     childName: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onSendReminder: () -> Unit,
 ) {
     val (accentBg, accentFg, label) = when (task.status) {
         ParentTaskStatus.REQUESTED -> Triple(
@@ -1168,8 +1135,12 @@ private fun ParentActionableTaskRow(
         ParentTaskStatus.PENDING_REVIEW -> Triple(
             Color(0xFFEFF6FF), DobiPrimary, "Needs review"
         )
+        ParentTaskStatus.ASSIGNED -> Triple(
+            Color(0xFFFFE4E6), Color(0xFFBE123C), "Send reminder"
+        )
         else -> Triple(Color(0xFFF1F5F9), DobiTextSecondary, "")
     }
+    val isReminder = task.status == ParentTaskStatus.ASSIGNED
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -1214,6 +1185,7 @@ private fun ParentActionableTaskRow(
             modifier = Modifier
                 .clip(RoundedCornerShape(8.dp))
                 .background(accentBg)
+                .let { if (isReminder) it.clickable(onClick = onSendReminder) else it }
                 .padding(horizontal = 10.dp, vertical = 6.dp)
         ) {
             Text(
@@ -1237,6 +1209,7 @@ private fun parentTaskHeadline(task: ParentTask): String {
             ParentTaskType.CUSTOM -> "Submitted: $scope"
             null -> "Submitted: $scope"
         }
+        ParentTaskStatus.ASSIGNED -> "Not done yet: $scope"
         else -> scope
     }
 }

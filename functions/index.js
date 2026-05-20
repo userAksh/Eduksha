@@ -64,6 +64,14 @@ exports.onParentTaskWrite = onDocumentWritten(
         title: "New task request",
         body: childTopicLine(after, "wants to study"),
       };
+    } else if (!before && afterStatus === "ASSIGNED") {
+      // Parent assigned directly (Detailed Learning Report → Assign Practice
+      // skips the REQUESTED stage and creates the doc straight as ASSIGNED).
+      payload = {
+        target: "child",
+        title: "You have a new task!",
+        body: assignmentLine(after),
+      };
     } else if (beforeStatus === "REQUESTED" && afterStatus === "ASSIGNED") {
       payload = {
         target: "child",
@@ -98,6 +106,20 @@ exports.onParentTaskWrite = onDocumentWritten(
         target: "child",
         title: "Your parent asked for a redo",
         body: after.parentReviewNote || "Please try this task again.",
+      };
+    } else if (
+      // Manual reminder: parent tapped "Send reminder" on an ASSIGNED task
+      // that's been sitting for 24h+. Bumps reminderSentAtMillis, no status
+      // change. Push to the child.
+      beforeStatus === "ASSIGNED" &&
+      afterStatus === "ASSIGNED" &&
+      (before?.reminderSentAtMillis || 0) !== (after.reminderSentAtMillis || 0) &&
+      (after.reminderSentAtMillis || 0) > 0
+    ) {
+      payload = {
+        target: "child",
+        title: "Reminder from your parent",
+        body: `Don't forget: ${assignmentLine(after)}`,
       };
     }
 

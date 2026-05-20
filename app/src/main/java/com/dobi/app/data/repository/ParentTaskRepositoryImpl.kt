@@ -2,9 +2,11 @@ package com.dobi.app.data.repository
 
 import android.net.Uri
 import com.dobi.app.data.local.UserPreferences
+import com.dobi.app.domain.model.McqQuestion
 import com.dobi.app.domain.model.ParentTask
 import com.dobi.app.domain.model.ParentTaskStatus
 import com.dobi.app.domain.model.ParentTaskType
+import com.dobi.app.domain.model.SubjectiveQuestion
 import com.dobi.app.domain.repository.ParentTaskRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -85,6 +87,75 @@ class ParentTaskRepositoryImpl @Inject constructor(
         )
         awaitTask { collection.document(taskId).update(updates) }
     }
+
+    override suspend fun assignDirectlyByParent(
+        parentId: String,
+        childId: String,
+        unitId: String,
+        unitName: String,
+        conceptId: String,
+        conceptName: String,
+        isUnitScope: Boolean,
+        subject: String,
+        subjectColor: String,
+        subjectIcon: String,
+        type: ParentTaskType,
+        customNote: String,
+        mcqCount: Int,
+        assignedMcqs: List<McqQuestion>,
+        assignedSubjectiveQs: List<SubjectiveQuestion>,
+    ): Result<String> = runCatching {
+        require(parentId.isNotBlank()) { "Missing parent id" }
+        require(childId.isNotBlank()) { "Missing child id" }
+        val docRef = collection.document()
+        val now = System.currentTimeMillis()
+        val data = mapOf(
+            "id" to docRef.id,
+            "parentId" to parentId,
+            "childId" to childId,
+            "unitId" to unitId,
+            "unitName" to unitName,
+            "conceptId" to conceptId,
+            "conceptName" to conceptName,
+            "isUnitScope" to isUnitScope,
+            "subject" to subject,
+            "subjectColor" to subjectColor,
+            "subjectIcon" to subjectIcon,
+            "type" to type.name,
+            "customNote" to customNote,
+            "mcqCount" to mcqCount,
+            "assignedMcqs" to assignedMcqs.map(::mcqToMap),
+            "assignedSubjectiveQs" to assignedSubjectiveQs.map(::subjectiveToMap),
+            "status" to ParentTaskStatus.ASSIGNED.name,
+            "requestedAtMillis" to now,
+            "assignedAtMillis" to now,
+        )
+        awaitTask { docRef.set(data) }
+        docRef.id
+    }
+
+    override suspend fun sendReminder(taskId: String): Result<Unit> = runCatching {
+        awaitTask {
+            collection.document(taskId).update(
+                mapOf("reminderSentAtMillis" to System.currentTimeMillis())
+            )
+        }
+    }
+
+    private fun mcqToMap(q: McqQuestion): Map<String, Any?> = mapOf(
+        "id" to q.id,
+        "text" to q.text,
+        "options" to q.options,
+        "correctIndex" to q.correctIndex,
+        "explanation" to q.explanation,
+    )
+
+    private fun subjectiveToMap(q: SubjectiveQuestion): Map<String, Any?> = mapOf(
+        "id" to q.id,
+        "text" to q.text,
+        "expectedKeywords" to q.expectedKeywords,
+        "maxMarks" to q.maxMarks,
+    )
 
     override suspend fun submitByChild(
         taskId: String,
@@ -236,6 +307,10 @@ class ParentTaskRepositoryImpl @Inject constructor(
                 },
                 customNote = getString("customNote").orEmpty(),
                 mcqCount = (getLong("mcqCount") ?: 5L).toInt(),
+                assignedMcqs = (get("assignedMcqs") as? List<*>)
+                    .orEmpty().mapNotNull(::mapToMcq),
+                assignedSubjectiveQs = (get("assignedSubjectiveQs") as? List<*>)
+                    .orEmpty().mapNotNull(::mapToSubjective),
                 submissionPhotoUrls = (get("submissionPhotoUrls") as? List<*>)
                     .orEmpty().filterIsInstance<String>(),
                 submissionScore = getLong("submissionScore")?.toInt(),
@@ -247,9 +322,32 @@ class ParentTaskRepositoryImpl @Inject constructor(
                 requestedAtMillis = getLong("requestedAtMillis") ?: 0L,
                 assignedAtMillis = getLong("assignedAtMillis") ?: 0L,
                 submittedAtMillis = getLong("submittedAtMillis") ?: 0L,
-                reviewedAtMillis = getLong("reviewedAtMillis") ?: 0L
+                reviewedAtMillis = getLong("reviewedAtMillis") ?: 0L,
+                reminderSentAtMillis = getLong("reminderSentAtMillis") ?: 0L,
             )
         }.getOrNull()
+
+    private fun mapToMcq(raw: Any?): McqQuestion? {
+        val m = raw as? Map<*, *> ?: return null
+        return McqQuestion(
+            id = (m["id"] as? String).orEmpty(),
+            text = (m["text"] as? String).orEmpty(),
+            options = (m["options"] as? List<*>).orEmpty().filterIsInstance<String>(),
+            correctIndex = ((m["correctIndex"] as? Number)?.toInt()) ?: 0,
+            explanation = (m["explanation"] as? String).orEmpty(),
+        ).takeIf { it.options.isNotEmpty() }
+    }
+
+    private fun mapToSubjective(raw: Any?): SubjectiveQuestion? {
+        val m = raw as? Map<*, *> ?: return null
+        return SubjectiveQuestion(
+            id = (m["id"] as? String).orEmpty(),
+            text = (m["text"] as? String).orEmpty(),
+            expectedKeywords = (m["expectedKeywords"] as? List<*>).orEmpty()
+                .filterIsInstance<String>(),
+            maxMarks = ((m["maxMarks"] as? Number)?.toInt()) ?: 2,
+        ).takeIf { it.text.isNotBlank() }
+    }
 
     private suspend fun awaitTask(block: () -> com.google.android.gms.tasks.Task<Void>) {
         suspendCancellableCoroutine<Unit> { cont ->

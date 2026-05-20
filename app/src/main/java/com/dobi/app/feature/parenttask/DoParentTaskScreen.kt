@@ -306,6 +306,34 @@ private fun UploadBody(
 
         InstructionCard(task)
 
+        if (task.assignedSubjectiveQs.isNotEmpty()) {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(
+                    text = "Questions from your parent",
+                    color = DobiTextSecondary,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.SemiBold,
+                )
+                task.assignedSubjectiveQs.forEachIndexed { index, q ->
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(Color.White)
+                            .border(1.dp, Color(0xFFE5E7EB), RoundedCornerShape(12.dp))
+                            .padding(12.dp)
+                    ) {
+                        Text(
+                            text = "${index + 1}. ${q.text}",
+                            color = DobiTextPrimary,
+                            fontSize = 13.sp,
+                            lineHeight = 18.sp,
+                        )
+                    }
+                }
+            }
+        }
+
         if (task.customNote.isNotBlank()) {
             Box(
                 modifier = Modifier
@@ -412,7 +440,10 @@ private fun InstructionCard(task: ParentTask) {
         ParentTaskType.REVISE_CHAPTER ->
             "Revise the lesson, then take photos of your revision notes and upload them."
         ParentTaskType.WRITE_QA ->
-            "Write important Q&A from your textbook, then upload a photo."
+            if (task.assignedSubjectiveQs.isNotEmpty())
+                "Answer these questions on paper, then upload a photo of your answers."
+            else
+                "Write important Q&A from your textbook, then upload a photo."
         ParentTaskType.CUSTOM ->
             "Read your parent's note above. When done, upload a photo as proof."
         else -> ""

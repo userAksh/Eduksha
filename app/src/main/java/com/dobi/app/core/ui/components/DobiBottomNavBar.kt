@@ -35,7 +35,7 @@ val childNavItems = listOf(
 
 val parentNavItems = listOf(
     NavItem("Home", Icons.Filled.Home, Icons.Outlined.Home),
-    NavItem("Insights", Icons.Filled.MenuBook, Icons.Outlined.MenuBook),
+    NavItem("Dashboard", Icons.Filled.MenuBook, Icons.Outlined.MenuBook),
     NavItem("Profile", Icons.Filled.Person, Icons.Outlined.Person),
 )
 
