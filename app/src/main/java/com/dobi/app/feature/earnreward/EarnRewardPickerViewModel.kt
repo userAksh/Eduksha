@@ -3,6 +3,7 @@ package com.dobi.app.feature.earnreward
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dobi.app.domain.model.Concept
+import com.dobi.app.domain.model.ParentTaskStatus
 import com.dobi.app.domain.repository.ParentTaskRepository
 import com.dobi.app.domain.repository.UserRepository
 import com.dobi.app.domain.usecase.GetConceptsUseCase
@@ -14,6 +15,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,7 +35,24 @@ class EarnRewardPickerViewModel @Inject constructor(
     private var canonicalGroups: List<SubjectGroup> = emptyList()
     private var allConcepts: List<Concept> = emptyList()
 
-    init { load() }
+    init {
+        load()
+        observePendingRequest()
+    }
+
+    private fun observePendingRequest() {
+        val twelveHoursMs = 12 * 60 * 60 * 1000L
+        parentTaskRepository.observeForActiveChild()
+            .catch { }
+            .onEach { tasks ->
+                val pending = tasks
+                    .filter { it.status == ParentTaskStatus.REQUESTED }
+                    .filter { System.currentTimeMillis() - it.requestedAtMillis < twelveHoursMs }
+                    .maxByOrNull { it.requestedAtMillis }
+                _uiState.update { it.copy(pendingRequest = pending) }
+            }
+            .launchIn(viewModelScope)
+    }
 
     private fun load() {
         viewModelScope.launch {

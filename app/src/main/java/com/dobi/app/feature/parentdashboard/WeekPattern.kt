@@ -21,6 +21,7 @@ data class DayItem(
     val title: String,
     val subject: String,
     val route: ActivityLogRepository.DetailRoute,
+    val typeTag: String = "",
 )
 
 data class DayActivity(
@@ -56,10 +57,22 @@ fun bucketWeek(
     for (item in items) {
         if (item.timestamp < mondayMs || item.timestamp >= weekEndMs) continue
         val dayIndex = ((item.timestamp - mondayMs) / MS_PER_DAY).toInt().coerceIn(0, 6)
+        val typeTag = when (item.source) {
+            Source.QUIZ_MCQ -> "Quiz"
+            Source.QUIZ_SUBJECTIVE -> "Write Answer"
+            Source.HOMEWORK -> "Homework"
+            Source.UPLOAD -> when (item.uploadKind) {
+                "class_work" -> "Class Work"
+                "self_learning" -> "Self Study"
+                "homework" -> "Homework"
+                else -> "Upload"
+            }
+        }
         val dayItem = DayItem(
             title = item.title,
             subject = item.subject,
             route = item.detail,
+            typeTag = typeTag,
         )
         if (isHomework(item)) {
             homeworks[dayIndex].add(dayItem)

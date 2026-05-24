@@ -23,6 +23,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -115,6 +118,7 @@ private data class DashChild(
     val avatarRes: Int,
     val isGirl: Boolean,
     val revisionStreakDays: Int,
+    val streakDays: Int = 0,
     val weakSubject: String,
     val weeklyProgressPct: Int,
     val smartInsight: String,
@@ -122,6 +126,7 @@ private data class DashChild(
     val whatYouCanDo: String,
     val weekPattern: List<DayActivity>,
     val insight: LearningInsight,
+    val lastRevisedLabel: String = "No activity yet",
 )
 
 private val mockPreviewInsight = LearningInsight(
@@ -233,13 +238,35 @@ private fun toDashChild(
         // uses pooled quiz/subjective accuracy as a proxy. Weak subject is
         // still a placeholder — per-subject accuracy isn't aggregated yet.
         revisionStreakDays = engagement?.daysActiveThisWeek ?: 0,
-        weakSubject = "—",
+        streakDays = engagement?.streakDays ?: 0,
+        weakSubject = engagement?.weakSubject?.ifBlank { "—" } ?: "—",
         weeklyProgressPct = engagement?.accuracyPct ?: 0,
         smartInsight = "",
-        watchOut = "",
+        watchOut = run {
+            val weakPct = engagement?.weakSubjectAccuracyPct
+            if (weakPct != null) return@run "$weakPct% accuracy"
+            val lastMs = engagement?.lastActivityMs ?: 0L
+            if (lastMs == 0L) return@run "No activity yet"
+            val daysAgo = ((System.currentTimeMillis() - lastMs) / (24L * 60 * 60 * 1000)).toInt()
+            when {
+                daysAgo == 0 -> "Active today"
+                daysAgo == 1 -> "Active yesterday"
+                else -> "Last active $daysAgo days ago"
+            }
+        },
         whatYouCanDo = "",
         weekPattern = weekPattern ?: EMPTY_WEEK,
         insight = insight ?: placeholderInsight,
+        lastRevisedLabel = run {
+            val lastMs = engagement?.lastActivityMs ?: 0L
+            if (lastMs == 0L) return@run "No activity yet"
+            val daysAgo = ((System.currentTimeMillis() - lastMs) / (24L * 60 * 60 * 1000)).toInt()
+            when {
+                daysAgo == 0 -> "Today"
+                daysAgo == 1 -> "Yesterday"
+                else -> "$daysAgo days ago"
+            }
+        },
     )
 }
 
@@ -376,7 +403,7 @@ fun ParentDashboardScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(headerBg)
+            .background(Color.White)
     ) {
         LazyColumn(
             modifier = Modifier
@@ -386,7 +413,7 @@ fun ParentDashboardScreen(
         ) {
             item {
                 ParentHomeTopBar(
-                    parentName = "Neha",
+                    parentName = vmState.parentName,
                     children = children,
                     selectedChildId = selectedChildId,
                     onChildClick = { selectedChildId = it.id },
@@ -499,7 +526,7 @@ private fun ParentHomeTopBar(
                 .offset(y = 40.dp)
         ) {
             Text(
-                text = "Good evening,\n$parentName! 👋",
+                text = if (parentName.isNotBlank()) "Hello, $parentName! 👋" else "Hello! 👋",
                 fontSize = 22.sp,
                 lineHeight = 28.sp,
                 fontWeight = FontWeight.Bold,
@@ -650,12 +677,12 @@ private val InsightDivider = Color(0xFFD6DEF2)
 private data class StatusPillSpec(val text: String, val tint: Color, val bg: Color)
 
 private fun statusFor(child: DashChild): StatusPillSpec = when {
-    child.revisionStreakDays >= 5 -> StatusPillSpec(
+    child.streakDays >= 3 -> StatusPillSpec(
         text = "Learning Well",
         tint = DobiSuccess,
         bg = DobiSuccessContainer,
     )
-    child.revisionStreakDays >= 3 -> StatusPillSpec(
+    child.streakDays > 0 -> StatusPillSpec(
         text = "Needs revision consistency",
         tint = DobiAccentOrange,
         bg = Color(0xFFFFEFCC),
@@ -679,9 +706,7 @@ private fun ChildSummaryCard(
         daysStudied >= 3 -> "Keep building the habit."
         else -> "Aim for daily revision."
     }
-    val attentionDetail = child.watchOut.ifBlank {
-        "No revision in the last 6 days"
-    }
+    val attentionDetail = child.watchOut.ifBlank { "—" }
 
     Surface(
         shape = RoundedCornerShape(24.dp),
@@ -720,9 +745,9 @@ private fun ChildSummaryCard(
                     modifier = tileModifier,
                 )
                 InsightStatTile(
-                    title = "Last revised",
-                    subtitle = "Fractions • 2 days ago",
-                    hint = "Keep it within 2–3 days for better retention.",
+                    title = "Last active",
+                    subtitle = child.lastRevisedLabel,
+                    hint = if (child.lastRevisedLabel == "No activity yet") "Start revising to build the habit." else "Keep the streak going!",
                     icon = Icons.Filled.Autorenew,
                     tint = RevisedTint,
                     tintBg = RevisedTintBg,
@@ -1684,7 +1709,9 @@ private fun DayDetailSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp, vertical = 8.dp),
+                .fillMaxHeight(0.92f)
+                .padding(horizontal = 24.dp)
+                .padding(top = 8.dp),
         ) {
             Text(
                 text = WeekDayFullLabels.getOrElse(dayIndex) { "Day" },
@@ -1700,36 +1727,42 @@ private fun DayDetailSheet(
             )
             Spacer(modifier = Modifier.height(20.dp))
 
-            when {
-                activity.revisions.isEmpty() && activity.homeworks.isEmpty() ->
-                    DayEmptyState()
-                else -> {
-                    if (activity.revisions.isNotEmpty()) {
-                        DaySection(
-                            title = "Revision",
-                            accent = DobiPrimary,
-                            accentBg = DobiPastelSkyBlue,
-                            icon = Icons.Filled.Edit,
-                            items = activity.revisions,
-                            onItemClick = onItemClick,
-                        )
-                    }
-                    if (activity.revisions.isNotEmpty() && activity.homeworks.isNotEmpty()) {
-                        Spacer(modifier = Modifier.height(18.dp))
-                    }
-                    if (activity.homeworks.isNotEmpty()) {
-                        DaySection(
-                            title = "Homework",
-                            accent = DobiSuccess,
-                            accentBg = DobiSuccessContainer,
-                            icon = Icons.AutoMirrored.Filled.MenuBook,
-                            items = activity.homeworks,
-                            onItemClick = onItemClick,
-                        )
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState()),
+            ) {
+                when {
+                    activity.revisions.isEmpty() && activity.homeworks.isEmpty() ->
+                        DayEmptyState()
+                    else -> {
+                        if (activity.revisions.isNotEmpty()) {
+                            DaySection(
+                                title = "Revision",
+                                accent = DobiPrimary,
+                                accentBg = DobiPastelSkyBlue,
+                                icon = Icons.Filled.Edit,
+                                items = activity.revisions,
+                                onItemClick = onItemClick,
+                            )
+                        }
+                        if (activity.revisions.isNotEmpty() && activity.homeworks.isNotEmpty()) {
+                            Spacer(modifier = Modifier.height(18.dp))
+                        }
+                        if (activity.homeworks.isNotEmpty()) {
+                            DaySection(
+                                title = "Homework",
+                                accent = DobiSuccess,
+                                accentBg = DobiSuccessContainer,
+                                icon = Icons.AutoMirrored.Filled.MenuBook,
+                                items = activity.homeworks,
+                                onItemClick = onItemClick,
+                            )
+                        }
                     }
                 }
+                Spacer(modifier = Modifier.height(24.dp))
             }
-            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }
@@ -1811,13 +1844,21 @@ private fun DayItemRow(item: DayItem, onClick: () -> Unit) {
                     fontWeight = FontWeight.SemiBold,
                     color = DobiTextPrimary,
                 )
-                if (item.subject.isNotBlank()) {
-                    Spacer(modifier = Modifier.height(2.dp))
-                    Text(
-                        text = item.subject,
-                        fontSize = 12.sp,
-                        color = DobiTextSecondary,
-                    )
+                Spacer(modifier = Modifier.height(4.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
+                    if (item.subject.isNotBlank()) {
+                        Text(
+                            text = item.subject,
+                            fontSize = 12.sp,
+                            color = DobiTextSecondary,
+                        )
+                    }
+                    if (item.typeTag.isNotBlank()) {
+                        DayItemTypeTag(item.typeTag)
+                    }
                 }
             }
             Icon(
@@ -1827,6 +1868,31 @@ private fun DayItemRow(item: DayItem, onClick: () -> Unit) {
                 modifier = Modifier.size(20.dp),
             )
         }
+    }
+}
+
+@Composable
+private fun DayItemTypeTag(tag: String) {
+    val (tint, bg) = when (tag) {
+        "Quiz"        -> Color(0xFF3B7BFF) to Color(0xFFEAF0FF)
+        "Write Answer"-> Color(0xFF7C3AED) to Color(0xFFF3EEFF)
+        "Class Work"  -> Color(0xFF0891B2) to Color(0xFFE0F7FA)
+        "Self Study"  -> Color(0xFF059669) to Color(0xFFE6F7F1)
+        "Homework"    -> Color(0xFFD97706) to Color(0xFFFFF3E0)
+        else          -> DobiTextSecondary to Color(0xFFF3F4F6)
+    }
+    Box(
+        modifier = androidx.compose.ui.Modifier
+            .clip(RoundedCornerShape(6.dp))
+            .background(bg)
+            .padding(horizontal = 7.dp, vertical = 2.dp),
+    ) {
+        Text(
+            text = tag,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = tint,
+        )
     }
 }
 

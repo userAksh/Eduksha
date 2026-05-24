@@ -232,7 +232,8 @@ private fun buildTodayItems(
             scoreLabel = score,
             timestamp = activityAt,
             navTarget = t.id.takeIf { it.isNotBlank() }
-                ?.let { TodayNavTarget.ParentTask(it) }
+                ?.let { TodayNavTarget.ParentTask(it) },
+            assignedByParent = true
         )
     }
 

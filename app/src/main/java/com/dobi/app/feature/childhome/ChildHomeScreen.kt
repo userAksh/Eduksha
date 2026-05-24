@@ -8,6 +8,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -40,6 +42,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -47,9 +50,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.ui.text.TextStyle
@@ -75,7 +80,11 @@ import androidx.compose.ui.unit.sp
 import android.content.Intent
 import android.widget.Toast
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.collectLatest
@@ -112,6 +121,7 @@ fun ChildHomeScreen(
     onNavigateToStreakDashboard: () -> Unit = {},
     onNavigateToEarnReward: () -> Unit = {},
     onNavigateToParentTask: (taskId: String) -> Unit = {},
+    onNavigateToParentTasksList: () -> Unit = {},
     onOpenUnit: (unitId: String) -> Unit = {},
     onOpenConcept: (conceptId: String) -> Unit = {},
     onOpenQuizResult: (unitId: String, conceptId: String) -> Unit = { _, _ -> },
@@ -122,6 +132,7 @@ fun ChildHomeScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var selectedTab by rememberSaveable { mutableIntStateOf(0) }
+    var popupModeIndex by remember { mutableStateOf<Int?>(null) }
     val context = LocalContext.current
 
     // Lock back button — child cannot return to parent view without the PIN gate
@@ -155,14 +166,29 @@ fun ChildHomeScreen(
         }
     }
 
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as android.app.Activity).window
+            window.statusBarColor = DobiBackground.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = true
+        }
+    }
+
     Scaffold(
         containerColor = DobiBackground,
         bottomBar = {
-            DobiBottomNavBar(
-                items = childNavItems,
-                selectedIndex = selectedTab,
-                onItemSelected = { selectedTab = it }
-            )
+            AnimatedVisibility(
+                visible = popupModeIndex == null,
+                enter = slideInVertically(tween(200)) { it },
+                exit = slideOutVertically(tween(180)) { it },
+            ) {
+                DobiBottomNavBar(
+                    items = childNavItems,
+                    selectedIndex = selectedTab,
+                    onItemSelected = { selectedTab = it }
+                )
+            }
         }
     ) { innerPadding ->
         when (selectedTab) {
@@ -181,9 +207,13 @@ fun ChildHomeScreen(
                 onNavigateToStreakDashboard = onNavigateToStreakDashboard,
                 onNavigateToInviteFriend = viewModel::onInviteFriendClicked,
                 onNavigateToEarnReward = onNavigateToEarnReward,
+                onNavigateToParentTasksList = onNavigateToParentTasksList,
                 onSaveTutor = viewModel::saveTutor,
                 onTaskClick = onNavigateToParentTask,
-                contentPadding = innerPadding
+                onSendReminderToParent = viewModel::sendReminderToParent,
+                contentPadding = innerPadding,
+                selectedModeIndex = popupModeIndex,
+                onModeSelected = { popupModeIndex = it },
             )
             1 -> MyLearningsContent(
                 contentPadding = innerPadding,
@@ -239,11 +269,14 @@ private fun ChildHomeContent(
     onNavigateToStreakDashboard: () -> Unit,
     onNavigateToInviteFriend: () -> Unit,
     onNavigateToEarnReward: () -> Unit,
+    onNavigateToParentTasksList: () -> Unit,
     onSaveTutor: (String, String) -> Unit,
     onTaskClick: (String) -> Unit,
-    contentPadding: PaddingValues
+    onSendReminderToParent: (taskId: String) -> Unit = {},
+    contentPadding: PaddingValues,
+    selectedModeIndex: Int?,
+    onModeSelected: (Int?) -> Unit,
 ) {
-    var selectedModeIndex by remember { mutableStateOf<Int?>(null) }
     // Keep last valid index so exit animation still renders correct content
     var lastModeIndex by remember { mutableIntStateOf(0) }
 
@@ -314,7 +347,7 @@ private fun ChildHomeContent(
 
             // Revision mode cards
             item {
-                RevisionModeRow(onRevisionModeClick = { lastModeIndex = it; selectedModeIndex = it })
+                RevisionModeRow(onRevisionModeClick = { lastModeIndex = it; onModeSelected(it) })
                 Spacer(Modifier.height(20.dp))
             }
 
@@ -344,6 +377,17 @@ private fun ChildHomeContent(
             }
 
             // Tasks from parents — header
+            val requestedTasks = uiState.parentTasks.filter { it.status == ParentTaskStatus.REQUESTED }
+            // Only tasks that still need the child's attention (excludes ACCEPTED/done tasks).
+            // When everything is ACCEPTED, the section reverts to the empty state so the
+            // child is prompted to request their next task.
+            val pendingTasks = uiState.parentTasks.filter {
+                it.status in listOf(
+                    ParentTaskStatus.ASSIGNED,
+                    ParentTaskStatus.PENDING_REVIEW,
+                    ParentTaskStatus.REJECTED
+                )
+            }
             item {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -358,35 +402,39 @@ private fun ChildHomeContent(
                     )
                     if (uiState.parentTasks.isNotEmpty()) {
                         Text(
-                            "See all",
+                            text = "See all",
                             style = MaterialTheme.typography.bodyMedium,
                             color = DobiPrimary,
-                            fontWeight = SFProMedium
+                            fontWeight = SFProMedium,
+                            modifier = Modifier.clickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = null
+                            ) { onNavigateToParentTasksList() }
                         )
                     }
                 }
                 Spacer(Modifier.height(12.dp))
             }
 
-            // Tasks content
-            if (uiState.parentTasks.isEmpty()) {
-                item {
+            // Tasks content — banner only for in-flight tasks; done = prompt next request
+            when {
+                pendingTasks.isNotEmpty() -> item {
+                    ParentTasksSummaryBanner(
+                        tasks = pendingTasks,
+                        onSeeAll = onNavigateToParentTasksList,
+                        onTaskClick = onTaskClick,
+                    )
+                }
+                requestedTasks.isNotEmpty() -> item {
+                    ParentTasksSummaryBanner(
+                        tasks = requestedTasks,
+                        onSeeAll = onNavigateToParentTasksList,
+                        onTaskClick = onTaskClick,
+                    )
+                }
+                else -> item {
+                    // No tasks, or all tasks ACCEPTED — encourage requesting the next one
                     ParentTasksEmptyCard(onClick = onNavigateToEarnReward)
-                }
-            } else {
-                items(uiState.parentTasks, key = { it.id }) { task ->
-                    ParentTaskCard(task = task, onClick = { onTaskClick(task.id) })
-                    Spacer(Modifier.height(12.dp))
-                }
-                // Hide the "request another" CTA while a redo is pending — the
-                // child should finish the assigned redo before asking for more.
-                val hasRedoPending = uiState.parentTasks.any {
-                    it.status == ParentTaskStatus.REJECTED
-                }
-                if (!hasRedoPending) {
-                    item {
-                        RequestNextTaskRow(onClick = onNavigateToEarnReward)
-                    }
                 }
             }
         }  // end LazyColumn
@@ -404,7 +452,7 @@ private fun ChildHomeContent(
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null
-                    ) { selectedModeIndex = null }
+                    ) { onModeSelected(null) }
             )
         }
 
@@ -428,9 +476,9 @@ private fun ChildHomeContent(
         ) {
             RevisionDialog(
                 modeIndex = lastModeIndex,
-                onDismiss = { selectedModeIndex = null },
+                onDismiss = { onModeSelected(null) },
                 onOptionClick = { optionIndex ->
-                    selectedModeIndex = null
+                    onModeSelected(null)
                     when {
                         lastModeIndex == 0 && optionIndex == 0 -> onNavigateToPractiseLesson()
                         lastModeIndex == 0 && optionIndex == 1 -> onNavigateToHomeworkLog()
@@ -851,7 +899,7 @@ private fun TutorEditor(
                     color = DobiTextPrimary,
                     fontWeight = FontWeight.Normal
                 ),
-                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words),
+                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
                 modifier = Modifier.fillMaxWidth(),
                 decorationBox = { inner ->
                     if (name.isEmpty()) {
@@ -1071,15 +1119,19 @@ private fun StreakBanner(
 
             Spacer(Modifier.height(14.dp))
 
-            // 7-day progress dots
+            // 7-day progress dots — anchored at today so the current day
+            // is always the rightmost lit dot when there's an active streak.
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 val labels = listOf("M", "T", "W", "T", "F", "S", "S")
                 val activeCount = streakDays.coerceIn(0, 7)
+                // 0 = Monday … 6 = Sunday (Calendar.DAY_OF_WEEK: 1=Sun, 2=Mon … 7=Sat)
+                val todayIdx = (java.util.Calendar.getInstance()
+                    .get(java.util.Calendar.DAY_OF_WEEK) + 5) % 7
                 labels.forEachIndexed { idx, ch ->
-                    val active = idx < activeCount
+                    val active = idx <= todayIdx && (todayIdx - idx) < activeCount
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier.weight(1f)
@@ -1361,6 +1413,122 @@ private fun ParentTasksEmptyCard(onClick: () -> Unit = {}) {
     }
 }
 
+// ── Pending request card ───────────────────────────────────────────────────────
+// Shown when the child has requested a task but the parent hasn't assigned
+// it yet. After 12 h, a "Remind Parent" button becomes available.
+
+private const val REMIND_THRESHOLD_MS = 12L * 60L * 60L * 1000L
+
+@Composable
+internal fun PendingRequestCard(
+    task: ParentTask,
+    isSendingReminder: Boolean,
+    reminderSent: Boolean,
+    onSendReminder: () -> Unit,
+) {
+    val elapsedMs = System.currentTimeMillis() - task.requestedAtMillis
+    val canRemind = elapsedMs >= REMIND_THRESHOLD_MS
+
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFF8FAFF)),
+        elevation = CardDefaults.cardElevation(2.dp)
+    ) {
+        Column(modifier = Modifier.padding(20.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier
+                        .size(44.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(Color(0xFFDBEAFE)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = task.subjectIcon.ifBlank { "📚" }, fontSize = 20.sp)
+                }
+                Spacer(Modifier.width(14.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "Task requested to parent",
+                        style = MaterialTheme.typography.titleSmall,
+                        color = DobiTextPrimary,
+                        fontWeight = SFProSemiBold
+                    )
+                    Text(
+                        text = task.displayName.ifBlank { task.subject },
+                        style = MaterialTheme.typography.bodySmall,
+                        color = DobiTextSecondary
+                    )
+                }
+            }
+            Spacer(Modifier.height(12.dp))
+            Text(
+                text = "We've notified your parent. They'll assign a task for you soon.",
+                style = MaterialTheme.typography.bodySmall,
+                color = DobiTextSecondary,
+                lineHeight = 18.sp
+            )
+            if (canRemind) {
+                Spacer(Modifier.height(14.dp))
+                if (reminderSent) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(Color(0xFFDCFCE7))
+                            .padding(horizontal = 14.dp, vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Icon(
+                            Icons.Default.Check,
+                            contentDescription = null,
+                            tint = Color(0xFF16A34A),
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Text(
+                            "Reminder sent to parent!",
+                            fontSize = 13.sp,
+                            color = Color(0xFF15803D),
+                            fontWeight = SFProSemiBold
+                        )
+                    }
+                } else {
+                    OutlinedButton(
+                        onClick = onSendReminder,
+                        enabled = !isSendingReminder,
+                        modifier = Modifier.fillMaxWidth().height(44.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        border = BorderStroke(1.5.dp, DobiPrimary)
+                    ) {
+                        if (isSendingReminder) {
+                            CircularProgressIndicator(
+                                color = DobiPrimary,
+                                modifier = Modifier.size(16.dp),
+                                strokeWidth = 2.dp
+                            )
+                        } else {
+                            Icon(
+                                Icons.Default.NotificationsActive,
+                                contentDescription = null,
+                                tint = DobiPrimary,
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(Modifier.width(8.dp))
+                            Text(
+                                "Remind Parent",
+                                color = DobiPrimary,
+                                fontWeight = SFProSemiBold,
+                                fontSize = 13.sp
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 // ── Pending parent-task bar ────────────────────────────────────────────────────
 // Surfaced above the streak banner whenever the child has at least one
 // ASSIGNED task from their parent. Tapping opens the most recent task; if
@@ -1486,10 +1654,127 @@ private fun PendingParentTaskBar(
     }
 }
 
+// ── Parent tasks — summary banner (collapsed default) ─────────────────────────
+// Shows the most-recent active task with a "+N more" badge. Tapping the card
+// opens that task; the "See all" link in the section header expands the full list.
+
+@Composable
+private fun ParentTasksSummaryBanner(
+    tasks: List<ParentTask>,
+    onSeeAll: () -> Unit,
+    onTaskClick: (String) -> Unit,
+) {
+    val mostRecent = tasks.first()
+    val moreCount = tasks.size - 1
+
+    // Count tasks still needing action
+    val actionNeeded = tasks.count {
+        it.status == ParentTaskStatus.ASSIGNED || it.status == ParentTaskStatus.REJECTED
+    }
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .shadow(
+                elevation = 3.dp,
+                shape = RoundedCornerShape(16.dp),
+                spotColor = Color(0x14000000)
+            )
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = { onTaskClick(mostRecent.id) }
+            ),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(0.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier
+                        .size(44.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(Color(0xFFFFF1E0)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = mostRecent.subjectIcon.ifBlank { "🎯" },
+                        fontSize = 20.sp
+                    )
+                }
+                Spacer(Modifier.width(12.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = parentTaskTitle(mostRecent),
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = SFProSemiBold,
+                        color = DobiTextPrimary,
+                        maxLines = 2
+                    )
+                    Spacer(Modifier.height(2.dp))
+                    Text(
+                        text = mostRecent.subject.ifBlank { "Task" },
+                        style = MaterialTheme.typography.bodySmall,
+                        color = DobiTextSecondary
+                    )
+                }
+                Spacer(Modifier.width(8.dp))
+                Column(horizontalAlignment = Alignment.End) {
+                    ParentTaskStatusBadge(status = mostRecent.status)
+                    if (moreCount > 0) {
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            text = "+$moreCount more",
+                            fontSize = 10.sp,
+                            fontWeight = SFProSemiBold,
+                            color = DobiPrimary
+                        )
+                    }
+                }
+            }
+
+            if (tasks.size > 1) {
+                Spacer(Modifier.height(12.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(if (actionNeeded > 0) Color(0xFFFFF7E6) else Color(0xFFF8FAFF))
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null,
+                            onClick = onSeeAll
+                        )
+                        .padding(horizontal = 12.dp, vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = if (actionNeeded > 0)
+                            "⚡ $actionNeeded task${if (actionNeeded > 1) "s" else ""} need${if (actionNeeded == 1) "s" else ""} your attention"
+                        else
+                            "✓ All ${tasks.size} tasks completed",
+                        fontSize = 12.sp,
+                        fontWeight = SFProSemiBold,
+                        color = if (actionNeeded > 0) Color(0xFFB45309) else Color(0xFF15803D),
+                        modifier = Modifier.weight(1f)
+                    )
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                        contentDescription = null,
+                        tint = if (actionNeeded > 0) Color(0xFFB45309) else Color(0xFF15803D),
+                        modifier = Modifier.size(16.dp)
+                    )
+                }
+            }
+        }
+    }
+}
+
 // ── Parent task card ───────────────────────────────────────────────────────────
 
 @Composable
-private fun ParentTaskCard(task: ParentTask, onClick: () -> Unit) {
+internal fun ParentTaskCard(task: ParentTask, onClick: () -> Unit) {
     val accent = Color(0xFFE67E22)
 
     Card(
@@ -1583,7 +1868,7 @@ private fun ParentTaskCard(task: ParentTask, onClick: () -> Unit) {
 }
 
 @Composable
-private fun RequestNextTaskRow(onClick: () -> Unit) {
+internal fun RequestNextTaskRow(onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -1717,8 +2002,11 @@ private fun ChildHomeEmptyPreview() {
             onNavigateToStreakDashboard = {},
             onNavigateToInviteFriend = {},
             onNavigateToEarnReward = {},
+            onNavigateToParentTasksList = {},
             onSaveTutor = { _, _ -> },
             onTaskClick = {},
+            selectedModeIndex = null,
+            onModeSelected = {},
             contentPadding = PaddingValues(0.dp)
         )
     }
@@ -1768,8 +2056,11 @@ private fun ChildHomeWithTasksPreview() {
             onNavigateToStreakDashboard = {},
             onNavigateToInviteFriend = {},
             onNavigateToEarnReward = {},
+            onNavigateToParentTasksList = {},
             onSaveTutor = { _, _ -> },
             onTaskClick = {},
+            selectedModeIndex = null,
+            onModeSelected = {},
             contentPadding = PaddingValues(0.dp)
         )
     }

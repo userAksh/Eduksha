@@ -5,7 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.dobi.app.core.navigation.Screen
+import com.dobi.app.data.repository.AttemptScope
+import com.dobi.app.data.repository.QuizAttemptRepository
 import com.dobi.app.data.repository.RevisionMarkRepository
+import com.dobi.app.data.repository.UploadEntryRepository
 import com.dobi.app.domain.model.Completion
 import com.dobi.app.domain.model.Difficulty
 import com.dobi.app.domain.model.RevisionMark
@@ -19,6 +22,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
@@ -34,7 +38,9 @@ class UnitDetailViewModel @Inject constructor(
     private val getConceptsUseCase: GetConceptsUseCase,
     private val saveCompletionUseCase: SaveCompletionUseCase,
     private val userRepository: UserRepository,
-    private val revisionMarkRepository: RevisionMarkRepository
+    private val revisionMarkRepository: RevisionMarkRepository,
+    private val uploadEntryRepository: UploadEntryRepository,
+    private val quizAttemptRepository: QuizAttemptRepository
 ) : ViewModel() {
 
     private val unitId: String = savedStateHandle.toRoute<Screen.UnitDetail>().unitId
@@ -46,6 +52,23 @@ class UnitDetailViewModel @Inject constructor(
         loadUnit()
         observeUploadResult()
         observeRevisionMark()
+        observeActivity()
+    }
+
+    private fun observeActivity() {
+        combine(
+            uploadEntryRepository.observeForActiveChild(),
+            quizAttemptRepository.attempts(AttemptScope.UNIT, unitId)
+        ) { entries, quizCount ->
+            val hasUpload = entries.any {
+                it.unitId == unitId &&
+                    (it.kind == "class_work" || it.kind == "self_learning")
+            }
+            hasUpload || quizCount > 0
+        }
+            .catch { }
+            .onEach { hasActivity -> _uiState.update { it.copy(hasActivity = hasActivity) } }
+            .launchIn(viewModelScope)
     }
 
     private fun observeRevisionMark() {
@@ -70,6 +93,9 @@ class UnitDetailViewModel @Inject constructor(
                 unitName = state.unitName
             )
             revisionMarkRepository.toggle(mark)
+                .onFailure { e ->
+                    _uiState.update { it.copy(error = e.message ?: "Couldn't save. Try again.") }
+                }
             _uiState.update { it.copy(isTogglingRevision = false) }
         }
     }
@@ -131,12 +157,21 @@ class UnitDetailViewModel @Inject constructor(
         state.copy(coveredConceptIds = next)
     }
 
+    fun onToastShown() = _uiState.update { it.copy(toastMessage = null) }
+
     fun onMarkAsDone() {
         val state = _uiState.value
         val mode = state.selectedWorkMode ?: return
         val difficulty = state.selectedDifficulty ?: return
         val coveredConcepts = state.concepts.filter { it.id in state.coveredConceptIds }
         if (coveredConcepts.isEmpty()) return
+
+        if (!state.hasActivity) {
+            _uiState.update {
+                it.copy(toastMessage = "Please upload your work or answer questions first")
+            }
+            return
+        }
 
         viewModelScope.launch {
             _uiState.update { it.copy(isSaving = true) }

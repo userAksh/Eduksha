@@ -22,14 +22,16 @@ class MainViewModel @Inject constructor(
     val startDestination = _startDestination.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            _startDestination.value = when {
-                auth.currentUser != null -> Screen.ParentHome
-                else -> {
-                    val linkedChildId = userRepository.linkedChildId.first()
-                    if (linkedChildId != null) Screen.ChildHome(linkedChildId)
-                    else Screen.RoleSelection
-                }
+        // auth.currentUser is an in-memory cached value — no IO, no suspend needed.
+        // Resolve synchronously so MainActivity never shows the blank DobiBackground frame
+        // on the common logged-in-parent path.
+        if (auth.currentUser != null) {
+            _startDestination.value = Screen.ParentHome
+        } else {
+            viewModelScope.launch {
+                val linkedChildId = userRepository.linkedChildId.first()
+                _startDestination.value = if (linkedChildId != null)
+                    Screen.ChildHome(linkedChildId) else Screen.RoleSelection
             }
         }
     }

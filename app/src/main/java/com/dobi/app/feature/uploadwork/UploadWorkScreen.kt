@@ -78,6 +78,7 @@ import com.dobi.app.core.ui.theme.DobiTextSecondary
 import com.dobi.app.core.ui.theme.SFProBold
 import com.dobi.app.core.ui.theme.SFProMedium
 import com.dobi.app.core.ui.theme.SFProSemiBold
+import android.widget.Toast
 import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -91,11 +92,18 @@ fun UploadWorkScreen(
     val context = LocalContext.current
 
     LaunchedEffect(uiState.isSaved) {
-        if (uiState.isSaved) onUploadComplete(
-            uiState.kind.key,
-            uiState.generatedQuizCacheKey,
-            uiState.generatedQuizDisplayName
-        )
+        if (uiState.isSaved) {
+            Toast.makeText(
+                context,
+                "${uiState.kind.title} saved successfully!",
+                Toast.LENGTH_SHORT
+            ).show()
+            onUploadComplete(
+                uiState.kind.key,
+                uiState.generatedQuizCacheKey,
+                uiState.generatedQuizDisplayName
+            )
+        }
     }
 
     var showDatePicker by remember { mutableStateOf(false) }

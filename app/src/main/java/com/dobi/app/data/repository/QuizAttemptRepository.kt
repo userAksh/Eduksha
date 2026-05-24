@@ -42,7 +42,10 @@ class QuizAttemptRepository @Inject constructor(
         val lastTotal: Int = 0,
         val lastUpdated: Long = 0L,
         val displayName: String = "",
-        val subject: String = ""
+        val subject: String = "",
+        /** Questions exactly as the child saw them — stored at attempt time so
+         *  a parent can replay the result on any device. */
+        val lastQuestions: List<com.dobi.app.domain.model.McqQuestion> = emptyList()
     ) {
         val hasResult: Boolean get() = attempts > 0 && lastTotal > 0
         val accuracyPct: Int get() =
@@ -113,7 +116,8 @@ class QuizAttemptRepository @Inject constructor(
         correctCount: Int = 0,
         totalQuestions: Int = 0,
         displayName: String = "",
-        subject: String = ""
+        subject: String = "",
+        questions: List<com.dobi.app.domain.model.McqQuestion> = emptyList()
     ) {
         val childId = userPreferences.linkedChildId.first().orEmpty()
         if (childId.isBlank() || targetId.isBlank()) return
@@ -141,7 +145,8 @@ class QuizAttemptRepository @Inject constructor(
                     "lastTotal" to totalQuestions.toLong(),
                     "lastUpdated" to System.currentTimeMillis(),
                     "displayName" to nextDisplay,
-                    "subject" to nextSubject
+                    "subject" to nextSubject,
+                    "lastQuestions" to encodeQuestions(questions)
                 )
             )
             null
@@ -238,7 +243,8 @@ class QuizAttemptRepository @Inject constructor(
             lastTotal = snap.getLong("lastTotal")?.toInt() ?: 0,
             lastUpdated = snap.getLong("lastUpdated") ?: 0L,
             displayName = snap.getString("displayName").orEmpty(),
-            subject = snap.getString("subject").orEmpty()
+            subject = snap.getString("subject").orEmpty(),
+            lastQuestions = parseQuestions(snap)
         )
 
     private fun encodeSelections(selections: Map<Int, Int>): String =
@@ -253,5 +259,37 @@ class QuizAttemptRepository @Inject constructor(
             val o = parts[1].toIntOrNull() ?: return@mapNotNull null
             q to o
         }.toMap()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun encodeQuestions(
+        questions: List<com.dobi.app.domain.model.McqQuestion>
+    ): List<Map<String, Any>> = questions.map { q ->
+        mapOf(
+            "id" to q.id,
+            "text" to q.text,
+            "options" to q.options,
+            "correctIndex" to q.correctIndex.toLong(),
+            "explanation" to q.explanation
+        )
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun parseQuestions(
+        snap: com.google.firebase.firestore.DocumentSnapshot
+    ): List<com.dobi.app.domain.model.McqQuestion> {
+        val raw = snap.get("lastQuestions") as? List<Map<String, Any>> ?: return emptyList()
+        return raw.mapNotNull { m ->
+            val text = m["text"] as? String ?: return@mapNotNull null
+            val options = (m["options"] as? List<*>)?.filterIsInstance<String>() ?: return@mapNotNull null
+            val correctIndex = (m["correctIndex"] as? Long)?.toInt() ?: return@mapNotNull null
+            com.dobi.app.domain.model.McqQuestion(
+                id = m["id"] as? String ?: "",
+                text = text,
+                options = options,
+                correctIndex = correctIndex,
+                explanation = m["explanation"] as? String ?: ""
+            )
+        }
     }
 }

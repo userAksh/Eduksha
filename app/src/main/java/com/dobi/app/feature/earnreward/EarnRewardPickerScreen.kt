@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -22,6 +23,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.HourglassEmpty
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Search
@@ -48,18 +50,25 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dobi.app.core.ui.theme.DobiBackground
 import com.dobi.app.core.ui.theme.DobiPrimary
+import com.dobi.app.core.ui.theme.DobiPrimaryContainer
 import com.dobi.app.core.ui.theme.DobiTextPrimary
 import com.dobi.app.core.ui.theme.DobiTextSecondary
 import com.dobi.app.core.ui.theme.SFProBold
 import com.dobi.app.core.ui.theme.SFProSemiBold
+import com.dobi.app.domain.model.ParentTask
 import com.dobi.app.feature.conceptlist.SubjectGroup
 import com.dobi.app.feature.conceptlist.UnitGroup
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 @Composable
 fun EarnRewardPickerScreen(
@@ -81,36 +90,46 @@ fun EarnRewardPickerScreen(
         containerColor = DobiBackground,
         topBar = { PickerTopBar(onNavigateBack = onNavigateBack) },
         bottomBar = {
-            SendRequestBar(
-                enabled = uiState.canContinue,
-                isSending = uiState.isSending,
-                onClick = viewModel::sendRequestToParent
-            )
+            if (uiState.pendingRequest == null) {
+                SendRequestBar(
+                    enabled = uiState.canContinue,
+                    isSending = uiState.isSending,
+                    onClick = viewModel::sendRequestToParent
+                )
+            }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-        ) {
-            HeaderHelper()
-            SearchBar(
-                query = uiState.searchQuery,
-                onQueryChanged = viewModel::onSearchQueryChanged,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+        val pendingRequest = uiState.pendingRequest
+        if (pendingRequest != null) {
+            RequestSentState(
+                task = pendingRequest,
+                modifier = Modifier.padding(padding)
             )
-            when {
-                uiState.isLoading -> LoadingState()
-                uiState.error != null -> ErrorState(uiState.error!!)
-                uiState.subjectGroups.isEmpty() -> EmptyState(uiState.searchQuery)
-                else -> PickerTree(
-                    groups = uiState.subjectGroups,
-                    selection = uiState.selection,
-                    onSubjectToggled = viewModel::onSubjectToggled,
-                    onLessonSelected = viewModel::onLessonSelected,
-                    onConceptSelected = viewModel::onConceptSelected
+        } else {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+            ) {
+                HeaderHelper()
+                SearchBar(
+                    query = uiState.searchQuery,
+                    onQueryChanged = viewModel::onSearchQueryChanged,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                 )
+                when {
+                    uiState.isLoading -> LoadingState()
+                    uiState.error != null -> ErrorState(uiState.error!!)
+                    uiState.subjectGroups.isEmpty() -> EmptyState(uiState.searchQuery)
+                    else -> PickerTree(
+                        groups = uiState.subjectGroups,
+                        selection = uiState.selection,
+                        onSubjectToggled = viewModel::onSubjectToggled,
+                        onLessonSelected = viewModel::onLessonSelected,
+                        onConceptSelected = viewModel::onConceptSelected
+                    )
+                }
             }
         }
     }
@@ -430,6 +449,7 @@ private fun SendRequestBar(
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.White)
+            .navigationBarsPadding()
             .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
         Box(
@@ -453,6 +473,92 @@ private fun SendRequestBar(
                     color = Color.White,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun RequestSentState(task: ParentTask, modifier: Modifier = Modifier) {
+    val twelveHoursMs = 12 * 60 * 60 * 1000L
+    val elapsedMs = System.currentTimeMillis() - task.requestedAtMillis
+    val remainingMs = (twelveHoursMs - elapsedMs).coerceAtLeast(0L)
+    val remainingHours = TimeUnit.MILLISECONDS.toHours(remainingMs)
+    val remainingMinutes = TimeUnit.MILLISECONDS.toMinutes(remainingMs) % 60
+    val timeLeft = when {
+        remainingHours > 0 -> "${remainingHours}h ${remainingMinutes}m"
+        remainingMinutes > 0 -> "${remainingMinutes}m"
+        else -> "a moment"
+    }
+    val sentAt = SimpleDateFormat("hh:mm a, dd MMM", Locale.getDefault())
+        .format(Date(task.requestedAtMillis))
+
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = 24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Box(
+            modifier = Modifier
+                .size(72.dp)
+                .clip(CircleShape)
+                .background(DobiPrimaryContainer),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                imageVector = Icons.Default.HourglassEmpty,
+                contentDescription = null,
+                tint = DobiPrimary,
+                modifier = Modifier.size(36.dp)
+            )
+        }
+        Spacer(Modifier.height(20.dp))
+        Text(
+            text = "Request Sent to Parent",
+            fontSize = 20.sp,
+            fontWeight = SFProBold,
+            color = DobiTextPrimary,
+            textAlign = TextAlign.Center
+        )
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = task.displayName,
+            fontSize = 15.sp,
+            fontWeight = SFProSemiBold,
+            color = DobiPrimary,
+            textAlign = TextAlign.Center
+        )
+        Spacer(Modifier.height(4.dp))
+        Text(
+            text = "Sent at $sentAt",
+            fontSize = 13.sp,
+            color = DobiTextSecondary,
+            textAlign = TextAlign.Center
+        )
+        Spacer(Modifier.height(24.dp))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(14.dp))
+                .background(Color(0xFFF1F5F9))
+                .padding(16.dp)
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = "⏳ Waiting for parent",
+                    fontSize = 13.sp,
+                    fontWeight = SFProSemiBold,
+                    color = DobiTextPrimary
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = "You can send a new request in $timeLeft, or once your parent responds.",
+                    fontSize = 12.sp,
+                    color = DobiTextSecondary,
+                    textAlign = TextAlign.Center
                 )
             }
         }

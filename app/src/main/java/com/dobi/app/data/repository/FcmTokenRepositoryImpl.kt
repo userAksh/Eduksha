@@ -21,10 +21,22 @@ class FcmTokenRepositoryImpl @Inject constructor(
     private val userPreferences: UserPreferences
 ) : FcmTokenRepository {
 
-    override suspend fun syncCurrentToken() = runCatching {
-        val token = fetchToken()
-        writeToken(token)
-    }.onFailure { Log.w(TAG, "syncCurrentToken failed", it) }.let { Unit }
+    // syncCurrentToken() is called from MainActivity, ParentHomeViewModel, and
+    // ChildHomeViewModel on every startup. Token rarely rotates mid-session,
+    // so skip redundant FCM fetches + Firestore writes after the first success.
+    @Volatile private var syncedThisSession = false
+
+    override suspend fun syncCurrentToken() {
+        if (syncedThisSession) return
+        syncedThisSession = true
+        runCatching {
+            val token = fetchToken()
+            writeToken(token)
+        }.onFailure {
+            syncedThisSession = false  // allow retry on next call
+            Log.w(TAG, "syncCurrentToken failed", it)
+        }
+    }
 
     override suspend fun onTokenRotated(token: String) = runCatching {
         writeToken(token)

@@ -117,6 +117,7 @@ private val BarUploadColor = Color(0xFFBFC6D6)
 @Composable
 fun InsightsScreen(
     onNavigateBack: () -> Unit,
+    onSubjectClick: (subject: String) -> Unit = {},
     viewModel: InsightsViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -170,7 +171,7 @@ fun InsightsScreen(
                         attention = state.needsAttention,
                     )
                 }
-                item { SubjectPerformanceCard(subjects = state.subjectBreakdown) }
+                item { SubjectPerformanceCard(subjects = state.subjectBreakdown, onSubjectClick = onSubjectClick) }
                 item {
                     RecommendationCard(
                         text = state.recommendation,
@@ -712,7 +713,7 @@ private fun stylizedSparkline(ascending: Boolean): List<Float> {
 // ── Subject performance card ────────────────────────────────────────────────
 
 @Composable
-private fun SubjectPerformanceCard(subjects: List<SubjectStat>) {
+private fun SubjectPerformanceCard(subjects: List<SubjectStat>, onSubjectClick: (String) -> Unit = {}) {
     Surface(
         shape = RoundedCornerShape(18.dp),
         color = Color.White,
@@ -759,7 +760,7 @@ private fun SubjectPerformanceCard(subjects: List<SubjectStat>) {
             SubjectHeaderRow()
             Spacer(Modifier.height(4.dp))
             subjects.forEach { stat ->
-                SubjectRow(stat)
+                SubjectRow(stat, onClick = { onSubjectClick(stat.subject) })
             }
 
             Spacer(Modifier.height(8.dp))
@@ -812,7 +813,7 @@ private fun SubjectHeaderRow() {
 }
 
 @Composable
-private fun SubjectRow(stat: SubjectStat) {
+private fun SubjectRow(stat: SubjectStat, onClick: () -> Unit = {}) {
     val visual = subjectVisual(stat.subject)
     val accuracyColor = when {
         stat.accuracyPct == null -> DobiTextTertiary
@@ -837,6 +838,7 @@ private fun SubjectRow(stat: SubjectStat) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable(onClick = onClick)
             .padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {

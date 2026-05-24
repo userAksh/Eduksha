@@ -40,7 +40,8 @@ data class TodayLearningEntry(
     val status: TodayStatus = TodayStatus.COMPLETED,
     val scoreLabel: String? = null,
     val timestamp: Long = 0L,
-    val navTarget: TodayNavTarget? = null
+    val navTarget: TodayNavTarget? = null,
+    val assignedByParent: Boolean = false
 )
 
 data class CurrentAffair(

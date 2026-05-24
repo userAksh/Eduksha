@@ -236,16 +236,16 @@ class ActivityLogRepository @Inject constructor(
                     runCatching {
                         val subject = doc.getString("subject").orEmpty()
                         val teacherName = doc.getString("teacherName").orEmpty()
+                        val chapterName = doc.getString("chapterName").orEmpty()
                         val date = doc.getString("date").orEmpty()
                         val photoUrls = (doc.get("photoUrls") as? List<*>).orEmpty()
                             .filterIsInstance<String>()
                         val ts = (doc.get("timestamp") as? Timestamp)?.toDate()?.time
                             ?: parseIsoDate(date)
                         val title = when {
-                            subject.isNotBlank() && teacherName.isNotBlank() ->
-                                "$subject homework — $teacherName"
-                            subject.isNotBlank() -> "$subject homework"
-                            else -> "School homework"
+                            chapterName.isNotBlank() -> chapterName
+                            subject.isNotBlank() -> "$subject Homework"
+                            else -> "School Homework"
                         }
                         ActivityLogItem(
                             id = doc.id,

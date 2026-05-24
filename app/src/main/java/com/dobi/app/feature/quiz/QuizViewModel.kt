@@ -11,7 +11,10 @@ import com.dobi.app.data.repository.GeneratedQuizCache
 import com.dobi.app.data.repository.McqGenerationRepository
 import com.dobi.app.data.repository.QuizAttemptRepository
 import com.dobi.app.domain.model.Concept
+import com.dobi.app.domain.model.ParentTaskStatus
+import com.dobi.app.domain.model.ParentTaskType
 import com.dobi.app.domain.repository.ParentTaskRepository
+import com.google.firebase.auth.FirebaseAuth
 import com.dobi.app.domain.repository.StreakShareRepository
 import com.dobi.app.domain.repository.UserRepository
 import com.dobi.app.domain.usecase.GetConceptsUseCase
@@ -39,7 +42,8 @@ class QuizViewModel @Inject constructor(
     private val mcqGenerationRepository: McqGenerationRepository,
     private val userRepository: UserRepository,
     private val streakShareRepository: StreakShareRepository,
-    private val parentTaskRepository: ParentTaskRepository
+    private val parentTaskRepository: ParentTaskRepository,
+    private val auth: FirebaseAuth,
 ) : ViewModel() {
 
     private val route = savedStateHandle.toRoute<Screen.Quiz>()
@@ -57,12 +61,18 @@ class QuizViewModel @Inject constructor(
     private val parentViewChildId: String = route.childId
     private val isParentView: Boolean = viewResult && parentViewChildId.isNotBlank()
 
-    private val _uiState = MutableStateFlow(QuizUiState())
+    // Populated during load() when concept data is available.
+    private var cachedSubjectColor: String = ""
+    private var cachedSubjectIcon: String = ""
+    private var cachedConceptName: String = ""
+
+    private val _uiState = MutableStateFlow(QuizUiState(isParentView = isParentView))
     val uiState = _uiState.asStateFlow()
 
     init {
         load()
         observeShareGate()
+        if (isParentView) checkExistingAssignment()
     }
 
     private fun observeShareGate() {
@@ -130,9 +140,14 @@ class QuizViewModel @Inject constructor(
                 .collect { concepts ->
                     val (lessonName, subject) = if (isConceptScope) {
                         val concept = concepts.firstOrNull { it.id == targetId }
+                        cachedSubjectColor = concept?.subjectColor.orEmpty()
+                        cachedSubjectIcon = concept?.subjectIcon.orEmpty()
+                        cachedConceptName = concept?.name.orEmpty()
                         (concept?.name.orEmpty()) to (concept?.subject.orEmpty())
                     } else {
                         val first = concepts.firstOrNull { it.unitId == targetId }
+                        cachedSubjectColor = first?.subjectColor.orEmpty()
+                        cachedSubjectIcon = first?.subjectIcon.orEmpty()
                         (first?.unit.orEmpty()) to (first?.subject.orEmpty())
                     }
                     val effectiveLessonName =
@@ -149,15 +164,40 @@ class QuizViewModel @Inject constructor(
                     // CuratedQuestionBank doesn't cover this lesson/concept
                     // we generate 10 MCQs from the syllabus content via
                     // Gemini and cache them so retakes don't regenerate.
-                    // Skip on parent-view: the fallback needs the child's
-                    // grade (not on the parent's device) and we never want
-                    // to invoke Gemini just to render a past attempt.
+                    // Parent-view with no curated questions on this device:
+                    // use the question snapshots stored at the child's attempt
+                    // time. This lets the parent see exact questions + answers.
                     if (!isAiSource && questions.isEmpty() && isParentView) {
-                        _uiState.update {
-                            it.copy(
-                                isLoading = false,
-                                error = "This quiz's questions aren't available on your device. Open it on the child's device to review."
-                            )
+                        val summary = quizAttemptRepository
+                            .summaryForChild(parentViewChildId, attemptScope, targetId).first()
+                        if (summary.lastQuestions.isNotEmpty()) {
+                            _uiState.update {
+                                it.copy(
+                                    unitName = effectiveLessonName,
+                                    subject = subject,
+                                    questions = summary.lastQuestions,
+                                    attemptsTaken = attempts,
+                                    selections = savedSelections,
+                                    revealed = savedSelections.keys,
+                                    phase = QuizPhase.DONE,
+                                    isLoading = false,
+                                )
+                            }
+                        } else {
+                            // No snapshots yet (attempt predates this feature) —
+                            // fall back to score-only.
+                            _uiState.update {
+                                it.copy(
+                                    unitName = effectiveLessonName,
+                                    subject = subject,
+                                    attemptsTaken = attempts,
+                                    phase = QuizPhase.DONE,
+                                    isLoading = false,
+                                    isScoreOnly = true,
+                                    scoreOnlyCorrect = summary.lastCorrect,
+                                    scoreOnlyTotal = summary.lastTotal,
+                                )
+                            }
                         }
                         return@collect
                     }
@@ -300,7 +340,8 @@ class QuizViewModel @Inject constructor(
                         correctCount = correctCount,
                         totalQuestions = total,
                         displayName = current.unitName,
-                        subject = current.subject
+                        subject = current.subject,
+                        questions = current.questions
                     )
                 }
             }
@@ -331,5 +372,65 @@ class QuizViewModel @Inject constructor(
             selections = emptyMap(),
             revealed = emptySet()
         )
+    }
+
+    private fun checkExistingAssignment() {
+        viewModelScope.launch {
+            parentTaskRepository.observeForActiveParent().collect { tasks ->
+                val alreadyAssigned = tasks.any { task ->
+                    task.childId == parentViewChildId &&
+                    task.type == ParentTaskType.OUR_QUESTIONS &&
+                    (if (isConceptScope) task.conceptId == targetId else task.unitId == targetId) &&
+                    task.status in listOf(ParentTaskStatus.ASSIGNED, ParentTaskStatus.PENDING_REVIEW)
+                }
+                // Don't override quizAssigned (just-assigned success banner) with this flag.
+                if (!_uiState.value.quizAssigned) {
+                    _uiState.update { it.copy(quizAlreadyAssigned = alreadyAssigned) }
+                }
+            }
+        }
+    }
+
+    fun assignQuiz() {
+        if (!isParentView) return
+        val parentId = auth.currentUser?.uid.orEmpty()
+        if (parentId.isBlank() || parentViewChildId.isBlank()) return
+        val state = _uiState.value
+        if (state.isAssigningQuiz || state.quizAssigned || state.quizAlreadyAssigned) return
+        val (color, icon) = subjectStyleFor(state.subject)
+        viewModelScope.launch {
+            _uiState.update { it.copy(isAssigningQuiz = true) }
+            val result = parentTaskRepository.assignDirectlyByParent(
+                parentId = parentId,
+                childId = parentViewChildId,
+                unitId = if (isConceptScope) "" else targetId,
+                unitName = state.unitName,
+                conceptId = if (isConceptScope) targetId else "",
+                conceptName = cachedConceptName,
+                isUnitScope = !isConceptScope,
+                subject = state.subject,
+                subjectColor = cachedSubjectColor.ifBlank { color },
+                subjectIcon = cachedSubjectIcon.ifBlank { icon },
+                type = ParentTaskType.OUR_QUESTIONS,
+                mcqCount = state.totalQuestions.coerceAtLeast(5),
+            )
+            _uiState.update {
+                it.copy(
+                    isAssigningQuiz = false,
+                    quizAssigned = result.isSuccess,
+                    error = if (result.isFailure) "Couldn't assign the quiz. Try again." else null,
+                )
+            }
+        }
+    }
+
+    private fun subjectStyleFor(subject: String): Pair<String, String> = when (subject) {
+        "Science" -> "#22C55E" to "🔬"
+        "Mathematics" -> "#3B82F6" to "🔢"
+        "English" -> "#EC4899" to "📖"
+        "Social Science" -> "#F59E0B" to "🌍"
+        "Hindi" -> "#EF4444" to "✍️"
+        "Sanskrit" -> "#8B5CF6" to "📜"
+        else -> "#94A3B8" to "📘"
     }
 }

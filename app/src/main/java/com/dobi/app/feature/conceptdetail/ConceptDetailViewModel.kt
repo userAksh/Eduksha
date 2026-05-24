@@ -5,7 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.dobi.app.core.navigation.Screen
+import com.dobi.app.data.repository.AttemptScope
+import com.dobi.app.data.repository.QuizAttemptRepository
 import com.dobi.app.data.repository.RevisionMarkRepository
+import com.dobi.app.data.repository.UploadEntryRepository
 import com.dobi.app.domain.model.Completion
 import com.dobi.app.domain.model.Difficulty
 import com.dobi.app.domain.model.RevisionMark
@@ -18,6 +21,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -31,7 +35,9 @@ class ConceptDetailViewModel @Inject constructor(
     private val getConceptByIdUseCase: GetConceptByIdUseCase,
     private val saveCompletionUseCase: SaveCompletionUseCase,
     private val userRepository: UserRepository,
-    private val revisionMarkRepository: RevisionMarkRepository
+    private val revisionMarkRepository: RevisionMarkRepository,
+    private val uploadEntryRepository: UploadEntryRepository,
+    private val quizAttemptRepository: QuizAttemptRepository
 ) : ViewModel() {
 
     private val conceptId: String = savedStateHandle.toRoute<Screen.ConceptDetail>().conceptId
@@ -43,6 +49,31 @@ class ConceptDetailViewModel @Inject constructor(
         loadConcept()
         observeUploadResult()
         observeRevisionMark()
+        observeActivity()
+    }
+
+    private fun observeActivity() {
+        combine(
+            uploadEntryRepository.observeForActiveChild(),
+            quizAttemptRepository.attempts(AttemptScope.CONCEPT, conceptId)
+        ) { entries, quizCount ->
+            val classWork = entries.any { it.conceptId == conceptId && it.kind == "class_work" }
+            val selfStudy = entries.any { it.conceptId == conceptId && it.kind == "self_learning" }
+            val hasQuiz = quizCount > 0
+            val hasActivity = classWork || selfStudy || hasQuiz
+            val detectedMode = when {
+                classWork -> WorkMode.CLASS_WORK
+                selfStudy -> WorkMode.SELF_LEARNING
+                hasQuiz   -> WorkMode.QUESTIONS
+                else      -> null
+            }
+            hasActivity to detectedMode
+        }
+            .catch { }
+            .onEach { (hasActivity, detectedMode) ->
+                _uiState.update { it.copy(hasActivity = hasActivity, detectedWorkMode = detectedMode) }
+            }
+            .launchIn(viewModelScope)
     }
 
     private fun observeRevisionMark() {
@@ -58,7 +89,7 @@ class ConceptDetailViewModel @Inject constructor(
             _uiState.update { it.copy(isTogglingRevision = true) }
             val mark = RevisionMark(
                 scope = RevisionScope.CONCEPT.key,
-                targetId = concept.id,
+                targetId = conceptId,
                 name = concept.name,
                 subject = concept.subject,
                 subjectColor = concept.subjectColor,
@@ -67,6 +98,9 @@ class ConceptDetailViewModel @Inject constructor(
                 unitName = concept.unit
             )
             revisionMarkRepository.toggle(mark)
+                .onFailure { e ->
+                    _uiState.update { it.copy(error = e.message ?: "Couldn't save. Try again.") }
+                }
             _uiState.update { it.copy(isTogglingRevision = false) }
         }
     }
@@ -105,10 +139,22 @@ class ConceptDetailViewModel @Inject constructor(
 
     fun onDifficultySelected(difficulty: Difficulty) = _uiState.update { it.copy(selectedDifficulty = difficulty) }
 
+    fun onToastShown() = _uiState.update { it.copy(toastMessage = null) }
+
+    fun onErrorShown() = _uiState.update { it.copy(error = null) }
+
     fun onMarkAsDone() {
         val state = _uiState.value
-        val mode = state.selectedWorkMode ?: return
         val difficulty = state.selectedDifficulty ?: return
+
+        if (!state.hasActivity) {
+            _uiState.update {
+                it.copy(toastMessage = "First attempt a quiz, upload class work, or upload self learning to mark this as done.")
+            }
+            return
+        }
+
+        val mode = state.selectedWorkMode ?: state.detectedWorkMode ?: WorkMode.QUESTIONS
 
         viewModelScope.launch {
             _uiState.update { it.copy(isSaving = true) }

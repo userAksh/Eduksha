@@ -25,11 +25,13 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.dobi.app"
+        // Play Store identity. Kotlin namespace stays com.dobi.app for code stability;
+        // these are allowed to differ. com.dobi.app was already taken on Play.
+        applicationId = "in.eduksha.app"
         minSdk = 24
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "1.0.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

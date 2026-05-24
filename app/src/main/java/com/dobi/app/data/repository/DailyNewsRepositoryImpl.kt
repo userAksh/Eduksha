@@ -15,7 +15,16 @@ class DailyNewsRepositoryImpl @Inject constructor(
     private val functions: FirebaseFunctions
 ) : DailyNewsRepository {
 
-    override suspend fun fetchDailyNews(): Result<List<DailyNewsStory>> = runCatching {
+    // In-memory cache: stories change once per day server-side; caching for the
+    // process lifetime means the Cloud Function is only called once per app session.
+    private var sessionCache: List<DailyNewsStory>? = null
+
+    override suspend fun fetchDailyNews(): Result<List<DailyNewsStory>> {
+        sessionCache?.let { return Result.success(it) }
+        return fetchFromNetwork()
+    }
+
+    private suspend fun fetchFromNetwork(): Result<List<DailyNewsStory>> = runCatching {
         val result = await {
             functions.getHttpsCallable("getDailyNews").call(emptyMap<String, Any>())
         }
@@ -37,7 +46,8 @@ class DailyNewsRepositoryImpl @Inject constructor(
                 body = body
             )
         }
-    }.onFailure { Log.w(TAG, "fetchDailyNews failed", it) }
+    }.onSuccess { sessionCache = it }
+        .onFailure { Log.w(TAG, "fetchDailyNews failed", it) }
 
     private suspend fun <T> await(
         block: () -> com.google.android.gms.tasks.Task<T>

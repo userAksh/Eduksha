@@ -453,6 +453,19 @@ private fun TodayEntryCard(entry: TodayLearningEntry, onClick: () -> Unit) {
                     )
                     Spacer(Modifier.width(6.dp))
                     StatusPill(entry.status)
+                    if (entry.assignedByParent) {
+                        Spacer(Modifier.width(6.dp))
+                        Text(
+                            text = "👨‍👩‍👧 By Parent",
+                            fontSize = 9.sp,
+                            fontWeight = SFProSemiBold,
+                            color = Color(0xFF5B21B6),
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(4.dp))
+                                .background(Color(0xFFEDE9FE))
+                                .padding(horizontal = 6.dp, vertical = 2.dp)
+                        )
+                    }
                 }
                 Spacer(Modifier.height(4.dp))
                 Text(

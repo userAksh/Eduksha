@@ -63,6 +63,7 @@ fun RevisitDetailScreen(
     onTakeQuiz: (unitId: String, conceptId: String) -> Unit = { _, _ -> },
     onViewLastResult: (unitId: String, conceptId: String) -> Unit = { _, _ -> },
     onViewSubjectiveResult: (resultId: String) -> Unit = {},
+    isParentView: Boolean = false,
     viewModel: RevisitDetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -105,10 +106,11 @@ fun RevisitDetailScreen(
                     HeaderRow(state = uiState)
                     Spacer(Modifier.height(8.dp))
 
-                    if (uiState.canTakeQuiz) {
+                    if (uiState.canTakeQuiz && !isParentView) {
                         ActionRow(
                             onTakeQuiz = { onTakeQuiz(uiState.quizUnitId, uiState.quizConceptId) },
-                            onViewLastResult = { onViewLastResult(uiState.quizUnitId, uiState.quizConceptId) }
+                            onViewLastResult = { onViewLastResult(uiState.quizUnitId, uiState.quizConceptId) },
+                            hasLastResult = uiState.hasLastResult
                         )
                         Spacer(Modifier.height(12.dp))
                     }
@@ -193,7 +195,7 @@ private fun HeaderRow(state: RevisitDetailUiState) {
 }
 
 @Composable
-private fun ActionRow(onTakeQuiz: () -> Unit, onViewLastResult: () -> Unit) {
+private fun ActionRow(onTakeQuiz: () -> Unit, onViewLastResult: () -> Unit, hasLastResult: Boolean) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -208,12 +210,14 @@ private fun ActionRow(onTakeQuiz: () -> Unit, onViewLastResult: () -> Unit) {
         ) {
             Text("Take Quiz", fontSize = 14.sp)
         }
-        OutlinedButton(
-            onClick = onViewLastResult,
-            modifier = Modifier.weight(1f).height(46.dp),
-            shape = RoundedCornerShape(12.dp)
-        ) {
-            Text("View Last Result", fontSize = 14.sp, color = DobiTextPrimary)
+        if (hasLastResult) {
+            OutlinedButton(
+                onClick = onViewLastResult,
+                modifier = Modifier.weight(1f).height(46.dp),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Text("View Last Result", fontSize = 14.sp, color = DobiTextPrimary)
+            }
         }
     }
 }

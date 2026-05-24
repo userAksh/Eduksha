@@ -107,12 +107,17 @@ class ParentHomeViewModel @Inject constructor(
 
     private fun loadData() {
         val uid = auth.currentUser?.uid ?: return
+        // Children and profile load in parallel. isLoading clears as soon as
+        // children arrive — the header name fills in a moment later once the
+        // profile fetch completes.
         viewModelScope.launch {
-            val profile = authRepository.getParentProfile()
-            _uiState.value = _uiState.value.copy(profile = profile)
             childRepository.getChildren(uid).collect { children ->
                 _uiState.value = _uiState.value.copy(children = children, isLoading = false)
             }
+        }
+        viewModelScope.launch {
+            val profile = authRepository.getParentProfile()
+            _uiState.value = _uiState.value.copy(profile = profile)
         }
     }
 

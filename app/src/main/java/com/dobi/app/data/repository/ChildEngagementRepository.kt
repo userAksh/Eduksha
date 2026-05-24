@@ -60,7 +60,8 @@ class ChildEngagementRepository @Inject constructor(
                     ScoredRow(
                         timestamp = d.getLong("timestamp") ?: 0L,
                         correct = (d.getLong("correctCount") ?: 0L).toInt(),
-                        total = (d.getLong("attemptedCount") ?: 0L).toInt()
+                        total = (d.getLong("attemptedCount") ?: 0L).toInt(),
+                        subject = d.getString("subject").orEmpty()
                     )
                 })
             }
@@ -88,7 +89,8 @@ class ChildEngagementRepository @Inject constructor(
                             ScoredRow(
                                 timestamp = d.getLong("lastUpdated") ?: 0L,
                                 correct = (d.getLong("lastCorrect") ?: 0L).toInt(),
-                                total = (d.getLong("lastTotal") ?: 0L).toInt()
+                                total = (d.getLong("lastTotal") ?: 0L).toInt(),
+                                subject = d.getString("subject").orEmpty()
                             )
                         }
                     }
@@ -122,26 +124,73 @@ class ChildEngagementRepository @Inject constructor(
 
         val isActiveToday = timestamps.any { it in todayMs..now }
 
+        val epochDays = timestamps.filter { it > 0L }.map { epochDay(it) }.toSet()
+        val streak = streakFromEpochDays(epochDays)
+
         val totalCorrect = subjectives.sumOf { it.correct } + quizzes.sumOf { it.correct }
         val totalAttempted = subjectives.sumOf { it.total } + quizzes.sumOf { it.total }
         val accuracy = if (totalAttempted > 0)
             ((totalCorrect.toFloat() / totalAttempted) * 100f).toInt().coerceIn(0, 100)
         else null
 
+        // Per-subject accuracy: pool quiz + subjective rows, require MIN_ATTEMPTS threshold
+        // before nominating a subject as "weak" to avoid noise from single-question outliers.
+        val subjectStats = (subjectives + quizzes)
+            .filter { it.subject.isNotBlank() && it.total > 0 }
+            .groupBy { it.subject }
+            .mapValues { (_, rows) ->
+                val c = rows.sumOf { it.correct }
+                val t = rows.sumOf { it.total }
+                c to t
+            }
+            .filterValues { (_, t) -> t >= MIN_ATTEMPTS_FOR_WEAK_SUBJECT }
+        val weakEntry = subjectStats.minByOrNull { (_, ct) -> ct.first.toFloat() / ct.second }
+        val weakSubject = weakEntry?.key ?: ""
+        val weakSubjectAccuracyPct = weakEntry?.value?.let { (c, t) ->
+            ((c.toFloat() / t) * 100f).toInt().coerceIn(0, 100)
+        }
+
         return ChildEngagement(
             childId = childId,
             daysActiveThisWeek = daysThisWeek,
             isActiveToday = isActiveToday,
-            accuracyPct = accuracy
+            accuracyPct = accuracy,
+            lastActivityMs = timestamps.maxOrNull() ?: 0L,
+            streakDays = streak,
+            weakSubject = weakSubject,
+            weakSubjectAccuracyPct = weakSubjectAccuracyPct,
         )
     }
 
-    private data class ScoredRow(val timestamp: Long, val correct: Int, val total: Int)
+    companion object {
+        private const val MIN_ATTEMPTS_FOR_WEAK_SUBJECT = 3
+    }
+
+    private data class ScoredRow(val timestamp: Long, val correct: Int, val total: Int, val subject: String = "")
 
     /** Stable per-calendar-day bucket for de-duping timestamps into "days". */
     private fun dayKey(ts: Long): Long {
         val cal = Calendar.getInstance().apply { timeInMillis = ts }
         return cal.get(Calendar.YEAR) * 1000L + cal.get(Calendar.DAY_OF_YEAR)
+    }
+
+    /** Epoch-day index (safe across year boundaries, unlike dayKey). */
+    private fun epochDay(ts: Long): Long {
+        val cal = Calendar.getInstance().apply {
+            timeInMillis = ts
+            set(Calendar.HOUR_OF_DAY, 0); set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0); set(Calendar.MILLISECOND, 0)
+        }
+        return cal.timeInMillis / 86_400_000L
+    }
+
+    private fun streakFromEpochDays(days: Set<Long>): Int {
+        if (days.isEmpty()) return 0
+        val today = epochDay(System.currentTimeMillis())
+        var d = if (today !in days && (today - 1) in days) today - 1 else today
+        var streak = 0
+        while (d in days) { streak++; d-- }
+        return streak
     }
 
     private fun todayStart(now: Long): Long = Calendar.getInstance().apply {

@@ -30,8 +30,10 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.HelpOutline
 import androidx.compose.material.icons.filled.Lightbulb
+import androidx.compose.material.icons.filled.AssignmentTurnedIn
 import androidx.compose.material.icons.filled.PlaylistAddCheck
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.TaskAlt
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -158,7 +160,7 @@ fun QuizScreen(
                 )
             }
 
-            uiState.questions.isEmpty() -> EmptyBankState(
+            uiState.questions.isEmpty() && !uiState.isScoreOnly -> EmptyBankState(
                 modifier = Modifier.fillMaxSize().padding(innerPadding),
                 onBack = onNavigateBack
             )
@@ -181,6 +183,7 @@ fun QuizScreen(
                 state = uiState,
                 onRetry = viewModel::retry,
                 onDone = onNavigateBack,
+                onAssignQuiz = viewModel::assignQuiz,
                 onSnapSend = if (uiState.showSnapAndSend) {
                     {
                         viewModel.markSnapSent()
@@ -743,10 +746,11 @@ private fun QuizDone(
     state: QuizUiState,
     onRetry: () -> Unit,
     onDone: () -> Unit,
+    onAssignQuiz: () -> Unit = {},
     onSnapSend: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
-    val attempted = state.selections.size
+    val attempted = if (state.isScoreOnly) state.scoreOnlyTotal else state.selections.size
     val total = state.totalQuestions
     val percent = if (total == 0) 0f else state.score.toFloat() / total
     val percentInt = (percent * 100).toInt()
@@ -786,13 +790,24 @@ private fun QuizDone(
 
             Spacer(Modifier.height(20.dp))
 
-            state.questions.forEachIndexed { index, question ->
-                QuestionReviewCard(
-                    number = index + 1,
-                    question = question,
-                    userPick = state.selections[index]
+            if (state.isScoreOnly) {
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = "Question-by-question breakdown is only available on the student's device.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = DobiTextSecondary,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
                 )
-                Spacer(Modifier.height(12.dp))
+            } else {
+                state.questions.forEachIndexed { index, question ->
+                    QuestionReviewCard(
+                        number = index + 1,
+                        question = question,
+                        userPick = state.selections[index]
+                    )
+                    Spacer(Modifier.height(12.dp))
+                }
             }
 
             Spacer(Modifier.height(8.dp))
@@ -800,8 +815,13 @@ private fun QuizDone(
 
         ResultActionBar(
             canRetry = state.canRetry,
+            isParentView = state.isParentView,
+            isAssigningQuiz = state.isAssigningQuiz,
+            quizAssigned = state.quizAssigned,
+            quizAlreadyAssigned = state.quizAlreadyAssigned,
             onRetry = onRetry,
             onDone = onDone,
+            onAssignQuiz = onAssignQuiz,
             onSnapSend = onSnapSend
         )
     }
@@ -1082,37 +1102,141 @@ private fun ReviewPill(
 @Composable
 private fun ResultActionBar(
     canRetry: Boolean,
+    isParentView: Boolean,
+    isAssigningQuiz: Boolean,
+    quizAssigned: Boolean,
+    quizAlreadyAssigned: Boolean = false,
     onRetry: () -> Unit,
     onDone: () -> Unit,
+    onAssignQuiz: () -> Unit,
     onSnapSend: (() -> Unit)? = null
 ) {
-    Row(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp, vertical = 14.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        if (canRetry) {
-            OutlinedButton(
-                onClick = onRetry,
-                modifier = Modifier
-                    .weight(1f)
-                    .height(52.dp),
-                shape = RoundedCornerShape(16.dp),
-                border = BorderStroke(1.5.dp, DobiPrimary)
-            ) {
-                Icon(
-                    Icons.Default.Refresh,
-                    contentDescription = null,
-                    tint = DobiPrimary,
-                    modifier = Modifier.size(16.dp)
-                )
-                Spacer(Modifier.width(8.dp))
-                Text("Retake Quiz", color = DobiPrimary, fontWeight = SFProSemiBold, fontSize = 14.sp)
+        if (isParentView) {
+            when {
+                quizAssigned -> {
+                    // Success banner — parent just assigned in this session
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(14.dp))
+                            .background(Color(0xFFDCFCE7))
+                            .padding(horizontal = 16.dp, vertical = 14.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Icon(
+                            Icons.Default.TaskAlt,
+                            contentDescription = null,
+                            tint = Color(0xFF16A34A),
+                            modifier = Modifier.size(22.dp)
+                        )
+                        Column {
+                            Text(
+                                "Quiz assigned!",
+                                fontWeight = SFProSemiBold,
+                                fontSize = 14.sp,
+                                color = Color(0xFF15803D)
+                            )
+                            Text(
+                                "Your child will see it in their tasks.",
+                                fontSize = 12.sp,
+                                color = Color(0xFF166534)
+                            )
+                        }
+                    }
+                }
+                quizAlreadyAssigned -> {
+                    // Disabled — quiz already pending/in-progress for this child
+                    OutlinedButton(
+                        onClick = {},
+                        enabled = false,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp),
+                        shape = RoundedCornerShape(16.dp),
+                        border = BorderStroke(1.5.dp, DobiTextSecondary.copy(alpha = 0.4f))
+                    ) {
+                        Icon(
+                            Icons.Default.AssignmentTurnedIn,
+                            contentDescription = null,
+                            tint = DobiTextSecondary,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            "Already assigned this quiz to child",
+                            color = DobiTextSecondary,
+                            fontWeight = SFProSemiBold,
+                            fontSize = 14.sp
+                        )
+                    }
+                }
+                else -> {
+                    OutlinedButton(
+                        onClick = onAssignQuiz,
+                        enabled = !isAssigningQuiz,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp),
+                        shape = RoundedCornerShape(16.dp),
+                        border = BorderStroke(1.5.dp, DobiPrimary)
+                    ) {
+                        if (isAssigningQuiz) {
+                            CircularProgressIndicator(
+                                color = DobiPrimary,
+                                modifier = Modifier.size(18.dp),
+                                strokeWidth = 2.dp
+                            )
+                        } else {
+                            Icon(
+                                Icons.Default.AssignmentTurnedIn,
+                                contentDescription = null,
+                                tint = DobiPrimary,
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Spacer(Modifier.width(8.dp))
+                            Text(
+                                "Assign This Quiz to Child",
+                                color = DobiPrimary,
+                                fontWeight = SFProSemiBold,
+                                fontSize = 14.sp
+                            )
+                        }
+                    }
+                }
+            }
+        } else {
+            if (canRetry) {
+                OutlinedButton(
+                    onClick = onRetry,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(52.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    border = BorderStroke(1.5.dp, DobiPrimary)
+                ) {
+                    Icon(
+                        Icons.Default.Refresh,
+                        contentDescription = null,
+                        tint = DobiPrimary,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Spacer(Modifier.width(8.dp))
+                    Text("Retake Quiz", color = DobiPrimary, fontWeight = SFProSemiBold, fontSize = 14.sp)
+                }
             }
         }
 
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
         Button(
             onClick = onSnapSend ?: onDone,
             modifier = Modifier
@@ -1127,6 +1251,7 @@ private fun ResultActionBar(
                 fontWeight = SFProSemiBold,
                 fontSize = 15.sp
             )
+        }
         }
     }
 }

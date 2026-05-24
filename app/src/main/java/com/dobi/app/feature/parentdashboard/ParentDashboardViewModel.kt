@@ -28,6 +28,7 @@ data class ParentDashboardUiState(
     val weekPatterns: Map<String, List<DayActivity>> = emptyMap(),
     val insights: Map<String, LearningInsight> = emptyMap(),
     val isLoading: Boolean = true,
+    val parentName: String = "",
 )
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -51,11 +52,13 @@ class ParentDashboardViewModel @Inject constructor(
     }
 
     private fun loadChildren() {
-        val uid = auth.currentUser?.uid ?: run {
+        val user = auth.currentUser ?: run {
             _uiState.value = _uiState.value.copy(isLoading = false)
             return
         }
-        childRepository.getChildren(uid)
+        val firstName = user.displayName.orEmpty().trim().substringBefore(" ").ifBlank { "" }
+        _uiState.value = _uiState.value.copy(parentName = firstName)
+        childRepository.getChildren(user.uid)
             .onEach { children ->
                 _uiState.value = _uiState.value.copy(
                     children = children,

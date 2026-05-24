@@ -94,8 +94,7 @@ private val StatOrangeBg = Color(0xFFFFF3D6)
 private val StatPink = Color(0xFFEF4444)
 private val StatPinkBg = Color(0xFFFFE4E6)
 private val DividerColor = Color(0xFFF0F2F7)
-private val AvatarPurple = Color(0xFF8B5CF6)
-private val AvatarPurpleBg = Color(0xFFEDE9FE)
+
 private val ProgressTrack = Color(0xFFE6EAF5)
 
 private enum class ParentTab { CHILDREN, DASHBOARD, SETTINGS }
@@ -132,7 +131,12 @@ fun ParentHomeScreen(
     }
 
     if (uiState.children.isEmpty()) {
-        Box(modifier = Modifier.fillMaxSize().background(PageBg))
+        Box(
+            modifier = Modifier.fillMaxSize().background(PageBg),
+            contentAlignment = Alignment.Center
+        ) {
+            if (uiState.isLoading) CircularProgressIndicator(color = DobiPrimary, strokeWidth = 2.dp)
+        }
         return
     }
 
@@ -327,27 +331,10 @@ private fun HeaderRow(parentName: String) {
                 .padding(end = 52.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(CircleShape)
-                    .background(AvatarPurpleBg),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = parentName.firstOrNull()?.uppercaseChar()?.toString() ?: "P",
-                    fontSize = 22.sp,
-                    fontWeight = SFProBold,
-                    color = AvatarPurple
-                )
-            }
-
-            Spacer(Modifier.width(12.dp))
-
             Column(modifier = Modifier.weight(1f)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "Hello, ${parentName.substringBefore(" ").ifBlank { "there" }}!",
+                        text = "Hello, ${parentName.ifBlank { "there" }}!",
                         fontSize = 20.sp,
                         fontWeight = SFProBold,
                         color = DobiTextPrimary,

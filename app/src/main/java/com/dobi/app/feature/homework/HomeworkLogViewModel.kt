@@ -31,6 +31,7 @@ class HomeworkLogViewModel @Inject constructor(
 
     fun onSubjectChanged(subject: String) = _uiState.update { it.copy(subject = subject) }
     fun onTeacherNameChanged(name: String) = _uiState.update { it.copy(teacherName = name) }
+    fun onChapterNameChanged(name: String) = _uiState.update { it.copy(chapterName = name) }
     fun onDateChanged(millis: Long) = _uiState.update { it.copy(dateMillis = millis) }
 
     fun onPhotosAdded(uris: List<String>) =
@@ -56,11 +57,13 @@ class HomeworkLogViewModel @Inject constructor(
                 return@launch
             }
             val grade = userRepository.linkedChildGrade.first()
+            val topic = state.chapterName.ifBlank { state.subject }
             val validation = imageScopeValidator.validate(
                 ImageScopeRequest(
                     subject = state.subject,
                     grade = grade,
-                    topic = state.subject,
+                    topic = topic,
+                    lessonContext = state.chapterName.ifBlank { "" },
                     artefactLabel = "homework",
                     photoUris = state.selectedPhotoUris
                 )
@@ -84,6 +87,7 @@ class HomeworkLogViewModel @Inject constructor(
                         childId     = childId,
                         subject     = state.subject,
                         teacherName = state.teacherName,
+                        chapterName = state.chapterName,
                         date        = state.isoDate
                     ),
                     state.selectedPhotoUris
@@ -106,7 +110,10 @@ class HomeworkLogViewModel @Inject constructor(
                         subject = state.subject,
                         subjectColor = color,
                         subjectIcon = icon,
-                        topic = "Homework — ${state.formattedDate}",
+                        topic = if (state.chapterName.isNotBlank())
+                            "${state.chapterName} — Homework"
+                        else
+                            "Homework — ${state.formattedDate}",
                         timestamp = state.dateMillis
                     ),
                     photoUrls = photoUrls

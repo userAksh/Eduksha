@@ -17,5 +17,16 @@ data class ChildEngagement(
     val childId: String = "",
     val daysActiveThisWeek: Int = 0,
     val isActiveToday: Boolean = false,
-    val accuracyPct: Int? = null
+    val accuracyPct: Int? = null,
+    /** Epoch-ms of the most-recent activity across uploads, quizzes, and
+     *  subjective answers. 0 when the child has no recorded activity. */
+    val lastActivityMs: Long = 0L,
+    /** Consecutive-day streak ending today (or yesterday if today is inactive). */
+    val streakDays: Int = 0,
+    /** Subject with the lowest pooled accuracy across quizzes + subjective answers.
+     *  Empty when the child has fewer than [MIN_ATTEMPTS_FOR_WEAK_SUBJECT] total
+     *  attempts in any single subject. */
+    val weakSubject: String = "",
+    /** Pooled accuracy (0–100) for [weakSubject], or null when blank. */
+    val weakSubjectAccuracyPct: Int? = null,
 )

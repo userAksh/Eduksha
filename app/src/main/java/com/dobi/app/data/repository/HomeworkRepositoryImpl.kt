@@ -47,6 +47,7 @@ class HomeworkRepositoryImpl @Inject constructor(
             "childId"     to homework.childId,
             "subject"     to homework.subject,
             "teacherName" to homework.teacherName,
+            "chapterName" to homework.chapterName,
             "date"        to homework.date,
             "photoUrls"   to photoUrls,
             "timestamp"   to Timestamp.now()

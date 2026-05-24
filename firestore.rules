@@ -94,8 +94,13 @@ service cloud.firestore {
     }
 
     match /revision_marks/{docId} {
+      // resource is null when the doc doesn't exist yet. Allow authenticated
+      // reads on non-existent docs so toggle()'s existence-check get() and
+      // snapshot listeners on new docs don't get a permission error.
+      allow read: if request.auth != null
+                  && (resource == null || isParentOf(resource.data.childId));
       allow create: if isParentOf(request.resource.data.childId);
-      allow read, update, delete: if isParentOf(resource.data.childId);
+      allow update, delete: if isParentOf(resource.data.childId);
     }
 
     // Pre-launch waitlist signups from the marketing site (eduksha.in).

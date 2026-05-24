@@ -56,6 +56,11 @@ interface ParentTaskRepository {
      *  Cloud Function watches that field and pushes FCM to the child. */
     suspend fun sendReminder(taskId: String): Result<Unit>
 
+    /** Child taps "Remind parent" on a REQUESTED task that has been waiting 12+ h.
+     *  Bumps `parentReminderSentAtMillis`; Cloud Function watches this field and
+     *  pushes FCM to the parent. */
+    suspend fun sendReminderToParent(taskId: String): Result<Unit>
+
     /** Child submits artefacts (already-uploaded URLs) and optional quiz score. */
     suspend fun submitByChild(
         taskId: String,

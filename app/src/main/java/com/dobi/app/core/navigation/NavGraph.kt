@@ -15,6 +15,7 @@ import com.dobi.app.feature.addchild.AddChildScreen
 import com.dobi.app.feature.auth.OtpVerificationScreen
 import com.dobi.app.feature.auth.PhoneAuthScreen
 import com.dobi.app.feature.childhome.ChildHomeScreen
+import com.dobi.app.feature.childhome.ParentTasksListScreen
 import com.dobi.app.feature.earnreward.EarnRewardPickerScreen
 import com.dobi.app.feature.parenttask.DoParentTaskScreen
 import com.dobi.app.feature.parenttask.ParentTaskDetailScreen
@@ -46,6 +47,7 @@ import com.dobi.app.feature.pairing.EnterPairingCodeScreen
 import com.dobi.app.feature.parentdashboard.ActivityDetailScreen
 import com.dobi.app.feature.parentdashboard.HomeworkSubmissionScreen
 import com.dobi.app.feature.parentdashboard.InsightsScreen
+import com.dobi.app.feature.parentdashboard.SubjectDetailScreen
 import com.dobi.app.feature.parenthome.ParentHomeScreen
 import com.dobi.app.feature.roleselection.RoleSelectionScreen
 import com.dobi.app.feature.selectchild.SelectChildScreen
@@ -119,6 +121,7 @@ fun DobiNavGraph(
 
         composable<Screen.OtpVerification> {
             OtpVerificationScreen(
+                onNavigateBack = { navController.popBackStack() },
                 onNavigateToParentHome = {
                     navController.navigate(Screen.ParentHome) {
                         popUpTo<Screen.RoleSelection> { inclusive = true }
@@ -223,6 +226,9 @@ fun DobiNavGraph(
                 onOpenUploadGroup = { groupKey ->
                     navController.navigate(Screen.RevisitDetail(groupKey))
                 },
+                onNavigateToParentTasksList = {
+                    navController.navigate(Screen.ParentTasksList)
+                },
                 onRequestParentAccess = {
                     // Pop back to RoleSelection using the pop animation (slide back)
                     val popped = navController.popBackStack(
@@ -236,6 +242,14 @@ fun DobiNavGraph(
                         }
                     }
                 }
+            )
+        }
+
+        composable<Screen.ParentTasksList> {
+            ParentTasksListScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onTaskClick = { taskId -> navController.navigate(Screen.DoParentTask(taskId)) },
+                onNavigateToEarnReward = { navController.navigate(Screen.EarnRewardPicker) }
             )
         }
 
@@ -267,7 +281,7 @@ fun DobiNavGraph(
                     navController.navigate(Screen.Insights(childId))
                 },
                 onNavigateToUploadGroup = { groupKey ->
-                    navController.navigate(Screen.RevisitDetail(groupKey))
+                    navController.navigate(Screen.RevisitDetail(groupKey, isParentView = true))
                 },
                 onNavigateToQuizResult = { unitId, conceptId, childId ->
                     navController.navigate(
@@ -310,9 +324,40 @@ fun DobiNavGraph(
             )
         }
 
-        composable<Screen.Insights> {
+        composable<Screen.Insights> { entry ->
+            val route = entry.toRoute<Screen.Insights>()
             InsightsScreen(
-                onNavigateBack = { navController.popBackStack() }
+                onNavigateBack = { navController.popBackStack() },
+                onSubjectClick = { subject ->
+                    navController.navigate(Screen.SubjectDetail(route.childId, subject))
+                }
+            )
+        }
+
+        composable<Screen.SubjectDetail> { entry ->
+            val route = entry.toRoute<Screen.SubjectDetail>()
+            SubjectDetailScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onOpenUploadGroup = { groupKey ->
+                    navController.navigate(Screen.RevisitDetail(groupKey, isParentView = true))
+                },
+                onOpenQuizResult = { unitId, conceptId ->
+                    navController.navigate(
+                        Screen.Quiz(
+                            unitId = unitId,
+                            conceptId = conceptId,
+                            source = "curated",
+                            viewResult = true,
+                            childId = route.childId
+                        )
+                    )
+                },
+                onOpenSubjectiveResult = { resultId ->
+                    navController.navigate(Screen.SubjectiveResult(resultId))
+                },
+                onOpenHomework = { homeworkId ->
+                    navController.navigate(Screen.HomeworkSubmission(homeworkId))
+                }
             )
         }
 
@@ -321,7 +366,7 @@ fun DobiNavGraph(
             ActivityDetailScreen(
                 onNavigateBack = { navController.popBackStack() },
                 onOpenUploadGroup = { groupKey ->
-                    navController.navigate(Screen.RevisitDetail(groupKey))
+                    navController.navigate(Screen.RevisitDetail(groupKey, isParentView = true))
                 },
                 onOpenQuizResult = { unitId, conceptId ->
                     navController.navigate(
@@ -558,8 +603,10 @@ fun DobiNavGraph(
             )
         }
 
-        composable<Screen.RevisitDetail> {
+        composable<Screen.RevisitDetail> { entry ->
+            val route = entry.toRoute<Screen.RevisitDetail>()
             RevisitDetailScreen(
+                isParentView = route.isParentView,
                 onNavigateBack = { navController.popBackStack() },
                 onTakeQuiz = { unitId, conceptId ->
                     navController.navigate(

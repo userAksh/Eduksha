@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -142,6 +143,14 @@ class ParentTaskRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun sendReminderToParent(taskId: String): Result<Unit> = runCatching {
+        awaitTask {
+            collection.document(taskId).update(
+                mapOf("parentReminderSentAtMillis" to System.currentTimeMillis())
+            )
+        }
+    }
+
     private fun mcqToMap(q: McqQuestion): Map<String, Any?> = mapOf(
         "id" to q.id,
         "text" to q.text,
@@ -238,11 +247,20 @@ class ParentTaskRepositoryImpl @Inject constructor(
             }
         }
 
-    override fun observeForActiveChild(): Flow<List<ParentTask>> =
-        userPreferences.linkedChildId.flatMapLatest { childId ->
-            if (childId.isNullOrBlank()) flowOf(emptyList())
-            else observeBy("childId", childId)
+    override fun observeForActiveChild(): Flow<List<ParentTask>> {
+        // Child devices are NOT signed into Firebase Auth — use linkedParentId
+        // from DataStore, not auth.currentUser. Query by parentId (satisfies
+        // Firestore rules), filter by childId client-side.
+        return userPreferences.linkedParentId.flatMapLatest { parentId ->
+            if (parentId.isNullOrBlank()) flowOf(emptyList())
+            else userPreferences.linkedChildId.flatMapLatest { childId ->
+                if (childId.isNullOrBlank()) flowOf(emptyList())
+                else observeBy("parentId", parentId).map { tasks ->
+                    tasks.filter { it.childId == childId }
+                }
+            }
         }
+    }
 
     override fun observeForActiveParent(): Flow<List<ParentTask>> {
         val parentId = auth.currentUser?.uid ?: return flowOf(emptyList())

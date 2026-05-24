@@ -31,6 +31,13 @@
     public static **$$serializer INSTANCE;
 }
 
+# Keep the generated $$serializer classes themselves — the INSTANCE field above is
+# not enough; R8 also eliminates the class body which breaks runtime class lookup.
+-keep,includedescriptorclasses class com.dobi.app.**$$serializer { *; }
+-keepclasseswithmembers class com.dobi.app.** {
+    kotlinx.serialization.KSerializer serializer(...);
+}
+
 -keep class com.dobi.app.core.navigation.Screen { *; }
 -keep class com.dobi.app.core.navigation.Screen$* { *; }
 -keepclassmembers class com.dobi.app.core.navigation.Screen$* {
@@ -43,10 +50,27 @@
 }
 -keep class com.dobi.app.core.navigation.Screen$*$$serializer { *; }
 
+# Top-level @Serializable types in the navigation package (e.g. ConceptListMode)
+# are looked up by their fully-qualified class name at route deserialization
+# time. R8 was renaming them, so AndroidX Nav's serializer threw
+# "Cannot find class with name …" when navigating. Keep every type in this
+# package plus enum entry points.
+-keep class com.dobi.app.core.navigation.** { *; }
+-keepclassmembers enum com.dobi.app.core.navigation.** {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
 # ── Firebase already ships consumer-rules; these belt-and-braces lines
 # keep model classes referenced by Firestore + Crashlytics from being
 # stripped by aggressive optimization passes.
 -keepnames class com.google.firebase.** { *; }
+
+# setAppVerificationDisabledForTesting is a testing API not covered by Firebase's
+# own consumer rules. R8 dead-code-eliminates it in release builds without this.
+-keep class com.google.firebase.auth.FirebaseAuthSettings {
+    public void setAppVerificationDisabledForTesting(boolean);
+}
 
 # ── Hilt generated code is already kept by the plugin's consumer rules.
 # (Listed here as a reminder; no extra directive required.)

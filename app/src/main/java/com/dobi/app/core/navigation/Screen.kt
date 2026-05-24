@@ -53,7 +53,7 @@ enum class ConceptListMode { DEFAULT, PRACTISE_LESSON, TEST_YOURSELF }
     @Serializable data class TuitionLearning(val kindKey: String) : Screen()
     @Serializable data object TuitionProblems : Screen()
     @Serializable data object RevisitSubjects : Screen()
-    @Serializable data class RevisitDetail(val groupKey: String) : Screen()
+    @Serializable data class RevisitDetail(val groupKey: String, val isParentView: Boolean = false) : Screen()
     @Serializable data object NeedRevision : Screen()
     @Serializable data class TestYourselfChooser(
         val unitId: String = "",
@@ -83,6 +83,8 @@ enum class ConceptListMode { DEFAULT, PRACTISE_LESSON, TEST_YOURSELF }
     ) : Screen()
     @Serializable data class HomeworkSubmission(val homeworkId: String) : Screen()
     @Serializable data class Insights(val childId: String) : Screen()
+    @Serializable data class SubjectDetail(val childId: String, val subject: String) : Screen()
     @Serializable data class WebView(val url: String, val title: String) : Screen()
     @Serializable data class StudyGoals(val childId: String) : Screen()
+    @Serializable data object ParentTasksList : Screen()
 }

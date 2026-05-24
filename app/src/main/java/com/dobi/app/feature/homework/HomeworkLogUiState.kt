@@ -7,6 +7,7 @@ import java.util.Locale
 data class HomeworkLogUiState(
     val subject: String = "",
     val teacherName: String = "",
+    val chapterName: String = "",
     val dateMillis: Long = System.currentTimeMillis(),
     val selectedPhotoUris: List<String> = emptyList(),
     val isSaving: Boolean = false,
@@ -14,7 +15,11 @@ data class HomeworkLogUiState(
     val isValidatingPhotos: Boolean = false,
     val error: String? = null
 ) {
-    val canSave: Boolean get() = subject.isNotBlank() && teacherName.isNotBlank() && !isSaving
+    val canSave: Boolean
+        get() = subject.isNotBlank() &&
+            teacherName.isNotBlank() &&
+            selectedPhotoUris.isNotEmpty() &&
+            !isSaving
 
     val formattedDate: String get() =
         SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(Date(dateMillis))

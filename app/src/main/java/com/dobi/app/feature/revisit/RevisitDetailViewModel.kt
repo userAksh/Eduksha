@@ -59,6 +59,7 @@ data class RevisitDetailUiState(
     val error: String? = null
 ) {
     val canTakeQuiz: Boolean get() = !isTuition && (conceptId.isNotBlank() || unitId.isNotBlank())
+    val hasLastResult: Boolean get() = attempts.any { it is RevisitAttemptItem.McqLast }
     val quizUnitId: String get() = unitId
     val quizConceptId: String get() = conceptId
 }

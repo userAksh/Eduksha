@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.suspendCancellableCoroutine
+import android.util.Log
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.resume
@@ -35,6 +36,7 @@ class RevisionMarkRepository @Inject constructor(
         val childId = mark.childId.ifBlank {
             userPreferences.linkedChildId.first().orEmpty()
         }
+        Log.d("RevisionMark", "toggle: childId=$childId scope=${mark.scope} targetId=${mark.targetId}")
         require(childId.isNotBlank()) { "No active child id" }
         require(mark.targetId.isNotBlank()) { "Missing target id" }
         val docId = docId(childId, mark.scope, mark.targetId)
@@ -72,6 +74,8 @@ class RevisionMarkRepository @Inject constructor(
             }
             true
         }
+    }.also { result ->
+        result.onFailure { Log.e("RevisionMark", "toggle failed", it) }
     }
 
     fun isMarked(scope: RevisionScope, targetId: String): Flow<Boolean> =

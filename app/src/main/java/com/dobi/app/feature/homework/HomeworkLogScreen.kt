@@ -220,6 +220,21 @@ fun HomeworkLogScreen(
 
             Spacer(Modifier.height(24.dp))
 
+            // ── Chapter / Topic name ────────────────────────────────────────────
+            FieldLabel(text = "Chapter / Topic Name")
+            Spacer(Modifier.height(10.dp))
+            OutlinedTextField(
+                value = uiState.chapterName,
+                onValueChange = viewModel::onChapterNameChanged,
+                modifier = Modifier.fillMaxWidth(),
+                placeholder = { Text("e.g. Conductors and Insulators", color = DobiTextSecondary) },
+                singleLine = true,
+                shape = RoundedCornerShape(14.dp),
+                colors = dobiTextFieldColors()
+            )
+
+            Spacer(Modifier.height(24.dp))
+
             // ── Date ───────────────────────────────────────────────────────────
             FieldLabel(text = "Date")
             Spacer(Modifier.height(10.dp))
@@ -231,19 +246,7 @@ fun HomeworkLogScreen(
             Spacer(Modifier.height(24.dp))
 
             // ── Photos ─────────────────────────────────────────────────────────
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                FieldLabel(text = "Photos")
-                Spacer(Modifier.width(8.dp))
-                Text(
-                    "optional",
-                    fontSize = 11.sp,
-                    color = DobiTextSecondary,
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(6.dp))
-                        .background(Color(0xFFF1F5F9))
-                        .padding(horizontal = 6.dp, vertical = 2.dp)
-                )
-            }
+            FieldLabel(text = "Photos")
             Spacer(Modifier.height(10.dp))
 
             if (uiState.selectedPhotoUris.isNotEmpty()) {

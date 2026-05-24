@@ -373,15 +373,17 @@ private fun AttemptedItemCard(
                 )
                 Spacer(Modifier.height(4.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
+                    SourceTag(label = visuals.label, tint = visuals.tint, bg = visuals.bg)
+                    Spacer(Modifier.width(8.dp))
                     if (item.subject.isNotBlank()) {
                         SubjectPill(
                             subject = item.subject,
                             color = subjectColor(item.subject),
                         )
-                        Spacer(Modifier.width(8.dp))
+                        Spacer(Modifier.width(6.dp))
                     }
                     Text(
-                        text = "${visuals.label} • ${formatRelative(item.timestamp)}",
+                        text = formatRelative(item.timestamp),
                         fontSize = 11.sp,
                         color = DobiTextSecondary,
                     )
@@ -396,6 +398,23 @@ private fun AttemptedItemCard(
                 StatusBadge(label = "Submitted", isSuccess = true)
             }
         }
+    }
+}
+
+@Composable
+private fun SourceTag(label: String, tint: Color, bg: Color) {
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(6.dp))
+            .background(bg)
+            .padding(horizontal = 7.dp, vertical = 2.dp),
+    ) {
+        Text(
+            text = label,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = tint,
+        )
     }
 }
 

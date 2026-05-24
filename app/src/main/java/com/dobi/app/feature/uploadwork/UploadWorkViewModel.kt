@@ -148,7 +148,7 @@ class UploadWorkViewModel @Inject constructor(
         _uiState.update { it.copy(selectedPhotoUris = it.selectedPhotoUris + uris) }
 
     fun onPhotoRemoved(uri: String) =
-        _uiState.update { it.copy(selectedPhotoUris = it.selectedPhotoUris - uri) }
+        _uiState.update { it.copy(selectedPhotoUris = it.selectedPhotoUris - uri, error = null) }
 
     private fun friendlyError(raw: String?): String {
         val msg = raw.orEmpty().trim()
