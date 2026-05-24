@@ -1,5 +1,6 @@
 package com.dobi.app.feature.parenthome
 
+import android.app.Activity
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -25,6 +27,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.HelpOutline
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.GpsFixed
@@ -37,19 +40,25 @@ import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material.icons.filled.SupportAgent
 import androidx.compose.material.icons.outlined.ChevronRight
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -57,13 +66,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import com.dobi.app.R
+import com.dobi.app.data.local.LanguagePreference
 import com.dobi.app.domain.model.Child
 import com.dobi.app.domain.model.ParentProfile
 
@@ -89,6 +101,7 @@ private val DangerSoft = Color(0xFFFEE2E2)
 private val DangerText = Color(0xFFDC2626)
 private val ProfileAvatarBg = Color(0xFFFFE7B5)
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ParentSettingsTab(
     profile: ParentProfile?,
@@ -105,11 +118,18 @@ fun ParentSettingsTab(
     onHelpSupport: () -> Unit = {},
     onSignOut: () -> Unit = {},
 ) {
+    val context = LocalContext.current
     var weeklyReportsOn by rememberSaveable { mutableStateOf(true) }
     var whatsappReportsOn by rememberSaveable { mutableStateOf(true) }
     var selectedChildId by rememberSaveable(children) {
         mutableStateOf(children.firstOrNull()?.id ?: "")
     }
+    var currentLang by rememberSaveable {
+        mutableStateOf(LanguagePreference.get(context))
+    }
+    var showLanguagePicker by remember { mutableStateOf(false) }
+    val langSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val coroutineScope = rememberCoroutineScope()
 
     // Paint the system status bar in ScreenBg so the OS bar (network/battery)
     // sits on the page background. Mirrors ParentDashboardScreen.
@@ -144,7 +164,7 @@ fun ParentSettingsTab(
             }
 
             item {
-                SectionHeader(title = "Children")
+                SectionHeader(title = stringResource(R.string.settings_section_children))
                 Spacer(Modifier.height(8.dp))
                 ChildrenSwitcherCard(
                     children = children,
@@ -158,15 +178,15 @@ fun ParentSettingsTab(
             }
 
             item {
-                SectionHeader(title = "Learning & Activity")
+                SectionHeader(title = stringResource(R.string.settings_section_learning))
                 Spacer(Modifier.height(8.dp))
                 GroupCard {
                     SettingsRow(
                         icon = Icons.Filled.Schedule,
                         iconTint = PositiveGreen,
                         iconBg = PositiveSoft,
-                        title = "Weekly Reports",
-                        subtitle = "Receive progress reports every week",
+                        title = stringResource(R.string.settings_weekly_reports),
+                        subtitle = stringResource(R.string.settings_weekly_reports_desc),
                         trailing = {
                             BrandedSwitch(
                                 checked = weeklyReportsOn,
@@ -180,8 +200,8 @@ fun ParentSettingsTab(
                         icon = Icons.Filled.Phone,
                         iconTint = PositiveGreen,
                         iconBg = PositiveSoft,
-                        title = "WhatsApp Reports",
-                        subtitle = "Get reports on WhatsApp",
+                        title = stringResource(R.string.settings_whatsapp_reports),
+                        subtitle = stringResource(R.string.settings_whatsapp_reports_desc),
                         trailing = {
                             BrandedSwitch(
                                 checked = whatsappReportsOn,
@@ -195,21 +215,25 @@ fun ParentSettingsTab(
                         icon = Icons.Filled.GpsFixed,
                         iconTint = PurpleDeep,
                         iconBg = PurpleSoft,
-                        title = "Study Goals",
-                        subtitle = "Assign a task to your child",
+                        title = stringResource(R.string.settings_study_goals),
+                        subtitle = stringResource(R.string.settings_study_goals_desc),
                         trailing = { ChevronTrailing() },
                         onClick = { onStudyGoals(selectedChildId) },
                     )
                     RowDivider()
+                    val langLabel = if (currentLang == LanguagePreference.LANG_HI)
+                        stringResource(R.string.settings_language_hindi)
+                    else
+                        stringResource(R.string.settings_language_english)
                     SettingsRow(
                         icon = Icons.Filled.Language,
                         iconTint = PrimaryBlue,
                         iconBg = SoftBlueBg,
-                        title = "Language",
-                        subtitle = "Choose your preferred language",
+                        title = stringResource(R.string.settings_language),
+                        subtitle = stringResource(R.string.settings_language_desc),
                         trailing = {
                             Text(
-                                text = "English",
+                                text = langLabel,
                                 fontSize = 13.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 color = PrimaryBlue,
@@ -217,21 +241,21 @@ fun ParentSettingsTab(
                             Spacer(Modifier.width(6.dp))
                             ChevronTrailing()
                         },
-                        onClick = onLanguage,
+                        onClick = { showLanguagePicker = true },
                     )
                 }
             }
 
             item {
-                SectionHeader(title = "Account & Privacy")
+                SectionHeader(title = stringResource(R.string.settings_section_account))
                 Spacer(Modifier.height(8.dp))
                 GroupCard {
                     SettingsRow(
                         icon = Icons.Filled.Lock,
                         iconTint = PositiveGreen,
                         iconBg = PositiveSoft,
-                        title = "Privacy & Data",
-                        subtitle = "Manage your data and privacy",
+                        title = stringResource(R.string.settings_privacy),
+                        subtitle = stringResource(R.string.settings_privacy_desc),
                         trailing = { ChevronTrailing() },
                         onClick = onPrivacyData,
                     )
@@ -240,8 +264,8 @@ fun ParentSettingsTab(
                         icon = Icons.AutoMirrored.Filled.HelpOutline,
                         iconTint = PrimaryBlue,
                         iconBg = SoftBlueBg,
-                        title = "FAQ",
-                        subtitle = "Answers to common questions",
+                        title = stringResource(R.string.settings_faq),
+                        subtitle = stringResource(R.string.settings_faq_desc),
                         trailing = { ChevronTrailing() },
                         onClick = onFaq,
                     )
@@ -250,8 +274,8 @@ fun ParentSettingsTab(
                         icon = Icons.Filled.SupportAgent,
                         iconTint = AmberDeep,
                         iconBg = AmberSoft,
-                        title = "Help & Support",
-                        subtitle = "Contact us and report a problem",
+                        title = stringResource(R.string.settings_help),
+                        subtitle = stringResource(R.string.settings_help_desc),
                         trailing = { ChevronTrailing() },
                         onClick = onHelpSupport,
                     )
@@ -260,9 +284,9 @@ fun ParentSettingsTab(
                         icon = Icons.AutoMirrored.Filled.Logout,
                         iconTint = DangerText,
                         iconBg = DangerSoft,
-                        title = "Log Out",
+                        title = stringResource(R.string.settings_logout),
                         titleColor = DangerText,
-                        subtitle = "Sign out from your account",
+                        subtitle = stringResource(R.string.settings_logout_desc),
                         trailing = { ChevronTrailing() },
                         onClick = onSignOut,
                     )
@@ -271,6 +295,27 @@ fun ParentSettingsTab(
 
             item { TrustFooter() }
             item { Spacer(Modifier.height(8.dp)) }
+        }
+    }
+
+    if (showLanguagePicker) {
+        ModalBottomSheet(
+            onDismissRequest = { showLanguagePicker = false },
+            sheetState = langSheetState,
+            containerColor = Color.White,
+        ) {
+            LanguagePickerSheet(
+                currentLang = currentLang,
+                onSelect = { lang ->
+                    LanguagePreference.set(context, lang)
+                    currentLang = lang
+                    coroutineScope.launch {
+                        langSheetState.hide()
+                        showLanguagePicker = false
+                        (context as? Activity)?.recreate()
+                    }
+                },
+            )
         }
     }
 }
@@ -376,7 +421,7 @@ private fun ParentAccountBadge(verified: Boolean) {
             )
             Spacer(Modifier.width(4.dp))
             Text(
-                text = if (verified) "Parent Account" else "Complete Profile",
+                text = if (verified) stringResource(R.string.settings_parent_account) else stringResource(R.string.settings_complete_profile),
                 fontSize = 11.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = fg,
@@ -446,7 +491,7 @@ private fun ChildrenSwitcherCard(
             }
             Spacer(Modifier.height(4.dp))
             Text(
-                text = "Add",
+                text = stringResource(R.string.settings_add_child_btn),
                 fontSize = 12.sp,
                 color = PrimaryText,
                 fontWeight = FontWeight.SemiBold,
@@ -623,6 +668,69 @@ private fun BrandedSwitch(checked: Boolean, onCheckedChange: (Boolean) -> Unit) 
     )
 }
 
+// ── Language picker sheet ─────────────────────────────────────────────────────
+
+@Composable
+private fun LanguagePickerSheet(
+    currentLang: String,
+    onSelect: (String) -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .navigationBarsPadding()
+            .padding(horizontal = 20.dp, vertical = 8.dp),
+    ) {
+        Text(
+            text = stringResource(R.string.lang_picker_title),
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            color = PrimaryText,
+            modifier = Modifier.padding(bottom = 16.dp),
+        )
+        LanguageOption(
+            label = stringResource(R.string.lang_picker_english),
+            selected = currentLang == LanguagePreference.LANG_EN,
+            onClick = { onSelect(LanguagePreference.LANG_EN) },
+        )
+        HorizontalDivider(color = DividerColor, modifier = Modifier.padding(vertical = 4.dp))
+        LanguageOption(
+            label = stringResource(R.string.lang_picker_hindi),
+            selected = currentLang == LanguagePreference.LANG_HI,
+            onClick = { onSelect(LanguagePreference.LANG_HI) },
+        )
+        Spacer(Modifier.height(16.dp))
+    }
+}
+
+@Composable
+private fun LanguageOption(label: String, selected: Boolean, onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .clickable(onClick = onClick)
+            .padding(horizontal = 8.dp, vertical = 14.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = label,
+            fontSize = 16.sp,
+            fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal,
+            color = if (selected) PrimaryBlue else PrimaryText,
+            modifier = Modifier.weight(1f),
+        )
+        if (selected) {
+            Icon(
+                imageVector = Icons.Filled.Check,
+                contentDescription = null,
+                tint = PrimaryBlue,
+                modifier = Modifier.size(20.dp),
+            )
+        }
+    }
+}
+
 // ── Trust footer ─────────────────────────────────────────────────────────────
 
 @Composable
@@ -642,7 +750,7 @@ private fun TrustFooter() {
         )
         Spacer(Modifier.width(6.dp))
         Text(
-            text = "Your data is safe with us and is never shared.",
+            text = stringResource(R.string.settings_trust_footer),
             fontSize = 11.sp,
             color = SecondaryText,
         )

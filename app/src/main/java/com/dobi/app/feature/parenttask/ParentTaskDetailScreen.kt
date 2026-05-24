@@ -46,6 +46,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
+import com.dobi.app.R
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -114,7 +116,7 @@ private fun DetailTopBar(onNavigateBack: () -> Unit) {
     TopAppBar(
         title = {
             Text(
-                text = "Task from your child",
+                text = stringResource(R.string.task_detail_from_child),
                 style = MaterialTheme.typography.titleLarge,
                 color = DobiTextPrimary
             )
@@ -199,14 +201,14 @@ private fun AssignBody(
     ) {
         Spacer(Modifier.height(8.dp))
         Text(
-            text = "Your child wants to study this",
+            text = stringResource(R.string.task_detail_study_request),
             color = DobiTextSecondary,
             fontSize = 12.sp
         )
         TaskHeader(task)
 
         Text(
-            text = "Pick a task",
+            text = stringResource(R.string.pick_task),
             color = DobiTextPrimary,
             fontSize = 14.sp,
             fontWeight = SFProBold,
@@ -215,21 +217,21 @@ private fun AssignBody(
 
         TaskTypeOption(
             emoji = "📖",
-            title = "Revise the chapter",
-            subtitle = "Child uploads photos of revision notes.",
+            title = stringResource(R.string.task_type_revise),
+            subtitle = stringResource(R.string.task_type_revise_desc),
             isSelected = state.selectedType == ParentTaskType.REVISE_CHAPTER,
             onClick = { onTypeSelected(ParentTaskType.REVISE_CHAPTER) }
         )
         TaskTypeOption(
             emoji = "✍️",
-            title = "Write Q&A from textbook",
-            subtitle = "Child writes questions + answers and uploads the photo.",
+            title = stringResource(R.string.task_type_qa),
+            subtitle = stringResource(R.string.task_type_qa_desc),
             isSelected = state.selectedType == ParentTaskType.WRITE_QA,
             onClick = { onTypeSelected(ParentTaskType.WRITE_QA) }
         )
         TaskTypeOption(
             emoji = "🎯",
-            title = "Our set of questions",
+            title = stringResource(R.string.task_type_mcq),
             subtitle = "${state.mcqCount} AI-generated MCQs on this " +
                 "${if (task.isUnitScope) "lesson" else "concept"}.",
             isSelected = state.selectedType == ParentTaskType.OUR_QUESTIONS,
@@ -243,8 +245,8 @@ private fun AssignBody(
         }
         TaskTypeOption(
             emoji = "📝",
-            title = "Custom task",
-            subtitle = "Type any task — child uploads a photo as proof.",
+            title = stringResource(R.string.task_type_custom),
+            subtitle = stringResource(R.string.task_type_custom_desc_type),
             isSelected = state.selectedType == ParentTaskType.CUSTOM,
             onClick = { onTypeSelected(ParentTaskType.CUSTOM) }
         ) {
@@ -256,7 +258,7 @@ private fun AssignBody(
                     .padding(top = 8.dp),
                 placeholder = {
                     Text(
-                        text = "What do you want them to do?",
+                        text = stringResource(R.string.task_custom_question),
                         color = DobiTextSecondary,
                         fontSize = 13.sp
                     )
@@ -287,7 +289,7 @@ private fun AssignBody(
         }
 
         PrimaryActionButton(
-            label = "Give this task",
+            label = stringResource(R.string.give_task_btn),
             isLoading = state.isSubmitting,
             enabled = state.selectedType != null && !state.isSubmitting &&
                 (state.selectedType != ParentTaskType.CUSTOM || state.customNote.isNotBlank()),
@@ -355,7 +357,7 @@ private fun McqCountSelector(count: Int, onChange: (Int) -> Unit) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "Number of questions",
+            text = stringResource(R.string.task_num_questions),
             color = DobiTextSecondary,
             fontSize = 12.sp,
             modifier = Modifier.weight(1f)
@@ -423,7 +425,7 @@ private fun ReviewBody(
     ) {
         Spacer(Modifier.height(8.dp))
         Text(
-            text = "Your child submitted this task",
+            text = stringResource(R.string.task_detail_submitted),
             color = DobiTextSecondary,
             fontSize = 12.sp
         )
@@ -440,7 +442,7 @@ private fun ReviewBody(
             ) {
                 Column {
                     Text(
-                        text = "Quiz score",
+                        text = stringResource(R.string.task_detail_quiz_score),
                         color = DobiTextSecondary,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.SemiBold
@@ -458,7 +460,7 @@ private fun ReviewBody(
 
         if (task.submissionPhotoUrls.isNotEmpty()) {
             Text(
-                text = "Photos uploaded",
+                text = stringResource(R.string.task_detail_photos),
                 color = DobiTextPrimary,
                 fontSize = 13.sp,
                 fontWeight = SFProBold,
@@ -481,7 +483,7 @@ private fun ReviewBody(
         }
 
         Text(
-            text = "Note for your child (optional for accept, required for redo)",
+            text = stringResource(R.string.task_detail_note_hint),
             color = DobiTextPrimary,
             fontSize = 13.sp,
             fontWeight = SFProBold,
@@ -493,7 +495,7 @@ private fun ReviewBody(
             modifier = Modifier.fillMaxWidth(),
             placeholder = {
                 Text(
-                    text = "Add a quick comment…",
+                    text = stringResource(R.string.task_detail_comment_hint),
                     color = DobiTextSecondary,
                     fontSize = 13.sp
                 )
@@ -520,14 +522,14 @@ private fun ReviewBody(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             SecondaryActionButton(
-                label = "Ask to redo",
+                label = stringResource(R.string.task_ask_redo_btn),
                 icon = Icons.Default.Close,
                 isLoading = state.isSubmitting,
                 onClick = onReject,
                 modifier = Modifier.weight(1f)
             )
             PrimaryActionButton(
-                label = "Accept",
+                label = stringResource(R.string.task_accept_btn),
                 isLoading = state.isSubmitting,
                 enabled = !state.isSubmitting,
                 onClick = onAccept,

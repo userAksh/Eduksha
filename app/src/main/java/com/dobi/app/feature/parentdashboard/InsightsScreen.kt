@@ -77,6 +77,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -248,7 +249,7 @@ private fun TopBar(
         Spacer(Modifier.width(10.dp))
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = if (firstName.isBlank()) "Learning Report"
+                text = if (firstName.isBlank()) stringResource(R.string.insights_learning_report)
                 else "${firstName}'s Learning Report",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
@@ -258,7 +259,7 @@ private fun TopBar(
             if (grade > 0) {
                 Spacer(Modifier.height(1.dp))
                 Text(
-                    text = "Class $grade • $board",
+                    text = stringResource(R.string.class_board_label, grade, board),
                     fontSize = 12.sp,
                     color = DobiTextSecondary,
                 )
@@ -382,7 +383,7 @@ private fun HeadlineCard(headline: HeadlineInsight) {
             }
             Spacer(Modifier.width(12.dp))
             Text(
-                text = headline.text.ifBlank { "Building this week's picture…" },
+                text = headline.text.ifBlank { stringResource(R.string.insights_building_picture) },
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = DobiTextPrimary,
@@ -429,7 +430,7 @@ private fun StatRow(
             .fillMaxHeight()
         StatTile(
             modifier = tileModifier,
-            label = "Days Active",
+            label = stringResource(R.string.insights_days_active),
             data = daysActive,
             visual = StatVisual(
                 iconBg = Color(0xFFE6F7EC),
@@ -440,7 +441,7 @@ private fun StatRow(
         )
         StatTile(
             modifier = tileModifier,
-            label = "Total Attempts",
+            label = stringResource(R.string.insights_total_attempts),
             data = totalAttempts,
             visual = StatVisual(
                 iconBg = DobiPastelSkyBlue,
@@ -451,7 +452,7 @@ private fun StatRow(
         )
         StatTile(
             modifier = tileModifier,
-            label = "Avg Accuracy",
+            label = stringResource(R.string.insights_avg_accuracy),
             data = avgAccuracy,
             visual = StatVisual(
                 iconBg = Color(0xFFEAE3FF),
@@ -462,7 +463,7 @@ private fun StatRow(
         )
         StatTile(
             modifier = tileModifier,
-            label = "Revision Sessions",
+            label = stringResource(R.string.insights_revision_sessions),
             data = revisionSessions,
             visual = StatVisual(
                 iconBg = WarningAmberSoft,
@@ -550,24 +551,24 @@ private fun HighlightsRow(
         HighlightCard(
             modifier = Modifier.weight(1f),
             tone = HighlightTone.POSITIVE,
-            header = "Most Improved",
+            header = stringResource(R.string.insights_most_improved),
             headerIcon = Icons.AutoMirrored.Filled.TrendingUp,
             title = improved?.subject ?: "Consistent Learning",
             badge = improved?.let { "+${it.deltaPct}%" },
             body = improved?.let {
                 "Accuracy improved from ${it.prevAccuracy}% to ${it.currAccuracy}% this week."
-            } ?: "Keep building regular revision habits.",
+            } ?: stringResource(R.string.insights_default_rhythm),
             sparkline = improved?.sparkline ?: stylizedSparkline(ascending = true),
         )
         HighlightCard(
             modifier = Modifier.weight(1f),
             tone = HighlightTone.WARNING,
-            header = "Needs Attention",
+            header = stringResource(R.string.insights_needs_attention_section),
             headerIcon = Icons.Filled.WarningAmber,
             title = attention?.subject ?: "No major concern",
             badge = attention?.accuracyPct?.let { "$it%" },
             body = attention?.let { "${it.tagline}\nReview key concepts" }
-                ?: "Learning looks steady this week.",
+                ?: stringResource(R.string.insights_default_steady),
             sparkline = attention?.sparkline ?: stylizedSparkline(ascending = false),
         )
     }
@@ -723,7 +724,7 @@ private fun SubjectPerformanceCard(subjects: List<SubjectStat>, onSubjectClick: 
         Column(modifier = Modifier.padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = "Subject Performance",
+                    text = stringResource(R.string.insights_subject_performance),
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
                     color = DobiTextPrimary,
@@ -737,7 +738,7 @@ private fun SubjectPerformanceCard(subjects: List<SubjectStat>, onSubjectClick: 
                 )
                 Spacer(Modifier.width(4.dp))
                 Text(
-                    text = "Sorted by Attempts",
+                    text = stringResource(R.string.insights_sorted_attempts),
                     fontSize = 11.sp,
                     color = DobiTextSecondary,
                 )
@@ -746,7 +747,7 @@ private fun SubjectPerformanceCard(subjects: List<SubjectStat>, onSubjectClick: 
             if (subjects.isEmpty()) {
                 Spacer(Modifier.height(20.dp))
                 Text(
-                    text = "No subject activity in this window yet.",
+                    text = stringResource(R.string.insights_no_subject_activity),
                     fontSize = 13.sp,
                     color = DobiTextSecondary,
                     textAlign = TextAlign.Center,
@@ -776,7 +777,7 @@ private fun SubjectPerformanceCard(subjects: List<SubjectStat>, onSubjectClick: 
                 )
                 Spacer(Modifier.width(6.dp))
                 Text(
-                    text = "Accuracy is based on scored practice attempts only. Uploads are not scored.",
+                    text = stringResource(R.string.insights_accuracy_note),
                     fontSize = 10.sp,
                     color = DobiTextSecondary,
                     lineHeight = 13.sp,
@@ -794,14 +795,14 @@ private fun SubjectHeaderRow() {
     ) {
         Spacer(Modifier.width(40.dp))
         Text(
-            text = "Subject",
+            text = stringResource(R.string.insights_subject_header),
             fontSize = 10.sp,
             fontWeight = FontWeight.Medium,
             color = DobiTextTertiary,
             modifier = Modifier.weight(1f),
         )
         Text(
-            text = "Accuracy",
+            text = stringResource(R.string.insights_accuracy_header),
             fontSize = 10.sp,
             fontWeight = FontWeight.Medium,
             color = DobiTextTertiary,
@@ -974,14 +975,14 @@ private fun RecommendationCard(
                 Spacer(Modifier.width(12.dp))
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "Parent Recommendation",
+                        text = stringResource(R.string.insights_parent_rec),
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold,
                         color = WarningAmberDeep,
                     )
                     Spacer(Modifier.height(2.dp))
                     Text(
-                        text = text.ifBlank { "Keep the current rhythm. Regular revision every 2–3 days will help long-term retention." },
+                        text = text.ifBlank { stringResource(R.string.insights_default_rhythm) },
                         fontSize = 12.sp,
                         color = DobiTextPrimary,
                         lineHeight = 16.sp,
@@ -1008,7 +1009,7 @@ private fun RecommendationCard(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Suggested practice",
+                            text = stringResource(R.string.insights_suggested_practice),
                             fontSize = 10.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = WarningAmberDeep,
@@ -1018,7 +1019,7 @@ private fun RecommendationCard(
                             text = if (actionableTopic != null) {
                                 "${actionableTopic.subject} • ${actionableTopic.topicName}"
                             } else {
-                                "Finding a topic to assign…"
+                                stringResource(R.string.insights_finding_topic)
                             },
                             fontSize = 13.sp,
                             fontWeight = FontWeight.SemiBold,
@@ -1028,7 +1029,7 @@ private fun RecommendationCard(
                         Spacer(Modifier.height(1.dp))
                         Text(
                             text = actionableTopic?.reason
-                                ?: "Just a moment…",
+                                ?: stringResource(R.string.insights_just_moment),
                             fontSize = 11.sp,
                             color = DobiTextSecondary,
                             lineHeight = 14.sp,
@@ -1045,7 +1046,7 @@ private fun RecommendationCard(
                             .clickable(enabled = enabled, onClick = onAssignClick),
                     ) {
                         Text(
-                            text = "Assign",
+                            text = stringResource(R.string.insights_assign_btn),
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.White,
@@ -1092,14 +1093,14 @@ private fun AssignPracticeSheet(
                 .padding(horizontal = 24.dp, vertical = 4.dp),
         ) {
             Text(
-                text = "Assign Practice",
+                text = stringResource(R.string.insights_assign_practice),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = DobiTextPrimary,
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = "Send a short practice task to $childLabel — it appears in their Tasks list.",
+                text = stringResource(R.string.insights_assign_desc, childLabel),
                 fontSize = 13.sp,
                 color = DobiTextSecondary,
                 lineHeight = 17.sp,
@@ -1124,7 +1125,7 @@ private fun AssignPracticeSheet(
                         )
                         if (canChangeTopic) {
                             Text(
-                                text = "Change",
+                                text = stringResource(R.string.insights_change_btn),
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = DobiPrimary,
@@ -1155,7 +1156,7 @@ private fun AssignPracticeSheet(
             // ── Task type cards ─────────────────────────────────────────────
             Spacer(Modifier.height(16.dp))
             Text(
-                text = "Pick a task",
+                text = stringResource(R.string.pick_task),
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Bold,
                 color = DobiTextPrimary,
@@ -1163,8 +1164,8 @@ private fun AssignPracticeSheet(
             Spacer(Modifier.height(8.dp))
             TaskTypeCard(
                 selected = selectedType == ParentTaskType.REVISE_CHAPTER,
-                title = "Revise the chapter",
-                subtitle = "Child uploads photos of revision notes.",
+                title = stringResource(R.string.task_type_revise),
+                subtitle = stringResource(R.string.task_type_revise_desc),
                 icon = Icons.AutoMirrored.Filled.MenuBook,
                 tint = Color(0xFF7C5CF8),
                 tintBg = Color(0xFFEAE3FF),
@@ -1173,8 +1174,8 @@ private fun AssignPracticeSheet(
             Spacer(Modifier.height(8.dp))
             TaskTypeCard(
                 selected = selectedType == ParentTaskType.WRITE_QA,
-                title = "Write Q&A from textbook",
-                subtitle = "Child writes questions + answers and uploads the photo.",
+                title = stringResource(R.string.task_type_qa),
+                subtitle = stringResource(R.string.task_type_qa_desc),
                 icon = Icons.Filled.Edit,
                 tint = Color(0xFFCA8A04),
                 tintBg = Color(0xFFFEF3C7),
@@ -1183,7 +1184,7 @@ private fun AssignPracticeSheet(
             Spacer(Modifier.height(8.dp))
             TaskTypeCard(
                 selected = selectedType == ParentTaskType.OUR_QUESTIONS,
-                title = "Our set of questions",
+                title = stringResource(R.string.task_type_mcq),
                 subtitle = if (topic.isUnitScope)
                     "10 AI-generated MCQs on this chapter."
                 else "5 AI-generated MCQs on this concept.",
@@ -1195,8 +1196,8 @@ private fun AssignPracticeSheet(
             Spacer(Modifier.height(8.dp))
             TaskTypeCard(
                 selected = selectedType == ParentTaskType.CUSTOM,
-                title = "Custom task",
-                subtitle = "Write your own — child uploads a photo as proof.",
+                title = stringResource(R.string.task_type_custom),
+                subtitle = stringResource(R.string.task_type_custom_desc_write),
                 icon = Icons.Filled.Edit,
                 tint = PositiveGreen,
                 tintBg = PositiveGreenSoft,
@@ -1210,7 +1211,7 @@ private fun AssignPracticeSheet(
                     onValueChange = { customNote = it },
                     placeholder = {
                         Text(
-                            text = "e.g. Revise Fractions chapter and try 5 problems",
+                            text = stringResource(R.string.task_custom_hint),
                             fontSize = 13.sp,
                         )
                     },
@@ -1237,7 +1238,7 @@ private fun AssignPracticeSheet(
                         .clickable(enabled = !isAssigning, onClick = onDismiss),
                 ) {
                     Text(
-                        text = "Cancel",
+                        text = stringResource(R.string.cancel_btn),
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = DobiTextSecondary,
@@ -1259,7 +1260,7 @@ private fun AssignPracticeSheet(
                         },
                 ) {
                     Text(
-                        text = if (isAssigning) "Assigning…" else "Give this task",
+                        text = if (isAssigning) stringResource(R.string.assigning_btn) else stringResource(R.string.give_task_btn),
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White,
@@ -1314,14 +1315,14 @@ private fun TopicPickerSheet(
                 .padding(horizontal = 20.dp, vertical = 4.dp),
         ) {
             Text(
-                text = "Choose a topic",
+                text = stringResource(R.string.insights_choose_topic),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = DobiTextPrimary,
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = "Pick the subject, then the chapter to assign.",
+                text = stringResource(R.string.insights_choose_topic_desc),
                 fontSize = 13.sp,
                 color = DobiTextSecondary,
             )
@@ -1345,7 +1346,7 @@ private fun TopicPickerSheet(
 
             Spacer(Modifier.height(14.dp))
             Text(
-                text = "Chapters",
+                text = stringResource(R.string.insights_chapters),
                 fontSize = 12.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = DobiTextTertiary,
@@ -1360,7 +1361,7 @@ private fun TopicPickerSheet(
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
-                        text = "No chapters in the curriculum for this subject yet.",
+                        text = stringResource(R.string.insights_no_chapters),
                         fontSize = 13.sp,
                         color = DobiTextSecondary,
                         textAlign = TextAlign.Center,
@@ -1517,7 +1518,7 @@ private fun PrivacyFooter() {
         )
         Spacer(Modifier.width(6.dp))
         Text(
-            text = "This report is private and visible only to you.",
+            text = stringResource(R.string.insights_private_note),
             fontSize = 11.sp,
             color = DobiTextSecondary,
         )

@@ -42,7 +42,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.dobi.app.R
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -123,7 +125,7 @@ fun SubjectDetailScreen(
                         icon = Icons.Default.Quiz,
                         iconTint = DobiPrimary,
                         iconBg = DobiPastelSkyBlue,
-                        title = "Quiz Attempts",
+                        title = stringResource(R.string.subject_quiz_attempts),
                         badge = "${state.quizItems.size} attempt${if (state.quizItems.size == 1) "" else "s"}",
                         summary = state.avgQuizAccuracy?.let { "Avg accuracy: $it%" },
                         items = state.quizItems,
@@ -143,7 +145,7 @@ fun SubjectDetailScreen(
                         icon = Icons.AutoMirrored.Filled.MenuBook,
                         iconTint = DobiSuccess,
                         iconBg = DobiPastelMint,
-                        title = "Written Answers",
+                        title = stringResource(R.string.subject_written_answers),
                         badge = "${state.subjectiveItems.size} submission${if (state.subjectiveItems.size == 1) "" else "s"}",
                         summary = null,
                         items = state.subjectiveItems,
@@ -163,7 +165,7 @@ fun SubjectDetailScreen(
                         icon = Icons.Default.School,
                         iconTint = DobiPrimary,
                         iconBg = Color(0xFFDBEAFE),
-                        title = "Class Work",
+                        title = stringResource(R.string.subject_class_work),
                         badge = "${state.classWorkItems.size} upload${if (state.classWorkItems.size == 1) "" else "s"}",
                         summary = null,
                         items = state.classWorkItems,
@@ -183,7 +185,7 @@ fun SubjectDetailScreen(
                         icon = Icons.Default.AutoStories,
                         iconTint = DobiError,
                         iconBg = DobiPastelPink,
-                        title = "Self Study",
+                        title = stringResource(R.string.subject_self_study),
                         badge = "${state.selfLearningItems.size} upload${if (state.selfLearningItems.size == 1) "" else "s"}",
                         summary = null,
                         items = state.selfLearningItems,
@@ -203,7 +205,7 @@ fun SubjectDetailScreen(
                         icon = Icons.Default.EditNote,
                         iconTint = DobiAccentOrange,
                         iconBg = DobiPastelCream,
-                        title = "Homework",
+                        title = stringResource(R.string.dashboard_legend_homework),
                         badge = "${state.homeworkItems.size} submission${if (state.homeworkItems.size == 1) "" else "s"}",
                         summary = null,
                         items = state.homeworkItems,
@@ -259,7 +261,7 @@ private fun SubjectTopBar(subject: String, childName: String, onNavigateBack: ()
                 if (childName.isNotBlank()) {
                     Spacer(Modifier.height(2.dp))
                     Text(
-                        text = "$childName's learning",
+                        text = stringResource(R.string.subject_learning_title, childName),
                         fontSize = 12.sp,
                         color = DobiTextSecondary,
                     )

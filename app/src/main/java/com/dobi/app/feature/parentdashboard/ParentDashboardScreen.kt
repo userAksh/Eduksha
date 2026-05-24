@@ -80,6 +80,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -526,7 +527,7 @@ private fun ParentHomeTopBar(
                 .offset(y = 40.dp)
         ) {
             Text(
-                text = if (parentName.isNotBlank()) "Hello, $parentName! 👋" else "Hello! 👋",
+                text = if (parentName.isNotBlank()) stringResource(R.string.dashboard_greeting, parentName) else stringResource(R.string.dashboard_greeting_no_name),
                 fontSize = 22.sp,
                 lineHeight = 28.sp,
                 fontWeight = FontWeight.Bold,
@@ -534,7 +535,7 @@ private fun ParentHomeTopBar(
             )
             Spacer(modifier = Modifier.height(6.dp))
             Text(
-                text = "Let's support your child's\nlearning journey.",
+                text = stringResource(R.string.dashboard_empty_message),
                 fontSize = 13.sp,
                 lineHeight = 18.sp,
                 color = MutedText
@@ -603,7 +604,7 @@ private fun ParentHomeTopBar(
                 }
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "Add",
+                    text = stringResource(R.string.settings_add_child_btn),
                     fontSize = 12.sp,
                     color = DarkNavy,
                     fontWeight = FontWeight.SemiBold
@@ -676,19 +677,20 @@ private val InsightDivider = Color(0xFFD6DEF2)
 
 private data class StatusPillSpec(val text: String, val tint: Color, val bg: Color)
 
+@Composable
 private fun statusFor(child: DashChild): StatusPillSpec = when {
     child.streakDays >= 3 -> StatusPillSpec(
-        text = "Learning Well",
+        text = stringResource(R.string.status_learning_well),
         tint = DobiSuccess,
         bg = DobiSuccessContainer,
     )
     child.streakDays > 0 -> StatusPillSpec(
-        text = "Needs revision consistency",
+        text = stringResource(R.string.status_needs_consistency),
         tint = DobiAccentOrange,
         bg = Color(0xFFFFEFCC),
     )
     else -> StatusPillSpec(
-        text = "Needs more attention",
+        text = stringResource(R.string.status_needs_attention),
         tint = DobiError,
         bg = DobiPastelPink,
     )
@@ -702,9 +704,9 @@ private fun ChildSummaryCard(
     val status = statusFor(child)
     val daysStudied = child.revisionStreakDays.coerceIn(0, 7)
     val studiedHint = when {
-        daysStudied >= 5 -> "Great consistency!"
-        daysStudied >= 3 -> "Keep building the habit."
-        else -> "Aim for daily revision."
+        daysStudied >= 5 -> stringResource(R.string.hint_great_consistency)
+        daysStudied >= 3 -> stringResource(R.string.hint_keep_building)
+        else -> stringResource(R.string.hint_aim_daily)
     }
     val attentionDetail = child.watchOut.ifBlank { "—" }
 
@@ -734,8 +736,8 @@ private fun ChildSummaryCard(
                     .weight(1f)
                     .fillMaxHeight()
                 InsightStatTile(
-                    title = "${daysStudied}/7 Days",
-                    subtitle = "Studied this week",
+                    title = stringResource(R.string.dashboard_days_of_seven, daysStudied),
+                    subtitle = stringResource(R.string.dashboard_studied_this_week),
                     hint = studiedHint,
                     icon = Icons.Filled.EventAvailable,
                     tint = StudiedTint,
@@ -745,7 +747,7 @@ private fun ChildSummaryCard(
                     modifier = tileModifier,
                 )
                 InsightStatTile(
-                    title = "Last active",
+                    title = stringResource(R.string.dashboard_last_active_tile),
                     subtitle = child.lastRevisedLabel,
                     hint = if (child.lastRevisedLabel == "No activity yet") "Start revising to build the habit." else "Keep the streak going!",
                     icon = Icons.Filled.Autorenew,
@@ -756,7 +758,7 @@ private fun ChildSummaryCard(
                     modifier = tileModifier,
                 )
                 InsightStatTile(
-                    title = "Needs attention",
+                    title = stringResource(R.string.dashboard_needs_attention_tile),
                     subtitle = child.weakSubject,
                     hint = attentionDetail,
                     icon = Icons.AutoMirrored.Filled.MenuBook,
@@ -807,7 +809,7 @@ private fun ChildSummaryCard(
                 }
                 Spacer(modifier = Modifier.width(10.dp))
                 Text(
-                    text = "View Detailed Learning Report",
+                    text = stringResource(R.string.dashboard_view_report),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = DobiPrimary,
@@ -842,7 +844,7 @@ private fun StudentHeader(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Class $grade • $board",
+                text = stringResource(R.string.class_board_label, grade, board),
                 fontSize = 14.sp,
                 color = DobiTextSecondary,
             )
@@ -1108,21 +1110,21 @@ private fun ActivityCategoriesCard(
     val tiles = listOf(
         ActivityCategoryTile(
             key = ACTIVITY_CATEGORY_SCHOOL_WORK,
-            label = "School Work",
+            label = stringResource(R.string.dashboard_activity_school),
             icon = Icons.Filled.School,
             tint = DobiPrimary,
             tintBg = DobiPastelSkyBlue,
         ),
         ActivityCategoryTile(
             key = ACTIVITY_CATEGORY_HOME_WORK,
-            label = "Home Work",
+            label = stringResource(R.string.dashboard_activity_home),
             icon = Icons.Filled.EditNote,
             tint = DobiAccentOrange,
             tintBg = DobiPastelYellow,
         ),
         ActivityCategoryTile(
             key = ACTIVITY_CATEGORY_SELF_LEARNING,
-            label = "Self Learning",
+            label = stringResource(R.string.dashboard_activity_self),
             icon = Icons.Filled.Psychology,
             tint = DobiSuccess,
             tintBg = DobiSuccessContainer,
@@ -1137,14 +1139,14 @@ private fun ActivityCategoriesCard(
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = "Explore activity",
+                text = stringResource(R.string.dashboard_explore_activity),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
                 color = DobiTextPrimary,
             )
             Spacer(modifier = Modifier.height(3.dp))
             Text(
-                text = "See what your child has attempted",
+                text = stringResource(R.string.dashboard_explore_subtitle),
                 fontSize = 12.sp,
                 color = DobiTextSecondary,
             )
@@ -1270,7 +1272,7 @@ private fun WeeklyLearningPattern(
 private fun WeeklyPatternHeader(firstName: String) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(
-            text = "This Week's Learning Pattern",
+            text = stringResource(R.string.dashboard_week_pattern),
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             color = DobiTextPrimary,
@@ -1286,7 +1288,7 @@ private fun WeeklyPatternHeader(firstName: String) {
     Spacer(modifier = Modifier.height(2.dp))
     val subjectName = firstName.ifBlank { "your child" }
     Text(
-        text = "See how $subjectName learned this week",
+        text = stringResource(R.string.dashboard_week_subject_pattern, subjectName),
         fontSize = 12.sp,
         color = DobiTextSecondary,
     )
@@ -1564,25 +1566,25 @@ private fun WeeklyLegendCard() {
             LegendCell(
                 modifier = Modifier.weight(1f),
                 kind = DayKind.REVISION,
-                title = "Revision",
-                description = "Old topics revised and practiced",
+                title = stringResource(R.string.dashboard_legend_revision),
+                description = stringResource(R.string.dashboard_legend_revision_desc),
             )
             LegendCell(
                 modifier = Modifier.weight(1f),
                 kind = DayKind.HOMEWORK,
-                title = "Homework",
-                description = "New learning or homework done",
+                title = stringResource(R.string.dashboard_legend_homework),
+                description = stringResource(R.string.dashboard_legend_homework_desc),
             )
             LegendCell(
                 modifier = Modifier.weight(1f),
                 kind = DayKind.BOTH,
-                title = "Both",
-                description = "Both learning and revision completed",
+                title = stringResource(R.string.dashboard_legend_both),
+                description = stringResource(R.string.dashboard_legend_both_desc),
             )
             LegendCell(
                 modifier = Modifier.weight(1f),
                 kind = DayKind.NONE,
-                title = "No Activity",
+                title = stringResource(R.string.dashboard_legend_no_activity),
                 description = "No learning activity recorded",
             )
         }
@@ -1738,7 +1740,7 @@ private fun DayDetailSheet(
                     else -> {
                         if (activity.revisions.isNotEmpty()) {
                             DaySection(
-                                title = "Revision",
+                                title = stringResource(R.string.dashboard_legend_revision),
                                 accent = DobiPrimary,
                                 accentBg = DobiPastelSkyBlue,
                                 icon = Icons.Filled.Edit,
@@ -1751,7 +1753,7 @@ private fun DayDetailSheet(
                         }
                         if (activity.homeworks.isNotEmpty()) {
                             DaySection(
-                                title = "Homework",
+                                title = stringResource(R.string.dashboard_legend_homework),
                                 accent = DobiSuccess,
                                 accentBg = DobiSuccessContainer,
                                 icon = Icons.AutoMirrored.Filled.MenuBook,
@@ -1918,14 +1920,14 @@ private fun DayEmptyState() {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "No activity this day",
+                text = stringResource(R.string.dashboard_no_activity_day),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = DobiTextPrimary,
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
-                text = "Nothing was uploaded or attempted.",
+                text = stringResource(R.string.dashboard_no_activity_desc),
                 fontSize = 12.sp,
                 color = DobiTextSecondary,
             )

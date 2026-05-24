@@ -63,6 +63,8 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
@@ -334,7 +336,7 @@ private fun HeaderRow(parentName: String) {
             Column(modifier = Modifier.weight(1f)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "Hello, ${parentName.ifBlank { "there" }}!",
+                        text = stringResource(R.string.home_greeting, parentName.ifBlank { stringResource(R.string.home_greeting_fallback) }),
                         fontSize = 20.sp,
                         fontWeight = SFProBold,
                         color = DobiTextPrimary,
@@ -345,7 +347,7 @@ private fun HeaderRow(parentName: String) {
                 }
                 Spacer(Modifier.height(2.dp))
                 Text(
-                    text = "Track your children's learning",
+                    text = stringResource(R.string.home_subtitle),
                     fontSize = 12.sp,
                     fontWeight = SFProRegular,
                     color = DobiTextSecondary,
@@ -424,7 +426,7 @@ private fun TasksCard(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = "Tasks needing your attention",
+                    text = stringResource(R.string.home_tasks_attention),
                     fontSize = 15.sp,
                     fontWeight = SFProBold,
                     color = DobiTextPrimary,
@@ -443,7 +445,7 @@ private fun TasksCard(
                             .padding(horizontal = 4.dp, vertical = 4.dp)
                     ) {
                         Text(
-                            text = "View all",
+                            text = stringResource(R.string.home_view_all),
                             fontSize = 13.sp,
                             fontWeight = SFProSemiBold,
                             color = DobiPrimary
@@ -483,14 +485,14 @@ private fun ChildrenSectionHeader(
     ) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = "Your Children",
+                text = stringResource(R.string.home_your_children),
                 fontSize = 20.sp,
                 fontWeight = SFProBold,
                 color = DobiTextPrimary
             )
             Spacer(Modifier.height(2.dp))
             Text(
-                text = "View progress, insights and help them grow",
+                text = stringResource(R.string.home_children_subtitle),
                 fontSize = 13.sp,
                 fontWeight = SFProRegular,
                 color = DobiTextSecondary
@@ -511,7 +513,7 @@ private fun ChildrenSectionHeader(
             )
             Spacer(Modifier.width(6.dp))
             Text(
-                text = "$childrenCount profile${if (childrenCount > 1) "s" else ""}",
+                text = pluralStringResource(R.plurals.home_profile_count, childrenCount, childrenCount),
                 fontSize = 12.sp,
                 fontWeight = SFProSemiBold,
                 color = DobiPrimary
@@ -728,7 +730,7 @@ private fun TasksTile(activeCount: Int, modifier: Modifier = Modifier) {
             }
             Spacer(Modifier.width(6.dp))
             Text(
-                text = if (hasPending) "Active" else "All done",
+                text = if (hasPending) stringResource(R.string.home_tasks_active) else stringResource(R.string.home_tasks_all_done),
                 fontSize = 13.sp,
                 fontWeight = SFProSemiBold,
                 color = DobiTextPrimary
@@ -736,7 +738,7 @@ private fun TasksTile(activeCount: Int, modifier: Modifier = Modifier) {
         }
         Spacer(Modifier.height(4.dp))
         Text(
-            text = "Tasks by parents",
+            text = stringResource(R.string.home_tasks_by_parents),
             fontSize = 11.sp,
             fontWeight = SFProRegular,
             color = DobiTextSecondary,
@@ -771,14 +773,14 @@ private fun WeeklyStreakTile(daysActive: Int, modifier: Modifier = Modifier) {
         }
         Spacer(Modifier.height(6.dp))
         Text(
-            text = "$clamped of 7",
+            text = stringResource(R.string.home_of_seven, clamped),
             fontSize = 13.sp,
             fontWeight = SFProSemiBold,
             color = DobiTextPrimary
         )
         Spacer(Modifier.height(2.dp))
         Text(
-            text = "Streaks this week",
+            text = stringResource(R.string.home_streaks_week),
             fontSize = 11.sp,
             fontWeight = SFProRegular,
             color = DobiTextSecondary,
@@ -816,7 +818,7 @@ private fun TodayLearningTile(isActiveToday: Boolean, modifier: Modifier = Modif
             }
             Spacer(Modifier.width(6.dp))
             Text(
-                text = if (isActiveToday) "Done" else "Not yet",
+                text = if (isActiveToday) stringResource(R.string.home_today_done) else stringResource(R.string.home_today_not_yet),
                 fontSize = 13.sp,
                 fontWeight = SFProSemiBold,
                 color = DobiTextPrimary
@@ -824,7 +826,7 @@ private fun TodayLearningTile(isActiveToday: Boolean, modifier: Modifier = Modif
         }
         Spacer(Modifier.height(4.dp))
         Text(
-            text = "Today's learning",
+            text = stringResource(R.string.home_today_learning),
             fontSize = 11.sp,
             fontWeight = SFProRegular,
             color = DobiTextSecondary,
@@ -879,14 +881,14 @@ private fun AddMoreChildrenCard(
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "Add more children",
+                    text = stringResource(R.string.home_add_more_children),
                     fontSize = 15.sp,
                     fontWeight = SFProBold,
                     color = DobiTextPrimary
                 )
                 Spacer(Modifier.height(3.dp))
                 Text(
-                    text = "Track each child's learning and get personalised insights.",
+                    text = stringResource(R.string.home_add_children_desc),
                     fontSize = 12.sp,
                     fontWeight = SFProRegular,
                     color = DobiTextSecondary,
@@ -916,7 +918,7 @@ private fun AddMoreChildrenCard(
                 )
                 Spacer(Modifier.width(4.dp))
                 Text(
-                    text = "Add Child",
+                    text = stringResource(R.string.home_add_child),
                     fontSize = 12.sp,
                     fontWeight = SFProSemiBold,
                     color = Color.White
@@ -1049,7 +1051,7 @@ private fun PairingDialog(
                 else -> ""
             }
             Text(
-                text = "Pair device for $name",
+                text = stringResource(R.string.home_pair_device, name),
                 fontSize = 18.sp,
                 fontWeight = SFProBold,
                 color = DobiTextPrimary

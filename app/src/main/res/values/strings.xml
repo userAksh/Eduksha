@@ -1,3 +1,167 @@
 <resources>
     <string name="app_name">Eduksha</string>
+
+    <!-- Parent Home -->
+    <string name="home_greeting">Hello, %s!</string>
+    <string name="home_greeting_fallback">there</string>
+    <string name="home_subtitle">Track your children\'s learning</string>
+    <string name="home_tasks_attention">Tasks needing your attention</string>
+    <string name="home_view_all">View all</string>
+    <string name="home_your_children">Your Children</string>
+    <string name="home_children_subtitle">View progress, insights and help them grow</string>
+    <string name="home_today_learning">Today\'s learning</string>
+    <string name="home_streaks_week">Streaks this week</string>
+    <string name="home_tasks_by_parents">Tasks by parents</string>
+    <string name="home_tasks_active">Active</string>
+    <string name="home_tasks_all_done">All done</string>
+    <string name="home_today_done">Done</string>
+    <string name="home_today_not_yet">Not yet</string>
+    <string name="home_add_more_children">Add more children</string>
+    <string name="home_add_children_desc">Track each child\'s learning and get personalised insights.</string>
+    <string name="home_add_child">Add Child</string>
+    <string name="home_pair_device">Pair device for %s</string>
+    <string name="home_of_seven">%d of 7</string>
+    <plurals name="home_profile_count">
+        <item quantity="one">%d profile</item>
+        <item quantity="other">%d profiles</item>
+    </plurals>
+
+    <!-- Parent Settings -->
+    <string name="settings_section_children">Children</string>
+    <string name="settings_section_learning">Learning &amp; Activity</string>
+    <string name="settings_weekly_reports">Weekly Reports</string>
+    <string name="settings_weekly_reports_desc">Receive progress reports every week</string>
+    <string name="settings_whatsapp_reports">WhatsApp Reports</string>
+    <string name="settings_whatsapp_reports_desc">Get reports on WhatsApp</string>
+    <string name="settings_study_goals">Study Goals</string>
+    <string name="settings_study_goals_desc">Assign a task to your child</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_language_desc">Choose your preferred language</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_language_hindi">हिंदी</string>
+    <string name="settings_section_account">Account &amp; Privacy</string>
+    <string name="settings_privacy">Privacy &amp; Data</string>
+    <string name="settings_privacy_desc">Manage your data and privacy</string>
+    <string name="settings_faq">FAQ</string>
+    <string name="settings_faq_desc">Answers to common questions</string>
+    <string name="settings_help">Help &amp; Support</string>
+    <string name="settings_help_desc">Contact us and report a problem</string>
+    <string name="settings_logout">Log Out</string>
+    <string name="settings_logout_desc">Sign out from your account</string>
+    <string name="settings_add_child_btn">Add</string>
+    <string name="settings_trust_footer">Your data is safe with us and is never shared.</string>
+    <string name="settings_parent_account">Parent Account</string>
+    <string name="settings_complete_profile">Complete Profile</string>
+
+    <!-- Language picker -->
+    <string name="lang_picker_title">Choose Language</string>
+    <string name="lang_picker_english">English</string>
+    <string name="lang_picker_hindi">हिंदी (Hindi)</string>
+
+    <!-- Shared task types (InsightsScreen + ParentTaskDetailScreen) -->
+    <string name="task_type_revise">Revise the chapter</string>
+    <string name="task_type_revise_desc">Child uploads photos of revision notes.</string>
+    <string name="task_type_qa">Write Q&amp;A from textbook</string>
+    <string name="task_type_qa_desc">Child writes questions + answers and uploads the photo.</string>
+    <string name="task_type_mcq">Our set of questions</string>
+    <string name="task_type_custom">Custom task</string>
+    <string name="task_type_custom_desc_write">Write your own — child uploads a photo as proof.</string>
+    <string name="task_type_custom_desc_type">Type any task — child uploads a photo as proof.</string>
+    <string name="task_custom_hint">e.g. Revise Fractions chapter and try 5 problems</string>
+    <string name="cancel_btn">Cancel</string>
+    <string name="pick_task">Pick a task</string>
+    <string name="give_task_btn">Give this task</string>
+    <string name="assigning_btn">Assigning…</string>
+    <string name="class_board_label">Class %d • %s</string>
+    <string name="attempts_log_title">Attempts log</string>
+    <string name="child_attempts_title">%s\'s attempts</string>
+
+    <!-- Parent Dashboard -->
+    <string name="dashboard_greeting">Hello, %s! 👋</string>
+    <string name="dashboard_greeting_no_name">Hello! 👋</string>
+    <string name="dashboard_empty_message">Let\'s support your child\'s\nlearning journey.</string>
+    <string name="status_learning_well">Learning Well</string>
+    <string name="status_needs_consistency">Needs revision consistency</string>
+    <string name="status_needs_attention">Needs more attention</string>
+    <string name="hint_great_consistency">Great consistency!</string>
+    <string name="hint_keep_building">Keep building the habit.</string>
+    <string name="hint_aim_daily">Aim for daily revision.</string>
+    <string name="dashboard_days_of_seven">%d/7 Days</string>
+    <string name="dashboard_studied_this_week">Studied this week</string>
+    <string name="dashboard_last_active_tile">Last active</string>
+    <string name="dashboard_needs_attention_tile">Needs attention</string>
+    <string name="dashboard_view_report">View Detailed Learning Report</string>
+    <string name="dashboard_activity_school">School Work</string>
+    <string name="dashboard_activity_home">Home Work</string>
+    <string name="dashboard_activity_self">Self Learning</string>
+    <string name="dashboard_explore_activity">Explore activity</string>
+    <string name="dashboard_explore_subtitle">See what your child has attempted</string>
+    <string name="dashboard_week_pattern">This Week\'s Learning Pattern</string>
+    <string name="dashboard_week_subject_pattern">See how %s learned this week</string>
+    <string name="dashboard_legend_revision">Revision</string>
+    <string name="dashboard_legend_homework">Homework</string>
+    <string name="dashboard_legend_both">Both</string>
+    <string name="dashboard_legend_no_activity">No Activity</string>
+    <string name="dashboard_legend_revision_desc">Old topics revised and practiced</string>
+    <string name="dashboard_legend_homework_desc">New learning or homework done</string>
+    <string name="dashboard_legend_both_desc">Both learning and revision completed</string>
+    <string name="dashboard_no_activity_day">No activity this day</string>
+    <string name="dashboard_no_activity_desc">Nothing was uploaded or attempted.</string>
+
+    <!-- Insights -->
+    <string name="insights_learning_report">Learning Report</string>
+    <string name="insights_building_picture">Building this week\'s picture…</string>
+    <string name="insights_days_active">Days Active</string>
+    <string name="insights_total_attempts">Total Attempts</string>
+    <string name="insights_avg_accuracy">Avg Accuracy</string>
+    <string name="insights_revision_sessions">Revision Sessions</string>
+    <string name="insights_most_improved">Most Improved</string>
+    <string name="insights_needs_attention_section">Needs Attention</string>
+    <string name="insights_default_rhythm">Keep the current rhythm. Regular revision every 2–3 days will help long-term retention.</string>
+    <string name="insights_default_steady">Learning looks steady this week.</string>
+    <string name="insights_subject_performance">Subject Performance</string>
+    <string name="insights_sorted_attempts">Sorted by Attempts</string>
+    <string name="insights_no_subject_activity">No subject activity in this window yet.</string>
+    <string name="insights_accuracy_note">Accuracy is based on scored practice attempts only. Uploads are not scored.</string>
+    <string name="insights_subject_header">Subject</string>
+    <string name="insights_accuracy_header">Accuracy</string>
+    <string name="insights_parent_rec">Parent Recommendation</string>
+    <string name="insights_suggested_practice">Suggested practice</string>
+    <string name="insights_finding_topic">Finding a topic to assign…</string>
+    <string name="insights_just_moment">Just a moment…</string>
+    <string name="insights_assign_btn">Assign</string>
+    <string name="insights_assign_practice">Assign Practice</string>
+    <string name="insights_assign_desc">Send a short practice task to %s — it appears in their Tasks list.</string>
+    <string name="insights_change_btn">Change</string>
+    <string name="insights_choose_topic">Choose a topic</string>
+    <string name="insights_choose_topic_desc">Pick the subject, then the chapter to assign.</string>
+    <string name="insights_chapters">Chapters</string>
+    <string name="insights_no_chapters">No chapters in the curriculum for this subject yet.</string>
+    <string name="insights_private_note">This report is private and visible only to you.</string>
+
+    <!-- Subject Detail -->
+    <string name="subject_quiz_attempts">Quiz Attempts</string>
+    <string name="subject_written_answers">Written Answers</string>
+    <string name="subject_class_work">Class Work</string>
+    <string name="subject_self_study">Self Study</string>
+    <string name="subject_learning_title">%s\'s learning</string>
+
+    <!-- Activity Detail -->
+    <string name="activity_submitted_badge">Submitted</string>
+    <string name="activity_filter_quiz">Quiz</string>
+    <string name="activity_filter_write">Write answers</string>
+    <string name="activity_filter_school_hw">School homework</string>
+
+    <!-- Parent Task Detail -->
+    <string name="task_detail_from_child">Task from your child</string>
+    <string name="task_detail_study_request">Your child wants to study this</string>
+    <string name="task_custom_question">What do you want them to do?</string>
+    <string name="task_num_questions">Number of questions</string>
+    <string name="task_detail_submitted">Your child submitted this task</string>
+    <string name="task_detail_quiz_score">Quiz score</string>
+    <string name="task_detail_photos">Photos uploaded</string>
+    <string name="task_detail_note_hint">Note for your child (optional for accept, required for redo)</string>
+    <string name="task_detail_comment_hint">Add a quick comment…</string>
+    <string name="task_ask_redo_btn">Ask to redo</string>
+    <string name="task_accept_btn">Accept</string>
 </resources>

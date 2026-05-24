@@ -1,8 +1,13 @@
 package com.dobi.app
 
 import android.Manifest
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Build
+import com.dobi.app.data.local.LanguagePreference
+import java.util.Locale
 import android.os.Bundle
 import android.util.Log
 import com.dobi.app.data.local.UserPreferences
@@ -143,6 +148,15 @@ class MainActivity : ComponentActivity() {
             val outcome = inviteRepository.claimInvite(code, childId)
             Log.i(TAG, "Test claim outcome=$outcome (code=$code)")
         }
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        val lang = LanguagePreference.get(newBase)
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val config = Configuration(newBase.resources.configuration)
+        config.setLocale(locale)
+        super.attachBaseContext(newBase.createConfigurationContext(config))
     }
 
     companion object {

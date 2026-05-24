@@ -40,7 +40,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.dobi.app.R
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -195,7 +197,7 @@ private fun TopBar(
                 )
                 Spacer(Modifier.height(2.dp))
                 Text(
-                    text = if (childName.isBlank()) "Attempts log" else "$childName's attempts",
+                    text = if (childName.isBlank()) stringResource(R.string.attempts_log_title) else stringResource(R.string.child_attempts_title, childName),
                     fontSize = 12.sp,
                     color = DobiTextSecondary,
                 )
@@ -395,7 +397,7 @@ private fun AttemptedItemCard(
                 val isSuccess = score.correct * 2 >= score.total
                 StatusBadge(label = "${score.correct}/${score.total}", isSuccess = isSuccess)
             } else if (item.source == Source.UPLOAD) {
-                StatusBadge(label = "Submitted", isSuccess = true)
+                StatusBadge(label = stringResource(R.string.activity_submitted_badge), isSuccess = true)
             }
         }
     }
@@ -473,6 +475,7 @@ private data class SourceVisuals(
     val bg: Color,
 )
 
+@Composable
 private fun sourceVisuals(item: ActivityLogItem): SourceVisuals = when (item.source) {
     Source.UPLOAD -> SourceVisuals(
         label = uploadKindLabel(item.uploadKind),
@@ -481,19 +484,19 @@ private fun sourceVisuals(item: ActivityLogItem): SourceVisuals = when (item.sou
         bg = DobiPastelCream,
     )
     Source.QUIZ_MCQ -> SourceVisuals(
-        label = "Quiz",
+        label = stringResource(R.string.activity_filter_quiz),
         icon = Icons.Filled.Quiz,
         tint = DobiPrimary,
         bg = DobiPastelSkyBlue,
     )
     Source.QUIZ_SUBJECTIVE -> SourceVisuals(
-        label = "Write answers",
+        label = stringResource(R.string.activity_filter_write),
         icon = Icons.AutoMirrored.Filled.MenuBook,
         tint = DobiSuccess,
         bg = DobiPastelMint,
     )
     Source.HOMEWORK -> SourceVisuals(
-        label = "School homework",
+        label = stringResource(R.string.activity_filter_school_hw),
         icon = Icons.Filled.EditNote,
         tint = DobiAccentOrange,
         bg = DobiPastelCream,

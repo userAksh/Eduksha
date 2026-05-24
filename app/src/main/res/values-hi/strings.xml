@@ -1,0 +1,165 @@
+<resources>
+    <!-- Parent Home -->
+    <string name="home_greeting">नमस्ते, %s!</string>
+    <string name="home_greeting_fallback">मित्र</string>
+    <string name="home_subtitle">अपने बच्चों की पढ़ाई ट्रैक करें</string>
+    <string name="home_tasks_attention">इन कार्यों पर ध्यान दें</string>
+    <string name="home_view_all">सभी देखें</string>
+    <string name="home_your_children">आपके बच्चे</string>
+    <string name="home_children_subtitle">प्रगति देखें, सुझाव पाएं और उनकी मदद करें</string>
+    <string name="home_today_learning">आज की पढ़ाई</string>
+    <string name="home_streaks_week">इस सप्ताह की स्ट्रीक</string>
+    <string name="home_tasks_by_parents">अभिभावकों के कार्य</string>
+    <string name="home_tasks_active">सक्रिय</string>
+    <string name="home_tasks_all_done">सब हो गया</string>
+    <string name="home_today_done">हो गया</string>
+    <string name="home_today_not_yet">अभी नहीं</string>
+    <string name="home_add_more_children">और बच्चे जोड़ें</string>
+    <string name="home_add_children_desc">हर बच्चे की पढ़ाई ट्रैक करें और व्यक्तिगत सुझाव पाएं।</string>
+    <string name="home_add_child">बच्चा जोड़ें</string>
+    <string name="home_pair_device">%s के लिए डिवाइस जोड़ें</string>
+    <string name="home_of_seven">%d / 7</string>
+    <plurals name="home_profile_count">
+        <item quantity="one">%d प्रोफ़ाइल</item>
+        <item quantity="other">%d प्रोफ़ाइल</item>
+    </plurals>
+
+    <!-- Parent Settings -->
+    <string name="settings_section_children">बच्चे</string>
+    <string name="settings_section_learning">पढ़ाई और गतिविधि</string>
+    <string name="settings_weekly_reports">साप्ताहिक रिपोर्ट</string>
+    <string name="settings_weekly_reports_desc">हर हफ्ते प्रगति रिपोर्ट पाएं</string>
+    <string name="settings_whatsapp_reports">WhatsApp रिपोर्ट</string>
+    <string name="settings_whatsapp_reports_desc">WhatsApp पर रिपोर्ट पाएं</string>
+    <string name="settings_study_goals">पढ़ाई के लक्ष्य</string>
+    <string name="settings_study_goals_desc">अपने बच्चे को एक काम सौंपें</string>
+    <string name="settings_language">भाषा</string>
+    <string name="settings_language_desc">अपनी पसंदीदा भाषा चुनें</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_language_hindi">हिंदी</string>
+    <string name="settings_section_account">अकाउंट और गोपनीयता</string>
+    <string name="settings_privacy">गोपनीयता और डेटा</string>
+    <string name="settings_privacy_desc">अपना डेटा और गोपनीयता प्रबंधित करें</string>
+    <string name="settings_faq">सामान्य प्रश्न</string>
+    <string name="settings_faq_desc">अक्सर पूछे जाने वाले सवालों के जवाब</string>
+    <string name="settings_help">सहायता</string>
+    <string name="settings_help_desc">हमसे संपर्क करें और समस्या बताएं</string>
+    <string name="settings_logout">लॉग आउट</string>
+    <string name="settings_logout_desc">अपने अकाउंट से साइन आउट करें</string>
+    <string name="settings_add_child_btn">जोड़ें</string>
+    <string name="settings_trust_footer">आपका डेटा हमारे पास सुरक्षित है और कभी साझा नहीं किया जाता।</string>
+    <string name="settings_parent_account">अभिभावक खाता</string>
+    <string name="settings_complete_profile">प्रोफ़ाइल पूरी करें</string>
+
+    <!-- Language picker -->
+    <string name="lang_picker_title">भाषा चुनें</string>
+    <string name="lang_picker_english">English</string>
+    <string name="lang_picker_hindi">हिंदी (Hindi)</string>
+
+    <!-- Shared task types -->
+    <string name="task_type_revise">अध्याय दोहराएं</string>
+    <string name="task_type_revise_desc">बच्चा दोहराई की नोट्स की फोटो अपलोड करेगा।</string>
+    <string name="task_type_qa">किताब से प्रश्न-उत्तर लिखें</string>
+    <string name="task_type_qa_desc">बच्चा प्रश्न-उत्तर लिखकर फोटो अपलोड करेगा।</string>
+    <string name="task_type_mcq">हमारे प्रश्न</string>
+    <string name="task_type_custom">कस्टम काम</string>
+    <string name="task_type_custom_desc_write">अपना काम लिखें — बच्चा फोटो से प्रमाण देगा।</string>
+    <string name="task_type_custom_desc_type">कोई भी काम टाइप करें — बच्चा फोटो से प्रमाण देगा।</string>
+    <string name="task_custom_hint">जैसे: भिन्न अध्याय दोहराएं और 5 सवाल हल करें</string>
+    <string name="cancel_btn">रद्द करें</string>
+    <string name="pick_task">काम चुनें</string>
+    <string name="give_task_btn">काम सौंपें</string>
+    <string name="assigning_btn">सौंप रहे हैं…</string>
+    <string name="class_board_label">कक्षा %d • %s</string>
+    <string name="attempts_log_title">प्रयास लॉग</string>
+    <string name="child_attempts_title">%s के प्रयास</string>
+
+    <!-- Parent Dashboard -->
+    <string name="dashboard_greeting">नमस्ते, %s! 👋</string>
+    <string name="dashboard_greeting_no_name">नमस्ते! 👋</string>
+    <string name="dashboard_empty_message">चलिए अपने बच्चे की\nपढ़ाई में मदद करें।</string>
+    <string name="status_learning_well">अच्छा सीख रहे हैं</string>
+    <string name="status_needs_consistency">नियमित दोहराई जरूरी</string>
+    <string name="status_needs_attention">अधिक ध्यान चाहिए</string>
+    <string name="hint_great_consistency">बहुत अच्छी नियमितता!</string>
+    <string name="hint_keep_building">आदत बनाते रहें।</string>
+    <string name="hint_aim_daily">रोज़ दोहराई का लक्ष्य रखें।</string>
+    <string name="dashboard_days_of_seven">%d/7 दिन</string>
+    <string name="dashboard_studied_this_week">इस सप्ताह पढ़ाई</string>
+    <string name="dashboard_last_active_tile">आखिरी गतिविधि</string>
+    <string name="dashboard_needs_attention_tile">ध्यान दें</string>
+    <string name="dashboard_view_report">विस्तृत रिपोर्ट देखें</string>
+    <string name="dashboard_activity_school">स्कूल का काम</string>
+    <string name="dashboard_activity_home">गृहकार्य</string>
+    <string name="dashboard_activity_self">स्वअध्ययन</string>
+    <string name="dashboard_explore_activity">गतिविधि देखें</string>
+    <string name="dashboard_explore_subtitle">देखें आपके बच्चे ने क्या किया</string>
+    <string name="dashboard_week_pattern">इस सप्ताह की पढ़ाई का पैटर्न</string>
+    <string name="dashboard_week_subject_pattern">देखें %s ने इस सप्ताह क्या सीखा</string>
+    <string name="dashboard_legend_revision">दोहराई</string>
+    <string name="dashboard_legend_homework">गृहकार्य</string>
+    <string name="dashboard_legend_both">दोनों</string>
+    <string name="dashboard_legend_no_activity">कोई गतिविधि नहीं</string>
+    <string name="dashboard_legend_revision_desc">पुराने विषयों की दोहराई और अभ्यास</string>
+    <string name="dashboard_legend_homework_desc">नई पढ़ाई या गृहकार्य किया</string>
+    <string name="dashboard_legend_both_desc">दोनों पढ़ाई और दोहराई पूरी</string>
+    <string name="dashboard_no_activity_day">इस दिन कोई गतिविधि नहीं</string>
+    <string name="dashboard_no_activity_desc">कुछ भी अपलोड या प्रयास नहीं किया।</string>
+
+    <!-- Insights -->
+    <string name="insights_learning_report">लर्निंग रिपोर्ट</string>
+    <string name="insights_building_picture">इस सप्ताह की तस्वीर बन रही है…</string>
+    <string name="insights_days_active">सक्रिय दिन</string>
+    <string name="insights_total_attempts">कुल प्रयास</string>
+    <string name="insights_avg_accuracy">औसत सटीकता</string>
+    <string name="insights_revision_sessions">दोहराई सत्र</string>
+    <string name="insights_most_improved">सबसे अधिक सुधार</string>
+    <string name="insights_needs_attention_section">ध्यान चाहिए</string>
+    <string name="insights_default_rhythm">वर्तमान लय बनाए रखें। हर 2-3 दिन में नियमित दोहराई से दीर्घकालिक याददाश्त मजबूत होती है।</string>
+    <string name="insights_default_steady">इस सप्ताह पढ़ाई स्थिर दिख रही है।</string>
+    <string name="insights_subject_performance">विषय प्रदर्शन</string>
+    <string name="insights_sorted_attempts">प्रयासों के अनुसार क्रमबद्ध</string>
+    <string name="insights_no_subject_activity">इस अवधि में अभी कोई विषय गतिविधि नहीं।</string>
+    <string name="insights_accuracy_note">सटीकता केवल अभ्यास के अंकित प्रयासों पर आधारित है। अपलोड अंकित नहीं होते।</string>
+    <string name="insights_subject_header">विषय</string>
+    <string name="insights_accuracy_header">सटीकता</string>
+    <string name="insights_parent_rec">अभिभावक सुझाव</string>
+    <string name="insights_suggested_practice">सुझावित अभ्यास</string>
+    <string name="insights_finding_topic">सौंपने के लिए विषय खोज रहे हैं…</string>
+    <string name="insights_just_moment">एक पल…</string>
+    <string name="insights_assign_btn">सौंपें</string>
+    <string name="insights_assign_practice">अभ्यास सौंपें</string>
+    <string name="insights_assign_desc">%s को एक छोटा अभ्यास कार्य भेजें — यह उनकी कार्य सूची में दिखेगा।</string>
+    <string name="insights_change_btn">बदलें</string>
+    <string name="insights_choose_topic">विषय चुनें</string>
+    <string name="insights_choose_topic_desc">विषय चुनें, फिर अध्याय सौंपें।</string>
+    <string name="insights_chapters">अध्याय</string>
+    <string name="insights_no_chapters">इस विषय के लिए अभी पाठ्यक्रम में कोई अध्याय नहीं।</string>
+    <string name="insights_private_note">यह रिपोर्ट निजी है और केवल आपको दिखती है।</string>
+
+    <!-- Subject Detail -->
+    <string name="subject_quiz_attempts">प्रश्नोत्तरी प्रयास</string>
+    <string name="subject_written_answers">लिखित उत्तर</string>
+    <string name="subject_class_work">कक्षा कार्य</string>
+    <string name="subject_self_study">स्वअध्ययन</string>
+    <string name="subject_learning_title">%s की पढ़ाई</string>
+
+    <!-- Activity Detail -->
+    <string name="activity_submitted_badge">जमा किया</string>
+    <string name="activity_filter_quiz">प्रश्नोत्तरी</string>
+    <string name="activity_filter_write">उत्तर लिखें</string>
+    <string name="activity_filter_school_hw">स्कूल गृहकार्य</string>
+
+    <!-- Parent Task Detail -->
+    <string name="task_detail_from_child">आपके बच्चे का अनुरोध</string>
+    <string name="task_detail_study_request">आपका बच्चा यह पढ़ना चाहता है</string>
+    <string name="task_custom_question">आप उन्हें क्या करवाना चाहते हैं?</string>
+    <string name="task_num_questions">प्रश्नों की संख्या</string>
+    <string name="task_detail_submitted">आपके बच्चे ने यह काम जमा किया</string>
+    <string name="task_detail_quiz_score">प्रश्नोत्तरी अंक</string>
+    <string name="task_detail_photos">अपलोड की गई तस्वीरें</string>
+    <string name="task_detail_note_hint">बच्चे के लिए नोट (स्वीकार के लिए वैकल्पिक, दोबारा के लिए जरूरी)</string>
+    <string name="task_detail_comment_hint">एक छोटी टिप्पणी लिखें…</string>
+    <string name="task_ask_redo_btn">दोबारा करने को कहें</string>
+    <string name="task_accept_btn">स्वीकार करें</string>
+</resources>
