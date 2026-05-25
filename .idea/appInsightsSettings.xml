@@ -27,8 +27,8 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.dobi.app" />
-                  <option name="mobileSdkAppId" value="1:257748044595:android:36111205973c29ff3fcc46" />
+                  <option name="appId" value="in.eduksha.app" />
+                  <option name="mobileSdkAppId" value="1:257748044595:android:4569bb772c0bbdac3fcc46" />
                   <option name="projectId" value="dobi-ac085" />
                   <option name="projectNumber" value="257748044595" />
                 </ConnectionSetting>
