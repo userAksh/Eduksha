@@ -1,6 +1,7 @@
 package com.dobi.app.feature.parenthome
 
 import android.app.Activity
+import android.content.ContextWrapper
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -312,7 +313,9 @@ fun ParentSettingsTab(
                     coroutineScope.launch {
                         langSheetState.hide()
                         showLanguagePicker = false
-                        (context as? Activity)?.recreate()
+                        var ctx = context
+                        while (ctx is ContextWrapper && ctx !is Activity) ctx = ctx.baseContext
+                        (ctx as? Activity)?.recreate()
                     }
                 },
             )

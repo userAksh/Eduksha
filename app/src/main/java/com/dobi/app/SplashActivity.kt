@@ -1,12 +1,16 @@
 package com.dobi.app
 
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import com.dobi.app.data.local.LanguagePreference
+import java.util.Locale
 import androidx.activity.ComponentActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
@@ -48,6 +52,15 @@ class SplashActivity : ComponentActivity() {
 
     @Inject lateinit var auth: FirebaseAuth
     @Inject lateinit var userRepository: UserRepository
+
+    override fun attachBaseContext(newBase: Context) {
+        val lang = LanguagePreference.get(newBase)
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val config = Configuration(newBase.resources.configuration)
+        config.setLocale(locale)
+        super.attachBaseContext(newBase.createConfigurationContext(config))
+    }
 
     private var handedOff = false
     @Volatile private var splashHoldReleased = false

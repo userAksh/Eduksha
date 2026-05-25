@@ -30,8 +30,8 @@ android {
         applicationId = "in.eduksha.app"
         minSdk = 24
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.0.2"
+        versionCode = 7
+        versionName = "1.0.6"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -69,6 +69,13 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+    bundle {
+        language {
+            // App supports in-app language switching; disable language splits
+            // so Hindi strings are delivered to all devices regardless of system locale.
+            enableSplit = false
+        }
     }
 }
 
