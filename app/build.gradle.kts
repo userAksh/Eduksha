@@ -140,6 +140,14 @@ dependencies {
     // friend-invite shares to the new install on first launch.
     implementation("com.android.installreferrer:installreferrer:2.2")
 
+    // Shared KMP module
+    implementation(project(":shared"))
+
+    // GitLive Firebase KMP SDK — declared directly so Hilt/KSP can resolve the types
+    // used in DI modules that provide shared repository implementations.
+    implementation("dev.gitlive:firebase-firestore:1.13.0")
+    implementation("dev.gitlive:firebase-functions:1.13.0")
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

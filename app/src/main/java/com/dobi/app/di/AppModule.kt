@@ -20,12 +20,11 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Provides
-    @Singleton
+    @Provides @Singleton
     fun provideDataStore(@ApplicationContext context: Context): DataStore<Preferences> =
         context.dataStore
 
-    @Provides
-    @Singleton
+    // Google Firebase Functions — still used by InviteRepositoryImpl.
+    @Provides @Singleton
     fun provideFirebaseFunctions(): FirebaseFunctions = Firebase.functions
 }

@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Dobi"
 include(":app")
+include(":shared")
  

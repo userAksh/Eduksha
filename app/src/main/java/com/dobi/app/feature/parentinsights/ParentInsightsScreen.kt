@@ -517,7 +517,7 @@ private fun SubjectRow(s: SubjectInsight, modifier: Modifier = Modifier) {
                 )
             }
             if (s.accuracyPct != null) {
-                AccuracyPill(s.accuracyPct)
+                AccuracyPill(s.accuracyPct!!)
             }
         }
     }
@@ -600,7 +600,7 @@ private fun ActivityRow(item: ActivityItem, modifier: Modifier = Modifier) {
                 )
             }
             if (item.accuracyPct != null) {
-                AccuracyPill(item.accuracyPct)
+                AccuracyPill(item.accuracyPct!!)
             }
         }
     }

@@ -3,11 +3,9 @@ package com.dobi.app.domain.usecase
 import com.dobi.app.domain.model.Concept
 import com.dobi.app.domain.repository.ConceptRepository
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
-class GetConceptsUseCase @Inject constructor(
+class GetConceptByIdUseCase(
     private val repository: ConceptRepository
 ) {
-    operator fun invoke(grade: Int, board: String): Flow<List<Concept>> =
-        repository.getConcepts(grade, board)
+    operator fun invoke(id: String): Flow<Concept?> = repository.getConceptById(id)
 }

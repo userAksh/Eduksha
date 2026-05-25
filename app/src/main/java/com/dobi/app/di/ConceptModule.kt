@@ -2,17 +2,18 @@ package com.dobi.app.di
 
 import com.dobi.app.data.repository.ConceptRepositoryImpl
 import com.dobi.app.domain.repository.ConceptRepository
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class ConceptModule {
+object ConceptModule {
 
-    @Binds
-    @Singleton
-    abstract fun bindConceptRepository(impl: ConceptRepositoryImpl): ConceptRepository
+    @Provides @Singleton
+    fun provideConceptRepository(
+        firestore: dev.gitlive.firebase.firestore.FirebaseFirestore
+    ): ConceptRepository = ConceptRepositoryImpl(firestore)
 }

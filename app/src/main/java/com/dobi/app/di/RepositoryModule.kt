@@ -22,6 +22,7 @@ import com.dobi.app.domain.repository.StreakShareRepository
 import com.dobi.app.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
@@ -30,61 +31,39 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
 
-    @Binds
-    @Singleton
+    @Binds @Singleton
     abstract fun bindUserRepository(impl: UserRepositoryImpl): UserRepository
 
-    @Binds
-    @Singleton
-    abstract fun bindMcqGenerationRepository(
-        impl: McqGenerationRepositoryImpl
-    ): McqGenerationRepository
+    @Binds @Singleton
+    abstract fun bindMcqGenerationRepository(impl: McqGenerationRepositoryImpl): McqGenerationRepository
 
-    @Binds
-    @Singleton
-    abstract fun bindWriteAnswerRepository(
-        impl: WriteAnswerRepositoryImpl
-    ): WriteAnswerRepository
+    @Binds @Singleton
+    abstract fun bindWriteAnswerRepository(impl: WriteAnswerRepositoryImpl): WriteAnswerRepository
 
-    @Binds
-    @Singleton
-    abstract fun bindStreakShareRepository(
-        impl: StreakShareRepositoryImpl
-    ): StreakShareRepository
+    @Binds @Singleton
+    abstract fun bindStreakShareRepository(impl: StreakShareRepositoryImpl): StreakShareRepository
 
-    @Binds
-    @Singleton
-    abstract fun bindFriendSnapsRepository(
-        impl: FriendSnapsRepositoryImpl
-    ): FriendSnapsRepository
+    @Binds @Singleton
+    abstract fun bindParentTaskRepository(impl: ParentTaskRepositoryImpl): ParentTaskRepository
 
-    @Binds
-    @Singleton
-    abstract fun bindParentTaskRepository(
-        impl: ParentTaskRepositoryImpl
-    ): ParentTaskRepository
+    @Binds @Singleton
+    abstract fun bindFcmTokenRepository(impl: FcmTokenRepositoryImpl): FcmTokenRepository
 
-    @Binds
-    @Singleton
-    abstract fun bindFcmTokenRepository(
-        impl: FcmTokenRepositoryImpl
-    ): FcmTokenRepository
+    @Binds @Singleton
+    abstract fun bindInviteRepository(impl: InviteRepositoryImpl): InviteRepository
 
-    @Binds
-    @Singleton
-    abstract fun bindInviteRepository(
-        impl: InviteRepositoryImpl
-    ): InviteRepository
+    companion object {
+        @Provides @Singleton
+        fun provideFriendSnapsRepository(): FriendSnapsRepository = FriendSnapsRepositoryImpl()
 
-    @Binds
-    @Singleton
-    abstract fun bindDailyNewsRepository(
-        impl: DailyNewsRepositoryImpl
-    ): DailyNewsRepository
+        @Provides @Singleton
+        fun provideDailyNewsRepository(
+            functions: dev.gitlive.firebase.functions.FirebaseFunctions
+        ): DailyNewsRepository = DailyNewsRepositoryImpl(functions)
 
-    @Binds
-    @Singleton
-    abstract fun bindDeleteAccountRepository(
-        impl: DeleteAccountRepositoryImpl
-    ): DeleteAccountRepository
+        @Provides @Singleton
+        fun provideDeleteAccountRepository(
+            functions: dev.gitlive.firebase.functions.FirebaseFunctions
+        ): DeleteAccountRepository = DeleteAccountRepositoryImpl(functions)
+    }
 }

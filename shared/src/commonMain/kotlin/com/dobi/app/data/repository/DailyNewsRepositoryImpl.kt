@@ -1,22 +1,13 @@
 package com.dobi.app.data.repository
 
-import android.util.Log
 import com.dobi.app.domain.model.DailyNewsStory
 import com.dobi.app.domain.repository.DailyNewsRepository
-import com.google.firebase.functions.FirebaseFunctions
-import kotlinx.coroutines.suspendCancellableCoroutine
-import javax.inject.Inject
-import javax.inject.Singleton
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
+import dev.gitlive.firebase.functions.FirebaseFunctions
 
-@Singleton
-class DailyNewsRepositoryImpl @Inject constructor(
+class DailyNewsRepositoryImpl(
     private val functions: FirebaseFunctions
 ) : DailyNewsRepository {
 
-    // In-memory cache: stories change once per day server-side; caching for the
-    // process lifetime means the Cloud Function is only called once per app session.
     private var sessionCache: List<DailyNewsStory>? = null
 
     override suspend fun fetchDailyNews(): Result<List<DailyNewsStory>> {
@@ -25,11 +16,9 @@ class DailyNewsRepositoryImpl @Inject constructor(
     }
 
     private suspend fun fetchFromNetwork(): Result<List<DailyNewsStory>> = runCatching {
-        val result = await {
-            functions.getHttpsCallable("getDailyNews").call(emptyMap<String, Any>())
-        }
+        val result = functions.httpsCallable("getDailyNews").invoke(emptyMap<String, Any>())
         @Suppress("UNCHECKED_CAST")
-        val payload = result.data as? Map<String, Any?>
+        val payload = result.data<Any>() as? Map<String, Any?>
             ?: error("getDailyNews returned no payload")
         @Suppress("UNCHECKED_CAST")
         val rawStories = payload["stories"] as? List<Map<String, Any?>>
@@ -47,17 +36,4 @@ class DailyNewsRepositoryImpl @Inject constructor(
             )
         }
     }.onSuccess { sessionCache = it }
-        .onFailure { Log.w(TAG, "fetchDailyNews failed", it) }
-
-    private suspend fun <T> await(
-        block: () -> com.google.android.gms.tasks.Task<T>
-    ): T = suspendCancellableCoroutine { cont ->
-        block()
-            .addOnSuccessListener { cont.resume(it) }
-            .addOnFailureListener { cont.resumeWithException(it) }
-    }
-
-    companion object {
-        private const val TAG = "DailyNewsRepository"
-    }
 }
