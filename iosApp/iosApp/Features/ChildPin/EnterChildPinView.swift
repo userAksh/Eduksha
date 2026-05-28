@@ -2,7 +2,7 @@ import SwiftUI
 
 struct EnterChildPinView: View {
     let childName: String
-    var onVerify: (String) -> Void
+    var onVerify: (String, @escaping (Bool) -> Void) -> Void
     var onForgotPin: () -> Void
     var onBack: () -> Void
 
@@ -86,14 +86,22 @@ struct EnterChildPinView: View {
     private func handleKey(_ key: KeypadKey) {
         switch key {
         case .digit(let d):
-            guard pin.count < 4 else { return }
+            guard pin.count < 4, !isVerifying else { return }
             pin += d
             showError = false
             if pin.count == 4 {
                 isVerifying = true
-                onVerify(pin)
+                let entered = pin
+                onVerify(entered) { success in
+                    isVerifying = false
+                    if !success {
+                        showError = true
+                        pin = ""
+                    }
+                }
             }
         case .backspace:
+            guard !isVerifying else { return }
             if !pin.isEmpty { pin.removeLast() }
             showError = false
         }
@@ -151,7 +159,7 @@ private struct NumericKeypad: View {
 #Preview {
     EnterChildPinView(
         childName: "Aarav",
-        onVerify: { _ in },
+        onVerify: { _, completion in completion(true) },
         onForgotPin: {},
         onBack: {}
     )

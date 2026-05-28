@@ -5,11 +5,17 @@ struct ChildProfile: Identifiable {
     let name: String
     let grade: String
     let board: String
-    var gender: String = "male"  // "male" | "female" — from Firestore field
+    var gender: String = "male"
+    var pin: String = ""
 }
 
-private let avatarEmojis   = ["👦", "👧", "🧒", "👶", "🐣"]
-private let avatarBgColors: [Color] = [.dobiPastelSkyBlue, .dobiPastelMint, .dobiPastelLavender, .dobiPastelYellow, .dobiPastelPink]
+private let cardPalette: [(bg: Color, accent: Color, emoji: String)] = [
+    (Color(hex: 0xDBEAFE), Color(hex: 0x1D4ED8), "👦"),
+    (Color(hex: 0xFCE7F3), Color(hex: 0xBE185D), "👧"),
+    (Color(hex: 0xD1FAE5), Color(hex: 0x047857), "🧒"),
+    (Color(hex: 0xFEF3C7), Color(hex: 0xB45309), "👦"),
+    (Color(hex: 0xEDE9FE), Color(hex: 0x6D28D9), "👧"),
+]
 
 struct SelectChildView: View {
     let children: [ChildProfile]
@@ -19,7 +25,7 @@ struct SelectChildView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // ── Blue header ───────────────────────────────────────────────
+            // Blue header
             ZStack {
                 Color.dobiPrimary.ignoresSafeArea(edges: .top)
                 VStack(spacing: 10) {
@@ -28,7 +34,6 @@ struct SelectChildView: View {
                         .fill(Color.white.opacity(0.2))
                         .frame(width: 56, height: 56)
                         .overlay(Text("👨‍👩‍👧‍👦").font(.system(size: 32)))
-
                     Text("Select Profile")
                         .font(.dobiTitle2())
                         .foregroundStyle(.white)
@@ -40,10 +45,8 @@ struct SelectChildView: View {
             }
             .frame(height: 200)
 
-            // ── Children list ─────────────────────────────────────────────
             ZStack {
                 Color.dobiPageBg.ignoresSafeArea()
-
                 if isLoading {
                     ProgressView().padding(.top, 60)
                 } else if let error {
@@ -77,33 +80,32 @@ private struct ChildCard: View {
     let index: Int
     let onTap: () -> Void
 
-    private var emoji: String { avatarEmojis[index % avatarEmojis.count] }
-    private var bgColor: Color { avatarBgColors[index % avatarBgColors.count] }
+    private var palette: (bg: Color, accent: Color, emoji: String) { cardPalette[index % cardPalette.count] }
 
     var body: some View {
         DobiCard(cornerRadius: 20) {
             HStack(spacing: 16) {
-                EmojiAvatar(emoji: emoji, size: 60, background: bgColor)
+                EmojiAvatar(emoji: palette.emoji, size: 60, background: palette.bg)
 
                 VStack(alignment: .leading, spacing: 6) {
                     Text(child.name)
                         .font(.dobiBodyBold())
                         .foregroundStyle(Color.dobiTextPrimary)
                     HStack(spacing: 6) {
-                        DobiChip(label: "Class \(child.grade)", background: .dobiPastelLavender, foreground: Color(hex: 0x4B50B0))
-                        DobiChip(label: child.board, background: .dobiPastelMint, foreground: Color(hex: 0x16733A))
+                        DobiChip(label: "Class \(child.grade)", background: palette.bg, foreground: palette.accent)
+                        DobiChip(label: child.board, background: palette.bg, foreground: palette.accent)
                     }
                 }
 
                 Spacer()
 
                 Circle()
-                    .fill(bgColor)
-                    .frame(width: 44, height: 44)
+                    .fill(palette.accent)
+                    .frame(width: 38, height: 38)
                     .overlay(
                         Image(systemName: "arrow.right")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundStyle(Color.dobiTextSecondary)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(.white)
                     )
             }
             .padding(.horizontal, 18)

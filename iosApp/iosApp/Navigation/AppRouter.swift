@@ -159,7 +159,14 @@ struct AppRootView: View {
         case .enterChildPin(let child):
             EnterChildPinView(
                 childName: child.name.components(separatedBy: " ").first ?? child.name,
-                onVerify: { _ in router.push(.childHome(childId: child.id, childName: child.name)) },
+                onVerify: { enteredPin, completion in
+                    if child.pin.isEmpty || enteredPin == child.pin {
+                        completion(true)
+                        router.push(.childHome(childId: child.id, childName: child.name))
+                    } else {
+                        completion(false)
+                    }
+                },
                 onForgotPin: {},
                 onBack: { router.pop() }
             )
@@ -174,8 +181,10 @@ struct AppRootView: View {
                 onNavigateToStreakHome: {
                     router.push(.streakHome(childName: childName.components(separatedBy: " ").first ?? childName))
                 },
+                onNavigateToParentTask: { taskId in router.push(.parentTaskDetail(taskId: taskId)) },
                 onRequestParentAccess: { router.popToRoot() }
             )
+            .environmentObject(appState)
 
         case .parentHome:
             ParentHomeView(

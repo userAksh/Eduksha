@@ -622,8 +622,7 @@ private extension ChildProfile {
         else { return nil }
         let board = d["board"] as? String ?? "CBSE"
         let gender = d["gender"] as? String ?? "male"
-        let parentId = d["parentId"] as? String ?? ""
-        self.init(id: doc.documentID, name: name, grade: grade, board: board, gender: gender)
-        _ = parentId // suppress unused warning; stored in Firestore but not needed in model
+        let pin = d["pin"] as? String ?? ""
+        self.init(id: doc.documentID, name: name, grade: grade, board: board, gender: gender, pin: pin)
     }
 }
