@@ -87,35 +87,37 @@ private struct ChildCard: View {
     private var palette: (bg: Color, accent: Color, emoji: String) { cardPalette[index % cardPalette.count] }
 
     var body: some View {
-        DobiCard(cornerRadius: 20) {
-            HStack(spacing: 16) {
-                EmojiAvatar(emoji: palette.emoji, size: 60, background: palette.bg)
+        Button(action: onTap) {
+            DobiCard(cornerRadius: 20) {
+                HStack(spacing: 16) {
+                    EmojiAvatar(emoji: palette.emoji, size: 60, background: palette.bg)
 
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(child.name)
-                        .font(.dobiBodyBold())
-                        .foregroundStyle(Color.dobiTextPrimary)
-                    HStack(spacing: 6) {
-                        DobiChip(label: "Class \(child.grade)", background: palette.bg, foreground: palette.accent)
-                        DobiChip(label: child.board, background: palette.bg, foreground: palette.accent)
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(child.name)
+                            .font(.dobiBodyBold())
+                            .foregroundStyle(Color.dobiTextPrimary)
+                        HStack(spacing: 6) {
+                            DobiChip(label: "Class \(child.grade)", background: palette.bg, foreground: palette.accent)
+                            DobiChip(label: child.board, background: palette.bg, foreground: palette.accent)
+                        }
                     }
+
+                    Spacer()
+
+                    Circle()
+                        .fill(palette.accent)
+                        .frame(width: 38, height: 38)
+                        .overlay(
+                            Image(systemName: "arrow.right")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundStyle(.white)
+                        )
                 }
-
-                Spacer()
-
-                Circle()
-                    .fill(palette.accent)
-                    .frame(width: 38, height: 38)
-                    .overlay(
-                        Image(systemName: "arrow.right")
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundStyle(.white)
-                    )
+                .padding(.horizontal, 18)
+                .padding(.vertical, 16)
             }
-            .padding(.horizontal, 18)
-            .padding(.vertical, 16)
         }
-        .onTapGesture { onTap() }
+        .buttonStyle(.plain)
     }
 }
 
