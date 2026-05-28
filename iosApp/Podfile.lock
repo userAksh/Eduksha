@@ -1194,7 +1194,24 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.37):
     - BoringSSL-GRPC/Interface (= 0.0.37)
   - BoringSSL-GRPC/Interface (0.0.37)
+  - Firebase/Auth (11.15.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 11.15.0)
+  - Firebase/CoreOnly (11.15.0):
+    - FirebaseCore (~> 11.15.0)
+  - Firebase/Firestore (11.15.0):
+    - Firebase/CoreOnly
+    - FirebaseFirestore (~> 11.15.0)
   - FirebaseAppCheckInterop (11.15.0)
+  - FirebaseAuth (11.15.0):
+    - FirebaseAppCheckInterop (~> 11.0)
+    - FirebaseAuthInterop (~> 11.0)
+    - FirebaseCore (~> 11.15.0)
+    - FirebaseCoreExtension (~> 11.15.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 8.1)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GTMSessionFetcher/Core (< 5.0, >= 3.4)
+    - RecaptchaInterop (~> 101.0)
   - FirebaseAuthInterop (11.15.0)
   - FirebaseCore (11.15.0):
     - FirebaseCoreInternal (~> 11.15.0)
@@ -1234,14 +1251,27 @@ PODS:
     - GTMSessionFetcher/Core (< 5.0, >= 3.4)
   - FirebaseMessagingInterop (11.15.0)
   - FirebaseSharedSwift (11.15.0)
+  - GoogleUtilities/AppDelegateSwizzler (8.1.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+    - GoogleUtilities/Privacy
   - GoogleUtilities/Environment (8.1.0):
     - GoogleUtilities/Privacy
   - GoogleUtilities/Logger (8.1.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Privacy
+  - GoogleUtilities/Network (8.1.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Privacy
+    - GoogleUtilities/Reachability
   - "GoogleUtilities/NSData+zlib (8.1.0)":
     - GoogleUtilities/Privacy
   - GoogleUtilities/Privacy (8.1.0)
+  - GoogleUtilities/Reachability (8.1.0):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
   - "gRPC-C++ (1.69.0)":
     - "gRPC-C++/Implementation (= 1.69.0)"
     - "gRPC-C++/Interface (= 1.69.0)"
@@ -1341,18 +1371,23 @@ PODS:
     - nanopb/encode (= 3.30910.0)
   - nanopb/decode (3.30910.0)
   - nanopb/encode (3.30910.0)
+  - RecaptchaInterop (101.0.0)
   - shared (1.0):
     - FirebaseFirestore (~> 11.0)
     - FirebaseFunctions (~> 11.0)
 
 DEPENDENCIES:
+  - Firebase/Auth
+  - Firebase/Firestore
   - shared (from `../shared`)
 
 SPEC REPOS:
   trunk:
     - abseil
     - BoringSSL-GRPC
+    - Firebase
     - FirebaseAppCheckInterop
+    - FirebaseAuth
     - FirebaseAuthInterop
     - FirebaseCore
     - FirebaseCoreExtension
@@ -1368,6 +1403,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - RecaptchaInterop
 
 EXTERNAL SOURCES:
   shared:
@@ -1376,7 +1412,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   abseil: a05cc83bf02079535e17169a73c5be5ba47f714b
   BoringSSL-GRPC: dded2a44897e45f28f08ae87a55ee4bcd19bc508
+  Firebase: d99ac19b909cd2c548339c2241ecd0d1599ab02e
   FirebaseAppCheckInterop: 06fe5a3799278ae4667e6c432edd86b1030fa3df
+  FirebaseAuth: a6575e5fbf46b046c58dc211a28a5fbdd8d4c83b
   FirebaseAuthInterop: 7087d7a4ee4bc4de019b2d0c240974ed5d89e2fd
   FirebaseCore: efb3893e5b94f32b86e331e3bd6dadf18b66568e
   FirebaseCoreExtension: edbd30474b5ccf04e5f001470bdf6ea616af2435
@@ -1392,8 +1430,9 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: fc75fc972958dceedee61cb662ae1da7a83a91cf
   leveldb-library: cc8b8f8e013647a295ad3f8cd2ddf49a6f19be19
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
+  RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
   shared: 66b56e1280b2d4ae72aaa80131383bc406b370be
 
-PODFILE CHECKSUM: eb2e322eb6823dcd3359b2534f92dfbc2e1a0c90
+PODFILE CHECKSUM: 773ced727dbddc20133196bfb97e31c8a4f6e9b7
 
 COCOAPODS: 1.16.2

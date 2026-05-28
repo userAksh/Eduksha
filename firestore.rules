@@ -21,17 +21,24 @@ service cloud.firestore {
     }
 
     match /parents/{parentId} {
-      allow read, write: if request.auth != null && request.auth.uid == parentId;
+      // TEMP: unauthenticated reads allowed for iOS simulator dev (no Firebase Auth on sim)
+      // TODO: revert to `request.auth != null && request.auth.uid == parentId` before shipping
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == parentId;
 
       match /children/{childId} {
-        allow read, write: if request.auth != null && request.auth.uid == parentId;
+        allow read: if true;
+        allow write: if request.auth != null && request.auth.uid == parentId;
       }
     }
 
     // Parent-task contracts live in a top-level collection so both the
     // parent and the linked child device can read/write the same doc.
     match /parentTaskRequests/{taskId} {
-      allow read, write: if request.auth != null
+      // TEMP: unauthenticated reads allowed for iOS simulator dev (no Firebase Auth on sim)
+      // TODO: revert to auth-gated read before shipping
+      allow read: if true;
+      allow write: if request.auth != null
         && resource != null
         && request.auth.uid == resource.data.parentId;
       // Allow the create when the doc is brand-new (resource == null) and
@@ -54,35 +61,46 @@ service cloud.firestore {
 
     // Child-keyed activity collections. The doc must carry a `childId`
     // belonging to the caller.
+    // TEMP: unauthenticated reads allowed for iOS simulator dev (no Firebase Auth on sim)
+    // TODO: revert to isParentOf(...) reads before shipping
     match /uploads/{id} {
       allow create: if isParentOf(request.resource.data.childId);
-      allow read, update, delete: if isParentOf(resource.data.childId);
+      allow read: if true;
+      allow update, delete: if isParentOf(resource.data.childId);
     }
 
     match /homeworks/{id} {
       allow create: if isParentOf(request.resource.data.childId);
-      allow read, update, delete: if isParentOf(resource.data.childId);
+      allow read: if true;
+      allow update, delete: if isParentOf(resource.data.childId);
     }
 
     match /subjective_results/{id} {
       allow create: if isParentOf(request.resource.data.childId);
-      allow read, update, delete: if isParentOf(resource.data.childId);
+      allow read: if true;
+      allow update, delete: if isParentOf(resource.data.childId);
     }
 
     // quiz_attempts/{childId}/{units|concepts}/{targetId} subtree.
     // The `document=**` recursive wildcard catches every depth under the
     // child id, including the (possibly absent) parent doc itself.
+    // TEMP: unauthenticated reads allowed for iOS simulator dev (no Firebase Auth on sim)
+    // TODO: revert to isParentOf(childId) reads before shipping
     match /quiz_attempts/{childId} {
-      allow read, write: if isParentOf(childId);
+      allow read: if true;
+      allow write: if isParentOf(childId);
     }
     match /quiz_attempts/{childId}/{document=**} {
-      allow read, write: if isParentOf(childId);
+      allow read: if true;
+      allow write: if isParentOf(childId);
     }
 
     // Curriculum content: read-only for any signed-in user. Seeding is
     // admin-only via Firebase Console / Admin SDK (which bypasses rules).
+    // TEMP: unauthenticated reads allowed for iOS simulator dev (no Firebase Auth on sim)
+    // TODO: revert to `request.auth != null` before shipping
     match /concepts/{conceptId} {
-      allow read: if request.auth != null;
+      allow read: if true;
       allow write: if false;
     }
 
