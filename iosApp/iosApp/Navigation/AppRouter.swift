@@ -50,7 +50,11 @@ enum AppDestination: Hashable {
 final class AppRouter: ObservableObject {
     @Published var path = NavigationPath()
 
-    func push(_ dest: AppDestination) { path.append(dest) }
+    func push(_ dest: AppDestination) {
+        NSLog("[AppRouter.push] dest=\(dest) pathBefore=\(path.count)")
+        path.append(dest)
+        NSLog("[AppRouter.push] pathAfter=\(path.count)")
+    }
     func pop() { if !path.isEmpty { path.removeLast() } }
     func popToRoot() { path = NavigationPath() }
     func replace(with dest: AppDestination) { path = NavigationPath(); path.append(dest) }
@@ -153,10 +157,15 @@ struct AppRootView: View {
         case .selectChild(let children):
             SelectChildView(
                 children: children,
-                onSelect: { child in router.push(.enterChildPin(child: child)) }
+                onSelect: { child in
+                    NSLog("[AppRouter] onSelect → pushing enterChildPin for id=\(child.id) pathCount=\(router.path.count)")
+                    router.push(.enterChildPin(child: child))
+                    NSLog("[AppRouter] after push pathCount=\(router.path.count)")
+                }
             )
 
         case .enterChildPin(let child):
+            let _ = NSLog("[AppRouter] building EnterChildPinView for child=\(child.name)")
             EnterChildPinView(
                 childName: child.name.components(separatedBy: " ").first ?? child.name,
                 onVerify: { enteredPin, completion in

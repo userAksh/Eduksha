@@ -63,12 +63,16 @@ struct SelectChildView: View {
                         VStack(spacing: 12) {
                             Spacer().frame(height: 20)
                             ForEach(Array(children.enumerated()), id: \.element.id) { index, child in
-                                ChildCard(child: child, index: index, onTap: { onSelect(child) })
+                                ChildCard(child: child, index: index, onTap: {
+                                    NSLog("[SelectChild] onSelect called for child id=\(child.id) name=\(child.name)")
+                                    onSelect(child)
+                                })
                             }
                             Spacer().frame(height: 24)
                         }
                         .padding(.horizontal, 20)
                     }
+                    .onAppear { NSLog("[SelectChild] showing \(children.count) children") }
                 }
             }
             .clipShape(UnevenRoundedRectangle(topLeadingRadius: 28, topTrailingRadius: 28))
@@ -87,7 +91,10 @@ private struct ChildCard: View {
     private var palette: (bg: Color, accent: Color, emoji: String) { cardPalette[index % cardPalette.count] }
 
     var body: some View {
-        Button(action: onTap) {
+        Button(action: {
+            NSLog("[ChildCard] Button tapped for child=\(child.name)")
+            onTap()
+        }) {
             DobiCard(cornerRadius: 20) {
                 HStack(spacing: 16) {
                     EmojiAvatar(emoji: palette.emoji, size: 60, background: palette.bg)
