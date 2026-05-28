@@ -24,7 +24,11 @@ struct SelectChildView: View {
     var onSelect: (ChildProfile) -> Void
 
     var body: some View {
-        VStack(spacing: 0) {
+        // VStack(spacing: -28) makes the white sheet overlap the blue header by 28px
+        // while keeping layout + touch targets aligned with the visual position.
+        // Using offset(y: -28) instead would misalign the touch targets (offset moves
+        // visual only; spacing moves both visual and layout).
+        VStack(spacing: -28) {
             // Blue header
             ZStack {
                 Color.dobiPrimary.ignoresSafeArea(edges: .top)
@@ -69,7 +73,7 @@ struct SelectChildView: View {
             }
             .clipShape(UnevenRoundedRectangle(topLeadingRadius: 28, topTrailingRadius: 28))
             .ignoresSafeArea(edges: .bottom)
-            .offset(y: -28)
+            .zIndex(1)
         }
         .navigationBarHidden(true)
     }
