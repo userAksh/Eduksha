@@ -79,7 +79,7 @@ struct ParentTaskDetailView: View {
                     .frame(width: 36, height: 36)
             }
             .buttonStyle(.plain)
-            Text("Task from your child")
+            Text("Request from your child")
                 .font(.system(size: 17, weight: .bold))
                 .foregroundStyle(PTTextPrim)
             Spacer()

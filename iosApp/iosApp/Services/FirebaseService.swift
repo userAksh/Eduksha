@@ -2,9 +2,9 @@ import Foundation
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseFunctions
+import FirebaseStorage
 
-// UIViewController already implements present/dismiss — this makes it usable as Firebase's uiDelegate
-extension UIViewController: @retroactive AuthUIDelegate {}
 
 // MARK: - FirebaseService
 // Thin wrapper around Firebase Auth + Firestore for the parent auth flow.
@@ -19,41 +19,59 @@ final class FirebaseService {
     // MARK: Phone Auth
 
     func sendOTP(phone: String) async throws -> String {
+        NSLog("[OTP] sendOTP called, phone=\(phone), isMainThread=\(Thread.isMainThread)")
         #if targetEnvironment(simulator)
-        // Firebase 11's PhoneAuthProvider has an internal isMainThread assertion that fires even
-        // when called from the main thread, because it internally creates a Task with @isolated(any)
-        // that runs on the cooperative pool. There is no call-site fix — it's a Firebase 11 bug.
-        // On simulator we bypass phone auth entirely and return a stub verification ID.
-        NSLog("[OTP] Simulator: skipping Firebase phone auth, returning stub ID for \(phone)")
-        try await Task.sleep(nanoseconds: 400_000_000) // simulate network latency
+        NSLog("[OTP] Simulator path — returning stub ID")
+        try await Task.sleep(nanoseconds: 400_000_000)
         return "SIMULATOR_VID_\(phone)"
         #else
-        let rootVC = UIApplication.shared.connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .first?.windows
-            .first(where: \.isKeyWindow)?
-            .rootViewController
-        return try await withCheckedThrowingContinuation { continuation in
-            DispatchQueue.main.async {
-                PhoneAuthProvider.provider().verifyPhoneNumber(phone, uiDelegate: rootVC) { verificationID, error in
-                    if let error {
-                        continuation.resume(throwing: error)
-                    } else if let verificationID {
-                        continuation.resume(returning: verificationID)
-                    } else {
-                        continuation.resume(throwing: NSError(domain: "PhoneAuth", code: -1,
-                            userInfo: [NSLocalizedDescriptionKey: "No verification ID returned"]))
-                    }
-                }
-            }
+        NSLog("[OTP] Device path — calling REST API (bypassing Firebase SDK crash on iOS 26)")
+        // Firebase SDK 11.15.0 crashes on iOS 26 inside verifyPhoneNumber — it reads
+        // UIWindowScene.windows before checking isAppVerificationDisabledForTesting, hitting a
+        // nil force-unwrap. Bypass the SDK entirely and call the REST API directly.
+        // Firebase backend accepts recaptchaToken:"recaptchaToken" as a test-bypass sentinel
+        // and allows configured test phone numbers (e.g. +919999999999) through without real SMS.
+        let apiKey = "AIzaSyCR8kR8CvANrCgKgGbAJyzYXnYS-pd3lVA"
+        guard let url = URL(string: "https://identitytoolkit.googleapis.com/v1/accounts:sendVerificationCode?key=\(apiKey)") else {
+            NSLog("[OTP] ERROR: Bad URL")
+            throw NSError(domain: "PhoneAuth", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bad URL"])
         }
+        NSLog("[OTP] Building request for \(phone)")
+        var req = URLRequest(url: url)
+        req.httpMethod = "POST"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let body: [String: Any] = ["phoneNumber": phone, "recaptchaToken": "recaptchaToken"]
+        req.httpBody = try JSONSerialization.data(withJSONObject: body)
+        NSLog("[OTP] Sending REST request...")
+        let (data, response) = try await URLSession.shared.data(for: req)
+        let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? -1
+        let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8>"
+        NSLog("[OTP] REST response status=\(httpStatus) body=\(rawBody)")
+        if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+           let sessionInfo = json["sessionInfo"] as? String {
+            NSLog("[OTP] SUCCESS — got sessionInfo (len=\(sessionInfo.count))")
+            return sessionInfo
+        }
+        let msg: String
+        if let errJson = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+           let errObj = errJson["error"] as? [String: Any],
+           let errMsg = errObj["message"] as? String {
+            msg = errMsg
+        } else {
+            msg = rawBody
+        }
+        NSLog("[OTP] FAILED — error: \(msg)")
+        throw NSError(domain: "PhoneAuth", code: httpStatus, userInfo: [NSLocalizedDescriptionKey: msg])
         #endif
     }
 
     func verifyOTP(verificationID: String, code: String) async throws -> String {
+        NSLog("[OTP] verifyOTP called, vidLen=\(verificationID.count) code=\(code) isMainThread=\(Thread.isMainThread)")
         let credential = PhoneAuthProvider.provider()
             .credential(withVerificationID: verificationID, verificationCode: code)
+        NSLog("[OTP] credential created, calling signIn...")
         let result = try await Auth.auth().signIn(with: credential)
+        NSLog("[OTP] signIn succeeded, uid=\(result.user.uid)")
         return result.user.uid
     }
 
@@ -132,6 +150,389 @@ final class FirebaseService {
         return snap.documents.compactMap { StudyGoalsConcept(from: $0) }
     }
 
+    func getConceptById(conceptId: String) async throws -> StudyGoalsConcept? {
+        let doc = try await db.collection("concepts").document(conceptId).getDocument()
+        guard doc.exists, let data = doc.data() else { return nil }
+        // Wrap as QueryDocumentSnapshot is not possible; parse manually
+        let subject = data["subject"] as? String ?? ""
+        guard !subject.trimmingCharacters(in: .whitespaces).isEmpty else { return nil }
+        return StudyGoalsConcept(
+            id: doc.documentID,
+            subject: subject.trimmingCharacters(in: .whitespaces),
+            subjectColor: data["subjectColor"] as? String ?? "#3B7BFF",
+            subjectIcon: data["subjectIcon"] as? String ?? "📚",
+            unit: data["unit"] as? String ?? "",
+            unitId: data["unitId"] as? String ?? "",
+            name: data["name"] as? String ?? "",
+            description: data["description"] as? String ?? "",
+            order: data["order"] as? Int ?? 0,
+            unitOrder: data["unitOrder"] as? Int ?? 0
+        )
+    }
+
+    func isRevisionMarked(childId: String, conceptId: String) async -> Bool {
+        if Auth.auth().currentUser == nil { try? await Auth.auth().signInAnonymously() }
+        let docId = "\(childId)_concept_\(conceptId)"
+        let doc = try? await db.collection("revision_marks").document(docId).getDocument()
+        return doc?.exists == true
+    }
+
+    @discardableResult
+    func toggleRevisionMark(
+        childId: String, conceptId: String, conceptName: String,
+        subject: String, subjectColor: String, subjectIcon: String,
+        unitId: String, unitName: String
+    ) async -> Bool {
+        if Auth.auth().currentUser == nil { try? await Auth.auth().signInAnonymously() }
+        let docId = "\(childId)_concept_\(conceptId)"
+        let ref = db.collection("revision_marks").document(docId)
+        let existing = (try? await ref.getDocument())?.exists == true
+        if existing {
+            try? await ref.delete()
+            return false
+        } else {
+            let now = Int64(Date().timeIntervalSince1970 * 1000)
+            try? await ref.setData([
+                "id": docId,
+                "childId": childId,
+                "scope": "concept",
+                "targetId": conceptId,
+                "name": conceptName,
+                "subject": subject,
+                "subjectColor": subjectColor,
+                "subjectIcon": subjectIcon,
+                "unitId": unitId,
+                "unitName": unitName,
+                "markedAt": now
+            ])
+            return true
+        }
+    }
+
+    func hasConceptActivity(childId: String, conceptId: String) async -> Bool {
+        // Check uploads collection
+        if let snap = try? await db.collection("uploads")
+            .whereField("childId", isEqualTo: childId)
+            .whereField("conceptId", isEqualTo: conceptId)
+            .getDocuments(), !snap.documents.isEmpty {
+            return true
+        }
+        // Check quiz_attempts/{childId}/concepts/{conceptId}
+        if let doc = try? await db.collection("quiz_attempts")
+            .document(childId)
+            .collection("concepts")
+            .document(conceptId)
+            .getDocument(),
+           doc.exists,
+           let attempts = doc.data()?["attempts"] as? Int,
+           attempts > 0 {
+            return true
+        }
+        return false
+    }
+
+    func saveConceptCompletion(childId: String, conceptId: String, difficulty: String, mode: String) async {
+        let now = Int64(Date().timeIntervalSince1970 * 1000)
+        try? await db.collection("completions").addDocument(data: [
+            "childId": childId,
+            "conceptId": conceptId,
+            "effort": difficulty,
+            "mode": mode,
+            "timestamp": now
+        ])
+    }
+
+    func isUnitRevisionMarked(childId: String, unitId: String) async -> Bool {
+        if Auth.auth().currentUser == nil { try? await Auth.auth().signInAnonymously() }
+        let docId = "\(childId)_unit_\(unitId)"
+        let doc = try? await db.collection("revision_marks").document(docId).getDocument()
+        return doc?.exists == true
+    }
+
+    @discardableResult
+    func toggleUnitRevisionMark(
+        childId: String, unitId: String, unitName: String,
+        subject: String, subjectColor: String, subjectIcon: String
+    ) async -> Bool {
+        if Auth.auth().currentUser == nil { try? await Auth.auth().signInAnonymously() }
+        let docId = "\(childId)_unit_\(unitId)"
+        let ref = db.collection("revision_marks").document(docId)
+        let existing = (try? await ref.getDocument())?.exists == true
+        if existing {
+            try? await ref.delete()
+            return false
+        } else {
+            let now = Int64(Date().timeIntervalSince1970 * 1000)
+            try? await ref.setData([
+                "id": docId, "childId": childId, "scope": "unit",
+                "targetId": unitId, "name": unitName, "subject": subject,
+                "subjectColor": subjectColor, "subjectIcon": subjectIcon,
+                "unitId": unitId, "unitName": unitName, "markedAt": now
+            ])
+            return true
+        }
+    }
+
+    func hasUnitActivity(childId: String, unitId: String) async -> Bool {
+        if let snap = try? await db.collection("uploads")
+            .whereField("childId", isEqualTo: childId)
+            .whereField("unitId", isEqualTo: unitId)
+            .getDocuments(), !snap.documents.isEmpty { return true }
+        if let doc = try? await db.collection("quiz_attempts")
+            .document(childId).collection("units").document(unitId).getDocument(),
+           doc.exists,
+           let attempts = doc.data()?["attempts"] as? Int, attempts > 0 { return true }
+        return false
+    }
+
+    func saveUnitCompletion(childId: String, unitId: String, conceptIds: [String], difficulty: String, mode: String) async {
+        let now = Int64(Date().timeIntervalSince1970 * 1000)
+        try? await db.collection("completions").addDocument(data: [
+            "childId": childId, "unitId": unitId,
+            "conceptIds": conceptIds, "effort": difficulty,
+            "mode": mode, "timestamp": now
+        ])
+    }
+
+    func generateQuizQuestions(
+        conceptId: String, conceptName: String, conceptDescription: String,
+        subject: String, grade: Int, unitName: String
+    ) async throws -> [McqQuestion] {
+        // On simulator, phone auth (APNs) doesn't work — sign in anonymously to get
+        // a real Firebase auth token so Cloud Functions accept the request.
+        #if targetEnvironment(simulator)
+        if Auth.auth().currentUser == nil {
+            try await Auth.auth().signInAnonymously()
+        }
+        #endif
+        let fn = Functions.functions().httpsCallable("generateMcq")
+        let data: [String: Any] = [
+            "conceptId": conceptId,
+            "conceptName": conceptName,
+            "conceptDescription": conceptDescription,
+            "subject": subject,
+            "grade": grade,
+            "unitName": unitName,
+            "targetCount": 10
+        ]
+        let result = try await fn.call(data)
+        guard let dict = result.data as? [String: Any],
+              let rawQuestions = dict["questions"] as? [[String: Any]] else {
+            throw NSError(domain: "Quiz", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid response from generateMcq"])
+        }
+        let parsed = rawQuestions.compactMap { m -> McqQuestion? in
+            guard let text = m["text"] as? String,
+                  let options = m["options"] as? [String],
+                  options.count == 4 else { return nil }
+            return McqQuestion(
+                id: m["id"] as? String ?? UUID().uuidString,
+                text: text,
+                options: options,
+                correctIndex: (m["correctIndex"] as? Int) ?? 0,
+                explanation: m["explanation"] as? String ?? ""
+            )
+        }
+        if parsed.isEmpty {
+            throw NSError(domain: "Quiz", code: -2, userInfo: [NSLocalizedDescriptionKey: "No valid questions in response"])
+        }
+        return parsed
+    }
+
+    func saveQuizAttempt(
+        childId: String, conceptId: String, correct: Int, total: Int,
+        selections: [Int: Int], displayName: String = "", subject: String = "",
+        questions: [McqQuestion] = []
+    ) async {
+        let now = Int64(Date().timeIntervalSince1970 * 1000)
+        let ref = db.collection("quiz_attempts").document(childId)
+            .collection("concepts").document(conceptId)
+        let selectionsStr = selections.sorted { $0.key < $1.key }
+            .map { "\($0.key):\($0.value)" }.joined(separator: ",")
+        let encodedQuestions: [[String: Any]] = questions.map { q in
+            ["id": q.id, "text": q.text, "options": q.options,
+             "correctIndex": Int64(q.correctIndex), "explanation": q.explanation]
+        }
+        try? await ref.setData([
+            "attempts": FieldValue.increment(Int64(1)),
+            "lastCorrect": correct,
+            "lastTotal": total,
+            "lastUpdated": now,
+            "selections": selectionsStr,
+            "displayName": displayName,
+            "subject": subject,
+            "lastQuestions": encodedQuestions
+        ], merge: true)
+    }
+
+    func fetchAttemptCount(childId: String, id: String, isUnit: Bool) async -> Int {
+        let sub = isUnit ? "units" : "concepts"
+        guard let doc = try? await db.collection("quiz_attempts")
+            .document(childId).collection(sub).document(id).getDocument(),
+              doc.exists,
+              let attempts = doc.data()?["attempts"] as? Int
+        else { return 0 }
+        return attempts
+    }
+
+    struct QuizAttemptSummary {
+        let attempts: Int
+        let lastCorrect: Int
+        let lastTotal: Int
+        let accuracyPct: Int
+        let lastUpdated: Int64
+    }
+
+    func fetchQuizAttemptSummary(childId: String, conceptId: String, unitId: String) async -> QuizAttemptSummary? {
+        let (sub, docId): (String, String) = conceptId.isEmpty ? ("units", unitId) : ("concepts", conceptId)
+        guard !docId.isEmpty else { return nil }
+        guard let doc = try? await db.collection("quiz_attempts")
+            .document(childId).collection(sub).document(docId).getDocument(),
+              doc.exists, let d = doc.data() else { return nil }
+        let attempts = d["attempts"] as? Int ?? 0
+        guard attempts > 0 else { return nil }
+        let lastCorrect = d["lastCorrect"] as? Int ?? 0
+        let lastTotal = d["lastTotal"] as? Int ?? 0
+        let lastUpdated = longMillis(d["lastUpdated"])
+        let pct = lastTotal > 0 ? Int(Double(lastCorrect) / Double(lastTotal) * 100) : 0
+        return QuizAttemptSummary(attempts: attempts, lastCorrect: lastCorrect, lastTotal: lastTotal,
+                                  accuracyPct: pct, lastUpdated: lastUpdated)
+    }
+
+    func listenQuizAttempts(childId: String, onChange: @escaping () -> Void) -> [ListenerRegistration] {
+        let base = db.collection("quiz_attempts").document(childId)
+        return ["concepts", "units"].map { sub in
+            base.collection(sub).addSnapshotListener { _, _ in onChange() }
+        }
+    }
+
+    func uploadConceptWork(
+        childId: String, conceptId: String, kind: String,
+        unitId: String, unitName: String, conceptName: String,
+        subject: String, subjectColor: String, subjectIcon: String,
+        topic: String = "",
+        dateMillis: Int64 = 0,
+        images: [UIImage]
+    ) async -> Bool {
+        var photoURLs: [String] = []
+        for image in images {
+            guard let data = image.jpegData(compressionQuality: 0.8) else { continue }
+            // Android path: uploads/{childId}/{uuid}.jpg
+            let path = "uploads/\(childId)/\(UUID().uuidString).jpg"
+            let ref = Storage.storage().reference().child(path)
+            do {
+                _ = try await ref.putDataAsync(data)
+                let url = try await ref.downloadURL()
+                photoURLs.append(url.absoluteString)
+            } catch {
+                NSLog("[FirebaseService] storage upload failed: \(error)")
+            }
+        }
+        guard !photoURLs.isEmpty else { return false }
+        let timestamp = dateMillis > 0 ? dateMillis : Int64(Date().timeIntervalSince1970 * 1000)
+        let docRef = db.collection("uploads").document()
+        try? await docRef.setData([
+            "id": docRef.documentID,
+            "childId": childId,
+            "kind": kind,
+            "subject": subject,
+            "subjectColor": subjectColor,
+            "subjectIcon": subjectIcon,
+            "unitId": unitId,
+            "unitName": unitName,
+            "conceptId": conceptId,
+            "conceptName": conceptName,
+            "topic": topic,
+            "photoUrls": photoURLs,
+            "timestamp": timestamp,
+            "createdAt": FieldValue.serverTimestamp()
+        ])
+        return true
+    }
+
+    // Mirrors Android HomeworkLogViewModel: saves to "homeworks" + mirrors to "uploads"
+    func saveHomework(
+        childId: String,
+        subject: String,
+        teacherName: String,
+        chapterName: String,
+        dateMillis: Int64,
+        images: [UIImage]
+    ) async -> String? {
+        var photoURLs: [String] = []
+        for image in images {
+            guard let data = image.jpegData(compressionQuality: 0.8) else { continue }
+            // Android path: homework_photos/{childId}/{uuid}.jpg
+            let path = "homework_photos/\(childId)/\(UUID().uuidString).jpg"
+            let ref = Storage.storage().reference().child(path)
+            do {
+                _ = try await ref.putDataAsync(data)
+                let url = try await ref.downloadURL()
+                photoURLs.append(url.absoluteString)
+            } catch {
+                NSLog("[FirebaseService] homework storage upload failed: \(error)")
+                return "Couldn't upload photos. Please check your connection and try again."
+            }
+        }
+        guard !photoURLs.isEmpty else { return "No photos were uploaded." }
+
+        let isoDate: String = {
+            let fmt = DateFormatter()
+            fmt.dateFormat = "yyyy-MM-dd"
+            return fmt.string(from: Date(timeIntervalSince1970: Double(dateMillis) / 1000))
+        }()
+
+        // 1. Save to "homeworks" collection
+        do {
+            try await db.collection("homeworks").addDocument(data: [
+                "childId": childId,
+                "subject": subject,
+                "teacherName": teacherName,
+                "chapterName": chapterName,
+                "date": isoDate,
+                "photoUrls": photoURLs,
+                "timestamp": dateMillis
+            ])
+        } catch {
+            return "Couldn't save homework. Please try again."
+        }
+
+        // 2. Mirror to "uploads" with kind="homework" (so it shows in Revisit Past Topics)
+        let (color, icon) = subjectStyleFor(subject)
+        let topic = chapterName.isEmpty
+            ? "Homework — \(isoDate)"
+            : "\(chapterName) — Homework"
+        let uploadRef = db.collection("uploads").document()
+        try? await uploadRef.setData([
+            "id": uploadRef.documentID,
+            "childId": childId,
+            "kind": "homework",
+            "subject": subject,
+            "subjectColor": color,
+            "subjectIcon": icon,
+            "unitId": "",
+            "unitName": "",
+            "conceptId": "",
+            "conceptName": "",
+            "topic": topic,
+            "photoUrls": photoURLs,
+            "timestamp": dateMillis,
+            "createdAt": FieldValue.serverTimestamp()
+        ])
+        return nil  // success
+    }
+
+    private func subjectStyleFor(_ subject: String) -> (color: String, icon: String) {
+        switch subject {
+        case "Science":        return ("#22C55E", "🔬")
+        case "Mathematics":    return ("#3B82F6", "🔢")
+        case "English":        return ("#EC4899", "📖")
+        case "Social Science": return ("#F59E0B", "🌍")
+        case "Hindi":          return ("#EF4444", "✍️")
+        case "Sanskrit":       return ("#8B5CF6", "📜")
+        default:               return ("#94A3B8", "📘")
+        }
+    }
+
     func getActiveParentTask(parentUID: String, childId: String) async throws -> StudyGoalsActiveTask? {
         let activeStatuses = ["REQUESTED", "ASSIGNED", "PENDING_REVIEW", "REJECTED"]
         let snap = try await db.collection("parentTaskRequests")
@@ -157,6 +558,32 @@ final class FirebaseService {
         let ref = db.collection("parentTaskRequests").document()
         try await ref.setData(data)
         return ref.documentID
+    }
+
+    func requestFromChild(
+        parentId: String, childId: String,
+        unitId: String, unitName: String,
+        conceptId: String, conceptName: String,
+        isUnitScope: Bool,
+        subject: String, subjectColor: String, subjectIcon: String
+    ) async throws {
+        let ref = db.collection("parentTaskRequests").document()
+        let now = Int64(Date().timeIntervalSince1970 * 1000)
+        try await ref.setData([
+            "id": ref.documentID,
+            "parentId": parentId,
+            "childId": childId,
+            "unitId": unitId,
+            "unitName": unitName,
+            "conceptId": conceptId,
+            "conceptName": conceptName,
+            "isUnitScope": isUnitScope,
+            "subject": subject,
+            "subjectColor": subjectColor,
+            "subjectIcon": subjectIcon,
+            "status": "REQUESTED",
+            "requestedAtMillis": now
+        ])
     }
 
     func sendParentTaskReminder(taskId: String) async throws {
@@ -300,7 +727,7 @@ final class FirebaseService {
                     category: .homeWork, title: title,
                     subject: subject, uploadKind: "school_homework",
                     timestamp: ts, score: nil, photoUrls: photos,
-                    detail: .homework(homeworkId: doc.documentID)
+                    detail: .homework(homeworkId: doc.documentID, photoUrls: photos)
                 ))
             }
         }
@@ -408,6 +835,7 @@ final class FirebaseService {
         let subject     = d["subject"]     as? String ?? ""
         let correct     = intVal(d["lastCorrect"])
         let total       = intVal(d["lastTotal"])
+        let attempts    = intVal(d["attempts"])
         let rawSelStr   = d["selections"]  as? String ?? ""
         let selections  = parseSelectionsStr(rawSelStr)
         let rawQ        = d["lastQuestions"] as? [[String: Any]] ?? []
@@ -423,7 +851,7 @@ final class FirebaseService {
             )
         }
         return ADQuizResult(displayName: displayName, subject: subject,
-                            correct: correct, total: total,
+                            correct: correct, total: total, attempts: attempts,
                             questions: questions, selections: selections)
     }
 
@@ -485,6 +913,11 @@ final class FirebaseService {
             if let v = d[key] as? Int64 { return Int(v) }
             return nil
         }
+        let rawQs = (d["assignedSubjectiveQs"] as? [[String: Any]]) ?? []
+        let subjQs = rawQs.compactMap { q -> ParentTaskQuestion? in
+            guard let text = q["text"] as? String else { return nil }
+            return ParentTaskQuestion(id: q["id"] as? String ?? UUID().uuidString, text: text)
+        }
         return ParentTaskFull(
             id: doc.documentID,
             childId: d["childId"] as? String ?? "",
@@ -494,6 +927,12 @@ final class FirebaseService {
             type: d["type"] as? String ?? "CUSTOM",
             status: d["status"] as? String ?? "REQUESTED",
             isUnitScope: d["isUnitScope"] as? Bool ?? true,
+            unitId: d["unitId"] as? String ?? "",
+            conceptId: d["conceptId"] as? String ?? "",
+            mcqCount: intField("mcqCount") ?? 5,
+            customNote: d["customNote"] as? String ?? "",
+            parentReviewNote: d["parentReviewNote"] as? String ?? "",
+            assignedSubjectiveQs: subjQs,
             submissionPhotoUrls: (d["submissionPhotoUrls"] as? [String]) ?? [],
             submissionScore: intField("submissionScore"),
             submissionTotal: intField("submissionTotal")
@@ -529,6 +968,46 @@ final class FirebaseService {
         ])
     }
 
+    // MARK: - Child-side task submission
+
+    func submitByChildPhotos(taskId: String, childId: String, images: [UIImage]) async throws {
+        if Auth.auth().currentUser == nil { try await Auth.auth().signInAnonymously() }
+        var photoURLs: [String] = []
+        for image in images {
+            guard let data = image.jpegData(compressionQuality: 0.82) else { continue }
+            // mirrors Android: uploads/<childId>/parenttask_<taskId>_<uuid>.jpg
+            // so the same Storage rules that allow self-learning uploads apply here
+            let path = "uploads/\(childId)/parenttask_\(taskId)_\(UUID().uuidString).jpg"
+            let ref = Storage.storage().reference().child(path)
+            _ = try await ref.putDataAsync(data)
+            let url = try await ref.downloadURL()
+            photoURLs.append(url.absoluteString)
+        }
+        guard !photoURLs.isEmpty else { throw URLError(.cannotParseResponse) }
+        try await db.collection("parentTaskRequests").document(taskId).updateData([
+            "status": "PENDING_REVIEW",
+            "submissionPhotoUrls": photoURLs,
+            "submittedAtMillis": Int64(Date().timeIntervalSince1970 * 1000)
+        ])
+    }
+
+    // Mirrors Android FcmTokenRepositoryImpl.writeToken() — stores token so the
+    // onParentTaskWrite Cloud Function can deliver pushes to this device.
+    func saveFcmToken(parentUID: String, token: String) async throws {
+        try await db.collection("parents").document(parentUID).setData(["fcmToken": token], merge: true)
+        NSLog("[FCM] Token saved to parents/\(parentUID)")
+    }
+
+    func submitByChildQuizScore(taskId: String, score: Int, total: Int) async throws {
+        try await db.collection("parentTaskRequests").document(taskId).updateData([
+            "status": "PENDING_REVIEW",
+            "submissionScore": score,
+            "submissionTotal": total,
+            "submissionPhotoUrls": [] as [String],
+            "submittedAtMillis": Int64(Date().timeIntervalSince1970 * 1000)
+        ])
+    }
+
     func listenParentTasks(parentUID: String, onChange: @escaping ([ParentTaskItem]) -> Void) -> ListenerRegistration {
         return db.collection("parentTaskRequests")
             .whereField("parentId", isEqualTo: parentUID)
@@ -539,20 +1018,307 @@ final class FirebaseService {
                     let unitName = d["unitName"] as? String ?? ""
                     let subject = d["subject"] as? String ?? ""
                     let displayName = unitName.isEmpty ? (subject.isEmpty ? "Current task" : subject) : unitName
+                    let taskType = d["type"] as? String ?? "CUSTOM"
                     return ParentTaskItem(
                         id: doc.documentID,
                         childId: childId,
                         subject: subject,
                         displayName: displayName,
                         subjectIcon: d["subjectIcon"] as? String ?? "📚",
-                        type: d["type"] as? String ?? "CUSTOM",
+                        type: taskType,
                         status: d["status"] as? String ?? "ASSIGNED",
+                        isUnitScope: d["isUnitScope"] as? Bool ?? (taskType != "OUR_QUESTIONS"),
+                        mcqCount: d["mcqCount"] as? Int ?? Int((d["mcqCount"] as? Double) ?? 5),
                         assignedAtMillis: (d["assignedAtMillis"] as? Int64) ?? Int64((d["assignedAtMillis"] as? Double) ?? 0),
-                        reminderSentAtMillis: (d["reminderSentAtMillis"] as? Int64) ?? Int64((d["reminderSentAtMillis"] as? Double) ?? 0)
+                        requestedAtMillis: (d["requestedAtMillis"] as? Int64) ?? Int64((d["requestedAtMillis"] as? Double) ?? 0),
+                        reminderSentAtMillis: (d["reminderSentAtMillis"] as? Int64) ?? Int64((d["reminderSentAtMillis"] as? Double) ?? 0),
+                        submittedAtMillis: (d["submittedAtMillis"] as? Int64) ?? Int64((d["submittedAtMillis"] as? Double) ?? 0),
+                        reviewedAtMillis: (d["reviewedAtMillis"] as? Int64) ?? Int64((d["reviewedAtMillis"] as? Double) ?? 0)
                     )
                 }
                 onChange(items)
             }
+    }
+
+    // MARK: Revision Marks
+
+    func listenRevisionMarks(childId: String, onChange: @escaping ([RevisionMarkItem]) -> Void) -> ListenerRegistration {
+        db.collection("revision_marks")
+            .whereField("childId", isEqualTo: childId)
+            .addSnapshotListener { snap, _ in
+                let marks = (snap?.documents ?? []).compactMap { doc -> RevisionMarkItem? in
+                    let d = doc.data()
+                    guard let name = d["name"] as? String, !name.isEmpty else { return nil }
+                    return RevisionMarkItem(
+                        id: doc.documentID,
+                        childId: d["childId"] as? String ?? "",
+                        scope: d["scope"] as? String ?? "concept",
+                        targetId: d["targetId"] as? String ?? "",
+                        name: name,
+                        subject: d["subject"] as? String ?? "",
+                        subjectColor: d["subjectColor"] as? String ?? "",
+                        subjectIcon: d["subjectIcon"] as? String ?? "",
+                        unitName: d["unitName"] as? String ?? "",
+                        markedAt: self.longMillis(d["markedAt"])
+                    )
+                }.sorted { $0.markedAt > $1.markedAt }
+                onChange(marks)
+            }
+    }
+
+    func unmarkRevision(childId: String, scope: String, targetId: String) {
+        let docId = "\(childId)_\(scope)_\(targetId)"
+        db.collection("revision_marks").document(docId).delete()
+    }
+
+    func fetchUploads(childId: String) async -> [UploadItem] {
+        // No composite index needed — whereField on childId only (single-field index auto-created),
+        // sort by timestamp client-side.
+        guard let snap = try? await db.collection("uploads")
+            .whereField("childId", isEqualTo: childId)
+            .limit(to: 200)
+            .getDocuments() else { return [] }
+        return snap.documents.compactMap { doc -> UploadItem? in
+            let d = doc.data()
+            return UploadItem(
+                id: doc.documentID,
+                childId: d["childId"] as? String ?? childId,
+                kind: d["kind"] as? String ?? "",
+                subject: d["subject"] as? String ?? "",
+                subjectColor: d["subjectColor"] as? String ?? "",
+                subjectIcon: d["subjectIcon"] as? String ?? "",
+                unitId: d["unitId"] as? String ?? "",
+                unitName: d["unitName"] as? String ?? "",
+                conceptId: d["conceptId"] as? String ?? "",
+                conceptName: d["conceptName"] as? String ?? "",
+                topic: d["topic"] as? String ?? "",
+                photoUrls: d["photoUrls"] as? [String] ?? [],
+                timestamp: longMillis(d["timestamp"])
+            )
+        }.sorted { $0.timestamp > $1.timestamp }
+    }
+
+    func fetchRevisionMarksOnce(childId: String) async -> [RevisionMarkItem] {
+        guard let snap = try? await db.collection("revision_marks")
+            .whereField("childId", isEqualTo: childId)
+            .getDocuments() else { return [] }
+        return snap.documents.compactMap { doc -> RevisionMarkItem? in
+            let d = doc.data()
+            guard let name = d["name"] as? String, !name.isEmpty else { return nil }
+            return RevisionMarkItem(
+                id: doc.documentID,
+                childId: d["childId"] as? String ?? childId,
+                scope: d["scope"] as? String ?? "concept",
+                targetId: d["targetId"] as? String ?? "",
+                name: name,
+                subject: d["subject"] as? String ?? "",
+                subjectColor: d["subjectColor"] as? String ?? "",
+                subjectIcon: d["subjectIcon"] as? String ?? "",
+                unitName: d["unitName"] as? String ?? "",
+                markedAt: longMillis(d["markedAt"])
+            )
+        }.sorted { $0.markedAt > $1.markedAt }
+    }
+
+    func sendReminderToParent(taskId: String) async {
+        let now = Int64(Date().timeIntervalSince1970 * 1000)
+        try? await db.collection("parentTaskRequests").document(taskId)
+            .updateData(["parentReminderSentAtMillis": now])
+    }
+
+    // MARK: Daily News (Cloud Function)
+
+    func fetchDailyNews() async -> Result<[CurrentAffairItem], Error> {
+        do {
+            if Auth.auth().currentUser == nil {
+                try await Auth.auth().signInAnonymously()
+            }
+            let callable = Functions.functions().httpsCallable("getDailyNews")
+            let result = try await callable.call([:] as [String: Any])
+            guard let payload = result.data as? [String: Any],
+                  let rawStories = payload["stories"] as? [[String: Any]] else {
+                return .failure(NSError(domain: "DailyNews", code: -1,
+                    userInfo: [NSLocalizedDescriptionKey: "Unexpected payload shape"]))
+            }
+            let stories = rawStories.enumerated().compactMap { (index, item) -> CurrentAffairItem? in
+                let headline = (item["headline"] as? String ?? "").trimmingCharacters(in: .whitespaces)
+                let body = (item["body"] as? String ?? "").trimmingCharacters(in: .whitespaces)
+                guard !headline.isEmpty, !body.isEmpty else { return nil }
+                return CurrentAffairItem(
+                    id: (item["id"] as? String ?? "").isEmpty ? "story-\(index + 1)" : (item["id"] as! String),
+                    headline: headline,
+                    category: (item["category"] as? String ?? "").isEmpty ? "Fun fact" : (item["category"] as! String),
+                    timeAgo: "Today",
+                    emoji: (item["emoji"] as? String ?? "").isEmpty ? "💡" : (item["emoji"] as! String),
+                    body: body
+                )
+            }
+            if stories.isEmpty {
+                return .failure(NSError(domain: "DailyNews", code: -2,
+                    userInfo: [NSLocalizedDescriptionKey: "The paper isn't ready yet. Try again in a moment."]))
+            }
+            return .success(stories)
+        } catch {
+            return .failure(error)
+        }
+    }
+
+    // MARK: Today's Learning items
+
+    func fetchTodayItems(childId: String, parentTasks: [ParentTaskItem]) async -> [TodayLearningEntry] {
+        let now = Int64(Date().timeIntervalSince1970 * 1000)
+        let cutoff = startOfTodayMillis()
+        var items: [TodayLearningEntry] = []
+
+        // 1. uploads — same as Android; homeworks collection is NOT used here
+        if let snap = try? await db.collection("uploads")
+            .whereField("childId", isEqualTo: childId)
+            .getDocuments() {
+            for doc in snap.documents {
+                let d = doc.data()
+                let kind = d["kind"] as? String ?? ""
+                let ts = longMillis(d["timestamp"])
+                guard ts >= cutoff else { continue }
+                let topic       = d["topic"]       as? String ?? ""
+                let conceptName = d["conceptName"] as? String ?? ""
+                let unitName    = d["unitName"]    as? String ?? ""
+                let subject     = d["subject"]     as? String ?? ""
+                let conceptId   = d["conceptId"]   as? String ?? ""
+                let unitId      = d["unitId"]      as? String ?? ""
+                let title = todayUploadTitle(topic: topic, conceptName: conceptName, unitName: unitName, kind: kind)
+                let groupKey: String
+                if !topic.isEmpty {
+                    groupKey = "tuition:\(subject.lowercased()):\(topic.lowercased())"
+                } else if !conceptId.isEmpty {
+                    groupKey = "concept:\(conceptId)"
+                } else if !unitId.isEmpty {
+                    groupKey = "unit:\(unitId)"
+                } else {
+                    groupKey = "unknown:\(doc.documentID)"
+                }
+                items.append(TodayLearningEntry(
+                    id: doc.documentID,
+                    kind: uploadKindToToday(kind),
+                    title: title,
+                    subject: subject,
+                    timeLabel: relativeTimeLabel(timestamp: ts, now: now),
+                    status: .completed,
+                    scoreLabel: nil,
+                    timestamp: ts,
+                    navTarget: .uploadGroup(groupKey: groupKey)
+                ))
+            }
+        }
+
+        // 2. subjective_results
+        if let snap = try? await db.collection("subjective_results")
+            .whereField("childId", isEqualTo: childId)
+            .getDocuments() {
+            for doc in snap.documents {
+                let d = doc.data()
+                let ts = longMillis(d["timestamp"])
+                guard ts >= cutoff else { continue }
+                let subject = d["subject"] as? String ?? ""
+                let displayName = d["displayName"] as? String ?? ""
+                let title = displayName.isEmpty ? "Write-answer session" : displayName
+                let correct = intVal(d["correctCount"])
+                let total   = intVal(d["attemptedCount"])
+                items.append(TodayLearningEntry(
+                    id: doc.documentID,
+                    kind: .quiz,
+                    title: title,
+                    subject: subject,
+                    timeLabel: relativeTimeLabel(timestamp: ts, now: now),
+                    status: .completed,
+                    scoreLabel: total > 0 ? "\(correct)/\(total)" : nil,
+                    timestamp: ts,
+                    navTarget: .subjective(resultId: doc.documentID)
+                ))
+            }
+        }
+
+        // 3. quiz_attempts (concepts + units)
+        for sub in ["concepts", "units"] {
+            if let snap = try? await db.collection("quiz_attempts")
+                .document(childId)
+                .collection(sub)
+                .getDocuments() {
+                for doc in snap.documents {
+                    let d = doc.data()
+                    let total = intVal(d["lastTotal"])
+                    guard intVal(d["attempts"]) > 0, total > 0 else { continue }
+                    let ts = longMillis(d["lastUpdated"])
+                    guard ts >= cutoff else { continue }
+                    let subject = d["subject"] as? String ?? ""
+                    let displayName = d["displayName"] as? String ?? ""
+                    let title = displayName.isEmpty ? "Quiz" : displayName
+                    let correct = intVal(d["lastCorrect"])
+                    let navTarget: TodayNavTarget = sub == "units"
+                        ? .quizResult(unitId: doc.documentID, conceptId: "")
+                        : .quizResult(unitId: "", conceptId: doc.documentID)
+                    items.append(TodayLearningEntry(
+                        id: "\(sub)_\(doc.documentID)",
+                        kind: .quiz,
+                        title: title,
+                        subject: subject,
+                        timeLabel: relativeTimeLabel(timestamp: ts, now: now),
+                        status: .completed,
+                        scoreLabel: total > 0 ? "\(correct)/\(total)" : nil,
+                        timestamp: ts,
+                        navTarget: navTarget
+                    ))
+                }
+            }
+        }
+
+        // 4. parent tasks — activityAt mirrors Android: maxOf(requestedAt, assignedAt, submittedAt, reviewedAt)
+        for task in parentTasks {
+            let activityAt = max(task.requestedAtMillis, max(task.assignedAtMillis, max(task.submittedAtMillis, task.reviewedAtMillis)))
+            guard activityAt >= cutoff else { continue }
+            let isCompleted = ["ACCEPTED", "COMPLETED"].contains(task.status)
+            let isPending   = ["ASSIGNED", "PENDING_REVIEW", "REJECTED", "REQUESTED"].contains(task.status)
+            guard isCompleted || isPending else { continue }
+            items.append(TodayLearningEntry(
+                id: "parent-\(task.id)",
+                kind: .task,
+                title: task.displayName.isEmpty ? "Parent task" : task.displayName,
+                subject: task.subject.isEmpty ? "Family" : task.subject,
+                timeLabel: relativeTimeLabel(timestamp: activityAt, now: now),
+                status: isCompleted ? .completed : .pending,
+                assignedByParent: true,
+                timestamp: activityAt,
+                navTarget: .parentTask(taskId: task.id)
+            ))
+        }
+
+        return items.sorted { $0.timestamp > $1.timestamp }
+    }
+
+    // Android uploadKindToToday: class_work/homework_log/homework → .homework, else → .task
+    private func uploadKindToToday(_ kind: String) -> TodayKind {
+        switch kind {
+        case "class_work", "homework_log", "homework": return .homework
+        default: return .task
+        }
+    }
+
+    private func todayUploadTitle(topic: String, conceptName: String, unitName: String, kind: String) -> String {
+        if !topic.isEmpty { return topic }
+        if !conceptName.isEmpty { return conceptName }
+        if !unitName.isEmpty { return unitName }
+        return kind.isEmpty ? "Untitled" : kind.replacingOccurrences(of: "_", with: " ").capitalized
+    }
+
+    func listenUploads(childId: String, onChange: @escaping () -> Void) -> ListenerRegistration {
+        db.collection("uploads")
+            .whereField("childId", isEqualTo: childId)
+            .addSnapshotListener { _, _ in onChange() }
+    }
+
+    func listenSubjectiveResults(childId: String, onChange: @escaping () -> Void) -> ListenerRegistration {
+        db.collection("subjective_results")
+            .whereField("childId", isEqualTo: childId)
+            .addSnapshotListener { _, _ in onChange() }
     }
 
     func listenChildren(parentUID: String, onChange: @escaping ([ChildProfile]) -> Void) -> ListenerRegistration {
@@ -585,6 +1351,16 @@ struct StudyGoalsConcept {
     let name: String
     let description: String
     let order: Int
+    let unitOrder: Int
+
+    init(id: String, subject: String, subjectColor: String, subjectIcon: String,
+         unit: String, unitId: String, name: String, description: String,
+         order: Int, unitOrder: Int) {
+        self.id = id; self.subject = subject; self.subjectColor = subjectColor
+        self.subjectIcon = subjectIcon; self.unit = unit; self.unitId = unitId
+        self.name = name; self.description = description
+        self.order = order; self.unitOrder = unitOrder
+    }
 
     init?(from doc: QueryDocumentSnapshot) {
         let d = doc.data()
@@ -598,6 +1374,7 @@ struct StudyGoalsConcept {
         self.name = d["name"] as? String ?? ""
         self.description = d["description"] as? String ?? ""
         self.order = d["order"] as? Int ?? 0
+        self.unitOrder = d["unitOrder"] as? Int ?? 0
     }
 }
 

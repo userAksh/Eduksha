@@ -55,7 +55,7 @@ struct PhoneAuthView: View {
                             Image(systemName: "person")
                                 .foregroundStyle(Color.dobiTextSecondary)
                                 .frame(width: 20)
-                            TextField("Your name", text: $name)
+                            TextField(text: $name, prompt: .dobiPlaceholder("Your name")) {}
                                 .font(.dobiBody())
                                 .autocorrectionDisabled()
                                 .textContentType(.name)
@@ -84,7 +84,7 @@ struct PhoneAuthView: View {
                                 .fill(Color(hex: 0xE3E8F0))
                                 .frame(width: 1, height: 30)
 
-                            TextField("10-digit mobile number", text: $phone)
+                            TextField(text: $phone, prompt: .dobiPlaceholder("10-digit mobile number")) {}
                                 .font(.dobiBody())
                                 .keyboardType(.numberPad)
                                 .padding(.horizontal, 14)

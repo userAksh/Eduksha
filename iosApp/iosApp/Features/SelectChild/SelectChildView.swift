@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ChildProfile: Identifiable {
+struct ChildProfile: Identifiable, Hashable {
     let id: String
     let name: String
     let grade: String
@@ -50,7 +50,11 @@ struct SelectChildView: View {
             .frame(height: 200)
 
             ZStack {
-                Color.dobiPageBg.ignoresSafeArea()
+                // Background with rounded top corners — applied as background, NOT clipShape,
+                // so the ZStack's hit-testing rectangle stays unclipped for the ScrollView buttons.
+                Color.dobiPageBg
+                    .clipShape(UnevenRoundedRectangle(topLeadingRadius: 28, topTrailingRadius: 28))
+                    .ignoresSafeArea(edges: .bottom)
                 if isLoading {
                     ProgressView().padding(.top, 60)
                 } else if let error {
@@ -75,7 +79,6 @@ struct SelectChildView: View {
                     .onAppear { NSLog("[SelectChild] showing \(children.count) children") }
                 }
             }
-            .clipShape(UnevenRoundedRectangle(topLeadingRadius: 28, topTrailingRadius: 28))
             .ignoresSafeArea(edges: .bottom)
             .zIndex(1)
         }
@@ -122,6 +125,8 @@ private struct ChildCard: View {
                 }
                 .padding(.horizontal, 18)
                 .padding(.vertical, 16)
+                // Spacer() inside HStack is transparent — contentShape makes the full row tappable
+                .contentShape(Rectangle())
             }
         }
         .buttonStyle(.plain)

@@ -8,6 +8,7 @@ struct ADQuizResult: Identifiable {
     let subject: String
     let correct: Int
     let total: Int
+    let attempts: Int
     let questions: [ADMcqQuestion]
     let selections: [Int: Int]   // questionIndex → selectedOptionIndex
 }
@@ -155,7 +156,7 @@ enum ActivityDetailRoute {
     case upload(groupKey: String, photoUrls: [String])
     case quizMcq(unitId: String, conceptId: String)
     case quizSubjective(resultId: String)
-    case homework(homeworkId: String)
+    case homework(homeworkId: String, photoUrls: [String])
 }
 
 struct ActivityLogItem: Identifiable {

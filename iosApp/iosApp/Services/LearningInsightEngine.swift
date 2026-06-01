@@ -217,7 +217,7 @@ private func topicKey(_ item: ActivityLogItem) -> String {
     case .upload(let groupKey, _):             return "upload:\(groupKey)"
     case .quizMcq(let unitId, let conceptId): return "quiz-mcq:\(unitId):\(conceptId)"
     case .quizSubjective(let resultId):        return "subjective:\(resultId)"
-    case .homework(let homeworkId):            return "homework:\(homeworkId)"
+    case .homework(let homeworkId, _):         return "homework:\(homeworkId)"
     }
 }
 

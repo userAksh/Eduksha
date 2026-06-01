@@ -1,6 +1,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseMessaging
 
 // MARK: - AppState
 // Single source of truth for auth state + parent data + children + engagement.
@@ -16,14 +17,20 @@ final class AppState: ObservableObject {
     @Published var weekActivities: [String: [DayActivity]] = [:]  // childId → Mon…Sun
     @Published var insights: [String: LearningInsight] = [:]      // childId → top insight
     @Published var parentTasks: [ParentTaskItem] = []             // all parent task requests
+    @Published var pendingTaskTap: (taskId: String, role: String)? = nil  // notification tap
 
     private let firebase = FirebaseService.shared
     private var authHandle: AuthStateDidChangeListenerHandle?
     private var childrenListener: ListenerRegistration?
     private var parentTasksListener: ListenerRegistration?
     private var aggregators: [String: EngagementAggregator] = [:]
+    private var latestFcmToken: String? = nil
+    private var fcmTokenObserver: Any?
+    private var taskTapObserver: Any?
 
     init() {
+        setupNotificationObservers()
+
         #if targetEnvironment(simulator)
         // Firebase Auth always has nil currentUser on simulator (we bypass phone auth with a
         // hardcoded UID). Registering the auth listener would fire uid=nil and call reset().
@@ -48,6 +55,10 @@ final class AppState: ObservableObject {
                     self.parentUID = uid
                     await self.loadParentProfile(uid: uid)
                     self.startListeningChildren(uid: uid)
+                    // Save whatever FCM token we already have (token may arrive before auth)
+                    if let token = self.latestFcmToken {
+                        Task { try? await self.firebase.saveFcmToken(parentUID: uid, token: token) }
+                    }
                 } else {
                     self.reset()
                 }
@@ -58,6 +69,8 @@ final class AppState: ObservableObject {
     deinit {
         if let h = authHandle { Auth.auth().removeStateDidChangeListener(h) }
         childrenListener?.remove()
+        if let obs = fcmTokenObserver { NotificationCenter.default.removeObserver(obs) }
+        if let obs = taskTapObserver  { NotificationCenter.default.removeObserver(obs) }
         // aggregators self-clean via their own deinit
     }
 
@@ -150,6 +163,28 @@ final class AppState: ObservableObject {
                 self.weekActivities[id] = bucketWeek(items: items)
                 self.insights[id] = computeLearningInsight(items: items)
             }
+        }
+    }
+
+    private func setupNotificationObservers() {
+        // FCM token: cache it and write to Firestore whenever we're authenticated
+        fcmTokenObserver = NotificationCenter.default.addObserver(
+            forName: .didReceiveFcmToken, object: nil, queue: .main
+        ) { [weak self] note in
+            guard let self, let token = note.object as? String else { return }
+            self.latestFcmToken = token
+            guard let uid = self.parentUID else { return }  // save immediately if already authed
+            Task { try? await self.firebase.saveFcmToken(parentUID: uid, token: token) }
+        }
+
+        // Notification tap: set pendingTaskTap so AppRootView can navigate
+        taskTapObserver = NotificationCenter.default.addObserver(
+            forName: .didTapTaskNotification, object: nil, queue: .main
+        ) { [weak self] note in
+            guard let info   = note.userInfo,
+                  let taskId = info["taskId"] as? String,
+                  let role   = info["role"]   as? String else { return }
+            self?.pendingTaskTap = (taskId: taskId, role: role)
         }
     }
 

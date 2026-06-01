@@ -407,7 +407,7 @@ private struct ACDetailsStep: View {
                         Image(systemName: "person.fill")
                             .foregroundStyle(Color.dobiTextSecondary)
                             .frame(width: 20)
-                        TextField("Enter child's name", text: $vm.draft.name)
+                        TextField(text: $vm.draft.name, prompt: .dobiPlaceholder("Enter child's name")) {}
                             .font(.system(size: 15))
                             .foregroundStyle(Color.dobiTextPrimary)
                             .autocorrectionDisabled()

@@ -12,7 +12,7 @@ private let ProgressTrack   = Color(hex: 0xE6EAF5)
 private let DobiSuccess     = Color(hex: 0x22C55E)
 private let DobiSuccessBg   = Color(hex: 0xDCFCE7)
 private let DobiPrimary     = Color(hex: 0x2F7DFF)
-private let DobiPrimarySoft = Color(hex: 0xDBEAFE)
+private let DobiPrimarySoft = Color(hex: 0xE8F1FF)  // matches Android DobiPastelSkyBlue
 private let DobiTextPrim    = Color(hex: 0x1A2B4A)
 private let DobiTextSec     = Color(hex: 0x6B7A99)
 private let DobiError       = Color(hex: 0xEF4444)
@@ -40,6 +40,7 @@ struct ParentHomeView: View {
     var onNavigateToInsights: (String) -> Void = { _ in }
     var onNavigateToStudyGoals: (String) -> Void = { _ in }
     var onNavigateToParentTask: (String) -> Void = { _ in }
+    var onNavigateToAllTasks: () -> Void = {}
     var onNavigateToActivityDetail: (String, String, String) -> Void = { _, _, _ in }
     var onSignOut: () -> Void = {}
 
@@ -64,6 +65,7 @@ struct ParentHomeView: View {
                         onEnterChildHome: onNavigateToChildHome,
                         onAddChild: onNavigateToAddChild,
                         onNavigateToParentTask: onNavigateToParentTask,
+                        onViewAllActionableTasks: onNavigateToAllTasks,
                         onSendReminder: appState.sendReminder
                     )
                 case .dashboard:
@@ -116,6 +118,7 @@ struct ParentChildrenTab: View {
     var onEnterChildHome: (String) -> Void
     var onAddChild: () -> Void
     var onNavigateToParentTask: (String) -> Void = { _ in }
+    var onViewAllActionableTasks: () -> Void = {}
     var onSendReminder: (String) -> Void = { _ in }
 
     private var childById: [String: ChildProfile] {
@@ -124,16 +127,30 @@ struct ParentChildrenTab: View {
 
     private var actionableTasks: [ParentTaskItem] {
         let now = Int64(Date().timeIntervalSince1970 * 1000)
-        let twentyFourH: Int64 = 24 * 60 * 60 * 1000
-        return parentTasks.filter { task in
-            switch task.status {
-            case "REQUESTED", "PENDING_REVIEW": return true
-            case "ASSIGNED":
-                return task.assignedAtMillis > 0 &&
-                       now - task.assignedAtMillis >= twentyFourH &&
-                       (task.reminderSentAtMillis == 0 || now - task.reminderSentAtMillis >= twentyFourH)
-            default: return false
+        let twelveH: Int64 = 12 * 60 * 60 * 1000
+        return parentTasks
+            .filter { task in
+                switch task.status {
+                case "REQUESTED", "PENDING_REVIEW": return true
+                case "ASSIGNED":
+                    return task.assignedAtMillis > 0 &&
+                           now - task.assignedAtMillis >= twelveH &&
+                           (task.reminderSentAtMillis == 0 || now - task.reminderSentAtMillis >= twelveH)
+                default: return false
+                }
             }
+            .sorted { actionableTimestamp($0) < actionableTimestamp($1) }
+    }
+
+    // The timestamp that represents "how long has this been waiting" — oldest = most urgent
+    private func actionableTimestamp(_ task: ParentTaskItem) -> Int64 {
+        switch task.status {
+        case "PENDING_REVIEW":
+            return task.submittedAtMillis > 0 ? task.submittedAtMillis : task.assignedAtMillis
+        case "REQUESTED":
+            return task.requestedAtMillis
+        default: // ASSIGNED stale
+            return task.reminderSentAtMillis > 0 ? task.reminderSentAtMillis : task.assignedAtMillis
         }
     }
 
@@ -170,7 +187,7 @@ struct ParentChildrenTab: View {
                                 moreCount: max(0, actionableTasks.count - 1),
                                 childName: childById[firstTask.childId]?.name ?? "",
                                 onTap: { onNavigateToParentTask(firstTask.id) },
-                                onViewAll: { onNavigateToParentTask(firstTask.id) },
+                                onViewAll: onViewAllActionableTasks,
                                 onSendReminder: { onSendReminder(firstTask.id) }
                             )
                             .padding(.horizontal, 20)
@@ -776,7 +793,7 @@ struct ParentDashboardTab: View {
                         .padding(.horizontal, 16)
                         DashWeeklyPattern(
                             firstName: child.name.components(separatedBy: " ").first ?? child.name,
-                            weekData: eng.weekDayKinds,
+                            weekData: week.map { $0.kind },
                             week: week,
                             onItemTap: { route in handleWeekTap(route, childId: child.id) }
                         )
@@ -808,7 +825,7 @@ struct ParentDashboardTab: View {
         }
         // Quiz result full-screen
         .fullScreenCover(item: $weekQuizResult) { result in
-            QuizResultView(result: result, onBack: { weekQuizResult = nil })
+            QuizResultView(result: result, isParentView: true, onBack: { weekQuizResult = nil })
         }
         // Subjective result sheet
         .sheet(isPresented: Binding(
@@ -833,6 +850,8 @@ struct ParentDashboardTab: View {
     private func handleWeekTap(_ route: ActivityDetailRoute, childId: String) {
         switch route {
         case .upload(_, let urls) where !urls.isEmpty:
+            weekPhotoUrls = urls
+        case .homework(_, let urls) where !urls.isEmpty:
             weekPhotoUrls = urls
         case .quizMcq(let unitId, let conceptId):
             Task {
@@ -883,7 +902,16 @@ private struct DashTopBar: View {
                 // Double-frame clip: scale image to 220pt then show only the bottom
                 // 170pt, hiding the built-in empty top whitespace in the asset.
                 ZStack {
-                    // Greeting at top-left (mirrors Android Column offset y=40dp)
+                    // Image behind — scale to 220pt, clip to bottom 170pt
+                    Image("dashboard_header_bg")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 220)
+                        .frame(height: 170, alignment: .bottom)
+                        .clipped()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+
+                    // Greeting on top so the image never obscures the text
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Hello! 👋")
                             .font(.system(size: 22, weight: .bold))
@@ -896,15 +924,6 @@ private struct DashTopBar: View {
                     .padding(.leading, 24)
                     .padding(.top, 36)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-
-                    // Scale to 220pt, clip to bottom 170pt → removes ~50pt of empty top whitespace
-                    Image("dashboard_header_bg")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 220)
-                        .frame(height: 170, alignment: .bottom)
-                        .clipped()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
                 }
                 .frame(height: 170)
                 .clipped()
@@ -1595,8 +1614,10 @@ private struct DayDetailSheet: View {
             }
         }
         .padding(.horizontal, 24)
-        .presentationDetents([.large])
+        .background(Color.white)
+        .presentationDetents([.fraction(0.92)])
         .presentationDragIndicator(.hidden)
+        .presentationBackgroundIfAvailable
     }
 }
 
@@ -1880,8 +1901,6 @@ struct ParentSettingsTab: View {
     @State private var weeklyReports = true
     @State private var whatsappReports = true
     @State private var selectedChildId = ""
-    @State private var showLanguagePicker = false
-    @AppStorage("selectedLanguage") private var selectedLanguage = "English"
 
     var body: some View {
         ScrollView {
@@ -1941,21 +1960,6 @@ struct ParentSettingsTab: View {
                             let id = selectedChildId.isEmpty ? (children.first?.id ?? "") : selectedChildId
                             onStudyGoals(id)
                         }
-                        SettingsDividerLine()
-                        SettingsRowItem(
-                            icon: "globe", iconTint: PrimaryBlue, iconBg: Color(hex: 0xEEF5FF),
-                            title: "Language",
-                            subtitle: "Choose app language"
-                        ) {
-                            HStack(spacing: 6) {
-                                Text(selectedLanguage == "Hindi" ? "हिंदी" : "English")
-                                    .font(.system(size: 13, weight: .semibold))
-                                    .foregroundStyle(PrimaryBlue)
-                                Image(systemName: "chevron.right")
-                                    .font(.system(size: 14))
-                                    .foregroundStyle(TertiaryText)
-                            }
-                        } onTap: { showLanguagePicker = true }
                     }
                     .padding(.horizontal, 16)
                 }
@@ -2023,11 +2027,6 @@ struct ParentSettingsTab: View {
         .onAppear { if selectedChildId.isEmpty { selectedChildId = children.first?.id ?? "" } }
         .onChange(of: children.map(\.id)) { ids in
             if selectedChildId.isEmpty, let first = ids.first { selectedChildId = first }
-        }
-        .sheet(isPresented: $showLanguagePicker) {
-            LanguagePickerSheet(selectedLanguage: $selectedLanguage)
-                .presentationDetents([.height(220)])
-                .presentationDragIndicator(.visible)
         }
     }
 }
@@ -2259,64 +2258,19 @@ private struct SettingsDividerLine: View {
     }
 }
 
+
 // ═══════════════════════════════════════════════════════════════════════════════
-// MARK: – Language picker sheet
+// MARK: – Compatibility helpers
 // ═══════════════════════════════════════════════════════════════════════════════
 
-private struct LanguagePickerSheet: View {
-    @Binding var selectedLanguage: String
-    @Environment(\.dismiss) private var dismiss
-
-    private let options: [(label: String, value: String)] = [
-        ("English", "English"),
-        ("हिंदी (Hindi)", "Hindi"),
-    ]
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Text("Choose Language")
-                    .font(.system(size: 17, weight: .bold))
-                    .foregroundStyle(PrimaryText)
-                Spacer()
-                Button { dismiss() } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 22))
-                        .foregroundStyle(TertiaryText)
-                }
-            }
-            .padding(.horizontal, 20)
-            .padding(.top, 20)
-            .padding(.bottom, 14)
-
-            Divider()
-
-            ForEach(options, id: \.value) { opt in
-                Button {
-                    selectedLanguage = opt.value
-                    dismiss()
-                } label: {
-                    HStack {
-                        Text(opt.label)
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(PrimaryText)
-                        Spacer()
-                        if selectedLanguage == opt.value {
-                            Image(systemName: "checkmark")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundStyle(PrimaryBlue)
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 16)
-                }
-                .buttonStyle(.plain)
-                if opt.value != options.last?.value {
-                    Divider().padding(.leading, 20)
-                }
-            }
+private extension View {
+    // .presentationBackground is iOS 16.4+; fall back gracefully on 16.0–16.3.
+    @ViewBuilder var presentationBackgroundIfAvailable: some View {
+        if #available(iOS 16.4, *) {
+            self.presentationBackground(.white)
+        } else {
+            self
         }
-        .background(Color.white)
     }
 }
 

@@ -4,25 +4,29 @@ import SwiftUI
 
 struct QuizResultView: View {
     let result: ADQuizResult
+    var isParentView: Bool = false
+    var onRetake: (() -> Void)? = nil
     var onBack: () -> Void = {}
+
+    private static let maxAttempts = 2
 
     private var percentInt: Int {
         result.total > 0 ? Int(Double(result.correct) / Double(result.total) * 100) : 0
     }
     private var scoreColor: Color {
         let pct = Double(percentInt) / 100.0
-        if pct >= 0.7 { return Color.dobiSuccess }     // DobiSuccess
-        if pct >= 0.4 { return Color(hex: 0xF59E0B) } // DobiWarning
+        if pct >= 0.7 { return Color.dobiSuccess }
+        if pct >= 0.4 { return Color(hex: 0xF59E0B) }
         return Color.dobiError
     }
     private var attempted: Int { result.selections.count }
+    private var isScoreOnly: Bool { result.questions.isEmpty }
+    private var canRetry: Bool { !isParentView && result.attempts < Self.maxAttempts }
 
     var body: some View {
         VStack(spacing: 0) {
-            // TopAppBar — "Quiz Result" with back arrow (matches Android Scaffold topBar)
             QRTopBar(onBack: onBack)
 
-            // Scrollable content — everything padded 20pt horizontally (matches Modifier.padding(horizontal=20.dp))
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     Spacer().frame(height: 8)
@@ -49,13 +53,22 @@ struct QuizResultView: View {
 
                     Spacer().frame(height: 20)
 
-                    ForEach(Array(result.questions.enumerated()), id: \.offset) { idx, q in
-                        QRQuestionCard(
-                            number: idx + 1,
-                            question: q,
-                            userPick: result.selections[idx]
-                        )
-                        Spacer().frame(height: 12)
+                    if isScoreOnly {
+                        Text("Question details are not available for this attempt.")
+                            .font(.system(size: 13))
+                            .foregroundStyle(Color.dobiTextSecondary)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity)
+                            .padding(.horizontal, 8)
+                    } else {
+                        ForEach(Array(result.questions.enumerated()), id: \.offset) { idx, q in
+                            QRQuestionCard(
+                                number: idx + 1,
+                                question: q,
+                                userPick: result.selections[idx]
+                            )
+                            Spacer().frame(height: 12)
+                        }
                     }
 
                     Spacer().frame(height: 8)
@@ -65,7 +78,13 @@ struct QuizResultView: View {
                 Spacer().frame(height: 100)
             }
 
-            QRResultActionBar(onDone: onBack, onAssign: {})
+            QRResultActionBar(
+                isParentView: isParentView,
+                canRetry: canRetry,
+                onRetake: onRetake,
+                onDone: onBack,
+                onAssign: {}
+            )
         }
         .background(Color.white.ignoresSafeArea())
         .navigationBarHidden(true)
@@ -351,34 +370,57 @@ private struct QRReviewPill: View {
     }
 }
 
-// MARK: - ResultActionBar  (Android: isParentView → outlined "Assign" + filled "Done")
+// MARK: - ResultActionBar
+// Android: isParentView → "Assign This Quiz to Child" outlined + "Done" filled
+//          child view  → "Retake Quiz" outlined (if canRetry) + "Done" filled
 
 private struct QRResultActionBar: View {
+    var isParentView: Bool = false
+    var canRetry: Bool = false
+    var onRetake: (() -> Void)? = nil
     let onDone: () -> Void
     let onAssign: () -> Void
 
     var body: some View {
         VStack(spacing: 12) {
-            // Outlined "Assign This Quiz to Child"
-            Button(action: onAssign) {
-                HStack(spacing: 8) {
-                    Image(systemName: "checkmark.rectangle.portrait")
-                        .font(.system(size: 18))
-                        .foregroundStyle(Color.dobiPrimary)
-                    Text("Assign This Quiz to Child")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundStyle(Color.dobiPrimary)
+            if isParentView {
+                Button(action: onAssign) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "checkmark.rectangle.portrait")
+                            .font(.system(size: 18))
+                            .foregroundStyle(Color.dobiPrimary)
+                        Text("Assign This Quiz to Child")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Color.dobiPrimary)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 52)
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .overlay(RoundedRectangle(cornerRadius: 16)
+                        .strokeBorder(Color.dobiPrimary, lineWidth: 1.5))
                 }
-                .frame(maxWidth: .infinity)
-                .frame(height: 52)
-                .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-                .overlay(RoundedRectangle(cornerRadius: 16)
-                    .strokeBorder(Color.dobiPrimary, lineWidth: 1.5))
+                .buttonStyle(.plain)
+            } else if canRetry, let retake = onRetake {
+                Button(action: retake) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "arrow.counterclockwise")
+                            .font(.system(size: 15))
+                            .foregroundStyle(Color.dobiPrimary)
+                        Text("Retake Quiz")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Color.dobiPrimary)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 52)
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .overlay(RoundedRectangle(cornerRadius: 16)
+                        .strokeBorder(Color.dobiPrimary, lineWidth: 1.5))
+                }
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
 
-            // Filled "Done"
             Button(action: onDone) {
                 Text("Done")
                     .font(.system(size: 15, weight: .semibold))

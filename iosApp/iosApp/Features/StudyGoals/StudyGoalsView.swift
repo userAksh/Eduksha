@@ -1,14 +1,6 @@
 import SwiftUI
 import FirebaseFirestore
 
-// MARK: - Domain models (local to this feature)
-
-struct McqQuestion {
-    let text: String
-    let options: [String]
-    let correctIndex: Int
-}
-
 struct SubjectiveQuestion {
     let text: String
     let expectedKeywords: [String]

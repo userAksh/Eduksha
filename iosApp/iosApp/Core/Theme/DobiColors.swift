@@ -1,5 +1,11 @@
 import SwiftUI
 
+extension Text {
+    static func dobiPlaceholder(_ text: String) -> Text {
+        Text(text).foregroundColor(Color.dobiTextSecondary)
+    }
+}
+
 extension Color {
     // Primary / Brand
     static let dobiPrimary       = Color(hex: 0x2F7DFF)

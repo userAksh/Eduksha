@@ -71,6 +71,8 @@ final class ActivityDetailViewModel: ObservableObject {
         switch item.detail {
         case .upload(_, let urls) where !urls.isEmpty:
             photoSheetUrls = urls
+        case .homework(_, let urls) where !urls.isEmpty:
+            photoSheetUrls = urls
         case .quizMcq(let unitId, let conceptId):
             Task { await loadQuizResult(unitId: unitId, conceptId: conceptId) }
         case .quizSubjective(let resultId):
@@ -179,7 +181,7 @@ struct ActivityDetailView: View {
             ADPhotoSheet(urls: vm.photoSheetUrls)
         }
         .fullScreenCover(item: $vm.quizSheet) { result in
-            QuizResultView(result: result, onBack: { vm.quizSheet = nil })
+            QuizResultView(result: result, isParentView: true, onBack: { vm.quizSheet = nil })
         }
         .overlay {
             if vm.quizSheetLoading {

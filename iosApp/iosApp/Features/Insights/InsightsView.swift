@@ -38,6 +38,7 @@ struct InsightsView: View {
     var childBoard: String = ""
     var childGender: String = "male"
     var engagement: ChildEngagement = .empty
+    var weekKinds: [DayKind] = Array(repeating: .none, count: 7)
     var onBack: () -> Void = {}
     var onStudyGoals: () -> Void = {}
     var onSubjectTap: (String) -> Void = { _ in }
@@ -46,12 +47,12 @@ struct InsightsView: View {
 
     private var firstName: String { childName.components(separatedBy: " ").first ?? childName }
 
-    // ── Derived stats from ChildEngagement ───────────────────────────────────
+    // ── Derived stats from correctly bucketed week kinds ─────────────────────
     private var revisionSessions: Int {
-        engagement.weekDayKinds.filter { $0 == .revision || $0 == .both }.count
+        weekKinds.filter { $0 == .revision || $0 == .both }.count
     }
     private var totalAttempts: Int {
-        engagement.weekDayKinds.filter { $0 != .none }.count
+        weekKinds.filter { $0 != .none }.count
     }
     private var headlineText: String {
         let name = firstName.isEmpty ? "Your child" : firstName
