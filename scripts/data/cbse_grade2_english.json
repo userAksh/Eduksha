@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 2,
+    "board": "CBSE",
+    "subject": "English",
+    "subjectColor": "#EA580C",
+    "subjectIcon": "📚",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Mridang — Class 2 (Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "eng2_u01",
+      "name": "Unit 1 — Fun with Friends: My Bicycle & Picture Reading",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "eng2_c001",
+          "name": "My Bicycle (Story/Poem)",
+          "description": "This chapter celebrates the joy and excitement of having a bicycle — the freedom of riding, the wind in your face, and the pride of learning a new skill. A child describes their bicycle and the fun adventures they have on it, whether riding to school, to a friend's house, or just around the neighbourhood. The chapter builds vocabulary related to bicycles (pedal, wheel, handlebar, bell, tyre, brake) and transport. Students describe their own favourite way to travel, talk about road safety rules for cyclists, and write two or three sentences about something they love doing outdoors.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["My Bicycle", "bicycle story", "cycling poem", "transport vocabulary", "outdoor fun"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng2_c002",
+          "name": "Picture Reading",
+          "description": "Picture reading is the skill of understanding and describing a scene from a picture without any written text. A good picture contains many details — people, places, actions, and objects — that tell a story. Students look carefully at the picture and answer questions: Who is in the picture? What are they doing? Where are they? What time of day is it? What might happen next? This chapter develops observation skills, vocabulary (position words like in front of, behind, near, far; action words like running, sitting, eating), and the ability to speak and write in complete sentences about what we see. Pictures communicate across language barriers — a key visual literacy skill.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["picture reading", "visual literacy", "describing a picture", "observation skills", "scene description"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng2_u02",
+      "name": "Unit 2 — Welcome to My World: It is Fun & Seeing without Seeing",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "eng2_c003",
+          "name": "It is Fun (Poem)",
+          "description": "This lively poem lists the simple, joyful things children love to do — jumping in puddles, flying a kite, splashing water, chasing a butterfly, or spinning around until dizzy. The poem uses short, rhythmic lines and rhyming words to capture the energy and spontaneity of childhood play. It encourages children to find happiness in small, everyday moments. Students identify rhyming word pairs from the poem, add their own lines about what they find fun, and discuss favourite activities. Key vocabulary: splash, flutter, spin, soar, giggle. The poem builds phonics awareness through rhyme and rhythm.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["It is Fun poem", "childhood activities", "rhyming poem", "play poem", "fun activities"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng2_c004",
+          "name": "Seeing without Seeing (Story)",
+          "description": "Onshangla comes home unusually quiet after school. Her mother Ava notices and asks why. Onshangla explains that a new boy who is blind has joined her class and she is worried about how he will manage without being able to see. Ava plays a gentle game — she blindfolds Onshangla and presents different objects to identify using only touch, smell, hearing, and taste. Onshangla identifies a rose by its softness and fragrance, a bell by its sound, and orange juice by its taste. She realises that 'there are other ways of finding out things' and that her new classmate can use his other senses powerfully. The story teaches empathy, inclusion, and the wonder of our five senses.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Seeing without Seeing", "Onshangla Ava story", "five senses", "blind classmate", "empathy inclusion"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng2_u03",
+      "name": "Unit 3 — Going Places: Come Back Soon & Between Home and School",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "eng2_c005",
+          "name": "Come Back Soon (Poem)",
+          "description": "This tender poem is told by a child whose parent or grandparent has gone away on a trip. The child misses them deeply — everything at home feels a little emptier and quieter. The poem beautifully describes the feelings of missing someone and the hopeful wait for their return. It ends on a warm, happy note when the loved one comes back. Key themes: love, longing, family bonds, and the joy of reunion. Students discuss someone they miss and how they feel, learn words for feelings (lonely, excited, hopeful, happy), and write or draw a 'welcome back' message for someone they love. Key vocabulary: miss, wait, hug, return, soon.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Come Back Soon poem", "missing someone poem", "family love", "reunion", "feelings poem"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng2_c006",
+          "name": "Between Home and School (Story)",
+          "description": "This chapter follows a child's journey between home and school — noticing the sights, sounds, and people along the way. The child might observe a fruit seller, a flower shop, a barking dog, puddles after rain, or the school gate decorated with a banner. The story builds vocabulary for places in the neighbourhood (road, pavement, market, temple, park, bus stop) and for describing the journey (near, far, turn left, cross the road, next to). Students draw a simple map of their own journey from home to school, practise giving and following directions, and discuss one interesting thing they notice on their daily route. The chapter links English to geography and local community knowledge.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Between Home and School", "journey story", "neighbourhood", "direction words", "local community"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng2_u04",
+      "name": "Unit 3 & 4 — This is My Town & A Show of Clouds",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "eng2_c007",
+          "name": "This is My Town (Story)",
+          "description": "A child proudly introduces their town or village — describing the market, the school, the park, the river or pond, the place of worship, and the people who make the community special. The chapter celebrates local pride and the feeling of belonging. It builds vocabulary for community places (hospital, post office, library, playground, factory, farm) and community helpers (doctor, postman, librarian, teacher, shopkeeper). Students draw their own town map with key places labelled, practise writing simple sentences about their favourite place in their town, and discuss what they love about where they live. Key vocabulary: town, village, community, my favourite, near, opposite.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["This is My Town", "community story", "local places", "neighbourhood map", "belonging"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng2_c008",
+          "name": "A Show of Clouds (Poem)",
+          "description": "This imaginative poem invites children to lie back and watch clouds drifting across the sky — seeing shapes in them (a horse, a fish, a dragon, a giant ice cream). The poet uses vivid imagery and gentle rhythm to show how nature puts on a free 'show' every day if we stop and look. The poem nurtures imagination, observation, and a sense of wonder about the natural world. Students look at the sky, describe what shapes they see in clouds, and write two or three sentences using describing words (fluffy, dark, white, grey, drifting, billowing). The poem connects to science concepts of weather and water cycle.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["A Show of Clouds poem", "cloud shapes", "imagination poem", "nature observation", "weather poem"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng2_u05",
+      "name": "Unit 4 — Life Around Us: My Name & The Crow",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "eng2_c009",
+          "name": "My Name (Story/Activity)",
+          "description": "This chapter explores the meaning, origin, and importance of names. Every person, place, animal, and thing has a name. The chapter invites children to find out what their own name means, who gave it to them, and whether it has a special story. Names are proper nouns — they always start with a capital letter. This connects to grammar: common nouns (general names like 'boy', 'city', 'dog') vs. proper nouns (specific names like 'Ravi', 'Delhi', 'Tommy'). Students practise writing their full name, learn the names of classmates, find out the meaning of their name, and discuss why names are important for identity and communication.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["My Name", "names and identity", "proper nouns", "capital letters", "name meaning"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng2_c010",
+          "name": "The Crow (Story/Poem)",
+          "description": "A crow, unhappy with his plain black feathers, finds colourful peacock feathers and sticks them onto himself — in his wings, his tail, and on his head. He dances around proudly, declaring 'I am now beautiful!' But the other crows laugh at him: 'Oh, what a fool you are! You are beautiful in black. We love you for what you are.' The story teaches a gentle but powerful lesson: true beauty comes from being yourself, not from pretending to be someone else. Trying to copy others only makes you look foolish. Students discuss the moral, talk about things that make them uniquely themselves, and learn vocabulary for colours, body parts of birds, and feelings (proud, ashamed, happy).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["The Crow story", "peacock feathers", "be yourself moral", "crow story", "true beauty"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng2_u06",
+      "name": "Unit 4 & 5 — The Smart Monkey & Little Drops of Water",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "eng2_c011",
+          "name": "The Smart Monkey (Story)",
+          "description": "Anju and Farida go to a market, buy snacks, and sit under a tree to rest and eat. They carelessly drop their wrapper and juice bottle on the ground. Above them sits a monkey who finishes his banana — and quietly walks over to the dustbin and drops the peel inside. Seeing this, the two girls feel ashamed. They get up, collect their litter, and throw it in the bin. The story uses gentle humour to deliver a strong message about cleanliness and environmental responsibility. If a monkey can keep a place clean, surely we can too! Students discuss why littering is harmful, make a class pledge to keep their school clean, and write one sentence about what they will do to help keep their neighbourhood tidy.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["The Smart Monkey", "Anju Farida story", "dustbin cleanliness", "littering story", "environmental responsibility"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng2_c012",
+          "name": "Little Drops of Water (Poem)",
+          "description": "This classic poem (based on Julia Fletcher Carney's 1845 poem) teaches that great things are made of small parts: 'Little drops of water, little grains of sand, make the mighty ocean and the pleasant land.' The poem extends the idea: little moments of kindness, little words of love, and little acts of care all add up to make the world a happier place. The poem introduces the concept of accumulation — how small things become something big over time. Students identify the rhyming pairs, discuss examples of how small actions can make a big difference (saving water drop by drop, picking up one piece of litter), and memorise the first two stanzas.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Little Drops of Water poem", "Julia Fletcher Carney", "small acts matter", "classic poem", "accumulation"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng2_u07",
+      "name": "Unit 5 — We are all Indians",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "eng2_c013",
+          "name": "We are all Indians (Story/Song)",
+          "description": "This chapter celebrates India's incredible diversity — the many languages, religions, festivals, foods, and dresses found across different states — while highlighting the one thing that unites all Indians: being part of the same great nation. Children from different states introduce themselves: Kavya from Tamil Nadu, Arjun from Punjab, Mira from West Bengal, and Hamid from Jammu — each different, yet all proud to say 'I am Indian.' The chapter builds vocabulary for Indian states, languages, and cultural symbols, and introduces the idea that differences make India rich, not divided. Key vocabulary: culture, festival, language, unity, diverse, pride.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["We are all Indians", "unity in diversity", "Indian culture", "states of India", "national identity"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng2_c014",
+          "name": "Naming Words and Doing Words",
+          "description": "A noun is a naming word — it names a person (girl, teacher), a place (school, park), a thing (book, ball), or an animal (crow, monkey). Proper nouns are the names of specific people or places and begin with a capital letter (India, Anju, Delhi). A verb is a doing word — it tells us what someone or something does (run, eat, sit, fly, talk, laugh). Every sentence needs at least one noun (the subject) and one verb (the action). For example: 'The crow flies.' (crow = noun; flies = verb). 'Anju drops the wrapper.' (Anju = noun; drops = verb). Students sort words into noun and verb lists, and write simple sentences using one noun and one verb.",
+          "expectedDifficulty": "OK",
+          "aliases": ["nouns naming words", "verbs doing words", "proper nouns", "subject verb", "simple sentence"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng2_u08",
+      "name": "Grammar — Describing Words and Question Words",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "eng2_c015",
+          "name": "Describing Words — Adjectives",
+          "description": "A describing word (adjective) tells us more about a noun. It describes how something looks, feels, tastes, smells, or sounds. Adjectives of colour: red, blue, golden. Adjectives of size: big, tiny, tall. Adjectives of shape: round, flat, long. Adjectives of feeling: happy, angry, tired. Adjectives of taste or texture: sweet, rough, smooth. An adjective usually comes just before the noun it describes: 'a fluffy cloud', 'a smart monkey', 'a bright bicycle'. We can also use it after 'is' or 'are': 'The crow is black. The feathers are colourful.' Adding describing words makes sentences more interesting — 'The monkey sat in a tall tree' tells us more than 'The monkey sat in a tree.'",
+          "expectedDifficulty": "EASY",
+          "aliases": ["adjectives", "describing words", "colour size shape", "taste texture feeling", "describing nouns"],
+          "prerequisites": ["eng2_c014"],
+          "order": 1
+        },
+        {
+          "id": "eng2_c016",
+          "name": "Question Words and Asking Questions",
+          "description": "Question words help us ask for information. The main question words are: Who (asks about a person — 'Who is at the door?'), What (asks about a thing or action — 'What are you eating?'), Where (asks about a place — 'Where is my bicycle?'), When (asks about time — 'When does school start?'), Why (asks for a reason — 'Why is the crow sad?'), and How (asks about the way something is done — 'How did you ride your bicycle?'). Questions end with a question mark (?). To turn a statement into a question, we often move the verb before the subject: 'She is happy.' → 'Is she happy?' Students practise forming questions from statements and answering classmates' questions in full sentences.",
+          "expectedDifficulty": "OK",
+          "aliases": ["question words", "who what where when why how", "asking questions", "question mark", "forming questions"],
+          "prerequisites": ["eng2_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng2_u09",
+      "name": "Grammar — Simple Sentences",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "eng2_c017",
+          "name": "Making Simple Sentences",
+          "description": "A sentence is a complete thought that makes sense on its own. Every sentence has a subject (who or what the sentence is about) and a predicate (what the subject does or is). 'The crow flew away.' — subject: The crow; predicate: flew away. A sentence begins with a capital letter and ends with a punctuation mark. Statements end with a full stop (.). Questions end with a question mark (?). Exclamations end with an exclamation mark (!). Jumbled words can be rearranged into a proper sentence — 'bicycle red shiny my is' → 'My bicycle is shiny and red.' At Class 2 level, students read, write, and arrange words to make correct, simple sentences.",
+          "expectedDifficulty": "OK",
+          "aliases": ["sentences", "subject predicate", "capital letter full stop", "jumbled sentences", "simple sentences"],
+          "prerequisites": ["eng2_c014"],
+          "order": 1
+        },
+        {
+          "id": "eng2_c018",
+          "name": "Singular and Plural",
+          "description": "Singular means one; plural means more than one. Most nouns become plural by adding -s: one bird → two birds, one cloud → many clouds. Nouns ending in -s, -ss, -sh, -ch, or -x add -es: one bus → two buses, one box → three boxes. Some nouns change completely in the plural (irregular plurals): one child → two children, one mouse → three mice, one tooth → two teeth, one foot → two feet, one man → two men, one woman → two women. Some nouns stay the same in singular and plural: sheep, fish, deer. Choosing the correct verb to go with a singular or plural noun is called subject-verb agreement: 'The bird sings.' but 'The birds sing.'",
+          "expectedDifficulty": "OK",
+          "aliases": ["singular plural", "adding -s -es", "irregular plurals", "subject-verb agreement", "one and many"],
+          "prerequisites": ["eng2_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng2_u10",
+      "name": "Writing — Sentences and Short Paragraphs",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "eng2_c019",
+          "name": "Writing Complete Sentences",
+          "description": "A complete sentence must have a subject and a verb and make sense by itself. Incomplete sentences (fragments) are missing a subject or verb — 'Ran very fast.' is incomplete (who ran?); 'The monkey.' is incomplete (what did it do?). To complete a sentence, add the missing part: 'The monkey ran very fast.' Good writing habits: always start sentences with a capital letter, end with the correct punctuation mark, and leave a finger-space between words. Expanding sentences makes them more interesting — 'The crow sat.' → 'The black crow sat quietly on a tall branch.' Students practise identifying complete vs. incomplete sentences, correcting fragments, and expanding plain sentences by adding where, when, or how.",
+          "expectedDifficulty": "OK",
+          "aliases": ["complete sentences", "sentence fragments", "capital letter", "punctuation", "expanding sentences"],
+          "prerequisites": ["eng2_c017"],
+          "order": 1
+        },
+        {
+          "id": "eng2_c020",
+          "name": "Writing About Myself and My World",
+          "description": "At Class 2 level, personal writing is the most natural starting point. Students can write about: themselves (My name is…, I am … years old, I live in…, My favourite … is…), their family (I have…, My mother/father/sister…), their day (In the morning I…, After school I…), or something they love (I love to… because…). Using connecting words (and, but, because, so) joins two ideas into one sentence: 'I like cycling and I like swimming.' Before writing, students use a drawing or a list of words as a plan. After writing, they read back what they wrote to check that it makes sense. Writing about familiar topics builds confidence and a habit of expressing thoughts in English.",
+          "expectedDifficulty": "OK",
+          "aliases": ["personal writing", "writing about myself", "connecting words", "I like", "simple composition"],
+          "prerequisites": ["eng2_c019"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

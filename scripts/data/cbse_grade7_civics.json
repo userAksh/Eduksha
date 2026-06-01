@@ -1,0 +1,366 @@
+{
+  "metadata": {
+    "grade": 7,
+    "board": "CBSE",
+    "subject": "Civics",
+    "subjectColor": "#7C3AED",
+    "subjectIcon": "⚖️",
+    "generatedAt": "2026-05-31",
+    "textbook": "NCERT Social and Political Life II — Class 7"
+  },
+  "units": [
+    {
+      "id": "civ7_u01",
+      "name": "On Equality",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "civ7_c001",
+          "name": "The Idea of Equality in Indian Democracy",
+          "description": "The Indian Constitution guarantees equality to all citizens as a Fundamental Right. This means every person, regardless of religion, caste, gender, or economic status, has the same rights under the law. No one can be discriminated against by the government on these grounds. In practice, inequality exists — in access to education, health, and jobs. The government tries to address this through affirmative action (reservations for Scheduled Castes, Scheduled Tribes, and OBCs) and free education for children. Democracy rests on the idea that every person's vote counts equally.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "equality Constitution",
+            "Fundamental Rights India",
+            "reservations SC ST OBC",
+            "democratic equality",
+            "discrimination"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "civ7_c002",
+          "name": "Dignity and Struggle for Equality",
+          "description": "Dignity means being treated with respect. Many groups in India — Dalits (formerly called 'untouchables'), women, Adivasis — have faced centuries of discrimination that denied them dignity. Dr. B. R. Ambedkar, himself a Dalit, fought against the caste system and led the drafting of the Constitution to ensure legal equality. Rosa Parks (USA) refused to give up her seat on a bus to a white person (1955), sparking the Civil Rights Movement. These struggles show that equality often has to be fought for — it does not automatically happen because a law is passed.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "dignity equality",
+            "Ambedkar Dalits",
+            "Rosa Parks civil rights",
+            "untouchability",
+            "struggle for equality"
+          ],
+          "prerequisites": [
+            "civ7_c001"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "civ7_u02",
+      "name": "Role of the Government in Health",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "civ7_c003",
+          "name": "Health as a Public Responsibility",
+          "description": "Health is not just the absence of disease — it is the state of physical, mental, and social well-being. Healthcare in India is provided by both the government (public healthcare) and private hospitals and clinics. The government operates Primary Health Centres (PHCs) in villages, district hospitals, and tertiary hospitals (like AIIMS). Public health includes safe drinking water, sanitation, immunisation campaigns, and control of diseases like polio and tuberculosis. In India, public healthcare is often underfunded — leading to overcrowding and poor service in government hospitals.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "public health",
+            "Primary Health Centres",
+            "government healthcare India",
+            "AIIMS",
+            "immunisation polio TB"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "civ7_c004",
+          "name": "Private Healthcare and Inequality in Access",
+          "description": "Private hospitals offer better facilities but at high cost. Poor people cannot afford private healthcare and depend entirely on government services. In Costa Rica and Cuba, the government invested heavily in public health — resulting in high life expectancy at low cost. Kerala in India shows that investing in primary education and healthcare dramatically improves health outcomes. Urban-rural disparities are significant — rural areas have fewer doctors and hospitals. Universal healthcare (available to all, regardless of ability to pay) is considered a hallmark of a just society.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "private healthcare India",
+            "healthcare inequality",
+            "Costa Rica Cuba healthcare",
+            "Kerala health model",
+            "universal healthcare"
+          ],
+          "prerequisites": [
+            "civ7_c003"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "civ7_u03",
+      "name": "How the State Government Works",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "civ7_c005",
+          "name": "The Legislative Assembly and the Role of MLAs",
+          "description": "India is a federal country — power is shared between the central government and state governments. Each state has a Legislative Assembly (Vidhan Sabha) whose members are elected by voters in that state. An MLA (Member of the Legislative Assembly) represents a constituency (an area of voters). The party or coalition that wins a majority in the assembly forms the state government. The leader of that majority becomes the Chief Minister. The Governor is the constitutional head of state (appointed by the President), but the real executive power lies with the Chief Minister and Cabinet.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Vidhan Sabha",
+            "MLA constituency",
+            "Chief Minister Governor",
+            "state government India",
+            "Legislative Assembly"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "civ7_c006",
+          "name": "Making a Law and the Work of Government",
+          "description": "The state government makes laws for the state on subjects in the State List (like police, land, health) and shares law-making on subjects in the Concurrent List (like education, forests). A bill (proposed law) is debated in the Legislative Assembly; if passed by a majority, it becomes a law. The government also executes policies through the civil service (IAS officers) at various levels — state, district, block, and village. District Magistrate (Collector) coordinates government work at the district level. The media plays a role in informing citizens and holding government accountable.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "state list concurrent list",
+            "bill becomes law",
+            "District Magistrate Collector",
+            "civil service IAS",
+            "state law-making"
+          ],
+          "prerequisites": [
+            "civ7_c005"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "civ7_u04",
+      "name": "Growing Up as Boys and Girls",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "civ7_c007",
+          "name": "Gender and Society",
+          "description": "Society assigns different roles, expectations, and values to girls and boys. These are called gender roles — they are learnt through family, school, and media, not inborn. In many societies, girls are expected to do housework and care for children; boys are expected to earn money and go out. These expectations limit both boys and girls. Girls are often discouraged from sports, science, or leadership. Boys are discouraged from showing emotion. Gender inequality means women generally have less freedom, lower wages, and less political power than men. Challenging stereotypes is the first step toward equality.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "gender roles",
+            "gender stereotypes",
+            "gender equality",
+            "boys girls society",
+            "gender discrimination"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "civ7_c008",
+          "name": "Growing Up in Different Societies",
+          "description": "Experiences of growing up vary across societies and time periods. In Samoa (Pacific island), boys and girls had separate but equally valued tasks; girlhood was not seen as inferior. In India, urban girls have more opportunities than rural girls, but even urban girls face restrictions. Domestic work done by women is not counted in national income statistics, though it is economically and socially essential. Valuing care work (cooking, nursing, childcare) on par with paid work is a key step toward gender equality.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "growing up different cultures",
+            "domestic work value",
+            "Samoa childhood",
+            "gender rural urban",
+            "unpaid work women"
+          ],
+          "prerequisites": [
+            "civ7_c007"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "civ7_u05",
+      "name": "Women Change the World",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "civ7_c009",
+          "name": "Women's Struggle for Education and Work",
+          "description": "Historically, women were denied formal education — it was considered unnecessary or even dangerous. Reformers fought to change this: Savitribai Phule opened India's first school for girls in 1848 (Pune). Education opened doors to new occupations for women. Today, women work in every field — medicine, law, science, the army, aviation, and politics. However, women still earn less than men for similar work (the gender pay gap), face sexual harassment in the workplace, and are underrepresented in decision-making positions. The Women's Reservation Bill (33% seats in Parliament for women) has been a long-standing demand.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "women education India",
+            "Savitribai Phule",
+            "gender pay gap",
+            "women workforce",
+            "women reservation bill"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "civ7_c010",
+          "name": "Women in Public Life and Social Change",
+          "description": "Women have made enormous contributions to social change. Struggle against Sati (abolished 1829, due to Ram Mohan Roy's efforts). Women's participation in the freedom movement (Sarojini Naidu, Kasturba Gandhi, Annie Besant). Women-led organisations like the Self-Employed Women's Association (SEWA) in Gujarat organise informal sector women workers for better wages and conditions. Panchayati Raj has 33% reservation for women, giving millions of women political experience at the grassroots. Yet, women remain underrepresented in Parliament and state legislatures.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "SEWA women's organisation",
+            "Sarojini Naidu",
+            "Panchayati Raj women",
+            "sati abolition",
+            "women freedom movement"
+          ],
+          "prerequisites": [
+            "civ7_c009"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "civ7_u06",
+      "name": "Understanding Media",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "civ7_c011",
+          "name": "The Role of Media in Democracy",
+          "description": "Media refers to all means of communication that reach large numbers of people — newspapers, television, radio, and the internet. In a democracy, media plays a crucial role: it informs citizens, exposes corruption, debates public issues, and holds the government accountable ('fourth estate'). In India, media is largely free (protected by Article 19 — freedom of speech and expression). However, when large corporations own media, they may influence news coverage to suit business or political interests. Media literacy — the ability to critically evaluate news — is an important skill for citizens.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "role of media democracy",
+            "fourth estate",
+            "free press India",
+            "media ownership",
+            "Article 19 India"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "civ7_c012",
+          "name": "Advertising and Media Business",
+          "description": "Most television channels and newspapers earn money through advertising — companies pay to show their products to the audience. This means media content is shaped partly by commercial interests. Advertisements target specific audiences — children are a major target market. Advertisements create desires for products, sometimes by creating insecurities (about appearance, social status). The cost of advertising adds to product prices. Advertisements must be truthful under consumer protection laws. Consumers must learn to distinguish between genuine information and marketing tactics.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "advertising media",
+            "commercial media",
+            "target audience advertising",
+            "consumer protection ads",
+            "media business model"
+          ],
+          "prerequisites": [
+            "civ7_c011"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "civ7_u07",
+      "name": "Markets Around Us",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "civ7_c013",
+          "name": "Types of Markets",
+          "description": "A market is a place or system where buyers and sellers exchange goods and services. Markets exist at different scales. Weekly markets (haats) appear in rural areas on a fixed day — vendors travel from village to village selling essential goods at low prices. Neighbourhood shops (kirana stores) are located conveniently but have higher prices. Shopping malls offer variety and entertainment but charge premium prices. Online markets (e-commerce) allow buying from anywhere. Each type of market serves different consumers with different levels of income, access, and needs.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "types of markets",
+            "weekly market haat",
+            "kirana store",
+            "shopping mall",
+            "market types India"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "civ7_c014",
+          "name": "Chain of Markets — From Producer to Consumer",
+          "description": "Most goods pass through a chain of markets between the producer and the final consumer. A farmer growing cotton sells to a trader at a mandis (agricultural market); the trader sells to a spinning mill; the mill sells yarn to a weaving factory; the factory sells cloth to a garment shop; the shop sells to the consumer. Each link in the chain adds some cost and earns some profit. Middlemen (wholesalers, retailers) play a role in distribution but also increase the final price. Farmers often receive a small fraction of the final retail price for their produce.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "chain of markets",
+            "producer to consumer",
+            "middlemen wholesalers",
+            "mandis farmers",
+            "supply chain"
+          ],
+          "prerequisites": [
+            "civ7_c013"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "civ7_u08",
+      "name": "A Shirt in the Market",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "civ7_c015",
+          "name": "Cotton Farmers and the Putting-Out System",
+          "description": "The story of a cotton shirt illustrates the inequalities in global markets. Cotton farmers in India often have no bargaining power — they must sell at whatever price traders offer, and may borrow from traders at high interest rates. The putting-out system: merchants supply raw material (yarn) to weavers who work at home; the merchants collect the finished cloth and pay piece wages. Weavers own their looms but depend entirely on the merchant for orders and materials — giving merchants great power and weavers little security. This is common in rural textile production.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "putting-out system",
+            "cotton farmers market",
+            "weavers merchants",
+            "inequality markets",
+            "rural textile production"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "civ7_c016",
+          "name": "Garment Export and Global Trade",
+          "description": "India is a major exporter of garments (clothing). Export factories produce clothes for foreign brands (like those sold in Europe and America). Workers in these factories — mostly women — often work long hours for low wages in difficult conditions. Foreign companies benefit from cheap labour; Indian exporters earn profit; workers get wages but few benefits. The final T-shirt may sell in a foreign country for 20 times the price paid to the factory. Fair trade is a movement that tries to ensure producers in developing countries receive a fair price and workers have decent conditions.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "garment export India",
+            "textile workers wages",
+            "fair trade",
+            "global supply chain clothing",
+            "export factory conditions"
+          ],
+          "prerequisites": [
+            "civ7_c015"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "civ7_u09",
+      "name": "Struggles for Equality",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "civ7_c017",
+          "name": "The Tawa Matsya Sangh — A Case Study in Equality",
+          "description": "The Tawa Matsya Sangh (TMS) is a federation of fisher people in Madhya Pradesh who organised to fight for their rights. When the Tawa Dam was built in the 1990s, thousands of adivasi families were displaced from their lands and forests — they lost their traditional livelihoods. They were allowed to fish in the reservoir, but in 1994 the government leased fishing rights to private contractors who exploited the resource and paid the local people poorly. The TMS organised, protested, and demanded direct fishing rights. After sustained struggle, in 1996 the government handed the fishing contract to the TMS. This case illustrates several key ideas: that displacement from development projects often hurts the poorest communities most; that collective organisation can win rights; and that equality requires active struggle, not just legal guarantees. It connects directly to Article 21 (right to livelihood) and India's commitments to adivasi rights.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Tawa Matsya Sangh",
+            "TMS fishermen MP",
+            "adivasi rights",
+            "displacement development",
+            "struggle for equality",
+            "Tawa Dam"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "civ7_c018",
+          "name": "Dignity and Equality in Everyday Life",
+          "description": "Equality is not only about laws — it must be lived in everyday interactions, attitudes, and institutions. Dignity means treating every person with respect, regardless of their caste, gender, religion, or economic status. Untouchability — though abolished by Article 17 — persists in some areas; Dalit students may be seated separately, denied access to temples or wells, or subjected to violence. Gender inequality appears in unequal pay for equal work, restrictions on girls' education and mobility, and domestic violence. Stereotyping — assuming a person's abilities or character from their group membership — reinforces inequality. Classroom and community actions for equality: challenging discriminatory jokes or comments, ensuring everyone has a voice in group work, supporting students who face barriers, and advocating for inclusive policies. Equality is a process, not just a legal status — it requires awareness, empathy, and active commitment from every citizen.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "dignity equality",
+            "untouchability Article 17",
+            "gender inequality",
+            "stereotyping",
+            "everyday equality",
+            "Dalit rights"
+          ],
+          "prerequisites": [
+            "civ7_c017"
+          ],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 2,
+    "board": "CBSE",
+    "subject": "General Knowledge",
+    "subjectColor": "#F59E0B",
+    "subjectIcon": "🌟",
+    "generatedAt": "2026-06-01",
+    "textbook": "Common Class 2 GK Curriculum"
+  },
+  "units": [
+    {
+      "id": "gk2_u01",
+      "name": "India — My Country",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "gk2_c001",
+          "name": "Basic Facts About India",
+          "description": "India is a big and beautiful country in Asia. Our capital city is New Delhi. The national flag of India is called the Tiranga — it has three colours: saffron (top), white (middle), and green (bottom), with a blue wheel called the Ashoka Chakra in the centre. Our national anthem is 'Jana Gana Mana'. The national animal is the Bengal Tiger, the national bird is the Peacock, the national flower is the Lotus, and the national fruit is the Mango. We use the Indian Rupee (₹) as money. India is home to people of many religions, languages, and cultures — Hinduism, Islam, Christianity, Sikhism, Buddhism, and Jainism are all practised here. India became independent on 15 August 1947.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["India facts", "national flag Tiranga", "national animal bird flower", "Independence Day", "Jana Gana Mana"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk2_c002",
+          "name": "States and Famous Places",
+          "description": "India has 28 states and 8 Union Territories. Each state has its own capital city. Some well-known states and places: Delhi (the national capital territory) has the Red Fort and Qutub Minar. Agra in Uttar Pradesh has the beautiful Taj Mahal. Mumbai in Maharashtra is the biggest city in India. Rajasthan has beautiful forts and the Thar Desert. The Himalayas are the tallest mountains in the world and run along the northern edge of India. The Ganga is India's most sacred and famous river. India's southern tip, Kanyakumari, is where three seas meet — the Arabian Sea, the Bay of Bengal, and the Indian Ocean. Every state in India has its own special food, language, dress, and traditions.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Indian states", "Taj Mahal", "Red Fort", "Himalayas", "Ganga", "Kanyakumari"],
+          "prerequisites": ["gk2_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk2_u02",
+      "name": "The World Around Us",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "gk2_c003",
+          "name": "Continents and Countries",
+          "description": "The Earth is divided into large areas of land called continents. There are 7 continents: Asia (the largest — India is in Asia), Africa, North America, South America, Antarctica (very cold, covered in ice), Europe, and Australia. Each continent has many countries. India's neighbouring countries are Pakistan, China, Nepal, Bhutan, Bangladesh, Myanmar, and Sri Lanka. The country with the most people in the world is India (over 1.4 billion people). The biggest country by land is Russia. The USA (United States of America) is a very powerful and large country in North America. China is India's large neighbour to the north. The capital of China is Beijing; the capital of the USA is Washington D.C.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["seven continents", "Asia Africa Europe Americas", "India's neighbours", "countries", "world geography"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk2_c004",
+          "name": "Oceans and Famous Landmarks",
+          "description": "The Earth has five large bodies of water called oceans: the Pacific (largest), Atlantic, Indian, Arctic, and Southern Oceans. The Indian Ocean is right beside India. The world has many amazing landmarks. The Taj Mahal in India, the Eiffel Tower in Paris (France), the Great Wall of China, the Pyramids in Egypt, and the Statue of Liberty in New York (USA) are famous all over the world. Mount Everest, in the Himalayas, is the highest mountain in the world at 8,848 metres. The Amazon River in South America is the largest river by water volume. The Sahara in Africa is the world's biggest hot desert. These amazing places remind us how wonderful and varied our planet is.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["five oceans", "Pacific Atlantic Indian", "Mount Everest", "Eiffel Tower", "Sahara desert", "world landmarks"],
+          "prerequisites": ["gk2_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk2_u03",
+      "name": "Animals and Nature",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "gk2_c005",
+          "name": "Amazing Animals",
+          "description": "Animals are found all over the world in different shapes, sizes, and colours. The elephant is the largest land animal. The giraffe is the tallest (up to 6 metres). The cheetah is the fastest land animal (up to 120 km/h). The blue whale is the largest animal that has ever lived. A chameleon can change its colour to hide from enemies. A butterfly starts as an egg, then becomes a caterpillar, then a chrysalis, then a butterfly — this change is called metamorphosis. Penguins cannot fly, but they are excellent swimmers. Bats are the only mammals that can truly fly. Dolphins are very intelligent and communicate with each other using clicks and whistles. Fireflies produce their own light — this is called bioluminescence.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["amazing animals", "elephant giraffe cheetah", "metamorphosis butterfly", "dolphin bat penguin", "chameleon bioluminescence"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk2_c006",
+          "name": "Plants and Trees",
+          "description": "Plants make their own food using sunlight, air, and water — a process called photosynthesis. Plants release oxygen, which we breathe. The tallest tree in the world is a Coastal Redwood in California, USA, at over 115 metres. The Banyan tree is India's national tree — it grows very wide with many trunk-like roots. The cactus can survive in the desert without rain for a long time by storing water in its thick stem. Bamboo is the fastest-growing plant — it can grow up to 90 cm in a single day! The Venus flytrap is a plant that catches and eats insects. The lotus is India's national flower — it grows beautifully in muddy water, which teaches us that beauty can come from difficult places.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["photosynthesis", "Banyan tree", "cactus", "bamboo", "Venus flytrap", "lotus national flower"],
+          "prerequisites": ["gk2_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk2_u04",
+      "name": "Science and Space",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "gk2_c007",
+          "name": "The Sun, Moon, and Stars",
+          "description": "The Sun is a giant ball of hot glowing gas — it is our nearest star. The Sun gives us light and warmth, which all living things need. The Earth travels around the Sun once a year (365 days) — that is why we have a year. The Earth spins on itself once a day (24 hours) — that is why we have day and night. The Moon is Earth's natural satellite — it travels around the Earth once in about 29 days. We see the Moon at night because it reflects sunlight. Stars are like the Sun — giant balls of fire — but they look tiny because they are very far away. The North Star (Pole Star) always points north and was used by sailors to find direction. A rainbow appears when sunlight passes through raindrops and splits into seven colours: red, orange, yellow, green, blue, indigo, violet (VIBGYOR).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Sun Moon stars", "day and night", "year orbit", "rainbow VIBGYOR", "North Star"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk2_c008",
+          "name": "Simple Science Facts",
+          "description": "Science helps us understand the world. We see lightning before hearing thunder because light travels much faster than sound. A magnet attracts iron and steel but not plastic or wood — its two ends are called the North Pole and the South Pole. Ice is water in solid form; steam is water in gas form — water changes its form when heated or cooled. Plants grow towards the light (a behaviour called phototropism). When a rubber band or spring is stretched and let go, it returns to its original shape — it is elastic. A mirror reflects light. A shadow forms when an object blocks light. Mixing yellow and blue paint gives green; mixing red and blue gives purple. Science observations help us make new discoveries every day.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["lightning thunder", "magnet poles", "ice water steam", "shadow mirror", "primary colours mixing"],
+          "prerequisites": ["gk2_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk2_u05",
+      "name": "Sports, Games, and Fun",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "gk2_c009",
+          "name": "Sports in India",
+          "description": "Hockey is India's national sport. India has won eight gold medals in hockey at the Olympic Games. Cricket is the most popular sport in India — the bat-and-ball game is played and watched by millions. Sachin Tendulkar is one of the greatest cricketers ever — he played for India for 24 years. Badminton, tennis, wrestling, and boxing are other popular sports. P.V. Sindhu won a silver medal for India in badminton at the 2016 Olympics. Neeraj Chopra won a gold medal in javelin throw at the 2020 Tokyo Olympics — India's first Olympic gold in athletics. The Olympic Games are held every four years in a different city and bring athletes from all over the world together to compete.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["hockey cricket India", "Sachin Tendulkar", "Olympics", "PV Sindhu", "Neeraj Chopra", "national sport"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk2_c010",
+          "name": "Traditional Games of India",
+          "description": "India has many traditional games that children have played for hundreds of years. Kabaddi is a team sport where one person crosses to the other team's side, tries to tag players, and returns while saying 'kabaddi kabaddi' without taking a breath. Kho-Kho is a fast chasing game played by two teams of nine players. Gilli-Danda is played with a long stick (danda) and a small wooden piece (gilli) — it is possibly one of the oldest bat-and-ball games in the world. Lagori involves a pile of stones and a ball. Marbles, hopscotch, tops (lattu), and hide-and-seek are favourite games in every neighbourhood. These games need no screens — just outdoor space, friends, and imagination. Playing traditional games keeps us fit and connects us to our culture.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Kabaddi", "Kho-Kho", "Gilli-Danda", "Lagori marbles", "traditional games India"],
+          "prerequisites": ["gk2_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk2_u06",
+      "name": "Famous People",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "gk2_c011",
+          "name": "Heroes of India",
+          "description": "India has many great heroes who made the country what it is today. Mahatma Gandhi (1869–1948) is called the Father of the Nation. He fought for India's freedom from British rule using non-violence (ahimsa) — he never used weapons. His birthday (2 October) is celebrated as Gandhi Jayanti. Jawaharlal Nehru was India's first Prime Minister (1947–1964). He loved children very much and is called 'Chacha Nehru' — his birthday (14 November) is celebrated as Children's Day. Rani Lakshmibai of Jhansi was a brave queen who fought the British in 1857. Dr. B.R. Ambedkar wrote India's Constitution — the book of rules that all citizens and the government must follow. These heroes inspire us to be brave, kind, and fair.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Mahatma Gandhi", "Jawaharlal Nehru", "Chacha Nehru", "Rani Lakshmibai", "B.R. Ambedkar", "freedom fighters"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk2_c012",
+          "name": "Inventors and Scientists",
+          "description": "Many clever people have invented things that changed the world. Thomas Edison invented the light bulb (1879) — before this, homes were lit only by candles and oil lamps. Alexander Graham Bell invented the telephone (1876). The Wright Brothers (Orville and Wilbur) built and flew the first aeroplane (1903). Marie Curie was a scientist who discovered the elements radium and polonium and won two Nobel Prizes. C.V. Raman was an Indian scientist who discovered the Raman Effect — how light scatters — and won the Nobel Prize for Physics in 1930. APJ Abdul Kalam was an Indian scientist who helped build India's missiles and rockets — he later became the President of India and loved children very much. He said: 'Dream, dream, dream — dreams transform into thoughts and thoughts result in action.'",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Thomas Edison", "Alexander Graham Bell", "Wright Brothers", "CV Raman", "APJ Abdul Kalam", "inventions"],
+          "prerequisites": ["gk2_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk2_u07",
+      "name": "Festivals and Culture",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "gk2_c013",
+          "name": "Festivals of India",
+          "description": "India celebrates hundreds of festivals every year. Diwali is the Festival of Lights — people light oil lamps, burst crackers, eat sweets, and visit family. It celebrates the return of Lord Rama to Ayodhya after 14 years. Holi is the Festival of Colours — people throw coloured powder and water to celebrate spring and happiness. Eid-ul-Fitr is celebrated by Muslims after a month of fasting (Ramadan) — prayers, special meals, and giving to the poor. Christmas (25 December) marks the birth of Jesus Christ — decorated trees, carols, and gifts. Durga Puja (West Bengal) is a grand 10-day festival celebrating Goddess Durga. Pongal (Tamil Nadu) and Baisakhi (Punjab) are harvest festivals of thanksgiving for a good crop.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Diwali Holi Eid Christmas", "Durga Puja Pongal Baisakhi", "Indian festivals", "harvest festival", "festival of lights colours"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk2_c014",
+          "name": "Music, Dance, and Art",
+          "description": "India has rich traditions of music, dance, and art. Classical dance forms: Bharatanatyam (Tamil Nadu) uses precise hand gestures (mudras) and footwork; Kathak (North India) involves fast spins and storytelling through dance; Kathakali (Kerala) uses elaborate costumes and makeup. Classical music: Hindustani music is from North India (played on the sitar and tabla); Carnatic music is from South India (played on the veena and mridangam). Traditional art forms: Rangoli (coloured powder patterns on floors for festivals), Warli painting (tribal art from Maharashtra), Madhubani painting (Bihar, using natural colours), and Kolam (geometric floor patterns in South India). Bollywood is India's famous Hindi film industry and produces the most films in the world.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Bharatanatyam Kathak Kathakali", "classical dance music", "Rangoli Madhubani Warli", "Bollywood", "Indian art"],
+          "prerequisites": ["gk2_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk2_u08",
+      "name": "Our Body and Health",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "gk2_c015",
+          "name": "Parts of the Human Body",
+          "description": "Our body has many important parts, each with a special job. The brain (in the head) controls everything we do — thinking, feeling, moving, and breathing. The heart (in the chest) pumps blood all around the body. The lungs (in the chest) help us breathe — we breathe in oxygen and breathe out carbon dioxide. The stomach (in the abdomen) digests food and turns it into energy. The bones give our body shape and protect our organs — adults have 206 bones. Muscles are attached to bones and help us move. The skin is the largest organ — it covers and protects the whole body. The eyes see, the ears hear, the nose smells, the tongue tastes, and the skin feels — these are our five sense organs.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["body parts", "brain heart lungs stomach", "bones muscles skin", "sense organs", "human body"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk2_c016",
+          "name": "Good Health Habits",
+          "description": "Being healthy means taking care of our body and mind every day. Healthy habits: brush teeth twice a day (morning and before bed) to prevent cavities; bathe daily; wash hands with soap before eating and after using the toilet; eat fruits and vegetables every day; drink 6–8 glasses of water; sleep 9–10 hours every night so the body can grow. Exercise every day — run, jump, skip, swim, or play a sport for at least one hour. Avoid too much sugary or junk food. Sit and stand straight (good posture) so your back stays strong. If you feel ill, tell an adult and visit a doctor. Vaccines protect us from dangerous diseases — they teach our body to fight germs without actually getting sick.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["health habits", "brush teeth wash hands", "exercise sleep", "fruits vegetables", "vaccines doctor"],
+          "prerequisites": ["gk2_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk2_u09",
+      "name": "Important Days",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "gk2_c017",
+          "name": "National Days of India",
+          "description": "India celebrates three national days that all citizens observe together. Independence Day — 15 August: India became free from British rule on this day in 1947. The national flag is hoisted and 'Jana Gana Mana' is sung. Republic Day — 26 January: India's Constitution came into effect on this day in 1950, making India a republic. A grand parade is held in New Delhi. Gandhi Jayanti — 2 October: the birthday of Mahatma Gandhi, Father of the Nation. On this day, people clean public spaces and remember his message of non-violence and truth. These three days are national holidays — all schools, offices, and banks are closed and people celebrate together.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Independence Day", "Republic Day", "Gandhi Jayanti", "national holidays", "15 August 26 January 2 October"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk2_c018",
+          "name": "Special Days in the Year",
+          "description": "Many special days are celebrated throughout the year to honour important people and ideas. Children's Day — 14 November: the birthday of Jawaharlal Nehru (Chacha Nehru), who loved children. Schools hold special programmes. Teachers' Day — 5 September: the birthday of Dr. Sarvepalli Radhakrishnan, India's second President and a great teacher. Students thank and honour their teachers. World Earth Day — 22 April: we remember to care for our planet. World Environment Day — 5 June. World Health Day — 7 April. Mother's Day — second Sunday of May (we thank and appreciate our mothers). Father's Day — third Sunday of June (we thank our fathers). World Book Day — 23 April (we celebrate the love of reading).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Children's Day", "Teachers' Day", "World Earth Day", "Mother's Day Father's Day", "World Book Day"],
+          "prerequisites": ["gk2_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk2_u10",
+      "name": "Interesting Facts and Numbers",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "gk2_c019",
+          "name": "Fun Facts About India",
+          "description": "India is full of fascinating facts! India is the largest democracy in the world. Chess was invented in India (it was originally called Chaturanga). The number zero was invented by Indian mathematician Aryabhata about 1,500 years ago — without zero, all modern maths and computers would be impossible. India has the largest number of post offices in the world. The game of Snakes and Ladders was invented in ancient India to teach children about good deeds (ladders) and bad actions (snakes). India is the world's largest producer of milk, bananas, and mangoes. The town of Cherrapunji in Meghalaya is one of the wettest places on Earth — it receives huge amounts of rain every year. Yoga, now practised all over the world, originated in India over 5,000 years ago.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["India facts", "chess invented India", "zero Aryabhata", "Snakes and Ladders", "yoga India", "Cherrapunji"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk2_c020",
+          "name": "Amazing World Records",
+          "description": "The world is full of record-breakers! The tallest building is the Burj Khalifa in Dubai, UAE (828 m). The longest wall is the Great Wall of China (over 21,000 km). The deepest ocean trench is the Mariana Trench in the Pacific Ocean (almost 11 km deep). The fastest bird is the peregrine falcon — it can dive at over 300 km/h. The largest land animal is the African elephant. The smallest bird is the bee hummingbird of Cuba. The longest river is the Nile in Africa (6,650 km). The hottest place on Earth is Death Valley, USA. The coldest place is Antarctica. The most spoken language in the world is Mandarin Chinese, but English is spoken in the most countries. India has the longest Constitution in the world.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Burj Khalifa", "Great Wall of China", "Mariana Trench", "peregrine falcon", "world records", "longest river Nile"],
+          "prerequisites": ["gk2_c019"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

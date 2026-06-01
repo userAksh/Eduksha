@@ -1,0 +1,318 @@
+{
+  "metadata": {
+    "grade": 6,
+    "board": "CBSE",
+    "subject": "Social Science",
+    "subjectColor": "#8B5CF6",
+    "subjectIcon": "🌏",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Exploring Society: India and Beyond — Class 6 (Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "ss6_u01",
+      "name": "Locating Places on the Earth",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "ss6_c001",
+          "name": "Latitude, Longitude, and the Globe",
+          "description": "The Earth is spherical, so we use a grid of imaginary lines to locate places. Latitude lines (parallels) run east-west and measure distance north or south of the Equator (0°). The Equator divides Earth into Northern and Southern Hemispheres. Key latitudes: Tropic of Cancer (23.5°N), Tropic of Capricorn (23.5°S), Arctic Circle (66.5°N), Antarctic Circle (66.5°S). Latitude ranges from 0° to 90°N and 0° to 90°S. Longitude lines (meridians) run north-south and measure distance east or west of the Prime Meridian (0°, through Greenwich, London). Longitude ranges from 0° to 180°E and 0° to 180°W.",
+          "expectedDifficulty": "OK",
+          "aliases": ["latitude longitude", "Equator Tropic of Cancer", "Prime Meridian Greenwich", "parallels meridians", "globe grid lines"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss6_c002",
+          "name": "Maps — Types and Elements",
+          "description": "A map is a flat representation of the Earth or part of it. Maps use a scale (e.g., 1 cm = 100 km) to represent actual distances. The four cardinal directions are North, South, East, West (shown by a compass rose). Map symbols (a legend or key explains them) represent features like rivers, roads, forests, and cities. Types of maps: political (shows countries, states, capitals), physical (shows landforms — mountains, rivers), thematic (shows specific data — rainfall, population, crops). An atlas is a book of maps. GPS (Global Positioning System) uses satellites to give exact location.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["types of maps", "map scale legend", "political physical thematic map", "compass rose cardinal directions", "atlas GPS"],
+          "prerequisites": ["ss6_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss6_u02",
+      "name": "Oceans and Continents",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "ss6_c003",
+          "name": "The World's Oceans and Continents",
+          "description": "Earth's surface is 71% water (hydrosphere) and 29% land. There are 5 oceans: Pacific (largest and deepest — contains the Mariana Trench, ~11,000 m deep), Atlantic (2nd largest, S-shaped), Indian (entirely in the Eastern Hemisphere, warmest), Arctic (smallest, mostly frozen), Southern/Antarctic (surrounds Antarctica). There are 7 continents: Asia (largest, most populous — 60% of world's people), Africa (2nd largest, most countries), North America, South America, Antarctica (coldest, no permanent population), Europe (smallest after Australia), Australia/Oceania (smallest, entirely in Southern Hemisphere).",
+          "expectedDifficulty": "OK",
+          "aliases": ["five oceans", "seven continents", "Pacific Atlantic Indian Arctic Southern Ocean", "Asia Africa largest continents", "Mariana Trench deepest"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss6_c004",
+          "name": "Plate Tectonics and Pangaea",
+          "description": "The Earth's crust is divided into large pieces called tectonic plates that move very slowly (a few centimetres per year). About 250 million years ago, all landmasses were joined in one supercontinent called Pangaea. It split apart, and the pieces drifted to form today's continents — this is called continental drift. Evidence: matching coastlines of South America and Africa; same fossils found on different continents; same rock types on separated continents. The movement of plates causes earthquakes, volcanoes, and the formation of mountain ranges (like the Himalayas, formed by the Indian plate pushing into the Eurasian plate).",
+          "expectedDifficulty": "OK",
+          "aliases": ["Pangaea continental drift", "tectonic plates", "supercontinent", "Himalayas plate collision", "plate movement earthquakes"],
+          "prerequisites": ["ss6_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss6_u03",
+      "name": "Landforms and Life",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "ss6_c005",
+          "name": "Major Landforms — Mountains, Plateaus, and Plains",
+          "description": "Landforms are the natural physical features of the Earth's surface. Mountains: steep, high landforms formed by tectonic forces or volcanic activity — e.g., Himalayas, Andes, Rockies, Alps. Plateaus (tablelands): flat-topped elevated areas — e.g., Deccan Plateau (India), Tibet Plateau (highest in the world). Plains: flat low-lying areas, usually very fertile — formed by river deposits; e.g., Indo-Gangetic Plain. Valleys: low areas between mountains or hills, often carved by rivers. Deserts: arid regions with very low rainfall. Each landform type supports different kinds of human settlement, agriculture, and wildlife.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["mountains plateaus plains", "Himalayas Andes Rockies", "Deccan Plateau Tibet", "Indo-Gangetic Plain", "landforms types"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss6_c006",
+          "name": "Rivers and Their Role in Shaping Landforms",
+          "description": "Rivers are powerful agents that shape the landscape. They carve valleys and canyons (erosion), carry sediment (transportation), and deposit it in plains and deltas (deposition). A river's source is usually in mountains (from glaciers or springs); it flows downhill and eventually reaches the sea. The Ganga rises at Gangotri glacier and flows across the Indo-Gangetic Plain to the Bay of Bengal. The Amazon is the world's largest river by water volume. Rivers have always attracted human settlement — they provide water, fertile soil, fish, and transportation. Floods can be destructive but also deposit rich sediment.",
+          "expectedDifficulty": "OK",
+          "aliases": ["rivers erosion deposition", "Ganga Gangotri glacier", "river source delta", "Amazon largest river", "rivers and settlement"],
+          "prerequisites": ["ss6_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss6_u04",
+      "name": "Timeline and Sources of History",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "ss6_c007",
+          "name": "How Historians Study the Past",
+          "description": "History is the study of the past. Historians use primary sources (created at the time being studied) and secondary sources (written later about the past). Primary sources: inscriptions on stone or metal, coins, manuscripts, tools, pottery, weapons, buildings, and artwork. Secondary sources: books and articles written by historians using primary sources. Archaeology: the scientific study of the past through excavation (digging up) and analysis of objects (artefacts). Carbon dating measures the age of organic materials. Epigraphy is the study of inscriptions. Numismatics is the study of coins.",
+          "expectedDifficulty": "OK",
+          "aliases": ["primary secondary sources history", "archaeology artefacts", "inscriptions manuscripts coins", "carbon dating", "epigraphy numismatics"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss6_c008",
+          "name": "Timelines and Periods in History",
+          "description": "A timeline arranges events in chronological order (order of time). Historical dates use BCE (Before Common Era) and CE (Common Era) — 1 BCE to 1 CE marks the beginning of our calendar. The further back in BCE, the earlier the date (500 BCE is earlier than 100 BCE). History is divided into periods: Prehistoric (before writing — Stone Age, Bronze Age, Iron Age), Ancient (earliest civilisations to ~500 CE), Medieval (~500–1500 CE), Modern (1500 CE onwards). India's ancient period includes the Indus Valley Civilisation (~2500 BCE) and the Vedic period. A century = 100 years; a millennium = 1000 years.",
+          "expectedDifficulty": "OK",
+          "aliases": ["BCE CE timeline", "prehistoric ancient medieval modern", "century millennium", "Stone Bronze Iron Age", "historical periods India"],
+          "prerequisites": ["ss6_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss6_u05",
+      "name": "India, That Is Bharat",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "ss6_c009",
+          "name": "Names and Identity of India",
+          "description": "India's official name is 'India, that is Bharat' — as stated in Article 1 of the Constitution. The name 'Bharat' comes from the legendary king Bharata, mentioned in the Mahabharata. 'India' comes from 'Indus' — the river called 'Sindhu' in Sanskrit. Ancient texts call India 'Aryavarta' (land of the Aryas), 'Jambudvipa' (continent of the Jambu tree), and 'Bharatavarsha.' Foreign visitors called it 'Hindustan' (land beyond the Sindhu). India's spiritual and cultural unity is ancient — pilgrims, traders, and scholars have always moved across the subcontinent, creating shared traditions.",
+          "expectedDifficulty": "OK",
+          "aliases": ["India Bharat names", "Bharata legendary king", "Sindhu Indus India", "Aryavarta Jambudvipa", "Article 1 Constitution India"],
+          "prerequisites": [],
+          "order": 1
+        }
+      ]
+    },
+    {
+      "id": "ss6_u06",
+      "name": "The Beginnings of Indian Civilisation",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "ss6_c010",
+          "name": "The Indus-Sarasvati (Harappan) Civilisation",
+          "description": "One of the world's earliest urban civilisations flourished in the Indus and Sarasvati river valleys (present-day India and Pakistan) around 2500–1900 BCE. Key sites: Mohenjo-daro and Harappa (in present-day Pakistan), Lothal (Gujarat), Dholavira (Gujarat), Rakhigarhi (Haryana). Features: well-planned cities with grid-pattern streets, advanced drainage and sewage systems, multi-storey brick houses, the Great Bath (Mohenjo-daro), granaries, standardised weights and measures, and a script (still undeciphered). People traded with Mesopotamia. The civilisation declined around 1900 BCE, possibly due to climate change and river shifts.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Harappan civilisation", "Indus Valley Mohenjo-daro Harappa", "Lothal Dholavira Rakhigarhi", "Great Bath grid streets", "Indus script undeciphered"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss6_c011",
+          "name": "The Vedic Period",
+          "description": "After the decline of the Harappan Civilisation, a new cultural tradition developed in India known as the Vedic period (roughly 1500–600 BCE), named after the Vedas — the earliest Sanskrit texts. The four Vedas are Rigveda (hymns), Samaveda (chants), Yajurveda (rituals), Atharvaveda (spells and healing). Early Vedic society was pastoral (cattle-herding, semi-nomadic). Later, agriculture became central and kingdoms (janapadas) developed. The Upanishads (philosophical texts) explored ideas of Brahman (ultimate reality) and Atman (individual soul). The epics Ramayana and Mahabharata also trace their roots to this period.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Vedic period", "four Vedas Rigveda Samaveda Yajurveda", "Upanishads Brahman Atman", "Vedic society cattle", "Vedic age India"],
+          "prerequisites": ["ss6_c010"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss6_u07",
+      "name": "India's Cultural Roots",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "ss6_c012",
+          "name": "Languages, Scripts, and Knowledge Systems",
+          "description": "India has a rich tradition of languages and knowledge. Sanskrit is the ancient classical language — parent of many Indian languages. The Devanagari script is used for Hindi, Sanskrit, and Marathi. The 8th Schedule of the Indian Constitution recognises 22 official languages, including Tamil (with 2,000+ years of literary tradition), Telugu, Bengali, Gujarati, Kannada, Malayalam, and others. India's ancient knowledge systems include Ayurveda (medicine), Yoga, Vastu (architecture), Jyotisha (astronomy), and mathematics. The decimal number system and zero, developed in ancient India, transformed world mathematics.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Sanskrit Devanagari", "22 languages India Constitution", "Ayurveda Yoga ancient India", "decimal system zero India", "Tamil ancient literature"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss6_c013",
+          "name": "Epics, Art, and Architecture of Ancient India",
+          "description": "India's cultural heritage includes great works of literature, art, and architecture. The Ramayana (attributed to Valmiki) tells the story of Ram, Sita, and Hanuman; the Mahabharata (attributed to Vyasa) is the longest epic poem in the world — it contains the Bhagavad Gita. Ancient architecture: rock-cut caves (Ajanta — Buddhist paintings, Ellora — Hindu, Buddhist, and Jain temples), stupas (Sanchi Stupa — built during Ashoka's reign to house Buddha's relics), and temples. Classical Indian dance forms, music (Gandharva Veda), and performing arts have roots in the Natyashastra by Bharata Muni.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Ramayana Mahabharata epics", "Ajanta Ellora caves", "Sanchi Stupa Ashoka", "Bhagavad Gita", "Natyashastra dance music"],
+          "prerequisites": ["ss6_c012"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss6_u08",
+      "name": "Unity in Diversity, or 'Many in the One'",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "ss6_c014",
+          "name": "India's Diversity — Language, Religion, and Culture",
+          "description": "India is one of the most diverse countries in the world. It is home to people speaking hundreds of languages (22 official, hundreds more regional and tribal), following many religions (Hinduism, Islam, Christianity, Sikhism, Buddhism, Jainism, Zoroastrianism, Judaism), wearing different kinds of clothes, eating different foods, and celebrating different festivals. This diversity is seen as a strength — expressed in the motto 'Vasudhaiva Kutumbakam' (the world is one family) and 'Unity in Diversity'. India's Constitution guarantees every citizen freedom of religion, language, and cultural expression.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["India diversity", "Vasudhaiva Kutumbakam", "unity in diversity India", "religions of India", "languages of India"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss6_c015",
+          "name": "Festivals, Food, and Shared Heritage",
+          "description": "Despite its diversity, India shares a common cultural heritage. Major festivals: Diwali (Festival of Lights, celebrated across India), Eid-ul-Fitr (end of Ramadan), Christmas, Baisakhi (harvest festival, Punjab), Onam (Kerala), Pongal (Tamil Nadu), Durga Puja (West Bengal), Holi (Festival of Colours). India's cuisine varies enormously by region — from rice and coconut-based dishes in the south to wheat-based flatbreads in the north. Folk art forms (Warli, Madhubani, Pattachitra), textiles (Banarasi silk, Kashmiri shawl, Kanjivaram saree), and music styles reflect regional identities while being part of one shared nation.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Indian festivals Diwali Eid Christmas Holi", "regional food India", "folk art Warli Madhubani", "cultural diversity India", "Onam Pongal Baisakhi"],
+          "prerequisites": ["ss6_c014"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss6_u09",
+      "name": "Family and Community",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "ss6_c016",
+          "name": "Family — Types and Functions",
+          "description": "A family is the basic social unit. Nuclear family: parents and their children living together. Joint/extended family: grandparents, parents, children, and sometimes uncles, aunts, and cousins living together. Families provide food, shelter, care, emotional support, and transmit cultural values and traditions. Family structures vary across India — in some communities, property passes through the mother's line (matrilineal, e.g., Khasi people of Meghalaya); in others, through the father's line (patrilineal). Families have changed over time — more nuclear families in cities, joint families more common in villages. Every family member plays a role.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["nuclear joint family", "family functions", "matrilineal patrilineal family", "Khasi people Meghalaya", "family types India"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss6_c017",
+          "name": "Community and Social Institutions",
+          "description": "A community is a group of people sharing a common space, identity, or interest. Communities create institutions — organised groups with specific functions. Key institutions: schools (education), hospitals (health), markets (economic exchange), religious institutions (places of worship, moral guidance), and local government (administration). Communities are bound by shared norms (rules of behaviour), values, and traditions. In India, caste has historically played a role in defining communities, but the Constitution prohibits caste-based discrimination. Modern communities include online communities sharing common interests.",
+          "expectedDifficulty": "OK",
+          "aliases": ["community social institutions", "norms values community", "school hospital market institutions", "caste community India", "social groups"],
+          "prerequisites": ["ss6_c016"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss6_u10",
+      "name": "Grassroots Democracy — Part 1: Governance",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "ss6_c018",
+          "name": "What is Governance and Why Do We Need It?",
+          "description": "Governance is the system by which a group of people organises itself and makes decisions for the common good. Without governance, there would be no roads, schools, hospitals, or rules to resolve disputes. Governance at different levels: local (panchayat, municipal), state, and national. A democratic government gets its power from the people through elections. The key features of good governance are: participation (people have a say), accountability (leaders answer for their decisions), transparency (information is open), rule of law (everyone is bound by the same laws), equity (fair treatment), and effectiveness.",
+          "expectedDifficulty": "OK",
+          "aliases": ["governance definition", "democratic government elections", "accountability transparency rule of law", "levels of government India", "features of good governance"],
+          "prerequisites": [],
+          "order": 1
+        }
+      ]
+    },
+    {
+      "id": "ss6_u11",
+      "name": "Grassroots Democracy — Part 2: Local Government in Rural Areas",
+      "order": 11,
+      "concepts": [
+        {
+          "id": "ss6_c019",
+          "name": "Panchayati Raj System",
+          "description": "The Panchayati Raj system is India's three-tier system of local government in rural areas, established by the 73rd Constitutional Amendment (1992). Three levels: Gram Panchayat (village level, elected by Gram Sabha — all adult voters of the village), Panchayat Samiti/Block Panchayat (block/tehsil level), Zila Parishad (district level). The Gram Panchayat manages local roads, water supply, sanitation, schools, and minor disputes. One-third of all seats are reserved for women. The Gram Sabha is the foundation — any adult villager can attend and question the panchayat on its work and accounts.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Panchayati Raj", "Gram Panchayat Gram Sabha", "73rd Amendment 1992", "three tier rural government", "Zila Parishad Panchayat Samiti"],
+          "prerequisites": [],
+          "order": 1
+        }
+      ]
+    },
+    {
+      "id": "ss6_u12",
+      "name": "Grassroots Democracy — Part 3: Local Government in Urban Areas",
+      "order": 12,
+      "concepts": [
+        {
+          "id": "ss6_c020",
+          "name": "Urban Local Bodies — Municipalities and Corporations",
+          "description": "Urban areas (towns and cities) have their own local government bodies established by the 74th Constitutional Amendment (1992). Types: Municipal Corporation (large cities — e.g., Mumbai, Delhi, Chennai), Municipal Council/Municipality (medium towns), Nagar Panchayat (smaller towns). The elected body manages water supply, sewage, roads, parks, street lighting, markets, and waste collection. The Mayor heads a Municipal Corporation; Chairperson heads a Municipality. Ward councillors are elected by residents of their ward. Like rural Panchayats, one-third seats are reserved for women. Urban bodies raise revenue through property tax, profession tax, and user fees.",
+          "expectedDifficulty": "OK",
+          "aliases": ["municipal corporation municipality", "74th Amendment urban local bodies", "Mayor ward councillor", "Nagar Panchayat", "urban local government India"],
+          "prerequisites": [],
+          "order": 1
+        }
+      ]
+    },
+    {
+      "id": "ss6_u13",
+      "name": "The Value of Work",
+      "order": 13,
+      "concepts": [
+        {
+          "id": "ss6_c021",
+          "name": "All Work Has Value",
+          "description": "Work includes any purposeful human activity — paid or unpaid. Domestic work (cooking, cleaning, childcare) is mostly done by women and is often invisible and unvalued because it is unpaid. Yet it is essential — without it, no other work could happen. Productive work directly creates goods or services; reproductive work maintains the household and family. India's national income (GDP) does not count unpaid domestic work, which means women's contribution to the economy is massively underestimated. Vivekananda said: 'Shiva Jnane Jiva Seva' — serve every person as God. All dignified work deserves respect, regardless of its social status.",
+          "expectedDifficulty": "OK",
+          "aliases": ["value of work", "domestic unpaid work", "GDP excludes housework", "dignified work respect", "women's work undervalued"],
+          "prerequisites": [],
+          "order": 1
+        }
+      ]
+    },
+    {
+      "id": "ss6_u14",
+      "name": "Economic Activities Around Us",
+      "order": 14,
+      "concepts": [
+        {
+          "id": "ss6_c022",
+          "name": "Types of Economic Activities",
+          "description": "Economic activities are those that produce goods or provide services for which people are paid. Three sectors: Primary sector (directly uses natural resources — farming, fishing, mining, forestry); Secondary sector (processes raw materials into finished goods — manufacturing, construction); Tertiary sector (provides services — transport, banking, education, healthcare, trade). Most people in India work in the primary sector (agriculture), though services are the largest contributor to GDP. Economic activities also include informal sector work (street vendors, domestic workers, auto-rickshaw drivers) — large in India and not always counted in official statistics.",
+          "expectedDifficulty": "OK",
+          "aliases": ["primary secondary tertiary sector", "economic activities types", "agriculture manufacturing services", "informal sector India", "GDP economic sectors"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss6_c023",
+          "name": "Markets and Exchange",
+          "description": "A market is any place or system where buyers and sellers exchange goods and services. Markets can be local (weekly haats in villages — vendors travel to sell vegetables, cloth, tools), regional (wholesale mandis where farmers sell produce), or global (India exports tea, spices, textiles, software). The price of a good is determined by demand and supply. When demand rises or supply falls, prices go up. When supply rises or demand falls, prices come down. Money makes exchange easier than barter. India has one of the largest informal markets in the world — from street vendors to small shops, they serve millions of people daily.",
+          "expectedDifficulty": "OK",
+          "aliases": ["market exchange haat mandi", "demand supply price", "local regional global market", "barter money exchange", "informal market India"],
+          "prerequisites": ["ss6_c022"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

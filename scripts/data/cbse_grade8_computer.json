@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 8,
+    "board": "CBSE",
+    "subject": "Computer Science",
+    "subjectColor": "#0EA5E9",
+    "subjectIcon": "💻",
+    "generatedAt": "2026-06-01",
+    "textbook": "Common Class 8 Computer Science Curriculum (Kips/Oxford aligned)"
+  },
+  "units": [
+    {
+      "id": "cs8_u01",
+      "name": "Advanced Computer Concepts — Number Systems",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "cs8_c001",
+          "name": "Number Systems — Binary, Octal, Decimal, Hexadecimal",
+          "description": "Computers use different number systems internally. The Decimal system (base 10) uses digits 0–9 and is what humans use daily. The Binary system (base 2) uses only 0 and 1 — it is the native language of computers because electronic circuits have two states (on/off). The Octal system (base 8) uses digits 0–7 and was historically used as a shorthand for binary. The Hexadecimal system (base 16) uses digits 0–9 and letters A–F (A=10, B=11, … F=15) and is widely used in programming and colour codes (e.g., #FF5733). Each system is written with its base as a subscript — e.g., 1010₂ (binary), 12₈ (octal), 10₁₀ (decimal), A₁₆ (hex).",
+          "expectedDifficulty": "OK",
+          "aliases": ["number systems binary decimal octal hexadecimal", "base 2 base 8 base 10 base 16", "binary system computers", "hexadecimal digits A B C D E F", "number system bases"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs8_c002",
+          "name": "Number System Conversions and Data Units",
+          "description": "Converting between number systems is a key skill. To convert decimal to binary: repeatedly divide by 2 and record remainders (e.g., 13₁₀ = 1101₂). To convert binary to decimal: multiply each bit by its positional value (powers of 2) and add (e.g., 1101₂ = 8+4+0+1 = 13). Hexadecimal ↔ Binary: group binary digits in sets of 4 (e.g., 1111 0010₂ = F2₁₆). Data units: 1 bit = smallest unit (0 or 1); 4 bits = 1 Nibble; 8 bits = 1 Byte; 1 KB = 1024 Bytes; 1 MB = 1024 KB; 1 GB = 1024 MB. ASCII (American Standard Code for Information Interchange) assigns a unique number to each character (e.g., A = 65, a = 97, space = 32). Unicode extends ASCII to support all world languages using up to 4 bytes per character.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["decimal to binary conversion", "binary to decimal conversion", "bit nibble byte", "ASCII code Unicode", "hexadecimal binary conversion"],
+          "prerequisites": ["cs8_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs8_u02",
+      "name": "Advanced MS Word",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "cs8_c003",
+          "name": "Mail Merge, Templates, and Document Tools",
+          "description": "Mail Merge is an advanced Word feature that combines a main document with a data source to produce many personalised copies automatically — ideal for bulk letters, certificates, labels, and envelopes. Steps: write the main document → connect to data source (e.g., Excel sheet of names/addresses) → insert Merge Fields (placeholders like «Name») → Preview and Finish & Merge. Templates are pre-designed document layouts saved as .dotx files — they save time when creating recurring document types. Table of Contents (TOC) is generated automatically from Heading styles (Insert → Table of Contents). Footnotes (bottom of page) and Endnotes (end of document) add references or additional information. Track Changes (Review tab) records every edit — reviewers Accept or Reject changes. These tools are essential for professional document creation.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["mail merge Word", "merge fields data source letter", "Word templates dotx", "table of contents Word", "Track Changes footnotes endnotes"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs8_c004",
+          "name": "Macros, SmartArt, and Charts in Word",
+          "description": "A Macro in Word is a recorded sequence of commands and keystrokes that can be replayed to automate repetitive tasks — recorded via View → Macros → Record Macro; saved in the document or Normal template. SmartArt (Insert → SmartArt) creates professional diagrams such as process flowcharts, hierarchy charts, cycle diagrams, and relationship diagrams without drawing manually. Charts can be embedded directly in Word (Insert → Chart) — the data is entered in an embedded Excel spreadsheet. Types available: Column, Bar, Pie, Line, Scatter, and more. Each chart has a title, axis labels, legend, and data labels. Once inserted, double-clicking the chart allows editing the data. These tools transform plain text documents into visually rich reports and presentations.",
+          "expectedDifficulty": "OK",
+          "aliases": ["macros Word recording", "SmartArt Word diagram", "Insert Chart Word", "automate tasks Word macro", "Word hierarchy flowchart SmartArt"],
+          "prerequisites": ["cs8_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs8_u03",
+      "name": "Advanced Excel",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "cs8_c005",
+          "name": "Advanced Functions — IF, COUNTIF, SUMIF, VLOOKUP",
+          "description": "Excel's advanced functions handle complex data analysis. IF(condition, value_if_true, value_if_false) applies logic — e.g., =IF(A1>=33,\"Pass\",\"Fail\"). Nested IFs handle multiple conditions. COUNTIF(range, criteria) counts cells meeting a condition — e.g., =COUNTIF(B1:B30,\">50\") counts scores above 50. SUMIF(range, criteria, sum_range) adds values where a condition is met. VLOOKUP(lookup_value, table_array, col_index, FALSE) looks up a value in the leftmost column of a table and returns data from a specified column — e.g., finding a student's grade from a marks table. Absolute references ($A$1) keep a cell address fixed when a formula is copied; relative references (A1) adjust automatically. Named Ranges assign a name (e.g., 'Marks') to a cell range for easier formulas. Data Validation restricts what can be entered in a cell (e.g., only numbers between 0–100).",
+          "expectedDifficulty": "HARD",
+          "aliases": ["IF COUNTIF SUMIF VLOOKUP Excel", "Excel advanced functions", "absolute relative reference Excel", "named ranges Excel", "data validation Excel"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs8_c006",
+          "name": "Pivot Tables, Sheet Protection, and Chart Types",
+          "description": "A Pivot Table is one of Excel's most powerful features — it summarises large datasets by grouping, counting, summing, or averaging data without writing formulas. To create: select data → Insert → PivotTable → drag fields to Rows, Columns, or Values. It can instantly show totals by category (e.g., total sales per region per month). Sheet Protection (Review → Protect Sheet) prevents unauthorised edits — a password locks specified cells. Workbook Protection locks the structure (prevents adding/deleting sheets). Excel supports many chart types: Column (comparisons), Bar (horizontal comparisons), Line (trends), Pie (proportions — 100% whole), Area, Scatter (correlations), Bubble, and Combo charts. Choosing the right chart type is critical for meaningful data presentation.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["pivot table Excel", "protect sheet workbook Excel", "Excel chart types column bar line pie", "PivotTable insert", "Excel data analysis"],
+          "prerequisites": ["cs8_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs8_u04",
+      "name": "MS Access and Database Basics",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "cs8_c007",
+          "name": "Database Concepts — DBMS, Tables, and Keys",
+          "description": "A database is an organised collection of related data stored and accessed electronically. A Database Management System (DBMS) is software that creates, manages, and provides access to databases — examples include MS Access, MySQL, Oracle, and SQLite. Data in a relational database is stored in Tables, which consist of Rows (Records — each row is one entry) and Columns (Fields — each column is one type of data, e.g., Name, RollNo, Marks). A Primary Key is a field that uniquely identifies each record in a table — no two records can have the same primary key value (e.g., RollNo or Aadhar number). Data types define what kind of data a field stores: Text, Number, Date/Time, Currency, Yes/No (Boolean), AutoNumber. Difference from spreadsheet: a DBMS handles relationships between multiple tables, supports many simultaneous users, and enforces data integrity.",
+          "expectedDifficulty": "OK",
+          "aliases": ["database DBMS", "table record field primary key", "MS Access database", "relational database", "DBMS vs spreadsheet"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs8_c008",
+          "name": "MS Access — Forms, Queries, and Reports",
+          "description": "In MS Access, a Table stores the raw data. A Form provides a user-friendly interface to enter, view, and edit records one at a time — instead of working directly in the table grid. A Query retrieves specific data from one or more tables based on conditions — the most common is the Select Query (e.g., show all students with marks > 80); queries are created using the Design View or SQL. A Report formats and presents data from tables or queries for printing or sharing — it can include groupings, summaries, and totals. Access uses a Relationships feature (Database Tools tab) to link tables through matching fields (foreign keys), enabling data from multiple tables to be used together. Together, these four objects (Tables, Forms, Queries, Reports) form the core of any Access database application.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["MS Access forms queries reports", "Access table form query", "select query MS Access", "database reports Access", "relationships Access tables"],
+          "prerequisites": ["cs8_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs8_u05",
+      "name": "Advanced PowerPoint",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "cs8_c009",
+          "name": "Advanced Animations and Slide Masters",
+          "description": "PowerPoint's advanced animations give precise control over how objects move on slides. Motion Path animations let an object follow a custom drawn path (straight line, curve, loop). Triggers cause an animation to play when a specific object is clicked — useful for interactive quizzes. The Animation Pane shows all animations in sequence and allows fine-tuning start time, duration, and delay. A Slide Master (View → Slide Master) is a template that controls the design, fonts, colours, and layouts of all slides at once — editing the Slide Master updates every slide, ensuring a consistent professional look. Photo Album (Insert → Photo Album) quickly creates a presentation of photos with captions and layouts. Embedding objects (Insert → Object) lets you place an Excel chart or Word table directly into a slide, maintaining a live link to the source file.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["PowerPoint motion path animation", "triggers PowerPoint animation", "Slide Master PowerPoint", "Photo Album PowerPoint", "Animation Pane timing"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs8_c010",
+          "name": "Audio, Video, and Slide Show Settings",
+          "description": "PowerPoint supports multimedia: Insert → Audio embeds or links a sound file (plays on click or automatically); Insert → Video embeds a video clip or links to an online video (YouTube). These make presentations more engaging. Slide Show Setup (Slide Show → Set Up Show): Presented by a speaker (full screen, manual advance), Browsed by an individual (windowed), or Browsed at a kiosk (auto-loop, no user control). Rehearse Timings records how long you spend on each slide to enable automatic advancement. Loop continuously keeps the show playing in a cycle — useful for kiosks and exhibitions. Hide Slide skips a slide during the show without deleting it. Presenter View shows the current slide, next slide, speaker notes, and a timer on the presenter's screen while the audience sees only the presentation.",
+          "expectedDifficulty": "OK",
+          "aliases": ["PowerPoint audio video insert", "Slide Show setup loop timings", "Rehearse Timings PowerPoint", "Presenter View notes", "kiosk mode PowerPoint"],
+          "prerequisites": ["cs8_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs8_u06",
+      "name": "Web Technologies — HTML5 and CSS",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "cs8_c011",
+          "name": "HTML5 — Structure and Semantic Tags",
+          "description": "HTML5 is the latest version of HyperText Markup Language, the standard language for creating web pages. It introduced semantic tags that describe the meaning of content — <header> (top section), <nav> (navigation links), <section> (a themed section), <article> (self-contained content), <footer> (bottom section), <aside> (sidebar content). These are more meaningful than using generic <div> tags everywhere. HTML5 also added support for <audio> and <video> tags, allowing media to be embedded without plugins like Flash. The <canvas> element enables drawing graphics using JavaScript. HTML5 forms have new input types: email, date, number, range, url — providing built-in validation. The basic structure remains: <!DOCTYPE html>, <html>, <head> (metadata, <title>), and <body> (visible content).",
+          "expectedDifficulty": "OK",
+          "aliases": ["HTML5 semantic tags", "header nav section article footer", "HTML5 audio video canvas", "HTML5 form input types", "HTML5 new features"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs8_c012",
+          "name": "CSS — Styling Webpages",
+          "description": "CSS (Cascading Style Sheets) controls the visual presentation of HTML elements — colour, font, size, spacing, borders, and layout. CSS separates content (HTML) from design (CSS), making websites easier to maintain. There are three types of CSS: Inline CSS applies style directly in an HTML tag using the style attribute (e.g., <p style=\"color:red\">); Internal CSS is written inside a <style> tag in the <head> section; External CSS is in a separate .css file linked with <link rel=\"stylesheet\" href=\"style.css\"> — most efficient for large sites. CSS selectors target elements: element selector (p { }), class selector (.classname { }), id selector (#idname { }). Common properties: color, background-color, font-family, font-size, text-align, margin, padding, border. The 'Cascading' rule means more specific rules override general ones.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["CSS cascading style sheets", "inline internal external CSS", "CSS selectors class id element", "CSS color font margin padding", "link stylesheet CSS"],
+          "prerequisites": ["cs8_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs8_u07",
+      "name": "Introduction to Python Programming",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "cs8_c013",
+          "name": "Python Basics — Variables, Data Types, and I/O",
+          "description": "Python is a high-level, interpreted, general-purpose programming language created by Guido van Rossum (first released 1991). 'Interpreted' means each line is executed directly without compiling first — Python programs are run using the Python interpreter or IDLE (Integrated Development and Learning Environment). Python emphasises readability with clean syntax (no curly braces or semicolons). Variables store data and are created by assignment: name = \"Arjun\"; age = 12. Python's main data types: int (integers, e.g., 10), float (decimal numbers, e.g., 3.14), str (strings/text, e.g., \"Hello\"), bool (True or False). The input() function reads user input as a string; int(input()) or float(input()) converts it to a number. The print() function displays output — e.g., print(\"Hello, World!\"). Comments start with # and are ignored by the interpreter.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Python introduction", "Python variables data types", "int float str bool Python", "input print Python", "IDLE Python environment", "Guido van Rossum Python"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs8_c014",
+          "name": "Python — Operators and Simple Programs",
+          "description": "Python supports several types of operators. Arithmetic operators: + (addition), - (subtraction), * (multiplication), / (division — gives float), // (floor/integer division), % (modulus — remainder), ** (exponentiation — e.g., 2**3 = 8). Comparison operators: == (equal to), != (not equal), > , <, >= , <= — these return True or False. Assignment operators: = assigns, += adds and assigns (e.g., x += 5 is same as x = x + 5). Logical operators: and, or, not. String operations: + concatenates (joins) strings; * repeats a string (e.g., \"Hi\" * 3 → \"HiHiHi\"). A simple Python program to find the area of a rectangle: length = float(input(\"Enter length: \")); breadth = float(input(\"Enter breadth: \")); area = length * breadth; print(\"Area =\", area). Python programs are saved as .py files.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Python operators arithmetic comparison", "Python modulus floor division", "Python string concatenation", "Python simple program", "arithmetic operators Python"],
+          "prerequisites": ["cs8_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs8_u08",
+      "name": "Python — Control Structures",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "cs8_c015",
+          "name": "if-elif-else and Conditional Logic in Python",
+          "description": "Control structures change the flow of a program based on conditions. The if statement executes a block of code only if a condition is True; the else block runs if the condition is False. The elif (else-if) clause tests additional conditions in sequence — Python checks each condition from top to bottom and executes the first True block. Indentation (4 spaces or 1 tab) is mandatory in Python — it defines which statements belong to each block (unlike curly braces in other languages). Example: marks = int(input()); if marks >= 90: print(\"A\"); elif marks >= 75: print(\"B\"); elif marks >= 33: print(\"Pass\"); else: print(\"Fail\"). Nested if statements place an if inside another if. Conditions can use comparison operators (>, ==, !=) and logical operators (and, or, not).",
+          "expectedDifficulty": "OK",
+          "aliases": ["if elif else Python", "conditional statement Python", "Python indentation", "nested if Python", "Python selection control structure"],
+          "prerequisites": ["cs8_c014"],
+          "order": 1
+        },
+        {
+          "id": "cs8_c016",
+          "name": "Loops in Python — while, for, and Control Statements",
+          "description": "Loops repeat a block of code multiple times. The while loop runs as long as its condition is True — care must be taken to avoid an infinite loop by changing the condition inside the loop. The for loop iterates over a sequence (list, string, or range) — e.g., for i in range(1, 6): print(i) prints 1 to 5. range(start, stop, step) generates a sequence of numbers: range(10) gives 0–9; range(1,10,2) gives 1,3,5,7,9. Nested loops place one loop inside another — the inner loop completes all its iterations for each iteration of the outer loop (useful for patterns and tables). break exits a loop immediately when a condition is met. continue skips the rest of the current iteration and moves to the next. These control flow tools are the foundation of all non-trivial programs.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["Python while for loop", "range function Python", "break continue Python", "nested loops Python", "Python loop control statements"],
+          "prerequisites": ["cs8_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs8_u09",
+      "name": "Networking and Communication",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "cs8_c017",
+          "name": "Network Types, Topologies, and Protocols",
+          "description": "A computer network is a group of computers connected to share resources and data. Types by size: LAN (Local Area Network — within one building), MAN (Metropolitan Area Network — city-wide), WAN (Wide Area Network — across countries; the Internet is the largest WAN). Network Topologies describe physical or logical arrangement: Bus (all devices on a single cable), Star (all connect to a central switch — most common in homes/schools), Ring (each device connects to exactly two others forming a circle), Mesh (every device connects to every other — very reliable, expensive). Protocols are rules for communication: TCP/IP (foundation of the internet — TCP ensures reliable delivery; IP handles addressing), HTTP/HTTPS (web browsing), FTP (file transfer), SMTP (sending email), POP3/IMAP (receiving email), DNS (Domain Name System — translates domain names like google.com to IP addresses like 142.250.190.46).",
+          "expectedDifficulty": "HARD",
+          "aliases": ["LAN MAN WAN network types", "network topologies bus star ring mesh", "TCP/IP HTTP FTP SMTP protocols", "DNS domain name system", "network protocols communication"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs8_c018",
+          "name": "IP Addresses, Network Hardware, and Wireless Networks",
+          "description": "An IP (Internet Protocol) address is a unique numerical label assigned to every device on a network. IPv4 uses 32 bits written as four numbers (0–255) separated by dots — e.g., 192.168.1.1; supports about 4.3 billion addresses. IPv6 uses 128 bits written in hexadecimal — e.g., 2001:0db8::1; supports an almost unlimited number of devices (needed as the world ran out of IPv4 addresses). Network hardware: Router — connects different networks and directs data packets between them (your home Wi-Fi router connects your LAN to the internet). Switch — connects multiple devices within a LAN and forwards data only to the intended recipient. Hub — older device that broadcasts data to all connected devices (less efficient than a switch). Modem — converts digital computer signals to analogue signals for transmission over phone lines (and vice versa). Wireless technologies: Wi-Fi (IEEE 802.11 standard — home/office networks); Bluetooth (short-range, ~10 m, personal devices); 4G/5G (mobile cellular networks — 5G offers ultra-high speed up to 20 Gbps).",
+          "expectedDifficulty": "OK",
+          "aliases": ["IP address IPv4 IPv6", "router switch hub modem", "Wi-Fi Bluetooth 4G 5G", "network hardware devices", "IPv4 32 bit IPv6 128 bit"],
+          "prerequisites": ["cs8_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs8_u10",
+      "name": "Cybersecurity and Ethical Use",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "cs8_c019",
+          "name": "Malware, Threats, and Protection",
+          "description": "Malware (malicious software) is any software designed to harm computers or steal data. Types: Virus — attaches to a legitimate file and spreads when the file is shared; it can corrupt or delete data. Worm — self-replicates across networks without attaching to a file (e.g., ILOVEYOU worm, 2000). Trojan Horse — disguises itself as legitimate software but performs harmful actions secretly. Ransomware — encrypts the victim's files and demands a ransom payment to unlock them (e.g., WannaCry, 2017). Spyware — secretly monitors user activity and sends data (passwords, credit card numbers) to attackers. Adware — bombards users with unwanted advertisements. Protection measures: install and regularly update Antivirus software (e.g., Windows Defender, Kaspersky); enable a Firewall (hardware or software barrier that monitors and controls incoming/outgoing network traffic based on rules); keep the OS and applications updated; use Two-Factor Authentication (2FA) — a second verification step (OTP, fingerprint) beyond a password.",
+          "expectedDifficulty": "OK",
+          "aliases": ["malware virus worm trojan ransomware spyware", "WannaCry ransomware", "antivirus firewall 2FA", "cybersecurity threats", "two-factor authentication"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs8_c020",
+          "name": "Encryption, Digital Footprint, and Cyber Laws",
+          "description": "Encryption converts data into an unreadable format (ciphertext) so only the intended recipient with the correct key can decode it — HTTPS websites use SSL/TLS encryption (shown by the padlock icon). End-to-end encryption (used by WhatsApp) means only sender and receiver can read messages. A Digital Footprint is the trail of data you leave online — every search, post, photo, and purchase is part of it. Active footprint: data you deliberately share (social media posts). Passive footprint: data collected without your direct knowledge (browsing history, location data). Managing your digital footprint is important for privacy and future reputation. Ethical use of technology: respecting intellectual property, no plagiarism (copying others' work without credit), no cyberbullying, responsible social media use. India's IT Act 2000 (and its 2008 amendment) is the primary law governing cybercrime — it covers hacking (Section 66), identity theft (66C), phishing (66D), and cyberstalking. Report cybercrime at cybercrime.gov.in.",
+          "expectedDifficulty": "OK",
+          "aliases": ["encryption SSL TLS HTTPS", "digital footprint active passive", "IT Act 2000 India cybercrime", "cybercrime laws India", "ethical use technology copyright plagiarism"],
+          "prerequisites": ["cs8_c019"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

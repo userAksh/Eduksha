@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 7,
+    "board": "CBSE",
+    "subject": "English",
+    "subjectColor": "#EA580C",
+    "subjectIcon": "📚",
+    "generatedAt": "2026-05-31",
+    "textbook": "NCERT Honeycomb — Class 7"
+  },
+  "units": [
+    {
+      "id": "eng7_u01",
+      "name": "Three Questions (Chapter 1)",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "eng7_c001",
+          "name": "Three Questions — Story and Moral",
+          "description": "Adapted from Leo Tolstoy, this story follows a king who wants to know the answers to three questions: What is the right time to begin things? Who is the most important person? What is the most important business? He visits a hermit who teaches him through experience, not words. The king saves his enemy's life and realises: the most important time is now; the most important person is the one you are with; and the most important thing is to do good to that person. The story teaches mindfulness, compassion, and being present in the moment.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Three Questions Tolstoy", "king hermit story", "three questions moral", "present moment story"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng7_c002",
+          "name": "The Squirrel — Poem",
+          "description": "This short, delightful poem by Mildred Bowers Armstrong describes a squirrel on a tree stump. The squirrel has a coat of grey (its fur), a twitching tail, and holds a nut. When the poet walks around the stump to see its face, the squirrel keeps going around to the other side — they keep going in circles. The poem captures the playful and quick nature of a squirrel through simple, vivid imagery. Key poetic devices: rhyme (grey/day, nut/but), and direct address (the poet speaks to the squirrel).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["The Squirrel poem", "squirrel poetry class 7", "Mildred Bowers Armstrong squirrel"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng7_u02",
+      "name": "A Gift of Chappals (Chapter 2)",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "eng7_c003",
+          "name": "A Gift of Chappals — Story",
+          "description": "This story by Vasantha Surya is set in Chennai. Mridu visits her cousins Ravi and Meena who have secretly been feeding a kitten they call Mahendran. They give their cousin Rukku Manni's old chappals (sandals) to a beggar-musician who is barefoot. When their music teacher Lakshmikutty comes for class, she asks the children's mother for old slippers — and the mother discovers her chappals are missing. Ravi and Meena confess. The story highlights children's kindness and spontaneous generosity, even if it lands them in trouble.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Gift of Chappals story", "Mridu Ravi Meena kitten", "Vasantha Surya story", "chappal story class 7"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng7_c004",
+          "name": "The Rebel — Poem",
+          "description": "Written by D.J. Enright, 'The Rebel' describes someone who always goes against the crowd — if everyone has short hair, the rebel has long hair; if everyone talks, the rebel is silent; if everyone loves rain, the rebel hates it. The poem uses repetition and contrast to show that a rebel instinctively does the opposite of others. The ending suggests that when everyone is a rebel, the rebel becomes the one who conforms. The poem raises questions about individuality, conformity, and what it really means to be different.",
+          "expectedDifficulty": "OK",
+          "aliases": ["The Rebel poem D.J. Enright", "rebel poem class 7", "conformity individuality poem", "rebel poem"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng7_u03",
+      "name": "Gopal and the Hilsa-Fish (Chapter 3)",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "eng7_c005",
+          "name": "Gopal and the Hilsa-Fish — Story",
+          "description": "This is a humorous Bengali folk tale. The king is tired of everyone talking only about hilsa-fish (a popular fish that arrives in season). He challenges his clever courtier Gopal to buy a huge hilsa-fish from the market without anyone talking about the fish. Gopal dresses in rags, smears ash on his face, and shaves half his beard. He succeeds — everyone on the way asks about his appearance, not the fish! The story celebrates wit and cleverness. It also features the format of a comic strip (graphic narrative), helping students understand visual storytelling.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Gopal hilsa fish story", "Bengali folk tale fish", "Gopal clever courtier", "hilsa fish class 7"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng7_c006",
+          "name": "The Shed — Poem",
+          "description": "This poem by Frank Flynn is about a child who is afraid of an old shed in the garden. The brother teases the child by saying there is a ghost in the shed. As the poem progresses, the child keeps coming close to the shed but never quite going in — always finding an excuse. The last stanza reveals the child is determined to finally look inside 'some day'. The poem explores childhood fears, the imagination's power to create danger where there may be none, and the slow process of building courage.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["The Shed poem", "shed poem Frank Flynn", "childhood fear poem class 7"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng7_u04",
+      "name": "The Ashes That Made Trees Bloom (Chapter 4)",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "eng7_c007",
+          "name": "The Ashes That Made Trees Bloom — Story",
+          "description": "This is a Japanese folk tale. A kind old couple have a dog who digs up gold from their yard. A greedy neighbour borrows the dog hoping for the same luck; when the dog digs only waste, he kills it. The kind couple bury the dog under a pine tree; the tree grows and they make a mortar from it. The mortar turns rice into gold; the neighbour breaks it and burns the wood. The couple spread the ashes on a withered cherry tree and it blooms beautifully; the daimyo (lord) rewards them. The greedy neighbour's imitation fails. The story teaches that goodness brings true rewards, not imitation.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Ashes Trees Bloom story", "Japanese folk tale class 7", "kind old couple dog story", "greedy neighbour folk tale"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng7_c008",
+          "name": "Chivvy — Poem",
+          "description": "Written by Michael Rosen, 'Chivvy' is a poem about all the instructions adults constantly give children: 'Speak up', 'Don't slouch', 'Say thank you', 'Don't stare', 'Wash your hands'. The poem is a long list of commands adults give children, often contradictory. The final line is a question — when children follow all the rules perfectly, adults say 'Don't do as you're told all the time!' The poem satirises the way adults chivvy (nag or hurry) children, and the impossible standards children are expected to meet.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Chivvy poem Michael Rosen", "adult commands children poem", "nagging poem class 7"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng7_u05",
+      "name": "Quality (Chapter 5)",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "eng7_c009",
+          "name": "Quality — Story and Theme",
+          "description": "Written by John Galsworthy, 'Quality' is the story of Gessler Brothers, two German cobblers in London who make the finest boots in the world. They take great pride in their work — every boot is made to order, made to last, made perfectly. Over time, large companies with inferior but cheaper boots drive them out of business. Both brothers die in poverty, essentially starving themselves to devote everything to their craft. The narrator's last pair of Gessler boots outlasted everything else. The story is a meditation on artisanship, quality versus quantity, and the loss of craftsmanship in a commercial world.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Quality Galsworthy story", "Gessler shoemaker story", "craftsmanship quality story class 7", "artisan story"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng7_c010",
+          "name": "Trees — Poem",
+          "description": "Written by Adrienne Rich, 'Trees' is a complex, layered poem. The trees inside the house (perhaps houseplants or indoor trees) are moving toward the open window, struggling toward the forest. The poem can be read literally — trees longing to be free in nature — or symbolically, as people seeking freedom from confined, artificial lives. The poem ends with an image of trees filling the night sky and a broken mirror (perhaps reflecting the end of an illusion). The poem explores themes of nature, freedom, and the tension between controlled indoor life and wild nature.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["Trees poem Adrienne Rich", "trees poem class 7", "nature freedom poem", "symbolism trees poem"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng7_u06",
+      "name": "Expert Detectives (Chapter 6)",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "eng7_c011",
+          "name": "Expert Detectives — Story",
+          "description": "Written by Sharada Dwivedi, this story features two child protagonists — Nishad (Seven) and Maya. They become curious about their neighbour, Mr Nath — a thin, scarred man who has very few visitors, eats only two meals a day, and seems mysterious. Nishad thinks he is a good man because he always tips the servant Ramesh. Maya suspects he is a criminal in hiding. They try to gather clues about him. The story ends before the mystery is solved, leaving readers to speculate. It's about the fun of amateur detective work and how people jump to conclusions about others.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Expert Detectives story", "Nishad Maya Mr Nath", "Sharada Dwivedi story class 7", "detective story class 7"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng7_c012",
+          "name": "Mystery of the Talking Fan — Poem",
+          "description": "This short, whimsical poem by Michio Mado (translated from Japanese) personifies an electric fan. The fan makes a continuous humming sound, and the poet wonders what it is talking about — what its song means. When the fan is switched off, it stops its mysterious talk. The poem is charming in its simplicity, turning an everyday object into a mystery. Key literary device: personification (giving human qualities — talking, singing — to the fan). It encourages children to be curious about ordinary things.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Talking Fan poem", "electric fan poem class 7", "personification fan poem", "Michio Mado poem"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng7_u07",
+      "name": "The Invention of Vita-Wonk (Chapter 7)",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "eng7_c013",
+          "name": "The Invention of Vita-Wonk — Story",
+          "description": "Excerpted from Roald Dahl's 'Charlie and the Great Glass Elevator', this humorous chapter describes Willy Wonka inventing 'Vita-Wonk' — a medicine that makes people get older very quickly. Wonka travels the world collecting items from the oldest living things: wood from a 4,000-year-old bristle-cone pine, a toe-nail from a 168-year-old tortoise, tail hairs from a 200-year-old horse, etc. He makes a compound and tests it on Grandma Georgina — she instantly becomes very old. The story blends absurd humour, adventure, and imaginative description in Dahl's characteristic style.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Vita-Wonk story Roald Dahl", "Willy Wonka invention story", "Roald Dahl class 7", "Vita-Wonk oldest things"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng7_c014",
+          "name": "Dad and the Cat and the Tree — Poem",
+          "description": "Written by Kit Wright, this comic poem describes a father trying to rescue a cat stuck in a tree. He keeps climbing the wrong way and falling down, despite insisting everything is fine and that he knows what he is doing. The poem has a regular rhythm and rhyme scheme (ABAB), and uses repetition of the father's confident exclamations ('Mind you, if I once / Decided to climb down, / Easy as winking!') humorously. The poem gently satirises adult overconfidence and the stubborn refusal to admit failure — a very human trait.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Dad Cat Tree poem Kit Wright", "cat stuck tree poem", "comic poem class 7", "dad tree poem"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng7_u08",
+      "name": "A Homage to our Brave Soldiers (Chapter 8)",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "eng7_c015",
+          "name": "A Homage to our Brave Soldiers — Story",
+          "description": "This chapter pays tribute to the soldiers who sacrifice their lives for the nation. Two friends share their deep feelings about brave soldiers — one of them recounts a visit to the National War Memorial in New Delhi, which left a profound impact on her. The chapter explores themes of patriotism, gratitude, sacrifice, and national pride. The National War Memorial, inaugurated in 2019, honours over 25,000 soldiers who died in wars after Independence. The chapter encourages students to reflect on the debt of gratitude every citizen owes to the armed forces.",
+          "expectedDifficulty": "OK",
+          "aliases": ["A Homage to Brave Soldiers", "National War Memorial chapter", "patriotism soldiers story class 7", "brave soldiers Honeycomb"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng7_c016",
+          "name": "Meadow Surprises — Poem",
+          "description": "Written by Lois Brandt Phillips, 'Meadow Surprises' is a nature poem that invites readers to walk slowly through a meadow and notice small wonders: a butterfly dancing among flowers, a rabbit, a dandelion seed ball, a brook (stream) making its own music. The poem encourages careful observation of nature. It uses vivid sensory imagery — sounds (brook gurgling), sights (butterfly's wings), and movement. The word 'surprises' captures the idea that nature always has something new to offer to those who pay attention.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Meadow Surprises poem", "Lois Brandt Phillips meadow", "nature observation poem class 7"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng7_u09",
+      "name": "A Bicycle in Good Repair (Chapter 9)",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "eng7_c017",
+          "name": "A Bicycle in Good Repair — Story",
+          "description": "Written by Jerome K. Jerome, this humorous story describes a friend who insists on 'repairing' the narrator's bicycle. The friend, who claims to know everything about bicycles, takes it apart to show it is in good condition — but cannot put it back together. The bicycle ends up in pieces all over the road. The narrator, infuriated but polite, has to reassemble it himself. The story is written in Jerome's characteristic dry, ironic humour — understating disaster while describing it graphically. It satirises 'know-it-alls' and the trouble over-confidence can cause.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Bicycle in Good Repair story", "Jerome K Jerome bicycle", "humorous story class 7", "bicycle repair humour"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng7_c018",
+          "name": "Garden Snake — Poem",
+          "description": "Written by Muriel L. Sonne, 'Garden Snake' describes a child who is initially afraid of a snake in the garden. The mother calmly reassures the child that this type of snake is harmless and actually helps the garden by eating insects and pests. By the poem's end, the child has overcome the irrational fear and even watches the snake with curiosity and fondness. The poem is about overcoming fear through knowledge — understanding nature helps us coexist with creatures we once feared. The mother's calm wisdom contrasts with the child's panic.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Garden Snake poem", "snake poem class 7", "overcoming fear poem", "Muriel Sonne poem"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng7_u10",
+      "name": "The Story of Cricket (Chapter 10)",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "eng7_c019",
+          "name": "The History and Rules of Cricket",
+          "description": "Cricket originated in south-east England in the 16th century, played by shepherds using their crooks (staves) as bats and a stone as a ball. By the 18th century it was the national game of England. Key historical facts: the Laws of Cricket were first written down in 1744; the first Test match was played between England and Australia in 1877; India played its first Test in 1932. The cricket pitch is 22 yards long (based on the chain — a unit of land measurement). Unlike other sports, cricket retained its old measurements. The oval (boundary) and three stumps per wicket are unique to cricket.",
+          "expectedDifficulty": "OK",
+          "aliases": ["history of cricket", "cricket origin England", "Laws of Cricket 1744", "first Test match 1877", "cricket rules class 7"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng7_c020",
+          "name": "Cricket — Colonial Spread and Globalisation",
+          "description": "Cricket spread globally as part of British colonial expansion. It was introduced to South Asia, the West Indies, Australia, and South Africa by the British. Local populations took up the game enthusiastically — often beating England at it. Cricket became a way for colonised people to compete with and defeat their rulers. The West Indies' victory in 1950 over England was considered a national triumph. India's 1983 World Cup win was a turning point — it made India the commercial engine of world cricket. Today, India dominates cricket financially through the IPL and BCCI's global influence.",
+          "expectedDifficulty": "OK",
+          "aliases": ["cricket colonial history", "cricket West Indies India", "1983 World Cup India", "IPL BCCI cricket", "cricket globalisation"],
+          "prerequisites": ["eng7_c019"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

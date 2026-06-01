@@ -1,0 +1,417 @@
+{
+  "metadata": {
+    "grade": 5,
+    "board": "CBSE",
+    "subject": "Environmental Studies",
+    "subjectColor": "#16A34A",
+    "subjectIcon": "🌿",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Our Wondrous World — Class 5 (First Edition July 2025, Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "evs5_u01",
+      "name": "Life Around Us",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "evs5_c001",
+          "name": "Water as the Essence of Life",
+          "description": "Water is essential for all living things — plants, animals, and humans cannot survive without it. The water cycle describes how water constantly moves through the environment: water evaporates from oceans and lakes, forms clouds through condensation, and falls back to Earth as precipitation (rain, snow, or hail). Sources of water include rainfall, rivers, lakes, ponds, underground water (wells and borewells), and glaciers. Water pollution from factories, sewage, and chemicals makes water unsafe to use. Conserving water through small habits — like closing taps and reusing water — is each person's responsibility.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "water cycle",
+            "evaporation",
+            "condensation",
+            "precipitation",
+            "water conservation",
+            "water sources"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs5_c002",
+          "name": "Journey of a River",
+          "description": "Rivers are born in mountains or hills where rainwater and melting ice collect and begin to flow downhill. The Godavari river, for example, originates in the Western Ghats near Nashik (Maharashtra) and flows east across the Deccan plateau before emptying into the Bay of Bengal. As a river flows, it shapes the land by carving valleys, depositing silt, and creating fertile plains. Rivers provide water for drinking and irrigation, support rich plant and animal life, and historically led to the growth of cities and civilisations along their banks. The health of a river depends on how responsibly we treat it.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "river",
+            "Godavari",
+            "source of river",
+            "river mouth",
+            "Bay of Bengal",
+            "irrigation"
+          ],
+          "prerequisites": [
+            "evs5_c001"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs5_u02",
+      "name": "Health and Well-being",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "evs5_c003",
+          "name": "Nutrients in Food and Balanced Diet",
+          "description": "Food provides our body with nutrients needed for energy, growth, and protection from disease. The main nutrients are: carbohydrates (energy — found in rice, bread, potatoes), proteins (growth and repair — found in pulses, eggs, meat, milk), fats (stored energy — found in butter, oil, nuts), vitamins (protection — found in fruits and vegetables), and minerals (body functions — such as calcium in milk for strong bones, and iron in spinach for blood). Water is also an essential part of our diet. A balanced diet includes the right amounts of all nutrients eaten every day, and eating a variety of foods is the best way to achieve this.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "nutrients",
+            "carbohydrates",
+            "proteins",
+            "fats",
+            "vitamins",
+            "minerals",
+            "balanced diet"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs5_c004",
+          "name": "Microorganisms, Food Spoilage, and Preservation",
+          "description": "Microorganisms are tiny living things too small to see with the naked eye; they include bacteria, fungi (moulds), and yeast. Some microorganisms spoil food by breaking it down, causing it to smell bad, change colour, or become unsafe to eat. Warmth and moisture help microorganisms grow faster, which is why food kept in the open goes bad quickly. Food preservation methods slow or stop microbial growth: refrigeration slows them down, pickling (using salt or vinegar) creates conditions they cannot survive in, and drying removes moisture. Washing hands, using clean utensils, and drinking clean water prevent illness caused by harmful microbes.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "microorganisms",
+            "bacteria",
+            "fungi",
+            "food spoilage",
+            "food preservation",
+            "hygiene"
+          ],
+          "prerequisites": [
+            "evs5_c003"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs5_u03",
+      "name": "Incredible India",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "evs5_c005",
+          "name": "Diversity of India",
+          "description": "India is one of the most diverse countries in the world, with hundreds of languages, many religions, and a rich variety of food, clothing, festivals, and customs across different states. Despite this diversity, all Indians share a common national identity. Indian currency notes carry important national symbols and information: the face of Mahatma Gandhi, the denomination in multiple languages, a watermark, the RBI Governor's signature, and images of significant places or achievements. The motto of India, 'Satyameva Jayate' (Truth alone triumphs), and the national emblem (Ashoka Pillar) appear on official documents. Unity in diversity is one of India's greatest strengths.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "diversity",
+            "unity in diversity",
+            "Indian languages",
+            "currency notes",
+            "national symbols"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs5_c006",
+          "name": "Unique Places and Geographical Diversity of India",
+          "description": "India has an extraordinary variety of landscapes: the snow-capped Himalayan mountains in the north, hot and dry deserts in Rajasthan (Thar Desert), dense tropical rainforests in the northeast and Western Ghats, fertile river plains in the Gangetic region, and peaceful backwaters in Kerala. Each region has a distinct climate, vegetation, and way of life shaped by its geography. Hill stations like Shimla and Ooty offer cooler temperatures because temperature drops with altitude. Reading a map of India helps us understand the location of these places and see how India's geography creates its amazing diversity of cultures and lifestyles.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Himalayas",
+            "Thar Desert",
+            "Western Ghats",
+            "backwaters",
+            "hill stations",
+            "geographical diversity"
+          ],
+          "prerequisites": [
+            "evs5_c005"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs5_u04",
+      "name": "Things Around Us",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "evs5_c007",
+          "name": "Sources of Energy and Simple Machines",
+          "description": "Energy is the ability to do work. The Sun is the ultimate source of most energy on Earth — it drives weather, helps plants make food, and powers solar panels. Food gives living things energy to move and grow. Fuels like wood, coal, petrol, and cooking gas release energy when burned. Electricity powers our homes and devices. Renewable energy sources (solar, wind, water) will not run out, while non-renewable sources (coal, oil) are limited and create pollution. Simple machines such as levers (see-saw), pulleys (water wells), and wheels (bicycle) make work easier by reducing the force needed or changing its direction.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "energy",
+            "solar energy",
+            "renewable energy",
+            "non-renewable energy",
+            "simple machines",
+            "lever",
+            "pulley"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs5_c008",
+          "name": "Fibres, Cloth Making, and Traditional Textiles",
+          "description": "Clothes are made from fibres, which may be natural or synthetic. Natural fibres come from plants or animals: cotton comes from the cotton plant's seed pod, silk is produced by silkworms as they spin their cocoon, and wool is obtained by shearing the fleece of sheep or goats. Synthetic fibres like polyester and nylon are made in factories from chemicals. Making cloth involves three main steps: spinning (twisting fibres into yarn), weaving or knitting (interlocking yarns to form fabric), and dyeing (adding colour). India has rich textile traditions — Banarasi silk, Kanjeevaram silk, and Pashmina wool are world-famous. Choosing natural and sustainably made fabrics is better for the environment.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "cotton",
+            "silk",
+            "wool",
+            "synthetic fibres",
+            "spinning",
+            "weaving",
+            "natural fibres",
+            "textiles"
+          ],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs5_u05",
+      "name": "Our Amazing Planet",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "evs5_c009",
+          "name": "Landforms, Seasons, and Natural Rhythms",
+          "description": "Earth's surface has a variety of landforms: mountains (high, rocky, with peaks), plateaus (flat-topped high land), plains (flat, low-lying, fertile), deserts (dry, sandy or rocky), and coasts (where land meets the sea). Seasons — summer, monsoon, autumn, and winter in India — are caused by Earth's tilted axis as it orbits the Sun. The side of Earth tilted toward the Sun experiences summer (longer days, more heat) while the opposite side has winter. Earth's rotation on its axis (once in 24 hours) causes day and night. The Moon completes one orbit around Earth in about 29.5 days, giving us the lunar phases from new moon to full moon and back.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "landforms",
+            "mountains",
+            "plains",
+            "plateaus",
+            "deserts",
+            "seasons",
+            "day and night",
+            "Moon phases"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs5_c010",
+          "name": "Earth as the Blue Planet and Environmental Responsibility",
+          "description": "Seen from space, Earth appears blue because about 71% of its surface is covered by water — which is why it is called the Blue Planet. Earth is uniquely suited for life because of its atmosphere (which provides oxygen and protects us from harmful radiation), liquid water, moderate temperatures, and the right distance from the Sun. Earth's layers are the crust (thin outer layer), mantle (thick, hot rock), outer core (liquid iron and nickel), and inner core (solid iron and nickel). Serious global problems — climate change, deforestation, plastic pollution, and loss of species — require people and nations to work together. India has made commitments to plant trees, expand solar energy, and reduce carbon emissions to protect our planet.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "Blue Planet",
+            "Earth's layers",
+            "atmosphere",
+            "climate change",
+            "deforestation",
+            "global warming",
+            "environmental protection"
+          ],
+          "prerequisites": [
+            "evs5_c009"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs5_u06",
+      "name": "Plants — Reproduction and Importance",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "evs5_c011",
+          "name": "How Plants Reproduce",
+          "description": "Plants reproduce in different ways to make new plants. Flowering plants reproduce through seeds — pollen from the flower's stamen is carried to the pistil by insects, wind, or water (pollination), forming seeds that grow into new plants. Some plants reproduce vegetatively — without seeds — using parts like stems (potato tubers, ginger rhizomes), leaves (bryophyllum), or roots (sweet potato). Spore-producing plants like ferns and mosses release tiny spores that develop into new plants in moist conditions. Grafting is used in horticulture to combine the best traits of two plants. Understanding plant reproduction explains how forests regenerate, why pollinators like bees are vital, and how farmers propagate crop varieties.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "plant reproduction",
+            "pollination",
+            "vegetative reproduction",
+            "seeds spores",
+            "grafting"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs5_c012",
+          "name": "Uses of Plants",
+          "description": "Plants are indispensable — they provide food, medicine, clothing, shelter, and oxygen. Food: grains, fruits, vegetables, pulses, nuts, and spices all come from plants. Medicine: neem leaves are antiseptic; tulsi relieves colds; aloe vera soothes burns; turmeric is anti-inflammatory; many modern drugs were first derived from plant compounds. Clothing: cotton (from cotton plant), linen (from flax), and jute (for bags and rope) are plant fibres. Shelter: wood from trees is used for doors, furniture, and building materials. Paper is made from wood pulp. Rubber comes from the rubber tree. Plants also absorb carbon dioxide, release oxygen, hold soil (preventing erosion), provide shade, and support biodiversity. Planting trees is one of the most powerful actions we can take for the planet.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "uses of plants",
+            "plant products",
+            "neem tulsi aloe",
+            "wood cotton jute",
+            "plant medicine"
+          ],
+          "prerequisites": [
+            "evs5_c011"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs5_u07",
+      "name": "Animals — Habitats and Adaptations",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "evs5_c013",
+          "name": "Animal Habitats",
+          "description": "A habitat is the natural environment where an animal lives and finds food, water, and shelter. Different habitats support different animals. Forest habitat: tigers, elephants, monkeys, and leopards live in Indian forests. Grassland: lions, cheetahs, zebras, and deer live in open grasslands. Desert: camels (humped fat store, wide feet), sand snakes, and fennec foxes are adapted to dry, hot conditions. Aquatic (freshwater): fish, frogs, water snakes, and river dolphins live in rivers and lakes. Marine (ocean): whales, sharks, octopuses, and clownfish live in the sea. Mountain: snow leopards, yaks, and mountain goats live at high altitudes in cold conditions. Polar: polar bears (thick fur, layer of fat) and penguins live in icy regions. Preserving habitats protects the animals that depend on them.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "animal habitats",
+            "forest desert aquatic marine",
+            "habitat destruction",
+            "polar mountain grassland"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs5_c014",
+          "name": "Adaptations — How Animals Survive",
+          "description": "An adaptation is a body feature or behaviour that helps an animal survive in its habitat. Physical adaptations: a fish's streamlined body helps it swim through water; a duck's webbed feet act like paddles; a camel's hump stores fat for energy in the desert; a polar bear's white coat camouflages it in the snow. Behavioural adaptations: birds migrate to warmer regions in winter; bears hibernate to survive cold months without food; some animals are nocturnal (active at night, like owls and bats) to avoid daytime heat and predators. Mimicry: stick insects look like twigs to hide from predators. Camouflage: chameleons and leafy sea dragons blend into their surroundings. Adaptations develop over thousands of years and are passed from parents to offspring.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "animal adaptations",
+            "camouflage mimicry",
+            "hibernation migration",
+            "nocturnal animals",
+            "physical behavioural adaptation"
+          ],
+          "prerequisites": [
+            "evs5_c013"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs5_u08",
+      "name": "Our Food — From Farm to Table",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "evs5_c015",
+          "name": "How Food Reaches Us",
+          "description": "Before food reaches our plate, it goes on a long journey. Farming: farmers prepare soil, sow seeds, water crops, use fertilisers and pest control, and harvest at the right time. Post-harvest: crops are cleaned, sorted, and sent to factories or mandis (wholesale markets). Processing: some foods are processed — wheat is ground into flour, rice is milled, milk is pasteurised, and fruits are made into jams. Packaging: processed food is packed in boxes, bags, or tins with labels showing ingredients, nutritional information, and expiry date. Distribution: food travels by truck, train, or ship from factories to warehouses and then to local shops or supermarkets. Finally, we buy, cook, and eat it. Understanding this chain makes us appreciate farmers and encourages us to reduce food waste.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "food journey",
+            "farm to table",
+            "food processing",
+            "packaging labelling",
+            "food chain supply"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs5_c016",
+          "name": "Food Preservation and Safe Food Habits",
+          "description": "Food spoils when bacteria and fungi break it down — making it smell bad, change colour, and become unsafe. Preservation extends the life of food. Methods: refrigeration (slows microbial growth), freezing (stops it almost completely), drying/dehydration (removes moisture; used for raisins, papad, dry fish), pickling (salt or vinegar creates acidic conditions where microbes can't survive), canning (food is sealed in airtight tins), and pasteurisation (heating milk to kill harmful bacteria). Safe food habits: wash hands before cooking and eating; wash fruits and vegetables before eating; check expiry dates; store cooked and raw food separately; do not leave cooked food uncovered for long in warm weather. Eating clean, safe food prevents illnesses like diarrhoea, typhoid, and food poisoning.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "food preservation",
+            "refrigeration drying pickling",
+            "pasteurisation",
+            "food safety",
+            "expiry date hygiene"
+          ],
+          "prerequisites": [
+            "evs5_c015"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs5_u09",
+      "name": "Natural Resources and Conservation",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "evs5_c017",
+          "name": "Types of Natural Resources",
+          "description": "Natural resources are materials found in nature that humans use. Renewable resources can be replenished — sunlight, wind, water, and forests can be used and restored if managed carefully. Non-renewable resources cannot be replaced once used up — coal, oil (petroleum), and natural gas formed over millions of years and are used in electricity generation, cooking, and transport. Minerals like iron, copper, and gold are mined from the Earth. Soil is a resource formed over thousands of years — it supports all plant life and farming. Water is essential for all life — fresh water (only 3% of all water on Earth) is found in rivers, lakes, and glaciers. Air is a resource — we breathe oxygen and plants use carbon dioxide. Using resources wisely ensures they are available for future generations.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "renewable non-renewable resources",
+            "coal oil petroleum",
+            "soil water air",
+            "minerals",
+            "natural resources"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs5_c018",
+          "name": "Conservation — Protecting Our Resources",
+          "description": "Conservation means using natural resources wisely so they last for future generations. Why conserve? Deforestation (cutting forests) causes soil erosion, destroys habitats, and increases carbon dioxide in the air. Burning coal and oil releases greenhouse gases that cause climate change. Over-use of water depletes rivers and groundwater. What we can do: use solar and wind energy instead of coal; plant trees; segregate and recycle waste; reduce single-use plastic; save water (short showers, fixing leaks); eat less meat (animal farming uses huge amounts of water and land). In India: Project Tiger protected tigers from extinction; rainwater harvesting systems recharge groundwater; the Chipko Movement protected Himalayan forests. Conservation is everyone's responsibility — not just governments'.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "conservation",
+            "deforestation",
+            "climate change",
+            "Project Tiger",
+            "renewable energy",
+            "rainwater harvesting"
+          ],
+          "prerequisites": [
+            "evs5_c017"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs5_u10",
+      "name": "Transport, Communication, and Technology",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "evs5_c019",
+          "name": "Means of Transport — Then and Now",
+          "description": "Transport is how people and goods move from place to place. In ancient times, people walked or used animals (horses, camels, bullocks) to carry loads. The invention of the wheel was revolutionary. Today we have: land transport (bicycles, cars, buses, trains, trucks), water transport (boats, ships, ferries), and air transport (aeroplanes, helicopters). India has one of the world's largest railway networks — Indian Railways carries millions of passengers every day. Metro rail systems (in Mumbai, Delhi, Bengaluru, Kolkata, Chennai, Hyderabad) ease city congestion. Electric vehicles (EVs) run on batteries and produce no exhaust fumes — they help reduce air pollution. Drones are being used to deliver medicines to remote areas. Transport connects communities, supports trade, and enables people to access education and healthcare.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "transport history",
+            "railways metro",
+            "electric vehicles",
+            "drones",
+            "land water air transport"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs5_c020",
+          "name": "Communication — Connecting the World",
+          "description": "Communication is sharing information and messages. Ancient methods: smoke signals, drum beats, carrier pigeons, and hand-written letters. Modern methods: telephone (1876), radio (1890s), television (1920s), mobile phones, internet (1990s), and satellite communication. The internet connects billions of people — we use it for email, video calls, social media, online learning, and shopping. Satellites orbit Earth and enable GPS (navigation), weather forecasting, and international phone calls. India's ISRO has launched communication satellites that provide TV signals and internet access to remote villages. Technology has made the world feel very small — a message typed in Kanyakumari reaches New York in less than a second. Responsible use of technology means using it for learning and connection while being safe and respectful online.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "communication history",
+            "internet satellite",
+            "GPS ISRO",
+            "mobile phone radio TV",
+            "digital communication"
+          ],
+          "prerequisites": [
+            "evs5_c019"
+          ],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 4,
+    "board": "CBSE",
+    "subject": "Environmental Studies",
+    "subjectColor": "#16A34A",
+    "subjectIcon": "🌿",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Our Wondrous World — Class 4 (First Edition July 2024, Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "evs4_u01",
+      "name": "Family and Relationships",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "evs4_c001",
+          "name": "Our Family — Near and Extended",
+          "description": "A family is a group of people who are related to each other and care for one another. A nuclear family includes parents and their children. An extended family includes grandparents, aunts, uncles, and cousins. Family members share responsibilities: parents earn money and take care of the home; grandparents share their wisdom and stories; children help with small tasks and study. Every family is unique — some have many members, some have fewer. Families may live together in one house or in different cities. Respecting and helping each other makes a family strong and happy.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["nuclear family", "extended family", "family members", "family responsibilities"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs4_c002",
+          "name": "Our Neighbourhood and Community",
+          "description": "A neighbourhood is the area around our home where other people live. Our neighbours are the people who live close to us. A community is a group of people who live in the same area and share resources like parks, schools, markets, hospitals, and places of worship. People in a community have different jobs — teachers, doctors, shopkeepers, farmers, and police officers all contribute in different ways. Good neighbours are helpful, respectful, and keep the area clean. Understanding our community helps us know where to go for help and how we can contribute to making it better.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["neighbourhood", "community", "neighbours", "community helpers", "local area"],
+          "prerequisites": ["evs4_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs4_u02",
+      "name": "Food — Sources and Nutrition",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "evs4_c003",
+          "name": "Where Does Our Food Come From?",
+          "description": "All food comes from either plants or animals. Plants give us fruits (mango, banana), vegetables (carrot, spinach), grains (wheat, rice), pulses (lentils, chickpeas), and spices (pepper, turmeric). Animals give us milk, eggs, meat, and fish. Farmers grow crops in fields using seeds, water, and sunlight. Some food is eaten raw, while most is cooked to make it safe and tasty. Food travels from farms to factories for processing, then to shops and markets where we buy it. Knowing food sources helps us understand the importance of farming and thank the people who grow our food.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["food sources", "plants as food", "animals as food", "farming", "crops"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs4_c004",
+          "name": "Nutrients and a Healthy Diet",
+          "description": "Our bodies need different nutrients to stay healthy. Carbohydrates (rice, bread, potatoes) give us energy to work and play. Proteins (dal, eggs, milk, meat) help our muscles and body cells grow and repair. Fats (butter, oil, nuts) store energy and keep us warm. Vitamins (from fruits and vegetables) protect us from diseases. Minerals like calcium (from milk, curd) make bones and teeth strong; iron (from spinach, jaggery) keeps blood healthy. A balanced diet includes all these nutrients in the right amounts. Eating a variety of colourful foods every day is the easiest way to get everything our body needs.",
+          "expectedDifficulty": "OK",
+          "aliases": ["carbohydrates", "proteins", "fats", "vitamins", "minerals", "balanced diet", "nutrients"],
+          "prerequisites": ["evs4_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs4_u03",
+      "name": "Shelter and Homes",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "evs4_c005",
+          "name": "Types of Houses and Their Materials",
+          "description": "People live in many different types of houses depending on the climate, materials available, and lifestyle. Pucca houses are made of bricks, cement, steel, and glass and are strong and permanent — found in cities and towns. Kutcha houses are made of mud, bamboo, straw, or wood and are common in villages and rural areas. Stilt houses are raised on poles above the ground — used in flood-prone areas and near water. Tents and caravans are temporary shelters used by people who move frequently. In cold regions, thick walls keep warmth in; in hot dry regions, mud walls keep the inside cool. The materials of a house are chosen to suit the local environment.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["pucca house", "kutcha house", "stilt house", "types of houses", "building materials"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs4_c006",
+          "name": "Keeping Our Home Safe and Clean",
+          "description": "A clean and safe home is important for good health. Cleaning regularly prevents dust, germs, and pests from accumulating. Safe habits at home include: not leaving things on the floor to avoid trips and falls, keeping sharp objects out of reach of small children, not touching electrical sockets with wet hands, and storing medicines in safe places. Waste should be separated into wet waste (food scraps, garden clippings) and dry waste (paper, plastic, glass) before disposal. Composting kitchen waste reduces landfill pollution and creates useful manure for plants. Good ventilation (open windows) keeps indoor air fresh and healthy.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["home safety", "cleanliness", "waste segregation", "composting", "household hygiene"],
+          "prerequisites": ["evs4_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs4_u04",
+      "name": "Plants — Life and Importance",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "evs4_c007",
+          "name": "Parts of a Plant and Their Functions",
+          "description": "A plant has roots, stem, leaves, flowers, and fruits. Roots anchor the plant in the soil and absorb water and minerals. The stem supports the plant, carries water and food between roots and leaves, and in some plants stores food (like sugarcane). Leaves make food for the plant through a process called photosynthesis — they use sunlight, water, and carbon dioxide from the air to make sugar, releasing oxygen as a byproduct. Flowers attract insects for pollination and develop into fruits. Fruits contain seeds, which grow into new plants. Understanding plant parts helps us appreciate why plants are essential for all life on Earth.",
+          "expectedDifficulty": "OK",
+          "aliases": ["roots", "stem", "leaves", "flowers", "fruits", "photosynthesis", "plant parts"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs4_c008",
+          "name": "How Seeds Disperse and Plants Grow",
+          "description": "Plants reproduce by forming seeds inside fruits. For plants to spread to new places, seeds need to travel away from the parent plant. Seeds disperse in different ways: wind carries light, feathery seeds (like dandelion and drumstick); water carries seeds that float (like coconut); animals and birds eat fruits and pass seeds in their droppings; seeds with hooks cling to animal fur or clothing and are carried away. Some seeds burst out of dried pods (like peas). A seed contains a tiny embryo and stored food. For a seed to germinate (sprout), it needs water, warmth, and air. The seedling grows into a mature plant that can flower and produce seeds of its own.",
+          "expectedDifficulty": "OK",
+          "aliases": ["seed dispersal", "germination", "seeds", "plant reproduction", "seedling"],
+          "prerequisites": ["evs4_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs4_u05",
+      "name": "Animals — Adaptations and Care",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "evs4_c009",
+          "name": "Animal Habitats and Adaptations",
+          "description": "A habitat is the natural environment where an animal lives and finds everything it needs — food, water, shelter, and mates. Animals have special features (adaptations) that help them survive in their habitat. Fish have gills to breathe underwater and streamlined bodies to swim easily. Camels have humps that store fat for energy and wide feet to walk on sand without sinking. Polar bears have thick fur and a layer of fat to stay warm in icy conditions. Birds that eat fish have long beaks; birds that crack seeds have short, strong beaks. Adaptations take thousands of years to develop and are passed from parents to offspring.",
+          "expectedDifficulty": "OK",
+          "aliases": ["habitat", "adaptation", "fish", "camel", "polar bear", "camouflage", "survival"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs4_c010",
+          "name": "Caring for Animals — Pets and Wild Animals",
+          "description": "Pet animals like dogs, cats, rabbits, and fish live with humans and depend on us for food, clean water, shelter, and veterinary care. Wild animals belong in their natural habitats and should not be kept as pets. Many wild animals are endangered — their numbers are shrinking because of habitat loss, poaching, and climate change. National parks and wildlife sanctuaries in India protect animals: Corbett National Park (tigers), Kaziranga (one-horned rhinos), and Gir (Asiatic lions). Being kind to animals means not harming them, not littering their habitat, and supporting conservation efforts. Every living creature deserves respect.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["pets", "wild animals", "endangered species", "national parks", "wildlife conservation"],
+          "prerequisites": ["evs4_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs4_u06",
+      "name": "Water — Uses, Sources, and Conservation",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "evs4_c011",
+          "name": "Sources and Uses of Water",
+          "description": "Water is found in rivers, lakes, ponds, seas, oceans, glaciers, and underground (wells and borewells). Rain is the main source of fresh water. The water cycle describes how water continuously moves: heat from the Sun evaporates water from the sea, forming clouds; when the clouds cool, water falls as rain or snow (precipitation); some flows into rivers and some soaks into the ground. We use water for drinking, cooking, bathing, washing, farming (irrigation), and making electricity (hydropower). Industries use large amounts of water to manufacture goods. Safe drinking water must be clean and free of harmful bacteria.",
+          "expectedDifficulty": "OK",
+          "aliases": ["water cycle", "evaporation", "precipitation", "groundwater", "water sources", "uses of water"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs4_c012",
+          "name": "Water Conservation and Pollution",
+          "description": "Fresh water is a precious resource — only a tiny fraction of Earth's water is usable by humans. Water pollution occurs when sewage, factory waste, chemicals, and plastic enter water bodies, making water unsafe for drinking and harming aquatic life. We can conserve water by: turning off taps when not in use, fixing leaking pipes, using bucket baths instead of showers, and watering plants with recycled water. Rainwater harvesting collects rain in tanks or underground pits to recharge groundwater. Rivers like the Ganga and Yamuna are being cleaned through government programmes. Every drop saved today ensures enough water for future generations.",
+          "expectedDifficulty": "OK",
+          "aliases": ["water conservation", "water pollution", "rainwater harvesting", "save water", "Ganga pollution"],
+          "prerequisites": ["evs4_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs4_u07",
+      "name": "Air and Weather",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "evs4_c013",
+          "name": "Properties of Air and Importance",
+          "description": "Air is a mixture of gases — mainly nitrogen (about 78%) and oxygen (about 21%), with small amounts of carbon dioxide, argon, and water vapour. We cannot see air, but we can feel it as wind and see its effects (moving leaves, flying kites). All living things need air to breathe. Plants absorb carbon dioxide and release oxygen during photosynthesis, keeping the air fresh. Air has weight and exerts pressure (atmospheric pressure). Moving air is called wind, which is used to power windmills (wind turbines) to generate electricity. Air pollution from vehicles, factories, and burning waste is harmful to health and the environment.",
+          "expectedDifficulty": "OK",
+          "aliases": ["air", "oxygen", "nitrogen", "carbon dioxide", "wind", "air pollution", "atmosphere"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs4_c014",
+          "name": "Weather and Seasons",
+          "description": "Weather describes the condition of the atmosphere at a particular place and time — it can be sunny, cloudy, rainy, windy, hot, or cold. Weather changes from day to day and even hour to hour. Climate is the average weather pattern of a region over many years. India experiences distinct seasons: summer (hot and dry, March–May), monsoon (heavy rains, June–September), autumn (cooling, October–November), and winter (cold, December–February). A thermometer measures temperature, a rain gauge measures rainfall, and a weather vane shows wind direction. The India Meteorological Department (IMD) forecasts weather to help farmers, pilots, and disaster managers.",
+          "expectedDifficulty": "OK",
+          "aliases": ["weather", "seasons", "summer", "monsoon", "winter", "thermometer", "climate"],
+          "prerequisites": ["evs4_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs4_u08",
+      "name": "Transport and Communication",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "evs4_c015",
+          "name": "Means of Transport",
+          "description": "Transport is how people and goods move from one place to another. Land transport includes bicycles, cars, buses, trains, and trucks. Water transport includes boats, ships, and ferries used to cross rivers and seas. Air transport includes aeroplanes and helicopters — the fastest but most expensive. Each mode of transport uses different fuels: petrol, diesel, electricity, or kerosene (jet fuel). India has one of the largest railway networks in the world. Metros and electric buses are eco-friendly transport options in cities. Roads, railways, ports, and airports are all part of a country's infrastructure, connecting people and enabling trade.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["land transport", "water transport", "air transport", "railway", "metro", "infrastructure"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs4_c016",
+          "name": "Means of Communication",
+          "description": "Communication is sharing information with others. In the past, people sent messages through letters, drums, fire signals, and messengers. Today we have much faster methods: mobile phones, the internet, email, video calls, television, and radio. A postal letter sent by post reaches in days; a WhatsApp message arrives in seconds. Newspapers, magazines, and books share information in printed form. Television and radio broadcast news and entertainment to millions at once. The internet is a global network of computers that allows people anywhere in the world to share and find information instantly. Communication technology has made the world feel much smaller.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["communication", "telephone", "internet", "postal service", "television", "radio", "mobile phone"],
+          "prerequisites": ["evs4_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs4_u09",
+      "name": "Our Earth — Landforms and Oceans",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "evs4_c017",
+          "name": "Landforms of the Earth",
+          "description": "The surface of the Earth has many different landforms. Mountains are very high pieces of land with peaks — the Himalayas in India are the world's highest mountain range and include Mount Everest (8,848 m), the tallest peak on Earth. Plateaus are flat-topped high land, like the Deccan Plateau. Plains are flat, low-lying land often very fertile — the Indo-Gangetic Plain is one of the most productive farming regions in the world. Valleys are low areas between hills or mountains, often with rivers flowing through them. Deserts are dry areas with very little rainfall — the Thar Desert is India's largest desert. Coastlines are where land meets the sea.",
+          "expectedDifficulty": "OK",
+          "aliases": ["mountains", "plateau", "plains", "valley", "desert", "coast", "Himalayas", "Deccan Plateau"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs4_c018",
+          "name": "Oceans, Rivers, and the Globe",
+          "description": "About 71% of Earth's surface is covered by water, mostly in five oceans: Pacific (the largest), Atlantic, Indian, Arctic, and Southern. The Indian Ocean borders India to the south. Oceans are salty; rivers carry fresh water. Major rivers in India include the Ganga, Yamuna, Brahmaputra, Godavari, Krishna, and Cauvery. Rivers provide water for drinking, farming, and transport. A globe is a sphere-shaped model of Earth. A map is a flat drawing of the Earth's surface. We use maps and globes to find the location of countries, cities, oceans, and mountains. A compass helps us find North, South, East, and West.",
+          "expectedDifficulty": "OK",
+          "aliases": ["oceans", "rivers", "globe", "map", "Pacific ocean", "Indian Ocean", "Ganga", "compass"],
+          "prerequisites": ["evs4_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs4_u10",
+      "name": "Natural Disasters and Safety",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "evs4_c019",
+          "name": "Natural Disasters — Causes and Effects",
+          "description": "Natural disasters are extreme events caused by natural forces that can harm people and property. Floods happen when rivers overflow due to heavy rain — they destroy homes and crops and spread waterborne diseases. Earthquakes are sudden shaking of the ground caused by movement of tectonic plates — they can damage buildings and roads. Cyclones are powerful storms with strong winds and heavy rain that form over warm oceans and hit coastal areas. Droughts are long periods with little or no rain, leading to crop failure and water shortage. India is vulnerable to all these disasters, particularly in certain regions like the Brahmaputra valley (floods), Gujarat (earthquakes), and Odisha (cyclones).",
+          "expectedDifficulty": "OK",
+          "aliases": ["floods", "earthquakes", "cyclones", "droughts", "natural disasters", "tectonic plates"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs4_c020",
+          "name": "Safety Habits and First Aid",
+          "description": "Being safe means following rules and habits that prevent accidents. Road safety rules: walk on the footpath, cross at zebra crossings, wear a helmet when cycling, and obey traffic lights. Fire safety: do not play with matchboxes or fire, know the fire exit of your building, and call fire services (101) in an emergency. Basic first aid: wash a small cut with clean water and apply antiseptic; apply a cold pack to a bruise; for a burn, cool it under running water and seek medical help. In case of an earthquake, take cover under a sturdy table and stay away from windows. Knowing emergency numbers — 100 (police), 101 (fire), 108 (ambulance) — can save lives.",
+          "expectedDifficulty": "OK",
+          "aliases": ["road safety", "fire safety", "first aid", "emergency numbers", "safety habits", "earthquake safety"],
+          "prerequisites": ["evs4_c019"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,363 @@
+{
+  "metadata": {
+    "grade": 8,
+    "board": "CBSE",
+    "subject": "Mathematics",
+    "subjectColor": "#3B82F6",
+    "subjectIcon": "📐",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Ganita Prakash Part 1 & 2 — Class 8 (2025, Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "mat8_u01",
+      "name": "A Square and A Cube",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "mat8_c001",
+          "name": "Squares and Square Roots",
+          "description": "A perfect square (or square number) is a number obtained by multiplying a whole number by itself; examples include 1, 4, 9, 16, 25, 36, 49, 64, 81, and 100. Interesting properties of perfect squares include: they always end in 0, 1, 4, 5, 6, or 9 (never 2, 3, 7, or 8); the square of an odd number is odd and of an even number is even; perfect squares have an odd number of factors. The square root of a number n (written as √n) is the value that, when multiplied by itself, gives n; so √25 = 5 because 5 × 5 = 25. Square roots can be found by prime factorisation (pair up identical prime factors) or the long division method (useful for large numbers or non-perfect squares). Patterns in squares include the fact that the sum of first n odd numbers equals n²: 1 + 3 + 5 = 9 = 3². The Pythagorean triplets (sets of three numbers a, b, c where a² + b² = c²), such as (3, 4, 5) and (5, 12, 13), are generated using square number patterns.",
+          "expectedDifficulty": "OK",
+          "aliases": ["perfect squares", "square roots", "prime factorisation square root", "long division method square root", "Pythagorean triplet", "properties of perfect squares"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat8_c002",
+          "name": "Cubes and Cube Roots",
+          "description": "A perfect cube is a number obtained by multiplying a whole number by itself three times; for example, 8 = 2³, 27 = 3³, 64 = 4³, 125 = 5³. Some properties of cubes: the cube of an even number is even; the cube of an odd number is odd; the cube of a negative number is negative. The cube root of a number n (written as ∛n) is the value that, when cubed, gives n; so ∛125 = 5. Cube roots can be found by prime factorisation — group all prime factors in triples; if each prime factor appears in a group of three, the number is a perfect cube. For example, 1728 = 2 × 2 × 2 × 2 × 2 × 2 × 3 × 3 × 3 = 2³ × 2³ × 3³, so ∛1728 = 2 × 2 × 3 = 12. To find the smallest number by which to multiply or divide a given number to make it a perfect cube, check which prime factors are not available in groups of three.",
+          "expectedDifficulty": "OK",
+          "aliases": ["perfect cubes", "cube roots", "prime factorisation cube root", "properties of cubes", "cube of negative number", "make perfect cube"],
+          "prerequisites": ["mat8_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat8_u02",
+      "name": "Power Play",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "mat8_c003",
+          "name": "Laws of Exponents",
+          "description": "An exponent (or power) tells how many times a base is multiplied by itself: in aⁿ, a is the base and n is the exponent. The laws of exponents for the same base are: aᵐ × aⁿ = aᵐ⁺ⁿ (multiply → add powers); aᵐ ÷ aⁿ = aᵐ⁻ⁿ (divide → subtract powers); (aᵐ)ⁿ = aᵐⁿ (power of a power → multiply exponents). Additional rules: (ab)ⁿ = aⁿbⁿ; (a/b)ⁿ = aⁿ/bⁿ; a⁰ = 1 for any non-zero a; a⁻ⁿ = 1/aⁿ (negative exponent means reciprocal). Negative exponents arise naturally when we divide with a larger power in the denominator: 3² ÷ 3⁵ = 3⁻³ = 1/27. These laws apply to integer exponents and can be used to simplify complex expressions involving powers, making calculations in science and mathematics much more manageable.",
+          "expectedDifficulty": "OK",
+          "aliases": ["exponents laws", "powers", "law of exponents", "negative exponents", "zero exponent", "a to the power n", "multiply divide exponents"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat8_c004",
+          "name": "Negative Exponents and Scientific Notation",
+          "description": "A negative exponent indicates a reciprocal: a⁻ⁿ = 1/aⁿ, so 2⁻³ = 1/8 and 10⁻⁴ = 1/10000 = 0.0001. Scientific notation (standard form) expresses very large or very small numbers as a × 10ⁿ, where 1 ≤ a < 10 and n is an integer. Large numbers use positive powers of 10: the distance from Earth to the Sun is approximately 1.5 × 10¹¹ m. Very small numbers use negative powers: the diameter of a hydrogen atom is about 1.06 × 10⁻¹⁰ m, and the size of a typical bacterium is about 2 × 10⁻⁶ m. To convert a number to scientific notation, move the decimal point until only one non-zero digit is to its left, and count the moves (right = negative power, left = positive power). Comparing and calculating with very large or small quantities — as in astronomy, chemistry, and physics — is much easier in scientific notation.",
+          "expectedDifficulty": "OK",
+          "aliases": ["scientific notation", "standard form", "negative powers of 10", "very large numbers", "very small numbers", "decimal scientific notation"],
+          "prerequisites": ["mat8_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat8_u03",
+      "name": "A Story of Numbers",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "mat8_c005",
+          "name": "Rational Numbers and the Number Line",
+          "description": "A rational number is a number that can be expressed in the form p/q, where p and q are integers and q ≠ 0; the name comes from 'ratio'. All integers (e.g., -3, 0, 5) and fractions (e.g., 1/2, -3/4, 7/5) are rational numbers; whole numbers and natural numbers are also subsets. A rational number has infinitely many equivalent forms (2/3 = 4/6 = -6/-9); standard (lowest) form has no common factor in numerator and denominator and a positive denominator. Rational numbers can be represented on a number line: positive rationals lie to the right of 0, negative rationals to the left. Between any two rational numbers, there are infinitely many other rational numbers — this property is called density. To represent p/q on a number line, divide the unit segment between two consecutive integers into q equal parts and count p parts from zero.",
+          "expectedDifficulty": "OK",
+          "aliases": ["rational number", "p over q", "number line rational", "equivalent fractions", "integers as rational numbers", "standard form rational"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat8_c006",
+          "name": "Operations on Rational Numbers and Properties",
+          "description": "Addition and subtraction of rational numbers with different denominators requires finding a common denominator (LCM): a/b + c/d = (ad + bc)/bd. Multiplication is straightforward: (a/b) × (c/d) = ac/bd. Division is multiplying by the reciprocal: (a/b) ÷ (c/d) = (a/b) × (d/c). Important properties of rational numbers: addition and multiplication are commutative (a + b = b + a; a × b = b × a) and associative; the distributive property a × (b + c) = a×b + a×c holds. The additive identity is 0 (a + 0 = a) and the additive inverse of a/b is -a/b. The multiplicative identity is 1 (a × 1 = a) and the multiplicative inverse (reciprocal) of a/b is b/a (for a ≠ 0). Zero has no multiplicative inverse. Division is not commutative or associative. Understanding these properties allows students to simplify calculations and solve equations involving fractions and negative numbers efficiently.",
+          "expectedDifficulty": "OK",
+          "aliases": ["operations rational numbers", "adding subtracting rational", "properties rational numbers", "additive inverse", "multiplicative inverse reciprocal", "distributive property", "commutative associative"],
+          "prerequisites": ["mat8_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat8_u04",
+      "name": "Quadrilaterals",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "mat8_c007",
+          "name": "Types of Quadrilaterals and Angle Sum",
+          "description": "A quadrilateral is a polygon with four sides, four vertices, and four angles; the word comes from Latin quadri (four) + latus (side). The angle sum property states that the sum of all interior angles of any quadrilateral is always 360°, which can be proved by dividing the quadrilateral into two triangles. Special quadrilaterals include: trapezium (exactly one pair of parallel sides), parallelogram (two pairs of parallel sides), rectangle (parallelogram with all right angles), rhombus (parallelogram with all sides equal), square (rectangle with all sides equal — most symmetric), and kite (two pairs of adjacent sides equal). These types form a hierarchy: every square is a rectangle and a rhombus; every rectangle and rhombus is a parallelogram; every parallelogram is a trapezium. A diagonal of a quadrilateral is a line segment connecting non-adjacent vertices; it divides the quadrilateral into two triangles, which is used to prove properties.",
+          "expectedDifficulty": "OK",
+          "aliases": ["quadrilateral angle sum 360", "types of quadrilaterals", "trapezium parallelogram rectangle rhombus square kite", "diagonal of quadrilateral", "hierarchy of quadrilaterals"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat8_c008",
+          "name": "Properties of Parallelograms",
+          "description": "A parallelogram is a quadrilateral in which both pairs of opposite sides are parallel. Key properties of a parallelogram: (1) opposite sides are equal in length (AB = CD, BC = DA); (2) opposite angles are equal (∠A = ∠C, ∠B = ∠D); (3) consecutive angles are supplementary (∠A + ∠B = 180°); (4) the diagonals bisect each other (they cut each other into two equal halves), though they are not necessarily equal in length or perpendicular. These properties can be used to find unknown sides and angles in problems. In a rectangle, diagonals are equal in length; in a rhombus, diagonals are perpendicular to each other; in a square, diagonals are both equal and perpendicular. To construct a parallelogram, two sides and the included angle, or two diagonals, are sufficient. Recognising whether a quadrilateral is a parallelogram can be done by checking: if opposite sides are equal, or if diagonals bisect each other.",
+          "expectedDifficulty": "OK",
+          "aliases": ["properties of parallelogram", "opposite sides equal", "diagonals bisect each other", "parallelogram angles", "rectangle rhombus square diagonals", "consecutive angles supplementary"],
+          "prerequisites": ["mat8_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat8_u05",
+      "name": "Number Play",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "mat8_c009",
+          "name": "Divisibility Rules and Number Patterns",
+          "description": "Divisibility rules allow us to check if a number is divisible by another without performing full division: divisible by 2 (last digit even), by 3 (digit sum divisible by 3), by 4 (last two digits divisible by 4), by 5 (last digit 0 or 5), by 6 (divisible by both 2 and 3), by 8 (last three digits divisible by 8), by 9 (digit sum divisible by 9), by 11 (alternating digit sum divisible by 11). Every natural number greater than 1 can be written as a sum of consecutive natural numbers, except for powers of 2 — understanding which numbers can and cannot be written this way reveals structure in the number system. For example, 15 = 4+5+6 = 1+2+3+4+5; but 16 = 2⁴ cannot be written as a sum of consecutive naturals. Reversing the digits of a 2-digit number and subtracting always gives a multiple of 9; reversing and adding gives a palindrome — these are patterns explained through algebra. Such number games and puzzles help build mathematical reasoning and a feel for how numbers behave.",
+          "expectedDifficulty": "OK",
+          "aliases": ["divisibility rules", "sum of consecutive numbers", "powers of 2", "number patterns", "digit sum divisibility", "divisibility by 3 9 11"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat8_c010",
+          "name": "Special Numbers: Kaprekar, Armstrong, and Palindromes",
+          "description": "Number theory reveals fascinating special types of numbers. An Armstrong number (narcissistic number) is a number that equals the sum of its own digits each raised to the power of the number of digits: 153 = 1³ + 5³ + 3³ = 1 + 125 + 27 = 153. A Kaprekar number: take any 4-digit number with at least two different digits, arrange digits in descending then ascending order, subtract — after at most 7 iterations this process always reaches 6174 (Kaprekar's constant), first discovered by Indian mathematician D. R. Kaprekar. A palindromic number reads the same forwards and backwards (e.g., 121, 1331, 12321); many palindromes are generated by repeatedly reversing and adding digits. Magic squares are grids where every row, column, and diagonal sums to the same magic constant; the simplest 3×3 magic square uses numbers 1–9 with magic sum 15. These recreational mathematics topics illustrate that numbers have deep and surprising properties beyond routine computation.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Armstrong number narcissistic", "Kaprekar number 6174", "palindrome number", "magic square", "number puzzles", "D R Kaprekar"],
+          "prerequisites": ["mat8_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat8_u06",
+      "name": "We Distribute Yet Things Multiply",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "mat8_c011",
+          "name": "Algebraic Identities",
+          "description": "An algebraic identity is an equation that is true for all values of the variables. The four fundamental identities in Class 8 are: (a+b)² = a² + 2ab + b²; (a-b)² = a² - 2ab + b²; (a+b)(a-b) = a² - b² (difference of squares); and (x+a)(x+b) = x² + (a+b)x + ab. These identities can be verified geometrically — (a+b)² represents the area of a square with side (a+b) divided into four parts. They are called identities (not just equations) because both sides are equal for every possible value of the variable, not just for specific values. Identities are powerful computational shortcuts: 99² = (100-1)² = 10000 - 200 + 1 = 9801; 52 × 48 = (50+2)(50-2) = 2500 - 4 = 2496. The distributive law a(b+c) = ab + ac is the foundation underlying all these identities and is extended to polynomials.",
+          "expectedDifficulty": "OK",
+          "aliases": ["algebraic identities", "(a+b)^2", "(a-b)^2", "(a+b)(a-b)", "difference of squares", "identity vs equation", "factorisation identities"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat8_c012",
+          "name": "Applying Identities: Factorisation and Mental Arithmetic",
+          "description": "Factorisation is the reverse of expansion: expressing an expression as a product of its factors. Using identities: x² + 2xy + y² = (x+y)²; x² - y² = (x+y)(x-y); x² + (a+b)x + ab = (x+a)(x+b). The process involves recognising the pattern in the expression and matching it to the appropriate identity. Common factorisation methods include: taking out the common factor [e.g., 12x² + 6x = 6x(2x+1)], using identities, and regrouping. Identities make mental arithmetic very powerful: to find 104 × 96 = (100+4)(100-4) = 10000 - 16 = 9984; to find 103² = (100+3)² = 10000 + 600 + 9 = 10609. Division of algebraic expressions involves cancelling common factors, exactly like cancelling common factors in numerical fractions. Mastering these techniques builds the algebraic fluency needed for higher classes.",
+          "expectedDifficulty": "OK",
+          "aliases": ["factorisation", "algebraic factorisation", "common factor", "regrouping factorisation", "mental arithmetic using identities", "expand and factorise"],
+          "prerequisites": ["mat8_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat8_u07",
+      "name": "Proportional Reasoning — Part 1",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "mat8_c013",
+          "name": "Ratio, Proportion, and Unitary Method",
+          "description": "A ratio compares two quantities of the same kind by division: the ratio of 3 to 5 is written as 3:5 or 3/5. A ratio in its simplest form has no common factor (HCF = 1). A proportion is a statement that two ratios are equal: a:b = c:d, written as a/b = c/d, which gives the cross-multiplication rule ad = bc (product of extremes = product of means). The unitary method involves first finding the value of one unit, then scaling: if 5 pens cost ₹75, one pen costs ₹15, so 8 pens cost ₹120. Direct proportion: as one quantity increases, the other increases in the same ratio (x/y = constant); if x doubles, y doubles. Inverse proportion: as one quantity increases, the other decreases (x × y = constant); more workers, fewer days. Recognising whether two quantities are in direct or inverse proportion is the key step in solving proportion problems.",
+          "expectedDifficulty": "OK",
+          "aliases": ["ratio proportion", "unitary method", "direct proportion", "inverse proportion", "cross multiplication", "proportional quantities"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat8_c014",
+          "name": "Applications of Proportional Reasoning",
+          "description": "Proportional reasoning is fundamental to solving real-world problems involving scaling, recipes, maps, and mixtures. Map scales express the ratio of map distance to actual distance: if scale is 1:50000, then 2 cm on the map represents 1 km on the ground. Scale drawings and scale models (architectural blueprints, model vehicles) use the same principle. In mixture problems, the ratio of ingredients must be maintained when scaling a recipe up or down. Speed = distance / time is a proportional relationship: if speed is constant, distance is directly proportional to time. When comparing prices, unit rate (cost per kg, cost per litre) allows fair comparison. Proportional reasoning extends to percentage problems (treated in a later chapter) and is the conceptual foundation for trigonometric ratios encountered later. Developing fluency with proportional reasoning is essential for success in mathematics and in practical decision-making.",
+          "expectedDifficulty": "OK",
+          "aliases": ["map scale", "scale drawing", "speed distance time", "unit rate", "mixture problems", "proportional reasoning applications"],
+          "prerequisites": ["mat8_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat8_u08",
+      "name": "Fractions in Disguise",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "mat8_c015",
+          "name": "Percentages, Profit, and Loss",
+          "description": "Percent means 'per hundred'; a percentage is a fraction with denominator 100, written with the % symbol: 25% = 25/100 = 1/4. To convert a fraction to percentage: multiply by 100%; to convert percentage to fraction: divide by 100. Profit is earned when the selling price (SP) is greater than the cost price (CP); loss occurs when SP < CP. Profit % = (Profit / CP) × 100; Loss % = (Loss / CP) × 100. Discount is a reduction on the marked price (list price): Discount % = (Discount / Marked Price) × 100; Selling Price = Marked Price − Discount. A profit or loss percentage expresses the gain or loss relative to the cost, making it easy to compare deals of different sizes. Problems often combine these: a trader buys for ₹400, marks up 30%, then gives a 10% discount — calculating the final profit or loss requires applying each step carefully. Sales tax and GST are also expressed as a percentage of the selling price and added to the bill.",
+          "expectedDifficulty": "OK",
+          "aliases": ["percentage", "profit and loss", "discount", "marked price", "cost price selling price", "profit percent", "GST sales tax"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat8_c016",
+          "name": "Simple Interest and Introduction to Compound Interest",
+          "description": "Simple Interest (SI) is interest calculated only on the original principal: SI = (P × R × T) / 100, where P = principal, R = rate of interest per annum, T = time in years; Amount = P + SI. Compound Interest (CI) is interest calculated on the principal plus the interest already earned (interest on interest). The compound interest formula for annual compounding is: A = P(1 + R/100)ⁿ, where n = number of years; CI = A − P. For comparison: at 10% per annum for 3 years, SI gives ₹300 on ₹1000 (total ₹1300), while CI gives ₹331 (total ₹1331) — CI is always greater than SI for the same period and rate (except for the first year when they are equal). Compound interest can also be calculated half-yearly (use R/2 and 2n) or quarterly (use R/4 and 4n). Compound interest is used in bank savings accounts, loans, and population growth calculations. Understanding the difference between SI and CI helps in making informed financial decisions.",
+          "expectedDifficulty": "OK",
+          "aliases": ["simple interest formula", "compound interest formula", "SI vs CI", "principal rate time", "interest on interest", "compound interest applications"],
+          "prerequisites": ["mat8_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat8_u09",
+      "name": "The Baudhayana-Pythagoras Theorem",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "mat8_c017",
+          "name": "The Baudhayana-Pythagoras Theorem and Proof",
+          "description": "The Baudhayana-Pythagoras theorem states that in a right-angled triangle, the square of the hypotenuse (the side opposite the right angle) equals the sum of the squares of the other two sides: c² = a² + b², where c is the hypotenuse. The theorem is named after the Indian mathematician Baudhayana, who stated it in his Śulba Sūtra around 800 BCE (predating the Greek mathematician Pythagoras by about 250 years), where he used it to construct altars and squares of specific areas. Multiple proofs exist: the geometric proof using four congruent right triangles arranged around a square shows the area relationship visually. A converse also holds: if a² + b² = c² in a triangle, it must be right-angled (this is used to check for right angles in construction). Pythagorean triplets are sets of three whole numbers satisfying a² + b² = c²; common examples are (3,4,5), (5,12,13), (8,15,17), and (7,24,25). All multiples of a Pythagorean triplet also form a triplet: (6,8,10), (9,12,15), etc.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Pythagoras theorem", "Baudhayana theorem", "hypotenuse", "right angled triangle", "c squared equals a squared plus b squared", "Pythagorean triplet", "Sulba Sutra"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat8_c018",
+          "name": "Applications of the Baudhayana-Pythagoras Theorem",
+          "description": "The Baudhayana-Pythagoras theorem is one of the most widely used results in geometry, with applications in construction, navigation, design, and everyday problem-solving. To find an unknown side of a right triangle: if the hypotenuse is c and one leg is a, the other leg b = √(c² − a²). In a coordinate plane, the distance between two points (x₁, y₁) and (x₂, y₂) is √[(x₂−x₁)² + (y₂−y₁)²], which is directly derived from the theorem. Typical word problems include: a ladder leaning against a wall (ladder = hypotenuse), a person walking north then east (resultant distance = hypotenuse), the height of a tree when a guy-wire length and base distance are known, and the diagonal of a rectangle (d = √(l²+w²)). The theorem also helps verify whether a triangle is right-angled when all three sides are given. The concept extends to 3D: the diagonal of a cuboid is √(l²+w²+h²), and this is used in architecture and engineering.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Pythagoras applications", "ladder wall problem", "distance formula", "diagonal of rectangle", "find missing side", "right triangle problems", "3D Pythagoras"],
+          "prerequisites": ["mat8_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat8_u10",
+      "name": "Proportional Reasoning — Part 2",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "mat8_c019",
+          "name": "Percentage as a Tool for Comparison and Proportion",
+          "description": "Percentages are a special case of proportion (a ratio with denominator 100) and are the most common way to compare quantities of different sizes. A percentage increase or decrease is calculated relative to the original value: % change = [(New − Original) / Original] × 100. If a quantity increases by 20% and then decreases by 20%, it does not return to the original value (the base is different each time); this is a common misconception. Population growth over multiple years uses the same logic as compound interest: if a city's population grows at 5% per year, after 3 years its population is P × (1.05)³. Compound ratios combine two or more ratios: the compound ratio of a:b and c:d is ac:bd. Proportion problems involving multiple agents over time (work, pipes) rely on the idea that work rates are proportional quantities — if 1 person completes a job in 10 days, their work rate is 1/10 per day; two people together complete it in 10/(1+1) = 5 days.",
+          "expectedDifficulty": "OK",
+          "aliases": ["percentage change", "percentage increase decrease", "compound ratio", "population growth percentage", "work and time", "rate of work", "compound proportion"],
+          "prerequisites": ["mat8_c013", "mat8_c015"],
+          "order": 1
+        },
+        {
+          "id": "mat8_c020",
+          "name": "Time, Work, and Pipes and Cisterns",
+          "description": "The time-work relationship is a fundamental application of inverse proportion: more workers means less time (assuming constant rate of work). If A completes work in 'a' days, A's work per day = 1/a. If A and B work together, their combined rate = 1/a + 1/b, and time together = ab/(a+b). The pipes and cisterns framework applies the same logic: a pipe filling a tank in 'a' hours has a fill rate of 1/a per hour; if one pipe fills and another empties, the net rate is 1/a − 1/b. Problems become more complex with multiple entities starting and stopping at different times. The key strategy is always to work with rates (fraction of work per unit time) rather than total time, then combine rates. These problems develop systematic algebraic thinking and reinforce inverse proportion in a practical context.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["time and work", "pipes and cisterns", "work rate", "fraction of work per day", "combined work", "inverse proportion work"],
+          "prerequisites": ["mat8_c019"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat8_u11",
+      "name": "Exploring Some Geometric Themes",
+      "order": 11,
+      "concepts": [
+        {
+          "id": "mat8_c021",
+          "name": "Tessellations and Fractals",
+          "description": "A tessellation (or tiling) is an arrangement of one or more shapes that covers a flat surface completely without any gaps or overlaps. Regular polygons that tessellate by themselves are: equilateral triangles (interior angle 60°), squares (90°), and regular hexagons (120°) — these are the only ones, because the angles at each vertex must sum to exactly 360°. Semi-regular tessellations combine two or more regular polygons. Fractals are geometric shapes that display self-similarity: they look similar at any level of magnification, meaning the small parts resemble the whole. The Koch snowflake is constructed by repeatedly replacing the middle third of each line segment with two sides of an equilateral triangle; the Sierpinski triangle repeatedly removes the central triangle from each remaining triangle. Fractals have fractional dimensions, appear in nature (coastlines, snowflakes, fern leaves, tree branching), and are used in computer graphics and antenna design. Exploring these topics builds spatial reasoning and introduces the idea that geometry extends far beyond standard shapes.",
+          "expectedDifficulty": "OK",
+          "aliases": ["tessellation tiling", "fractals", "Koch snowflake", "Sierpinski triangle", "self-similarity", "regular polygons that tessellate", "patterns in geometry"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat8_c022",
+          "name": "Euler's Formula for Polyhedra",
+          "description": "A polyhedron is a 3D solid with flat polygonal faces, straight edges, and sharp vertices. A convex polyhedron satisfies Euler's formula: V − E + F = 2, where V = number of vertices, E = number of edges, and F = number of faces. Verification: a cube has V=8, E=12, F=6 → 8 − 12 + 6 = 2. A triangular prism has V=6, E=9, F=5 → 6 − 9 + 5 = 2. Euler's formula was established by Leonhard Euler in the 18th century and is one of the most beautiful results in mathematics because it connects three seemingly independent quantities. Platonic solids are convex polyhedra where all faces are the same regular polygon and the same number of faces meet at each vertex; there are exactly five: tetrahedron (4 triangles), cube (6 squares), octahedron (8 triangles), dodecahedron (12 pentagons), and icosahedron (20 triangles). Euler's formula can be used to check whether a given set of V, E, F is consistent with a valid polyhedron.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Euler formula polyhedra", "V minus E plus F equals 2", "Platonic solids", "vertices edges faces", "polyhedron formula", "tetrahedron cube octahedron"],
+          "prerequisites": ["mat8_c021"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat8_u12",
+      "name": "Tales by Dots and Lines",
+      "order": 12,
+      "concepts": [
+        {
+          "id": "mat8_c023",
+          "name": "Data Representation: Graphs and Charts",
+          "description": "Data handling involves collecting, organising, representing, and interpreting data to draw conclusions. A bar graph uses rectangular bars of heights proportional to the frequencies of categories and is used for discrete or categorical data. A pie chart (circle graph) represents data as sectors of a circle, where each sector's angle = (frequency / total) × 360°. A histogram looks like a bar graph but is used for continuous data grouped into class intervals; the bars touch each other. A frequency polygon is formed by joining the midpoints of the tops of histogram bars; it is useful for comparing two data sets. Line graphs show how a quantity changes over time (temperature, stock price). Choosing the right type of graph depends on the nature of the data and what you want to communicate. Reading and interpreting these graphs critically — identifying trends, comparing categories, spotting anomalies — is a crucial real-world skill.",
+          "expectedDifficulty": "OK",
+          "aliases": ["bar graph", "pie chart", "histogram", "frequency polygon", "line graph", "data representation", "class interval", "data handling"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat8_c024",
+          "name": "Measures of Central Tendency and Introduction to Probability",
+          "description": "Measures of central tendency describe the 'centre' or typical value of a data set. The mean (arithmetic average) = sum of all values / number of values; it uses every value and is sensitive to extreme values (outliers). The median is the middle value when data is arranged in order; for an even number of values, median = average of the two middle values; it is not affected by outliers. The mode is the most frequently occurring value; a data set can have no mode, one mode (unimodal), or more than one mode (bimodal/multimodal). Probability is a measure of the likelihood of an event, expressed as a number between 0 (impossible) and 1 (certain). For equally likely outcomes: P(event) = number of favourable outcomes / total number of outcomes. A coin toss has P(heads) = 1/2; a standard die roll has P(getting 4) = 1/6. Complementary events: P(event A) + P(not A) = 1. Experimental probability (based on actual trials) approaches theoretical probability as the number of trials increases.",
+          "expectedDifficulty": "OK",
+          "aliases": ["mean median mode", "measures of central tendency", "average", "probability", "favourable outcomes", "experimental theoretical probability", "outlier"],
+          "prerequisites": ["mat8_c023"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat8_u13",
+      "name": "Algebra Play",
+      "order": 13,
+      "concepts": [
+        {
+          "id": "mat8_c025",
+          "name": "Linear Equations in One Variable",
+          "description": "A linear equation in one variable is an equation of the form ax + b = c (or equivalent), where a ≠ 0 and x is the unknown; 'linear' because the variable has degree 1. Solving a linear equation means finding the value of the variable that makes both sides equal; the solution satisfies the equation. The key principle: whatever operation you perform on one side (add, subtract, multiply, divide), you must do to the other side. Steps: collect variable terms on one side and constant terms on the other, then divide by the coefficient. Equations can have the variable on both sides: 3x + 5 = 2x + 11 → x = 6. Cross-multiplication is used for equations with fractions: (x+2)/3 = (x-1)/2 → 2(x+2) = 3(x-1). Verification: substitute the solution back into the original equation to check both sides are equal. Applications include finding unknown ages, dimensions, and quantities in word problems.",
+          "expectedDifficulty": "OK",
+          "aliases": ["linear equation one variable", "solving equations", "transposing", "variable both sides", "cross multiplication equation", "verify solution"],
+          "prerequisites": ["mat8_c006"],
+          "order": 1
+        },
+        {
+          "id": "mat8_c026",
+          "name": "Word Problems Using Linear Equations",
+          "description": "Translating a real-world problem into an algebraic equation is one of the most important skills in mathematics. The steps are: (1) read carefully and identify what is unknown, (2) assign a variable (e.g., let x = the number or the unknown quantity), (3) form an equation based on the conditions given, (4) solve the equation, (5) check the solution makes sense in the original context. Common types include number problems (sum of two numbers is 45; one is double the other: x + 2x = 45), age problems (Riya is 3 years older than Arjun; sum of ages is 29: x + x+3 = 29), perimeter problems (a rectangle's length is twice its width; perimeter is 42 cm: 2(2w+w) = 42), and problems involving fractions or ratios of an unknown. The equation-formation step requires careful reading and often benefits from drawing a diagram. Linear equations are the bridge between arithmetic reasoning and formal algebra.",
+          "expectedDifficulty": "OK",
+          "aliases": ["word problems equations", "forming equations", "number problems algebra", "age problems", "perimeter problems algebra", "translate to equation"],
+          "prerequisites": ["mat8_c025"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat8_u14",
+      "name": "Area",
+      "order": 14,
+      "concepts": [
+        {
+          "id": "mat8_c027",
+          "name": "Area of Quadrilaterals: Trapezium, Rhombus, and Parallelogram",
+          "description": "Area formulas for special quadrilaterals extend the basic rectangle formula. A parallelogram's area = base × height (the perpendicular distance between the parallel sides), because it can be rearranged into a rectangle with the same base and height. A triangle's area = ½ × base × height; any quadrilateral can be divided into two triangles to find its area. A trapezium (one pair of parallel sides of lengths a and b, height h) has area = ½ × (a + b) × h — the average of the two parallel sides times the height. A rhombus with diagonals d₁ and d₂ has area = ½ × d₁ × d₂, because the diagonals divide it into four right triangles. A general quadrilateral can be divided by a diagonal of length d into two triangles with heights h₁ and h₂ from the opposite vertices; its area = ½ × d × (h₁ + h₂). These formulas are derived, not just memorised, by cutting and rearranging shapes — understanding the derivation helps in applying them correctly.",
+          "expectedDifficulty": "OK",
+          "aliases": ["area of trapezium", "area of rhombus", "area of parallelogram", "diagonals of rhombus area", "area of quadrilateral", "half sum of parallel sides height"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat8_c028",
+          "name": "Area of Polygons and Introduction to Heron's Formula",
+          "description": "The area of any polygon can be found by dividing it into triangles (triangulation). For a regular polygon with n sides of length a, the area can be calculated using the formula: A = (na² / 4) × cot(π/n), but at Class 8 level, the division into triangles from the centre is the key technique. Heron's formula gives the area of any triangle when all three sides are known, without needing the height: Area = √[s(s−a)(s−b)(s−c)], where a, b, c are the side lengths and s = (a+b+c)/2 is the semi-perimeter. Verification: for a 3-4-5 right triangle, s = 6, Area = √[6×3×2×1] = √36 = 6, which matches ½×3×4 = 6. Heron's formula is especially useful for scalene triangles and for finding areas of fields measured as polygons. The area of a quadrilateral with a known diagonal and the heights of both triangles formed can be computed as a composite of triangle areas. These techniques together allow the calculation of areas of any planar figure by decomposition.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["Heron's formula", "area of triangle all sides", "semi-perimeter", "triangulation of polygon", "area of polygon", "area of irregular quadrilateral"],
+          "prerequisites": ["mat8_c027"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

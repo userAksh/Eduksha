@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 2,
+    "board": "CBSE",
+    "subject": "Environmental Studies",
+    "subjectColor": "#16A34A",
+    "subjectIcon": "🌿",
+    "generatedAt": "2026-06-01",
+    "textbook": "Common Class 2 EVS Curriculum (integrated into school-level activities under NCF 2023)"
+  },
+  "units": [
+    {
+      "id": "evs2_u01",
+      "name": "My Family and Home",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "evs2_c001",
+          "name": "My Family Members",
+          "description": "A family is a group of people who live together and love and care for each other. A small family (nuclear family) has a mother, a father, and children. A large family (joint family) also includes grandparents, aunts, uncles, and cousins all living together. Family members have special relationship names: the father's mother is your paternal grandmother (Dadi); the mother's mother is your maternal grandmother (Nani). Brothers and sisters are siblings. Cousins are the children of your aunts and uncles. Every family member has a role — parents earn money and take care of the home; grandparents share wisdom and stories; children help with small tasks and go to school. Families may be big or small, but all are special.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["family members", "nuclear family", "joint family", "grandmother grandfather", "siblings cousins"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs2_c002",
+          "name": "Our Home and Helpers",
+          "description": "Our home is the place where we live with our family. Homes can look different: a flat in a tall building in a city, a small house with a garden in a town, or a hut in a village. Every home needs cleaning, cooking, and maintenance — these are shared jobs that every family member can help with. Our home has helpers: a plumber fixes water pipes and taps, an electrician fixes lights and wires, a carpenter makes and fixes wooden furniture, and a painter colours the walls. We keep our home clean and tidy by sweeping, mopping, washing utensils, and taking out the garbage. A clean home is healthy and pleasant for everyone who lives in it.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["home", "types of houses", "home helpers", "plumber electrician", "cleaning home"],
+          "prerequisites": ["evs2_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs2_u02",
+      "name": "Plants Around Us",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "evs2_c003",
+          "name": "Parts of a Plant",
+          "description": "A plant has different parts that each do a special job. Roots grow underground — they hold the plant in the soil and drink up water and minerals. The stem grows above the ground — it holds the plant upright and carries water and food between the roots and leaves. Leaves are flat and green — they make food for the plant using sunlight, air, and water. This food-making process is called photosynthesis. Flowers are often colourful and sweet-smelling — they attract bees and butterflies that help the plant make seeds. Fruits grow from flowers and contain seeds. Seeds grow into new plants. Every part has a job — together they keep the plant alive and help it grow.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["roots stem leaves flowers fruits seeds", "plant parts", "photosynthesis", "parts of a plant"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs2_c004",
+          "name": "Plants Give Us Food",
+          "description": "Plants are our most important source of food. We eat different parts of different plants: roots (carrot, radish, beetroot), stems (sugarcane, potato), leaves (spinach, cabbage, curry leaves), flowers (cauliflower, banana flower), fruits (mango, apple, tomato, brinjal), and seeds (rice, wheat, dal, groundnuts). Some plants give us more than one food item — the coconut gives us coconut water, coconut flesh, and coconut oil. Plants also give us spices that make food tasty: turmeric, pepper, and ginger all come from plants. Without plants, we would have no food — that is why we must grow more plants and protect them.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["plants as food", "edible parts", "roots fruits seeds", "coconut spices", "food from plants"],
+          "prerequisites": ["evs2_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs2_u03",
+      "name": "Animals Around Us",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "evs2_c005",
+          "name": "Pet Animals and Wild Animals",
+          "description": "Pet animals live with us at home and depend on us for food, water, shelter, and care. Common pets: dogs (loyal companions and guards), cats (playful and independent), fish (kept in aquariums), rabbits (gentle and fluffy), and parrots (can mimic speech). We must care for pets with love and regular attention. Wild animals live in forests, grasslands, deserts, or oceans — they find their own food and shelter. Wild animals should NOT be kept as pets; they are happiest in their natural habitat. Examples of wild animals: tigers, elephants, lions, snakes, and eagles. Some wild animals are endangered — their numbers are very low and they need our protection.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["pet animals", "wild animals", "domestic animals", "care for pets", "habitat"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs2_c006",
+          "name": "What Animals Eat",
+          "description": "Animals eat different kinds of food. Animals that eat only plants (leaves, fruits, grass, seeds) are called herbivores — cow, goat, rabbit, deer, and elephant are herbivores. Animals that eat only other animals are called carnivores — lion, tiger, eagle, and snake are carnivores. Animals that eat both plants and animals are called omnivores — bears, crows, dogs, and humans are omnivores. Baby animals drink their mothers' milk — they are called mammals. Birds eat seeds, worms, or fish depending on their beak shape. Fish eat water plants and smaller fish. The type of food an animal eats and where it finds that food are connected to where the animal lives (its habitat).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["herbivores carnivores omnivores", "what animals eat", "food of animals", "mammals", "animal diet"],
+          "prerequisites": ["evs2_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs2_u04",
+      "name": "Food and Water",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "evs2_c007",
+          "name": "Our Food — What We Eat and Why",
+          "description": "We eat food to get energy to work, play, and grow. Different foods give our body different things. Energy foods (carbohydrates): rice, roti, bread, and potatoes give us energy to run and play. Body-building foods (proteins): dal, eggs, milk, curd, and meat help our muscles grow and repair. Protective foods (vitamins and minerals): fruits and vegetables (orange, carrot, spinach) protect us from falling ill. Fat gives stored energy — found in butter, oil, and nuts. Drinking enough water (6–8 glasses a day) helps our body work properly. A meal that includes a grain, a protein, a vegetable, and some fruit is a balanced meal — it gives our body all it needs.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["food groups", "energy food", "body-building food", "protective food", "balanced meal", "why we eat"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs2_c008",
+          "name": "Water — Uses and Conservation",
+          "description": "Water is essential for all living things — we cannot survive without it. We use water for drinking, cooking, bathing, washing clothes, cleaning our home, and watering plants. Farmers use large amounts of water to grow our food (irrigation). Water comes from rainfall, rivers, lakes, ponds, and underground wells. We must use water carefully because fresh, clean water is limited. Water conservation habits: turn off the tap while brushing teeth, use a mug instead of running water for washing, water plants in the morning or evening (not in the hot sun when water evaporates quickly), and collect rainwater in a bucket to water plants. Never waste food or water — they are gifts that many people do not have enough of.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["uses of water", "water conservation", "save water", "irrigation", "water sources"],
+          "prerequisites": ["evs2_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs2_u05",
+      "name": "Our Senses and Body",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "evs2_c009",
+          "name": "Our Five Senses",
+          "description": "We use our five senses to learn about the world around us. Sight (eyes): we see colour, shape, size, and movement. Hearing (ears): we hear sounds — music, voices, and warnings. Smell (nose): we can identify food, flowers, and danger by smell alone. Taste (tongue): we can taste sweet, sour, salty, and bitter flavours. Touch (skin): we can feel if something is hot, cold, rough, smooth, heavy, or light. Each sense organ sends information to the brain, which helps us understand and respond. Some people may not have all five senses — they rely more heavily on the remaining ones (as we saw in 'Seeing without Seeing'). We should always be careful not to damage our sense organs.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["five senses", "sight hearing smell taste touch", "sense organs", "eyes ears nose tongue skin"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs2_c010",
+          "name": "Keeping Ourselves Healthy",
+          "description": "A healthy body needs four things: good food, clean water, enough sleep, and regular exercise. Good food gives us energy and nutrients; clean water hydrates us and removes waste. Children need 9–10 hours of sleep so the body can grow and the brain can store memories from the day. Exercise — running, skipping, swimming, cycling, dancing — keeps the heart, muscles, and bones strong. Personal hygiene prevents illness: brush teeth twice a day, bathe daily, wash hands before eating and after using the toilet, and clip nails regularly. Vaccines protect us from serious diseases. If we feel ill, we should tell an adult and visit a doctor. Taking care of our body from an early age is one of the best habits we can form.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["healthy habits", "sleep food water exercise", "hygiene", "vaccines", "staying healthy"],
+          "prerequisites": ["evs2_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs2_u06",
+      "name": "Air, Water, and Weather",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "evs2_c011",
+          "name": "Air — All Around Us",
+          "description": "Air is all around us, but we cannot see it. We can feel moving air — that is wind. We can see what air does: it fills balloons, flies kites, makes leaves rustle, and dries wet clothes. All living things need air to breathe — we breathe in oxygen and breathe out carbon dioxide. Plants use carbon dioxide to make food and release oxygen, keeping the air fresh for us. Air that is dirty with dust, smoke, and fumes is called polluted air — it can make us cough and fall ill. We can help keep air clean by planting trees, not burning rubbish, and using fans and natural ventilation (open windows) instead of unnecessary machines.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["air", "wind", "breathing", "oxygen", "air pollution", "kite balloon"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs2_c012",
+          "name": "Weather and Seasons",
+          "description": "Weather is what the sky and air are like each day — sunny, cloudy, rainy, windy, cold, or hot. Weather changes from day to day. India has four seasons. Summer (hot, March–May): we wear light cotton clothes, drink cold water, and stay in the shade. Monsoon/Rainy (June–September): we carry umbrellas and wear raincoats; farmers are happy because their crops get water. Autumn (October–November): weather cools and the sky clears. Winter (cold, December–February): we wear warm woolly clothes. We can observe weather by looking at the sky, feeling the air, and reading a thermometer (which shows temperature). Keeping a weather chart for a week is a fun science activity that shows us how weather changes.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["weather", "seasons", "summer monsoon winter autumn", "temperature", "clothes for weather"],
+          "prerequisites": ["evs2_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs2_u07",
+      "name": "Transport and Communication",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "evs2_c013",
+          "name": "Ways We Travel",
+          "description": "Transport means the ways we move from one place to another. Land transport: we walk, cycle, ride in cars, buses, trains, and auto-rickshaws. Water transport: boats and ferries take us across rivers and seas. Air transport: aeroplanes carry us to faraway places very quickly. In India, the railway is one of the biggest in the world — trains carry millions of people and goods every day. Bicycles and electric vehicles are eco-friendly because they do not burn petrol or diesel and do not pollute the air. Road safety rules: always walk on the footpath; cross only at zebra crossings; look right, look left, look right again before crossing; wear a helmet when cycling; never play on the road.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["transport", "land water air transport", "train bus cycle", "road safety", "eco-friendly transport"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs2_c014",
+          "name": "Ways We Communicate",
+          "description": "Communication means sharing messages and information with others. Long ago, people sent messages by letter (delivered by the postman), by drum beats, or by sending messengers on horseback. Today, we have much faster ways: telephone (we can speak to someone far away), mobile phones (we can call, send messages, and video call), email (messages sent instantly through the internet), and video calls (seeing and speaking to someone anywhere in the world). Television and radio share news and entertainment with millions of people at once. Books, newspapers, and magazines share information in printed form. Postcards and greeting cards are friendly ways to send messages for birthdays and festivals.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["communication", "telephone mobile email", "postman", "television radio", "video call"],
+          "prerequisites": ["evs2_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs2_u08",
+      "name": "Our Earth and Environment",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "evs2_c015",
+          "name": "Land and Water on Earth",
+          "description": "The Earth is our home — a large ball covered with land and water. About 71% of the Earth's surface is covered by water (oceans, seas, rivers, and lakes); only 29% is land (continents, islands). From space, the Earth looks blue because of all the water — it is called the Blue Planet. Land has different features: tall mountains (like the Himalayas), flat plains (like the Gangetic Plain), dry deserts (like the Thar Desert in Rajasthan), green forests, and coasts where land meets the sea. Rivers flow from mountains or hills to the sea. The Ganga, Yamuna, and Godavari are major rivers of India. We must keep our rivers and oceans clean by not throwing rubbish into them.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["land and water", "Blue Planet", "oceans rivers", "mountains plains", "Earth's surface"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs2_c016",
+          "name": "Keeping Our Environment Clean",
+          "description": "The environment is everything around us — the air, water, soil, plants, and animals. When we litter, burn rubbish, pour chemicals into rivers, or cut down too many trees, we damage the environment. Plastic waste is one of the biggest problems — plastic takes hundreds of years to break down and harms animals that eat it. We can help: use cloth bags instead of plastic bags, put rubbish in a dustbin (never on the road), compost kitchen waste (vegetable peels) to make manure for plants, plant trees, and save water and electricity. The three Rs — Reduce (use less), Reuse (use again), Recycle (make something new from old things) — help reduce waste. Everyone, including children, can make the world a cleaner and greener place.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["clean environment", "reduce reuse recycle", "plastic waste", "littering", "protect nature"],
+          "prerequisites": ["evs2_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs2_u09",
+      "name": "Festivals and Community",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "evs2_c017",
+          "name": "Festivals We Celebrate",
+          "description": "India is a land of many festivals, celebrated by people of different religions and traditions throughout the year. Diwali: the Festival of Lights, celebrated by Hindus, Sikhs, and Jains — homes are lit with oil lamps (diyas) and sweets are shared. Eid: celebrated by Muslims at the end of Ramadan — special prayers, feasting, and giving gifts. Christmas (25 December): celebrated by Christians to mark the birth of Jesus — decorated trees, carols, and gifts. Holi: the Festival of Colours — people celebrate spring by throwing coloured powder and water. Pongal, Onam, Baisakhi, and Navratri are harvest and regional festivals. All festivals bring families and communities together with food, music, colour, and joy.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Diwali Eid Christmas Holi", "festivals India", "Pongal Onam Baisakhi", "celebration", "religious festivals"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs2_c018",
+          "name": "Our Helpers in the Community",
+          "description": "A community is a group of people living in the same area who help each other. Many people in our community do important jobs that make our lives safer, healthier, and easier. Doctor: treats ill people and keeps us healthy. Teacher: helps children learn. Police officer: keeps people safe and enforces rules. Firefighter: puts out fires and rescues people. Farmer: grows the food we eat. Garbage collector: keeps our streets and neighbourhoods clean. Postman: delivers letters and parcels. Construction worker: builds the buildings, roads, and bridges we use. Every job matters, big or small. We should respect all workers and thank them for their service. When we grow up, we too can choose a job that helps our community.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["community helpers", "doctor teacher police farmer", "important jobs", "community workers", "helpers"],
+          "prerequisites": ["evs2_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs2_u10",
+      "name": "Taking Care of Our World",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "evs2_c019",
+          "name": "Saving Plants and Animals",
+          "description": "Many plants and animals are in danger of disappearing forever — they are called endangered species. When forests are cut down (deforestation), animals lose their homes and food. When rivers and oceans are polluted, fish and water animals suffer. India has made special places called national parks and wildlife sanctuaries where animals are protected and cannot be hunted. Famous ones: Jim Corbett National Park (tigers), Kaziranga National Park (one-horned rhinos), Gir National Park (Asiatic lions). We can help by not littering in forests or beaches, not buying products made from animal skin or horns, planting trees, and supporting conservation efforts. Every living thing has a right to exist on this Earth.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["endangered animals", "national parks", "wildlife conservation", "deforestation", "save animals"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs2_c020",
+          "name": "Small Actions, Big Difference",
+          "description": "We do not have to be adults to help protect the environment — children can make a real difference through small daily actions. Switch off lights, fans, and televisions when leaving a room (saves electricity). Turn off taps while brushing teeth (saves water). Carry a cloth bag when shopping (reduces plastic waste). Plant a seed and watch it grow into a plant. Avoid single-use plastic (straws, cups, bags). Feed birds and water plants. Separate wet waste (vegetable peels) from dry waste (paper, plastic) at home. Walk or cycle for short distances instead of taking a car. Tell friends and family about caring for the environment. 'Little drops of water make the mighty ocean' — small acts of care, repeated by many people, add up to a huge difference.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["save electricity water", "small actions", "environment at home", "cloth bag", "reduce plastic"],
+          "prerequisites": ["evs2_c019"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

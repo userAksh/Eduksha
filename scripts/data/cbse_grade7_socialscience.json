@@ -1,0 +1,313 @@
+{
+  "metadata": {
+    "grade": 7,
+    "board": "CBSE",
+    "subject": "Social Science",
+    "subjectColor": "#8B5CF6",
+    "subjectIcon": "🌏",
+    "generatedAt": "2026-05-31",
+    "textbook": "NCERT Exploring Society: India and Beyond Part 1 — Class 7 (First Edition April 2025, Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "ss7_u01",
+      "name": "Geographical Diversity of India",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "ss7_c001",
+          "name": "The Himalayas and India's Physical Geography",
+          "description": "India's geography is extraordinarily diverse. The Himalayan mountain range stands as a natural barrier in the north — it is the youngest and highest mountain range in the world, still growing as the Indian tectonic plate pushes northward into Asia. A long time ago, India was part of a southern supercontinent (Gondwana); it broke off and drifted northward to collide with Asia, forming the Himalayas. The Himalayas feed great rivers (Ganga, Indus, Brahmaputra) with snowmelt and monsoon rain. To the south of the Himalayas lies the vast Indo-Gangetic Plain, one of the most fertile regions on Earth.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Himalayas geography", "India physical geography", "Gondwana tectonic plate", "Indo-Gangetic Plain", "mountain range India"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss7_c002",
+          "name": "India's Diverse Landforms — Plains, Plateaus, and Coasts",
+          "description": "India has remarkable geographical diversity within its borders. The Deccan Plateau occupies much of peninsular India — an ancient, stable block of rock with rich mineral deposits. The Western Ghats and Eastern Ghats are mountain ranges on either coast. India has a long coastline of over 7,500 km along the Arabian Sea and Bay of Bengal — supporting fishing, trade, and port cities. The Thar Desert in Rajasthan is India's hot desert. The Andaman and Nicobar Islands (Bay of Bengal) and Lakshadweep (Arabian Sea) are India's island territories. This diversity of landforms shapes India's climate, agriculture, and lifestyle.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Deccan Plateau", "Western Eastern Ghats", "India coastline", "Thar Desert", "India landforms diversity"],
+          "prerequisites": ["ss7_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss7_u02",
+      "name": "Understanding the Weather",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "ss7_c003",
+          "name": "Elements of Weather and the Atmosphere",
+          "description": "Weather is the day-to-day condition of the atmosphere — temperature, rainfall, wind speed, humidity, and cloud cover. These are called the elements of weather. The atmosphere is the blanket of air surrounding Earth, divided into layers: the troposphere (0–12 km, where all weather occurs), stratosphere (contains the ozone layer), mesosphere, and thermosphere. Temperature decreases with altitude in the troposphere. Humidity is the amount of water vapour in the air. Rainfall occurs when moist air rises, cools, and water vapour condenses into clouds that eventually precipitate.",
+          "expectedDifficulty": "OK",
+          "aliases": ["elements of weather", "atmosphere layers", "troposphere stratosphere", "temperature humidity rainfall", "weather definition"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss7_c004",
+          "name": "Weather vs Climate and Measuring Weather",
+          "description": "Weather is the short-term condition of the atmosphere at a specific place and time. Climate is the average weather pattern of a region over many years (at least 30). The same region can have sunny weather today and stormy weather tomorrow, but its climate (e.g., tropical, temperate, arid) changes slowly over decades. Weather is measured with instruments: thermometer (temperature), barometer (air pressure), anemometer (wind speed), rain gauge (rainfall). Weather forecasts use data from weather stations, satellites, and radar to predict conditions.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["weather vs climate", "climate definition", "weather instruments", "thermometer barometer anemometer", "weather forecast"],
+          "prerequisites": ["ss7_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss7_u03",
+      "name": "Climates of India",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "ss7_c005",
+          "name": "The Indian Monsoon",
+          "description": "India's climate is dominated by the monsoon — seasonal reversing winds that bring most of India's annual rainfall. The Southwest Monsoon (June–September) blows from the Arabian Sea and Bay of Bengal onto the land, bringing heavy rainfall. The Northeast Monsoon (October–December) affects southeastern India (Tamil Nadu coast). The monsoon is vital to Indian agriculture — most crops depend on it. Its arrival and departure, and the amount of rain, determine whether there will be flood, drought, or a good harvest. El Niño events in the Pacific Ocean can weaken the Indian monsoon.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Indian monsoon", "southwest monsoon", "monsoon winds", "seasonal rainfall India", "northeast monsoon"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss7_c006",
+          "name": "Types of Climate in India and Factors Affecting Climate",
+          "description": "India has multiple climate types due to its vast size and varied terrain. Tropical wet (Kerala, Andaman): hot and humid year-round, heavy rainfall. Tropical dry (interior Deccan): hot and dry summers, low rainfall. Arid (Rajasthan, Kutch): very low rainfall, extreme temperatures. Alpine/mountain (Himalayas, Northeast): cold, snow in winter. Factors determining climate: latitude (distance from Equator), altitude (height above sea level), distance from the sea (coastal areas are more moderate), direction of winds, and the presence of mountain barriers (rain shadow effect). The Western Ghats block monsoon winds, making the eastern Deccan drier.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["types of climate India", "tropical arid alpine climate", "factors affecting climate", "rain shadow effect", "latitude altitude climate"],
+          "prerequisites": ["ss7_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss7_u04",
+      "name": "New Beginnings: Cities and States",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "ss7_c007",
+          "name": "Janapadas and Early Cities",
+          "description": "Around 1000–500 BCE, people in India organised into janapadas — territorial kingdoms centred on a town. As people formed clans and groups, they developed rules for living together. Janapadas grew as trade networks expanded. Some janapadas had early democratic traditions — assemblies (sabhas, samitis) where leaders made decisions together. The most powerful janapada was Magadha (in present-day Bihar), which became the base for later empires. Early cities like Pataliputra, Varanasi, Taxila, and Ujjain were centres of trade, learning, and culture.",
+          "expectedDifficulty": "OK",
+          "aliases": ["janapadas", "early cities India", "Magadha", "sabha samiti assembly", "Pataliputra Taxila Varanasi"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss7_c008",
+          "name": "Rise of States and Early Democratic Traditions",
+          "description": "As janapadas competed for resources and power, some became mahajanapadas (great territories). Among the 16 major mahajanapadas, Magadha emerged as the most powerful. Some republics (like the Vajji confederacy centred on Vaishali) practised a form of early democracy — leaders were elected by an assembly of citizens, decisions made through debate, not royal decree alone. These early democratic practices predate Greek democracy by centuries and show India's long tradition of collective governance. Eventually the Nanda dynasty consolidated Magadha, setting the stage for the Maurya Empire.",
+          "expectedDifficulty": "OK",
+          "aliases": ["mahajanapadas", "Vajji republic Vaishali", "early democracy India", "Nanda dynasty", "sixteen mahajanapadas"],
+          "prerequisites": ["ss7_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss7_u05",
+      "name": "The Rise of Empires",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "ss7_c009",
+          "name": "Chandragupta Maurya and the Maurya Empire",
+          "description": "Chandragupta Maurya (r. ~321–297 BCE) founded the Maurya Empire — the first pan-Indian empire — with the guidance of his minister Kautilya (Chanakya), who wrote the Arthashastra, a treatise on statecraft and governance. Chandragupta defeated the Nanda dynasty and later resisted the forces of Alexander the Great's successor Seleucus Nicator, gaining territory in the northwest. His empire stretched from the northwest frontier to the Deccan. He eventually abdicated and became a Jain monk. His son Bindusara expanded the empire further south.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Chandragupta Maurya", "Maurya Empire", "Kautilya Chanakya Arthashastra", "first Indian empire", "Bindusara"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss7_c010",
+          "name": "Ashoka the Great — From Conqueror to Compassionate Ruler",
+          "description": "Ashoka (r. ~268–232 BCE), grandson of Chandragupta, was the greatest Maurya emperor. After the bloody Kalinga War (modern Odisha), in which hundreds of thousands died, Ashoka was deeply troubled by the suffering he had caused. He converted to Buddhism, renounced further military conquest, and embraced the principle of dhamma (righteous living). He spread his messages of non-violence, religious tolerance, and welfare through edicts carved on rocks and pillars across his empire. Ashoka's lion capital (at Sarnath) was adopted as India's national emblem. His emissaries spread Buddhism across Asia.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Ashoka Maurya", "Kalinga War", "dhamma Ashoka", "Ashoka edicts pillars", "lion capital national emblem", "Ashoka Buddhism"],
+          "prerequisites": ["ss7_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss7_u06",
+      "name": "The Age of Reorganisation",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "ss7_c011",
+          "name": "Post-Maurya Period and Regional Kingdoms",
+          "description": "After the last Maurya emperor was assassinated (~185 BCE), the empire fragmented into regional kingdoms. The Sungas, Kanvas, and Satavahanas rose in different parts of India. In the south, the Cholas, Cheras, and Pandyas continued to rule. This period saw significant cultural, religious, and trade activity — the Silk Route connected India to Central Asia, China, and Rome. Buddhism, Jainism, and Brahmanism (early Hinduism) all flourished. Foreign groups (Indo-Greeks, Shakas, Kushanas) settled in northwest India and adopted Indian culture, contributing to a rich cultural synthesis.",
+          "expectedDifficulty": "OK",
+          "aliases": ["post-Maurya period", "Sungas Satavahanas Cholas", "Silk Route India", "regional kingdoms India", "Indo-Greeks Kushanas"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss7_c012",
+          "name": "The Cholas and South Indian Kingdoms",
+          "description": "The Chola kingdom (ancient and medieval phases) was one of the longest-lasting dynasties in world history. The ancient Cholas controlled the Kaveri delta (Tamil Nadu). They built great irrigation works (tanks, canals) and supported Tamil literature (the Sangam period produced masterpieces like Thirukkural). In the medieval period, Cholas under Vijayalaya and Rajaraja I became a major sea power, trading with Southeast Asia and even launching naval expeditions. Thanjavur (Tanjore) was their great capital, home to the magnificent Brihadeeswarar temple. Village assemblies (ur, sabha) gave local governance a participatory character.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["Chola kingdom", "Sangam literature Thirukkural", "Rajaraja Chola Thanjavur", "Brihadeeswarar temple", "Chola naval power Southeast Asia"],
+          "prerequisites": ["ss7_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss7_u07",
+      "name": "The Gupta Era: An Age of Tireless Creativity",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "ss7_c013",
+          "name": "The Gupta Empire — Golden Age of India",
+          "description": "The Gupta Empire (c. 320–550 CE), founded by Chandragupta I, is often called the Golden Age of India. Under Chandragupta II (Vikramaditya), the empire reached its greatest extent, spanning most of northern India. Trade with Rome, Southeast Asia, and China brought great wealth. The Gupta period saw remarkable achievements in art, literature, science, and mathematics. Sanskrit literature flourished — Kalidasa wrote masterpieces like Abhijnanasakuntalam and Meghaduta. Fa Hien, a Chinese Buddhist monk, visited India during this period and left detailed accounts of life.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Gupta Empire golden age", "Chandragupta Vikramaditya", "Kalidasa Sanskrit literature", "Fa Hien China monk", "Gupta period art"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss7_c014",
+          "name": "Gupta Achievements in Science, Art, and Culture",
+          "description": "The Gupta period produced extraordinary intellectual achievements. Mathematics: Aryabhata (476–550 CE) calculated the value of pi, explained solar and lunar eclipses, and proposed that Earth rotates on its axis. He calculated the length of the solar year with great accuracy. The decimal number system and the concept of zero were developed or refined in this era. Astronomy: planetary motions studied. Medicine: Sushruta's surgical text and Charaka's medical compendium were prominent. Art: the Ajanta cave paintings (Deccan) reached their peak in the Gupta period, depicting Buddhist stories in vivid colour.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["Aryabhata science", "Gupta mathematics zero decimal", "Ajanta paintings Gupta", "Sushruta medicine", "Gupta intellectual achievements"],
+          "prerequisites": ["ss7_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss7_u08",
+      "name": "How the Land Becomes Sacred",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "ss7_c015",
+          "name": "Sacred Spaces in India's Religious Traditions",
+          "description": "India is home to sacred sites for many religions. In Hinduism, certain rivers (Ganga, Yamuna, Saraswati), mountains (Himalayas), forests, and cities (Varanasi, Prayagraj, Tirupati) are sacred. Temples are the homes of deities; pilgrimage (tirtha yatra) to sacred places is an ancient tradition. In Islam, mosques and dargahs (shrines of Sufi saints) are sacred. In Sikhism, takhts (seats of authority) and gurudwaras are sacred — the Golden Temple in Amritsar is the holiest site. In Buddhism, places associated with the Buddha's life (Bodh Gaya, Sarnath, Kushinagar, Lumbini) are pilgrimage destinations. The reverence for land as sacred has shaped India's cultural geography.",
+          "expectedDifficulty": "OK",
+          "aliases": ["sacred spaces India", "Hindu pilgrimage tirth", "Golden Temple Amritsar", "Bodh Gaya Sarnath Buddhist sites", "religious geography India"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss7_c016",
+          "name": "Temples, Mosques, and Gurudwaras — Architecture and Community",
+          "description": "Sacred buildings serve as centres of worship, community, art, and culture. Hindu temples (like Brihadeeswarar, Khajuraho, Meenakshi Amman) follow detailed architectural traditions described in ancient texts (Agamas, Vastu Shastra) — they typically have a garbhagriha (inner sanctum), shikhara (tower), and mandapa (hall). Mosques are oriented toward Mecca; their key features are the minaret, mihrab, and prayer hall for congregational worship. Gurudwaras are open to all — their langar (free community kitchen) reflects the Sikh principle of seva (selfless service). Each tradition uses architecture, music, and ritual to make space sacred.",
+          "expectedDifficulty": "OK",
+          "aliases": ["temple architecture shikhara", "mosque minaret mihrab", "gurudwara langar seva", "sacred architecture India", "Brihadeeswarar Meenakshi temple"],
+          "prerequisites": ["ss7_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss7_u09",
+      "name": "From the Rulers to the Ruled: Types of Governments",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "ss7_c017",
+          "name": "Types of Government — Monarchy, Oligarchy, Democracy",
+          "description": "Throughout history, human societies have been governed in different ways. Monarchy: power held by a single ruler (king/queen) — absolute monarchy (ruler has total power) or constitutional monarchy (ruler is limited by laws/parliament). Oligarchy: power held by a small group (usually wealthy or powerful). Democracy: power held by the people, exercised through elected representatives. Direct democracy (ancient Athens) — citizens vote on every decision. Representative democracy — citizens elect representatives to make decisions on their behalf. India is the world's largest democracy, with elections for Parliament (Lok Sabha and Rajya Sabha) and state legislatures.",
+          "expectedDifficulty": "OK",
+          "aliases": ["types of government", "monarchy oligarchy democracy", "direct representative democracy", "Lok Sabha Parliament India", "constitutional monarchy"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss7_c018",
+          "name": "Democratic Governance — How Government Works",
+          "description": "In a democracy, government functions at multiple levels. In India: Central (Union) government makes laws for the whole country; State governments make laws for their states; Local bodies (panchayats, municipalities) handle local issues. The three branches of government: Legislature (makes laws), Executive (implements laws), Judiciary (interprets laws and resolves disputes). Separation of powers prevents any one branch from becoming too powerful. Elections are held regularly; every adult citizen (18+) has the right to vote. Free and fair elections, freedom of speech, and an independent judiciary are hallmarks of a healthy democracy.",
+          "expectedDifficulty": "OK",
+          "aliases": ["democratic governance India", "legislature executive judiciary", "separation of powers", "panchayat local government", "elections voting India"],
+          "prerequisites": ["ss7_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss7_u10",
+      "name": "The Constitution of India — An Introduction",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "ss7_c019",
+          "name": "What is a Constitution and How India's Was Made",
+          "description": "A constitution is the fundamental law of a country — it defines the structure of government, the rights of citizens, and the principles that guide the nation. India's Constituent Assembly (1946–1949) was a body of elected representatives tasked with writing the Constitution. Dr. B. R. Ambedkar chaired the Drafting Committee. Members debated for nearly three years, incorporating ideas from constitutions around the world. The Constitution of India was adopted on 26 November 1949 and came into force on 26 January 1950 — celebrated as Republic Day. At the time, it was the longest written constitution of any country.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Constitution India", "Constituent Assembly", "Ambedkar Drafting Committee", "Republic Day January 26", "Constitution adopted 1949"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss7_c020",
+          "name": "Fundamental Rights and Directive Principles",
+          "description": "The Indian Constitution guarantees Fundamental Rights to all citizens: Right to Equality (Articles 14–18), Right to Freedom (Articles 19–22), Right against Exploitation (Articles 23–24), Right to Freedom of Religion (Articles 25–28), Cultural and Educational Rights (Articles 29–30), and Right to Constitutional Remedies (Article 32 — the 'heart and soul' of the Constitution, per Ambedkar). Directive Principles of State Policy (Part IV) are guidelines for the government — not legally enforceable but morally binding — directing it toward social and economic justice. Together, Fundamental Rights and Directive Principles aim to make India both free and equal.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["Fundamental Rights India", "Article 14 19 21 32", "Directive Principles", "Right to Equality Freedom", "Constitutional remedies"],
+          "prerequisites": ["ss7_c019"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss7_u11",
+      "name": "From Barter to Money",
+      "order": 11,
+      "concepts": [
+        {
+          "id": "ss7_c021",
+          "name": "History of Exchange — Barter to Currency",
+          "description": "Before money existed, people exchanged goods and services directly — this is called barter (e.g., giving grain in exchange for cloth). Barter has a major problem: both parties must want what the other has (the 'double coincidence of wants'). To solve this, communities began using commodity money — objects with intrinsic value (grain, cattle, shells, salt) that everyone would accept. Eventually, metal coins (gold, silver, copper) became standard because they are durable, portable, divisible, and scarce. India had a rich tradition of coinage from the Maurya period onwards. Paper money (currency notes) is a later innovation backed by government trust.",
+          "expectedDifficulty": "OK",
+          "aliases": ["barter system", "commodity money", "double coincidence of wants", "history of money", "coins currency evolution"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss7_c022",
+          "name": "Money in the Modern Economy",
+          "description": "Modern money includes coins, paper notes, and digital money (bank transfers, UPI, debit cards). Money serves three key functions: medium of exchange (accepted for buying and selling), store of value (can be saved for future use), and unit of account (used to express prices). Banks play a central role — people deposit money in banks, which lend it to others. The Reserve Bank of India (RBI) regulates banks and issues currency. UPI (Unified Payments Interface) has transformed India into one of the world's largest digital payment economies, allowing instant transfer using a smartphone.",
+          "expectedDifficulty": "OK",
+          "aliases": ["functions of money", "medium of exchange store of value", "Reserve Bank of India RBI", "UPI digital payments India", "banking money"],
+          "prerequisites": ["ss7_c021"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss7_u12",
+      "name": "Understanding Markets",
+      "order": 12,
+      "concepts": [
+        {
+          "id": "ss7_c023",
+          "name": "What is a Market? — Historical and Modern",
+          "description": "A market is any place or system where buyers and sellers exchange goods and services. Markets have existed throughout history — the famous Hampi Bazaar (Karnataka) in the Vijayanagara Empire was described by Portuguese traveller Domingos Paes as one of the greatest markets in the world, selling gems, horses, cloth, and more. Markets can be local (weekly haat), regional (wholesale mandi), national, or global. Price in a market is determined by the forces of demand (how much buyers want) and supply (how much sellers offer). When demand is high and supply is low, prices rise.",
+          "expectedDifficulty": "OK",
+          "aliases": ["market definition", "Hampi Bazaar Vijayanagara", "demand and supply", "haat mandi market", "market history India"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss7_c024",
+          "name": "Types of Markets and Fairness in Trade",
+          "description": "Markets exist in many forms: physical markets (shops, bazaars, mandis), online markets (e-commerce), financial markets (stock exchange), and labour markets (where people offer their skills for wages). Competition in markets generally benefits consumers — sellers compete on price and quality. However, markets can be unfair: large companies may dominate and exploit workers or small producers; prices may exclude poor consumers. The government regulates markets through consumer protection laws, competition law, and minimum wage rules. Fair trade movements try to ensure producers in developing countries receive just prices.",
+          "expectedDifficulty": "OK",
+          "aliases": ["types of markets", "e-commerce financial market", "market competition", "consumer protection India", "fair trade markets"],
+          "prerequisites": ["ss7_c023"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

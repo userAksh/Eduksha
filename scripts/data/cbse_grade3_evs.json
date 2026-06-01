@@ -1,0 +1,313 @@
+{
+  "metadata": {
+    "grade": 3,
+    "board": "CBSE",
+    "subject": "Environmental Studies",
+    "subjectColor": "#16A34A",
+    "subjectIcon": "🌿",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Our Wondrous World — Class 3 (Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "evs3_u01",
+      "name": "Chapter 1 — Family and Friends",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "evs3_c001",
+          "name": "Our Family — Members and Relationships",
+          "description": "A family is a group of people who are related and care for each other. A nuclear family has parents and children. An extended family includes grandparents, aunts, uncles, and cousins. Each family member has a relationship name: the daughter of my aunt is my cousin; my mother's mother is my maternal grandmother (Nani); my father's mother is my paternal grandmother (Dadi). Families across India look different — some are large joint families living together, others are smaller. Families share meals, celebrate festivals, support each other in difficult times, and teach values. A family tree is a diagram that shows how people in a family are related to each other.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["family", "family members", "nuclear family", "extended family", "family tree", "relationships"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs3_c002",
+          "name": "Friends and Our Community",
+          "description": "Friends are people we enjoy spending time with, trust, and support. Good friends are kind, honest, helpful, and respectful of differences. A community is a group of people living in the same area who share facilities like roads, parks, schools, places of worship, and markets. Community helpers — doctors, teachers, police officers, farmers, shopkeepers, garbage collectors, and postal workers — all play important roles. We can contribute to our community by keeping public spaces clean, helping neighbours, and being respectful. Understanding our community helps us know where to go for help and how we can make the area a better place for everyone.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["friends", "community", "community helpers", "neighbourhood", "good friend qualities"],
+          "prerequisites": ["evs3_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs3_u02",
+      "name": "Chapter 2 — Going to the Mela",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "evs3_c003",
+          "name": "Fairs and Markets — Our Local Culture",
+          "description": "A mela (fair) is a gathering of people, often in an open field or market, with stalls selling food, clothes, toys, handicrafts, and local products. Fairs celebrate community spirit and local traditions. Famous Indian fairs include the Surajkund Crafts Mela (Haryana), Pushkar Camel Fair (Rajasthan), and Sonepur Cattle Fair (Bihar). Markets are places where people buy and sell goods every day. Different markets specialise in different things — vegetable markets, fish markets, grain markets, and craft bazaars. Visiting a market involves interacting with vendors, comparing prices, and making choices. Both fairs and markets bring communities together and support local livelihoods.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["mela", "fair", "market", "bazaar", "local culture", "Surajkund", "Pushkar"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs3_c004",
+          "name": "Transport — Getting to the Fair",
+          "description": "Getting to a mela requires some form of transport. Land transport options include: walking, cycling, auto-rickshaw, bus, car, and train. In rural areas, bullock carts and tractors are also used. Water transport (boats and ferries) is used where roads run alongside rivers. Each mode has advantages: buses and trains carry many people; bicycles are eco-friendly; walking is free and healthy. Traffic rules keep road users safe — pedestrians use footpaths and zebra crossings; vehicles stop at red lights. Public transport (buses, metro, trains) reduces the number of private vehicles and helps reduce pollution. Road signs communicate rules to all road users through symbols and colours.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["transport", "bus train auto", "road safety", "public transport", "getting around", "traffic rules"],
+          "prerequisites": ["evs3_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs3_u03",
+      "name": "Chapter 3 — Celebrating Festivals",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "evs3_c005",
+          "name": "Festivals of India — Unity in Diversity",
+          "description": "India is home to people of many religions, languages, and traditions, and celebrates hundreds of festivals throughout the year. Diwali (Festival of Lights) — Hindus, Sikhs, and Jains celebrate with diyas, sweets, and fireworks. Eid-ul-Fitr — Muslims celebrate the end of Ramadan with feasting and charity. Christmas — Christians celebrate the birth of Jesus on 25 December with carols, gifts, and decorated trees. Gurupurab — Sikhs celebrate the birth anniversaries of the Sikh Gurus. Pongal (Tamil Nadu), Baisakhi (Punjab), Bihu (Assam), and Onam (Kerala) are harvest festivals. Despite different customs, all festivals share themes of joy, togetherness, gratitude, and sharing. This diversity is India's greatest strength.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Diwali", "Eid", "Christmas", "Onam", "Baisakhi", "Indian festivals", "unity in diversity"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs3_c006",
+          "name": "National Celebrations and Special Days",
+          "description": "India has three national festivals celebrated by all citizens regardless of religion: Independence Day (15 August) marks freedom from British rule in 1947; Republic Day (26 January) marks the day India's Constitution came into effect in 1950; and Gandhi Jayanti (2 October) honours Mahatma Gandhi's birthday. On these days, the national flag is hoisted and the national anthem 'Jana Gana Mana' is sung with pride. The national flag (Tiranga) has three horizontal bands: saffron (courage), white (peace and truth), and green (faith and fertility), with a navy blue Ashoka Chakra (wheel of law) at the centre. Respecting national symbols is every citizen's duty.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Independence Day", "Republic Day", "Gandhi Jayanti", "national flag", "national anthem", "Tiranga"],
+          "prerequisites": ["evs3_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs3_u04",
+      "name": "Chapter 4 — Getting to Know Plants",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "evs3_c007",
+          "name": "Parts of a Plant and Their Jobs",
+          "description": "A plant has roots, stem, leaves, flowers, and fruits. Roots anchor the plant in soil and absorb water and minerals. Fibrous roots are thin and spread widely (grass, maize); taproot is one main thick root (carrot, radish — the carrot itself is a taproot we eat). The stem holds the plant upright and carries water and nutrients between the roots and leaves. Leaves are the food-making factories of the plant — they carry out photosynthesis using sunlight, water, and carbon dioxide from the air to make sugar, releasing oxygen. Flowers attract insects for pollination and later develop into fruits. Fruits enclose and protect seeds, which grow into new plants.",
+          "expectedDifficulty": "OK",
+          "aliases": ["roots", "stem", "leaves", "flowers", "fruits", "plant parts", "photosynthesis", "taproot fibrous root"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs3_c008",
+          "name": "Types of Plants",
+          "description": "Plants come in many sizes and forms. Trees are tall, have a thick woody trunk, and live for many years — examples are mango, neem, banyan, and peepal. Shrubs are medium-sized bushy plants with several woody stems growing from the base — examples are rose, hibiscus, and tulsi. Herbs are small, soft-stemmed plants that often have medicinal or culinary uses — examples are mint, coriander, and fenugreek. Climbers need support to grow upward and wrap around other plants or walls — examples are money plant and passion flower. Creepers grow along the ground — examples are pumpkin and watermelon. Aquatic plants live in water — examples are lotus and water hyacinth.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["trees", "shrubs", "herbs", "climbers", "creepers", "aquatic plants", "types of plants"],
+          "prerequisites": ["evs3_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs3_u05",
+      "name": "Chapter 5 — Plants and Animals Live Together",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "evs3_c009",
+          "name": "Animals Need Plants",
+          "description": "Plants are the foundation of almost all food chains. Herbivores (plant-eating animals) eat leaves, fruits, seeds, and roots — cows, rabbits, deer, and elephants are herbivores. Carnivores (meat-eating animals) eat other animals — lions, tigers, and eagles are carnivores. Omnivores eat both plants and animals — humans, bears, and crows are omnivores. Animals also depend on plants for shelter: birds nest in trees, insects live in flowers, and many small animals burrow under roots. Plants produce oxygen through photosynthesis, which all animals (including humans) need to breathe. Without plants, there would be no food and no oxygen for animals to survive.",
+          "expectedDifficulty": "OK",
+          "aliases": ["herbivores", "carnivores", "omnivores", "food chain", "plants and animals", "oxygen"],
+          "prerequisites": ["evs3_c007"],
+          "order": 1
+        },
+        {
+          "id": "evs3_c010",
+          "name": "Animals Help Plants",
+          "description": "Plants and animals depend on each other — this relationship is called interdependence. Animals help plants in several important ways. Pollination: bees, butterflies, birds, and other insects carry pollen from flower to flower, enabling plants to produce seeds and fruits. Without pollinators, many plants could not reproduce. Seed dispersal: animals eat fruits and pass seeds in their droppings far from the parent plant; squirrels bury nuts and sometimes forget them, letting new trees grow; seeds with hooks stick to animal fur and travel to new places. Earthworms dig through soil, making it loose and fertile so plants' roots can grow easily. This two-way helping relationship keeps ecosystems healthy and balanced.",
+          "expectedDifficulty": "OK",
+          "aliases": ["pollination", "seed dispersal", "interdependence", "ecosystems", "bees butterflies", "earthworms"],
+          "prerequisites": ["evs3_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs3_u06",
+      "name": "Chapter 6 — Living in Harmony",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "evs3_c011",
+          "name": "Caring for Nature",
+          "description": "Humans are part of nature and depend on it for air, water, food, and materials. Living in harmony with nature means using its resources carefully and not wasting or destroying them. Trees provide oxygen, absorb carbon dioxide, prevent soil erosion, give shade, and are home to countless creatures — cutting too many trees (deforestation) harms all of these. Planting trees, protecting forests, and not littering in natural spaces are ways to care for nature. The Chipko Movement in the Himalayas (1973) saw villagers hug trees to prevent them from being cut — it was a powerful peaceful protest for environmental protection. Each of us can make a difference through small daily choices.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["caring for nature", "deforestation", "Chipko Movement", "planting trees", "environment protection"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs3_c012",
+          "name": "Respecting All Living Things",
+          "description": "Every living thing — plant or animal — has a place and role in the world. Even insects, worms, and tiny creatures that seem unimportant are essential parts of ecosystems. Ants aerate soil; bees pollinate flowers; decomposers (like fungi and bacteria) break down dead matter and return nutrients to the soil. Treating animals with kindness — not harming, not capturing wild animals as pets, and not wasting food — is a way of respecting life. Feeding stray animals, watering plants, and not destroying bird nests are small acts of care. India's culture has long valued all living beings — 'Vasudhaiva Kutumbakam' (the world is one family) reflects this respect for all life.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["respect for living things", "ecosystems", "decomposers", "kindness to animals", "Vasudhaiva Kutumbakam"],
+          "prerequisites": ["evs3_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs3_u07",
+      "name": "Chapter 7 — Water — A Precious Gift",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "evs3_c013",
+          "name": "Sources of Water and the Water Cycle",
+          "description": "Water is found in rivers, lakes, ponds, seas, oceans, glaciers, and underground (wells and borewells). Rain is the main source of fresh water. The water cycle describes how water moves continuously: heat from the Sun evaporates water from oceans and lakes into the air (as invisible water vapour); water vapour rises and cools, forming tiny droplets that make clouds (condensation); when clouds become heavy enough, water falls back to Earth as rain, snow, or hail (precipitation); some soaks into the ground, some flows into rivers, and the cycle continues. The water we drink today may have once been part of an ancient ocean or a glacier — water is constantly recycled.",
+          "expectedDifficulty": "OK",
+          "aliases": ["water cycle", "evaporation", "condensation", "precipitation", "rivers lakes", "groundwater"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs3_c014",
+          "name": "Uses of Water and Conservation",
+          "description": "We use water for drinking, cooking, bathing, washing clothes, cleaning, farming (irrigation), and making electricity (hydropower). Animals drink water and live in it (fish, frogs, crocodiles). Plants absorb water through their roots. Industries use large amounts of water to make products. Safe drinking water must be free from harmful bacteria and chemicals — boiling, filtering, or using purifiers makes water safe to drink. Water conservation means using water wisely: turning off taps when not in use, fixing leaks, collecting rainwater (rainwater harvesting), and reusing water for watering plants. Water pollution from sewage, chemicals, and plastic harms aquatic life and makes water unsafe. Every drop we save is a gift to the future.",
+          "expectedDifficulty": "OK",
+          "aliases": ["uses of water", "water conservation", "rainwater harvesting", "safe drinking water", "water pollution"],
+          "prerequisites": ["evs3_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs3_u08",
+      "name": "Chapter 8 — Food We Eat",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "evs3_c015",
+          "name": "Sources of Our Food",
+          "description": "All food comes from plants or animals. Plants give us fruits (mango, apple, banana), vegetables (carrot, spinach, brinjal), grains (wheat, rice, maize), pulses (lentils, chickpeas, rajma), nuts (cashew, groundnut), and spices (turmeric, pepper, cardamom). Animals give us milk, eggs, meat, honey, and fish. Farmers grow crops using seeds, water, sunlight, and soil. The journey of food: seeds are sown → plants grow → crops are harvested → food is processed and packaged → transported to markets → we buy and cook it. Different regions of India are known for different foods — rice in the south, wheat in the north, fish along the coasts. Knowing where food comes from builds respect for farmers and food.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["food sources", "plants as food", "animals as food", "crops", "farming", "food journey"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs3_c016",
+          "name": "Nutrients and a Balanced Diet",
+          "description": "Food gives our body the energy and materials it needs to work, grow, and fight illness. Key nutrients: carbohydrates (rice, bread, potatoes) give us energy; proteins (dal, eggs, milk, fish, meat) build and repair muscles and body cells; fats (butter, oil, nuts) store energy and keep us warm; vitamins (found in colourful fruits and vegetables) protect us from diseases — vitamin C (citrus fruits) prevents scurvy, vitamin A (carrots, eggs) keeps eyes healthy; minerals — calcium (milk, curd, ragi) builds strong bones and teeth, iron (spinach, jaggery) helps blood carry oxygen. A balanced diet includes all these nutrients in the right amounts each day. Drinking enough water (6–8 glasses) is also essential for good health.",
+          "expectedDifficulty": "OK",
+          "aliases": ["nutrients", "carbohydrates", "proteins", "fats", "vitamins", "minerals", "balanced diet"],
+          "prerequisites": ["evs3_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs3_u09",
+      "name": "Chapter 9 — Staying Healthy and Happy",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "evs3_c017",
+          "name": "Personal Hygiene and Good Habits",
+          "description": "Hygiene means keeping ourselves clean to prevent illness and feel good. Daily habits for personal hygiene: brushing teeth twice a day (prevents cavities and gum disease); bathing daily (removes dirt, sweat, and bacteria); washing hands with soap before eating, after using the toilet, and after playing (stops germs from spreading); keeping nails trimmed and clean; wearing clean clothes; and combing hair. Coughing or sneezing into a handkerchief or elbow (not into the open air) prevents spreading germs to others. Adequate sleep (8–10 hours for children) allows the body to grow and repair itself. Exercise — running, swimming, cycling, or playing — keeps the heart, muscles, and bones strong and the mind sharp.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["hygiene", "handwashing", "brushing teeth", "cleanliness", "good health habits", "sleep exercise"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs3_c018",
+          "name": "Emotions and Mental Well-being",
+          "description": "Health is not just physical — mental and emotional health matter too. Emotions are feelings we experience: happiness, sadness, anger, fear, excitement, and love are all normal. It is healthy to express emotions in safe, constructive ways — talking to a trusted person, drawing, writing, or playing. Managing strong emotions: take slow deep breaths when angry or anxious; talk about problems instead of keeping them inside; take breaks when tired. Friendship, laughter, spending time in nature, and helping others all improve our mood. If feelings become overwhelming, it is important to tell a parent, teacher, or counsellor. Everyone feels sad or worried sometimes — asking for help is a sign of strength, not weakness.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["emotions", "mental health", "feelings", "emotional well-being", "expressing emotions", "talking about feelings"],
+          "prerequisites": ["evs3_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs3_u10",
+      "name": "Chapter 10 — This World of Things",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "evs3_c019",
+          "name": "Materials and Their Properties",
+          "description": "Everything around us is made of materials. Materials can be natural (from plants, animals, or the Earth — wood, cotton, wool, stone, clay, water) or man-made (made in factories — plastic, glass, steel, nylon). We choose materials based on their properties. Hard materials (stone, metal) are used where strength is needed. Soft materials (cotton, sponge) are used for comfort. Waterproof materials (rubber, plastic) keep water out. Transparent materials (glass, clear plastic) let light through. Flexible materials (rubber, cloth) can bend. Rigid materials (wood, metal) keep their shape. Observing the properties of materials helps us understand why a pan is made of metal (good heat conductor), a raincoat is made of plastic (waterproof), and a pillow is filled with soft material (comfortable).",
+          "expectedDifficulty": "OK",
+          "aliases": ["materials", "natural materials", "man-made materials", "properties of materials", "hard soft transparent waterproof"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs3_c020",
+          "name": "Sorting and Grouping Things",
+          "description": "Sorting means organising objects into groups based on shared properties. We sort by material (all wooden things together, all metal things), by use (cooking tools, writing tools, toys), by size (small, medium, large), by colour, or by texture (smooth, rough). Sorting helps us find things quickly and understand the world better. Scientists sort living things into groups (kingdoms: plants, animals, fungi) based on shared features. Geologists sort rocks by how they formed. Sorting is also used in everyday life: supermarkets arrange products by category; libraries arrange books by subject. The ability to notice similarities and differences and use them to group objects is a fundamental thinking skill used in all areas of learning.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["sorting", "grouping", "classifying", "properties", "similarities and differences"],
+          "prerequisites": ["evs3_c019"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs3_u11",
+      "name": "Chapter 11 — Making Things",
+      "order": 11,
+      "concepts": [
+        {
+          "id": "evs3_c021",
+          "name": "How Things Are Made — From Raw Material to Product",
+          "description": "Everything we use has been made from raw materials. Paper comes from wood (trees are cut, wood is pulped, dried, and pressed into sheets). Cotton cloth comes from cotton bolls (picked, spun into thread, woven into fabric, dyed, and cut and stitched). Pottery comes from clay (shaped, dried, fired in a kiln, and often painted). Glass comes from sand (melted at very high temperature and moulded). Knowing how things are made helps us appreciate the effort involved and understand why we should not waste resources. Traditional crafts like pottery, weaving, and basket-making have been passed down through generations and are part of India's rich cultural heritage. Artisans — skilled craft workers — are often underappreciated.",
+          "expectedDifficulty": "OK",
+          "aliases": ["how things are made", "raw materials", "paper making", "cotton cloth", "pottery", "glass making", "crafts"],
+          "prerequisites": ["evs3_c019"],
+          "order": 1
+        },
+        {
+          "id": "evs3_c022",
+          "name": "Simple Tools and Machines",
+          "description": "A tool is an object that helps us do a task more easily. Simple hand tools: a knife cuts, a hammer drives nails, a needle stitches, scissors cut paper or fabric. Simple machines make work easier by changing the direction or amount of force needed. A lever (seesaw, bottle opener) helps lift heavy objects. A pulley (flagpole, well bucket) helps raise loads with less effort. A wheel and axle (bicycle wheel, door knob) reduce friction and make movement easier. An inclined plane (ramp, slide) helps move heavy things uphill gradually. Using the right tool for the right job makes work safer and faster. Traditional tools like the spinning wheel (charkha) and the plough have been crucial to Indian livelihoods.",
+          "expectedDifficulty": "OK",
+          "aliases": ["tools", "simple machines", "lever", "pulley", "wheel", "inclined plane", "charkha"],
+          "prerequisites": ["evs3_c021"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "evs3_u12",
+      "name": "Chapter 12 — Taking Charge of Waste",
+      "order": 12,
+      "concepts": [
+        {
+          "id": "evs3_c023",
+          "name": "Types of Waste and the 3Rs",
+          "description": "Waste is anything we throw away after use. Wet waste (biodegradable) includes food scraps, vegetable peels, garden clippings — these break down naturally and can be composted. Dry waste (non-biodegradable) includes paper, plastic, metal, glass, and e-waste — these do not break down easily and must be recycled. Hazardous waste (batteries, chemicals, medicines) must be disposed of specially as it can be dangerous. The 3Rs: Reduce (use less — say no to single-use plastic, take only what you need); Reuse (use again — carry a cloth bag, use old jars as containers); Recycle (convert into new products — put paper, plastic, metal, and glass in recycling bins). Segregating (separating) waste at home into wet and dry makes recycling and composting much easier.",
+          "expectedDifficulty": "OK",
+          "aliases": ["waste", "biodegradable", "non-biodegradable", "3Rs", "reduce reuse recycle", "waste segregation"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "evs3_c024",
+          "name": "Composting and Keeping Our Surroundings Clean",
+          "description": "Composting is the natural process of recycling kitchen and garden waste into rich fertiliser for plants. We can make a compost pit or bin at home: add vegetable peels, fruit skins, tea leaves, and garden waste; add a little soil; keep it moist; turn it occasionally. In 4–8 weeks, the waste breaks down into dark, crumbly, sweet-smelling compost that plants love. Keeping our surroundings clean prevents the spread of disease, reduces pests (flies, rats, mosquitoes), and makes our community pleasant to live in. Swachh Bharat Mission (Clean India Mission) is a national programme that promotes cleanliness and the building of toilets across India. Everyone — children included — can help by not littering, picking up waste, and encouraging others to keep public spaces clean.",
+          "expectedDifficulty": "OK",
+          "aliases": ["composting", "Swachh Bharat", "clean surroundings", "compost pit", "litter", "clean India"],
+          "prerequisites": ["evs3_c023"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

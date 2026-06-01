@@ -1,0 +1,402 @@
+{
+  "metadata": {
+    "grade": 7,
+    "board": "CBSE",
+    "subject": "History",
+    "subjectColor": "#D97706",
+    "subjectIcon": "🏛️",
+    "generatedAt": "2026-05-31",
+    "textbook": "NCERT Our Pasts II — Class 7"
+  },
+  "units": [
+    {
+      "id": "his7_u01",
+      "name": "Tracing Changes Through a Thousand Years",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "his7_c001",
+          "name": "New Sources for the Medieval Period",
+          "description": "Historians study the period from 700 CE to 1750 CE using a wide range of new sources. Coins, inscriptions, and architecture reveal political and economic history. Manuscripts copied by hand in Arabic, Persian, Sanskrit, and regional languages record the thoughts and events of this era. Maps drawn by cartographers in different periods show how geographical and political knowledge changed over time. New Persian words (Hindustan, musalman) entered use; the terms 'Hindu' and 'foreigner' shifted in meaning.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "medieval sources",
+            "manuscripts inscriptions",
+            "cartography medieval",
+            "historical sources 700-1750"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "his7_c002",
+          "name": "How Did Societies and Economies Change?",
+          "description": "Between 700 and 1750 CE, Indian society changed significantly. New food crops (potatoes, corn, chillies, tea from the Americas and elsewhere) arrived. New technologies — the Persian wheel for irrigation, spinning wheel (charkha) for weaving, and firearms — transformed farming, crafts, and warfare. Powerful guilds of merchants organised long-distance trade. The term 'Rajput' emerged; tribes became peasants or powerful kingdoms. These changes were not uniform across regions and communities.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "medieval changes",
+            "new crops medieval India",
+            "spinning wheel charkha",
+            "social change 700-1750"
+          ],
+          "prerequisites": [
+            "his7_c001"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "his7_u02",
+      "name": "New Kings and Kingdoms",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "his7_c003",
+          "name": "How were New Kingdoms Established?",
+          "description": "After the decline of the Gupta Empire (after 6th century CE), large areas of the subcontinent were divided among smaller kingdoms. New dynasties arose from warrior leaders (samantas) who served larger kings and expanded their own power. The Rashtrakutas, Pratiharas, and Palas fought for control of the Gangetic plains and the city of Kannauj in a three-cornered struggle lasting centuries. Regional kingdoms — Cholas in the South, Chandellas in Central India — built their own empires and patronised culture and temple-building.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "new kingdoms 700 CE",
+            "samantas",
+            "Rashtrakutas Pratiharas Palas",
+            "tripartite struggle Kannauj"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "his7_c004",
+          "name": "The Chola Empire and Administration",
+          "description": "The Chola kingdom (9th–13th century) was one of the greatest South Indian empires. It expanded under Vijayalaya and reached its peak under Rajaraja Chola and Rajendra Chola I, who even sent a naval expedition to Southeast Asia. Chola administration was efficient: the empire was divided into mandalams (provinces), nadus (districts), and ur (villages). Village assemblies (sabhas, ur) collected taxes and managed local affairs with considerable independence. Temple complexes like Thanjavur were centres of wealth, art, and administration.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "Chola empire",
+            "Rajaraja Chola",
+            "Chola administration",
+            "mandalam nadu ur",
+            "Thanjavur temple"
+          ],
+          "prerequisites": [
+            "his7_c003"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "his7_u03",
+      "name": "The Delhi Sultans",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "his7_c005",
+          "name": "The Early Sultans and Expansion of the Sultanate",
+          "description": "Muhammad Ghori defeated Prithviraj Chauhan at the Second Battle of Tarain (1192) and laid the foundation for Muslim rule in north India. His general Qutb-ud-din Aibak became the first Sultan of Delhi (1206), founding the Mamluk (Slave) dynasty. The Sultanate expanded under Iltutmish (consolidated the empire), Razia Sultan (first female ruler of Delhi), and Balban (emphasised authority and divine right). The Khaljis, Tughlaqs, Sayyids, and Lodis followed. The sultans faced threats from the Mongols and from powerful nobles (amirs).",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Delhi Sultanate",
+            "Qutb-ud-din Aibak",
+            "Iltutmish Razia Sultan",
+            "Mamluk dynasty",
+            "Battle of Tarain"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "his7_c006",
+          "name": "Administration, Economy, and Architecture under the Sultans",
+          "description": "The Delhi Sultans organised their empire into iqtas (provinces) governed by iqtadars (military commanders) who collected revenue and maintained armies. The state needed resources from agriculture — land revenue was the main income. Alauddin Khalji introduced market reforms to control prices. Sultans built magnificent mosques, minarets, and tombs — the Qutb Minar (Delhi) and Alai Darwaza are famous examples. Persian was the language of the court; Urdu (a blend of Persian, Arabic, and local languages) developed in this period.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "iqta system",
+            "Alauddin Khalji reforms",
+            "Qutb Minar",
+            "sultanate administration",
+            "Persian language"
+          ],
+          "prerequisites": [
+            "his7_c005"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "his7_u04",
+      "name": "The Mughal Empire",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "his7_c007",
+          "name": "Babur, Humayun, and Akbar — Building the Mughal Empire",
+          "description": "Babur defeated Ibrahim Lodi at the First Battle of Panipat (1526) using gunpowder artillery and founded the Mughal Empire. Humayun lost the empire to Sher Shah Suri but recovered it with Persian help. Akbar (r. 1556–1605) expanded and consolidated the empire. He defeated Hemu at the Second Battle of Panipat (1556). Akbar's policy of sulh-i-kul (peace with all) and inclusion of Rajput nobles in his court made him one of India's greatest rulers. He abolished the jizya tax on Hindus.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Babur Panipat",
+            "Akbar Mughal",
+            "sulh-i-kul",
+            "Humayun Sher Shah",
+            "Mughal empire founding"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "his7_c008",
+          "name": "Mughal Administration and the Empire under Later Mughals",
+          "description": "The Mughal Empire was divided into subas (provinces) under governors (subadars). Revenue was collected using the Todar Mal system — peasants paid tax based on local crop averages (zabt). Mansabdari system: nobles held mansabs (ranks) and were paid in jagirs (land revenue assignments). Jahangir was a great patron of painting; Shah Jahan built the Taj Mahal and Red Fort. Aurangzeb expanded the empire to its largest extent but his policies alienated Rajputs and Marathas, contributing to the empire's decline after 1707.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "mansabdari system",
+            "Todar Mal",
+            "zabt",
+            "Taj Mahal Shah Jahan",
+            "Aurangzeb Mughals"
+          ],
+          "prerequisites": [
+            "his7_c007"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "his7_u05",
+      "name": "Tribes, Nomads, and Settled Communities",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "his7_c009",
+          "name": "Who Were Tribes and Nomads?",
+          "description": "Tribes were social groups with their own customs, rituals, and codes of conduct that did not follow the caste system of the settled communities. Many tribes lived by hunting, gathering, herding, and shifting cultivation — moving to new areas when the soil was exhausted. Nomads moved seasonally with their animals (cattle, horses, camels) in search of pasture. Important tribes: Gonds (central India), Ahoms (Assam), Bhils (western India), Bedouin and Berber (Arabic world). Many tribal groups gradually settled down, took up agriculture, and were absorbed into the caste system.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "tribes medieval India",
+            "nomads",
+            "Gonds Ahoms Bhils",
+            "shifting cultivation",
+            "tribal to settled"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "his7_c010",
+          "name": "Rise of Tribal Kingdoms — Ahoms of Assam",
+          "description": "The Ahoms came to Assam from present-day Myanmar in the 13th century and established a kingdom that lasted nearly 600 years. They organised their state using paik (peasant soldier) labour, a system of forced labour for public works and military service. Ahom society was not based on caste; it was organised into clans (khels). The Ahoms successfully resisted Mughal expansion into Assam (Battle of Saraighat, 1671). They created a rich tradition of chronicles (buranjis) in the Ahom and Assamese languages.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "Ahoms Assam",
+            "paik system",
+            "Battle of Saraighat",
+            "buranjis chronicles",
+            "tribal kingdom"
+          ],
+          "prerequisites": [
+            "his7_c013"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "his7_u06",
+      "name": "Devotional Paths to the Divine",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "his7_c011",
+          "name": "The Bhakti Movement",
+          "description": "The Bhakti movement (approximately 8th–17th century) emphasised a personal, loving relationship between the devotee and God, cutting across caste and gender barriers. It was rooted in the belief that anyone — regardless of birth or social status — could reach God through devotion (bhakti). Key figures: Alvars (Tamil Vaishnavism), Nayanmars (Tamil Shaivism), Kabir (weaver, synthesised Hindu and Islamic ideas), Mirabai (Rajput princess devoted to Krishna), Tukaram (Maharashtra), Chaitanya (Bengal). Their poems and songs were composed in regional languages, making religion accessible to common people.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Bhakti movement",
+            "Kabir Mirabai Tukaram",
+            "Alvars Nayanmars",
+            "devotional path",
+            "bhakti saints"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "his7_c012",
+          "name": "The Sufi Tradition",
+          "description": "Sufism is a mystical tradition within Islam that emphasises a direct, personal experience of God through love, devotion, and spiritual practice. Sufis often organised in orders (silsilas) around a master (pir or murshid) and his followers (disciples). Khanqahs (hospices) were centres of spiritual learning and community service. Important Sufi saints in India: Khwaja Muinuddin Chishti (Ajmer), Nizamuddin Auliya (Delhi). Sufis composed poetry in Persian, Arabic, and regional languages; their shrines (dargahs) became places of pilgrimage for both Muslims and Hindus.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Sufism",
+            "pir murshid khanqah",
+            "Chishti silsila",
+            "Nizamuddin Auliya",
+            "dargah pilgrimage"
+          ],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "his7_u07",
+      "name": "The Making of Regional Cultures",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "his7_c013",
+          "name": "Regional Languages and Literature",
+          "description": "While Sanskrit remained the language of learning, regional languages flourished after 700 CE. Manipravalam (a mix of Sanskrit and Malayalam) produced the Lilatilakam. Bengali literature developed with the Mahabharata and Puranas translated into Bengali. Rajasthani tradition of bardic poetry celebrated Rajput heroes. Tamil Sangam literature remained influential. Courts patronised regional literature — the Vijayanagara Empire supported Kannada and Telugu poetry. This diversity of languages reflected the richness of India's regional cultures.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "regional languages medieval",
+            "manipravalam",
+            "Bengali literature",
+            "Rajasthani poetry",
+            "Vijayanagara language"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "his7_c014",
+          "name": "Traditions of Kathak, Odissi, and Regional Arts",
+          "description": "Distinct regional art forms developed over the medieval period. Kathak (North India): started as a devotional storytelling tradition (kathakas told stories of Krishna), later became a court dance under Mughal patronage, blending Hindu devotional and Islamic artistic elements. Miniature painting: Rajput and Mughal courts produced exquisite illustrated manuscripts. The Jagannatha cult at Puri, Odisha, became a centre of Orissi temple dance (Odissi). These regional arts embodied the blend of devotion, royal patronage, and popular culture.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Kathak dance",
+            "Odissi dance",
+            "Mughal miniature painting",
+            "regional arts",
+            "Jagannatha Puri"
+          ],
+          "prerequisites": [
+            "his7_c017"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "his7_u08",
+      "name": "Eighteenth-Century Political Formations",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "his7_c015",
+          "name": "Decline of the Mughal Empire and Rise of Regional Powers",
+          "description": "After Aurangzeb's death (1707), the Mughal Empire rapidly fragmented. Weak successors, regional revolts, the Persian invasion of Nadir Shah (1739), and Afghan raids (Ahmad Shah Abdali, Panipat 1761) undermined Mughal authority. Regional powers asserted independence: the Nawabs of Bengal, Awadh, and Hyderabad; the Rajput kingdoms; the Maratha Confederacy; the Sikh Misls in Punjab; and the Mysore kingdom under Hyder Ali. Some of these powers were strong enough to defeat European companies in battle.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Mughal decline",
+            "Nadir Shah 1739",
+            "Panipat 1761",
+            "Nawabs of Bengal Awadh",
+            "regional powers 18th century"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "his7_c016",
+          "name": "The Maratha Empire and Sikh Power",
+          "description": "The Marathas rose under Shivaji (1627–1680) who used guerrilla warfare and the loyalty of local people to build a kingdom in the Deccan. After Shivaji, Peshwas (chief ministers) ran the state and expanded the Maratha Confederacy northward. At its peak, Maratha power extended from Pune to Delhi. The Maratha defeat at Panipat (1761) at the hands of Ahmad Shah Abdali weakened them significantly. In Punjab, Guru Gobind Singh founded the Khalsa (1699); after his death, Sikh misls (confederacies) controlled much of Punjab, later unified under Ranjit Singh.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "Marathas Shivaji",
+            "Peshwa Maratha",
+            "Khalsa Sikh",
+            "Ranjit Singh",
+            "Panipat third battle"
+          ],
+          "prerequisites": [
+            "his7_c019"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "his7_u09",
+      "name": "Rulers and Buildings",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "his7_c017",
+          "name": "Temple and Mosque Architecture in Medieval India",
+          "description": "Medieval rulers expressed power, piety, and wealth through magnificent buildings. Hindu temple architecture evolved over centuries — the Nagara style (North India) features a curvilinear tower (shikhara) rising over the inner sanctum where the deity resides; the Dravida style (South India) has a tiered, pyramid-shaped gopuram (gateway tower) and enclosed courtyards. Masterpieces: Rajarajeshvara Temple at Thanjavur (Chola, 11th century), Lingaraja Temple at Bhubaneswar, and Kandariya Mahadeva Temple at Khajuraho. Islamic architecture introduced: arches, domes, minarets, and geometric ornamentation (calligraphy and arabesque patterns, since figurative art was avoided). The Quwwat-ul-Islam mosque (Delhi, 1193) was India's first mosque. The Qutb Minar (73 m tall) is a UNESCO World Heritage Site. The Mughal synthesis created a unique Indo-Islamic style blending Hindu and Islamic elements — seen in Humayun's Tomb and later the Taj Mahal.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "temple architecture",
+            "Nagara Dravida style",
+            "shikhara gopuram",
+            "Islamic architecture",
+            "Qutb Minar",
+            "Indo-Islamic style"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "his7_c018",
+          "name": "Forts, Palaces, and Water Structures",
+          "description": "Medieval rulers built elaborate forts to defend their kingdoms and palaces to display wealth and power. Forts were built on hilltops (Chittorgarh, Gwalior), riversides (Agra Fort), or the sea coast (Murud-Janjira). Fort design combined military functionality (high walls, moats, hidden gates, bastions) with residential luxury (palaces, gardens, stables, water storage). Water management was crucial in pre-modern India — rulers built stepwells (vav or baoli) that provided access to water even in droughts while serving as cool meeting places; the Rani-ki-Vav at Patan (Gujarat, 11th century) is a UNESCO World Heritage Site. Reservoirs, canals, and tanks (temple tanks for ritual bathing) were built by kings as acts of both piety and welfare. Gardens: the Mughal char-bagh (four-fold garden with water channels) — seen at Humayun's Tomb and the Taj Mahal — symbolised paradise on Earth.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "forts palaces",
+            "Chittorgarh Gwalior",
+            "stepwells baoli vav",
+            "Rani-ki-Vav",
+            "Mughal garden char-bagh",
+            "water management medieval"
+          ],
+          "prerequisites": [
+            "his7_c017"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "his7_u10",
+      "name": "Towns, Traders, and Craftspersons",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "his7_c019",
+          "name": "Medieval Towns and Urban Life",
+          "description": "Medieval India had a variety of towns: temple towns (grew around important temples — Madurai, Tirupati, Vrindavan), trading towns (at crossroads or river confluences — Surat, Calicut, Masulipatnam), administrative towns (capitals of kingdoms — Vijayanagara, Agra, Delhi), and port towns (for maritime trade). Vijayanagara (in modern Karnataka) was one of the largest cities in the world in the 15th–16th centuries with a population of half a million — travellers described its markets overflowing with jewels, textiles, and spices. Urban life: towns had specialised craftsperson quarters (weavers' streets, potters' neighbourhoods, blacksmiths' lanes), bazaars, caravanserais (rest houses for merchants), and mosques, temples, or churches at the centre. Guilds (shreni) were associations of craftspeople or merchants that maintained standards, settled disputes, and provided welfare for members.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "medieval towns",
+            "temple trading port towns",
+            "Vijayanagara",
+            "guild shreni",
+            "caravanserai",
+            "urban medieval India"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "his7_c020",
+          "name": "Trade and the Crafts Economy",
+          "description": "Medieval India was a major centre of world trade. Luxury goods: Indian cotton textiles, silk, spices (pepper, cardamom, cloves), indigo, and precious stones were in high demand in West Asia, Africa, and Europe. Trade routes: overland Silk Route (through Central Asia and Persia) and maritime routes across the Indian Ocean and Arabian Sea. Key ports: Calicut (Kerala) was the most famous spice port; Surat (Gujarat) was the 'gateway to Mecca' for pilgrims and a major textile export hub; Masulipatnam (Andhra) specialised in fine painted cloth (chintz). Craft centres: Kanchipuram for silk weaving, Banaras (Varanasi) for brocades, Dhaka for fine muslin so delicate it was called 'woven air'. Arab, Chinese, and later European merchants visited India. The Portuguese (Vasco da Gama arrived 1498), Dutch, and English East India Companies entered Indian trade in the 16th–17th centuries, eventually transforming commerce into colonial exploitation.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "medieval trade India",
+            "Silk Route",
+            "Calicut Surat Masulipatnam",
+            "Kanchipuram Dhaka muslin",
+            "Portuguese Vasco da Gama",
+            "East India Company"
+          ],
+          "prerequisites": [
+            "his7_c019"
+          ],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,403 @@
+{
+  "metadata": {
+    "grade": 5,
+    "board": "CBSE",
+    "subject": "General Knowledge",
+    "subjectColor": "#F59E0B",
+    "subjectIcon": "🌟",
+    "generatedAt": "2026-06-01",
+    "textbook": "Common Class 5 GK Curriculum"
+  },
+  "units": [
+    {
+      "id": "gk5_u01",
+      "name": "India — Our Country",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "gk5_c001",
+          "name": "Basic Facts About India",
+          "description": "India is a large country in South Asia with a capital city called New Delhi. It has 28 states and 8 Union Territories, making it a diverse federal republic. India shares its borders with several neighbouring countries — Pakistan and Afghanistan to the north-west, China, Nepal, and Bhutan to the north, and Bangladesh and Myanmar to the east, with Sri Lanka just off the southern coast. India is the seventh-largest country in the world by area and the most populous country. Rajasthan is the largest Indian state by area, while Goa is the smallest state.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "India facts",
+            "India capital",
+            "states of India",
+            "neighbouring countries India",
+            "India geography"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk5_c002",
+          "name": "Rivers and Mountains of India",
+          "description": "India is blessed with many great rivers that have supported civilisations for thousands of years. The Ganga and Yamuna flow through the north and are considered sacred. The Brahmaputra flows in the north-east, while the Godavari, Krishna, and Kaveri flow through south India. The Indus river, which gave India its name, flows mainly through Pakistan today. The Himalayan mountain range in the north is the highest mountain range in the world and includes India's highest peak, Kangchenjunga. The Himalayas are also the source of many of India's great rivers.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Indian rivers",
+            "Ganga Yamuna Godavari",
+            "Himalaya mountains",
+            "rivers of India",
+            "Brahmaputra"
+          ],
+          "prerequisites": [
+            "gk5_c001"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk5_u02",
+      "name": "National Symbols and Days",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "gk5_c003",
+          "name": "National Flag, Emblem, Anthem and Song",
+          "description": "India's National Flag, called the Tiranga (tricolour), has three horizontal bands — saffron at the top representing courage, white in the middle representing truth and peace, and green at the bottom representing prosperity. The Ashoka Chakra, a navy-blue wheel with 24 spokes, sits at the centre. The National Emblem shows four lions on the Lion Capital of Ashoka and carries the motto 'Satyameva Jayate' (Truth alone triumphs). The National Anthem is 'Jana Gana Mana', written by Rabindranath Tagore, which takes 52 seconds to sing. The National Song is 'Vande Mataram', written by Bankim Chandra Chattopadhyay.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "national flag",
+            "Tiranga",
+            "Ashoka Chakra",
+            "Jana Gana Mana",
+            "Vande Mataram",
+            "national emblem",
+            "Satyameva Jayate"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk5_c004",
+          "name": "National Animals, Plants and Important Days",
+          "description": "India's national symbols represent its rich natural heritage: the national animal is the Bengal Tiger, the national bird is the Indian Peacock, the national flower is the Lotus, the national tree is the Banyan tree, the national fruit is the Mango, and the national river is the Ganga. Important national days include Republic Day on January 26 (when India's Constitution came into effect in 1950), Independence Day on August 15 (when India became free from British rule in 1947), Gandhi Jayanti on October 2 (Mahatma Gandhi's birthday), Children's Day on November 14 (Jawaharlal Nehru's birthday), and Teacher's Day on September 5 (Dr. Sarvepalli Radhakrishnan's birthday).",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "national animal bird flower",
+            "Bengal Tiger Peacock Lotus Banyan",
+            "Republic Day Independence Day",
+            "Gandhi Jayanti Children's Day",
+            "national symbols India"
+          ],
+          "prerequisites": [
+            "gk5_c003"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk5_u03",
+      "name": "Famous Indians",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "gk5_c005",
+          "name": "Freedom Fighters and Leaders",
+          "description": "India's freedom struggle produced many great leaders. Mahatma Gandhi, known as the Father of the Nation, led India's independence movement through non-violence and truth. Jawaharlal Nehru became India's first Prime Minister after independence in 1947 and is remembered for his love of children (hence Children's Day on his birthday). Dr. B.R. Ambedkar was a visionary social reformer and the chief architect of India's Constitution. Subhash Chandra Bose, known as Netaji, founded the Indian National Army to fight for independence. These leaders made enormous sacrifices so that India could be free.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "freedom fighters",
+            "Mahatma Gandhi",
+            "Jawaharlal Nehru",
+            "B.R. Ambedkar",
+            "Netaji",
+            "Indian independence"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk5_c006",
+          "name": "Famous Indian Scientists and Writers",
+          "description": "India has produced many brilliant scientists. C.V. Raman won the Nobel Prize in Physics in 1930 for discovering the Raman Effect (how light changes when passing through materials). A.P.J. Abdul Kalam was a renowned missile scientist who became the 11th President of India and is called the Missile Man of India. Aryabhata was an ancient Indian mathematician who discovered the concept of zero and calculated the value of pi. In literature, Rabindranath Tagore was the first Asian to win the Nobel Prize, winning it in 1913 for Literature with his collection Gitanjali. He also wrote India's national anthem.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "C.V. Raman",
+            "APJ Abdul Kalam",
+            "Aryabhata",
+            "Rabindranath Tagore",
+            "Indian scientists Nobel Prize"
+          ],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk5_u04",
+      "name": "Animals and Plants",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "gk5_c007",
+          "name": "Record-Breaking Animals and Interesting Facts",
+          "description": "The animal kingdom is full of amazing record-holders. The Blue Whale is the largest animal on Earth, and the Cheetah is the fastest land animal reaching speeds up to 120 km/h. The Ostrich is the largest bird in the world but cannot fly, while the Hummingbird is the smallest bird and can hover mid-air. Bats are the only mammals that truly fly, and they use echolocation (high-pitched sounds) to navigate in the dark. Interestingly, elephants are the only mammals that physically cannot jump. Starfish have no brain or blood, and can regrow lost arms. These facts show the incredible diversity of life on Earth.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "Blue Whale largest animal",
+            "Cheetah fastest",
+            "Ostrich largest bird",
+            "Hummingbird smallest",
+            "echolocation bats",
+            "animal records"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk5_c008",
+          "name": "Plant Records and India's Endangered Animals",
+          "description": "The plant world has its own record-holders: Bamboo is the fastest-growing plant on Earth, while the giant Sequoia tree is the largest living tree by volume. The Rafflesia is the world's largest individual flower, and the Cactus can survive for months without water by storing it in its thick stem. India has several endangered animals that are being protected: the Bengal Tiger is protected under Project Tiger (launched 1973), the One-horned Rhinoceros lives in Kaziranga National Park in Assam, and the Snow Leopard roams the high Himalayas. Conservation efforts are critical to prevent these species from disappearing.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Bamboo fastest growing",
+            "Sequoia largest tree",
+            "Rafflesia largest flower",
+            "Bengal Tiger Project Tiger",
+            "One-horned Rhino",
+            "Snow Leopard",
+            "endangered animals India"
+          ],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk5_u05",
+      "name": "Sports and Games",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "gk5_c009",
+          "name": "Sports in India and Traditional Games",
+          "description": "India has a rich sporting tradition. Cricket is the most popular sport in India, and the Indian team won the Cricket World Cup in 1983 under captain Kapil Dev, and again in 2011 under MS Dhoni. Field Hockey has traditionally been called India's national sport — India won 8 Olympic gold medals in hockey between 1928 and 1980. Badminton, kabaddi, and chess are also very popular. India also has many traditional games: Kabaddi (a contact sport that is now played internationally), Kho-Kho (a fast tag game), Gilli-Danda (a bat-and-stick game), and Pitthu (knocking down stacked stones) are all examples of indigenous Indian games.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "cricket World Cup",
+            "Kapil Dev MS Dhoni",
+            "field hockey India",
+            "kabaddi kho-kho",
+            "traditional Indian games"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk5_c010",
+          "name": "The Olympics and Chess",
+          "description": "The Olympic Games are the world's greatest sporting event, held every four years, bringing together athletes from all countries to compete in dozens of sports. The Olympic symbol has five interlocking rings in blue, yellow, black, green, and red — representing the five continents of the world. The Olympic motto is 'Citius, Altius, Fortius' meaning 'Faster, Higher, Stronger'. Chess is a strategy board game that originated in ancient India as Chaturanga about 1,500 years ago before spreading around the world. India's Viswanathan Anand was the country's first International Chess Grandmaster and became World Chess Champion five times.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Olympics five rings",
+            "Olympic motto faster higher stronger",
+            "chess origin India Chaturanga",
+            "Viswanathan Anand",
+            "chess grandmaster India"
+          ],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk5_u06",
+      "name": "The World Around Us",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "gk5_c011",
+          "name": "Continents, Oceans and World Records",
+          "description": "Earth is divided into 7 continents: Asia (largest), Africa, North America, South America, Europe, Australia (Oceania), and Antarctica. The 5 oceans are the Pacific (largest), Atlantic, Indian, Southern, and Arctic Ocean. Mount Everest in Nepal is the highest mountain on Earth at 8,848 metres above sea level. The Nile River in Africa is generally considered the world's longest river. The Pacific Ocean is the largest and deepest ocean. Russia is the world's largest country by area, and Vatican City in Rome is the world's smallest country. These geographical facts give children a framework for understanding the physical world.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "7 continents 5 oceans",
+            "Mount Everest height",
+            "Nile longest river",
+            "Pacific largest ocean",
+            "Russia largest country",
+            "Vatican smallest country"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk5_c012",
+          "name": "Famous Wonders and Natural Sites",
+          "description": "The world is full of extraordinary places. The Sahara Desert in Africa is the world's largest hot desert. The Amazon Rainforest in South America is called the 'Lungs of the Earth' because it produces a huge amount of the world's oxygen. The Great Wall of China stretches thousands of kilometres and is one of the greatest human constructions in history. India's Taj Mahal in Agra, built by Mughal Emperor Shah Jahan in memory of his wife Mumtaz Mahal, is one of the Seven Wonders of the Modern World and a UNESCO World Heritage Site. These places represent both the power of nature and human achievement.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "Sahara Desert",
+            "Amazon Rainforest lungs of Earth",
+            "Great Wall of China",
+            "Taj Mahal",
+            "Seven Wonders",
+            "world geography wonders"
+          ],
+          "prerequisites": [
+            "gk5_c011"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk5_u07",
+      "name": "Science and Technology",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "gk5_c013",
+          "name": "How Things Work and Space",
+          "description": "Many everyday things work because of scientific principles. Aeroplanes fly because of a force called Lift created by the shape of the wings — air moves faster over the curved top of the wing, creating lower pressure, which pushes the plane up. Ships float on water because of Buoyancy — the water pushes up with a force equal to the weight of water the ship displaces. Rainbows form when sunlight passes through tiny water droplets in the air, splitting into the seven colours of the spectrum. In space, the Sun is a giant star at the centre of our Solar System. Earth has one natural satellite — the Moon. Gravity, famously connected to Isaac Newton's apple story, is the force that pulls everything towards Earth.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "how planes fly lift",
+            "buoyancy ships",
+            "rainbow formation",
+            "solar system Sun Moon",
+            "gravity Newton",
+            "space planets"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk5_c014",
+          "name": "Important Inventions and ISRO",
+          "description": "Many inventions changed the world completely. The Wheel (invented thousands of years ago) made transport and machinery possible. The Telephone, invented by Alexander Graham Bell in 1876, allowed people to talk across distances. The Electric Bulb, perfected by Thomas Edison in 1879, lit up the darkness and changed how people live and work. The Internet, developed in the late 20th century, revolutionised communication and information sharing. India's own space agency, ISRO (Indian Space Research Organisation), has achieved remarkable milestones — the Chandrayaan missions explored the Moon, and Mangalyaan reached Mars on India's first attempt in 2014, making India the only country to succeed on its first Mars mission.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "telephone Alexander Graham Bell",
+            "electric bulb Thomas Edison",
+            "ISRO India",
+            "Chandrayaan",
+            "Mangalyaan Mars",
+            "important inventions"
+          ],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk5_u08",
+      "name": "Food and Festivals",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "gk5_c015",
+          "name": "Food Groups and Regional Foods of India",
+          "description": "Food provides our bodies with different nutrients, which can be grouped into categories: Carbohydrates (rice, wheat, bread) give us energy for daily activities; Proteins (dal, eggs, meat, milk) help us grow and repair our bodies; Fats (butter, oil) provide warmth and stored energy; Vitamins and Minerals (fruits and vegetables) protect us from diseases. India's regional foods reflect its incredible diversity — rice and curry dominate in South India, while wheat-based roti and dal are staples in North India. Coastal regions like Kerala, West Bengal, and Goa rely heavily on fish. Dal and rice (or dal and roti) are eaten across nearly all of India.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "food groups",
+            "carbohydrates proteins fats vitamins",
+            "balanced diet",
+            "Indian regional food",
+            "rice wheat dal"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk5_c016",
+          "name": "Festivals of India",
+          "description": "India celebrates a wonderful diversity of festivals reflecting its many religions, regions, and seasons. Diwali (Hindu Festival of Lights) celebrates the return of Lord Rama and the victory of light over darkness. Eid-ul-Fitr is celebrated by Muslims at the end of the holy month of Ramadan with prayers, feasting, and sharing sweets. Christmas on December 25 celebrates the birth of Jesus Christ and is marked by Christians with church services and gift-giving. Holi is the Hindu spring festival of colours. Onam is the harvest festival of Kerala, celebrated with the Pookalam flower carpet and boat races. Pongal is Tamil Nadu's harvest festival. Baisakhi marks the harvest season in Punjab and also the founding of the Khalsa. Durga Puja is the grand celebration of Goddess Durga in West Bengal.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Diwali Eid Christmas Holi",
+            "Onam Pongal Baisakhi Durga Puja",
+            "Indian festivals",
+            "harvest festivals India",
+            "religious festivals India"
+          ],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk5_u09",
+      "name": "Human Body and Health",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "gk5_c017",
+          "name": "How Our Body Works",
+          "description": "The human body is a remarkable machine with many interconnected systems. The skeletal system has 206 bones that give structure and protect organs — the skull protects the brain; ribs protect the heart and lungs. The muscular system (over 600 muscles) works with bones to produce movement — muscles always pull, never push, which is why they come in pairs (bicep and tricep). The circulatory system: the heart pumps blood through arteries (away from heart) and veins (back to heart) — in one day, your heart beats about 100,000 times! The respiratory system: the lungs breathe in oxygen and breathe out carbon dioxide — we take about 20,000 breaths per day. The digestive system processes food: mouth → oesophagus → stomach → small intestine (nutrients absorbed) → large intestine → excretion. The nervous system (brain + spinal cord + nerves) controls all functions and senses.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "body systems",
+            "skeletal muscular circulatory",
+            "heart lungs",
+            "digestive system",
+            "nervous system"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk5_c018",
+          "name": "Disease Prevention and First Aid",
+          "description": "Diseases can be communicable (spread from person to person — cold, flu, COVID-19, malaria, tuberculosis) or non-communicable (cannot spread — diabetes, cancer, heart disease). Communicable diseases spread through: air (sneezing, coughing), contaminated water and food, insect bites (mosquitoes carry malaria and dengue), and direct contact. Prevention: vaccination (teaches immune system to fight specific diseases), hand washing, clean water, mosquito nets, and insect repellent. First aid is immediate help given before a doctor arrives: for a small cut — clean with water, apply antiseptic, cover with a bandage; for a burn — cool under running water for 10–15 minutes; for a nosebleed — tilt head slightly forward and pinch the nose. Emergency numbers to know: 100 (Police), 101 (Fire), 108 (Ambulance/Emergency), 112 (Universal Emergency).",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "communicable diseases",
+            "vaccination",
+            "malaria dengue",
+            "first aid",
+            "emergency numbers 108"
+          ],
+          "prerequisites": [
+            "gk5_c017"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk5_u10",
+      "name": "Important Days and Fascinating Numbers",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "gk5_c019",
+          "name": "Important Days of the Year",
+          "description": "Certain days are observed every year to honour important events, people, or values. Indian national days: Republic Day (26 Jan), Independence Day (15 Aug), Gandhi Jayanti (2 Oct). Days for children and education: Children's Day (14 Nov — Nehru's birthday), Teachers' Day (5 Sep — Dr. Radhakrishnan's birthday), World Book Day (23 Apr — UNESCO). Environment days: World Earth Day (22 Apr), World Environment Day (5 Jun), World Water Day (22 Mar), World Wildlife Day (3 Mar). Health days: World Health Day (7 Apr), World Mental Health Day (10 Oct). Space and science: National Science Day (28 Feb — C.V. Raman's Nobel discovery, 1928), World Space Week (4–10 Oct). International Day of Yoga (21 Jun — proposed by India to the UN in 2015). These days remind us of important values and encourage global action.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "important days",
+            "Republic Day Independence Day",
+            "Teachers Day Children's Day",
+            "World Earth Day",
+            "National Science Day"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk5_c020",
+          "name": "Fascinating Numbers and Records",
+          "description": "Numbers are everywhere in the natural world! The human body has 206 bones, about 37 trillion cells, and 100 billion neurons (brain cells). The Earth is about 4.5 billion years old; the Universe is about 13.8 billion years old. Light travels at 3 lakh km per second — fast enough to circle the Earth 7.5 times per second. Sound travels at about 343 metres per second in air (much slower than light — that's why we see lightning before hearing thunder). India has about 1.4 billion people — the most of any country. The Pacific Ocean covers more area than all the world's land combined. A blue whale's heart is the size of a small car and beats only 2–3 times per minute. Butterflies taste with their feet. An octopus has three hearts and blue blood. Numbers tell amazing stories about our world!",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "fascinating numbers",
+            "world records",
+            "human body facts",
+            "light speed sound speed",
+            "amazing facts"
+          ],
+          "prerequisites": [
+            "gk5_c019"
+          ],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

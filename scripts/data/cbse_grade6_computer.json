@@ -1,0 +1,401 @@
+{
+  "metadata": {
+    "grade": 6,
+    "board": "CBSE",
+    "subject": "Computer Science",
+    "subjectColor": "#0EA5E9",
+    "subjectIcon": "💻",
+    "generatedAt": "2026-06-01",
+    "textbook": "Common Class 6 Computer Science Curriculum (Kips/Oxford aligned)"
+  },
+  "units": [
+    {
+      "id": "cs6_u01",
+      "name": "Introduction to Computers",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "cs6_c001",
+          "name": "What is a Computer?",
+          "description": "A computer is an electronic device that accepts data (input), processes it according to instructions (a program), and produces results (output). It works extremely fast, is highly accurate, and can store large amounts of data. The basic cycle is: Input → Process → Output → Storage. A computer cannot think on its own — it only does exactly what it is told by its program. Key characteristics: Speed (billions of operations per second), Accuracy (no errors if programmed correctly), Diligence (works tirelessly without fatigue), Versatility (used in hospitals, schools, banks, entertainment), and Storage (can store enormous data). Computers have both hardware (physical parts) and software (programs).",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "what is computer",
+            "input process output storage",
+            "computer characteristics speed accuracy",
+            "hardware software",
+            "IPO cycle"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs6_c002",
+          "name": "Parts of a Computer",
+          "description": "A desktop computer has several key parts. Input devices: Keyboard (types text and commands), Mouse (points and clicks), Scanner (converts physical documents to digital), Microphone (records audio), Webcam (captures video). Output devices: Monitor/Display (shows visual output), Printer (produces paper output), Speakers (produces sound). Processing unit: CPU (Central Processing Unit — the 'brain' of the computer, performs all calculations). Storage: Hard Disk (permanent storage), RAM (temporary working memory), USB drive (portable storage). A laptop combines all these in one portable unit. Tablet computers use a touchscreen instead of keyboard and mouse.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "parts of a computer",
+            "input output devices class 6",
+            "keyboard mouse monitor printer",
+            "CPU Central Processing Unit",
+            "desktop laptop tablet"
+          ],
+          "prerequisites": [
+            "cs6_c001"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs6_u02",
+      "name": "Computer Memory and Storage",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "cs6_c003",
+          "name": "Memory — RAM and ROM",
+          "description": "Computers have two types of memory. RAM (Random Access Memory): the computer's working memory — it holds programs and data currently in use. RAM is volatile — when you switch off the computer, everything in RAM is lost. That is why we must save our work! More RAM allows the computer to run more programs at once. ROM (Read-Only Memory): stores the permanent instructions that start the computer (called BIOS or firmware). ROM is non-volatile — it retains data even without power. You cannot write to or change ROM. When you turn on a computer, the ROM instructions run first and start loading the operating system.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "RAM ROM memory class 6",
+            "volatile non-volatile RAM",
+            "save work RAM",
+            "BIOS ROM firmware",
+            "working memory computer"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs6_c004",
+          "name": "Storage Devices and Units",
+          "description": "Storage devices save data permanently. Internal storage: Hard Disk Drive (HDD) inside the computer — can store hundreds of gigabytes to terabytes of data. External/portable storage: Pen Drive (USB Flash Drive) — plug into USB port, convenient for carrying files; CD and DVD — optical discs read by laser; Memory Card (SD card) — used in cameras and phones. Units of digital storage: Bit (smallest unit — 0 or 1), Byte = 8 bits, Kilobyte (KB) = 1024 bytes, Megabyte (MB) = 1024 KB, Gigabyte (GB) = 1024 MB, Terabyte (TB) = 1024 GB. A typical photo is about 3–5 MB; a movie is 1–4 GB.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "storage devices class 6",
+            "pen drive CD DVD",
+            "bit byte kilobyte megabyte gigabyte",
+            "HDD hard disk",
+            "storage units KB MB GB"
+          ],
+          "prerequisites": [
+            "cs6_c003"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs6_u03",
+      "name": "Operating System and Windows Basics",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "cs6_c005",
+          "name": "Operating System — The Computer's Manager",
+          "description": "An operating system (OS) is the most important software on a computer — it manages all the hardware and software and provides a platform for other programs to run. Without an OS, a computer cannot function. The OS starts automatically when the computer is switched on (called booting). Common operating systems: Windows (Microsoft — most common on personal computers), macOS (Apple), Linux (free, open-source), Android (mobile phones and tablets), iOS (Apple iPhones and iPads). The OS provides a Graphical User Interface (GUI) — windows, icons, menus, and a pointer — making it easy to use without knowing programming.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "operating system class 6",
+            "Windows macOS Android iOS",
+            "booting GUI",
+            "OS manages hardware software",
+            "graphical user interface"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs6_c006",
+          "name": "Using Windows — Desktop, Files, and Folders",
+          "description": "The Windows Desktop is the main screen you see after logging in. Key elements: Taskbar (bar at the bottom — shows Start button, open programs, clock), Icons (small pictures representing programs or files), Recycle Bin (holds deleted files temporarily). A file stores data; a folder (directory) organises files. File Explorer (or My Computer) lets you browse files and folders. Basic operations: Double-click to open; Right-click for options; Drag and drop to move. Keyboard shortcuts: Ctrl+C (Copy), Ctrl+X (Cut), Ctrl+V (Paste), Ctrl+Z (Undo), Delete (send to Recycle Bin). File extensions: .txt (text), .jpg (image), .mp3 (music), .docx (Word document).",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "Windows Desktop class 6",
+            "Taskbar Recycle Bin icons",
+            "file folder explorer",
+            "Ctrl C V X shortcuts",
+            "file extensions txt jpg mp3"
+          ],
+          "prerequisites": [
+            "cs6_c005"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs6_u04",
+      "name": "MS Paint and Basic Drawing",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "cs6_c007",
+          "name": "Creating Pictures with MS Paint",
+          "description": "MS Paint is a simple drawing program included with Windows. Tools: Pencil (freehand drawing), Brush (thicker strokes), Eraser (removes mistakes), Fill (flood-fills an area with colour), Text (adds words to the picture), Shapes (draws rectangles, circles, lines), Magnifier (zooms in). Colour palette lets you pick foreground (drawing) and background colours. Key operations: Select a tool → click or drag on the canvas. Save as .bmp, .jpg, or .png. Keyboard shortcuts: Ctrl+S (Save), Ctrl+Z (Undo), Ctrl+A (Select All). MS Paint is a great starting point for learning about pixels — digital images are made of tiny coloured squares (pixels).",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "MS Paint tools class 6",
+            "pencil brush fill eraser Paint",
+            "pixel digital image",
+            "drawing program Windows",
+            "Paint save jpg png"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs6_c008b",
+          "name": "Editing and Saving in MS Paint",
+          "description": "After drawing in MS Paint, we can refine and save our work. The Select tool (dashed rectangle) lets us select a part of the drawing, then copy (Ctrl+C), cut (Ctrl+X), paste (Ctrl+V), delete, or move it. Undo (Ctrl+Z) reverses the last action — press multiple times to undo several steps; Redo (Ctrl+Y) brings back undone actions. Resizing the canvas: go to the Image or Resize option, enter the new width and height in pixels. Saving the file: File → Save As → choose a folder → type a filename → choose a format. PNG is best for drawings with sharp edges (no quality loss); JPEG is better for photographs (smaller file size but some quality loss). BMP is an uncompressed format with the largest file size. Closing MS Paint without saving loses all unsaved work — always save before closing.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "MS Paint editing",
+            "select tool",
+            "undo redo",
+            "save as PNG JPEG",
+            "canvas resize"
+          ],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs6_u05",
+      "name": "Word Processing — MS Word Basics",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "cs6_c008",
+          "name": "Introduction to MS Word",
+          "description": "Microsoft Word is used to create and edit text documents like letters, stories, notes, and reports. Key parts of the Word window: Title Bar (shows file name and program name), Ribbon (menu of tools organised in tabs), Document Area (where you type), Status Bar (shows page number and word count). Typing: click in the document area and start typing. Cursor (blinking vertical line) shows where text will appear. Editing: Backspace deletes the character before the cursor; Delete removes the character after. Word wrap: text automatically moves to the next line when the edge is reached. Save: Ctrl+S; New: Ctrl+N; Open: Ctrl+O; Print: Ctrl+P.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "MS Word basics class 6",
+            "Word window Title Bar Ribbon",
+            "cursor backspace delete Word",
+            "word wrap",
+            "Ctrl S N O P Word"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs6_c009",
+          "name": "Formatting Text in MS Word",
+          "description": "Formatting makes text look better and easier to read. To format: select text first (click and drag), then apply formatting. Font formatting: Font face (style of letters — Arial, Times New Roman), Font size (measured in points — 12pt is normal body text), Bold (Ctrl+B — thicker letters), Italic (Ctrl+I — slanted), Underline (Ctrl+U). Paragraph alignment: Left (default), Centre (Ctrl+E), Right (Ctrl+R), Justify (Ctrl+J — stretches to fill the full width). Font colour changes text colour. Highlight adds a colour background to selected text. Proper formatting makes documents professional-looking and easier to read.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "text formatting Word class 6",
+            "bold italic underline Ctrl B I U",
+            "font size face Word",
+            "paragraph alignment center justify",
+            "text colour highlight Word"
+          ],
+          "prerequisites": [
+            "cs6_c008"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs6_u06",
+      "name": "Introduction to the Internet",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "cs6_c010",
+          "name": "What is the Internet?",
+          "description": "The Internet is a global network of millions of computers connected together so they can share information. It is often called the 'network of networks.' The World Wide Web (WWW or Web) is a collection of websites and webpages accessible through the Internet — the Web is not the same as the Internet (it is one of many services that use the Internet; email is another). A website is a collection of related webpages, identified by a URL (web address like www.ncert.nic.in). To use the internet you need: a device, an internet connection (broadband, Wi-Fi, 4G/5G), and a web browser (Chrome, Firefox, Edge). The browser displays webpages using the HTTP/HTTPS protocol.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "internet class 6",
+            "World Wide Web vs Internet",
+            "URL website webpage",
+            "web browser Chrome Firefox",
+            "HTTP HTTPS protocol"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs6_c011",
+          "name": "Using the Internet — Search and Email",
+          "description": "Search engines (Google, Bing) help you find information on the Internet. Type keywords in the search box and press Enter. Tips for better searches: use specific words, use quotes for exact phrases ('Taj Mahal history'), add 'for kids' or 'class 6' to get age-appropriate results. Email (electronic mail) lets you send messages anywhere in the world instantly. Parts of an email address: username@domainname.com. A web browser's address bar is where you type a URL directly. Bookmarks save your favourite websites for quick access. Safety rules: never share your password; tell a trusted adult if you see something scary online; don't share personal information with strangers.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "search engine Google Bing class 6",
+            "email address username domain",
+            "URL address bar browser",
+            "internet safety rules class 6",
+            "bookmarks browser"
+          ],
+          "prerequisites": [
+            "cs6_c010"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs6_u07",
+      "name": "Introduction to Scratch Programming",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "cs6_c012",
+          "name": "Getting Started with Scratch",
+          "description": "Scratch (scratch.mit.edu) is a free, visual programming language designed for beginners. Instead of typing code, you drag and snap colourful blocks together to create programs. Key components: Sprite (the character or object that moves and acts on screen), Stage (the background area where the action happens), Blocks Palette (all the available coding blocks, organised by colour and category), Scripts Area (where you assemble blocks into a program). To run a program: click the green flag (▶). To stop: click the red circle (⏹). Categories of blocks: Motion (move, turn), Looks (change costume, say), Sound, Events (when green flag clicked), Control (wait, repeat, if), Sensing.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Scratch programming class 6",
+            "sprite stage scripts Scratch",
+            "green flag red circle Scratch",
+            "motion looks sound events control",
+            "visual programming blocks"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs6_c013",
+          "name": "Creating Simple Animations and Stories in Scratch",
+          "description": "In Scratch, you can make a sprite move by using Motion blocks (move 10 steps, turn 15 degrees, go to x:0 y:0). The coordinate system: the Stage is 480×360 pixels; centre is (0,0); right is positive x, up is positive y. Costumes are different images of a sprite — switching between costumes creates animation (like flipping pages of a flipbook). Backdrops change the stage background. The 'say [ ] for [ ] seconds' block shows a speech bubble. Simple animation: Event (when green flag clicked) → Control (repeat 10) → Motion (move 10 steps) + Motion (turn 15 degrees). Building a simple story involves multiple sprites each with their own scripts running together.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Scratch animation class 6",
+            "sprites costumes backdrops",
+            "coordinate system Scratch",
+            "repeat loop Scratch",
+            "simple story Scratch"
+          ],
+          "prerequisites": [
+            "cs6_c012"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs6_u08",
+      "name": "Safe and Responsible Computer Use",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "cs6_c014",
+          "name": "Computer Safety and Good Habits",
+          "description": "Keeping computers safe and healthy involves physical care and digital safety. Physical care: keep liquids away from the computer; handle CDs and pen drives carefully; shut down properly (don't just switch off the power). Health while using computers: sit straight with monitor at eye level; take a 5-minute break every 30 minutes (20-20-20 rule: every 20 minutes, look at something 20 feet away for 20 seconds); keep the screen clean. Digital safety: use strong passwords (mix letters, numbers, symbols); never share your password with anyone; log out when done; scan pen drives before opening (to check for viruses). Always save your work frequently (Ctrl+S).",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "computer safety habits class 6",
+            "physical care computer",
+            "20-20-20 rule screen",
+            "strong password class 6",
+            "save work Ctrl S"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs6_c015",
+          "name": "Online Safety and Digital Citizenship",
+          "description": "Being safe online means knowing the risks and making good choices. Rules for online safety: never share your full name, address, school, phone number, or photos with strangers online; tell a parent or teacher if anyone online makes you feel uncomfortable or asks for personal information; don't meet anyone you've only talked to online. Cyberbullying is when someone uses technology to repeatedly hurt, embarrass, or scare another person — it is wrong and should be reported. Be kind online — think before you post or send: 'Would I say this to the person's face?' Digital citizenship means using technology responsibly, honestly, and with respect for others and their privacy.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "online safety class 6",
+            "cyberbullying class 6",
+            "never share personal info online",
+            "digital citizenship",
+            "internet stranger danger"
+          ],
+          "prerequisites": [
+            "cs6_c014"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs6_u09",
+      "name": "Introduction to Spreadsheets",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "cs6_c017",
+          "name": "MS Excel Basics",
+          "description": "Microsoft Excel is a spreadsheet application used for storing, organising, and calculating data. The workspace is a grid of cells — each cell is identified by its column letter and row number (e.g., B3 is column B, row 3). We enter data by clicking a cell and typing. Numbers, text, or dates can go in any cell. A formula begins with = and performs calculations: =A1+B1 adds two cells; =SUM(A1:A10) adds a range of cells; =AVERAGE(B2:B8) finds the mean; =MAX(C1:C5) finds the largest value. Formulas update automatically when data changes — this makes spreadsheets far more powerful than paper calculations. Rows are horizontal (numbered 1, 2, 3…); columns are vertical (lettered A, B, C…). A worksheet is one tab; a workbook is the entire Excel file containing multiple worksheets.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Excel spreadsheet",
+            "cell row column",
+            "formula SUM AVERAGE MAX",
+            "workbook worksheet",
+            "data entry"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs6_c018",
+          "name": "Charts and Data Analysis in Excel",
+          "description": "Excel can turn numbers into visual charts automatically. To create a chart: select the data range, click Insert → Chart → choose chart type → click OK. Common chart types: Bar chart (compares categories), Line graph (shows trends over time), Pie chart (shows parts of a whole as slices), and Column chart (similar to bar but vertical). Each chart has a title, axis labels, and a legend. Sorting arranges data in ascending or descending order — right-click the column → Sort. Filtering hides rows that do not match a criterion — click the dropdown arrow in the column header. Conditional formatting highlights cells that meet a rule (e.g., colour cells red if value < 0). Spreadsheets are used in schools (marks sheets), businesses (budgets), science (recording experimental data), and government (population data analysis).",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Excel charts",
+            "bar chart line graph pie chart",
+            "sorting filtering",
+            "conditional formatting",
+            "data visualisation"
+          ],
+          "prerequisites": [
+            "cs6_c017"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs6_u10",
+      "name": "Cybersecurity and Digital Footprint",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "cs6_c019",
+          "name": "Cybersecurity — Staying Safe Online",
+          "description": "Cybersecurity means protecting computers, networks, and data from unauthorised access or damage. Threats: Viruses are malicious programs that attach to files and spread to damage or delete data. Malware (malicious software) includes spyware (secretly records activity), ransomware (locks files until payment), and adware (shows unwanted advertisements). Phishing is a trick where criminals send fake emails or messages pretending to be trusted organisations (banks, government) to steal personal information — never click suspicious links. Hacking means gaining unauthorised access to a computer system. Protection: install a reputable antivirus program and keep it updated; keep the operating system and apps updated (updates fix security holes); use strong passwords (8+ characters, mix of letters, numbers, symbols); never share passwords; use two-factor authentication (2FA) where available.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "cybersecurity",
+            "virus malware",
+            "phishing hacking",
+            "antivirus",
+            "strong password 2FA"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs6_c020",
+          "name": "Digital Footprint and Online Privacy",
+          "description": "A digital footprint is the trail of data you leave behind every time you use the internet — every website visited, post liked, photo uploaded, or purchase made creates a record. Passive footprint: data collected without your direct input (browsing history, location data, cookies). Active footprint: data you share deliberately (social media posts, comments, profile information). Your digital footprint can last forever — even deleted posts may have been screenshotted or cached. Employers, universities, and colleges routinely check applicants' online presence. Privacy settings: review and restrict who can see your posts and personal information on every app and platform. Never post: your home address, phone number, school timetable, or financial information. Think before posting — ask 'Would I be comfortable if my parents or teachers saw this?' The golden rule: if in doubt, leave it out.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "digital footprint",
+            "online privacy",
+            "cookies browsing history",
+            "social media privacy",
+            "passive active footprint"
+          ],
+          "prerequisites": [
+            "cs6_c019"
+          ],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

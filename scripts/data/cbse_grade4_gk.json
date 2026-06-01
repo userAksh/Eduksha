@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 4,
+    "board": "CBSE",
+    "subject": "General Knowledge",
+    "subjectColor": "#F59E0B",
+    "subjectIcon": "🌟",
+    "generatedAt": "2026-06-01",
+    "textbook": "Common Class 4 GK Curriculum"
+  },
+  "units": [
+    {
+      "id": "gk4_u01",
+      "name": "India — Our Country",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "gk4_c001",
+          "name": "Basic Facts About India",
+          "description": "India is the seventh-largest country in the world by area and the most populous country. Its capital city is New Delhi. India has 28 states and 8 Union Territories. The national language for official purposes is Hindi, but India recognises 22 scheduled languages including Tamil, Telugu, Marathi, Bengali, and Gujarati. India's national animal is the Bengal Tiger, national bird is the Peacock, national flower is the Lotus, national fruit is the Mango, and national tree is the Banyan. The national currency is the Indian Rupee (₹). The President is the constitutional head of state, and the Prime Minister is the head of government.",
+          "expectedDifficulty": "OK",
+          "aliases": ["India facts", "national symbols", "capital of India", "national animal", "national bird"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk4_c002",
+          "name": "Indian States and Neighbours",
+          "description": "India shares its borders with six countries: Pakistan to the north-west, China and Nepal to the north, Bhutan to the north-east, Bangladesh to the east, and Myanmar to the far east. Sri Lanka lies just off the southern tip of India, separated by the Palk Strait. The largest Indian state by area is Rajasthan; the smallest state is Goa. The most populous state is Uttar Pradesh. The state of Sikkim is the least populous. India's longest river is the Ganga, which flows through the states of Uttarakhand, Uttar Pradesh, Bihar, and West Bengal before emptying into the Bay of Bengal.",
+          "expectedDifficulty": "OK",
+          "aliases": ["India's neighbours", "Indian states", "Rajasthan", "Ganga river", "border countries"],
+          "prerequisites": ["gk4_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk4_u02",
+      "name": "World Around Us",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "gk4_c003",
+          "name": "Continents and Oceans",
+          "description": "The Earth's surface is divided into seven continents: Asia (the largest), Africa, North America, South America, Antarctica, Europe, and Australia (also called Oceania). Asia is where India is located. The five oceans are: the Pacific Ocean (the largest and deepest), the Atlantic Ocean, the Indian Ocean, the Arctic Ocean, and the Southern Ocean. The Pacific Ocean covers more area than all the world's landmasses combined. Mount Everest (8,848 m), in the Himalayas between Nepal and Tibet, is the highest point on Earth. The Dead Sea (on the border of Jordan and Israel) is the lowest point on land.",
+          "expectedDifficulty": "OK",
+          "aliases": ["seven continents", "five oceans", "Asia", "Pacific Ocean", "Mount Everest"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk4_c004",
+          "name": "Famous World Landmarks",
+          "description": "The world has many famous landmarks that are recognised everywhere. The Eiffel Tower is in Paris, France. The Great Wall of China stretches over 21,000 km across northern China. The Pyramids of Giza in Egypt are ancient wonders built more than 4,500 years ago. The Statue of Liberty stands in New York harbour, USA. The Taj Mahal in Agra, India, is a white marble mausoleum built by Mughal Emperor Shah Jahan for his wife Mumtaz Mahal — it is one of the Seven Wonders of the Modern World. The Colosseum is an ancient amphitheatre in Rome, Italy. Big Ben is the famous clock tower in London, United Kingdom.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Eiffel Tower", "Taj Mahal", "Great Wall of China", "Pyramids", "Statue of Liberty", "world landmarks"],
+          "prerequisites": ["gk4_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk4_u03",
+      "name": "Science and Nature",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "gk4_c005",
+          "name": "Our Solar System",
+          "description": "The Solar System consists of the Sun and everything that orbits it — eight planets, their moons, asteroids, and comets. The eight planets in order from the Sun are: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune. A memory trick: 'My Very Efficient Mother Just Serves Us Nachos.' Earth is the only planet known to support life. Jupiter is the largest planet; Mercury is the smallest. Saturn is famous for its rings made of ice and rock. The Moon is Earth's only natural satellite. A year is the time taken for Earth to orbit the Sun (365.25 days); a day is the time for Earth to rotate on its axis (24 hours).",
+          "expectedDifficulty": "OK",
+          "aliases": ["solar system", "eight planets", "Mercury Venus Earth Mars Jupiter Saturn Uranus Neptune", "Moon", "Sun"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk4_c006",
+          "name": "Animal Kingdom — Interesting Facts",
+          "description": "The animal kingdom is full of fascinating facts. The cheetah is the fastest land animal, reaching speeds of up to 120 km/h. The blue whale is the largest animal on Earth, reaching 30 m in length. The hummingbird is the smallest bird and can fly backwards. A group of lions is called a pride; a group of wolves is called a pack; a group of fish is called a school; a group of bees is called a swarm. Chameleons can change colour to communicate and camouflage. Dolphins use echolocation to find food and communicate with sounds. A baby kangaroo is called a joey and lives in its mother's pouch.",
+          "expectedDifficulty": "OK",
+          "aliases": ["cheetah fastest", "blue whale", "hummingbird", "animal groups", "echolocation", "chameleon"],
+          "prerequisites": ["gk4_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk4_u04",
+      "name": "History and Heritage",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "gk4_c007",
+          "name": "India's Freedom Struggle",
+          "description": "India was under British rule for nearly 200 years. Brave freedom fighters fought to liberate India. Mahatma Gandhi led peaceful protests using non-violence (ahimsa) and non-cooperation movements. Subhas Chandra Bose formed the Indian National Army and declared 'Give me blood and I will give you freedom.' Bhagat Singh, Rajguru, and Sukhdev sacrificed their lives at a young age. Rani Lakshmibai of Jhansi fought bravely in the 1857 revolt. Jawaharlal Nehru was India's first Prime Minister after independence on 15 August 1947. B.R. Ambedkar drafted India's Constitution. India became a Republic on 26 January 1950.",
+          "expectedDifficulty": "OK",
+          "aliases": ["freedom struggle", "Mahatma Gandhi", "independence 1947", "Bhagat Singh", "Jawaharlal Nehru", "Republic Day"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk4_c008",
+          "name": "Famous Indians — Scientists and Leaders",
+          "description": "India has produced many great scientists and leaders. Dr. A.P.J. Abdul Kalam, known as the 'Missile Man of India', was a scientist and also the 11th President of India. C.V. Raman won the Nobel Prize for Physics in 1930 for discovering the Raman Effect. Srinivasa Ramanujan was a mathematical genius who made extraordinary contributions to number theory. Mother Teresa served the poor in Kolkata and won the Nobel Peace Prize in 1979. Sarojini Naidu was the first woman President of the Indian National Congress and the first woman Governor of an Indian state. Kalpana Chawla was the first woman of Indian origin to go to space.",
+          "expectedDifficulty": "OK",
+          "aliases": ["APJ Abdul Kalam", "CV Raman", "Ramanujan", "Mother Teresa", "Kalpana Chawla", "famous Indians"],
+          "prerequisites": ["gk4_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk4_u05",
+      "name": "Sports and Games",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "gk4_c009",
+          "name": "India's Sports and National Games",
+          "description": "Hockey is the national sport of India. India's cricket team has won the ICC Cricket World Cup in 1983 and 2011. Sachin Tendulkar, known as the 'God of Cricket', is India's greatest batsman and the first to score 100 international centuries. P.V. Sindhu is India's most successful badminton player and an Olympic silver medallist. Mary Kom is a six-time World Champion boxer. Neeraj Chopra won gold in javelin throw at the 2020 Tokyo Olympics — India's first Olympic gold in athletics. The Olympic Games are held every four years; India has won the most Olympic medals in field hockey (eight gold medals).",
+          "expectedDifficulty": "OK",
+          "aliases": ["hockey national sport", "cricket", "Sachin Tendulkar", "PV Sindhu", "Neeraj Chopra", "Olympics"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk4_c010",
+          "name": "World Sports — Records and Facts",
+          "description": "The Olympic Games began in ancient Greece and were revived in 1896. They are held every four years in a different city. The FIFA World Cup is football's greatest tournament, held every four years; Brazil has won it the most times (5 times). Usain Bolt holds the world record for the 100m sprint at 9.58 seconds. Roger Federer, Rafael Nadal, and Novak Djokovic are three of the greatest tennis players of all time. The cricket bat, shuttlecock, and javelin are all sporting equipment with specific regulations. Chess, which originated in India (as Chaturanga), is a board game played by millions worldwide.",
+          "expectedDifficulty": "OK",
+          "aliases": ["FIFA World Cup", "Olympics history", "Usain Bolt", "chess origin India", "world records sports"],
+          "prerequisites": ["gk4_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk4_u06",
+      "name": "Technology and Inventions",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "gk4_c011",
+          "name": "Great Inventions That Changed the World",
+          "description": "Many inventions have transformed human life. The wheel (invented about 5,000 years ago) made transport possible. The printing press (Johannes Gutenberg, 1440) allowed books to be made quickly and spread knowledge. The telephone (Alexander Graham Bell, 1876) enabled people to speak across distances. The light bulb (Thomas Edison, 1879) lit up homes and workplaces. The aeroplane (Wright Brothers, 1903) made air travel possible. The internet (developed in the 1960s–1980s) connects billions of people worldwide. The smartphone combines phone, camera, computer, and map in one device. Inventions come from curiosity and the desire to solve problems.",
+          "expectedDifficulty": "OK",
+          "aliases": ["wheel invention", "printing press", "telephone Bell", "light bulb Edison", "aeroplane Wright Brothers", "internet"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk4_c012",
+          "name": "India's Space Programme — ISRO",
+          "description": "The Indian Space Research Organisation (ISRO), headquartered in Bengaluru, is India's national space agency. It was established in 1969 under Dr. Vikram Sarabhai, known as the father of India's space programme. ISRO launched India's first satellite, Aryabhata, in 1975. Chandrayaan-1 (2008) discovered water molecules on the Moon. Chandrayaan-3 (2023) successfully landed on the Moon's south pole, making India only the fourth country to land on the Moon. Mangalyaan (Mars Orbiter Mission, 2013) reached Mars on its first attempt, making India the first Asian nation to do so. ISRO is also known for launching satellites for other countries at affordable costs.",
+          "expectedDifficulty": "OK",
+          "aliases": ["ISRO", "Chandrayaan", "Mangalyaan", "Vikram Sarabhai", "India space", "Mars mission"],
+          "prerequisites": ["gk4_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk4_u07",
+      "name": "Indian Culture and Festivals",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "gk4_c013",
+          "name": "Major Indian Festivals",
+          "description": "India celebrates festivals of many religions and traditions. Diwali (Festival of Lights) is celebrated by Hindus, Sikhs, and Jains — homes are lit with diyas and fireworks light the sky. Eid-ul-Fitr marks the end of Ramadan (the month of fasting) for Muslims and is celebrated with feasts and charity. Christmas on 25 December celebrates the birth of Jesus Christ; churches hold special services and homes are decorated with trees and lights. Baisakhi is the harvest festival of Punjab. Onam is Kerala's harvest festival with a famous flower carpet (Pookalam). Navratri and Durga Puja celebrate the victory of Goddess Durga over evil.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Diwali", "Eid", "Christmas", "Baisakhi", "Onam", "Navratri", "Durga Puja", "Indian festivals"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk4_c014",
+          "name": "Indian Classical Arts and Dance Forms",
+          "description": "India has a rich tradition of classical arts. The eight classical dance forms recognised by the Sangeet Natak Akademi are: Bharatanatyam (Tamil Nadu), Kathak (Uttar Pradesh), Odissi (Odisha), Kuchipudi (Andhra Pradesh), Manipuri (Manipur), Kathakali (Kerala), Mohiniyattam (Kerala), and Sattriya (Assam). Indian classical music has two main traditions: Hindustani (North India) and Carnatic (South India). Instruments like the sitar, tabla, veena, and mridangam are central to these traditions. India's folk arts include Warli painting (Maharashtra), Madhubani painting (Bihar), and Phulkari embroidery (Punjab). UNESCO has declared Yoga (originating from India) an Intangible Cultural Heritage.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Bharatanatyam", "Kathak", "Odissi", "Kathakali", "classical dance", "Hindustani music", "Carnatic music"],
+          "prerequisites": ["gk4_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk4_u08",
+      "name": "Environment and Ecology",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "gk4_c015",
+          "name": "Forests and Wildlife of India",
+          "description": "India has a rich variety of forests — tropical rainforests in the Western Ghats and northeast, deciduous forests in central India, and mangrove forests in the Sundarbans delta (shared by India and Bangladesh). India is home to about 8% of the world's biodiversity. The Bengal Tiger is the most iconic endangered animal; Project Tiger (1973) was launched to protect it. The one-horned rhinoceros is found in Kaziranga National Park, Assam. The Asiatic Lion lives only in Gir National Park, Gujarat. The Great Indian Bustard is a critically endangered bird. India has over 100 national parks and 500 wildlife sanctuaries to protect its natural heritage.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Indian forests", "Bengal tiger Project Tiger", "Kaziranga", "Gir National Park", "biodiversity", "national parks"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk4_c016",
+          "name": "Environmental Issues and Solutions",
+          "description": "The three Rs — Reduce, Reuse, Recycle — are the key to managing waste and protecting the environment. Reducing means using less (e.g., shorter showers, fewer plastic bags). Reusing means finding a new purpose for old items (e.g., using old jars as containers). Recycling means processing used materials to make new products (e.g., making paper from old newspapers). Global warming is caused by greenhouse gases (mainly carbon dioxide and methane) trapping heat in the atmosphere, leading to rising temperatures, melting glaciers, and more extreme weather. Planting trees, using solar and wind energy, and reducing fossil fuel use help slow global warming. The Chipko Movement in India saw villagers hug trees to prevent deforestation.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Reduce Reuse Recycle", "global warming", "greenhouse gases", "Chipko movement", "deforestation", "renewable energy"],
+          "prerequisites": ["gk4_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk4_u09",
+      "name": "Human Body and Health",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "gk4_c017",
+          "name": "Organ Systems of the Human Body",
+          "description": "The human body has several organ systems that work together. The skeletal system has 206 bones that give the body its shape, protect organs, and help us move. The digestive system breaks food down into nutrients: mouth → oesophagus → stomach → small intestine → large intestine → excretion. The circulatory system has the heart (pumping blood), blood vessels (arteries, veins, capillaries), and blood. The respiratory system: we breathe in oxygen through the nose/mouth → trachea → lungs, and breathe out carbon dioxide. The nervous system (brain, spinal cord, nerves) controls all body functions and senses. The skin is the largest organ of the body.",
+          "expectedDifficulty": "OK",
+          "aliases": ["skeletal system", "digestive system", "circulatory system", "respiratory system", "nervous system", "human body organs"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk4_c018",
+          "name": "Good Health Habits and Common Diseases",
+          "description": "Staying healthy requires daily habits: brushing teeth twice a day (prevents cavities), washing hands before eating and after using the toilet (prevents germs spreading), bathing daily, eating a balanced diet, drinking clean water, and sleeping 8–10 hours. Exercise makes the heart and muscles strong and improves mood. Common diseases: malaria is spread by the Anopheles mosquito (prevent by removing stagnant water); dengue is spread by the Aedes mosquito; typhoid spreads through contaminated food or water; cholera spreads through dirty water. Vaccines protect us from diseases like polio, measles, and chickenpox. A doctor and a healthy lifestyle are our best tools for staying well.",
+          "expectedDifficulty": "OK",
+          "aliases": ["healthy habits", "malaria", "dengue", "vaccination", "hygiene", "disease prevention"],
+          "prerequisites": ["gk4_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk4_u10",
+      "name": "Important Days and Awards",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "gk4_c019",
+          "name": "National and International Important Days",
+          "description": "Several important days are observed every year to raise awareness or honour values. Republic Day — 26 January (India became a republic). Independence Day — 15 August (India's independence from British rule). Gandhi Jayanti — 2 October (Mahatma Gandhi's birthday). Children's Day — 14 November (Jawaharlal Nehru's birthday). World Earth Day — 22 April (promotes environmental protection). World Environment Day — 5 June. World Health Day — 7 April. International Day of Yoga — 21 June (declared by the United Nations in 2015, proposed by India). World Literacy Day — 8 September. Teachers' Day — 5 September (birthday of Dr. Sarvepalli Radhakrishnan, India's second President).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Republic Day", "Independence Day", "Gandhi Jayanti", "Children's Day", "World Earth Day", "Yoga Day"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk4_c020",
+          "name": "India's Highest Awards",
+          "description": "India honours outstanding achievements with national awards. The Bharat Ratna is India's highest civilian honour, awarded for exceptional service to the nation (recipients include Dr. B.R. Ambedkar, A.P.J. Abdul Kalam, and Sachin Tendulkar). The Padma Vibhushan, Padma Bhushan, and Padma Shri are civilian awards given for distinguished service in various fields. The Arjuna Award recognises outstanding achievement in sports. The Nobel Prize is an international award given in Physics, Chemistry, Medicine, Literature, Peace, and Economics. Indian Nobel laureates include Rabindranath Tagore (Literature, 1913), C.V. Raman (Physics, 1930), Mother Teresa (Peace, 1979), and Kailash Satyarthi (Peace, 2014).",
+          "expectedDifficulty": "OK",
+          "aliases": ["Bharat Ratna", "Padma awards", "Arjuna Award", "Nobel Prize", "national awards India"],
+          "prerequisites": ["gk4_c019"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

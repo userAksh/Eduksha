@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 4,
+    "board": "CBSE",
+    "subject": "English",
+    "subjectColor": "#EA580C",
+    "subjectIcon": "📚",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Santoor — Class 4 (Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "eng4_u01",
+      "name": "Chapter 1 — Together We Can",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "eng4_c001",
+          "name": "Together We Can (Story)",
+          "description": "This opening chapter tells the story of children from different backgrounds who come together to solve a common problem — showing that teamwork and cooperation achieve what no individual can do alone. The story introduces the idea that diversity of skills and perspectives is a strength, not a weakness. Each child contributes something unique, and the group succeeds because they listen to each other and share responsibility. Key themes: unity, cooperation, respecting differences, and collective effort. Students learn to identify characters and their roles, discuss what each person contributed, and reflect on a time they worked as part of a team.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Together We Can", "teamwork story", "cooperation", "unity"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng4_c002",
+          "name": "The Tinkling Bells (Poem)",
+          "description": "This poem celebrates the musical, joyful sound of bells — perhaps temple bells, cowbells, or school bells ringing across a quiet morning. The poet uses onomatopoeia (words that sound like the thing they describe, such as 'tinkle', 'jingle', 'clang') and vivid sound imagery to make readers feel as though they can hear the bells themselves. The regular rhyme scheme and rhythm make the poem musical and pleasant to read aloud. Students identify rhyming words, explore onomatopoeia and sound words, and write their own short poem using sound imagery from their everyday surroundings.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Tinkling Bells poem", "onomatopoeia", "sound poem", "rhyming poem", "bells"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng4_u02",
+      "name": "Chapter 2 — Be Smart, Be Safe",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "eng4_c003",
+          "name": "Be Smart, Be Safe (Informational Text)",
+          "description": "This chapter teaches children practical safety rules through engaging text and activities. Road safety: always walk on the footpath, use zebra crossings, obey traffic signals, and never play near roads. Online safety: never share personal information (address, phone number, school name) with strangers online; tell a trusted adult if something feels wrong. Fire safety: know the fire exit; call 101 for the fire service. Stranger safety: do not go anywhere with a stranger; know your parents' phone numbers by heart. The text also emphasises that being safe is not about being afraid — it is about being alert, prepared, and making smart choices in everyday situations.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["safety rules", "road safety", "online safety", "fire safety", "stranger danger", "emergency numbers"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng4_c004",
+          "name": "One Thing at a Time (Story)",
+          "description": "This story follows a character who tries to do many things at once — and keeps making mistakes as a result. When they finally slow down and focus on one task at a time, they do each thing well and feel calm and satisfied. The story humorously shows the value of concentration, patience, and mindfulness in everyday activities. It connects to the idea that quality matters more than speed. Students identify the problem and solution in the story, list the mistakes the character makes when distracted, and discuss strategies they use to focus while studying. Key vocabulary: concentrate, distracted, patient, one step at a time.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["One Thing at a Time", "focus story", "concentration", "mindfulness", "multitasking"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng4_u03",
+      "name": "Chapter 3 — The Old Stag",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "eng4_c005",
+          "name": "The Old Stag (Fable)",
+          "description": "Based on an Aesop fable, a stag (male deer) admires his magnificent antlers in a pool but is ashamed of his thin, spindly legs. One day, a hunter chases him. His powerful legs carry him swiftly across the open plain — but when he runs into the forest, his beautiful antlers get tangled in the branches and he is caught. The moral: we often value what is beautiful over what is truly useful — but in moments of real need, what we despise may save us. Students identify the moral, discuss how appearance can be misleading, summarise the story's events in order, and write a sentence about something they have that is useful rather than showy.",
+          "expectedDifficulty": "OK",
+          "aliases": ["The Old Stag", "Aesop fable", "antlers legs story", "moral story", "appearance vs usefulness"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng4_c006",
+          "name": "Braille (Biographical Text)",
+          "description": "Louis Braille was born in France in 1809. At age 3, he accidentally injured his eye with a sharp tool in his father's workshop; the infection spread, and he lost sight in both eyes. Despite being blind, he was bright and determined. At 15, he invented the Braille system — a code of raised dots arranged in cells of up to six dots, which blind people can read by touch. Today, Braille is used worldwide for books, menus, lift buttons, and medicine labels, giving visually impaired people independence. The chapter inspires students to persevere through difficulties and to think creatively about problems. Key themes: disability, perseverance, innovation, empathy, inclusion.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Louis Braille", "Braille script", "blind reading", "visually impaired", "perseverance", "biography"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng4_u04",
+      "name": "Chapter 4 — Fit Body, Fit Mind, Fit Nation",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "eng4_c007",
+          "name": "Fit Body, Fit Mind, Fit Nation (Informational Text)",
+          "description": "This chapter promotes physical and mental well-being, linking personal health to national strength. A fit body needs daily exercise (at least 60 minutes of play or sport), a balanced diet (plenty of fruits, vegetables, protein, and water), adequate sleep (8–10 hours for children), and good hygiene. A fit mind comes from curiosity, reading, learning new skills, spending time in nature, and taking breaks from screens. Yoga, which originated in India, develops both physical flexibility and mental calmness. India's 'Fit India Movement' encourages every citizen to stay active. Students create a weekly fitness schedule, discuss their favourite physical activities, and write about how exercise makes them feel.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["fitness", "healthy lifestyle", "exercise", "yoga", "Fit India", "physical activity", "mental health"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng4_c008",
+          "name": "The Lagori Champions (Story)",
+          "description": "Lagori (also called Pittu, Saat Patthar, or Seven Stones) is a traditional Indian game played with a pile of seven flat stones and a soft ball. Two teams take turns: one team throws the ball to topple the pile, then tries to rebuild it while the other team tries to hit them with the ball. The story follows a group of children who form a Lagori team, practise together, and compete in an inter-school tournament. Through the game, they learn strategic thinking, agility, and the joy of reviving a traditional sport. Themes: traditional games, sportsmanship, teamwork, Indian heritage. Students learn the rules of Lagori and discuss why preserving traditional games matters.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Lagori", "Pittu", "Saat Patthar", "Seven Stones", "traditional Indian game", "sportsmanship"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng4_u05",
+      "name": "Chapter 5 — Hekko",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "eng4_c009",
+          "name": "Hekko (Adventure Story)",
+          "description": "Hekko is a story set in a tribal or forest community, following a young child who embarks on a small adventure. The story weaves together friendship, cultural traditions, and a respect for nature. Through Hekko's experiences — possibly including a forest journey, an encounter with wildlife, or a community festival — students explore a way of life that is different from urban living but equally rich and meaningful. The chapter promotes cultural sensitivity and curiosity about India's diverse communities. Students identify descriptive language used for the forest setting, discuss what they admire about Hekko's world, and write a short description of their own neighbourhood.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Hekko", "tribal story", "forest adventure", "cultural diversity", "friendship story"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng4_c010",
+          "name": "The Swing (Poem)",
+          "description": "Inspired by the joy of swinging high on a playground or garden swing, this poem captures the delight of childhood freedom — the rush of wind, the sensation of flying, and the world shrinking below as one swings higher and higher. The poem uses sensory language and vivid imagery to recreate the physical joy of swinging. It may echo the spirit of R.L. Stevenson's classic 'The Swing' while being freshly connected to an Indian childhood experience. Students identify sensory words (sight, sound, touch, movement), read the poem aloud with appropriate rhythm and expression, and write about their favourite outdoor activity using sensory language.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["The Swing poem", "childhood joy", "sensory poem", "outdoor play poem", "imagery"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng4_u06",
+      "name": "Chapter 6 — A Journey to the Magical Mountains",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "eng4_c011",
+          "name": "A Journey to the Magical Mountains (Fantasy Story)",
+          "description": "In this imaginative story, children embark on a journey to mountains that seem magical — perhaps clouds rest on their peaks, rare flowers grow on their slopes, or unusual creatures live there. The story blends geographical curiosity with fantasy, encouraging readers to see the natural world as full of wonder. The journey teaches the travellers something important — about themselves, about nature, or about what truly matters. Students identify fantasy elements versus realistic details, trace the journey on a simple map, predict what might happen next, and write a paragraph describing an imaginary place they would like to visit.",
+          "expectedDifficulty": "OK",
+          "aliases": ["magical mountains", "fantasy story", "adventure journey", "imagination", "geography fantasy"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng4_c012",
+          "name": "Maheshwar (Descriptive/Informational Text)",
+          "description": "Maheshwar is a historic town on the banks of the Narmada River in Madhya Pradesh, known for its ancient ghats (stone steps leading to the river), the Ahilya Fort built by the great queen Ahilyabai Holkar, and the famous Maheshwari handloom sarees woven by local weavers. The chapter takes students on a descriptive tour of Maheshwar — its sounds, colours, temples, river, and craft tradition. It builds appreciation for India's cultural and historical heritage beyond the major tourist cities. Students learn vocabulary related to rivers, weaving, and heritage; discuss why preserving old towns and crafts matters; and write a short travelogue about a place they have visited.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Maheshwar", "Narmada river", "Ahilyabai Holkar", "Maheshwari saree", "heritage town", "Madhya Pradesh"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng4_u07",
+      "name": "Grammar — Nouns and Pronouns",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "eng4_c013",
+          "name": "Types of Nouns",
+          "description": "A noun names a person, place, thing, animal, or idea. Common nouns name general things (girl, river, book). Proper nouns name specific ones and always start with a capital letter (Priya, Narmada, Santoor). Collective nouns name a group: a flock of birds, a herd of elephants, a bunch of grapes, a team of players, a library of books. Countable nouns can be counted (one mango, two mangoes); uncountable nouns cannot be counted directly (water, milk, rice, sand). Abstract nouns name ideas or feelings we cannot touch (courage, freedom, happiness, love). Recognising the type of noun in a sentence helps us choose the correct article (a/an/the) and verb form.",
+          "expectedDifficulty": "OK",
+          "aliases": ["common noun", "proper noun", "collective noun", "abstract noun", "countable uncountable nouns"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng4_c014",
+          "name": "Pronouns and Their Use",
+          "description": "A pronoun replaces a noun to avoid repetition. Personal pronouns: I, you, he, she, it, we, they (subject pronouns) and me, you, him, her, it, us, them (object pronouns). For example, instead of 'Ravi went to school. Ravi forgot Ravi's bag,' we say 'Ravi went to school. He forgot his bag.' Possessive pronouns show ownership: my/mine, your/yours, his, her/hers, its, our/ours, their/theirs. Demonstrative pronouns point to things: this (near, singular), that (far, singular), these (near, plural), those (far, plural). Using pronouns correctly avoids awkward repetition and makes writing flow smoothly.",
+          "expectedDifficulty": "OK",
+          "aliases": ["pronouns", "personal pronouns", "possessive pronouns", "demonstrative pronouns", "subject object pronouns"],
+          "prerequisites": ["eng4_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng4_u08",
+      "name": "Grammar — Verbs, Adjectives, and Adverbs",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "eng4_c015",
+          "name": "Verbs and Tenses",
+          "description": "A verb is a word that describes an action (run, write, sing) or a state (is, seems, feels). Tense tells us when the action happens. Present tense: the action is happening now — 'She reads every day.' Past tense: the action already happened — 'She read yesterday.' Future tense: the action will happen — 'She will read tomorrow.' The verb changes form depending on the subject: 'I run / she runs' (present); 'I ran / she ran' (past simple). Regular past tense adds -ed (walk → walked). Irregular past tenses must be memorised (go → went, eat → ate, write → wrote, see → saw). Using the correct tense makes writing clear and time-specific.",
+          "expectedDifficulty": "OK",
+          "aliases": ["verbs", "present tense", "past tense", "future tense", "irregular verbs", "regular verbs"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng4_c016",
+          "name": "Adjectives and Adverbs",
+          "description": "An adjective describes a noun — it tells us the size, colour, shape, number, or quality of something: a tall tree, a red rose, three boys, a brave soldier. Adjectives make writing vivid and specific. Comparative adjectives compare two things and usually end in -er (taller, brighter); superlative adjectives compare more than two and usually end in -est (tallest, brightest). For longer adjectives we use 'more' and 'most' (more beautiful, most beautiful). An adverb describes a verb — it tells us how, when, where, or how often the action happens: she runs quickly (how), she arrived yesterday (when), she sat nearby (where), she always smiles (how often). Adverbs often end in -ly.",
+          "expectedDifficulty": "OK",
+          "aliases": ["adjectives", "adverbs", "comparative adjectives", "superlative adjectives", "describing words"],
+          "prerequisites": ["eng4_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng4_u09",
+      "name": "Grammar — Sentences and Punctuation",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "eng4_c017",
+          "name": "Types of Sentences",
+          "description": "A sentence is a group of words that makes complete sense and contains a subject (who/what) and a predicate (what they do or are). There are four types: declarative (a statement, ends with full stop — 'The Narmada flows through Madhya Pradesh.'), interrogative (a question, ends with question mark — 'Have you visited Maheshwar?'), imperative (a command or request, ends with full stop or exclamation mark — 'Please sit quietly.'), and exclamatory (expresses strong feeling, ends with exclamation mark — 'What a beautiful saree!'). Identifying the type of sentence helps us use the correct punctuation and understand the writer's intention.",
+          "expectedDifficulty": "OK",
+          "aliases": ["declarative sentence", "interrogative sentence", "imperative sentence", "exclamatory sentence", "types of sentences"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng4_c018",
+          "name": "Punctuation Marks",
+          "description": "Punctuation marks are signs that make writing easier to read and understand. Full stop (.) ends a declarative or imperative sentence. Question mark (?) ends a question. Exclamation mark (!) ends an exclamatory sentence or expresses surprise. Comma (,) separates items in a list ('I bought apples, mangoes, and bananas.'), marks a pause, or separates clauses. Apostrophe (') shows possession (Ravi's book) or a contraction (don't = do not, I'm = I am). Speech marks (' ' or \" \") show the exact words someone says — 'Come here,' said the teacher. Capital letters are used at the start of every sentence and for proper nouns. Reading aloud with punctuation helps writers understand how punctuation guides the voice.",
+          "expectedDifficulty": "OK",
+          "aliases": ["punctuation", "full stop", "comma", "apostrophe", "speech marks", "question mark", "capital letters"],
+          "prerequisites": ["eng4_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng4_u10",
+      "name": "Writing Skills — Paragraphs and Letters",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "eng4_c019",
+          "name": "Writing a Paragraph",
+          "description": "A paragraph is a group of related sentences about one main idea. It begins with a topic sentence that states the main idea, followed by supporting sentences that give details, examples, or reasons, and ends with a concluding sentence that wraps up the paragraph. Good paragraphs are focused (one topic only), organised (logical order), and coherent (ideas connect smoothly). Transition words help connect sentences: first, next, then, also, however, finally. When writing a description, use sensory words to help the reader see, hear, smell, taste, and touch what you are describing. Planning a paragraph before writing — jotting down the main idea and 2–3 supporting points — makes the writing clearer.",
+          "expectedDifficulty": "OK",
+          "aliases": ["paragraph writing", "topic sentence", "supporting sentences", "concluding sentence", "transition words"],
+          "prerequisites": ["eng4_c017"],
+          "order": 1
+        },
+        {
+          "id": "eng4_c020",
+          "name": "Letter Writing — Informal and Formal",
+          "description": "A letter has specific parts: the writer's address and date (top right), a greeting ('Dear Rohan,' for informal; 'Dear Sir/Madam,' for formal), the body (the main message in paragraphs), a closing ('Your friend,' or 'Yours sincerely,'), and the writer's name. Informal letters are written to friends and family — they use friendly, conversational language, contractions, and expressions of affection. Formal letters are written to officials, principals, or businesses — they use polite, professional language, full sentences, and no slang. A postcard is a short informal message. An email follows similar rules but adds a subject line. Good letter writing practises organising thoughts and adapting tone for different audiences.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["letter writing", "informal letter", "formal letter", "greeting", "closing", "postcard", "email"],
+          "prerequisites": ["eng4_c019"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

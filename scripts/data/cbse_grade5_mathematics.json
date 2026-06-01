@@ -1,0 +1,388 @@
+{
+  "metadata": {
+    "grade": 5,
+    "board": "CBSE",
+    "subject": "Mathematics",
+    "subjectColor": "#3B82F6",
+    "subjectIcon": "📐",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Maths Mela — Class 5 (First Edition July 2025, Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "mat5_u01",
+      "name": "We the Travellers — I",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "mat5_c001",
+          "name": "Large Numbers and Place Value",
+          "description": "Large numbers are used to describe distances and populations in everyday life. Place value tells us the value of each digit depending on its position — ones, tens, hundreds, thousands, ten thousands, lakhs, and crores. For example, in the number 34,56,789 the digit 3 is in the crores place and stands for 30,00,000. We use commas to separate periods and make reading large numbers easier. Comparing large numbers means looking at the number of digits first; if equal, compare from the leftmost digit.",
+          "expectedDifficulty": "OK",
+          "aliases": ["place value", "large numbers", "crores and lakhs", "number names"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat5_c002",
+          "name": "Number Operations in Travel Context",
+          "description": "Addition, subtraction, multiplication, and division of large numbers are used to solve real-life travel problems. For example, if a train travels 1,24,500 km in a year and a bus travels 98,750 km, we subtract to find the difference. Estimation helps when exact answers are not needed — we round numbers to the nearest ten, hundred, or thousand before calculating. Word problems about distance, time, and speed require choosing the correct operation. Always check the reasonableness of an answer by estimating first.",
+          "expectedDifficulty": "OK",
+          "aliases": ["addition of large numbers", "subtraction of large numbers", "estimation", "word problems"],
+          "prerequisites": ["mat5_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat5_u02",
+      "name": "Fractions",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "mat5_c003",
+          "name": "Fractions as Parts of a Whole",
+          "description": "A fraction represents one or more equal parts of a whole. The bottom number (denominator) tells how many equal parts the whole is divided into, and the top number (numerator) tells how many parts we are considering. Equivalent fractions name the same amount — for example, 1/2 = 2/4 = 4/8. We can find equivalent fractions by multiplying or dividing both the numerator and denominator by the same number. Fractions can also be shown on a number line between 0 and 1.",
+          "expectedDifficulty": "OK",
+          "aliases": ["numerator", "denominator", "equivalent fractions", "parts of a whole"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat5_c004",
+          "name": "Comparing Fractions",
+          "description": "To compare fractions with the same denominator, simply compare the numerators — the larger the numerator, the larger the fraction. To compare fractions with different denominators, first convert them to equivalent fractions with a common denominator. For example, to compare 1/3 and 1/2, convert both to sixths: 2/6 and 3/6 — so 1/2 is greater. A fraction that represents more than one whole is called an improper fraction (e.g., 5/3) and can also be written as a mixed number (1 and 2/3).",
+          "expectedDifficulty": "HARD",
+          "aliases": ["comparing fractions", "common denominator", "improper fractions", "mixed numbers"],
+          "prerequisites": ["mat5_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat5_u03",
+      "name": "Angles as Turns",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "mat5_c005",
+          "name": "Angles as Amounts of Turning",
+          "description": "An angle is the amount of turn between two directions. A full turn is 360 degrees, a half turn is 180 degrees, and a quarter turn (right angle) is 90 degrees. When you turn to face a completely opposite direction, that is a half turn. Angles smaller than 90 degrees are called acute angles, and angles greater than 90 degrees but less than 180 degrees are called obtuse angles. We measure angles in degrees using a protractor by aligning its centre and baseline with the vertex and one arm of the angle.",
+          "expectedDifficulty": "OK",
+          "aliases": ["angles", "full turn", "half turn", "quarter turn", "right angle", "acute angle", "obtuse angle"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat5_c006",
+          "name": "Measuring Angles with a Protractor",
+          "description": "A protractor is a semicircular tool marked from 0 to 180 degrees, used to measure and draw angles. To measure an angle, place the centre hole of the protractor on the vertex (the point where the two arms meet) and align the 0-degree line with one arm of the angle. Read the number on the scale where the other arm points. When drawing an angle, draw one arm first, place the protractor correctly, mark the required degree, and join the mark to the vertex.",
+          "expectedDifficulty": "OK",
+          "aliases": ["protractor", "measuring angles", "drawing angles", "vertex"],
+          "prerequisites": ["mat5_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat5_u04",
+      "name": "We the Travellers — II",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "mat5_c007",
+          "name": "Multi-digit Addition and Subtraction",
+          "description": "When adding or subtracting numbers with many digits, we line up the digits by place value and work from right to left. In addition, if a column's sum is 10 or more, we carry over to the next column. In subtraction, if the top digit is smaller than the bottom digit, we borrow from the next column. Mental arithmetic strategies include breaking numbers into parts — for example, 4,568 + 2,999 can be solved as 4,568 + 3,000 − 1 = 7,567. Estimation by rounding helps us check if an answer is reasonable.",
+          "expectedDifficulty": "OK",
+          "aliases": ["addition", "subtraction", "carrying", "borrowing", "mental arithmetic"],
+          "prerequisites": ["mat5_c001"],
+          "order": 1
+        },
+        {
+          "id": "mat5_c008",
+          "name": "Word Problems with Distance and Time",
+          "description": "Word problems describe a real situation and ask us to find an unknown value using mathematics. We read carefully to decide whether to add, subtract, multiply, or divide. Distance problems often involve finding the total journey length or the difference between two distances. Time problems may ask how long a journey takes or at what time someone arrives. Writing a number sentence (equation) before solving helps organise the work. Always include the correct unit (km, hours, minutes) in the final answer.",
+          "expectedDifficulty": "OK",
+          "aliases": ["word problems", "distance", "time", "number sentence"],
+          "prerequisites": ["mat5_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat5_u05",
+      "name": "Far and Near",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "mat5_c009",
+          "name": "Units of Length and Conversion",
+          "description": "Length is measured using standard units: millimetres (mm), centimetres (cm), metres (m), and kilometres (km). The relationships between units are: 10 mm = 1 cm, 100 cm = 1 m, and 1,000 m = 1 km. We choose the unit that best suits the object being measured — millimetres for small objects, kilometres for long distances. Converting from a larger unit to a smaller unit requires multiplication (e.g., 3 km = 3,000 m), and from smaller to larger requires division (e.g., 500 cm = 5 m).",
+          "expectedDifficulty": "OK",
+          "aliases": ["millimetre", "centimetre", "metre", "kilometre", "unit conversion", "length"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat5_c010",
+          "name": "Estimating Lengths and Scale",
+          "description": "Estimation means making a careful guess without measuring exactly. We can estimate length by comparing an object to a known reference — for example, a door is about 2 metres tall. Scale is used on maps and drawings so that large real distances are represented by smaller lengths on paper. A scale of 1 cm = 1 km means every centimetre on the map stands for 1 kilometre in real life. To find the actual distance, we measure the map length and multiply by the scale factor.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["estimation", "scale", "map distance", "actual distance"],
+          "prerequisites": ["mat5_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat5_u06",
+      "name": "The Dairy Farm",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "mat5_c011",
+          "name": "Multiplication Concepts and Tables",
+          "description": "Multiplication is a quick way of adding the same number repeatedly. For example, 6 × 4 means adding 6 four times: 6 + 6 + 6 + 6 = 24. Knowing multiplication tables from 2 to 12 makes calculations faster. Properties of multiplication include: any number multiplied by 1 stays the same (identity property), any number multiplied by 0 gives 0, and the order of multiplication does not change the product (commutative property, e.g., 3 × 5 = 5 × 3). Multiplication is used to find totals when groups are of equal size.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["multiplication tables", "times tables", "repeated addition", "product"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat5_c012",
+          "name": "Problem Solving with Unknown Values",
+          "description": "In some problems a missing number is represented by a shape or symbol, and we must find its value using clues. For example, if a triangle + triangle = 10, then triangle = 5. These number puzzles build the idea of a variable in algebra. We solve them by trying values, using inverse operations, or reasoning logically. If the same shape appears in many problems, its value must be consistent — finding one value often helps solve others. This kind of thinking is called algebraic reasoning.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["unknown values", "number puzzles", "algebraic thinking", "variable"],
+          "prerequisites": ["mat5_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat5_u07",
+      "name": "Shapes and Patterns",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "mat5_c013",
+          "name": "2D Shapes and Their Properties",
+          "description": "Two-dimensional (2D) shapes are flat figures with length and width but no height. Common 2D shapes include triangles (3 sides), rectangles (4 sides, opposite sides equal), squares (4 equal sides and 4 right angles), circles (no sides, one curved boundary), pentagons (5 sides), and hexagons (6 sides). Regular shapes have all sides equal and all angles equal. The number of sides and angles are key properties we use to name and sort shapes. Shapes can be found in buildings, tiles, and natural objects around us.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["triangle", "rectangle", "square", "pentagon", "hexagon", "2D shapes"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat5_c014",
+          "name": "Geometric Patterns and Tessellations",
+          "description": "A pattern is a repeated arrangement of shapes, colours, or numbers following a rule. Geometric patterns use shapes arranged in a regular repeating sequence. Tessellation is when shapes fit together perfectly to cover a flat surface with no gaps and no overlaps, like tiles on a floor or weaving patterns on a mat. Regular shapes that tessellate include squares, equilateral triangles, and regular hexagons. Identifying the repeating unit (core) of a pattern helps us extend it correctly.",
+          "expectedDifficulty": "OK",
+          "aliases": ["patterns", "tessellation", "tiling", "repeating pattern"],
+          "prerequisites": ["mat5_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat5_u08",
+      "name": "Weight and Capacity",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "mat5_c015",
+          "name": "Units of Weight",
+          "description": "Weight tells us how heavy an object is. The standard units of weight are grams (g) and kilograms (kg). One kilogram equals 1,000 grams. We use grams for lighter objects like a biscuit or a pencil, and kilograms for heavier objects like a bag of rice or a person. We read the weight of an object from a weighing scale by identifying which marking the needle points to. To convert kilograms to grams we multiply by 1,000; to convert grams to kilograms we divide by 1,000.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["grams", "kilograms", "weight", "mass", "weighing scale"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat5_c016",
+          "name": "Units of Capacity",
+          "description": "Capacity is the amount of liquid a container can hold. The standard units of capacity are millilitres (ml) and litres (l). One litre equals 1,000 millilitres. Millilitres are used for small quantities like a spoonful of syrup, while litres are used for larger quantities like a bottle of water. Reading a measuring jug means identifying the scale markings and the level at which the liquid surface sits. Converting between litres and millilitres uses the same rule as for kg and g: multiply or divide by 1,000.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["millilitres", "litres", "capacity", "volume", "measuring jug"],
+          "prerequisites": ["mat5_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat5_u09",
+      "name": "Coconut Farm",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "mat5_c017",
+          "name": "Relationship Between Multiplication and Division",
+          "description": "Multiplication and division are inverse (opposite) operations. Every multiplication fact gives two related division facts: if 5 × 7 = 35, then 35 ÷ 7 = 5 and 35 ÷ 5 = 7. Division means splitting a total into equal groups. The number being divided is called the dividend, the number we divide by is the divisor, and the answer is the quotient. When things cannot be shared equally, what is left over is called the remainder. The remainder is always smaller than the divisor.",
+          "expectedDifficulty": "OK",
+          "aliases": ["division", "divisor", "dividend", "quotient", "remainder", "inverse operations"],
+          "prerequisites": ["mat5_c011"],
+          "order": 1
+        },
+        {
+          "id": "mat5_c018",
+          "name": "Long Division and Word Problems",
+          "description": "Long division is a step-by-step method to divide large numbers. The steps are: Divide, Multiply, Subtract, Bring down — repeated until all digits of the dividend have been used. For example, 736 ÷ 4: 4 goes into 7 once (4), subtract to get 3, bring down 3 to get 33, 4 goes into 33 eight times (32), subtract to get 1, bring down 6 to get 16, 4 goes into 16 four times exactly. The quotient is 184. Division word problems ask us to find how many in each group or how many equal groups can be made.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["long division", "division algorithm", "division word problems"],
+          "prerequisites": ["mat5_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat5_u10",
+      "name": "Symmetrical Designs",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "mat5_c019",
+          "name": "Line Symmetry",
+          "description": "A shape has line symmetry if it can be folded along a line so that both halves match exactly. The fold line is called the line of symmetry or axis of symmetry. Many letters of the alphabet, regular shapes, and natural objects are symmetric. A square has 4 lines of symmetry, a rectangle has 2, an equilateral triangle has 3, and a circle has infinitely many. Some shapes have no line of symmetry, such as a scalene triangle or the letter Z. Symmetry is widely used in art, architecture, and design.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["line of symmetry", "axis of symmetry", "symmetric shapes", "mirror symmetry"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat5_c020",
+          "name": "Creating Symmetric Designs and Reflection",
+          "description": "Reflection is when a shape is flipped across a line to produce its mirror image. The reflected image is the same size and shape as the original but faces the opposite way. To complete a symmetric design, we draw the mirror image of each part on the other side of the line of symmetry. Cutting a folded piece of paper creates symmetric shapes because both layers are cut the same way. Artists use symmetry in rangoli, tiles, fabric designs, and architecture to create balanced and pleasing patterns.",
+          "expectedDifficulty": "OK",
+          "aliases": ["reflection", "mirror image", "symmetric design", "completing symmetry"],
+          "prerequisites": ["mat5_c019"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat5_u11",
+      "name": "Grandmother's Quilt",
+      "order": 11,
+      "concepts": [
+        {
+          "id": "mat5_c021",
+          "name": "Perimeter",
+          "description": "Perimeter is the total length of the boundary of a shape. To find the perimeter we add the lengths of all the sides. For a rectangle with length l and breadth b, the perimeter = 2 × (l + b). For a square with side s, the perimeter = 4 × s. For irregular shapes, we simply add all the side lengths. Perimeter is measured in units of length such as cm or m. A practical example is finding the length of lace needed to go around the border of a quilt or the fencing needed around a garden.",
+          "expectedDifficulty": "OK",
+          "aliases": ["perimeter", "boundary length", "fencing", "border"],
+          "prerequisites": ["mat5_c009"],
+          "order": 1
+        },
+        {
+          "id": "mat5_c022",
+          "name": "Area",
+          "description": "Area is the amount of surface covered by a shape. We measure area in square units such as square centimetres (cm²) or square metres (m²). For a rectangle, area = length × breadth. For a square, area = side × side. For irregular shapes drawn on squared paper, we count the full squares inside the shape, then estimate the half-squares. Two shapes can have the same area but different perimeters, and two shapes can have the same perimeter but different areas — showing that perimeter and area are independent measurements.",
+          "expectedDifficulty": "OK",
+          "aliases": ["area", "square units", "surface area", "length × breadth"],
+          "prerequisites": ["mat5_c021"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat5_u12",
+      "name": "Racing Seconds",
+      "order": 12,
+      "concepts": [
+        {
+          "id": "mat5_c023",
+          "name": "Units of Time and Reading Clocks",
+          "description": "Time is measured in seconds (s), minutes (min), hours (h), days, weeks, and months. Key conversions: 60 seconds = 1 minute, 60 minutes = 1 hour, 24 hours = 1 day, 7 days = 1 week, 12 months = 1 year. A 12-hour clock shows AM (midnight to noon) and PM (noon to midnight). A 24-hour clock, also called railway time, runs from 00:00 (midnight) to 23:59. For example, 3:00 PM in 24-hour time is 15:00. Reading an analogue clock involves identifying the hour hand (short) and minute hand (long).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["seconds", "minutes", "hours", "12-hour clock", "24-hour clock", "AM", "PM"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat5_c024",
+          "name": "Elapsed Time and Time Intervals",
+          "description": "Elapsed time is the amount of time that passes between a start time and an end time. To find elapsed time, subtract the start time from the end time. For example, if a yoga session starts at 6:15 AM and ends at 7:00 AM, the elapsed time is 45 minutes. When the times span AM and PM, we must be careful about the 12-hour boundary. Duration problems may involve adding a time interval to a start time to find the end time. Timetables for trains and school schedules use elapsed time calculations.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["elapsed time", "duration", "time interval", "start time", "end time"],
+          "prerequisites": ["mat5_c023"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat5_u13",
+      "name": "Animal Jumps",
+      "order": 13,
+      "concepts": [
+        {
+          "id": "mat5_c025",
+          "name": "Multiplication Patterns and Multiples",
+          "description": "A multiple of a number is the result of multiplying it by a whole number. For example, the multiples of 4 are 4, 8, 12, 16, 20, and so on. Skip-counting by any number generates its multiples. A number that divides another exactly is called a factor of that number. For example, the factors of 12 are 1, 2, 3, 4, 6, and 12. Every number is a factor of itself, and 1 is a factor of every number. Recognising patterns in multiplication tables — such as all multiples of 5 ending in 0 or 5 — makes mental maths faster.",
+          "expectedDifficulty": "OK",
+          "aliases": ["multiples", "factors", "skip counting", "multiplication patterns"],
+          "prerequisites": ["mat5_c011"],
+          "order": 1
+        },
+        {
+          "id": "mat5_c026",
+          "name": "Prime, Composite, and Square Numbers",
+          "description": "A prime number has exactly two factors: 1 and itself. Examples of prime numbers are 2, 3, 5, 7, 11, and 13. The number 1 is neither prime nor composite. A composite number has more than two factors; examples include 4, 6, 9, and 12. A square number is the product of a number multiplied by itself: 1, 4, 9, 16, 25, and so on. Square numbers can be shown as arrangements of dots in a square grid. Identifying prime numbers among the first few whole numbers is an important skill for higher-level number theory.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["prime numbers", "composite numbers", "square numbers", "factors of a number"],
+          "prerequisites": ["mat5_c025"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat5_u14",
+      "name": "Maps and Locations",
+      "order": 14,
+      "concepts": [
+        {
+          "id": "mat5_c027",
+          "name": "Cardinal Directions and Compass",
+          "description": "The four cardinal directions are North (N), South (S), East (E), and West (W). The Sun rises in the East and sets in the West, which helps us find directions outdoors. A compass is an instrument with a needle that always points North due to Earth's magnetic field, allowing us to find all four directions. The four intermediate directions are North-East (NE), North-West (NW), South-East (SE), and South-West (SW). Giving accurate directions using cardinal points — for example, 'walk North for 2 km, then turn East' — is a practical navigation skill.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["cardinal directions", "compass", "North South East West", "navigation"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat5_c028",
+          "name": "Reading Maps and Grid References",
+          "description": "A map is a flat drawing that represents a real place from above. Maps use a scale to show actual distances in a smaller size. A grid on a map uses letters (columns) and numbers (rows) to create grid references, which pinpoint exact locations — for example, B3 means column B, row 3. A map legend (key) explains the symbols used for roads, rivers, buildings, and other features. Following a route on a map requires reading the scale, identifying landmarks, and using direction words. Map-reading is an essential life skill for travel and exploration.",
+          "expectedDifficulty": "OK",
+          "aliases": ["map reading", "grid reference", "map scale", "map legend", "landmark"],
+          "prerequisites": ["mat5_c027", "mat5_c010"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat5_u15",
+      "name": "Data Through Pictures",
+      "order": 15,
+      "concepts": [
+        {
+          "id": "mat5_c029",
+          "name": "Data Collection and Tally Marks",
+          "description": "Data is a collection of facts or numbers gathered through observation or surveys. We collect data by asking questions and recording responses. Tally marks are a quick way to count: four vertical lines are crossed by a fifth diagonal line, making a group of five easy to count later. A frequency table organises data by listing each category and its count. For example, a survey about favourite colours produces a table showing how many students chose each colour. Clean, organised data collection is the first step in any investigation.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["data collection", "tally marks", "frequency table", "survey"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat5_c030",
+          "name": "Pictographs and Bar Graphs",
+          "description": "A pictograph uses pictures or symbols to represent data, where each picture stands for a fixed number. For example, one smiley face = 5 students. To find the total for a category, count the pictures and multiply by the key value. A bar graph uses bars of different heights (or lengths) to show quantities; the taller the bar, the greater the value. Both types of graphs have a title, labelled axes, and a scale or key. Reading graphs involves finding which category is the most or least popular, comparing values, and calculating totals or differences.",
+          "expectedDifficulty": "OK",
+          "aliases": ["pictograph", "bar graph", "picture graph", "interpreting graphs", "data representation"],
+          "prerequisites": ["mat5_c029"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 3,
+    "board": "CBSE",
+    "subject": "General Knowledge",
+    "subjectColor": "#F59E0B",
+    "subjectIcon": "🌟",
+    "generatedAt": "2026-06-01",
+    "textbook": "Common Class 3 GK Curriculum"
+  },
+  "units": [
+    {
+      "id": "gk3_u01",
+      "name": "India — Our Country",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "gk3_c001",
+          "name": "India — Basic Facts and National Symbols",
+          "description": "India is a large country in South Asia. Its capital city is New Delhi. India has 28 states and 8 Union Territories. National symbols: national animal — Bengal Tiger; national bird — Peacock; national flower — Lotus; national fruit — Mango; national tree — Banyan. The national flag (Tiranga) has three horizontal stripes — saffron (top), white (middle), and green (bottom) — with a navy blue Ashoka Chakra (24-spoke wheel) in the centre. The national anthem is 'Jana Gana Mana', written by Rabindranath Tagore. The national song is 'Vande Mataram', written by Bankim Chandra Chattopadhyay. India's currency is the Indian Rupee (₹).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["India facts", "national symbols", "national animal bird flower", "national flag", "Jana Gana Mana"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk3_c002",
+          "name": "Our State and Neighbours",
+          "description": "India is made up of 28 states, each with its own language, food, clothing, and traditions. Neighbouring countries of India: Pakistan (north-west), China and Nepal (north), Bhutan (north-east), Bangladesh (east), Myanmar (far east), and Sri Lanka (off the southern coast, separated by the Palk Strait). The Himalayas are the highest mountains in the world, forming India's northern border. Major rivers include the Ganga, Yamuna, Brahmaputra, Narmada, Godavari, and Cauvery. The Indian Ocean is to the south, the Arabian Sea to the south-west, and the Bay of Bengal to the south-east. India's full name is the Republic of India (Bharat).",
+          "expectedDifficulty": "OK",
+          "aliases": ["India's neighbours", "states of India", "Himalayas", "Indian rivers", "Bharat"],
+          "prerequisites": ["gk3_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk3_u02",
+      "name": "The World Around Us",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "gk3_c003",
+          "name": "Continents and Oceans",
+          "description": "The Earth has seven continents: Asia (the largest, where India is located), Africa (second largest), North America, South America, Antarctica (the coldest, covered in ice), Europe, and Australia/Oceania (the smallest). A memory trick: 'Ants Are Never Afraid of Eating Apple Soup' (Asia, Africa, North America, South America, Antarctica, Australia, Europe). The Earth has five oceans: Pacific (largest and deepest), Atlantic, Indian, Arctic, and Southern. The Pacific Ocean is bigger than all the world's land combined. The Indian Ocean touches India's southern coast. Earth is called the 'Blue Planet' because about 71% of its surface is covered by water.",
+          "expectedDifficulty": "OK",
+          "aliases": ["seven continents", "five oceans", "Pacific Atlantic Indian", "Blue Planet", "Asia Africa"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk3_c004",
+          "name": "Famous Places in the World",
+          "description": "Different countries are known for remarkable places. The Taj Mahal in Agra, India — a white marble monument built by Emperor Shah Jahan for his wife Mumtaz Mahal — is one of the Seven Wonders of the Modern World. The Eiffel Tower is a tall iron tower in Paris, France. The Great Wall of China stretches over 21,000 km across northern China and was built to protect the country from invaders. The Pyramids of Giza in Egypt are ancient tombs over 4,500 years old. The Statue of Liberty stands in New York harbour, USA, and is a symbol of freedom. The Amazon Rainforest in South America is the world's largest tropical rainforest.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Taj Mahal", "Eiffel Tower", "Great Wall of China", "Pyramids", "Statue of Liberty", "world wonders"],
+          "prerequisites": ["gk3_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk3_u03",
+      "name": "Plants and Animals",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "gk3_c005",
+          "name": "Interesting Animal Facts",
+          "description": "The animal world is full of fascinating facts. The cheetah is the fastest land animal (up to 120 km/h). The elephant is the largest land animal and has the longest gestation period (22 months). The blue whale is the largest animal ever to live on Earth (up to 30 m long). The giraffe is the tallest animal (up to 6 m). A chameleon changes its colour to communicate and to camouflage itself. A butterfly starts life as a caterpillar — this transformation is called metamorphosis. The hummingbird is the smallest bird and can hover and even fly backwards. Dolphins are highly intelligent and communicate using clicks and whistles (echolocation). A group of lions is called a pride; a group of elephants is a herd; a group of wolves is a pack.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["animal facts", "cheetah fastest", "blue whale", "giraffe tallest", "chameleon", "metamorphosis", "dolphin"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk3_c006",
+          "name": "Amazing Plants",
+          "description": "Plants are fascinating in many ways. The Rafflesia arnoldii of Southeast Asia produces the world's largest flower (up to 1 m across) — and it smells like rotting meat to attract flies for pollination! The Banyan tree (India's national tree) spreads by growing aerial roots that touch the ground and become new trunks — one banyan tree can look like an entire forest. The Venus flytrap is a carnivorous plant that catches and digests insects. Bamboo is the world's fastest-growing plant — some species grow 90 cm per day! The cactus can survive in deserts for years without rain by storing water in its thick stem. The teak tree of India produces very hard, valuable timber used in furniture and ships.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Rafflesia", "Banyan tree", "Venus flytrap", "bamboo", "cactus", "amazing plants", "carnivorous plant"],
+          "prerequisites": ["gk3_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk3_u04",
+      "name": "Our Body and Health",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "gk3_c007",
+          "name": "The Five Senses",
+          "description": "Our five senses help us experience the world. Sight (eyes): we see colour, shape, size, and movement. Hearing (ears): we detect sound and its direction; the outer ear collects sound, the eardrum vibrates, and tiny bones send signals to the brain. Smell (nose): smell detectors in the nose send information to the brain — humans can detect about 1 trillion different smells. Taste (tongue): taste buds detect sweet, sour, salty, bitter, and savoury (umami) flavours. Touch (skin): receptors in the skin detect pressure, temperature, pain, and texture. Sight is our most dominant sense — about 80% of the information we gather comes through our eyes. People who lack one sense often have heightened other senses.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["five senses", "sight hearing smell taste touch", "eyes ears nose tongue skin", "senses"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk3_c008",
+          "name": "Keeping Our Body Healthy",
+          "description": "A healthy body needs the right food, enough sleep, regular exercise, and good hygiene. Children aged 6–12 need about 8–10 hours of sleep per night for healthy brain development. Physical activity — running, swimming, cycling, yoga — keeps the heart, lungs, and muscles strong and improves mood. A balanced diet includes all food groups: grains, proteins, fruits, vegetables, and a little dairy or healthy fat. Drinking 6–8 glasses of water daily is essential. Vaccines (jabs or injections) teach our immune system to fight diseases like polio, measles, and chickenpox without getting ill. Visiting the dentist twice a year prevents tooth decay. Exercise and a healthy lifestyle are the best medicines.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["healthy body", "sleep exercise diet", "vaccines", "physical activity", "balanced diet", "hygiene"],
+          "prerequisites": ["gk3_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk3_u05",
+      "name": "Science Around Us",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "gk3_c009",
+          "name": "The Solar System",
+          "description": "Our Solar System has the Sun at the centre and eight planets that orbit (go around) it. In order from the Sun: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune. Memory trick: 'My Very Efficient Mother Just Serves Us Nachos.' Earth is the third planet from the Sun and the only one known to support life. Mars is the 'Red Planet' (red due to iron oxide/rust in its soil). Jupiter is the largest planet. Saturn has beautiful rings made of ice and rock. The Moon is Earth's natural satellite — it orbits Earth every 29.5 days. A day is the time Earth takes to spin once on its axis (24 hours); a year is the time it takes to orbit the Sun (365.25 days).",
+          "expectedDifficulty": "OK",
+          "aliases": ["solar system", "eight planets", "Sun Moon Earth", "Mars red planet", "Saturn rings"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk3_c010",
+          "name": "Simple Science Facts",
+          "description": "Science explains how the world works. Light travels much faster than sound — that is why we see lightning before hearing thunder. A magnet has two poles (North and South); opposite poles attract and like poles repel. Water expands when it freezes — that is why ice floats on water (unusual for a solid!). Air has weight — we live at the bottom of a thick blanket of air called the atmosphere that presses down on everything (atmospheric pressure). A rainbow forms when sunlight passes through raindrops and splits into seven colours: Violet, Indigo, Blue, Green, Yellow, Orange, Red (VIBGYOR). Electricity flows through conductors (metals) but not through insulators (wood, rubber, plastic).",
+          "expectedDifficulty": "OK",
+          "aliases": ["lightning thunder", "magnet poles", "rainbow VIBGYOR", "ice floats", "atmosphere", "conductor insulator"],
+          "prerequisites": ["gk3_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk3_u06",
+      "name": "Sports and Games",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "gk3_c011",
+          "name": "Indian Sports and Champions",
+          "description": "Hockey is India's national sport. India has won eight Olympic gold medals in hockey — more than any other country. Cricket is the most popular sport in India; the BCCI (Board of Control for Cricket in India) governs it. Sachin Tendulkar, known as the 'God of Cricket', was the first player to score 100 international centuries. Neeraj Chopra won gold in javelin throw at the Tokyo 2020 Olympics — India's first Olympic gold in athletics. P.V. Sindhu is India's most successful badminton player (Olympic silver and bronze medals). Mary Kom is a six-time World Champion boxer. Mithali Raj was the captain of India's women's cricket team and the highest run-scorer in women's international cricket.",
+          "expectedDifficulty": "OK",
+          "aliases": ["hockey India", "Sachin Tendulkar", "Neeraj Chopra", "PV Sindhu", "Mary Kom", "Indian sports"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk3_c012",
+          "name": "Traditional Indian Games",
+          "description": "India has a rich tradition of outdoor games that have been played for generations. Kabaddi is a contact sport where one player (raider) enters the opposing team's half, tags players, and returns while chanting 'kabaddi'. It requires strength, speed, and breath control. Kho-Kho is a fast-paced tag game played by teams of 9, with a chaser trying to catch runners. Gilli-Danda uses a long stick (danda) to hit a small wooden pin (gilli) — one of the oldest bat-and-ball games in the world, possibly an ancestor of cricket. Lagori (Seven Stones) involves toppling a pile of stones with a ball and rebuilding it. Pitthu, Marbles, Hopscotch, and various spinning-top (lattu) games are also classic Indian childhood games that build agility, teamwork, and joy.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Kabaddi", "Kho-Kho", "Gilli-Danda", "Lagori", "traditional games", "Indian outdoor games"],
+          "prerequisites": ["gk3_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk3_u07",
+      "name": "Festivals and Culture",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "gk3_c013",
+          "name": "Major Festivals of India",
+          "description": "India is a land of festivals — it is said there is a celebration somewhere in India every single day! Diwali (Festival of Lights): Hindus, Sikhs, and Jains light diyas, burst crackers, and share sweets. Eid-ul-Fitr: Muslims celebrate the end of Ramadan by offering prayers, feasting, and giving zakat (charity) to those in need. Christmas (25 December): Christians celebrate the birth of Jesus with carols, gifts, and church services. Navratri and Durga Puja (autumn): nine nights of dance (Garba, Dandiya) and worship of Goddess Durga. Holi (Festival of Colours): people throw coloured powder and water to celebrate spring and the victory of good over evil. Every festival teaches values — generosity, gratitude, and community spirit.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Diwali", "Eid", "Christmas", "Holi", "Navratri", "Durga Puja", "Indian festivals"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk3_c014",
+          "name": "Food and Clothing of India",
+          "description": "India's food varies hugely by region. North India: roti, dal, sabzi, paneer dishes, and lassi. South India: rice, idli, dosa, sambar, and coconut chutney. East India: fish curry, rice, and sweets like rasgulla and sandesh (Bengal). West India: dhokla, thepla, and seafood (Gujarat and Maharashtra). Indian spices — turmeric, cumin, coriander, cardamom — are used worldwide. Traditional clothing: women wear sarees (draped cloth), salwar-kameez, or lehengas; men wear kurta-pyjama or dhoti. Different states have distinct traditional attire — the Kanjeevaram silk saree (Tamil Nadu), Phulkari dupatta (Punjab), and Bandhani fabric (Gujarat). Khadi (hand-spun fabric) was promoted by Mahatma Gandhi as a symbol of self-reliance.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Indian food", "regional food", "Indian clothing", "saree", "khadi", "Indian spices"],
+          "prerequisites": ["gk3_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk3_u08",
+      "name": "Famous Indians",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "gk3_c015",
+          "name": "Freedom Fighters of India",
+          "description": "India was under British colonial rule for nearly 200 years and gained independence on 15 August 1947 through the courage of many freedom fighters. Mahatma Gandhi ('Father of the Nation') led peaceful movements — the Salt March (Dandi March, 1930) and Non-Cooperation Movement. His principles of non-violence (ahimsa) and truth (satya) inspired the world. Jawaharlal Nehru was India's first Prime Minister and gave the famous 'Tryst with Destiny' speech at midnight on 14–15 August 1947. Subhas Chandra Bose formed the Indian National Army and gave the slogan 'Jai Hind'. Bhagat Singh, Rajguru, and Sukhdev sacrificed their lives at a young age. Rani Lakshmibai of Jhansi fought the British in 1857.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Mahatma Gandhi", "Jawaharlal Nehru", "Bhagat Singh", "Rani Lakshmibai", "freedom fighters", "independence 1947"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk3_c016",
+          "name": "Indian Scientists and Achievers",
+          "description": "India has produced brilliant scientists, artists, and leaders. C.V. Raman discovered the Raman Effect (scattering of light) and won the Nobel Prize for Physics in 1930 — the first Asian to win a Nobel in science. Aryabhata (5th century AD) calculated the approximate value of pi and explained that Earth rotates on its axis. Homi Bhabha founded India's nuclear programme. Kalpana Chawla was the first woman of Indian origin to go to space (1997). Sundar Pichai, born in Tamil Nadu, became CEO of Google. Ratan Tata is a famous industrialist and philanthropist who built the Tata Group into a global company. Lata Mangeshkar, the 'Nightingale of India', sang over 30,000 songs in her lifetime.",
+          "expectedDifficulty": "OK",
+          "aliases": ["CV Raman", "Aryabhata", "Kalpana Chawla", "Sundar Pichai", "Lata Mangeshkar", "Indian scientists"],
+          "prerequisites": ["gk3_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk3_u09",
+      "name": "Environment and Nature",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "gk3_c017",
+          "name": "Seasons and Weather",
+          "description": "India experiences four main seasons. Summer (March–May): hot and dry; temperatures in some parts reach over 45°C. Monsoon (June–September): heavy rains brought by the south-west monsoon winds, which are essential for farming and filling reservoirs. Autumn (October–November): rains lessen, weather cools, and festivals like Diwali and Dussehra are celebrated. Winter (December–February): cold, especially in North India — some areas experience snow in the Himalayas. Seasons are caused by Earth's tilt as it orbits the Sun — the hemisphere tilted toward the Sun gets summer while the other gets winter. Weather is the day-to-day condition of the atmosphere; climate is the average weather over many years.",
+          "expectedDifficulty": "OK",
+          "aliases": ["seasons", "summer monsoon autumn winter", "monsoon India", "weather climate", "Earth's tilt"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk3_c018",
+          "name": "Protecting Our Environment",
+          "description": "The environment is everything around us — air, water, land, plants, and animals. Human activities like cutting forests, burning fossil fuels, and dumping plastic are damaging the environment. Global warming (the gradual rise in Earth's temperature due to greenhouse gases like carbon dioxide) causes more extreme weather, melting of glaciers, and rising sea levels. We can help protect the environment: plant trees, save water, reduce plastic use, use renewable energy (solar, wind), segregate and recycle waste, and avoid burning rubbish. In India, Project Tiger (1973) protected tigers from extinction; the Forest Rights Act protects tribal communities and forests. Each of us has a role — even small actions like carrying a cloth bag make a difference.",
+          "expectedDifficulty": "OK",
+          "aliases": ["global warming", "greenhouse gases", "Project Tiger", "environment protection", "renewable energy", "deforestation"],
+          "prerequisites": ["gk3_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk3_u10",
+      "name": "Important Days and Numbers",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "gk3_c019",
+          "name": "Important Days in the Year",
+          "description": "Certain days are celebrated every year to remember important events or raise awareness. National days of India: Republic Day (26 January), Independence Day (15 August), Gandhi Jayanti (2 October). Children's Day is 14 November (Jawaharlal Nehru's birthday, as he loved children and was called 'Chacha Nehru'). Teachers' Day is 5 September (birthday of Dr. Sarvepalli Radhakrishnan, India's second President and a great teacher). World Earth Day is 22 April (for environmental awareness). World Environment Day is 5 June. World Health Day is 7 April. International Day of Yoga is 21 June (proposed by India to the United Nations in 2015). World Book Day is 23 April (UNESCO).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Republic Day", "Independence Day", "Children's Day", "Teachers' Day", "Gandhi Jayanti", "important days"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk3_c020",
+          "name": "Interesting Numbers and Records",
+          "description": "Numbers can be fascinating. India is the most populous country with over 1.4 billion people. The highest mountain in the world is Mount Everest at 8,848 metres. The longest river in the world is the Nile (6,650 km); in India, the Ganga is the longest river (2,525 km). The Great Wall of China is over 21,000 km long. The Olympic Games are held every 4 years. A decade has 10 years; a century has 100 years; a millennium has 1,000 years. The speed of light is about 3 lakh (300,000) km per second — so fast that it could circle the Earth 7.5 times in one second! The human body has 206 bones and about 37 trillion cells. India has 22 officially recognised languages.",
+          "expectedDifficulty": "OK",
+          "aliases": ["world records", "Mount Everest", "Nile river", "speed of light", "India population", "interesting numbers"],
+          "prerequisites": ["gk3_c019"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

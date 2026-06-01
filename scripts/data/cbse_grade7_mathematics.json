@@ -1,0 +1,379 @@
+{
+  "metadata": {
+    "grade": 7,
+    "board": "CBSE",
+    "subject": "Mathematics",
+    "subjectColor": "#3B82F6",
+    "subjectIcon": "📐",
+    "generatedAt": "2026-05-31",
+    "textbook": "NCERT Ganita Prakash Part 1 & 2 — Class 7 (Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "mat7_u01",
+      "name": "Large Numbers Around Us",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "mat7_c001",
+          "name": "Indian and International Number Systems",
+          "description": "Large numbers are used to describe populations, distances in space, and national budgets. In the Indian system, we group digits as ones, tens, hundreds, thousands, ten-thousands, lakhs (1,00,000), ten-lakhs, crores (1,00,00,000), and ten-crores. In the international system, numbers are grouped in threes: thousands (1,000), millions (1,000,000), billions (1,000,000,000). The same number reads differently in each system — for example, 1 crore = 10 million. Reading and writing large numbers correctly requires knowing which system is being used.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Indian number system", "international number system", "lakhs crores", "millions billions", "large numbers"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat7_c002",
+          "name": "Comparing and Estimating Large Numbers",
+          "description": "To compare large numbers, first compare the number of digits — more digits means a larger number. If digit counts are equal, compare digit by digit from left to right. Estimation makes large numbers easier to work with — round to the nearest lakh or million depending on the context. Estimation is useful in everyday life: estimating a crowd, the distance to the Moon (3,84,000 km ≈ 4 lakh km), or the number of heartbeats in a lifetime. Knowing when to estimate and when to be exact is an important mathematical skill.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["comparing large numbers", "estimating numbers", "rounding large numbers", "approximation"],
+          "prerequisites": ["mat7_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat7_u02",
+      "name": "Arithmetic Expressions",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "mat7_c003",
+          "name": "Order of Operations — BODMAS",
+          "description": "When a mathematical expression has more than one operation, we need rules to decide which to do first. BODMAS: Brackets first, then Orders (powers/roots), then Division and Multiplication (left to right), then Addition and Subtraction (left to right). Example: 3 + 4 × 2 = 3 + 8 = 11 (NOT 14). Without agreed-on order of operations, the same expression could give different answers to different people. Brackets let us override the default order: (3 + 4) × 2 = 7 × 2 = 14.",
+          "expectedDifficulty": "OK",
+          "aliases": ["BODMAS", "order of operations", "brackets", "arithmetic expressions", "PEMDAS"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat7_c004",
+          "name": "Evaluating and Writing Arithmetic Expressions",
+          "description": "An arithmetic expression is a mathematical phrase combining numbers and operations. To evaluate an expression means to find its value by applying BODMAS. Expressions can represent real-life situations — the cost of 3 notebooks at ₹25 each and 2 pens at ₹15 each is written as 3 × 25 + 2 × 15 = 75 + 30 = ₹105. Writing expressions correctly is as important as evaluating them. Well-written expressions communicate mathematical ideas clearly and unambiguously.",
+          "expectedDifficulty": "OK",
+          "aliases": ["evaluating expressions", "writing expressions", "arithmetic operations", "expression value"],
+          "prerequisites": ["mat7_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat7_u03",
+      "name": "A Peek Beyond the Point",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "mat7_c005",
+          "name": "Decimals — Place Value and Representation",
+          "description": "Decimals extend the place value system beyond the ones place. After the decimal point: tenths (1/10), hundredths (1/100), thousandths (1/1000). The number 3.625 means 3 ones + 6 tenths + 2 hundredths + 5 thousandths. Decimals can be converted to fractions: 0.7 = 7/10; 0.35 = 35/100 = 7/20. Fractions with denominators that are powers of 10 convert directly to decimals. Decimals appear in everyday measurement — height (1.65 m), weight (52.3 kg), and prices (₹149.50).",
+          "expectedDifficulty": "OK",
+          "aliases": ["decimals", "decimal point", "tenths hundredths thousandths", "decimal place value", "fraction to decimal"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat7_c006",
+          "name": "Operations on Decimals",
+          "description": "Adding and subtracting decimals: align decimal points, then add or subtract as whole numbers. Multiplying decimals: multiply ignoring the decimal point, then count the total decimal places in both numbers and place the decimal accordingly (e.g., 2.3 × 1.4 = 3.22). Dividing decimals: multiply both numbers by a power of 10 to make the divisor a whole number (e.g., 4.5 ÷ 0.9 = 45 ÷ 9 = 5). Multiplying or dividing by 10, 100, or 1000 just shifts the decimal point right or left.",
+          "expectedDifficulty": "OK",
+          "aliases": ["adding decimals", "multiplying decimals", "dividing decimals", "decimal operations"],
+          "prerequisites": ["mat7_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat7_u04",
+      "name": "Expressions Using Letter-Numbers",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "mat7_c007",
+          "name": "Variables and Algebraic Expressions",
+          "description": "A variable is a letter that stands for an unknown or changing quantity. An algebraic expression combines variables and numbers using operations: 3x + 5, 2a - b, n². Terms are separated by + or − signs. The coefficient is the number multiplying a variable (in 5y, the coefficient is 5). Like terms have the same variable part and can be combined (3x + 7x = 10x); unlike terms cannot. Evaluating an expression means substituting a number for the variable — if x = 4, then 3x + 5 = 3(4) + 5 = 17.",
+          "expectedDifficulty": "OK",
+          "aliases": ["variables", "algebraic expressions", "terms coefficients", "like unlike terms", "letter numbers"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat7_c008",
+          "name": "Adding and Subtracting Algebraic Expressions",
+          "description": "Only like terms can be added or subtracted — keep the variable part the same and add or subtract coefficients. Example: (3x² + 5x − 2) + (x² − 3x + 7) = 4x² + 2x + 5. To subtract an expression, reverse the sign of every term in it: (5x + 3) − (2x − 1) = 5x + 3 − 2x + 1 = 3x + 4. Algebraic expressions are used in formulas for area, perimeter, and real-life relationships. They allow us to describe a pattern that works for many values at once.",
+          "expectedDifficulty": "OK",
+          "aliases": ["adding algebraic expressions", "subtracting expressions", "combining like terms", "simplifying expressions"],
+          "prerequisites": ["mat7_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat7_u05",
+      "name": "Parallel and Intersecting Lines",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "mat7_c009",
+          "name": "Angles Formed by Intersecting Lines",
+          "description": "When two lines cross, they form 4 angles. Vertically opposite angles (across from each other) are always equal. Adjacent angles form a linear pair and add up to 180°. Complementary angles add to 90°; supplementary angles add to 180°. These relationships are used to find unknown angles without measuring. Example: if two lines intersect and one angle is 65°, the vertically opposite angle is also 65°, and the adjacent angles are each 115°.",
+          "expectedDifficulty": "OK",
+          "aliases": ["intersecting lines angles", "vertically opposite angles", "linear pair", "complementary supplementary"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat7_c010",
+          "name": "Parallel Lines and Transversals",
+          "description": "Two lines are parallel if they never meet, no matter how far they are extended. A transversal is a line that crosses two (or more) other lines. When a transversal crosses two parallel lines, specific angle relationships arise: corresponding angles are equal (they are in the same position at each intersection); alternate interior angles are equal (they are between the parallel lines, on opposite sides of the transversal); co-interior (same-side interior) angles are supplementary (they add to 180°). These properties help us determine whether lines are parallel and find missing angles.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["parallel lines transversal", "corresponding angles", "alternate interior angles", "co-interior angles"],
+          "prerequisites": ["mat7_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat7_u06",
+      "name": "Number Play",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "mat7_c011",
+          "name": "Divisibility Rules and Prime Factorisation",
+          "description": "Divisibility rules let us quickly test if a number is divisible by another without long division. Divisible by 2: last digit is even. By 3: sum of digits is divisible by 3. By 4: last two digits are divisible by 4. By 5: last digit is 0 or 5. By 9: sum of digits divisible by 9. By 10: last digit is 0. Every composite number can be broken into prime factors (prime factorisation). Example: 360 = 2³ × 3² × 5. Prime factorisation is the basis for finding HCF and LCM.",
+          "expectedDifficulty": "OK",
+          "aliases": ["divisibility rules", "prime factorisation", "factors multiples", "HCF LCM", "prime numbers"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat7_c012",
+          "name": "Number Patterns and Puzzles",
+          "description": "Numbers have beautiful patterns. Magic squares: arrange numbers so every row, column, and diagonal has the same sum. Palindromic numbers read the same forwards and backwards (e.g., 121, 12321). Kaprekar numbers have special squaring properties. Digital roots (repeatedly adding digits) reveal patterns. Fibonacci sequence (1, 1, 2, 3, 5, 8, 13…) appears in nature — the number of petals on many flowers follows it. Exploring number patterns develops mathematical intuition and creativity.",
+          "expectedDifficulty": "OK",
+          "aliases": ["number patterns", "magic squares", "palindromes", "Fibonacci sequence", "number puzzles"],
+          "prerequisites": ["mat7_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat7_u07",
+      "name": "A Tale of Three Intersecting Lines",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "mat7_c013",
+          "name": "Properties of Triangles — Angle Sum and Types",
+          "description": "Three intersecting lines form a triangle. The angle sum property: the three interior angles of any triangle always add up to 180°. An exterior angle of a triangle equals the sum of the two non-adjacent interior angles. Triangles by sides: equilateral (all sides equal, all angles 60°), isosceles (two sides equal, base angles equal), scalene (all sides different). By angles: acute (all < 90°), right (one = 90°), obtuse (one > 90°). Median: line from vertex to midpoint of opposite side. Altitude: perpendicular from vertex to opposite side.",
+          "expectedDifficulty": "OK",
+          "aliases": ["triangle angle sum 180", "exterior angle triangle", "types of triangles", "median altitude triangle"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat7_c014",
+          "name": "Pythagoras Theorem",
+          "description": "In a right-angled triangle, the side opposite the right angle is called the hypotenuse — it is always the longest side. The Pythagoras theorem states: (hypotenuse)² = (one leg)² + (other leg)². In formula: c² = a² + b². Verification: in a 3-4-5 triangle: 3² + 4² = 9 + 16 = 25 = 5² ✓. A set of three whole numbers satisfying this is called a Pythagorean triple (e.g., 3-4-5, 5-12-13). The theorem is used in construction, navigation, and everyday distance problems.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Pythagoras theorem", "hypotenuse", "right triangle", "Pythagorean triple", "c squared equals a squared plus b squared"],
+          "prerequisites": ["mat7_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat7_u08",
+      "name": "Working with Fractions",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "mat7_c015",
+          "name": "Multiplication of Fractions",
+          "description": "To multiply two fractions, multiply numerators and multiply denominators: (a/b) × (c/d) = (ac)/(bd). Simplify before multiplying when possible (cancel common factors). Multiplying by a fraction less than 1 makes the product smaller than the original. Mixed numbers must be converted to improper fractions first: 2⅓ × 1½ = (7/3) × (3/2) = 21/6 = 3½. The reciprocal of a/b is b/a; a fraction times its reciprocal always equals 1. Fraction multiplication appears in area calculations, scaling recipes, and probability.",
+          "expectedDifficulty": "OK",
+          "aliases": ["multiplying fractions", "product of fractions", "reciprocal", "mixed number multiplication"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat7_c016",
+          "name": "Division of Fractions",
+          "description": "Dividing by a fraction is the same as multiplying by its reciprocal: (a/b) ÷ (c/d) = (a/b) × (d/c). Example: 3/4 ÷ 2/5 = 3/4 × 5/2 = 15/8. To divide a whole number by a fraction, write the whole number as n/1: 6 ÷ 3/4 = 6/1 × 4/3 = 24/3 = 8. A useful check: dividing by a fraction less than 1 gives a result larger than the original (sharing 6 pizzas into pieces of ¾ gives 8 pieces). Convert mixed numbers to improper fractions before dividing.",
+          "expectedDifficulty": "OK",
+          "aliases": ["dividing fractions", "reciprocal division", "fraction divided by fraction", "mixed number division"],
+          "prerequisites": ["mat7_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat7_u09",
+      "name": "Geometric Twins",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "mat7_c017",
+          "name": "Congruent Figures",
+          "description": "Two figures are congruent if they have exactly the same shape and size — one can be placed perfectly on top of the other through slides, flips, or turns (rigid motions). For triangles, four criteria guarantee congruence: SSS (all three sides equal), SAS (two sides and the included angle equal), ASA (two angles and the included side equal), RHS (right angle, hypotenuse, one side — for right triangles). AAA does NOT prove congruence — figures with the same angles can be different sizes (similar but not congruent). Congruence is written with the symbol ≅.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["congruent figures", "SSS SAS ASA RHS", "triangle congruence criteria", "congruent triangles"],
+          "prerequisites": [],
+          "order": 1
+        }
+      ]
+    },
+    {
+      "id": "mat7_u10",
+      "name": "Operations with Integers",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "mat7_c018",
+          "name": "Addition and Subtraction of Integers",
+          "description": "Integers include all whole numbers and their negatives: …, -3, -2, -1, 0, 1, 2, 3, … Adding a positive integer moves right on the number line; adding a negative moves left. Adding a negative is the same as subtracting its absolute value: 5 + (-3) = 5 - 3 = 2. Subtracting an integer = adding its additive inverse: 5 - (-3) = 5 + 3 = 8. Additive inverse: every integer a has an inverse -a such that a + (-a) = 0. Zero is the additive identity (adding 0 changes nothing).",
+          "expectedDifficulty": "OK",
+          "aliases": ["adding integers", "subtracting integers", "negative numbers", "additive inverse", "number line integers"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat7_c019",
+          "name": "Multiplication and Division of Integers",
+          "description": "Sign rules for multiplication and division: positive × positive = positive; negative × negative = positive; positive × negative = negative; negative × positive = negative. Examples: (-4) × (-3) = 12; (-4) × 3 = -12. The same sign rules apply to division. Integer multiplication is commutative (a × b = b × a), associative, and distributes over addition. Division is not commutative. Multiplying any integer by 0 gives 0. Division by 0 is undefined. These rules are used in problems involving temperature, debt, and direction.",
+          "expectedDifficulty": "OK",
+          "aliases": ["multiplying integers", "dividing integers", "sign rules", "negative times negative positive", "integer multiplication"],
+          "prerequisites": ["mat7_c018"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat7_u11",
+      "name": "Finding Common Ground",
+      "order": 11,
+      "concepts": [
+        {
+          "id": "mat7_c020",
+          "name": "HCF, LCM, and Their Applications",
+          "description": "The Highest Common Factor (HCF) of two numbers is the largest number that divides both exactly. The Lowest Common Multiple (LCM) is the smallest number that is a multiple of both. To find HCF: use prime factorisation and take the product of common factors with the lowest powers. To find LCM: take the product of all prime factors with the highest powers. Useful relationship: HCF × LCM = Product of the two numbers. Applications: HCF helps with dividing things equally into largest groups; LCM finds when repeating events next coincide.",
+          "expectedDifficulty": "OK",
+          "aliases": ["HCF GCD", "LCM", "highest common factor", "lowest common multiple", "prime factorisation HCF LCM"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat7_c021",
+          "name": "Ratio, Proportion, and Unitary Method",
+          "description": "A ratio compares two quantities of the same kind: a:b means for every a of the first, there are b of the second. A proportion says two ratios are equal: a:b = c:d, or a/b = c/d, or ad = bc (cross-multiplication). Unitary method: find the value of one unit first, then scale. Example: if 5 notebooks cost ₹125, one notebook costs ₹25, so 8 notebooks cost ₹200. Direct proportion: more of one → more of the other. Inverse proportion: more of one → less of the other (e.g., more workers, fewer days to finish).",
+          "expectedDifficulty": "OK",
+          "aliases": ["ratio proportion", "unitary method", "direct inverse proportion", "cross multiplication proportion"],
+          "prerequisites": ["mat7_c020"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat7_u12",
+      "name": "Another Peek Beyond the Point",
+      "order": 12,
+      "concepts": [
+        {
+          "id": "mat7_c022",
+          "name": "Percentages and Percentage Change",
+          "description": "A percentage is a ratio with a denominator of 100, written with the % symbol. To convert a fraction to a percentage: multiply by 100. To convert a percentage to a fraction: divide by 100. Percentage increase = (increase ÷ original value) × 100. Percentage decrease = (decrease ÷ original value) × 100. Example: a price rises from ₹80 to ₹100 → increase = ₹20 → percentage increase = (20/80) × 100 = 25%. Percentages are used in marks, discounts, taxes, bank interest, and election results.",
+          "expectedDifficulty": "OK",
+          "aliases": ["percentages", "percent change", "percentage increase decrease", "fraction to percent"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat7_c023",
+          "name": "Profit, Loss, and Simple Interest",
+          "description": "Cost Price (CP) is the price at which something is bought; Selling Price (SP) is the price at which it is sold. Profit = SP − CP; Loss = CP − SP. Profit% = (Profit/CP) × 100; Loss% = (Loss/CP) × 100. Simple Interest (SI): I = (P × R × T) / 100, where P = Principal (the original amount), R = Rate of interest per year (%), T = Time in years. Amount = P + SI. Example: ₹5000 at 8% for 3 years → SI = 5000 × 8 × 3 / 100 = ₹1200. These are used in everyday buying, selling, and banking.",
+          "expectedDifficulty": "OK",
+          "aliases": ["profit and loss", "simple interest", "cost price selling price", "SI formula", "interest principal rate"],
+          "prerequisites": ["mat7_c022"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat7_u13",
+      "name": "Connecting the Dots",
+      "order": 13,
+      "concepts": [
+        {
+          "id": "mat7_c024",
+          "name": "Collecting Data and Measures of Central Tendency",
+          "description": "Data collected through surveys or experiments needs to be organised and analysed. Three measures summarise a data set. Mean (average) = sum of all values ÷ number of values. Median = the middle value when data is arranged in order (average of two middle values if count is even). Mode = the most frequently occurring value (there can be more than one, or none). Each measure tells a different story — the mean is affected by extreme values (outliers); the median is more stable; the mode shows the most common value.",
+          "expectedDifficulty": "OK",
+          "aliases": ["mean median mode", "average", "central tendency", "data handling", "outlier effect on mean"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat7_c025",
+          "name": "Visualising Data — Bar Graphs and Data Detective",
+          "description": "Bar graphs represent data using bars whose lengths are proportional to the values — useful for comparing categories. A double bar graph compares two sets of data side by side. Visualising data in graphs helps spot patterns and trends that are hard to see in a table of numbers. Data detective work involves asking questions about a data set: What is the range? Are there outliers? Does the average represent the group well? Reading graphs critically — noticing misleading scales or missing context — is an essential real-life skill.",
+          "expectedDifficulty": "OK",
+          "aliases": ["bar graph", "double bar graph", "visualising data", "data detective", "graphs class 7"],
+          "prerequisites": ["mat7_c024"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat7_u14",
+      "name": "Constructions and Tilings",
+      "order": 14,
+      "concepts": [
+        {
+          "id": "mat7_c026",
+          "name": "Constructing Triangles",
+          "description": "A triangle can be constructed uniquely using a ruler, compass, and protractor when given: (a) three sides (SSS); (b) two sides and the included angle (SAS); (c) two angles and the included side (ASA); (d) hypotenuse and one leg (RHS, for right triangles). Triangle inequality: a triangle exists only if the sum of any two sides is greater than the third side. These constructions correspond directly to congruence criteria — a unique construction means the triangle is fully determined.",
+          "expectedDifficulty": "OK",
+          "aliases": ["constructing triangles", "triangle construction compass", "SSS SAS ASA construction", "triangle inequality"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat7_c027",
+          "name": "Tiling and Tessellation Patterns",
+          "description": "A tessellation (tiling) is a pattern that covers a plane with shapes, leaving no gaps and no overlaps. Regular tessellations use identical regular polygons — only equilateral triangles, squares, and regular hexagons tessellate on their own. This is because the interior angles at each meeting point must add to 360°. Irregular shapes can also tessellate — any triangle or quadrilateral can tile a floor. Tessellations appear in Islamic art, honeycomb structures, bathroom tiles, and Escher's famous drawings.",
+          "expectedDifficulty": "OK",
+          "aliases": ["tessellation tiling", "patterns shapes", "regular tessellations", "angle condition tiling", "Escher patterns"],
+          "prerequisites": ["mat7_c026"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat7_u15",
+      "name": "Finding the Unknown",
+      "order": 15,
+      "concepts": [
+        {
+          "id": "mat7_c028",
+          "name": "Setting Up and Solving Simple Equations",
+          "description": "An equation is a mathematical statement that two expressions are equal: 2x + 3 = 9. The variable (x) is the unknown. To solve, perform identical operations on both sides to isolate the variable — this is the balancing method. Example: 2x + 3 = 9 → subtract 3 → 2x = 6 → divide by 2 → x = 3. Always verify by substituting back: 2(3) + 3 = 9 ✓. The equation can be thought of as a balance scale: whatever you do to one side, you must do to the other to keep it balanced.",
+          "expectedDifficulty": "OK",
+          "aliases": ["simple equations", "solving equations", "balancing method", "linear equations", "isolate variable"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat7_c029",
+          "name": "Word Problems as Equations",
+          "description": "Many real-life problems can be translated into equations. Steps: (1) identify the unknown — call it a variable; (2) express the given conditions as an equation; (3) solve; (4) verify the answer in the original context. Example: 'Raju is 5 years older than Priya. Together their ages are 25.' Let Priya's age = n, then Raju's age = n + 5. Equation: n + (n + 5) = 25 → 2n + 5 = 25 → 2n = 20 → n = 10. Priya is 10, Raju is 15. The ability to write equations from word problems is a foundational mathematical skill.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["word problems equations", "equation from words", "translating to algebra", "equation applications"],
+          "prerequisites": ["mat7_c028"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

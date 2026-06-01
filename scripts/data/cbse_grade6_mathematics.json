@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 6,
+    "board": "CBSE",
+    "subject": "Mathematics",
+    "subjectColor": "#3B82F6",
+    "subjectIcon": "📐",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Ganita Prakash — Class 6 (First Edition July 2024, Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "mat6_u01",
+      "name": "Patterns in Mathematics",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "mat6_c001",
+          "name": "What is Mathematics? — Patterns and Sequences",
+          "description": "Mathematics is the search for patterns and explanations of why those patterns exist. Number sequences are lists of numbers following a rule. Common sequences: counting numbers (1,2,3,4,...), odd numbers (1,3,5,7,...), even numbers (2,4,6,8,...), triangular numbers (1,3,6,10,15 — dots arranged as triangles), square numbers (1,4,9,16,25 — dots as squares), Fibonacci numbers (1,1,2,3,5,8,13 — each term = sum of two before). Shape sequences arrange shapes into growing patterns. Identifying the rule in a sequence lets you predict the next terms without counting everything from scratch.",
+          "expectedDifficulty": "OK",
+          "aliases": ["patterns in mathematics", "number sequences", "triangular square numbers", "Fibonacci sequence", "counting odd even numbers"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat6_c002",
+          "name": "Patterns in Shapes and Relation Between Sequences",
+          "description": "Shape patterns grow by adding more pieces in a regular way — a pattern of triangles or squares can be seen to grow by 1, 2, 3 ... new pieces. Number sequences and shape sequences are related — the nth triangular number equals 1+2+3+...+n = n(n+1)/2. Magic squares are grids where every row, column, and diagonal has the same sum. Patterns appear everywhere in nature: petals on flowers, spirals in shells, and honeycombs. Recognising patterns helps mathematicians predict, generalise, and discover new relationships.",
+          "expectedDifficulty": "OK",
+          "aliases": ["shape patterns", "magic squares", "patterns in nature", "growing patterns", "triangular numbers formula"],
+          "prerequisites": ["mat6_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat6_u02",
+      "name": "Lines and Angles",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "mat6_c003",
+          "name": "Points, Lines, Rays, and Line Segments",
+          "description": "A point is an exact location in space — it has no size, just position. A line segment is a straight path between two points with a definite length. A ray starts at a point and goes infinitely in one direction. A line goes infinitely in both directions. Lines can be parallel (never meeting), perpendicular (meeting at 90°), or intersecting (meeting at any angle). Collinear points lie on the same straight line. A plane is a flat surface extending infinitely in all directions. These are the building blocks of geometry.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["points lines rays line segments", "parallel perpendicular intersecting lines", "collinear points", "geometry basics"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat6_c004",
+          "name": "Angles — Types and Measurement",
+          "description": "An angle is formed when two rays meet at a common point (vertex). Angles are measured in degrees (°) using a protractor. Types of angles: Acute (less than 90°), Right (exactly 90°), Obtuse (between 90° and 180°), Straight (exactly 180° — a straight line), Reflex (between 180° and 360°), Complete/Full (360°). A right angle is formed by perpendicular lines. Complementary angles add to 90°; supplementary angles add to 180°. Angles appear in shapes, buildings, and everyday objects.",
+          "expectedDifficulty": "OK",
+          "aliases": ["types of angles", "acute obtuse right angle", "protractor angle measurement", "complementary supplementary angles", "vertex of angle"],
+          "prerequisites": ["mat6_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat6_u03",
+      "name": "Number Play",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "mat6_c005",
+          "name": "Divisibility, Factors, and Multiples",
+          "description": "A number is divisible by another if it divides evenly with no remainder. Divisibility rules: by 2 (last digit even), by 3 (digit sum divisible by 3), by 5 (last digit 0 or 5), by 9 (digit sum divisible by 9), by 10 (last digit 0). A factor of a number divides it exactly; a multiple is obtained by multiplying it. Every number has 1 and itself as factors. Numbers with exactly two factors (1 and themselves) are prime. Composite numbers have more than two factors. 1 is neither prime nor composite.",
+          "expectedDifficulty": "OK",
+          "aliases": ["divisibility rules", "factors multiples", "prime composite numbers", "divisibility by 2 3 5 9", "factors of a number"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat6_c006",
+          "name": "Number Puzzles and Games",
+          "description": "Number play involves fun puzzles and games that reveal deep mathematical properties. Kaprekar numbers: subtract the smaller number formed by rearranging digits of a 4-digit number from the larger — repeat this process and you always reach 6174 (Kaprekar constant). Palindromes: numbers that read the same forwards and backwards (121, 12321). Collatz conjecture: start with any positive integer; if even, divide by 2; if odd, multiply by 3 and add 1 — you always eventually reach 1 (unproven!). These puzzles develop logical thinking and a love for mathematical exploration.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Kaprekar number 6174", "palindrome numbers", "Collatz conjecture", "number puzzles", "number games"],
+          "prerequisites": ["mat6_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat6_u04",
+      "name": "Data Handling and Presentation",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "mat6_c007",
+          "name": "Collecting and Organising Data",
+          "description": "Data is a collection of facts or information. Raw data needs to be organised to be useful. A tally mark records counts in groups of five (||||). A frequency table shows how often each value occurs. Data can be qualitative (categories — favourite colour, sport) or quantitative (numbers — height, marks). Primary data is collected first-hand (through surveys, observations); secondary data is already collected by someone else (books, internet). Organising data into tables makes it easier to analyse and compare.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["data collection", "tally marks frequency table", "primary secondary data", "organising data", "raw data"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat6_c008",
+          "name": "Pictographs, Bar Graphs, and Basic Statistics",
+          "description": "Data can be presented visually. Pictograph: uses pictures/symbols to represent data — each symbol represents a fixed number of items. Bar graph: uses rectangular bars of different heights to compare data across categories — the height (or length) of each bar is proportional to the value. Both should have a title, labelled axes, and a scale (for bar graphs) or key (for pictographs). Mean (average) = sum of all values ÷ number of values. Range = maximum − minimum. These tools help spot patterns and compare groups easily.",
+          "expectedDifficulty": "OK",
+          "aliases": ["pictograph", "bar graph", "mean average", "range data", "data representation graphs"],
+          "prerequisites": ["mat6_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat6_u05",
+      "name": "Prime Time",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "mat6_c009",
+          "name": "Prime Numbers and Prime Factorisation",
+          "description": "A prime number has exactly two factors: 1 and itself. The first few primes: 2, 3, 5, 7, 11, 13, 17, 19, 23... 2 is the only even prime. The Sieve of Eratosthenes is an ancient method to find all primes up to a given number — cross out multiples of each prime starting from 2. Every composite number can be written as a product of primes (prime factorisation) — this representation is unique (Fundamental Theorem of Arithmetic). Example: 60 = 2 × 2 × 3 × 5 = 2² × 3 × 5.",
+          "expectedDifficulty": "OK",
+          "aliases": ["prime numbers", "Sieve of Eratosthenes", "prime factorisation", "composite numbers", "Fundamental Theorem Arithmetic"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat6_c010",
+          "name": "HCF and LCM",
+          "description": "The Highest Common Factor (HCF) of two or more numbers is the largest number that divides all of them exactly. The Lowest Common Multiple (LCM) is the smallest number that is a multiple of all of them. To find HCF: list all factors or use prime factorisation (take common prime factors with lowest powers). To find LCM: use prime factorisation (take all prime factors with highest powers). Key relationship: HCF × LCM = product of the two numbers. Uses: HCF for dividing things equally; LCM for finding when events coincide (e.g., two buses arriving together).",
+          "expectedDifficulty": "OK",
+          "aliases": ["HCF highest common factor", "LCM lowest common multiple", "HCF times LCM", "common factors multiples", "GCD"],
+          "prerequisites": ["mat6_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat6_u06",
+      "name": "Perimeter and Area",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "mat6_c011",
+          "name": "Perimeter of Shapes",
+          "description": "Perimeter is the total length of the boundary of a closed figure. It is measured in units of length (cm, m, km). Perimeter of a rectangle = 2 × (length + breadth). Perimeter of a square = 4 × side. Perimeter of a triangle = sum of all three sides. For irregular shapes, add up all the side lengths. Perimeter is used in real life for fencing a garden, framing a picture, or measuring the boundary of a field. If you know the perimeter and one side of a rectangle, you can find the other side.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["perimeter rectangle square", "boundary of a shape", "perimeter formula", "fencing problems perimeter"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat6_c012",
+          "name": "Area of Rectangles and Squares",
+          "description": "Area is the amount of surface covered by a flat shape. It is measured in square units (cm², m², km²). Area of a rectangle = length × breadth. Area of a square = side × side = side². Area of an irregular shape can be estimated by counting squares on graph paper. A shape with a large perimeter doesn't necessarily have a large area — perimeter and area are independent properties. Shapes with the same perimeter can have different areas, and vice versa. Area is used for tiling floors, painting walls, and buying carpet.",
+          "expectedDifficulty": "OK",
+          "aliases": ["area rectangle square", "square units", "area vs perimeter", "length breadth area", "graph paper area"],
+          "prerequisites": ["mat6_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat6_u07",
+      "name": "Fractions",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "mat6_c013",
+          "name": "Understanding and Comparing Fractions",
+          "description": "A fraction represents part of a whole: numerator/denominator (e.g., 3/4 = 3 parts out of 4 equal parts). Proper fractions: numerator < denominator (3/4). Improper fractions: numerator ≥ denominator (7/4). Mixed numbers: whole + fraction (1¾). Equivalent fractions represent the same value — multiply or divide both numerator and denominator by the same number (2/3 = 4/6 = 6/9). A fraction in simplest form has no common factor other than 1. To compare fractions: use equivalent fractions with the same denominator (use LCM as common denominator).",
+          "expectedDifficulty": "OK",
+          "aliases": ["fractions", "proper improper mixed fraction", "equivalent fractions", "simplest form fraction", "comparing fractions"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat6_c014",
+          "name": "Addition and Subtraction of Fractions",
+          "description": "To add or subtract fractions with the same denominator: keep the denominator, add or subtract numerators. With different denominators: find the LCM of the denominators, convert both fractions to equivalent fractions with that denominator, then add or subtract. Example: 1/3 + 1/4 = 4/12 + 3/12 = 7/12. For mixed numbers: convert to improper fractions first, or add whole parts and fractional parts separately. Always simplify the result. Fractions appear in recipes (½ cup), maps (scale), and measurement.",
+          "expectedDifficulty": "OK",
+          "aliases": ["adding fractions", "subtracting fractions", "LCM common denominator", "fraction addition", "mixed numbers addition"],
+          "prerequisites": ["mat6_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat6_u08",
+      "name": "Playing with Constructions",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "mat6_c015",
+          "name": "Geometric Constructions with Compass and Ruler",
+          "description": "Geometric constructions use only a ruler (straightedge) and compass — no measuring required beyond setting the compass. Key constructions: drawing a circle (set compass to radius, fix centre, rotate); copying a line segment; bisecting a line segment (dividing into two equal parts); drawing a perpendicular bisector; bisecting an angle. The compass is used to mark equal lengths (arcs). Precision and neatness matter. These techniques are the foundation of classical geometry and were used by ancient Greek and Indian mathematicians to construct perfect shapes.",
+          "expectedDifficulty": "OK",
+          "aliases": ["compass ruler constructions", "bisect line angle", "perpendicular bisector", "geometric constructions", "drawing circle compass"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat6_c016",
+          "name": "Constructing Triangles and Exploring Shapes",
+          "description": "Triangles can be constructed using a compass and ruler. Different constructions lead to different triangle types: equilateral (all sides equal — construct by drawing two arcs of equal radius from each end of a base), isosceles (two sides equal). Constructing artistic and geometric patterns — like the 'eyes' (two arcs making a leaf shape) or tessellations — develops spatial reasoning and creativity. Hands-on construction deepens understanding of why geometric properties are true, not just what they are. Many Indian rangoli designs are based on geometric constructions.",
+          "expectedDifficulty": "OK",
+          "aliases": ["constructing triangles", "equilateral triangle construction", "geometric art patterns", "rangoli geometry", "isosceles construction"],
+          "prerequisites": ["mat6_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat6_u09",
+      "name": "Symmetry",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "mat6_c017",
+          "name": "Line Symmetry and Symmetric Figures",
+          "description": "A figure has line symmetry (also called reflective symmetry or mirror symmetry) if a line can divide it into two identical halves that are mirror images of each other. This line is called the line of symmetry or axis of symmetry. Examples: equilateral triangle has 3 lines of symmetry; square has 4; rectangle has 2; circle has infinitely many. Letters: A, H, I, M, O, T, U, V, W, X, Y are vertically symmetric; B, C, D, E, K are horizontally symmetric. Symmetric patterns appear in art, architecture, leaves, and butterfly wings.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["line symmetry", "axis of symmetry", "mirror symmetry", "reflective symmetry", "symmetric figures"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat6_c018",
+          "name": "Reflection and Rotational Symmetry",
+          "description": "Reflection maps a shape onto its mirror image across a line of symmetry. To find the reflection of a point, draw a perpendicular from the point to the line and extend the same distance on the other side. A figure has rotational symmetry if it looks the same when rotated by less than 360°. The order of rotational symmetry is how many times the shape looks identical during one full rotation. A square has order 4 (looks the same at 90°, 180°, 270°, 360°). An equilateral triangle has order 3. Rangoli, mandalas, and snowflakes all display beautiful rotational symmetry.",
+          "expectedDifficulty": "OK",
+          "aliases": ["reflection symmetry", "rotational symmetry", "order of rotational symmetry", "rotation 90 180 360", "mandala symmetry"],
+          "prerequisites": ["mat6_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat6_u10",
+      "name": "The Other Side of Zero",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "mat6_c019",
+          "name": "Negative Numbers and Integers",
+          "description": "Numbers less than zero are called negative numbers. They are written with a minus sign: -1, -2, -3, ... Integers are all whole numbers (positive, negative, and zero): ..., -3, -2, -1, 0, 1, 2, 3, ... On a number line, negative numbers are to the left of zero and positive numbers to the right. Real-life uses: temperatures below 0°C (e.g., -10°C in Leh), floors below ground (B1, B2), debt (owing money), sea depth (below sea level). The further left a number is on the number line, the smaller it is: -5 < -2 < 0 < 3.",
+          "expectedDifficulty": "OK",
+          "aliases": ["negative numbers integers", "number line negative positive", "below zero temperature", "integers class 6", "Brahmagupta negative numbers"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat6_c020",
+          "name": "Addition and Subtraction of Integers",
+          "description": "Adding a positive integer moves right on the number line; adding a negative moves left. Rules: positive + positive = positive; negative + negative = negative (add the absolute values and keep the sign); positive + negative = subtract the smaller from the larger and keep the sign of the larger. Brahmagupta (628 CE) was the first mathematician to systematically state rules for negative numbers and zero. Subtracting an integer = adding its opposite: 5 - (-3) = 5 + 3 = 8. These rules become natural once you think of the number line as a tool for counting steps.",
+          "expectedDifficulty": "OK",
+          "aliases": ["adding integers", "subtracting integers", "integer rules", "Brahmagupta integers", "number line addition subtraction"],
+          "prerequisites": ["mat6_c019"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

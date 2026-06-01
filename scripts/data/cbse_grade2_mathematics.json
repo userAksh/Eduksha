@@ -1,0 +1,288 @@
+{
+  "metadata": {
+    "grade": 2,
+    "board": "CBSE",
+    "subject": "Mathematics",
+    "subjectColor": "#3B82F6",
+    "subjectIcon": "📐",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Joyful Mathematics — Class 2 (Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "mat2_u01",
+      "name": "Chapter 1 — A Day at the Beach",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "mat2_c001",
+          "name": "Counting in Groups",
+          "description": "Counting objects one by one is slow when there are many of them. Grouping objects — putting them in twos, fives, or tens — makes counting much faster and easier. At the beach, shells, pebbles, and fish can be grouped to count quickly. For example, instead of counting 20 shells one by one, arrange them in 4 groups of 5 and count: 5, 10, 15, 20. Grouping in tens is the most useful because our number system is based on tens. Skip counting by 2s, 5s, and 10s is the same as counting groups. Grouping also helps us compare quantities — which pile has more, which has fewer.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["counting in groups", "grouping objects", "skip counting", "groups of 2 5 10", "faster counting"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat2_c002",
+          "name": "More, Fewer, and Equal",
+          "description": "We compare two groups to find out which has more, which has fewer, or whether they are equal. At the beach, do the boys have more buckets than the girls? We match objects one-to-one (pair them up) to compare without counting. If one group has objects left over after matching, it has more. If both groups are fully matched with nothing left over, they are equal. We use the words more, fewer, and equal (or the same) to describe the comparison. In maths, we write greater than (>), less than (<), and equal to (=). Comparing groups is the foundation of addition, subtraction, and all future number work.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["more and fewer", "comparing groups", "one-to-one matching", "greater than less than equal to"],
+          "prerequisites": ["mat2_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat2_u02",
+      "name": "Chapter 2 — Shapes Around Us",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "mat2_c003",
+          "name": "3D Shapes — Solid Shapes",
+          "description": "Three-dimensional (3D) shapes are solid — they take up space and can be held in our hands. Common 3D shapes found around us: a ball is a sphere; a tin of biscuits is a cylinder; a dice is a cube; a matchbox is a cuboid; a birthday hat is a cone; a triangular sandwich box is a triangular prism. We describe 3D shapes by whether they can roll (spheres, cylinders, cones), slide (cubes, cuboids), or stack (cubes, cuboids, cylinders). A flat surface on a 3D shape is called a face. Recognising 3D shapes in everyday objects — ice cream cone, water tank, brick, ball — builds spatial awareness.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["3D shapes", "sphere", "cube", "cuboid", "cylinder", "cone", "solid shapes", "roll slide stack"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat2_c004",
+          "name": "Faces of 3D Shapes",
+          "description": "Every 3D shape has surfaces called faces. A flat face is a 2D shape. A cube has 6 flat square faces. A cuboid has 6 flat rectangular faces (opposite faces are equal). A cylinder has 2 flat circular faces and 1 curved surface. A cone has 1 flat circular face and 1 curved surface. A sphere has only 1 curved surface and no flat faces. We can trace around a flat face of a 3D shape to see which 2D shape it makes — tracing the face of a cube gives a square; tracing the face of a cylinder gives a circle. Understanding faces helps us connect 2D and 3D shapes and notice shapes in buildings, boxes, and containers.",
+          "expectedDifficulty": "OK",
+          "aliases": ["faces of 3D shapes", "flat face", "curved surface", "tracing faces", "2D from 3D"],
+          "prerequisites": ["mat2_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat2_u03",
+      "name": "Chapter 3 — Fun with Numbers",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "mat2_c005",
+          "name": "Numbers 1 to 100 — Place Value",
+          "description": "Numbers from 1 to 100 are built using just ten digits: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. A 2-digit number has two place values: tens and ones. In the number 47, the 4 is in the tens place (stands for 4 tens = 40) and the 7 is in the ones place (stands for 7 ones = 7). We write the expanded form as 40 + 7 = 47. The number 100 is ten tens, and it is the smallest 3-digit number. A hundreds chart (a 10×10 grid showing 1 to 100) helps us see patterns — all the numbers in the same column have the same ones digit; all in the same row have the same tens digit. Counting by 1s, 2s, 5s, and 10s on the chart shows skip counting patterns.",
+          "expectedDifficulty": "OK",
+          "aliases": ["numbers to 100", "place value", "tens and ones", "expanded form", "hundreds chart", "2-digit numbers"],
+          "prerequisites": ["mat2_c001"],
+          "order": 1
+        },
+        {
+          "id": "mat2_c006",
+          "name": "Comparing and Ordering Numbers to 100",
+          "description": "To compare 2-digit numbers, first look at the tens digit — the number with more tens is greater (73 > 58 because 7 tens > 5 tens). If the tens are equal, compare the ones digit (73 vs 78: both have 7 tens; 8 ones > 3 ones, so 78 > 73). On a number line from 0 to 100, numbers to the right are always greater. We use > (greater than) and < (less than) to write comparisons. The smallest 2-digit number is 10; the largest is 99. Ascending order means from smallest to largest (24, 36, 51, 63); descending order means from largest to smallest (63, 51, 36, 24). Knowing which numbers come before, between, and after is essential for all arithmetic.",
+          "expectedDifficulty": "OK",
+          "aliases": ["comparing numbers", "ordering numbers", "greater than less than", "ascending descending", "number line"],
+          "prerequisites": ["mat2_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat2_u04",
+      "name": "Chapter 4 — Shadow Story (Togalu)",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "mat2_c007",
+          "name": "2D Shapes — Flat Shapes",
+          "description": "Two-dimensional (2D) shapes are flat — they have length and width but no thickness. A shadow is a flat, 2D outline of a 3D object — the shadow story (Togalu is a Kannada shadow puppet tradition) shows how 3D things cast 2D shadows. Common 2D shapes: circle (no sides, perfectly round), square (4 equal sides, 4 right-angle corners), rectangle (4 sides with opposite sides equal), triangle (3 sides, 3 corners), and oval (egg-shaped, like a stretched circle). We describe 2D shapes by their number of sides and corners. Shapes can be found everywhere — the face of a clock is a circle, a door is a rectangle, a slice of pizza is a triangle.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["2D shapes", "flat shapes", "circle square rectangle triangle", "sides and corners", "shadow shapes"],
+          "prerequisites": ["mat2_c003"],
+          "order": 1
+        },
+        {
+          "id": "mat2_c008",
+          "name": "Sorting and Making Patterns with Shapes",
+          "description": "We can sort 2D shapes by different properties: by number of sides (3, 4, or none), by size (big and small), or by colour. A pattern is a repeating arrangement that follows a rule. Shape patterns: circle, square, circle, square, circle… (the rule is 'circle then square, repeat'). We identify the rule in a pattern by finding what repeats. The repeating unit is called the core — in 'circle, triangle, triangle, circle, triangle, triangle…' the core is 'circle, triangle, triangle'. Creating and extending patterns builds logical thinking. Shapes can also be combined to make new shapes — two triangles placed together make a square or a rectangle.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["sorting shapes", "shape patterns", "pattern rule", "repeating pattern", "core of pattern"],
+          "prerequisites": ["mat2_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat2_u05",
+      "name": "Chapter 5 — Playing with Lines",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "mat2_c009",
+          "name": "Types of Lines",
+          "description": "Lines are everywhere around us. A straight line goes in one direction without bending. A curved line bends and turns. A horizontal line goes flat (left to right), like the horizon. A vertical line goes straight up and down, like a wall or a pole. A diagonal (or slanting) line goes at an angle — neither fully horizontal nor fully vertical. Parallel lines are two lines that go in the same direction and never meet, like railway tracks. Intersecting lines cross each other at a point. We can find these types of lines in letters of the alphabet, buildings, roads, and fences. Drawing different types of lines builds fine motor skills and spatial vocabulary.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["straight line", "curved line", "horizontal", "vertical", "diagonal", "parallel lines", "intersecting lines"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat2_c010",
+          "name": "Open and Closed Shapes",
+          "description": "A closed shape is a line or lines that start and end at the same point, completely enclosing a space — circles, squares, triangles, and rectangles are all closed shapes. An open shape does not enclose a space — it has a gap somewhere. We can check if a shape is closed by asking: 'Could you fill it with water without it leaking out?' A closed shape could hold water; an open shape could not. Letters of the alphabet use both — O, P, and D are made with closed curves; C, U, and L are open. Understanding open and closed shapes is the foundation of area (the space inside a closed shape) and perimeter (the length around a closed shape).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["open shape", "closed shape", "enclosed space", "gap in shape", "boundary"],
+          "prerequisites": ["mat2_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat2_u06",
+      "name": "Chapter 6 — Decoration for Festival",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "mat2_c011",
+          "name": "Addition up to 99",
+          "description": "Addition means putting groups together to find the total. When we decorate for a festival, we add: 24 paper flowers + 13 paper stars = 37 decorations. We add ones first, then tens. If the ones add up to 10 or more, we carry the extra ten to the tens column. For example, 36 + 47: ones column 6+7=13 (write 3, carry 1); tens column 3+4+1=8. Answer: 83. Number bonds (pairs that add to 10: 1+9, 2+8, 3+7, 4+6, 5+5) help with mental maths. Addition properties: any number + 0 = the same number; the order of adding does not change the result (3+5 = 5+3 = 8).",
+          "expectedDifficulty": "OK",
+          "aliases": ["addition", "adding 2-digit numbers", "carrying", "number bonds", "total"],
+          "prerequisites": ["mat2_c005"],
+          "order": 1
+        },
+        {
+          "id": "mat2_c012",
+          "name": "Subtraction up to 99",
+          "description": "Subtraction means taking away or finding the difference between two numbers. If we have 53 streamers and use 28, how many are left? 53 − 28. Subtract ones first: 3 < 8, so borrow 1 ten from the tens column (tens becomes 4, ones becomes 13); 13 − 8 = 5. Then subtract tens: 4 − 2 = 2. Answer: 25. Check by adding back: 25 + 28 = 53 ✓ Subtraction is the inverse of addition. A number line helps: to find 53 − 28, start at 53 and hop back 28 steps. Subtraction is used to find change after shopping, find the difference in scores, or check what is left after using some amount.",
+          "expectedDifficulty": "OK",
+          "aliases": ["subtraction", "subtracting 2-digit numbers", "borrowing", "difference", "take away"],
+          "prerequisites": ["mat2_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat2_u07",
+      "name": "Chapter 7 — Rani's Gift",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "mat2_c013",
+          "name": "Measuring Length",
+          "description": "Measurement tells us how long, tall, or wide something is. Non-standard units like hand spans, foot lengths, or pencil lengths are easy to use but give different results for different people. Standard units give everyone the same result. For Class 2, we use centimetres (cm) to measure short lengths. A ruler marked in centimetres is used to measure: place the 0 mark at one end of the object and read the number at the other end. We can compare lengths — Rani's gift box is 15 cm wide; Meera's box is 22 cm wide, so Meera's is longer. Ordering objects by length (shortest to longest) uses measurement or direct comparison (placing objects side by side).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["measuring length", "centimetres", "ruler", "non-standard units", "comparing lengths"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat2_c014",
+          "name": "Measuring Weight and Capacity",
+          "description": "Weight tells us how heavy something is. We use a balance to compare weights — the heavier side goes down. Light objects are measured in grams (g); heavy objects in kilograms (kg). 1 kg = 1,000 g. A feather is light; a brick is heavy. Capacity tells us how much a container can hold. We fill a container with water or sand to compare capacity. The container that holds more water has a greater capacity. We use litres (l) for large amounts (a bucket) and millilitres (ml) for small amounts (a spoon). At Class 2 level, we focus on comparing: which is heavier/lighter, which holds more/less, and matching objects to appropriate units of measurement.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["weight", "capacity", "heavy light", "balance", "grams kilograms", "litres millilitres"],
+          "prerequisites": ["mat2_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat2_u08",
+      "name": "Chapter 8 — Grouping and Sharing",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "mat2_c015",
+          "name": "Multiplication — Equal Groups",
+          "description": "Multiplication is a quick way to add the same number many times. If 3 children each get 4 sweets, the total is 4 + 4 + 4 = 12 — or we can write 3 × 4 = 12. The × symbol means 'groups of' or 'times'. An array (objects arranged in rows and columns) shows multiplication clearly: 3 rows of 4 dots = 12 dots. Key tables for Class 2: 2 times table (2, 4, 6, 8, 10…), 5 times table (5, 10, 15, 20, 25…), and 10 times table (10, 20, 30, 40, 50…). Any number multiplied by 1 stays the same. Any number multiplied by 0 is 0. Skip counting and multiplication are closely related — skip counting by 3s gives the 3 times table.",
+          "expectedDifficulty": "OK",
+          "aliases": ["multiplication", "equal groups", "arrays", "times tables", "repeated addition"],
+          "prerequisites": ["mat2_c011"],
+          "order": 1
+        },
+        {
+          "id": "mat2_c016",
+          "name": "Division — Sharing Equally",
+          "description": "Division means sharing a total equally into groups. If 12 biscuits are shared equally among 4 children, each child gets 12 ÷ 4 = 3 biscuits. The ÷ symbol means 'shared equally among'. We can also think of division as making equal groups: how many groups of 4 can we make from 12? Answer: 3 groups. Division is the inverse of multiplication: because 3 × 4 = 12, we know 12 ÷ 4 = 3 and 12 ÷ 3 = 4. At Class 2 level, we divide small numbers using objects, pictures, or drawing circles to represent groups. Sometimes things don't divide exactly — the leftover amount is called the remainder (e.g., 13 ÷ 4 = 3 remainder 1).",
+          "expectedDifficulty": "OK",
+          "aliases": ["division", "sharing equally", "equal groups", "remainder", "inverse of multiplication"],
+          "prerequisites": ["mat2_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat2_u09",
+      "name": "Chapter 9 — Which Season is it?",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "mat2_c017",
+          "name": "Telling Time — Hours and Half-Hours",
+          "description": "A clock has two hands: a short hour hand and a long minute hand. When the minute hand points to 12 and the hour hand points to a number, we read the time as that number 'o'clock' (e.g., 3 o'clock). When the minute hand points to 6 (halfway around the clock), we say 'half past' (e.g., half past 3 = 3:30). The minute hand takes 60 minutes to go all the way round — that is one hour. Time moves forward: after 3 o'clock comes half past 3, then 4 o'clock. We tell time to plan our day — school starts at 9 o'clock, lunch is at half past 12, bedtime is at 8 o'clock. 60 minutes = 1 hour; 24 hours = 1 day.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["telling time", "o'clock", "half past", "hour hand", "minute hand", "clock reading"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat2_c018",
+          "name": "Days, Weeks, and Months",
+          "description": "A week has 7 days: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday. Weekend days are Saturday and Sunday; school days (weekdays) are Monday to Friday. A month has about 4 weeks (28, 29, 30, or 31 days). A year has 12 months. We name the seasons in India: summer (hot), monsoon (rainy), autumn (cool), and winter (cold). Which season is it? — the chapter connects weather, clothes, and activities to each season. A calendar helps us find dates, count how many days until an event, and see which day of the week a date falls on. Days and months are read from a calendar by finding the row (week) and column (day of the week).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["days of the week", "months", "calendar", "seasons", "weekday weekend"],
+          "prerequisites": ["mat2_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat2_u10",
+      "name": "Chapter 10 — Fun at the Fair",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "mat2_c019",
+          "name": "Money — Coins, Notes, and Counting",
+          "description": "At a fair, we buy things with money. Indian coins: 50 paise, ₹1, ₹2, ₹5, ₹10. Notes: ₹10, ₹20, ₹50, ₹100. 100 paise = ₹1. We count money by adding the values of all coins and notes together. For example: one ₹10 note + two ₹5 coins + three ₹1 coins = 10 + 10 + 3 = ₹23. To find if we have enough money, compare the total price with the amount we have. Change is the money we get back when we pay more than the price: pay ₹20 for something costing ₹13 → change = ₹20 − ₹13 = ₹7. At a fair, budgeting means choosing wisely because we can only spend what we have.",
+          "expectedDifficulty": "OK",
+          "aliases": ["money", "rupees paise", "coins and notes", "counting money", "change", "paying"],
+          "prerequisites": ["mat2_c012"],
+          "order": 1
+        },
+        {
+          "id": "mat2_c020",
+          "name": "Addition and Subtraction with Money",
+          "description": "Solving money problems uses the same addition and subtraction skills as number problems, but we must include the rupee symbol (₹) in the answer. Adding prices: cotton candy costs ₹15 and a toy whistle costs ₹28; total = ₹15 + ₹28 = ₹43. Subtracting to find change: paid ₹50, spent ₹43 → change = ₹50 − ₹43 = ₹7. We can also compare costs — which is more expensive, and by how much? At the fair, recognising coins and notes by sight, making combinations that equal a given amount, and estimating whether we have enough money before buying are practical skills that make maths real and useful.",
+          "expectedDifficulty": "OK",
+          "aliases": ["money addition", "money subtraction", "change", "buying and selling", "price total"],
+          "prerequisites": ["mat2_c019"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat2_u11",
+      "name": "Chapter 11 — Data Handling",
+      "order": 11,
+      "concepts": [
+        {
+          "id": "mat2_c021",
+          "name": "Collecting and Organising Data",
+          "description": "Data is information we collect by looking, counting, or asking questions. For example: 'What is everyone's favourite fruit?' We ask each child and record the answers. Tally marks help record data quickly — four vertical lines crossed by one diagonal line represent 5. A table organises data neatly with categories and counts. Sorting objects into groups (all red balls here, all blue balls there) is also a way of organising data. The question we ask to collect data must be clear and have defined answer choices. Collecting data honestly and recording every answer accurately is important — otherwise the data does not give a true picture.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["data collection", "tally marks", "organising data", "frequency table", "survey"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat2_c022",
+          "name": "Reading Pictographs",
+          "description": "A pictograph uses pictures or symbols to show data. Each symbol stands for a fixed number stated in the key. For example, if one apple symbol = 2 students, then 3 apple symbols = 6 students. To read a pictograph: (1) read the title to find out what the graph is about; (2) read the key to know what one symbol represents; (3) count symbols for each category and multiply by the key value; (4) answer questions like 'which has the most?', 'which has the least?', and 'what is the total?' Pictographs make data easy to understand at a glance because pictures are more immediately meaningful than numbers. Drawing a simple pictograph means choosing a symbol, deciding the key, and drawing the right number of symbols for each category.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["pictograph", "picture graph", "key", "reading data", "data graph"],
+          "prerequisites": ["mat2_c021"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

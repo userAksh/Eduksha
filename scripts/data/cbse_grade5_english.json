@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 5,
+    "board": "CBSE",
+    "subject": "English",
+    "subjectColor": "#EA580C",
+    "subjectIcon": "📚",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Marigold — Class 5 (Reprint 2024-25)"
+  },
+  "units": [
+    {
+      "id": "eng5_u01",
+      "name": "Unit 1 — Ice-cream Man & Wonderful Waste",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "eng5_c001",
+          "name": "Ice-cream Man (Poem)",
+          "description": "This poem captures the joy and excitement children feel on a hot summer day when the ice-cream man arrives with his colourful cart. The poet describes the vendor's chilly treats and the children who eagerly crowd around him. The poem uses vivid sensory language to paint a picture of summer heat and cool relief. It helps children appreciate simple pleasures and the feelings of anticipation and delight.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Ice Cream Man poem", "summer poem", "vendor poem"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng5_c002",
+          "name": "Wonderful Waste (Story)",
+          "description": "This story is about how discarded or waste materials can be creatively reused to make useful and beautiful things. The characters discover that what seems like rubbish can be transformed with imagination and effort. The story promotes the values of creativity, resourcefulness, and environmental responsibility. It teaches children that recycling and upcycling are not only practical but also fun and rewarding.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Wonderful Waste story", "recycling story", "waste reuse story"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng5_u02",
+      "name": "Unit 2 — Teamwork & Flying Together",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "eng5_c003",
+          "name": "Teamwork (Poem)",
+          "description": "This poem emphasises that when people work together as a team, they can achieve far more than any individual could alone. It uses simple, rhythmic language to highlight the power of cooperation, mutual support, and shared effort. The poem encourages children to value their classmates and friends and to understand that every person's contribution matters. It builds the social value of working collaboratively towards a common goal.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Teamwork poem", "cooperation poem", "unity poem"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng5_c004",
+          "name": "Flying Together (Story)",
+          "description": "This story follows a flock of birds that are caught in a hunter's net while searching for food. Instead of each bird struggling alone, they all decide to fly upward together at the same time, lifting the entire net off the ground and escaping. The story teaches the powerful moral that unity is strength — when individuals cooperate in the face of danger, they can overcome challenges that would be impossible alone. It is a classic fable about the value of teamwork and collective action.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Flying Together story", "birds and hunter story", "unity is strength"],
+          "prerequisites": ["eng5_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng5_u03",
+      "name": "Unit 3 — My Shadow & Robinson Crusoe",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "eng5_c005",
+          "name": "My Shadow (Poem)",
+          "description": "Written by Robert Louis Stevenson, this delightful poem is narrated by a child who is fascinated and puzzled by their own shadow. The child notices that the shadow goes everywhere with them, grows very tall at certain times and very small at others, and one morning was not there at all. The poem is playful and imaginative, using the shadow as a way to explore curiosity about the natural world. It is a great example of a child's perspective and introduces the concept of light and shadows in a poetic way.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["My Shadow poem", "Robert Louis Stevenson poem", "shadow poem"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng5_c006",
+          "name": "Robinson Crusoe (Story)",
+          "description": "This is an adaptation of Daniel Defoe's classic novel about a man named Robinson Crusoe whose ship is wrecked in a storm and who finds himself alone on a deserted island. Using intelligence, hard work, and determination, he learns to find food, build shelter, and survive in the wild. The story celebrates human ingenuity, problem-solving, and the will to survive. Children learn about resilience and resourcefulness through Crusoe's adventures, and the story introduces them to the world of classic English literature.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Robinson Crusoe story", "shipwrecked story", "deserted island story", "Daniel Defoe"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng5_u04",
+      "name": "Unit 4 — Crying & My Elder Brother",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "eng5_c007",
+          "name": "Crying (Poem)",
+          "description": "This poem deals with the natural and universal human emotion of crying, arguing that it is perfectly healthy and normal to cry. The poet reassures children that expressing sadness or hurt through tears is nothing to be ashamed of and that suppressing emotions is not good. The poem validates children's feelings and encourages emotional honesty. It helps students develop emotional literacy and understand that showing vulnerability is a sign of strength, not weakness.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Crying poem", "emotions poem", "feelings poem"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng5_c008",
+          "name": "My Elder Brother (Story)",
+          "description": "Adapted from Premchand's famous Hindi story, this tale is about two brothers — the elder one who studies very hard and memorises everything by rote, and the younger one who spends his time playing and barely studies. Ironically, when results are announced, the younger brother passes while the elder one fails. The story explores the theme of natural intelligence versus mechanical rote learning and suggests that understanding and curiosity matter more than blind memorisation. It also touches on the dynamics of sibling relationships and the pressure of expectations.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["My Elder Brother story", "Premchand story", "bade bhai sahab", "elder brother younger brother"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng5_u05",
+      "name": "Unit 5 — The Lazy Frog & Rip Van Winkle",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "eng5_c009",
+          "name": "The Lazy Frog (Poem)",
+          "description": "This humorous poem describes a frog who is so extraordinarily lazy that he refuses to do anything at all — he won't jump, won't swim, and won't even catch flies. The poem uses comic exaggeration and a light-hearted tone to poke fun at laziness. While entertaining, it carries an implicit message about the value of effort and activity. The playful language and silly imagery make it very enjoyable for young readers and spark conversations about habits and hard work.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Lazy Frog poem", "frog poem", "laziness poem"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng5_c010",
+          "name": "Rip Van Winkle (Story)",
+          "description": "Adapted from Washington Irving's classic American folk tale, this story is about Rip Van Winkle, a kind but very lazy man who wanders into the Catskill Mountains and falls into a deep, magical sleep. When he wakes up, he discovers that twenty years have passed — his wife has died, his children have grown up, and the whole village has changed. The story is a humorous but thought-provoking tale about the consequences of laziness and how time passes even when we are not paying attention. It teaches children the importance of making the most of their time.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Rip Van Winkle story", "Washington Irving story", "sleeping man story"],
+          "prerequisites": ["eng5_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng5_u06",
+      "name": "Unit 6 — Class Discussion & The Talkative Barber",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "eng5_c011",
+          "name": "Class Discussion (Poem)",
+          "description": "This poem describes a classroom discussion in which most students eagerly voice their opinions and arguments, but one quiet girl sits silently without saying a word. The poem explores the contrast between loud, talkative people and those who prefer to listen and think before speaking. It raises questions about whether speaking up is always necessary or whether listening carefully is also a valuable skill. Children can reflect on their own classroom behaviour and the balance between expressing oneself and respecting others' views.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Class Discussion poem", "quiet girl poem", "classroom poem"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng5_c012",
+          "name": "The Talkative Barber (Story)",
+          "description": "This comic folk tale, adapted from the Arabian Nights collection, features a barber who simply cannot stop talking. No matter who his customer is or how urgent their business, the barber goes on and on with stories and opinions, causing great trouble and delay. The story is very funny but also carries the lesson that knowing when to be quiet and actually listening to others is an important social skill. It helps children understand the difference between communication and one-sided chatter.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Talkative Barber story", "Arabian Nights barber", "chatterbox story"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng5_u07",
+      "name": "Unit 7 — Topsy-turvy Land & Gulliver's Travels",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "eng5_c013",
+          "name": "Topsy-turvy Land (Poem)",
+          "description": "This whimsical and humorous poem describes an imaginary land where everything is completely upside-down and back-to-front — the wrong things happen at the wrong times and nothing follows normal rules. The absurd imagery is meant to be funny and delightful, encouraging children to use their imagination and think creatively about what a world 'turned on its head' would look like. The poem also subtly develops comprehension skills by asking children to identify what is wrong in each description.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Topsy-turvy Land poem", "upside down poem", "nonsense poem"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng5_c014",
+          "name": "Gulliver's Travels (Story)",
+          "description": "Adapted from Jonathan Swift's famous satirical novel, this version focuses on Gulliver being washed ashore in Lilliput, a land inhabited by tiny people no bigger than a finger. Gulliver, a giant compared to the Lilliputians, must navigate their society, customs, and politics. The story is full of adventure and imaginative wonder. It introduces children to the concept of perspective — how the same world looks very different depending on your size or point of view — and encourages empathy and open-mindedness.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Gulliver's Travels story", "Lilliput story", "Jonathan Swift", "tiny people story"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng5_u08",
+      "name": "Unit 8 — Nobody's Friend & The Little Bully",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "eng5_c015",
+          "name": "Nobody's Friend (Poem)",
+          "description": "This poem tells the story of a selfish child who refuses to share their toys, food, or time with anyone else. As a result, no one wants to be friends with them, and the child ends up lonely and isolated. The poem uses a simple, repetitive structure to drive home the moral that selfishness leads to loneliness, while generosity and sharing build friendships. It encourages children to reflect on their own behaviour and the importance of being kind, generous, and inclusive.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Nobody's Friend poem", "selfish child poem", "sharing poem"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng5_c016",
+          "name": "The Little Bully (Story)",
+          "description": "This story is about a boy named Hari who bullies other children at school and on trips — he pinches them, pushes them, and enjoys making others miserable. On a beach trip, he encounters crabs who pinch him back painfully, giving him a taste of his own medicine. The experience makes him realise how hurtful his behaviour has been. The story directly addresses the problem of bullying and teaches children about empathy — understanding how our actions affect others — and the importance of treating everyone with kindness and respect.",
+          "expectedDifficulty": "OK",
+          "aliases": ["The Little Bully story", "bully story", "Hari bully", "crabs and bully"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng5_u09",
+      "name": "Unit 9 — Sing a Song of People & Around the World",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "eng5_c017",
+          "name": "Sing a Song of People (Poem)",
+          "description": "This lively poem celebrates the diversity and energy of people in a busy city — people walking fast and slow, riding buses and subways, going up and down in their daily lives. Written by Lois Lenski, the poem observes people of all kinds going about their different jobs and routines. It teaches children to appreciate the variety of human lives and the richness of city life. The poem develops an understanding of community and the idea that a city is made up of countless different individuals all contributing in their own way.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Sing a Song of People poem", "city poem", "Lois Lenski poem", "people poem"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng5_c018",
+          "name": "Around the World (Story)",
+          "description": "This geography-linked story takes children on a journey around different countries and continents, exploring the unique features, cultures, landscapes, and ways of life found in different parts of the world. It broadens children's worldview and introduces them to the idea that there are many different cultures and environments beyond their own experience. The story encourages curiosity about the wider world, develops geographical awareness, and promotes respect for cultural diversity. It connects English language learning with social studies knowledge.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Around the World story", "world geography story", "different countries story"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng5_u10",
+      "name": "Unit 10 — Malu Bhalu & Who Will be Ningthou?",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "eng5_c019",
+          "name": "Malu Bhalu (Poem)",
+          "description": "This charming poem tells the story of Malu Bhalu, a little polar bear cub who lives high up in an icy lair with her snow-white coat. The poem follows Malu as she learns the skills she needs to survive in the Arctic — swimming, finding food, and navigating the ice. It is tender and warm despite the cold setting, showing the bond between a young animal and its environment. The poem introduces children to polar ecosystems and teaches that learning new skills, even when difficult, is part of growing up.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Malu Bhalu poem", "polar bear poem", "Arctic bear cub poem"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng5_c020",
+          "name": "Who Will be Ningthou? (Story)",
+          "description": "This beautiful folk tale from Manipur, in north-eastern India, is about a king and queen who must choose which of their three children — two princes and a princess — should become the next Ningthou (king in the Meitei language). Each child is tested, and the one who shows the most compassion and care for all living beings, including animals and plants, is chosen as the worthy successor. The story teaches children about the qualities that make a good leader: kindness, empathy, fairness, and responsibility towards all creatures. It also introduces children to the rich cultural heritage of north-eastern India.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Who Will be Ningthou", "Ningthou story", "Manipur folk tale", "king selection story", "Meitei folk tale"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

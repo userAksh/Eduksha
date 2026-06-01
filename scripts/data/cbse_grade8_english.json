@@ -1,0 +1,264 @@
+{
+  "metadata": {
+    "grade": 8,
+    "board": "CBSE",
+    "subject": "English",
+    "subjectColor": "#EA580C",
+    "subjectIcon": "📚",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Poorvi — Class 8 (Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "eng8_u01",
+      "name": "Unit 1: Wit and Wisdom",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "eng8_c001",
+          "name": "The Wit that Won Hearts — Story",
+          "description": "This story celebrates the power of intelligence, quick thinking, and good humour over authority and brute force. The protagonist uses wit — clever, well-timed observations and wordplay — to win people over rather than relying on power or status. Students explore how wit is different from rudeness: a witty person is observant, charming, and socially aware. Key themes: the superiority of intelligence over force, social intelligence, the value of a good sense of humour. Key vocabulary: wit, charming, observant, courageous, humorous. Students practise identifying character qualities and understanding how a character's approach to a problem reveals their nature.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "The Wit that Won Hearts story",
+            "wit intelligence story class 8",
+            "Poorvi Unit 1 story",
+            "cleverness story English 8"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng8_c002",
+          "name": "A Concrete Example — Prose",
+          "description": "This prose piece demonstrates how using a tangible, real-world example can make an abstract idea instantly clear and persuasive. A 'concrete example' is the opposite of vague or theoretical reasoning — it grounds an argument in something the listener can see, touch, or experience. The piece models effective communication: rather than explaining an idea in abstract terms, the speaker or writer picks a specific, relatable instance that captures the whole idea. Key skills: understanding how authors use examples to support ideas (a key comprehension and writing skill), distinguishing between abstract statements and concrete illustrations, and applying this technique in one's own writing.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "A Concrete Example prose class 8",
+            "abstract vs concrete example",
+            "Poorvi Unit 1 prose",
+            "communication example class 8"
+          ],
+          "prerequisites": [],
+          "order": 2
+        },
+        {
+          "id": "eng8_c003",
+          "name": "Wisdom Paves the Way — Story",
+          "description": "This story shows that thoughtful, patient decision-making leads to far better outcomes than hasty or impulsive action. 'Wisdom' here is not merely intelligence — it is the capacity to consider consequences, weigh different perspectives, and choose the right path even when it is not the easiest one. The story likely contrasts a wise character with a hasty or foolish one, showing how the path chosen by wisdom eventually triumphs. Key themes: wisdom vs. impulsiveness, long-term thinking, the value of experience. Key literary device: contrast (juxtaposing two approaches to the same problem). Students practise summarising plot, identifying theme, and understanding cause and effect in narrative.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "Wisdom Paves the Way story class 8",
+            "wisdom patience story",
+            "Poorvi Unit 1 wisdom",
+            "impulsive vs wise story English 8"
+          ],
+          "prerequisites": [],
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "eng8_u02",
+      "name": "Unit 2: Values and Dispositions",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "eng8_c004",
+          "name": "A Tale of Valour: Major Somnath Sharma and the Battle of Badgam — Story",
+          "description": "This biographical war narrative recounts the heroic last stand of Major Somnath Sharma, India's first Param Vir Chakra (PVC) recipient — the nation's highest military honour for gallantry in the face of the enemy. On 3 November 1947, Major Sharma's company of Kumaon Regiment held off a much larger Pakistani tribal militia force at Badgam airfield in Kashmir. Despite a hand injury, he continued directing his troops. His last radio message: 'The enemy is only 50 yards from us. We are heavily outnumbered. We are under devastating fire. I will not withdraw an inch but will fight to the last man and the last round.' He was killed by a mortar shell but his sacrifice secured the airfield, allowing Indian forces to hold Kashmir. Themes: military courage, sacrifice, duty, patriotism. Students practise extracting facts from narrative and understanding how real events are turned into literary form.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Major Somnath Sharma",
+            "Param Vir Chakra first",
+            "Battle of Badgam 1947",
+            "A Tale of Valour class 8",
+            "Kumaon Regiment Kashmir"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng8_c005",
+          "name": "Somebody's Mother — Poem",
+          "description": "This poem tells of a young boy who stops to help a frail old woman cross a busy street, though strangers rush past ignoring her. The boy reflects: she is somebody's mother — she deserves the same care he would want for his own mother. The poem's moral centres on empathy and the idea that every stranger was once — and still is — someone precious to someone else. Key poetic devices: imagery (the busy, indifferent crowd vs. the vulnerable old woman), repetition ('somebody's mother'), and direct address. Themes: compassion, empathy, the dignity of the elderly, seeing humanity in strangers. Students practise identifying tone, mood, and the lesson conveyed through a narrative poem.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "Somebody's Mother poem class 8",
+            "compassion stranger poem",
+            "helping old woman poem",
+            "Poorvi Unit 2 poem",
+            "empathy dignity poem English 8"
+          ],
+          "prerequisites": [],
+          "order": 2
+        },
+        {
+          "id": "eng8_c006",
+          "name": "Verghese Kurien — I Too Had A Dream — Autobiography",
+          "description": "This autobiographical account is narrated by Dr Verghese Kurien (1921–2012), the 'Milkman of India' and architect of the White Revolution. Kurien, a dairy engineer, joined a small cooperative in Anand, Gujarat (AMUL), and transformed it into the model for Operation Flood — the world's largest dairy development programme, which made India the world's largest milk producer. His dream: to put power in the hands of rural farmers rather than middlemen and corporations. AMUL's tagline 'Utterly Butterly Delicious' and its cooperative model influenced Indian agriculture policy for decades. Kurien received the Ramon Magsaysay Award (1963) and Padma Vibhushan. Themes: social entrepreneurship, service, rural empowerment, the courage to follow an unconventional path. Students practise reading non-fiction autobiography, identifying author's purpose, and understanding how individual vision can create social change.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Verghese Kurien autobiography",
+            "AMUL White Revolution class 8",
+            "Operation Flood dairy India",
+            "Milkman of India",
+            "Poorvi Unit 2 Kurien",
+            "I Too Had A Dream class 8"
+          ],
+          "prerequisites": [],
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "eng8_u03",
+      "name": "Unit 3: Mystery and Magic",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "eng8_c007",
+          "name": "The Case of the Fifth Word — Mystery Story",
+          "description": "This detective-style mystery story involves a puzzle built around wordplay or a linguistic cipher — the 'fifth word' is the key clue that unlocks the mystery. Students follow the protagonist's process of close observation, logical deduction, and pattern recognition to solve the case. The story models how a skilled reader (or detective) pays attention to small details that others overlook. Key skills: inference (drawing conclusions from clues), prediction (what could the fifth word be?), and understanding plot structure in a mystery genre (problem → investigation → resolution). Vocabulary: cipher, clue, deduction, evidence, pattern. The crossword puzzle activity in the pre-reading section connects the story's theme of wordplay to an interactive task.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "The Case of the Fifth Word class 8",
+            "mystery story wordplay class 8",
+            "detective story English 8",
+            "Poorvi Unit 3 mystery",
+            "deduction clue story"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng8_c008",
+          "name": "The Magic Brush of Dreams — Story",
+          "description": "This fantastical story centres on a magical brush (or creative tool) that brings whatever is painted or imagined to life. The story explores the idea that creativity and imagination are forms of real power — the ability to visualise something and make it real is what art and invention have in common. The story likely features a protagonist who uses the magic brush for good (helping others) while resisting the temptation to use it selfishly, touching on themes of responsibility and integrity. Key themes: the power of imagination, art as transformation, responsibility that comes with special ability. Key literary device: fantasy/magical realism — using impossible elements to explore very real human values. Students practise identifying genre conventions and the moral of a fantasy narrative.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "The Magic Brush of Dreams story class 8",
+            "magic brush story English 8",
+            "fantasy story Poorvi",
+            "creativity imagination story class 8"
+          ],
+          "prerequisites": [],
+          "order": 2
+        },
+        {
+          "id": "eng8_c009",
+          "name": "Spectacular Wonders — Non-fiction",
+          "description": "This descriptive non-fiction piece presents extraordinary natural or scientific wonders of the world — phenomena that inspire awe and wonder. It could cover natural wonders (Grand Canyon, Northern Lights, bioluminescent bays, Victoria Falls) or scientific wonders (black holes, deep sea creatures, extreme environments). The piece models how to write descriptively: precise vocabulary, use of statistics and comparisons to convey scale, and figurative language (simile, metaphor) to help the reader visualise the incomprehensible. Key skills: reading informational text, identifying descriptive techniques, expanding vocabulary for scientific and geographical phenomena, and understanding how non-fiction can be as engaging as fiction when well-written.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Spectacular Wonders non-fiction class 8",
+            "natural wonders descriptive text",
+            "Poorvi Unit 3 non-fiction",
+            "wonders of world English 8"
+          ],
+          "prerequisites": [],
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "eng8_u04",
+      "name": "Unit 4: Environment",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "eng8_c010",
+          "name": "The Cherry Tree — Story",
+          "description": "This gentle story — widely attributed to Ruskin Bond, India's beloved nature writer — follows a boy who plants a cherry seed and tends it patiently over years. The cherry tree survives being trampled by a goat, stripped by insects, and battered by storms, growing back each time. The boy watches it grow from a fragile seedling to a flowering tree. The story uses the cherry tree as a metaphor for resilience: life that is nurtured with patience, even after setbacks, eventually blossoms. Key themes: patience, perseverance, the slow rewards of care, humanity's bond with nature. Key literary device: extended metaphor (the tree as symbol of life, resilience, hope). Vocabulary: sapling, flourish, perseverance, resilience. Students practise understanding symbolism and writing about nature.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "The Cherry Tree Ruskin Bond class 8",
+            "cherry tree story patience",
+            "Poorvi Unit 4 story",
+            "tree story resilience English 8"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng8_c011",
+          "name": "Harvest Hymn — Poem",
+          "description": "This celebratory poem honours the harvest season — the moment when the labour of sowing and tending finally yields its rewards. It expresses gratitude for the earth's bounty and the cycle of growth that sustains human life. The poem likely uses the harvest as a metaphor for the fruits of hard work more broadly, and may call on readers to be grateful and to not waste what the earth provides. Key poetic devices: hymn form (a song of praise, often with a repeated refrain), imagery (golden fields, laden branches, the smell of rain on soil), personification of the earth as a provider. Themes: gratitude, the rhythm of nature, the dignity of agricultural labour, humanity's dependence on the earth. Students practise identifying how poetic form (hymn) shapes meaning and tone.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "Harvest Hymn poem class 8",
+            "harvest poem gratitude",
+            "Poorvi Unit 4 poem",
+            "agriculture poem English 8"
+          ],
+          "prerequisites": [],
+          "order": 2
+        },
+        {
+          "id": "eng8_c012",
+          "name": "Waiting for the Rain — Prose",
+          "description": "This prose piece captures the tense, anxious anticipation of monsoon rains in rural India, where farmers and entire communities depend utterly on timely and adequate rainfall for their crops, livelihoods, and survival. The waiting is not passive — it is filled with observation of the sky, calculation of how long seeds can hold out, and prayers. The text connects students to the lived reality of India's agrarian majority and the intimate relationship between rural communities and weather. Key themes: dependence on nature, vulnerability, patience under uncertainty, the importance of water. Key skill: understanding how setting and context shape character emotion; comparing urban and rural experience of the same phenomenon (rain). Vocabulary: parched, monsoon, anticipation, drought, yield.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Waiting for the Rain prose class 8",
+            "monsoon anticipation story",
+            "Poorvi Unit 4 rain prose",
+            "rural India rain dependence English 8"
+          ],
+          "prerequisites": [],
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "eng8_u05",
+      "name": "Unit 5: Science and Curiosity",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "eng8_c013",
+          "name": "Feathered Friend — Story",
+          "description": "This story explores the friendship between a human and a bird, emphasising the value of patient observation of the natural world. The 'feathered friend' is likely a specific bird whose habits, appearance, and personality are described in affectionate detail. The story shows that careful attention to a creature over time reveals a rich inner life and individual personality — a quality we often deny to non-human animals. Key themes: friendship across species, the rewards of observation, environmental awareness, respect for all living beings. Key skill: understanding how authors use precise, descriptive language to bring an animal character to life. This piece also develops vocabulary for bird anatomy, behaviour, and habitat.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "Feathered Friend story class 8",
+            "bird friendship story English 8",
+            "Poorvi Unit 5 story",
+            "animal story observation class 8"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng8_c014",
+          "name": "Magnifying Glass — Poem",
+          "description": "This poem uses the magnifying glass as a central metaphor for scientific curiosity — the act of looking at the ordinary world very closely reveals that it is full of extraordinary complexity. What looks like a plain leaf becomes a network of veins; what looks like clear water holds an invisible world. The poem celebrates the scientific temperament: the habit of slowing down, looking carefully, and asking 'why?' rather than taking the world for granted. Key poetic devices: extended metaphor (magnifying glass = curiosity/scientific vision), imagery, sensory detail. Themes: scientific wonder, curiosity, attention, the idea that the world is more complex and beautiful than it appears to the casual glance. Students practise identifying extended metaphor and connecting poetic themes to scientific ways of thinking.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Magnifying Glass poem class 8",
+            "scientific curiosity poem",
+            "Poorvi Unit 5 poem",
+            "observation wonder poem English 8"
+          ],
+          "prerequisites": [],
+          "order": 2
+        },
+        {
+          "id": "eng8_c015",
+          "name": "Bibha Chowdhuri: The Beam of Light — Biography",
+          "description": "This biographical narrative celebrates Bibha Chowdhuri (1913–1991), a pioneering Indian physicist who overcame formidable gender barriers to make significant contributions to science. She worked with C.V. Raman and later with Patrick Blackett (Nobel laureate) in cosmic ray research. Her most important discovery was the identification of pi mesons (pions) in cosmic rays — subatomic particles that helped confirm the Standard Model of particle physics. Despite the quality of her work, she remained underrecognised during her lifetime partly because of gender discrimination in mid-20th century academia. She was eventually honoured with the Padma Shri. Themes: women in science, perseverance despite prejudice, intellectual courage, the importance of recognising overlooked contributions. Students practise reading biographical non-fiction, identifying the challenges a subject faced, and understanding how context (historical, social) shapes a person's opportunities and legacy.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Bibha Chowdhuri biography class 8",
+            "pi mesons cosmic rays physicist",
+            "women Indian science Bibha",
+            "Poorvi Unit 5 biography",
+            "Beam of Light biography English 8"
+          ],
+          "prerequisites": [],
+          "order": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,363 @@
+{
+  "metadata": {
+    "grade": 3,
+    "board": "CBSE",
+    "subject": "Mathematics",
+    "subjectColor": "#3B82F6",
+    "subjectIcon": "📐",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Maths Mela — Class 3 (Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "mat3_u01",
+      "name": "Chapter 1 — What's in a Name?",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "mat3_c001",
+          "name": "Number Names up to 999",
+          "description": "Every number has a name. Numbers 1–20 have unique names: one, two, three… twenty. From 21 onwards, we combine a tens-name with a ones-name: twenty-one, thirty-five, ninety-nine. Numbers 100–999 use a hundreds-name plus the tens-and-ones: one hundred and twenty-three, three hundred and forty-five. We also write numbers in numerals (symbols like 1, 2, 3) and in words (one, two, three). Matching the numeral to the word and the word to the numeral are important early skills. For example, 456 is 'four hundred and fifty-six'; 'seven hundred and eight' is 708. Knowing number names helps us read prices, scores, and measurements in everyday life.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["number names", "numbers in words", "numerals", "counting to 999", "number words"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat3_c002",
+          "name": "Before, After, and Between",
+          "description": "The number that comes just before a number is one less (the number before 56 is 55). The number that comes just after a number is one more (the number after 56 is 57). The number that comes between two numbers is the one in the middle (the number between 55 and 57 is 56). These ideas help us understand the order of numbers and find missing numbers in a sequence. On a number line, numbers increase as we move right and decrease as we move left. Ordering numbers — arranging them from smallest to largest (ascending) or largest to smallest (descending) — uses the same idea of what comes before, after, or between.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["before and after", "number order", "missing numbers", "number sequence", "ascending descending"],
+          "prerequisites": ["mat3_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat3_u02",
+      "name": "Chapter 2 — Toy Joy",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "mat3_c003",
+          "name": "Counting and Skip Counting",
+          "description": "Counting one by one works for small quantities, but skip counting is faster for larger groups. Skip counting by 2s: 2, 4, 6, 8, 10… Skip counting by 5s: 5, 10, 15, 20, 25… Skip counting by 10s: 10, 20, 30, 40, 50… We can skip count forward (add the same number each time) and backward (subtract the same number each time). Skip counting is the foundation for multiplication — counting by 3s gives us the 3 times table. When sorting a pile of toys, grouping them in fives or tens and then skip counting gives the total much faster than counting one by one. Hundred charts (grids of 1–100) help us see skip counting patterns clearly.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["skip counting", "counting by 2s", "counting by 5s", "counting by 10s", "hundred chart"],
+          "prerequisites": ["mat3_c001"],
+          "order": 1
+        },
+        {
+          "id": "mat3_c004",
+          "name": "Basic Addition and Subtraction",
+          "description": "Addition is combining two or more groups to find the total. Subtraction is taking one group away from another to find how many are left. We add (5 + 3 = 8) when we want to find the total; we subtract (8 − 3 = 5) when we want to find what is left or the difference. Addition and subtraction are inverse operations — each undoes the other. Number bonds show all the ways to make a number: 8 = 0+8 = 1+7 = 2+6 = 3+5 = 4+4. A number sentence (also called an equation) uses symbols: 5 + 3 = 8 or 8 − 3 = 5. Adding zero to any number gives the same number; subtracting zero leaves the number unchanged.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["addition", "subtraction", "number bonds", "number sentence", "total", "difference"],
+          "prerequisites": ["mat3_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat3_u03",
+      "name": "Chapter 3 — Double Century",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "mat3_c005",
+          "name": "Place Value — Hundreds, Tens, and Ones",
+          "description": "A 3-digit number has three place values. In 234: the 2 is in the hundreds place (value = 200), the 3 is in the tens place (value = 30), and the 4 is in the ones place (value = 4). The expanded form is 200 + 30 + 4. A double century means 200 — two groups of 100. One hundred = 10 tens = 100 ones. We can show place value using blocks: a flat square = 100, a rod = 10, a small cube = 1. Understanding place value is essential for adding, subtracting, and comparing numbers. The digit 0 is a placeholder — in 305, the 0 in the tens place tells us there are no tens (305 = 300 + 0 + 5).",
+          "expectedDifficulty": "OK",
+          "aliases": ["place value", "hundreds tens ones", "expanded form", "3-digit numbers", "hundred block"],
+          "prerequisites": ["mat3_c001"],
+          "order": 1
+        },
+        {
+          "id": "mat3_c006",
+          "name": "Comparing 3-Digit Numbers",
+          "description": "To compare two 3-digit numbers, first look at the hundreds digit. The number with the larger hundreds digit is greater. If the hundreds are equal, compare the tens. If tens are also equal, compare the ones. For example: 352 vs 347 — both have 3 hundreds; compare tens: 5 tens > 4 tens, so 352 > 347. We use > (greater than), < (less than), and = (equal to). The greatest 3-digit number is 999; the smallest is 100. Arranging a set of numbers from smallest to greatest (ascending order) or greatest to smallest (descending order) uses this comparison method repeatedly.",
+          "expectedDifficulty": "OK",
+          "aliases": ["comparing 3-digit numbers", "greater than less than", "ascending order", "descending order"],
+          "prerequisites": ["mat3_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat3_u04",
+      "name": "Chapter 4 — Vacation with My Nani Maa",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "mat3_c007",
+          "name": "Addition with Carrying",
+          "description": "When we add numbers and the sum in a column is 10 or more, we 'carry' the extra to the next column. Write numbers in columns aligned by place value and add from right to left (ones first). For example, 147 + 86: ones column 7+6=13 (write 3, carry 1 to tens); tens column 4+8+1=13 (write 3, carry 1 to hundreds); hundreds column 1+0+1=2. Answer: 233. In real-life situations like packing items for a holiday or counting distance travelled, addition with carrying is constantly used. Estimating first (round to the nearest 10 or 100) helps us check if the answer is sensible.",
+          "expectedDifficulty": "OK",
+          "aliases": ["addition with carrying", "regrouping", "column addition", "carrying", "3-digit addition"],
+          "prerequisites": ["mat3_c005"],
+          "order": 1
+        },
+        {
+          "id": "mat3_c008",
+          "name": "Subtraction with Borrowing",
+          "description": "When the top digit in a column is smaller than the bottom digit, we borrow 1 from the next column. Borrowing 1 ten gives us 10 extra ones; borrowing 1 hundred gives us 10 extra tens. For example, 324 − 158: ones column 4<8, borrow from tens (tens becomes 2-1=1 and ones becomes 14); 14−8=6. Tens column: 1<5, borrow from hundreds (hundreds becomes 3-1=2 and tens becomes 11); 11−5=6. Hundreds column: 2−1=1. Answer: 166. Check: 166 + 158 = 324 ✓ In the vacation context, subtraction helps us find how much money is left after spending, or how far we still have to travel.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["subtraction with borrowing", "regrouping subtraction", "column subtraction", "3-digit subtraction"],
+          "prerequisites": ["mat3_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat3_u05",
+      "name": "Chapter 5 — Fun with Shapes",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "mat3_c009",
+          "name": "2D Shapes — Sides and Corners",
+          "description": "Two-dimensional (2D) shapes are flat. They are described by the number of sides (straight lines forming the boundary) and corners (vertices, where two sides meet). A triangle has 3 sides and 3 corners. A square has 4 equal sides and 4 corners. A rectangle has 4 sides (opposite sides equal) and 4 corners. A pentagon has 5 sides and 5 corners. A hexagon has 6 sides and 6 corners. A circle has no sides and no corners — just one curved boundary. We can sort shapes by the number of sides or by whether they have straight or curved boundaries. Shapes appear in tiles, windows, books, wheels, and all around us.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["2D shapes", "triangle", "rectangle", "square", "circle", "sides and corners", "pentagon hexagon"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat3_c010",
+          "name": "3D Shapes in the World Around Us",
+          "description": "Three-dimensional (3D) shapes are solid — they take up space. Common 3D shapes and everyday objects: cube (dice, sugar cube), cuboid (brick, matchbox, book), sphere (ball, orange), cylinder (tin can, glass, pipe), cone (ice-cream cone, party hat). We describe 3D shapes by their faces (flat surfaces), edges (where faces meet), and vertices (corners). A cube has 6 faces, 12 edges, and 8 vertices. A cylinder has 2 flat circular faces and 1 curved surface, with no vertices. A sphere has no flat face, no edge, and no vertex. Observing 3D shapes in toys, food, and buildings makes geometry real and tangible.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["3D shapes", "cube cuboid sphere cylinder cone", "faces edges vertices", "solid shapes"],
+          "prerequisites": ["mat3_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat3_u06",
+      "name": "Chapter 6 — House of Hundreds – I",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "mat3_c011",
+          "name": "Numbers 100 to 500",
+          "description": "Numbers from 100 to 500 are 3-digit numbers in the first half of the hundreds. 100 = one hundred, 200 = two hundred, 300 = three hundred, 400 = four hundred, 500 = five hundred. Between any two consecutive hundreds there are 99 numbers: between 200 and 300 come 201, 202, … 299. A number line from 100 to 500 shows these numbers in order with equally spaced intervals. We can identify the nearest hundred to any number (e.g., 347 is between 300 and 400; it is closer to 300 + 50 = 350, so it rounds to 300). Counting on from 100 in tens: 100, 110, 120, 130… is a helpful skip-counting pattern.",
+          "expectedDifficulty": "OK",
+          "aliases": ["numbers 100 to 500", "hundreds", "number line", "rounding to hundreds", "3-digit number line"],
+          "prerequisites": ["mat3_c005"],
+          "order": 1
+        },
+        {
+          "id": "mat3_c012",
+          "name": "Addition and Subtraction up to 500",
+          "description": "Adding and subtracting numbers up to 500 follows the same column method as smaller numbers. Line up digits by place value (ones under ones, tens under tens, hundreds under hundreds) and work right to left. Carrying (in addition) and borrowing (in subtraction) apply the same rules learned earlier. For example, 356 + 127 = 483; 428 − 195 = 233. Word problems about hundreds arise in contexts like how many roti the baker made in a day, how many steps from home to school, or how many rupees were saved and spent. Real-life arithmetic with hundreds builds number sense and confidence.",
+          "expectedDifficulty": "OK",
+          "aliases": ["addition up to 500", "subtraction up to 500", "3-digit arithmetic", "word problems hundreds"],
+          "prerequisites": ["mat3_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat3_u07",
+      "name": "Chapter 7 — Raksha Bandhan",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "mat3_c013",
+          "name": "Multiplication as Repeated Addition",
+          "description": "Multiplication is a fast way of adding the same number over and over. 3 × 4 means 3 groups of 4, which is 4 + 4 + 4 = 12. In the Raksha Bandhan context: if a sister ties 4 rakhis and each rakhi costs ₹3, the total cost is 4 × 3 = ₹12 (instead of 3 + 3 + 3 + 3). An array is a rectangular arrangement of objects in rows and columns that shows multiplication visually — 3 rows of 4 objects = 12 objects. The multiplication symbol is × and the answer is called the product. Any number multiplied by 1 stays the same. Any number multiplied by 0 is 0. Learning tables of 2, 3, 4, 5, and 10 makes multiplication quick.",
+          "expectedDifficulty": "OK",
+          "aliases": ["multiplication", "repeated addition", "array", "product", "times tables", "groups of"],
+          "prerequisites": ["mat3_c003"],
+          "order": 1
+        },
+        {
+          "id": "mat3_c014",
+          "name": "Multiplication Tables of 2, 5, and 10",
+          "description": "The 2 times table: 2, 4, 6, 8, 10, 12… (all even numbers — they end in 0, 2, 4, 6, or 8). The 5 times table: 5, 10, 15, 20, 25… (always end in 0 or 5). The 10 times table: 10, 20, 30, 40, 50… (always end in 0). These three tables are the easiest to learn and remember. Patterns help: in the 5-table, the ones digit alternates between 5 and 0. In the 10-table, simply add a 0 to the number. Knowing these tables by heart makes shopping (how much do 5 pencils at ₹2 each cost?), measuring (how many cm in 10 dm?), and all future mathematics much faster.",
+          "expectedDifficulty": "OK",
+          "aliases": ["2 times table", "5 times table", "10 times table", "multiplication tables", "even numbers"],
+          "prerequisites": ["mat3_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat3_u08",
+      "name": "Chapter 8 — Fair Share",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "mat3_c015",
+          "name": "Division as Equal Sharing",
+          "description": "Division means splitting a total into equal groups. If 12 laddoos are shared equally among 4 children, each child gets 12 ÷ 4 = 3 laddoos. The number being divided is the dividend (12), the number of groups is the divisor (4), and the answer is the quotient (3). Division is the inverse of multiplication: if 4 × 3 = 12, then 12 ÷ 4 = 3 and 12 ÷ 3 = 4. When things cannot be shared exactly, the leftover amount is the remainder (it must always be less than the divisor). For example, 13 ÷ 4 = 3 remainder 1 (three each with one left over). Division appears whenever we need to share equally — food, items, time.",
+          "expectedDifficulty": "OK",
+          "aliases": ["division", "equal sharing", "quotient", "remainder", "dividend divisor"],
+          "prerequisites": ["mat3_c013"],
+          "order": 1
+        },
+        {
+          "id": "mat3_c016",
+          "name": "Halves and Quarters",
+          "description": "A fraction is a part of a whole that has been divided into equal parts. A half (1/2) means the whole is cut into 2 equal parts; we take 1. A quarter (1/4) means 4 equal parts; we take 1. Two quarters make one half; four quarters make one whole. We can show fractions with shapes (half a circle, quarter of a square), objects (half an orange, a quarter of a pizza), and on a number line. An important rule: the parts must be equal — cutting an orange into one big piece and one small piece and calling them 'halves' is wrong. Three-quarters (3/4) means taking 3 of 4 equal parts.",
+          "expectedDifficulty": "OK",
+          "aliases": ["half", "quarter", "fractions", "1/2", "1/4", "3/4", "equal parts"],
+          "prerequisites": ["mat3_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat3_u09",
+      "name": "Chapter 9 — House of Hundreds – II",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "mat3_c017",
+          "name": "Numbers 500 to 999",
+          "description": "Numbers from 500 to 999 complete the range of 3-digit numbers. 500 = five hundred, 600 = six hundred, 700 = seven hundred, 800 = eight hundred, 900 = nine hundred, 999 = nine hundred and ninety-nine. The largest 3-digit number is 999 and the next number — 1,000 (one thousand) — is the smallest 4-digit number. On a number line from 500 to 1,000, we can mark hundreds, then break each hundred into tens. Rounding to the nearest hundred: 672 is between 600 and 700; since 72 > 50, it rounds up to 700. Rounding to the nearest ten: 672 rounds to 670 (since 2 < 5).",
+          "expectedDifficulty": "OK",
+          "aliases": ["numbers 500 to 999", "largest 3-digit number", "rounding", "number line 500-999"],
+          "prerequisites": ["mat3_c005"],
+          "order": 1
+        },
+        {
+          "id": "mat3_c018",
+          "name": "Addition and Subtraction up to 999",
+          "description": "Adding and subtracting numbers up to 999 uses the same column method, but problems may involve multiple carries or borrows. A useful mental strategy is breaking numbers into hundreds, tens, and ones: 462 + 315 = (400+300) + (60+10) + (2+5) = 700 + 70 + 7 = 777. Estimation (rounding each number first) helps check answers. For example, 589 − 234 ≈ 600 − 200 = 400 (actual answer is 355, which is close to 400 — so the answer is reasonable). Word problems involving hundreds arise in cricket scores, savings, distances between cities, and counting items in large collections.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["addition up to 999", "subtraction up to 999", "mental strategy", "estimation", "3-digit word problems"],
+          "prerequisites": ["mat3_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat3_u10",
+      "name": "Chapter 10 — Fun at Class Party!",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "mat3_c019",
+          "name": "Multiplication Tables of 3 and 4",
+          "description": "The 3 times table: 3, 6, 9, 12, 15, 18, 21, 24, 27, 30. The 4 times table: 4, 8, 12, 16, 20, 24, 28, 32, 36, 40. Learning these tables helps solve problems quickly: if 4 children each bring 3 balloons to the party, the total is 4 × 3 = 12. A useful trick for the 4 times table: double the number, then double again (4 × 6 = double 6 = 12, double 12 = 24). Patterns: the 3-table digits (3, 6, 9, 2, 5, 8, 1, 4, 7, 0) cycle through a pattern. Knowing that 3 × 4 = 4 × 3 = 12 (commutative property) means learning one fact gives two results. Multiplication facts speed up shopping, cooking, and party planning.",
+          "expectedDifficulty": "OK",
+          "aliases": ["3 times table", "4 times table", "multiplication tables", "commutative property"],
+          "prerequisites": ["mat3_c014"],
+          "order": 1
+        },
+        {
+          "id": "mat3_c020",
+          "name": "Simple Patterns and Problem Solving",
+          "description": "Patterns are sequences that follow a rule. At a class party, arranging chairs in rows and columns creates an array — a visual pattern that shows multiplication. A pattern can use shapes, colours, numbers, or objects. Number patterns: 10, 20, 30, 40 (adding 10 each time); 100, 90, 80, 70 (subtracting 10 each time); 2, 4, 8, 16 (doubling each time). To find the next term, identify the rule by looking at the difference between consecutive terms. Problem-solving steps: (1) read the problem carefully, (2) find out what is known and what is to be found, (3) choose the right operation, (4) solve and check. Party math problems involve totals, equal sharing, and pattern-based arrangements.",
+          "expectedDifficulty": "OK",
+          "aliases": ["patterns", "problem solving", "number sequence", "array pattern", "rule in pattern"],
+          "prerequisites": ["mat3_c019"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat3_u11",
+      "name": "Chapter 11 — Filling and Lifting",
+      "order": 11,
+      "concepts": [
+        {
+          "id": "mat3_c021",
+          "name": "Measurement — Weight",
+          "description": "Weight tells us how heavy something is. We compare weights informally using a balance — the heavier object makes its side go down. The standard units of weight are grams (g) for light objects and kilograms (kg) for heavier ones. 1 kg = 1,000 g. A pen weighs about 10 g; a textbook about 300 g; a bag of rice 5 kg. We read a weighing scale by finding where the pointer rests. Heavier or lighter? — a ball of clay and a ball of cotton may look the same size but feel very different in weight. Lifting heavy objects requires more effort than lifting light ones. Understanding weight helps with shopping, cooking, and carrying loads safely.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["weight", "grams", "kilograms", "balance", "heavy light", "weighing scale"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat3_c022",
+          "name": "Measurement — Capacity",
+          "description": "Capacity is how much liquid a container can hold. Before standard units, people used cups, jugs, and pots to measure — but these varied in size. Standard units: millilitres (ml) for small amounts and litres (l) for larger amounts. 1 l = 1,000 ml. A teaspoon holds about 5 ml; a cup about 200–250 ml; a water bottle 1 litre; a bucket 10–15 litres. 'Filling' means adding liquid until full; the container's capacity is reached. We read a measuring jug at eye level, looking at the liquid's surface. Comparing containers: pour liquid from one to the other to find which holds more. Capacity is used in cooking, medicine doses, and everyday household tasks.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["capacity", "litres", "millilitres", "measuring jug", "fill", "volume"],
+          "prerequisites": ["mat3_c021"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat3_u12",
+      "name": "Chapter 12 — Give and Take",
+      "order": 12,
+      "concepts": [
+        {
+          "id": "mat3_c023",
+          "name": "Money — Counting and Adding",
+          "description": "Indian currency includes coins (₹1, ₹2, ₹5, ₹10) and notes (₹10, ₹20, ₹50, ₹100, ₹200, ₹500). We count money by adding the values of all coins and notes. For example, ₹10 + ₹5 + ₹2 + ₹1 = ₹18. When shopping, we find the total cost by adding prices together. Money amounts with paise are written with a decimal point: ₹5.50 means 5 rupees and 50 paise, where 100 paise = 1 rupee. 'Give' in this context means paying for something; 'take' means receiving change. The change we receive = amount given − total cost. Making a budget means planning how to spend money without exceeding the total available.",
+          "expectedDifficulty": "OK",
+          "aliases": ["money", "rupees", "paise", "coins and notes", "change", "shopping maths"],
+          "prerequisites": ["mat3_c007"],
+          "order": 1
+        },
+        {
+          "id": "mat3_c024",
+          "name": "Length — Centimetres and Metres",
+          "description": "Length measures how long or tall something is. The standard units of length are centimetres (cm) and metres (m), where 100 cm = 1 m. A centimetre is about the width of a fingernail; a metre is about the height of a door handle from the floor. We measure shorter objects (pencils, books) in centimetres using a ruler, and longer distances (classroom width, height of a child) in metres using a measuring tape. We read a ruler by placing the 0 mark at one end of the object and reading the number at the other end. Non-standard units (hand spans, footsteps) vary from person to person, which is why standard units are important for everyone to get the same measurement.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["length", "centimetres", "metres", "ruler", "measuring tape", "standard units"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat3_u13",
+      "name": "Chapter 13 — Time Goes On",
+      "order": 13,
+      "concepts": [
+        {
+          "id": "mat3_c025",
+          "name": "Reading Clocks — Hours and Half-Hours",
+          "description": "A clock has two hands: the short hour hand and the long minute hand. The clock face is a circle with 12 numbers and 60 small divisions. When the minute hand points to 12, it is exactly on the hour — for example, the hour hand at 4 and minute hand at 12 means 4 o'clock. When the minute hand points to 6 (halfway around the clock), it is half past the hour — hour hand between 4 and 5, minute hand at 6 means half past 4 (4:30). We can also tell quarter past (minute hand at 3) and quarter to (minute hand at 9). Minutes: each number on the clock represents 5 minutes; there are 60 minutes in one hour. 60 seconds = 1 minute; 24 hours = 1 day.",
+          "expectedDifficulty": "OK",
+          "aliases": ["reading clocks", "o'clock", "half past", "hour hand", "minute hand", "quarter past", "quarter to"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat3_c026",
+          "name": "Calendar — Days, Weeks, and Months",
+          "description": "A week has 7 days: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday. A month has about 4 weeks. A year has 12 months: January, February, March, April, May, June, July, August, September, October, November, December. Months have 28, 29, 30, or 31 days. A calendar helps us track dates, plan events, and find how many days until something happens. To find the day after 30 days from Monday 1st: count forward 30 days (30 ÷ 7 = 4 weeks and 2 extra days; Monday + 2 = Wednesday). Important dates: Independence Day is 15 August, Republic Day is 26 January, Gandhi Jayanti is 2 October. 'Time goes on' — understanding the calendar connects maths to daily life.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["calendar", "days of the week", "months of the year", "weeks", "dates", "planning"],
+          "prerequisites": ["mat3_c025"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat3_u14",
+      "name": "Chapter 14 — The Surajkund Fair",
+      "order": 14,
+      "concepts": [
+        {
+          "id": "mat3_c027",
+          "name": "Tally Marks and Pictographs",
+          "description": "At a fair like Surajkund, there are many stalls, visitors, and activities. Data is information collected by counting or observing. Tally marks record counts quickly: four vertical lines crossed by a fifth diagonal line represent 5. A frequency table organises categories with their tallies and totals. A pictograph uses pictures or symbols to represent data — each symbol stands for a fixed number given in the key. For example, if one tent symbol = 5 stalls, and the handicrafts section shows 3 tent symbols, there are 15 handicraft stalls. Reading a pictograph: count symbols and multiply by the key value. Pictographs make data easy to compare at a glance.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["tally marks", "pictograph", "frequency table", "data", "key", "symbol"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat3_c028",
+          "name": "Word Problems — Mixed Operations",
+          "description": "At the Surajkund Fair, many real-life problems involve different operations. A word problem describes a situation and asks us to find an unknown value. Steps: (1) read carefully; (2) identify what is given and what is asked; (3) choose the right operation (add, subtract, multiply, or divide); (4) solve; (5) check by estimating. Key words: 'total' and 'altogether' → add; 'left' and 'difference' → subtract; 'each' and 'every' → multiply; 'share equally' and 'groups of' → divide. Multi-step problems require more than one operation — for example, finding the total cost and then the change. Always write the answer with the correct unit (rupees, cm, kg, etc.).",
+          "expectedDifficulty": "HARD",
+          "aliases": ["word problems", "mixed operations", "multi-step problems", "problem solving", "choosing the operation"],
+          "prerequisites": ["mat3_c027"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

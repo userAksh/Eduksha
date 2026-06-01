@@ -1,0 +1,411 @@
+{
+  "metadata": {
+    "grade": 5,
+    "board": "CBSE",
+    "subject": "Computer Science",
+    "subjectColor": "#0EA5E9",
+    "subjectIcon": "💻",
+    "generatedAt": "2026-06-01",
+    "textbook": "Common Class 5 Computer Science Curriculum"
+  },
+  "units": [
+    {
+      "id": "cs5_u01",
+      "name": "Computers Around Us",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "cs5_c001",
+          "name": "How Computers Are Used in Daily Life",
+          "description": "Computers are used in almost every area of modern life — banks use them to manage money and accounts, hospitals use them to store patient records and run medical equipment, schools use them for learning, and weather forecasters use them to predict rain and storms. Railway stations and airports use computers to manage tickets and schedules. Understanding these real-world uses helps children appreciate why learning about computers is important and how technology makes everyday tasks faster and more accurate.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "uses of computers",
+            "computers in daily life",
+            "applications of computers"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs5_c002",
+          "name": "Types of Computers and Input-Process-Output",
+          "description": "Computers come in many forms — desktop computers sit on a desk, laptops are portable and can run on battery, tablets have touch screens, and smartphones fit in a pocket. All computers, no matter their size, follow the same basic cycle: they take Input (information you give them, like typing or clicking), Process it (the computer's brain works on it), and give Output (results shown on screen or printed). Understanding this Input-Process-Output cycle is fundamental to understanding how all computers work.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "IPO cycle",
+            "input process output",
+            "types of computers",
+            "desktop laptop tablet"
+          ],
+          "prerequisites": [
+            "cs5_c001"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs5_u02",
+      "name": "Parts of a Computer",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "cs5_c003",
+          "name": "External Parts of a Computer",
+          "description": "A computer has several parts that you can see and touch. The Monitor is the screen that shows you information. The Keyboard lets you type letters and numbers. The Mouse lets you point, click, and select things on screen. The Speaker produces sounds and music. The Printer prints documents onto paper. Each of these is a hardware component with a specific function — some are input devices (keyboard, mouse) and some are output devices (monitor, speaker, printer). Knowing each part and its function is the first step to using a computer confidently.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "computer hardware",
+            "monitor keyboard mouse",
+            "input output devices",
+            "parts of computer"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs5_c004",
+          "name": "Internal Parts — CPU, RAM and Hard Disk",
+          "description": "Inside a computer are parts you cannot see from outside. The CPU (Central Processing Unit) is called the brain of the computer because it does all the thinking and calculations. The RAM (Random Access Memory) is the computer's short-term memory — it stores what the computer is currently working on. The Hard Disk is the long-term storage where all files, photos, and programs are saved permanently. The Motherboard is the main circuit board that connects all these parts together. Understanding these internal parts helps children understand why some computers are faster or can store more data than others.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "CPU",
+            "RAM",
+            "hard disk",
+            "motherboard",
+            "internal parts",
+            "brain of computer"
+          ],
+          "prerequisites": [
+            "cs5_c003"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs5_u03",
+      "name": "Using the Keyboard and Mouse",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "cs5_c005",
+          "name": "Keyboard Layout and Special Keys",
+          "description": "The keyboard is arranged in a specific layout called QWERTY (named after the first six letters on the top row). Besides alphabet and number keys, there are important special keys: Shift changes lowercase letters to uppercase, Caps Lock keeps all letters in uppercase, Backspace deletes the character to the left, Enter confirms a command or starts a new line, and the Space Bar creates spaces between words. There are also Function Keys (F1 to F12) at the top used for special commands in different programs. Learning the keyboard layout and these special keys is essential for typing efficiently.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "keyboard keys",
+            "special keys",
+            "Shift Caps Lock Enter Backspace",
+            "QWERTY keyboard",
+            "function keys"
+          ],
+          "prerequisites": [
+            "cs5_c003"
+          ],
+          "order": 1
+        },
+        {
+          "id": "cs5_c006",
+          "name": "Mouse Operations and Keyboard Shortcuts",
+          "description": "The mouse controls a pointer (arrow) on the screen. A single click selects something, a double-click opens it, a right-click shows a menu of options, and scrolling the wheel moves up or down a page. Dragging means holding the button while moving the mouse to move objects around. Keyboard shortcuts make common tasks much faster — Ctrl+C copies selected text, Ctrl+V pastes it, Ctrl+Z undoes the last action, and Ctrl+S saves a file. Practising these shortcuts helps students become much more efficient when working on a computer.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "mouse click",
+            "keyboard shortcuts",
+            "Ctrl C Ctrl V",
+            "drag and drop",
+            "right click"
+          ],
+          "prerequisites": [
+            "cs5_c005"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs5_u04",
+      "name": "Windows Operating System",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "cs5_c007",
+          "name": "What is an Operating System and the Desktop",
+          "description": "An Operating System (OS) is a special program that manages the entire computer — it controls all the hardware and lets you run other programs. Without an OS, a computer cannot work. Windows is the most widely used OS for school computers. When you switch on a computer and log in, the first screen you see is the Desktop — it is like a virtual workspace where you can see icons (small pictures) representing programs and files, a Taskbar at the bottom showing open programs, and a Start Menu that gives access to all installed programs. Understanding the Desktop is the gateway to using a computer effectively.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "operating system",
+            "Windows",
+            "desktop",
+            "taskbar",
+            "start menu",
+            "icons"
+          ],
+          "prerequisites": [
+            "cs5_c002"
+          ],
+          "order": 1
+        },
+        {
+          "id": "cs5_c008",
+          "name": "Window Operations, Folders and Files",
+          "description": "When you open a program, it appears in a Window on the Desktop. Every window has three control buttons in the top-right corner: Minimize (hides the window to the taskbar), Maximize (makes the window fill the whole screen), and Close (shuts the window completely). Pressing the Restore button brings a maximised window back to its original size. Files are documents, photos, and other data stored on the computer. Folders are containers used to organise files, just like physical folders in a drawer. The Recycle Bin temporarily stores deleted files before they are permanently removed. Knowing how to create folders, move files, and manage the Recycle Bin keeps the computer neat and organised.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "minimize maximize close",
+            "window buttons",
+            "folders files",
+            "Recycle Bin",
+            "file management"
+          ],
+          "prerequisites": [
+            "cs5_c007"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs5_u05",
+      "name": "MS Paint",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "cs5_c009",
+          "name": "MS Paint Tools and Drawing",
+          "description": "MS Paint is a simple but fun drawing program that comes with Windows. It has a range of tools for creating artwork digitally: the Pencil draws thin freehand lines, the Brush paints with thicker strokes, the Eraser removes parts of the drawing, the Fill with Colour tool (paint bucket) fills a closed area with colour, and the Text tool lets you add words to your picture. You can also draw shapes like rectangles, ovals (circles), and straight lines using the Shapes tools. The Colour Palette at the bottom lets you choose any colour you like. MS Paint is an excellent introduction to digital creativity.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "MS Paint",
+            "Paint tools",
+            "pencil brush eraser",
+            "fill with colour",
+            "shapes tool"
+          ],
+          "prerequisites": [
+            "cs5_c006"
+          ],
+          "order": 1
+        },
+        {
+          "id": "cs5_c010",
+          "name": "Saving, Opening and Editing in MS Paint",
+          "description": "After creating a drawing in MS Paint, it is very important to save it so it is not lost. You can save by pressing Ctrl+S or going to File and then Save — you need to give the file a name and choose where to save it. To open a previously saved drawing, press Ctrl+O or use File and then Open. The Undo command (Ctrl+Z) reverses the last action, which is very useful when you make a mistake. You can use MS Paint to make fun projects like birthday cards, posters, and illustrations for stories. Practising these skills builds both creativity and important computer skills that are used in many other programs.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "save in Paint",
+            "open file",
+            "Ctrl S Ctrl O",
+            "undo in Paint",
+            "file save"
+          ],
+          "prerequisites": [
+            "cs5_c009"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs5_u06",
+      "name": "MS Word — Introduction",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "cs5_c011",
+          "name": "The MS Word Window and Typing a Document",
+          "description": "MS Word is a word processing program used to create letters, stories, school projects, and reports. When you open MS Word, you see the Word Window which has a Title Bar at the top showing the document name, a Ribbon (or Menu Bar) below it containing all the tools and options, and a large white Document Area in the centre where you type. You type in the document area just like on paper, and a blinking cursor shows where the next character will appear. Pressing Enter starts a new paragraph. Word automatically adjusts text as you type, making it much easier than handwriting for longer documents.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "MS Word window",
+            "word processor",
+            "title bar ribbon",
+            "document area",
+            "typing in Word"
+          ],
+          "prerequisites": [
+            "cs5_c006"
+          ],
+          "order": 1
+        },
+        {
+          "id": "cs5_c012",
+          "name": "Basic Formatting, Saving and Printing in MS Word",
+          "description": "Formatting means changing how text looks in a document. In MS Word, you can make text Bold (Ctrl+B) to make it stand out, Italic (Ctrl+I) to make it lean to the right, and Underline (Ctrl+U) to add a line beneath it. You can also change the font (the style of letters), increase or decrease the font size, and change the text colour — all using options in the Ribbon. After writing, save your document with Ctrl+S and print it on paper with Ctrl+P. Knowing how to format, save, and print documents are basic but essential computer skills used in school and later in professional life.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "bold italic underline",
+            "Ctrl B Ctrl I Ctrl U",
+            "font size colour",
+            "save and print Word",
+            "text formatting"
+          ],
+          "prerequisites": [
+            "cs5_c011"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs5_u07",
+      "name": "The Internet",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "cs5_c013",
+          "name": "What is the Internet and How to Browse",
+          "description": "The Internet is a massive global network that connects millions of computers all over the world, allowing them to share information with each other. To access the Internet, you use a program called a Web Browser (such as Google Chrome, Firefox, or Edge). In the browser's Address Bar, you type a URL (web address) to go to a specific website. You can search for information using a search engine like Google — type keywords (important words about what you are looking for) and it shows a list of relevant websites. Websites from governments (.gov) and educational institutions (.edu) are generally more reliable sources of information.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "internet",
+            "web browser",
+            "URL",
+            "Google search",
+            "browsing the web"
+          ],
+          "prerequisites": [
+            "cs5_c002"
+          ],
+          "order": 1
+        },
+        {
+          "id": "cs5_c014",
+          "name": "Safe Online Behaviour",
+          "description": "The Internet is very useful but also has risks, especially for children. Safe online behaviour means knowing what to share and what to keep private. You should never share your full name, home address, phone number, school name, or photos with strangers online. If someone online makes you feel uncomfortable or says something that feels wrong, you should immediately tell a trusted adult — a parent or teacher. Only visit websites that a parent or teacher has said are appropriate, and use the Internet only for learning and safe entertainment. Following these rules keeps you safe while still enjoying all the benefits the Internet offers.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "internet safety",
+            "online safety",
+            "cyber safety",
+            "don't share personal information",
+            "safe internet use"
+          ],
+          "prerequisites": [
+            "cs5_c013"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs5_u08",
+      "name": "Introduction to Algorithms",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "cs5_c015",
+          "name": "What is an Algorithm",
+          "description": "An algorithm is a set of clear, step-by-step instructions for completing a task, written in a specific order so that anyone (or any computer) following them would get the same result. For example, the algorithm for making a sandwich would list the steps in order: get bread, spread butter, add filling, put the second slice on top. Computers follow algorithms exactly — they cannot guess or skip steps. Writing algorithms for everyday tasks like getting ready for school, tying shoelaces, or making tea teaches children to think in a logical, sequential, and precise way, which is the foundation of computer programming.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "algorithm",
+            "step by step instructions",
+            "sequential thinking",
+            "logical steps",
+            "programming basics"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs5_c016",
+          "name": "Flowcharts",
+          "description": "A flowchart is a diagram that shows the steps of an algorithm using different shapes connected by arrows. Each shape has a specific meaning: an Oval is used for Start and End, a Rectangle (box) shows a Process step (an action to do), and a Diamond shows a Decision point (a yes/no question that changes which path to follow). Arrows show the direction of flow from one step to the next. Flowcharts make it easy to visualise the logic of a process before writing it as a program. Drawing flowcharts for simple tasks like checking if a number is even or odd helps children develop computational thinking skills.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "flowchart",
+            "flowchart shapes",
+            "oval rectangle diamond",
+            "decision box",
+            "process diagram"
+          ],
+          "prerequisites": [
+            "cs5_c015"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs5_u09",
+      "name": "Scratch — Block-Based Coding",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "cs5_c017",
+          "name": "Getting Started with Scratch",
+          "description": "Scratch (scratch.mit.edu) is a free, visual coding platform designed for children. Instead of typing code, you snap colourful blocks together — like puzzle pieces — to create animations, stories, and games. Key concepts: the Sprite is the character you program (a cat, a rocket, a ball); the Stage is the background where the sprite moves; Scripts are sets of blocks that tell the sprite what to do. Blocks are colour-coded by type: Motion (blue) moves sprites, Looks (purple) changes appearance, Sound (pink) plays audio, Control (yellow) manages loops and conditions, Events (orange) start programs (e.g., 'When green flag clicked'). To run your program, click the green flag; to stop it, click the red stop sign. Scratch develops computational thinking in a creative, fun environment.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Scratch",
+            "sprite stage script",
+            "block coding",
+            "green flag",
+            "computational thinking"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs5_c018",
+          "name": "Sequences, Loops, and Conditionals in Scratch",
+          "description": "All programming — even in Scratch — is built from three ideas. A Sequence is instructions done one after another: [Move 10 steps] [Play sound] [Wait 1 second] happens in that exact order. A Loop repeats instructions automatically: 'Repeat 10: [Move 10 steps][Turn 15 degrees]' makes the sprite draw a circle without writing 10 separate move blocks. A Conditional (if-then) checks whether something is true and acts accordingly: 'If touching edge, then bounce' — the sprite only bounces when it hits the edge. Nesting means putting one block inside another — a loop can contain a conditional. These three concepts (sequence, loop, conditional) are the foundations of all programming languages in the world. Debugging means finding and fixing errors — if the sprite does something wrong, check each block carefully.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "sequence loop conditional",
+            "Scratch blocks",
+            "if-then",
+            "debugging",
+            "repeat block"
+          ],
+          "prerequisites": [
+            "cs5_c017"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs5_u10",
+      "name": "Spreadsheets and Digital Tools",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "cs5_c019",
+          "name": "Introduction to Spreadsheets",
+          "description": "A spreadsheet is a digital table made of rows and columns — used for storing and calculating numbers. Microsoft Excel and Google Sheets are the most popular spreadsheets. Each box in the table is called a cell. Cells are identified by their column letter and row number: A1 is the first cell (column A, row 1). We type data into cells — names, numbers, or dates. A formula performs calculations automatically: =A1+B1 adds the values in cells A1 and B1; =SUM(A1:A5) adds all numbers from A1 to A5. When we change a number, all formulas that use it update automatically — this makes spreadsheets extremely powerful for budgeting, marks lists, and data tracking. Spreadsheets can also make charts and graphs from the data we enter.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "spreadsheet",
+            "Excel Google Sheets",
+            "cell row column",
+            "formula SUM",
+            "data table"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs5_c020",
+          "name": "Digital Citizenship and Screen Time",
+          "description": "Being a good digital citizen means using technology in a way that is responsible, safe, and respectful. Copyright: when someone creates a picture, song, or text, it belongs to them — we must not copy and use it without permission or credit. Plagiarism means presenting someone else's work as our own — it is dishonest. Always mention your source. Privacy: protect your personal information online (full name, address, school, photos). Screen time: the American Academy of Pediatrics recommends no more than 2 hours of recreational screen time per day for children over 6. Healthy digital habits: take breaks using the 20-20-20 rule; balance screen time with outdoor play and reading; charge devices outside the bedroom; maintain good posture. Technology is a powerful tool — used wisely, it helps us learn and connect; used carelessly, it can harm our health and relationships.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "digital citizenship",
+            "copyright plagiarism",
+            "privacy",
+            "screen time",
+            "20-20-20 rule"
+          ],
+          "prerequisites": [
+            "cs5_c019"
+          ],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

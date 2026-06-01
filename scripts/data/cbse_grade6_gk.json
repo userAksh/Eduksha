@@ -1,0 +1,407 @@
+{
+  "metadata": {
+    "grade": 6,
+    "board": "CBSE",
+    "subject": "General Knowledge",
+    "subjectColor": "#F59E0B",
+    "subjectIcon": "🌟",
+    "generatedAt": "2026-06-01",
+    "textbook": "Common Class 6 GK Curriculum (standard topics for CBSE Class 6 level)"
+  },
+  "units": [
+    {
+      "id": "gk6_u01",
+      "name": "India — Our Country",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "gk6_c001",
+          "name": "India — Basic Facts",
+          "description": "India is located in South Asia. It is the 7th largest country in the world by area (3.28 million sq km). India has 28 states and 8 Union Territories (as of 2019). The capital is New Delhi. India shares borders with 7 countries: Pakistan, Afghanistan, China, Nepal, Bhutan, Bangladesh, Myanmar. The southern tip of mainland India is Kanyakumari. India has a coastline of over 7,500 km along the Arabian Sea, Indian Ocean, and Bay of Bengal. The Indian Ocean is named after India. India's population makes it the most populous country in the world (surpassed China in 2023). The national capital region's river is the Yamuna.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "India basic facts class 6",
+            "7th largest country India",
+            "India 28 states 8 UTs",
+            "India neighbours borders",
+            "Kanyakumari southern tip India"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk6_c002",
+          "name": "National Symbols of India",
+          "description": "India's national symbols represent its identity and values. National Flag: Tiranga — saffron (courage), white (peace), green (fertility), blue Ashoka Chakra with 24 spokes (law of dharma). National Emblem: Lion Capital of Ashoka (four lions on a base with animals and the motto 'Satyameva Jayate' — Truth alone triumphs). National Anthem: 'Jana Gana Mana' (Rabindranath Tagore, duration 52 seconds). National Song: 'Vande Mataram' (Bankim Chandra Chattopadhyay). National Animal: Bengal Tiger. National Bird: Indian Peacock. National Flower: Lotus. National Tree: Banyan. National Fruit: Mango. National River: Ganga.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "national symbols India class 6",
+            "Tiranga national flag India",
+            "Jana Gana Mana national anthem",
+            "lion capital Satyameva Jayate",
+            "national animal bird flower India"
+          ],
+          "prerequisites": [
+            "gk6_c001"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk6_u02",
+      "name": "Important Places in India",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "gk6_c003",
+          "name": "Famous Monuments and UNESCO World Heritage Sites",
+          "description": "India has 42 UNESCO World Heritage Sites (as of 2023). Famous monuments: Taj Mahal (Agra — built by Mughal Emperor Shah Jahan for his wife Mumtaz, completed 1653, one of the Seven Wonders of the World), Red Fort (Delhi — Mughal, independence speech delivered here every August 15), Qutb Minar (Delhi — tallest brick minaret in the world, 72.5 m), Ajanta Caves (Maharashtra — Buddhist rock-cut caves, 2nd century BCE–6th century CE), Ellora Caves (Maharashtra — Hindu, Buddhist, Jain temples), Konark Sun Temple (Odisha), Khajuraho temples (Madhya Pradesh). The Statue of Unity (Gujarat) is the world's tallest statue (182 m).",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Taj Mahal UNESCO India",
+            "Red Fort Qutb Minar Delhi",
+            "Ajanta Ellora caves",
+            "UNESCO World Heritage Sites India",
+            "Statue of Unity tallest statue"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk6_c004",
+          "name": "Important Cities and States of India",
+          "description": "State capitals and key facts: Mumbai (Maharashtra) — financial capital of India, Bollywood; Kolkata (West Bengal) — City of Joy, on Hooghly river; Chennai (Tamil Nadu) — on Coromandel Coast; Bengaluru (Karnataka) — IT capital, Silicon Valley of India; Hyderabad (Telangana) — City of Pearls, Charminar; Jaipur (Rajasthan) — Pink City; Amritsar (Punjab) — Golden Temple; Varanasi (Uttar Pradesh) — oldest living city, on Ganga. Largest state by area: Rajasthan. Smallest state: Goa. Most populous state: Uttar Pradesh. Northernmost state: Jammu & Kashmir. Southernmost state: Tamil Nadu. Goa has the highest per capita income among states.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Indian cities states class 6",
+            "Mumbai Kolkata Chennai Bengaluru",
+            "Pink City Jaipur",
+            "largest smallest state India",
+            "Varanasi oldest city India"
+          ],
+          "prerequisites": [
+            "gk6_c003"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk6_u03",
+      "name": "Our World",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "gk6_c005",
+          "name": "Continents and Oceans",
+          "description": "Earth has 7 continents: Asia (largest), Africa (2nd largest, most countries — 54), North America, South America, Antarctica (coldest, no permanent population, ice sheet up to 4.8 km thick), Europe, Australia/Oceania (smallest). Earth has 5 oceans: Pacific (largest — bigger than all continents combined), Atlantic, Indian, Arctic (smallest, mostly frozen), Southern. The highest mountain: Mount Everest (8,848.86 m, Nepal/China). The longest river: Nile (Africa, 6,650 km). The deepest ocean point: Mariana Trench (~11,034 m, Pacific). The largest lake: Caspian Sea (saltwater). The largest freshwater lake: Lake Superior (North America).",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "7 continents 5 oceans class 6",
+            "Asia largest continent Africa",
+            "Mount Everest Nile Mariana Trench",
+            "Pacific largest ocean",
+            "Lake Superior Caspian Sea"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk6_c006",
+          "name": "Important Countries and World Facts",
+          "description": "Key world facts: largest country by area — Russia (17 million sq km). Smallest country — Vatican City (0.44 sq km). Most spoken language — Mandarin Chinese. Country with most languages — Papua New Guinea (800+ languages). Longest wall — Great Wall of China. Tallest building — Burj Khalifa, Dubai (828 m). Country with most UNESCO World Heritage Sites — Italy (58). The Amazon rainforest produces 20% of world's oxygen. Antarctica has 70% of the world's freshwater (in ice). The Sahara is the world's largest hot desert. The Dead Sea (Jordan/Israel) is the lowest point on Earth's land surface (~430 m below sea level) and so salty that you float without effort.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Russia largest country area",
+            "Vatican City smallest country",
+            "Great Wall China Burj Khalifa",
+            "Dead Sea lowest point Earth",
+            "Amazon rainforest oxygen"
+          ],
+          "prerequisites": [
+            "gk6_c005"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk6_u04",
+      "name": "Animals and Nature",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "gk6_c007",
+          "name": "Animals — Facts and Records",
+          "description": "Interesting animal facts: Blue Whale — largest animal on Earth (up to 30 m long, weighing 150 tonnes); its heart is the size of a small car. Cheetah — fastest land animal (up to 120 km/h in short bursts). Peregrine Falcon — fastest bird in a dive (up to 390 km/h). Ostrich — largest bird, cannot fly, fastest running bird (up to 70 km/h). Elephant — largest land animal (African elephant). Tortoise — longest-lived animal (some tortoises live 150+ years). Hummingbird — smallest bird and only bird that can fly backwards. Bat — only mammal capable of sustained flight. Shark — one of the oldest animal groups, unchanged for 400 million years. Octopus — has three hearts and blue blood.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "animal records class 6",
+            "Blue Whale largest animal",
+            "Cheetah fastest land animal",
+            "Peregrine Falcon fastest bird",
+            "ostrich largest bird",
+            "elephant largest land animal"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk6_c008",
+          "name": "Plants, Environment, and Conservation",
+          "description": "Plants facts: Sequoia (Giant Redwood) is the world's largest tree by volume (California, USA). Bristlecone Pine is the world's oldest living tree (nearly 5,000 years old). The Rafflesia flower is the world's largest flower (up to 1 metre wide). The Bamboo plant is the world's fastest growing plant (can grow 91 cm in a day). India's national parks: Jim Corbett (Uttarakhand — first national park, 1936), Kaziranga (Assam — one-horned rhinoceros), Sundarbans (West Bengal — Bengal tiger, mangroves), Gir (Gujarat — only wild Asiatic lions). Project Tiger (1973) saved the Bengal tiger. World Environment Day: June 5. Earth Day: April 22.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "world's largest oldest tree",
+            "Rafflesia largest flower bamboo fastest plant",
+            "Jim Corbett Kaziranga Gir national park",
+            "Project Tiger India",
+            "World Environment Day Earth Day"
+          ],
+          "prerequisites": [
+            "gk6_c007"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk6_u05",
+      "name": "Science and Inventions",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "gk6_c009",
+          "name": "Famous Scientists and Their Discoveries",
+          "description": "Key scientists: Isaac Newton — discovered laws of gravity and motion (apple fell from tree — legend). Albert Einstein — Theory of Relativity (E=mc²); won Nobel Prize in Physics 1921. Marie Curie — first woman to win a Nobel Prize (Physics 1903 and Chemistry 1911 — only person to win in two sciences). Alexander Fleming — discovered Penicillin (first antibiotic, 1928). Thomas Edison — invented the electric bulb (1879) and phonograph. Alexander Graham Bell — invented the telephone (1876). Indian scientists: C.V. Raman — Raman Effect (Nobel Prize in Physics 1930). Aryabhata — calculated value of pi, explained eclipses. Srinivasa Ramanujan — mathematical genius.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Newton Einstein Marie Curie class 6",
+            "penicillin Fleming",
+            "Thomas Edison bulb Bell telephone",
+            "CV Raman Nobel Prize",
+            "Aryabhata Ramanujan Indian scientists"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk6_c010",
+          "name": "Important Inventions and Discoveries",
+          "description": "Life-changing inventions: Wheel (~3500 BCE) — transformed transport; Printing Press (Johannes Gutenberg, 1440) — spread knowledge; Steam Engine (James Watt, 1769) — powered the Industrial Revolution; Electric Bulb (Edison, 1879); Telephone (Bell, 1876); Aeroplane (Wright Brothers, Orville and Wilbur, 1903); Penicillin (Fleming, 1928); Television (John Logie Baird, 1926); Internet (ARPANET, 1969; World Wide Web by Tim Berners-Lee, 1989). India's contributions: Zero and decimal number system (ancient India); Yoga; Ayurveda; Chess (Chaturanga); Cotton weaving; Steel (Wootz steel). The compass (China) and paper (China) are also key inventions.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "important inventions class 6",
+            "Wright Brothers aeroplane 1903",
+            "printing press Gutenberg",
+            "steam engine James Watt",
+            "World Wide Web Tim Berners-Lee",
+            "zero decimal India invention"
+          ],
+          "prerequisites": [
+            "gk6_c009"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk6_u06",
+      "name": "Sports and Games",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "gk6_c011",
+          "name": "Olympics and Sports Facts",
+          "description": "The modern Olympic Games began in 1896 in Athens, Greece, revived by Pierre de Coubertin. The Olympics are held every 4 years. Summer Olympics feature events like athletics, swimming, gymnastics, and team sports. Winter Olympics feature skiing, skating, and ice hockey. The Olympic motto: 'Faster, Higher, Stronger — Together' (in Latin: Citius, Altius, Fortius — Communiter). The Olympic rings (5 colours: blue, yellow, black, green, red) represent the 5 continents of the world. India won its first individual Olympic gold medal: Abhinav Bindra (shooting, Beijing 2008). Neeraj Chopra won gold in javelin at Tokyo 2020. India's best Olympic: 6 medals at Paris 2024.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Olympics class 6",
+            "Olympic rings 5 continents",
+            "Citius Altius Fortius Olympic motto",
+            "Abhinav Bindra first gold India",
+            "Neeraj Chopra javelin gold Olympics"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk6_c012",
+          "name": "Sports — Facts and Indian Achievements",
+          "description": "Cricket: India's most popular sport. India won the ODI World Cup in 1983 (Kapil Dev) and 2011 (MS Dhoni). Sachin Tendulkar: 'God of Cricket', first to score 100 international centuries. Hockey: India has won 8 Olympic gold medals. Major Dhyan Chand — greatest hockey player, called 'The Wizard'. Badminton: PV Sindhu — first Indian woman to win two Olympic medals. Chess: Viswanathan Anand — India's first Grandmaster, World Champion 5 times. Each sport has its own venue: Cricket — stadium (e.g., Narendra Modi Stadium, Ahmedabad — world's largest cricket stadium, capacity 1,32,000). Football World Cup won most times: Brazil (5 times). Tennis Grand Slams: Australian Open, French Open, Wimbledon, US Open.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "India sports achievements class 6",
+            "Kapil Dev 1983 World Cup",
+            "Sachin Tendulkar 100 centuries",
+            "Dhyan Chand hockey wizard",
+            "PV Sindhu badminton medals",
+            "Viswanathan Anand chess"
+          ],
+          "prerequisites": [
+            "gk6_c011"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk6_u07",
+      "name": "Famous People",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "gk6_c013",
+          "name": "Great Leaders and Freedom Fighters",
+          "description": "Mahatma Gandhi (1869–1948): Father of the Nation, led India's independence movement through non-violence (Ahimsa) and peaceful resistance (Satyagraha). Key events: Salt March (1930), Quit India Movement (1942). Gandhi's birthday (October 2) is celebrated as the International Day of Non-Violence. Jawaharlal Nehru: India's first Prime Minister (1947–1964), led India's development; Children's Day is celebrated on his birthday November 14. B.R. Ambedkar: Father of the Indian Constitution, championed Dalit rights. Subhas Chandra Bose (Netaji): founded Indian National Army. Rani Laxmibai: queen of Jhansi, fought in the 1857 revolt. Martin Luther King Jr.: led the American Civil Rights Movement.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Gandhi freedom fighter class 6",
+            "Nehru first Prime Minister India",
+            "Ambedkar Constitution Dalits",
+            "Netaji INA Bose",
+            "Children's Day November 14"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk6_c014",
+          "name": "Famous Artists, Writers, and Explorers",
+          "description": "Famous writers: Rabindranath Tagore — wrote Gitanjali (Nobel Prize in Literature 1913, first Asian Nobel laureate); wrote India's and Bangladesh's national anthems. William Shakespeare — greatest playwright in English, wrote Hamlet, Romeo and Juliet, A Midsummer Night's Dream. Hans Christian Andersen — wrote fairy tales (The Little Mermaid, The Ugly Duckling). Famous painters: Leonardo da Vinci (Mona Lisa, The Last Supper), Vincent van Gogh (The Starry Night). Famous explorers: Christopher Columbus — reached the Americas (1492); Vasco da Gama — found sea route to India (1498); Neil Armstrong — first human to walk on the Moon (1969). Ibn Battuta — greatest medieval traveller, visited India during Delhi Sultanate.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Tagore Nobel Literature",
+            "Shakespeare plays class 6",
+            "Leonardo da Vinci Mona Lisa",
+            "Columbus Vasco da Gama explorers",
+            "Neil Armstrong Moon 1969"
+          ],
+          "prerequisites": [
+            "gk6_c013"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk6_u08",
+      "name": "Fun Facts and Records",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "gk6_c015",
+          "name": "Amazing Records and Wonders of the World",
+          "description": "Seven Wonders of the Ancient World: Great Pyramid of Giza (Egypt — only one still standing). Seven Wonders of the Modern World (chosen in 2007): Great Wall of China, Petra (Jordan), Christ the Redeemer (Brazil), Machu Picchu (Peru), Chichen Itza (Mexico), Roman Colosseum (Italy), Taj Mahal (India). Records: World's longest train route — Trans-Siberian Railway (Russia, 9,289 km). World's busiest airport — Hartsfield-Jackson Atlanta International Airport (USA). World's deepest lake — Lake Baikal (Russia, 1,642 m deep — contains 20% of world's unfrozen fresh surface water). World's hottest place — Death Valley, California (~57°C recorded). World's coldest place — Vostok Station, Antarctica (−89°C).",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "Seven Wonders World class 6",
+            "Taj Mahal Seven Wonders",
+            "Trans-Siberian Railway longest",
+            "Lake Baikal deepest lake",
+            "Death Valley hottest Vostok coldest"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk6_c016",
+          "name": "Body, Space, and Interesting Science Facts",
+          "description": "Human body facts: the human body has 206 bones (babies have ~270, many fuse as they grow). The largest organ: skin. The hardest substance in the human body: tooth enamel. The human brain weighs about 1.4 kg. Light travels at 3,00,000 km per second. Sound travels at 343 m per second in air (much slower than light — that's why we see lightning before hearing thunder). Our Sun is a star — it is about 150 million km from Earth; its light takes about 8 minutes to reach us. The Moon is Earth's only natural satellite. There are 8 planets in our Solar System. Pluto was reclassified as a dwarf planet in 2006. A year on Earth = 365.25 days (the 0.25 is why we have a leap year every 4 years).",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "human body facts class 6",
+            "speed of light sound",
+            "Sun distance Earth 150 million km",
+            "8 planets solar system",
+            "206 bones human body",
+            "leap year 365 days"
+          ],
+          "prerequisites": [
+            "gk6_c015"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk6_u09",
+      "name": "Human Body and Health",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "gk6_c017",
+          "name": "Body Systems and Organs",
+          "description": "The human body has several organ systems working together. Skeletal system: 206 bones provide structure, protect organs (skull → brain; ribcage → heart and lungs), and produce blood cells in bone marrow. Muscular system: over 600 muscles — voluntary (we control, like arm muscles) and involuntary (automatic, like the heart and intestines). Circulatory system: heart pumps blood carrying oxygen and nutrients around the body via arteries and veins. A resting heart beats 60–100 times per minute; over a lifetime, it beats about 2.5 billion times. Respiratory system: lungs exchange gases — oxygen in, carbon dioxide out. We breathe about 15 times per minute. Digestive system: breaks food into nutrients — takes 24–72 hours for food to travel through the full digestive tract. Excretory system: kidneys filter blood and produce urine; skin excretes sweat; lungs expel CO₂.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "body systems",
+            "skeletal muscular circulatory",
+            "heart lungs kidneys",
+            "voluntary involuntary muscles",
+            "organ systems"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk6_c018",
+          "name": "Nutrition and Disease Prevention",
+          "description": "Macronutrients provide energy and building material: carbohydrates (4 kcal/g — rice, bread, potatoes), proteins (4 kcal/g — eggs, dal, meat, tofu), fats (9 kcal/g — oils, nuts, avocado). Micronutrients are essential in small amounts: vitamin A (carrots, eggs — vision), vitamin C (citrus, amla — immunity, prevents scurvy), vitamin D (sunlight, fish — bone health, prevents rickets), iron (spinach, meat — haemoglobin, prevents anaemia), calcium (milk, ragi — bones and teeth), iodine (iodised salt — thyroid function, prevents goitre). Deficiency diseases: scurvy (no vitamin C), rickets (no vitamin D), anaemia (low iron), night blindness (no vitamin A), goitre (no iodine). The Indian Dietary Guidelines recommend filling half the plate with vegetables and fruits, a quarter with grains, and a quarter with protein. Regular physical activity and 7–9 hours of sleep complete the health picture.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "macronutrients",
+            "vitamins minerals",
+            "deficiency diseases",
+            "scurvy rickets anaemia",
+            "nutrition health"
+          ],
+          "prerequisites": [
+            "gk6_c017"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk6_u10",
+      "name": "Important Days and Numbers",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "gk6_c019",
+          "name": "National and International Important Days",
+          "description": "Knowing important days reflects awareness of global and national priorities. National: Republic Day (26 Jan), Independence Day (15 Aug), Gandhi Jayanti (2 Oct), Children's Day (14 Nov), Teachers' Day (5 Sep), National Science Day (28 Feb — Raman Effect discovery 1928), Constitution Day (26 Nov — Dr. Ambedkar drafted Constitution). International (UN): World Earth Day (22 Apr), World Environment Day (5 Jun), World Water Day (22 Mar), World Health Day (7 Apr), World AIDS Day (1 Dec), International Day of Yoga (21 Jun — proposed by India 2015), World Space Week (4–10 Oct), International Women's Day (8 Mar), World Book Day (23 Apr). Human Rights Day (10 Dec) marks the adoption of the Universal Declaration of Human Rights in 1948. Observing these days builds civic awareness and global citizenship.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "important days",
+            "Republic Day Independence Day",
+            "National Science Day",
+            "World Earth Day",
+            "international days"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk6_c020",
+          "name": "Numbers and Records Worth Knowing",
+          "description": "Numbers reveal remarkable things. India has 1.4 billion people — passing China to become the world's most populous country in 2023. India has 28 states, 8 Union Territories, and 22 officially recognised languages but over 19,500 dialects. India's Constitution (adopted 26 Nov 1949) is the world's longest written constitution with 448 articles. The Konark Sun Temple (Odisha) was built in the 13th century with stones so precisely carved that no mortar was used. India produces about 18% of the world's software exports. The Bhabha Atomic Research Centre (BARC) runs India's nuclear programme. ISRO's budget is about 1/10th of NASA's but has achieved comparable milestones. Speed of light: 3,00,000 km/s. Sound in air: 343 m/s. Human DNA contains about 3 billion base pairs. Earth has existed for 4.5 billion years; life for about 3.8 billion years.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "India records",
+            "Constitution facts",
+            "ISRO budget",
+            "speed of light sound",
+            "interesting numbers India"
+          ],
+          "prerequisites": [
+            "gk6_c019"
+          ],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

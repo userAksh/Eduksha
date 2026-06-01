@@ -1,0 +1,717 @@
+{
+  "metadata": {
+    "grade": 8,
+    "board": "CBSE",
+    "subject": "Science",
+    "subjectColor": "#22C55E",
+    "subjectIcon": "🔬",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Curiosity — Class 8 (First Edition June 2025, Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "sci8_u01",
+      "name": "Exploring the Investigative World of Science",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "sci8_c001",
+          "name": "The Scientific Method and Nature of Science",
+          "description": "Science is a way of knowing the world through careful observation, questioning, and systematic investigation. The scientific method involves making observations, asking questions, forming a hypothesis, designing experiments, collecting data, and drawing conclusions. A hypothesis is a testable explanation — it must be possible to prove it wrong through evidence. Scientists repeat experiments and check each other's work to make sure results are reliable, which is why science is a self-correcting process. Variables in an experiment are factors that can change; a controlled experiment changes only one variable at a time so results can be trusted. Science is not just facts in a textbook — it is an ongoing human activity driven by curiosity.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "scientific method",
+            "hypothesis",
+            "observation and experiment",
+            "nature of science",
+            "controlled experiment",
+            "variables"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c002",
+          "name": "Making Observations and Drawing Inferences",
+          "description": "An observation is information collected directly through the senses or with instruments, while an inference is a logical conclusion drawn from observations. Qualitative observations describe properties like colour, smell, or texture; quantitative observations involve measurements with units such as mass in grams or temperature in degrees Celsius. Scientists use tools like magnifying lenses, thermometers, graduated cylinders, and microscopes to extend the power of their senses. Recording data in tables and graphs makes patterns easier to spot and helps communicate findings to others. The ability to distinguish between what is actually observed and what is assumed is a key scientific skill. Good observations lead to better questions, and better questions lead to more meaningful experiments.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "observation vs inference",
+            "qualitative quantitative",
+            "measuring instruments",
+            "data recording",
+            "scientific skills"
+          ],
+          "prerequisites": [
+            "sci8_c001"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u02",
+      "name": "The Invisible Living World: Beyond Our Naked Eye",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "sci8_c003",
+          "name": "Microorganisms: Types and Characteristics",
+          "description": "Microorganisms (microbes) are living things too small to be seen with the naked eye; they can only be viewed under a microscope. The main groups are bacteria (single-celled prokaryotes like Lactobacillus), viruses (non-cellular, can only reproduce inside a host cell), fungi (like yeast and mould), protozoa (single-celled eukaryotes like Amoeba), and algae. Bacteria exist in four shapes: spherical (cocci), rod-shaped (bacilli), spiral (spirilla), and comma-shaped (vibrio). Viruses are not considered fully alive because they lack cells, cannot carry out metabolism on their own, and need a host to replicate. Fungi can be unicellular (yeast) or multicellular (bread mould Rhizopus), and they reproduce by spores. Microorganisms are found in soil, water, air, food, and inside other organisms.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "bacteria viruses fungi protozoa",
+            "microbes types",
+            "unicellular organisms",
+            "prokaryotes eukaryotes",
+            "microorganism shapes"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c004",
+          "name": "Useful and Harmful Microorganisms",
+          "description": "Microorganisms play essential roles in nature and in human life. Useful microbes include Lactobacillus (curd formation), yeast (bread making, fermentation, alcohol production), Rhizobium bacteria (nitrogen fixation in legume roots), and decomposers that recycle nutrients in the soil. Antibiotics like penicillin — discovered from the fungus Penicillium — are medicines produced by microorganisms to treat bacterial infections. Harmful microorganisms cause diseases: Plasmodium (malaria), Vibrio cholerae (cholera), Mycobacterium tuberculosis (TB), and various viruses cause influenza, COVID-19, and polio. Food spoilage by bacteria and fungi makes food unsafe to eat; preservation methods like pickling, salting, pasteurisation, and refrigeration are used to prevent microbial growth. The same organism can be harmful in one context and helpful in another, showing how important it is to understand microbial roles.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "useful microbes",
+            "harmful microbes",
+            "fermentation yeast",
+            "nitrogen fixation Rhizobium",
+            "antibiotics penicillin",
+            "food preservation",
+            "pathogens"
+          ],
+          "prerequisites": [
+            "sci8_c003"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u03",
+      "name": "Health: The Ultimate Treasure",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "sci8_c005",
+          "name": "Communicable and Non-Communicable Diseases",
+          "description": "A disease is any condition that disturbs the normal functioning of the body. Communicable (infectious) diseases spread from one person to another through agents called pathogens (bacteria, viruses, fungi, parasites); they can be transmitted through air (tuberculosis, influenza), water (cholera, typhoid), food, direct contact, or vectors like mosquitoes (malaria, dengue). Non-communicable diseases (NCDs) cannot spread from person to person; they include diabetes, heart disease, cancer, and asthma, and are often linked to lifestyle factors, genetic predisposition, or environmental pollution. India faces a double burden of disease — a high load of both infectious diseases and lifestyle-related NCDs. Prevention of communicable diseases involves hygiene, safe drinking water, vaccination, and vector control. NCDs are prevented through healthy diet, regular exercise, avoiding tobacco and alcohol, and regular health check-ups.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "infectious diseases",
+            "non-communicable diseases",
+            "pathogens vectors",
+            "communicable disease transmission",
+            "NCD prevention",
+            "lifestyle diseases"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c006",
+          "name": "Immunity, Vaccines, and Healthy Living",
+          "description": "Immunity is the body's ability to resist and fight off diseases. The immune system produces antibodies — special proteins that recognise and neutralise specific pathogens; this is specific (acquired) immunity. Vaccines work by introducing a weakened or dead form of a pathogen (or its antigens) into the body, which triggers the immune system to produce antibodies without causing the actual disease, providing protection if the real pathogen is encountered later. Vaccination has eradicated smallpox globally and nearly eliminated polio. The body also has non-specific defences: skin (physical barrier), mucus (traps germs), stomach acid, and fever (slows microbial growth). Healthy living — balanced nutrition, adequate sleep, physical activity, stress management, and avoiding pollution — supports strong immune function and reduces the risk of both communicable and non-communicable diseases.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "immunity antibodies",
+            "vaccines immunisation",
+            "how vaccines work",
+            "immune system",
+            "healthy lifestyle",
+            "vaccination eradication"
+          ],
+          "prerequisites": [
+            "sci8_c005"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u04",
+      "name": "Electricity: Magnetic and Heating Effects",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "sci8_c007",
+          "name": "Magnetic Effect of Electric Current and Electromagnets",
+          "description": "When electric current flows through a conductor, it creates a magnetic field around it — this is the magnetic effect of current, first demonstrated by Hans Christian Oersted in 1820 when he noticed a compass needle deflecting near a current-carrying wire. A solenoid is a coil of wire that, when carrying current, behaves like a bar magnet with a north and south pole. An electromagnet is a temporary magnet made by passing current through a coil wound around an iron core; its strength increases with more turns of wire, higher current, and use of a soft iron core. Electromagnets are used in electric bells, cranes to lift scrap iron, loudspeakers, MRI machines, and relays. The direction of the magnetic field around a straight wire follows the Right-Hand Thumb Rule: if the thumb points in the direction of current, the fingers curl in the direction of the field. Unlike permanent magnets, electromagnets can be switched on and off, making them very useful in technology.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "magnetic effect of current",
+            "Oersted",
+            "electromagnet",
+            "solenoid",
+            "right hand thumb rule",
+            "electric bell"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c008",
+          "name": "Heating Effect of Current, Joule's Law, and Electrical Safety",
+          "description": "When current flows through a conductor with resistance, electrical energy is converted to heat energy — this is the heating effect of current, described by Joule's law: H = I²Rt, where H is heat produced, I is current, R is resistance, and t is time. The heating effect is useful in electric irons, heaters, toasters, incandescent bulbs, and electric furnaces; the filament in a bulb is made of tungsten because of its very high melting point. An electric fuse is a safety device — a thin wire of low melting point that melts and breaks the circuit when current exceeds a safe limit, preventing fires and damage to appliances. MCBs (Miniature Circuit Breakers) are modern alternatives to fuses that can be reset after tripping. Overloading a circuit (connecting too many appliances) and short circuits (live wire touching neutral) are common causes of electrical fires. Safe electrical practices include using proper insulation, earthing, not touching switches with wet hands, and using fuses of the correct rating.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "heating effect of current",
+            "Joule's law",
+            "electric fuse",
+            "MCB",
+            "electrical safety",
+            "overloading short circuit",
+            "tungsten filament"
+          ],
+          "prerequisites": [
+            "sci8_c007"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u05",
+      "name": "Exploring Forces",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "sci8_c009",
+          "name": "Types of Forces: Contact and Non-Contact",
+          "description": "A force is a push or pull that can change the state of motion, shape, or direction of an object. Contact forces require physical touch between objects; examples include friction (opposing relative motion between surfaces), muscular force, normal reaction, and tension. Non-contact forces act at a distance without touching; examples include gravitational force (attraction between masses), magnetic force (attraction/repulsion between magnets or magnets and iron), and electrostatic force (between charged objects). Gravity pulls all objects toward the Earth and is what keeps the Moon in orbit and causes objects to fall. Friction depends on the nature of surfaces and the force pressing them together; it can be reduced by lubrication or smooth surfaces and increased by rough surfaces. Understanding these forces explains everyday phenomena like why a bicycle slows down when you stop pedalling, why a wet floor is slippery, and why a magnet can pick up iron nails without touching them directly.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "contact force",
+            "non-contact force",
+            "friction",
+            "gravity",
+            "magnetic force",
+            "electrostatic force",
+            "types of forces"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c010",
+          "name": "Friction and Buoyancy",
+          "description": "Friction is a contact force that opposes the relative motion between two surfaces in contact; it acts in the direction opposite to motion. Static friction keeps a stationary object at rest; kinetic (sliding) friction acts on a moving object; rolling friction is the least of the three. Friction is useful — it allows us to walk, write, apply brakes, and hold objects — but harmful in machines where it wastes energy as heat and causes wear. Buoyancy (upthrust) is the upward force exerted by a liquid (or gas) on an object immersed in it, which is why objects appear lighter in water and why ships float. According to Archimedes' principle, the buoyant force equals the weight of fluid displaced by the object. An object floats if its average density is less than the fluid's density, and sinks if its density is greater — this explains why a steel ship floats (hollow, low average density) and a steel coin sinks.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "friction static kinetic rolling",
+            "buoyancy upthrust",
+            "Archimedes principle",
+            "why objects float or sink",
+            "density and flotation",
+            "reducing friction"
+          ],
+          "prerequisites": [
+            "sci8_c009"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u06",
+      "name": "Pressure, Winds, Storms, and Cyclones",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "sci8_c011",
+          "name": "Pressure and Atmospheric Pressure",
+          "description": "Pressure is defined as the force applied per unit area: P = F/A, measured in pascals (Pa) or N/m². A smaller area with the same force means higher pressure — which is why a sharp knife cuts easily and a nail is pointed. Atmospheric pressure is the pressure exerted by the weight of the air column above a surface; at sea level it is about 101,325 Pa (approximately 1 atm). Atmospheric pressure decreases with altitude, which is why ears pop in an aeroplane and water boils at lower temperatures on mountains. Liquids also exert pressure that increases with depth; this is why dams are thicker at the base and deep-sea creatures need special adaptations. A barometer measures atmospheric pressure, and changes in barometric pressure are used to predict weather — falling pressure often signals approaching storms.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "pressure formula",
+            "atmospheric pressure",
+            "air pressure",
+            "barometer",
+            "pressure and depth",
+            "pascal unit"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c012",
+          "name": "Winds, Storms, and Cyclones",
+          "description": "Wind is the movement of air from regions of high pressure to regions of low pressure. The Sun heats the Earth's surface unevenly — land heats up faster than sea during the day, creating local pressure differences that drive sea breeze (sea to land during day) and land breeze (land to sea at night). On a global scale, hot air near the equator rises and cool air from higher latitudes flows in, creating permanent wind belts. A cyclone (also called hurricane or typhoon in different parts of the world) forms over warm tropical seas when moist air rises rapidly, creating a very low pressure centre that draws in spiralling winds — Coriolis effect causes them to rotate. Cyclones are accompanied by very strong winds, heavy rain, and storm surges that can flood coastal areas. Early warning systems, strong building codes, and evacuation plans are essential for reducing cyclone damage.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "wind formation",
+            "sea breeze land breeze",
+            "cyclone hurricane typhoon",
+            "low pressure high pressure winds",
+            "Coriolis effect",
+            "storm surge",
+            "cyclone safety"
+          ],
+          "prerequisites": [
+            "sci8_c011"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u07",
+      "name": "Particulate Nature of Matter",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "sci8_c013",
+          "name": "States of Matter and Intermolecular Forces",
+          "description": "All matter is made of tiny particles (atoms or molecules) that are too small to see but can be inferred from phenomena like diffusion and Brownian motion. In solids, particles are packed very closely together with strong intermolecular forces and only vibrate in place, giving solids a definite shape and volume. In liquids, particles are close but can slide past each other (weaker forces), so liquids have a definite volume but take the shape of their container. In gases, particles are far apart with very weak forces and move freely at high speeds, so gases have neither a fixed shape nor volume and can be compressed easily. Intermolecular forces also explain surface tension (why water forms droplets) and why liquids can be poured but cannot be piled like solids. The kinetic theory states that particles are always in motion and that increasing temperature increases their kinetic energy, which is why heating a solid can melt it into a liquid and then vaporise it into a gas.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "states of matter",
+            "solid liquid gas",
+            "intermolecular forces",
+            "kinetic theory",
+            "particles of matter",
+            "properties of states"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c014",
+          "name": "Diffusion and Brownian Motion",
+          "description": "Diffusion is the spontaneous spreading of particles from a region of higher concentration to lower concentration until the mixture is uniform; it occurs in gases (smell spreads across a room), liquids (a drop of ink spreading in water), and even slowly in solids. The rate of diffusion is higher in gases than liquids, and increases with temperature because particles have more kinetic energy. Brownian motion is the random, zig-zag movement of small visible particles (like pollen grains or smoke particles) suspended in a fluid, caused by continuous bombardment from invisible fluid molecules; it was first observed by botanist Robert Brown in 1827 and provides direct evidence that matter is made of constantly moving particles. Both diffusion and Brownian motion support the particulate model of matter. Changes of state — melting, boiling, condensation, freezing, sublimation — are explained by particles gaining or losing enough energy to overcome intermolecular attractions. The temperature at which a substance melts (melting point) or boils (boiling point) is characteristic of that substance.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "diffusion",
+            "Brownian motion",
+            "concentration gradient",
+            "changes of state",
+            "melting boiling condensation",
+            "sublimation",
+            "particulate model"
+          ],
+          "prerequisites": [
+            "sci8_c013"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u08",
+      "name": "Nature of Matter: Elements, Compounds, and Mixtures",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "sci8_c015",
+          "name": "Elements, Compounds, and the Atom",
+          "description": "An element is a pure substance made of only one type of atom and cannot be broken down into simpler substances by chemical means; there are 118 known elements listed in the Periodic Table. An atom is the smallest particle of an element that retains the chemical properties of that element; atoms of different elements have different sizes and masses. A molecule is formed when two or more atoms join together — molecules of the same element (like O₂, N₂, H₂) or different elements (like H₂O, CO₂, NaCl). A compound is a pure substance formed when two or more elements combine chemically in a fixed ratio; it has properties completely different from its constituent elements (e.g., water is a liquid at room temperature though hydrogen and oxygen are both gases). The smallest particle of a compound that retains its properties is a molecule. Chemical formulae like H₂O and CO₂ represent the types and numbers of atoms in one molecule of a compound.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "element compound",
+            "atom molecule",
+            "pure substance",
+            "Periodic Table",
+            "chemical formula",
+            "H2O CO2"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c016",
+          "name": "Mixtures and Physical vs Chemical Changes",
+          "description": "A mixture contains two or more substances physically combined (not chemically bonded), in any ratio, each retaining its own properties; examples include air (mixture of gases), sea water, soil, and brass. Mixtures can be separated by physical methods: filtration (remove insoluble solids from liquid), evaporation (remove dissolved solid from solution), distillation (separate liquids with different boiling points), chromatography (separate dissolved pigments), and magnetic separation. A physical change alters the form or appearance of matter without changing its chemical composition — melting ice, dissolving salt, cutting paper. A chemical change produces one or more new substances with different properties — burning wood, rusting iron, cooking food, souring of milk; signs include change in colour, production of gas, heat or light, formation of precipitate, and change in smell. Chemical changes are usually irreversible, while physical changes are generally reversible. Recognising whether a change is physical or chemical is a fundamental skill in chemistry.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "mixture vs compound",
+            "separation techniques",
+            "physical change chemical change",
+            "filtration distillation chromatography",
+            "reversible irreversible changes",
+            "signs of chemical change"
+          ],
+          "prerequisites": [
+            "sci8_c015"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u09",
+      "name": "The Amazing World of Solutes, Solvents, and Solutions",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "sci8_c017",
+          "name": "Solutions: Solute, Solvent, and Concentration",
+          "description": "A solution is a homogeneous mixture of two or more substances where the solute (the dissolved substance) is uniformly distributed throughout the solvent (the dissolving medium). Common examples include salt water (salt = solute, water = solvent), sugar in tea, and carbon dioxide dissolved in soft drinks. The concentration of a solution expresses how much solute is dissolved in a given amount of solvent or solution; it can be expressed as mass per volume (g/L) or as a percentage. A saturated solution is one in which no more solute can dissolve at a given temperature — it has reached maximum concentration; a supersaturated solution contains more dissolved solute than a normal saturated solution would allow, and is unstable. Solubility is the maximum mass of solute that dissolves in 100 g of solvent at a given temperature; it varies with temperature (most solids become more soluble when heated; gases become less soluble when heated). The process of dissolving is called dissolution; some solutes dissolve in water (polar solvent) while others dissolve in non-polar solvents like oil — 'like dissolves like'.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "solution solute solvent",
+            "concentration",
+            "saturated solution",
+            "solubility",
+            "dissolution",
+            "homogeneous mixture"
+          ],
+          "prerequisites": [
+            "sci8_c016"
+          ],
+          "order": 1
+        },
+        {
+          "id": "sci8_c018",
+          "name": "Colloids and Suspensions",
+          "description": "Not all mixtures are true solutions; they can be classified based on particle size. A true solution has particles smaller than 1 nm that cannot be seen even with a microscope, do not settle, and pass through filter paper; examples include salt water and sugar solution. A colloid (colloidal solution) has particles between 1–100 nm that scatter light (Tyndall effect — beam of light becomes visible, like sunlight through dusty air or milk appearing white), do not settle on their own, and cannot be separated by ordinary filtration; examples include milk, butter, fog, smoke, and gelatin. A suspension has large particles (>100 nm) that are visible, scatter light, settle on standing, and can be separated by filtration; examples include muddy water and chalk in water. The Tyndall effect is the key test to distinguish a colloid from a true solution. Colloids are widely used in food (mayonnaise, ice cream), medicine, and cosmetics. Understanding these three types of mixtures helps in choosing the right separation technique.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "colloid",
+            "suspension",
+            "Tyndall effect",
+            "true solution vs colloid",
+            "particle size mixtures",
+            "colloidal solution examples",
+            "emulsion"
+          ],
+          "prerequisites": [
+            "sci8_c017"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u10",
+      "name": "Light: Mirrors and Lenses",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "sci8_c019",
+          "name": "Reflection of Light and Mirrors",
+          "description": "Light travels in straight lines and bounces back when it hits a reflective surface — this is called reflection. The two laws of reflection state: (1) the angle of incidence equals the angle of reflection (both measured from the normal to the surface), and (2) the incident ray, reflected ray, and normal all lie in the same plane. A plane mirror produces a virtual, erect, and laterally inverted image of the same size as the object, at the same distance behind the mirror as the object is in front. Concave mirrors (curved inward) converge light and can form real or virtual images depending on where the object is placed; they are used in torches, headlights, solar concentrators, and doctor's head mirrors. Convex mirrors (curved outward) diverge light and always form virtual, erect, and diminished images; they are used as rear-view mirrors in vehicles because they give a wider field of view — this is why they carry the warning 'Objects in mirror are closer than they appear'. Key terms include the principal axis, centre of curvature, focus, and focal length.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "reflection of light",
+            "laws of reflection",
+            "plane mirror",
+            "concave mirror",
+            "convex mirror",
+            "real virtual image",
+            "focal length"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c020",
+          "name": "Refraction of Light, Lenses, and the Human Eye",
+          "description": "Refraction is the bending of light when it passes from one medium to another of different optical density; it occurs because light changes speed in different media. Light bends toward the normal when entering a denser medium (e.g., air to glass) and away from the normal when entering a less dense medium. A convex (converging) lens is thicker in the middle and bends light rays to meet at a focus; it is used in magnifying glasses, cameras, projectors, and the human eye's crystalline lens. A concave (diverging) lens is thinner in the middle and spreads light rays apart; it is used in spectacles to correct short-sightedness (myopia). Dispersion of white light through a glass prism splits it into its seven constituent colours (VIBGYOR — violet, indigo, blue, green, yellow, orange, red), showing that white light is a mixture of colours; this is how rainbows form. The human eye contains a convex lens that focuses images on the retina; common defects are myopia (short-sightedness, corrected by concave lens) and hypermetropia (long-sightedness, corrected by convex lens).",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "refraction",
+            "convex lens",
+            "concave lens",
+            "dispersion of light",
+            "prism VIBGYOR",
+            "human eye",
+            "myopia hypermetropia",
+            "rainbow"
+          ],
+          "prerequisites": [
+            "sci8_c019"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u11",
+      "name": "Keeping Time with the Skies",
+      "order": 11,
+      "concepts": [
+        {
+          "id": "sci8_c021",
+          "name": "Moon Phases, Tides, and Eclipses",
+          "description": "The Moon is Earth's only natural satellite, orbiting Earth roughly every 27.3 days and completing its cycle of phases (lunar month) in about 29.5 days. Phases of the Moon (new moon, crescent, first quarter, gibbous, full moon, last quarter) occur because we see different portions of the Moon's sunlit half as it orbits Earth — the Moon itself does not produce light. Tides are the periodic rise and fall of sea levels caused primarily by the Moon's gravitational pull on Earth's oceans; the Sun also contributes. Spring tides (highest tides) occur at new moon and full moon when the Sun, Earth, and Moon are aligned; neap tides (lowest range) occur at quarter moons when the Sun and Moon are at right angles to Earth. A lunar eclipse occurs when Earth comes between the Sun and Moon, and Earth's shadow falls on the Moon. A solar eclipse occurs when the Moon comes between the Sun and Earth, blocking sunlight from reaching parts of Earth; a total solar eclipse is visible only in a narrow path called the path of totality.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "phases of moon",
+            "tides",
+            "spring tides neap tides",
+            "lunar eclipse",
+            "solar eclipse",
+            "Moon orbit",
+            "new moon full moon"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c022",
+          "name": "Seasons, Celestial Navigation, and Calendars",
+          "description": "Seasons occur because Earth's axis is tilted at about 23.5° relative to its orbital plane around the Sun; this tilt means different hemispheres receive the Sun's rays at different angles and for different durations throughout the year. When the Northern Hemisphere is tilted toward the Sun (summer solstice, around June 21), days are longest and the Sun is highest in the sky; when tilted away (winter solstice, around December 21), days are shortest. The equinoxes (around March 21 and September 23) are when day and night are approximately equal. Ancient civilizations used the Sun and stars for navigation; the North Star (Polaris) is nearly directly above the North Pole and does not appear to move, making it useful for finding direction at night. Calendars are based on celestial cycles: the solar calendar (365.25 days, basis of the Gregorian calendar) tracks Earth's orbit around the Sun; the lunar calendar tracks Moon phases. India uses the Saka calendar (national calendar) alongside the Gregorian calendar.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "seasons on Earth",
+            "Earth's tilt",
+            "solstice equinox",
+            "celestial navigation",
+            "Polaris North Star",
+            "solar lunar calendar",
+            "Gregorian Saka calendar"
+          ],
+          "prerequisites": [
+            "sci8_c021"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u12",
+      "name": "How Nature Works in Harmony",
+      "order": 12,
+      "concepts": [
+        {
+          "id": "sci8_c023",
+          "name": "Ecosystems, Food Chains, and Food Webs",
+          "description": "An ecosystem is a community of living organisms (biotic factors) interacting with each other and with their non-living environment (abiotic factors — sunlight, water, soil, temperature). Producers (green plants, algae) capture solar energy through photosynthesis and form the base of every food chain. Consumers are animals that eat plants or other animals: herbivores (primary consumers), carnivores (secondary/tertiary consumers), and omnivores. Decomposers (bacteria, fungi) break down dead organisms, returning nutrients to the soil — completing the nutrient cycle. A food chain shows who eats whom: grass → grasshopper → frog → snake → eagle. A food web is a network of interconnected food chains in an ecosystem; it better represents the complexity of feeding relationships and shows that removing one species can affect many others. Energy flows in one direction through a food chain (10% rule — only about 10% of energy passes from one trophic level to the next), so most ecosystems have only 4–5 levels.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "ecosystem",
+            "food chain food web",
+            "producers consumers decomposers",
+            "trophic levels",
+            "biotic abiotic",
+            "energy flow 10% rule"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c024",
+          "name": "Biodiversity, Conservation, and Human Impact",
+          "description": "Biodiversity refers to the variety of life on Earth — the number and variety of species, genetic diversity within species, and diversity of ecosystems. Forests are biodiversity hotspots; they also regulate climate, control floods, recharge groundwater, and provide oxygen, timber, food, and medicine. Human activities like deforestation, agriculture, urbanisation, pollution, and climate change are the leading causes of biodiversity loss; species that lose their habitat often face extinction. When forests are cleared, it disrupts rainfall patterns, increases soil erosion, and can force wildlife like elephants to venture into human settlements, causing human-wildlife conflict. Conservation strategies include establishing national parks, wildlife sanctuaries, and biosphere reserves; forest protection laws; sustainable agriculture; and community-based conservation. The concept of ecological balance emphasises that all species — even those that seem unimportant — play roles that support the whole system, and the loss of one can trigger cascading effects throughout the ecosystem.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "biodiversity",
+            "deforestation",
+            "conservation national park",
+            "extinction",
+            "human impact on nature",
+            "ecological balance",
+            "wildlife sanctuary biosphere reserve"
+          ],
+          "prerequisites": [
+            "sci8_c023"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u13",
+      "name": "Our Home: Earth, a Unique Life-Sustaining Planet",
+      "order": 13,
+      "concepts": [
+        {
+          "id": "sci8_c025",
+          "name": "Why Earth is Uniquely Suited for Life",
+          "description": "Earth is the only planet known to support life, due to a rare combination of factors: it is located in the 'habitable zone' (the right distance from the Sun — not too hot, not too cold — so that water can exist in liquid form), it has liquid water covering about 71% of its surface, it has an atmosphere with the right mix of gases (nitrogen, oxygen, carbon dioxide, water vapour), it has a protective ozone layer that shields life from harmful ultraviolet radiation, and it has a magnetic field that deflects dangerous solar wind particles. Earth's atmosphere acts like a blanket, trapping enough heat for life through the natural greenhouse effect — without it, Earth's average temperature would be about -18°C instead of the current +15°C. Life on Earth has persisted for about 3.8 billion years, evolving from simple microorganisms to today's extraordinary diversity. No other planet in our solar system has yet been found to meet all these conditions simultaneously.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "habitable zone",
+            "why life exists on Earth",
+            "liquid water",
+            "atmosphere ozone layer",
+            "greenhouse effect",
+            "Earth's magnetic field",
+            "conditions for life"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c026",
+          "name": "Climate Change, Carbon Cycle, and Sustainability",
+          "description": "The carbon cycle describes how carbon moves through the atmosphere, living organisms, oceans, and Earth's crust: plants absorb CO₂ during photosynthesis, animals release it through respiration, and decomposers release it from dead matter; oceans also absorb large amounts of CO₂. Burning fossil fuels (coal, oil, natural gas) and deforestation are adding carbon dioxide to the atmosphere far faster than natural processes can absorb it, intensifying the greenhouse effect and causing global warming — this is climate change. Consequences of climate change include rising sea levels (threatening low-lying regions), more frequent and intense extreme weather events (floods, droughts, cyclones), melting polar ice, shifting seasons, and loss of biodiversity. Sustainability means meeting current needs without compromising the ability of future generations to meet their own needs. Sustainable practices include using renewable energy (solar, wind), reducing waste, conserving water, planting trees, using public transport, and making environmentally conscious choices in daily life.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "climate change",
+            "carbon cycle",
+            "greenhouse effect global warming",
+            "fossil fuels",
+            "sustainability",
+            "renewable energy",
+            "carbon dioxide atmosphere"
+          ],
+          "prerequisites": [
+            "sci8_c025"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u14",
+      "name": "Crop Production and Management",
+      "order": 14,
+      "concepts": [
+        {
+          "id": "sci8_c027",
+          "name": "Agricultural Practices — Sowing to Harvesting",
+          "description": "India is an agricultural country — about 55% of the workforce depends on farming. The agricultural cycle for a Kharif crop (like paddy, maize, cotton — sown in June, harvested in October) involves: Preparation of soil — ploughing turns and loosens soil; levelling ensures even distribution of water; manuring adds nutrients. Sowing — seeds are planted at the right depth and spacing using seed drills or by hand. Irrigation — water is supplied through canals, wells, tube wells, sprinklers, or drip irrigation (most efficient). Weeding — weeds compete for nutrients and must be removed manually or with herbicides. Harvesting — mature crops are cut using sickles or combine harvesters. Threshing — separates grain from stalks. Storage — grains are stored in silos or gunny bags with fumigants to prevent pest damage. Rabi crops (wheat, mustard, peas) are sown in October and harvested in March.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "crop production",
+            "Kharif Rabi crops",
+            "ploughing irrigation",
+            "harvesting threshing",
+            "agricultural practices"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c028",
+          "name": "Fertilisers, Pesticides, and Sustainable Farming",
+          "description": "Fertilisers replenish soil nutrients that crops absorb. Chemical fertilisers (NPK — nitrogen, phosphorus, potassium) provide nutrients rapidly but can damage soil structure and water quality if over-used. Organic manure (compost, cow dung, vermicompost) improves soil structure, water retention, and microbial life. Pesticides kill insects, fungi, and weeds that damage crops. Excessive pesticide use kills beneficial insects (bees, earthworms), contaminates water, and leaves harmful residues on food. Integrated Pest Management (IPM) combines biological control (introducing natural predators), crop rotation, and minimal chemical use. Organic farming avoids synthetic chemicals entirely. Modern agriculture also uses: drip irrigation (reduces water use by 50%), hydroponics (growing plants in nutrient-rich water without soil), and GM crops (genetically modified for drought resistance or pest resistance — controversial). Sustainable farming protects soil health for future generations.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "fertilisers NPK",
+            "pesticides IPM",
+            "organic farming",
+            "drip irrigation",
+            "GM crops hydroponics"
+          ],
+          "prerequisites": [
+            "sci8_c027"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u15",
+      "name": "Cell — Structure and Functions",
+      "order": 15,
+      "concepts": [
+        {
+          "id": "sci8_c029",
+          "name": "The Cell — Basic Unit of Life",
+          "description": "All living things are made of cells — the smallest unit of life that can perform all life functions. Robert Hooke first observed cells in 1665 under a microscope, looking at cork. Unicellular organisms (bacteria, amoeba, paramecium) consist of just one cell that performs all functions. Multicellular organisms (plants, animals, humans) have trillions of specialised cells. Cell structure: Cell membrane — outermost layer in animal cells; controls what enters and exits. Cell wall — in plant cells only, outside the membrane; made of cellulose; provides rigidity and strength. Cytoplasm — jelly-like fluid filling the cell; contains organelles. Nucleus — control centre of the cell; contains DNA (instructions for all cell activities) and is bounded by the nuclear membrane. Animal cells and plant cells differ: plant cells have a cell wall, central vacuole, and chloroplasts; animal cells have neither.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "cell structure",
+            "cell membrane cell wall",
+            "nucleus cytoplasm",
+            "animal cell plant cell",
+            "Robert Hooke"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c030",
+          "name": "Cell Organelles and Cell Division",
+          "description": "Organelles are specialised structures within the cell. Mitochondria — 'powerhouse of the cell'; produce energy (ATP) through cellular respiration; have their own DNA. Chloroplasts — found only in plant cells; contain chlorophyll; carry out photosynthesis to make food from sunlight, CO₂, and water. Endoplasmic Reticulum (ER) — network of membranes; rough ER has ribosomes and makes proteins; smooth ER makes lipids. Ribosomes — tiny structures (in cytoplasm or on rough ER) that make proteins. Golgi Apparatus — packages and distributes proteins and lipids. Vacuoles — storage spaces; plant cells have a large central vacuole storing water and maintaining cell pressure (turgor). Lysosomes — 'waste disposal'; contain enzymes that break down waste and foreign particles. Cell division: Mitosis produces two identical daughter cells (for growth and repair); Meiosis produces four genetically unique cells (for sexual reproduction — sperm and egg cells).",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "cell organelles",
+            "mitochondria chloroplasts",
+            "endoplasmic reticulum ribosomes",
+            "Golgi vacuole lysosomes",
+            "mitosis meiosis"
+          ],
+          "prerequisites": [
+            "sci8_c029"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u16",
+      "name": "Sound",
+      "order": 16,
+      "concepts": [
+        {
+          "id": "sci8_c031",
+          "name": "Production and Propagation of Sound",
+          "description": "Sound is a form of energy produced by the vibration of objects. When a guitar string is plucked, it vibrates — these vibrations are transmitted to the surrounding air molecules, which create a pattern of compressions (regions of high pressure) and rarefactions (regions of low pressure) that travel outward as a longitudinal wave. Sound requires a medium to travel — it cannot travel through vacuum (unlike light). Sound travels fastest in solids (about 6,000 m/s in steel), slower in liquids (1,500 m/s in water), and slowest in gases (343 m/s in air at 20°C). Key terms: Frequency (number of vibrations per second, measured in hertz Hz — determines pitch: high frequency = high-pitched sound); Amplitude (how large the vibration is — determines loudness); Wavelength (distance between two consecutive compressions). The human ear can detect frequencies from 20 Hz to 20,000 Hz.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "sound vibration",
+            "longitudinal wave",
+            "compression rarefaction",
+            "frequency amplitude wavelength",
+            "speed of sound"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c032",
+          "name": "Characteristics of Sound and Noise Pollution",
+          "description": "Sound has three main characteristics. Pitch: how high or low a sound is, determined by frequency — a flute produces high-pitched sound (high frequency); a bass drum produces low-pitched sound (low frequency). Infrasound (below 20 Hz) is inaudible to humans — elephants and whales use it; ultrasound (above 20,000 Hz) is used in medical imaging (sonography), sonar (submarines), and cleaning. Loudness: depends on amplitude — measured in decibels (dB). 0 dB is the threshold of hearing; normal conversation ~60 dB; a jet engine ~130 dB (painful). Echo: reflection of sound from a hard surface — heard when sound reflects from a surface at least 17 m away (it takes 0.1s for the ear to distinguish two sounds). Reverberation is a rapid sequence of echoes in a closed space. Noise pollution: sounds above 75 dB cause hearing loss, stress, and sleep disturbance. Sources: traffic, factories, construction, loudspeakers. Solutions: noise barriers, quieter engines, restricted horn use zones.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "pitch frequency loudness",
+            "decibels",
+            "echo reverberation",
+            "infrasound ultrasound",
+            "noise pollution"
+          ],
+          "prerequisites": [
+            "sci8_c031"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "sci8_u17",
+      "name": "Natural Phenomena — Lightning and Earthquakes",
+      "order": 17,
+      "concepts": [
+        {
+          "id": "sci8_c033",
+          "name": "Lightning and Static Electricity",
+          "description": "Static electricity is the build-up of electric charge on the surface of an object due to friction (transfer of electrons). When you rub a balloon on your hair, electrons move from your hair to the balloon — your hair becomes positively charged, the balloon negatively charged. Opposite charges attract, which is why hair stands up toward the balloon. Lightning is a massive discharge of static electricity between clouds (or between a cloud and the ground). During a thunderstorm, friction between ice crystals and water droplets in storm clouds builds huge static charges. When the charge is large enough, electricity discharges as a lightning bolt — with temperatures up to 30,000°C (five times hotter than the Sun's surface). Lightning rods (invented by Benjamin Franklin) are tall metal conductors that provide a safe path for lightning to discharge into the ground, protecting buildings.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "static electricity",
+            "lightning",
+            "friction charging",
+            "lightning rod Benjamin Franklin",
+            "positive negative charge"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "sci8_c034",
+          "name": "Earthquakes — Causes, Measurement, and Safety",
+          "description": "An earthquake is a sudden shaking of the Earth's surface caused by the sudden release of energy in the Earth's crust, usually due to movement of tectonic plates. Tectonic plates are huge slabs of rock that make up the Earth's outer shell — they move very slowly (a few cm per year). Where plates meet are called fault lines — most earthquakes occur along these faults. The Richter Scale (or moment magnitude scale) measures earthquake magnitude: below 2.0 (undetectable), 2.0–3.9 (minor — felt but rarely causing damage), 4.0–5.9 (moderate — can cause damage to poorly constructed buildings), 6.0–6.9 (strong), 7.0+ (major — can cause widespread devastation). The epicentre is the point on the Earth's surface directly above the focus (where the earthquake originates). Seismographs measure ground vibrations. Earthquake safety: during shaking — drop, cover (under a sturdy table), and hold on; stay away from windows; do not use the lift; go to an open area away from buildings.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "earthquake",
+            "tectonic plates",
+            "Richter scale",
+            "epicentre focus",
+            "seismograph fault line",
+            "drop cover hold"
+          ],
+          "prerequisites": [
+            "sci8_c033"
+          ],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

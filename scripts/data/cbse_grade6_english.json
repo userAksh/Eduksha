@@ -1,0 +1,208 @@
+{
+  "metadata": {
+    "grade": 6,
+    "board": "CBSE",
+    "subject": "English",
+    "subjectColor": "#EA580C",
+    "subjectIcon": "📚",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Poorvi — Class 6 (Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "eng6_u01",
+      "name": "Unit 1: Fables and Folk Tales",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "eng6_c001",
+          "name": "A Bottle of Dew — Story",
+          "description": "This story teaches that true success comes from hard work and diligence, not shortcuts. A farmer's two sons are given a task involving a bottle of dew — one son is industrious and careful, the other lazy and careless. The story uses the device of a simple, clear moral to show that honest effort over time produces lasting rewards. Key vocabulary: dew, diligence, perseverance, harvest. Themes: work ethic, patience, consequences of laziness. It is a fable — a short story with a moral, often featuring human characters behaving in recognisably human ways (in contrast to animal fables like Aesop's).",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "A Bottle of Dew story",
+            "fable hard work class 6",
+            "diligence perseverance story",
+            "Poorvi Unit 1"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng6_c002",
+          "name": "The Raven and the Fox — Poem",
+          "description": "This poem retells one of Aesop's most famous fables in verse form. A raven is sitting in a tree with a piece of cheese in its beak. A fox flatters the raven — calling it beautiful and wondering if its voice is equally magnificent. The vain raven opens its beak to caw, drops the cheese, which the fox immediately grabs. Moral: vanity and flattery lead to foolishness. The poem teaches that people who crave praise can be easily manipulated. Key poetic device: narrative poem (tells a story). Key vocabulary: vain, flattery, caw, perch. The poem is an example of a fable told in verse.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "Raven and Fox poem",
+            "Aesop fable poem",
+            "flattery vanity poem class 6",
+            "narrative poem Poorvi"
+          ],
+          "prerequisites": [],
+          "order": 2
+        },
+        {
+          "id": "eng6_c003",
+          "name": "Rama to the Rescue — Graphic Story",
+          "description": "This is a graphic story (comic-book format) from Tamil Nadu. It demonstrates the value of presence of mind and quick thinking in overcoming challenges. The story is told through sequential panels of illustrations with dialogue in speech bubbles and narration in caption boxes — like a comic strip. This format introduces students to a non-traditional way of telling stories and tests comprehension of visual narratives. Key themes: resourcefulness, problem-solving, folk wisdom. Reading graphic texts requires interpreting both images and words together — a distinct literacy skill.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "Rama to the Rescue graphic story",
+            "comic strip class 6",
+            "folk tale Tamil Nadu",
+            "graphic narrative Poorvi"
+          ],
+          "prerequisites": [],
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "eng6_u02",
+      "name": "Unit 2: Friendship",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "eng6_c004",
+          "name": "The Unlikely Best Friends — Story",
+          "description": "This story narrates the unique friendship between Gajaraj, an elephant, and Buntee, a dog. Despite their enormous differences in size and species, the two form a deep bond. The story highlights the importance of empathy — understanding and sharing the feelings of another — and shows that true friendship transcends difference. When they are separated, Gajaraj refuses food and becomes listless. The story ends with their reunion. Key themes: friendship, empathy, loyalty, cross-species bonds (as a metaphor for human friendships across differences). Vocabulary: unlikely, empathy, loyal, mournful.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "Unlikely Best Friends story",
+            "elephant dog friendship story class 6",
+            "empathy friendship Poorvi",
+            "Gajaraj Buntee"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng6_c005",
+          "name": "A Friend's Prayer — Poem and The Chair — Story",
+          "description": "'A Friend's Prayer' is a poem about the depth and sincerity of a true friendship — wishing the best for a friend unconditionally. It reflects on how nurturing friendships enriches one's well-being and brings joy. 'The Chair' is a story in which Mario's grandfather helps him distinguish between real friends (who support in difficult times) and superficial friends (who are only around during good times). A chair is used as a metaphor — a true friend is like a sturdy chair that holds you up when you need support. Together, these texts define what real friendship means and how to recognise it.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "A Friend's Prayer poem",
+            "The Chair story class 6",
+            "real vs superficial friends",
+            "friendship poem Poorvi Unit 2",
+            "Mario grandfather story"
+          ],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng6_u03",
+      "name": "Unit 3: Nurturing Nature",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "eng6_c006",
+          "name": "Neem Baba — Conversation and What a Bird Thought — Poem",
+          "description": "'Neem Baba' is a conversation between a child named Amber and a grand old neem tree. Through the dialogue, students learn about the numerous benefits of the neem tree: its leaves, bark, and twigs have antibacterial, antifungal, and insect-repellent properties; it purifies air; its twigs serve as toothbrushes in many villages. The neem is sacred in many Indian traditions. 'What a Bird Thought' is a poem written from the perspective of a bird — an exercise in empathy and seeing the world through another's eyes (a literary device called point of view). Both texts encourage observation of and respect for nature.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Neem Baba conversation class 6",
+            "neem tree benefits",
+            "What a Bird Thought poem",
+            "nature poem class 6",
+            "point of view bird poem"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng6_c007",
+          "name": "Spices that Heal Us — Non-fiction Letter",
+          "description": "This is a letter from a grandmother to her grandchild about common Indian spices and their healing properties — a form of the Indian Knowledge System (IKS) handed down through generations. Key spices covered: turmeric (anti-inflammatory, wound healing), ginger (digestion, cold/cough), cumin (digestive), cinnamon (blood sugar, warmth), and others. The letter format is personal and informal. It represents the genre of informational/expository writing within a personal context. Key vocabulary: antibacterial, anti-inflammatory, remedy, indigenous. The text highlights the rich traditional knowledge embedded in everyday Indian kitchen practices.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Spices that Heal Us letter class 6",
+            "turmeric ginger healing spices",
+            "Indian Knowledge System spices",
+            "letter genre English class 6",
+            "grandmother letter spices"
+          ],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng6_u04",
+      "name": "Unit 4: Sports and Wellness",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "eng6_c008",
+          "name": "Change of Heart — Story",
+          "description": "This story emphasises the value of sportsmanship, fair play, and enjoying the game regardless of winning or losing. A competitive child who plays to win at all costs has a change of heart when they witness — or experience — the difference between hollow victory and genuine sportsmanship. Key themes: sportsmanship, fair play, the joy of the game, empathy in competition, teamwork. Key vocabulary: sportsmanship, compassion, rivalry, attitude. The story connects sport to character development — physical activity is not just about fitness but about building values like resilience, humility, and respect for opponents.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "Change of Heart story",
+            "sportsmanship fair play story class 6",
+            "sports values story Poorvi",
+            "winning losing attitude story"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng6_c009",
+          "name": "The Winner — Poem and Yoga — A Way of Life",
+          "description": "'The Winner' is a poem that captures the joy and excitement of childhood outdoor games — running, jumping, playing — emphasising the thrill of participation over the outcome. It celebrates outdoor play and physical exuberance. 'Yoga — A Way of Life' is an informational piece about yoga as a holistic practice for physical, mental, and emotional well-being. It covers: origin of yoga (ancient India, codified in Patanjali's Yoga Sutras), types of yoga (Hatha, Pranayama, Dhyana), benefits (flexibility, focus, stress reduction), the WHO mYoga app (for accessible yoga learning). Key vocabulary: holistic, discipline, pranayama, asana, well-being.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "The Winner poem class 6",
+            "Yoga Way of Life",
+            "Patanjali Yoga Sutras",
+            "yoga benefits class 6",
+            "WHO mYoga app"
+          ],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng6_u05",
+      "name": "Unit 5: Culture and Tradition",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "eng6_c010",
+          "name": "Hamara Bharat — Incredible India! and The Kites — Poem",
+          "description": "'Hamara Bharat — Incredible India!' celebrates India's extraordinary cultural diversity — regional art forms, craftwork, and traditions from different parts of the country. It features children from different states sharing their region's unique craft traditions, promoting the spirit of Ek Bharat Shreshtha Bharat (one India, great India). 'The Kites' is a poem written from the perspective of a kite — an autobiographical account describing the kite's flight, freedom, and indomitable spirit. The kite is a metaphor for ambition, freedom, and the human spirit's desire to soar. The kite festival (Makar Sankranti, Uttarayan in Gujarat) is celebrated across India.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Hamara Bharat Incredible India class 6",
+            "Ek Bharat Shreshtha Bharat",
+            "The Kites poem class 6",
+            "kite metaphor freedom poem",
+            "cultural diversity India Unit 5"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng6_c011",
+          "name": "Ila Sachani: Embroidering Dreams — Real-life Narrative",
+          "description": "This is a real-life narrative about Ila Sachani, a young woman with a physical disability who creates traditional embroidery using her feet. The story is an inspiring tribute to perseverance — the determination to overcome challenges and achieve success beyond what seems possible. It introduces students to a traditional Indian embroidery art form and highlights that passion and hard work transcend physical limitations. Key themes: disability does not define ability; tradition and craft; resilience; social inclusion. The piece is an example of a biographical/narrative non-fiction text — a real story told with the craft of fiction.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Ila Sachani embroidery story",
+            "disability and success story class 6",
+            "embroidery traditional art",
+            "perseverance story Poorvi",
+            "real-life narrative English"
+          ],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 4,
+    "board": "CBSE",
+    "subject": "Computer Science",
+    "subjectColor": "#0EA5E9",
+    "subjectIcon": "💻",
+    "generatedAt": "2026-06-01",
+    "textbook": "Common Class 4 Computer Science Curriculum"
+  },
+  "units": [
+    {
+      "id": "cs4_u01",
+      "name": "Introduction to Computers",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "cs4_c001",
+          "name": "What is a Computer and How It Works",
+          "description": "A computer is an electronic machine that can receive data (input), process it according to instructions (program), and give results (output). The basic working cycle of a computer is called the IPO cycle: Input → Process → Output. For example, when we type a sentence (input), the computer saves and organises it (process), and displays it on the screen (output). Computers are accurate, fast, and can store large amounts of information. They do not get tired or make errors if given correct instructions. Computers are used in schools, hospitals, banks, weather stations, railway stations, and homes.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["computer definition", "IPO cycle", "input process output", "uses of computers"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs4_c002",
+          "name": "Types of Computers",
+          "description": "Computers come in many forms depending on their size, power, and use. A desktop computer sits on a desk with separate units — monitor, CPU, keyboard, and mouse. A laptop is a portable computer with all components in one unit and runs on a battery. A tablet has a touch screen and is even more portable — useful for reading, drawing, and browsing. A smartphone is a small computer that also makes phone calls and fits in a pocket. Supercomputers are extremely powerful machines used for complex scientific calculations (like weather forecasting). Embedded computers are found inside machines — like the computer in a microwave oven or washing machine.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["desktop computer", "laptop", "tablet", "smartphone", "supercomputer", "types of computers"],
+          "prerequisites": ["cs4_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs4_u02",
+      "name": "Hardware — Parts of a Computer",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "cs4_c003",
+          "name": "Input and Output Devices",
+          "description": "Input devices are used to give data and commands to a computer. Common input devices: keyboard (to type letters and numbers), mouse (to click and move a pointer), scanner (to digitise paper documents), microphone (to record sound), and webcam (to capture video). Output devices display or produce the results of processing. Common output devices: monitor/screen (displays text and images), printer (prints documents on paper), speakers (produce sound), and projector (displays on a large screen). The monitor shows us what the computer is doing; the printer gives us a paper copy; speakers let us hear music and videos.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["input devices", "output devices", "keyboard", "mouse", "monitor", "printer", "scanner"],
+          "prerequisites": ["cs4_c001"],
+          "order": 1
+        },
+        {
+          "id": "cs4_c004",
+          "name": "The CPU and Memory",
+          "description": "The Central Processing Unit (CPU) is the 'brain' of the computer. It carries out all calculations and runs all programs. Inside the CPU is a processor chip that executes millions of instructions every second. Faster CPUs (measured in GHz — gigahertz) run programs more quickly. Memory stores information that the CPU is currently using. RAM (Random Access Memory) is temporary memory — it stores data only while the computer is on; when you switch off, RAM is cleared. ROM (Read Only Memory) is permanent and stores basic startup instructions. A hard drive or SSD (Solid State Drive) stores data permanently — including the operating system, programs, and files.",
+          "expectedDifficulty": "OK",
+          "aliases": ["CPU", "RAM", "ROM", "hard drive", "SSD", "processor", "memory"],
+          "prerequisites": ["cs4_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs4_u03",
+      "name": "Software — Programs and Operating Systems",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "cs4_c005",
+          "name": "What is Software?",
+          "description": "Software is a set of instructions (programs) that tells the computer hardware what to do. Without software, hardware is useless. There are two types of software. System software manages the computer itself — the most important is the Operating System (OS), which controls all hardware and lets other programs run. Examples: Windows, macOS, Android, and Linux. Application software is designed for specific tasks users want to do — examples include MS Word (writing documents), MS Excel (spreadsheets), Chrome (web browsing), and VLC (playing videos). Free software that anyone can use and share is called open-source software (e.g., LibreOffice, Linux).",
+          "expectedDifficulty": "OK",
+          "aliases": ["software", "system software", "application software", "operating system", "Windows", "Android"],
+          "prerequisites": ["cs4_c004"],
+          "order": 1
+        },
+        {
+          "id": "cs4_c006",
+          "name": "Files and Folders",
+          "description": "A file is a unit of stored information on a computer — it could be a document, image, video, music file, or program. Every file has a name and an extension that tells us its type: .txt (text file), .jpg (image), .mp3 (audio), .mp4 (video), .pdf (document). A folder (also called a directory) is used to organise files, just as a physical folder holds papers. Folders can contain other folders (called subfolders). Good file management means giving files clear names and keeping them in organised folders so they are easy to find later. The Recycle Bin (Windows) or Trash (Mac) temporarily stores deleted files before they are permanently removed.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["files", "folders", "file extensions", "file management", "Recycle Bin", "directory"],
+          "prerequisites": ["cs4_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs4_u04",
+      "name": "Using MS Word — Word Processing",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "cs4_c007",
+          "name": "Creating and Editing a Document",
+          "description": "Microsoft Word (MS Word) is a word-processing program used to create, edit, format, and save text documents. To open MS Word, double-click its icon or search from the Start menu. A new blank document opens automatically. We type text using the keyboard. The cursor (blinking line) shows where the next character will appear. To correct a mistake, use the Backspace key (deletes the character to the left) or Delete key (deletes to the right). We can select text by holding Shift and pressing arrow keys, or by clicking and dragging the mouse. Copy (Ctrl+C), Cut (Ctrl+X), and Paste (Ctrl+V) are essential shortcuts for rearranging text.",
+          "expectedDifficulty": "OK",
+          "aliases": ["MS Word", "word processing", "cursor", "Backspace", "copy paste", "text editing"],
+          "prerequisites": ["cs4_c005"],
+          "order": 1
+        },
+        {
+          "id": "cs4_c008",
+          "name": "Formatting Text in MS Word",
+          "description": "Formatting makes a document easier to read and more attractive. Font type is the style of letters — Arial, Times New Roman, and Calibri are common fonts. Font size is measured in points; 12 pt is standard for body text, and larger sizes are used for headings. Bold (Ctrl+B) makes text darker and heavier. Italic (Ctrl+I) slants the text. Underline (Ctrl+U) adds a line below the text. We can change the colour of text using the font colour option. Text alignment options: left-align (text lines up on the left), centre (centred), right-align, and justify (text spread evenly to both margins). Saving a document frequently (Ctrl+S) prevents losing work.",
+          "expectedDifficulty": "OK",
+          "aliases": ["font", "bold italic underline", "text formatting", "alignment", "Ctrl+S save", "font size"],
+          "prerequisites": ["cs4_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs4_u05",
+      "name": "Using MS Paint — Drawing and Art",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "cs4_c009",
+          "name": "Drawing with MS Paint",
+          "description": "MS Paint is a simple drawing program included with Windows. The toolbox on the left has drawing tools: Pencil (freehand drawing), Brush (draws with different brush styles), Eraser (removes parts of the drawing), Fill Bucket (fills a closed area with colour), and Text (adds typed words to a drawing). The colour palette at the bottom lets us choose colours. We select a colour by clicking on it. Lines, rectangles, ovals, and other shapes can be drawn using the shape tools. The canvas is the white area where we draw. Zoom in to work on small details; zoom out to see the full picture.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["MS Paint", "drawing program", "pencil tool", "brush tool", "eraser", "fill bucket", "canvas"],
+          "prerequisites": ["cs4_c005"],
+          "order": 1
+        },
+        {
+          "id": "cs4_c010",
+          "name": "Editing and Saving in MS Paint",
+          "description": "In MS Paint, we can select and move parts of our drawing using the Select tool (dotted rectangle). After selecting, we can copy, cut, paste, or delete the selected area. Undo (Ctrl+Z) reverses the last action — useful when we make a mistake. Redo (Ctrl+Y) brings back the undone action. To resize the canvas, go to Resize in the Image menu and enter the new dimensions. Images can be saved in different formats: PNG (good quality, transparent background), JPEG (smaller file size, used for photos), and BMP (large file, uncompressed). Use File → Save As to choose a name and location for your drawing.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["MS Paint editing", "undo redo", "save image", "PNG JPEG BMP", "select tool", "canvas resize"],
+          "prerequisites": ["cs4_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs4_u06",
+      "name": "The Internet — Basics and Safety",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "cs4_c011",
+          "name": "What is the Internet?",
+          "description": "The Internet is a huge global network of computers connected together so they can share information. Billions of people use the Internet every day to communicate, learn, shop, watch videos, and play games. We connect to the Internet using Wi-Fi (wireless) or a cable at home, or through mobile data on a phone. A web browser (like Chrome, Firefox, or Edge) is software used to visit websites. A website has an address called a URL (Uniform Resource Locator), starting with 'www.' A search engine (like Google) helps us find information by typing keywords. Email (electronic mail) lets us send messages to anyone in the world instantly.",
+          "expectedDifficulty": "OK",
+          "aliases": ["internet", "Wi-Fi", "web browser", "URL", "search engine", "email", "Google"],
+          "prerequisites": ["cs4_c005"],
+          "order": 1
+        },
+        {
+          "id": "cs4_c012",
+          "name": "Internet Safety and Good Habits",
+          "description": "Being safe online is very important, especially for children. Never share personal information — such as your full name, address, school, phone number, or passwords — with strangers online. Always tell a trusted adult (parent or teacher) if someone online makes you feel uncomfortable. A strong password is at least 8 characters long and includes letters, numbers, and symbols — never use 'password' or your birthday as a password. Not everything on the Internet is true — always check if information is from a trusted source. Cyberbullying means using the Internet to be cruel to others — if it happens to you or a friend, report it to an adult immediately. Screen time should be balanced with outdoor play, reading, and sleep.",
+          "expectedDifficulty": "OK",
+          "aliases": ["internet safety", "online safety", "cyberbullying", "password safety", "personal information", "screen time"],
+          "prerequisites": ["cs4_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs4_u07",
+      "name": "Introduction to Coding and Algorithms",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "cs4_c013",
+          "name": "What is an Algorithm?",
+          "description": "An algorithm is a step-by-step set of instructions for solving a problem or completing a task. Algorithms are used in everyday life: a recipe is an algorithm for cooking food; directions to a friend's house are an algorithm for travelling. A good algorithm has a clear start, a series of precise steps in the right order, and a clear end. Computers follow algorithms exactly — they do exactly what the instructions say, so the instructions must be correct and complete. Flowcharts are diagrams that show the steps of an algorithm using shapes: ovals (start/end), rectangles (steps/actions), and diamonds (decisions with yes/no branches).",
+          "expectedDifficulty": "OK",
+          "aliases": ["algorithm", "step-by-step instructions", "flowchart", "problem solving", "recipe algorithm"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs4_c014",
+          "name": "Introduction to Block-Based Coding",
+          "description": "Coding (programming) is writing instructions for a computer to follow. Block-based coding uses colourful puzzle-piece blocks that snap together to create programs — this is much easier than typing code. Scratch (scratch.mit.edu) and Code.org are popular platforms where children learn coding through animated stories and games. Key concepts: a sequence is instructions in order (do this, then this, then this); a loop repeats a set of instructions a number of times (saves writing the same steps again and again); a conditional checks whether something is true and acts accordingly (if hungry, eat food; else, keep playing). These three concepts — sequence, loops, and conditionals — are the building blocks of all programming.",
+          "expectedDifficulty": "OK",
+          "aliases": ["coding", "Scratch", "block coding", "sequence", "loop", "conditional", "programming basics"],
+          "prerequisites": ["cs4_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs4_u08",
+      "name": "Keyboard Skills and Typing",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "cs4_c015",
+          "name": "Understanding the Keyboard",
+          "description": "The keyboard is the main input device for typing text into a computer. It has several groups of keys: Alphabet keys (A–Z) for typing letters; Number keys (0–9) at the top for typing digits; Function keys (F1–F12) perform special actions; the Space bar inserts a space between words; Enter/Return confirms an action or starts a new line; Backspace deletes the character to the left of the cursor; Caps Lock makes all letters uppercase when turned on; Shift makes one letter uppercase or types the symbol above a number key; Tab moves the cursor several spaces to the right. Ctrl, Alt, and the Windows key are modifier keys used in combination with others for shortcuts.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["keyboard keys", "Space bar", "Enter key", "Backspace", "Caps Lock", "Shift key", "function keys"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs4_c016",
+          "name": "Typing Practice and Keyboard Shortcuts",
+          "description": "Touch typing means typing without looking at the keyboard. The home row — the middle row of letter keys (ASDF for the left hand, JKL; for the right hand) — is where fingers rest. From the home row, fingers reach up and down for other keys. Practising regularly with typing games and tools like TypingClub helps build speed and accuracy. Useful keyboard shortcuts in Windows: Ctrl+C (copy), Ctrl+X (cut), Ctrl+V (paste), Ctrl+Z (undo), Ctrl+S (save), Ctrl+P (print), Ctrl+A (select all), Alt+F4 (close a window), and the Windows key (opens the Start menu). Knowing shortcuts saves time and makes working on a computer much faster.",
+          "expectedDifficulty": "OK",
+          "aliases": ["touch typing", "home row", "keyboard shortcuts", "Ctrl+C", "Ctrl+V", "Ctrl+Z", "typing practice"],
+          "prerequisites": ["cs4_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs4_u09",
+      "name": "Digital Tools for Learning",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "cs4_c017",
+          "name": "Educational Apps and Online Resources",
+          "description": "Many digital tools help students learn in fun and interactive ways. Khan Academy (khanacademy.org) offers free lessons in maths, science, and more. DIKSHA (Digital Infrastructure for Knowledge Sharing) is an Indian government platform for students and teachers with NCERT content. YouTube has thousands of educational videos on all subjects. E-books are digital books that can be read on tablets or computers without paper. Quizzes and flashcard apps like Quizlet help students review and memorise information. Online maps (Google Maps, Google Earth) let students explore geography interactively. Using these tools responsibly and with adult guidance makes learning engaging and effective.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["educational apps", "Khan Academy", "DIKSHA", "YouTube learning", "e-books", "online resources"],
+          "prerequisites": ["cs4_c011"],
+          "order": 1
+        },
+        {
+          "id": "cs4_c018",
+          "name": "Video Calls and Digital Communication",
+          "description": "Video calling lets people see and talk to each other over the Internet, even from different countries. Apps like Google Meet, Zoom, and WhatsApp Video are used for video calls. To make a video call, both people need a device with a camera and microphone and an Internet connection. Proper etiquette for video calls includes: sitting in a quiet, well-lit place; muting the microphone when not speaking; looking at the camera (not the screen) so the other person feels you are looking at them; and wearing appropriate clothing. Email is used for formal messages — always write a clear subject line, polite greeting, and sign your name. Being polite and respectful online is called netiquette.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["video call", "Google Meet", "Zoom", "netiquette", "email etiquette", "digital communication"],
+          "prerequisites": ["cs4_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs4_u10",
+      "name": "Responsible Use of Technology",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "cs4_c019",
+          "name": "Good Digital Habits",
+          "description": "Using technology responsibly means following habits that keep us healthy, safe, and kind online. Healthy screen time: the Indian Academy of Pediatrics recommends no more than 2 hours of recreational screen time per day for school-age children. Take regular breaks using the 20-20-20 rule: every 20 minutes, look at something 20 feet away for 20 seconds to rest your eyes. Sit with your back straight and the screen at eye level to avoid neck and back pain. Charge devices away from your bed and avoid screens at least one hour before sleeping, as the blue light disturbs sleep. Always ask a parent before downloading new apps or making in-app purchases.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["screen time", "20-20-20 rule", "digital health", "good habits technology", "eye care"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs4_c020",
+          "name": "Copyright, Privacy, and Being Kind Online",
+          "description": "Copyright means that when someone creates something — a song, a picture, a story, or a program — it belongs to them. Using someone else's work without permission or credit is called plagiarism and is wrong. Always give credit by saying where you found information. Privacy means keeping personal information (like your address or passwords) private. Never share photos or videos of other people without their permission. Being kind online means using the same respectful language you would use face-to-face. Think before you post: once something is online, it can be hard to remove completely. If you see something that feels wrong online, tell a trusted adult immediately.",
+          "expectedDifficulty": "OK",
+          "aliases": ["copyright", "plagiarism", "online privacy", "digital kindness", "think before you post", "online respect"],
+          "prerequisites": ["cs4_c019"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 3,
+    "board": "CBSE",
+    "subject": "Computer Science",
+    "subjectColor": "#0EA5E9",
+    "subjectIcon": "💻",
+    "generatedAt": "2026-06-01",
+    "textbook": "Common Class 3 Computer Science Curriculum"
+  },
+  "units": [
+    {
+      "id": "cs3_u01",
+      "name": "Introduction to Computers",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "cs3_c001",
+          "name": "What is a Computer?",
+          "description": "A computer is an electronic machine that can receive information, process it, and give results. It works very fast and does not make mistakes if given correct instructions. Computers are used in homes (watching videos, learning), schools (lessons, assignments), hospitals (patient records, scanning machines), banks (money transactions), and weather stations (forecasting rain and storms). All computers follow the same basic cycle: Input (we give information to the computer) → Process (the computer works on it) → Output (the computer gives us the result). This is called the IPO cycle. A computer can only do what it is told — a human must write the instructions (program) for it to follow.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["computer definition", "IPO cycle", "input process output", "uses of computers", "electronic machine"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs3_c002",
+          "name": "Types of Computers",
+          "description": "Computers come in many shapes and sizes depending on their purpose. A desktop computer sits on a desk and has separate parts — a monitor (screen), a CPU box, a keyboard, and a mouse. A laptop is a portable computer with all parts in one unit and a rechargeable battery. A tablet is a flat computer with a touch screen — we tap and swipe to use it. A smartphone is the smallest kind of computer; it also makes phone calls and fits in a pocket. A supercomputer is extremely powerful — it is used for advanced scientific work like weather forecasting and space research. Each type is best suited to different situations: tablets for reading, laptops for working on the move, desktops for heavy tasks at a fixed location.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["desktop", "laptop", "tablet", "smartphone", "supercomputer", "types of computers"],
+          "prerequisites": ["cs3_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs3_u02",
+      "name": "Parts of a Computer",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "cs3_c003",
+          "name": "Input Devices",
+          "description": "Input devices are the parts we use to give information and instructions to a computer. The keyboard is used to type letters, numbers, and symbols. The mouse is moved on a flat surface to move a pointer on the screen — we click it to choose things. A touchpad (on a laptop) works like a mouse but we use our finger directly on it. A touch screen (on tablets and smartphones) lets us tap and swipe with our fingers. A microphone inputs sound — used for voice commands and video calls. A webcam inputs video images — used for video calls and taking photos. A scanner converts paper documents or pictures into digital images the computer can store and edit.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["input devices", "keyboard", "mouse", "touchpad", "touch screen", "microphone", "scanner"],
+          "prerequisites": ["cs3_c001"],
+          "order": 1
+        },
+        {
+          "id": "cs3_c004",
+          "name": "Output Devices and Storage",
+          "description": "Output devices show or produce the results of what the computer has processed. A monitor (screen) displays text, images, and video — it is the most important output device. A printer produces a paper copy (called a printout or hard copy) of whatever is on the screen. Speakers and headphones produce sound — music, videos, and voice. A projector displays images on a large screen or wall, useful in classrooms and cinemas. Storage devices save information so it is not lost when the computer is switched off. A hard drive (inside the computer) stores the operating system, programs, and files permanently. A USB pen drive is a small, portable storage device. Cloud storage saves files on the internet so we can access them from any device.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["output devices", "monitor", "printer", "speakers", "projector", "hard drive", "USB", "cloud storage"],
+          "prerequisites": ["cs3_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs3_u03",
+      "name": "Using a Keyboard",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "cs3_c005",
+          "name": "Parts of the Keyboard",
+          "description": "The keyboard has several groups of keys. Alphabet keys (A–Z) are used to type letters; they are arranged in a special pattern called QWERTY (named after the top-left row of letters). Number keys (0–9) at the top row type digits. The Space bar (the long key at the bottom) inserts a space between words. Enter/Return starts a new line or confirms an action. Backspace deletes the character to the left of the cursor. Delete removes the character to the right. Caps Lock, when turned on, makes all letters uppercase. Shift types one capital letter or the upper symbol on a key. Escape (Esc) cancels an action. Arrow keys move the cursor up, down, left, and right without using the mouse.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["keyboard keys", "QWERTY", "Space bar", "Enter", "Backspace", "Caps Lock", "Shift", "Escape"],
+          "prerequisites": ["cs3_c003"],
+          "order": 1
+        },
+        {
+          "id": "cs3_c006",
+          "name": "Typing Practice and Basic Shortcuts",
+          "description": "Good typing habits make using a computer much easier. Sit up straight with the screen at eye level and feet flat on the floor. Place both hands on the keyboard with fingers resting lightly on the home row keys (ASDF for the left hand and JKL; for the right hand). Try to type without looking at the keyboard — called touch typing. Practise with online typing games and tools. Useful keyboard shortcuts save time: Ctrl+C copies selected text, Ctrl+V pastes it, Ctrl+X cuts it, Ctrl+Z undoes the last action, and Ctrl+S saves a file. To select all text in a document, press Ctrl+A. A shortcut uses the Ctrl (Control) key held down while pressing another key. Learning even a few shortcuts makes working much faster.",
+          "expectedDifficulty": "OK",
+          "aliases": ["typing", "touch typing", "home row", "keyboard shortcuts", "Ctrl+C Ctrl+V", "posture"],
+          "prerequisites": ["cs3_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs3_u04",
+      "name": "Using a Mouse",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "cs3_c007",
+          "name": "Mouse Actions",
+          "description": "The mouse controls a pointer (usually an arrow) on the screen. Basic mouse actions: Point — move the mouse to move the pointer to an item on screen. Click (left-click) — press and release the left mouse button once to select an item or place the cursor. Double-click — press and release the left mouse button twice quickly to open a file or program. Right-click — press and release the right mouse button to open a menu with options. Scroll — roll the scroll wheel in the middle of the mouse to move up and down a page. Drag — hold the left button and move the mouse to move an item on screen, then release. A good mouse technique: hold the mouse gently, rest the wrist lightly, and move smoothly from the shoulder.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["mouse", "click", "double-click", "right-click", "scroll", "drag", "pointer"],
+          "prerequisites": ["cs3_c003"],
+          "order": 1
+        },
+        {
+          "id": "cs3_c008",
+          "name": "Navigating the Desktop",
+          "description": "The desktop is the screen we see when we start a computer — it is like a virtual desk. On the desktop, we can see icons (small pictures) that represent programs or files. Double-clicking an icon opens it. The taskbar at the bottom of the screen shows running programs and the Start menu button. The Start menu gives access to all programs installed on the computer. The clock and some small program icons appear on the right side of the taskbar (called the system tray). A window is the rectangular frame that appears when we open a program or folder. Every window has three buttons at the top right: Minimise (hides the window), Maximise/Restore (makes it full screen or smaller), and Close (shuts the window).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["desktop", "icons", "taskbar", "Start menu", "window", "minimise maximise close"],
+          "prerequisites": ["cs3_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs3_u05",
+      "name": "Drawing with MS Paint",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "cs3_c009",
+          "name": "Getting Started with MS Paint",
+          "description": "MS Paint is a simple drawing program that comes with Windows. To open it: click Start → All Programs → Accessories → Paint (or search 'Paint'). The white area in the middle is the canvas — this is where we draw. The toolbox on the left (or top in newer versions) has different drawing tools. The Pencil tool draws thin freehand lines. The Brush tool draws with different brush styles and thicknesses. The Eraser removes parts of the drawing. The Line tool draws straight lines. The Rectangle, Circle/Oval, and Triangle tools draw those shapes. The Text (A) tool adds typed words. The colour palette at the bottom (or side) lets us choose colours by clicking on them. The foreground colour (colour 1) is for drawing; the background colour (colour 2) is for erasing.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["MS Paint", "canvas", "pencil tool", "brush", "eraser", "colour palette", "drawing program"],
+          "prerequisites": ["cs3_c007"],
+          "order": 1
+        },
+        {
+          "id": "cs3_c010",
+          "name": "Drawing Shapes and Saving",
+          "description": "In MS Paint, shape tools make it easy to draw perfect geometric figures. To draw a rectangle: select the Rectangle tool, click on the canvas, and drag. Hold Shift while dragging to draw a perfect square. Use the Oval tool and hold Shift to draw a perfect circle. The Fill with Colour tool (paint bucket) fills a closed shape with the selected colour — make sure the shape is fully closed or colour will leak out. The colour picker (eyedropper) lets us pick a colour already on the canvas. To undo a mistake: press Ctrl+Z (Undo). To save a drawing: File → Save As → choose a folder → type a name → choose PNG or JPEG format → click Save. Always save work before closing the program.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["shape tools", "rectangle oval circle", "fill with colour", "undo", "save drawing", "PNG JPEG"],
+          "prerequisites": ["cs3_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs3_u06",
+      "name": "Introduction to MS Word",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "cs3_c011",
+          "name": "Opening MS Word and Typing",
+          "description": "Microsoft Word (MS Word) is a word-processing program used to write stories, letters, notices, and reports. To open: click Start → search 'Word' → click to open → choose Blank Document. The cursor is a blinking vertical line that shows where the next letter you type will appear. Type using the keyboard — press Enter to start a new line. Press Backspace to delete the character to the left of the cursor. Press Delete to remove the character to the right. The large white area is the document page. Above the page is the Ribbon — a row of tabs (Home, Insert, Layout, etc.) with tools. The Home tab has the most commonly used tools: font, size, bold, italic, and alignment.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["MS Word", "word processing", "cursor", "document", "Ribbon", "blank document"],
+          "prerequisites": ["cs3_c006"],
+          "order": 1
+        },
+        {
+          "id": "cs3_c012",
+          "name": "Basic Text Formatting",
+          "description": "Formatting changes how text looks to make it clearer or more attractive. To format text: first select it (click and drag, or Shift + arrow keys) and then apply formatting. Bold (Ctrl+B): makes text thicker and darker — used for headings and important words. Italic (Ctrl+I): slants the text — used for book titles or emphasis. Underline (Ctrl+U): adds a line under text — used for links or emphasis. Font type changes the style of letters (Arial, Times New Roman, Comic Sans). Font size is measured in points — body text is usually 12 pt; headings are larger (16 pt, 24 pt). Colour: we can change text colour using the font colour button (letter A with a colour bar). Always save your work with Ctrl+S to avoid losing it.",
+          "expectedDifficulty": "OK",
+          "aliases": ["text formatting", "bold italic underline", "font type", "font size", "text colour", "Ctrl+B"],
+          "prerequisites": ["cs3_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs3_u07",
+      "name": "The Internet — Basics",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "cs3_c013",
+          "name": "What is the Internet?",
+          "description": "The Internet is a huge global network of billions of computers and devices connected together so they can share information. We connect to the Internet at home through Wi-Fi (wireless) or a cable. On mobile devices, we use mobile data (4G, 5G). A web browser is the program we use to visit websites — Google Chrome, Mozilla Firefox, and Microsoft Edge are popular browsers. A website is a collection of pages on the Internet, each with a unique address called a URL (Uniform Resource Locator) that starts with 'www.' A search engine (like Google or Bing) helps us find information on the Internet by typing keywords into a search box. Email lets us send messages instantly to anyone in the world.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["internet", "Wi-Fi", "web browser", "website", "URL", "search engine", "email"],
+          "prerequisites": ["cs3_c001"],
+          "order": 1
+        },
+        {
+          "id": "cs3_c014",
+          "name": "Staying Safe on the Internet",
+          "description": "The Internet is a wonderful tool, but we must use it safely. Never share personal information — your full name, home address, school name, phone number, or photographs — with strangers online. Always ask a parent or teacher before signing up for any website or app. Not everything on the Internet is true — always check with a trusted adult if you are unsure. If something online makes you feel scared, uncomfortable, or sad, tell a trusted adult immediately. Cyberbullying means using the Internet to be unkind to others — it is wrong and should be reported. Screen time should be balanced — too much screen time affects sleep, eyesight, and time available for outdoor play and face-to-face friendships. The 20-20-20 rule: every 20 minutes, look at something 20 feet away for 20 seconds.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["internet safety", "personal information", "cyberbullying", "screen time", "online safety", "trusted adult"],
+          "prerequisites": ["cs3_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs3_u08",
+      "name": "Software and Programs",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "cs3_c015",
+          "name": "What is Software?",
+          "description": "Hardware is the physical parts of a computer we can touch (keyboard, screen, CPU). Software is the set of instructions that tells the hardware what to do — we cannot touch software, but we can see what it does. There are two types of software. System software manages the computer itself; the most important is the Operating System (OS) — examples are Windows, macOS (Apple), Android (mobiles), and Linux. Without an OS, the computer cannot start. Application software is designed for specific tasks: MS Word for writing, MS Paint for drawing, Chrome for browsing, VLC for watching videos, and games for playing. When we 'install' software, we add it to the computer. When we 'uninstall' it, we remove it.",
+          "expectedDifficulty": "OK",
+          "aliases": ["software", "hardware", "operating system", "application software", "Windows Android", "install uninstall"],
+          "prerequisites": ["cs3_c004"],
+          "order": 1
+        },
+        {
+          "id": "cs3_c016",
+          "name": "Files and Folders",
+          "description": "A file is a piece of information stored on a computer. Files can be documents (word files), pictures (image files), music (audio files), videos, or programs. Every file has a name and an extension that tells us its type: .docx (Word document), .jpg or .png (image), .mp3 (music), .mp4 (video). A folder (also called a directory) is like a drawer in a filing cabinet — it holds and organises files. We can put folders inside other folders (called subfolders). Good habits: give files clear, descriptive names; keep related files in the same folder; don't leave files scattered on the desktop. The Recycle Bin (Windows) is where deleted files go — we can restore them from there or empty the bin to delete them permanently.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["files", "folders", "file extension", ".docx .jpg .mp3", "Recycle Bin", "organising files"],
+          "prerequisites": ["cs3_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs3_u09",
+      "name": "Introduction to Coding",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "cs3_c017",
+          "name": "What is an Algorithm?",
+          "description": "An algorithm is a set of step-by-step instructions for solving a problem or completing a task. Algorithms are used in everyday life: a recipe is an algorithm for cooking food; getting dressed in the morning (socks before shoes!) is an algorithm; and the instructions for a board game are an algorithm for playing it. A good algorithm must have: a clear starting point, instructions in the correct order, and a clear end point. Computers follow algorithms exactly as written — they cannot guess or skip steps. If the algorithm is wrong, the computer will give wrong results. Writing algorithms in everyday life (e.g., how to brush teeth, how to pack a bag) helps us think logically and clearly — just like a computer.",
+          "expectedDifficulty": "OK",
+          "aliases": ["algorithm", "step-by-step instructions", "recipe", "logical thinking", "problem solving"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs3_c018",
+          "name": "Block Coding — Sequences and Loops",
+          "description": "Coding (programming) means writing instructions for a computer. Block-based coding uses colourful puzzle pieces that snap together — no difficult typing needed! Scratch (scratch.mit.edu) and Code.org are fun platforms where children learn coding through stories, animations, and games. Three key ideas: A Sequence is a set of instructions done one after another in order (just like an algorithm). A Loop repeats a set of instructions a number of times — instead of writing 'jump 10 times' ten times, we use a loop: 'repeat 10 times: jump.' A conditional (if-then) checks a condition and does something only if it is true: 'if the sprite touches the wall, then turn around.' These three ideas — sequence, loop, conditional — are the building blocks of all programming in the world.",
+          "expectedDifficulty": "OK",
+          "aliases": ["block coding", "Scratch", "sequence", "loop", "conditional", "programming basics", "Code.org"],
+          "prerequisites": ["cs3_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs3_u10",
+      "name": "Safe and Responsible Use of Computers",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "cs3_c019",
+          "name": "Taking Care of Computer Hardware",
+          "description": "A computer is an expensive and delicate machine that needs proper care. Keep food and drinks away from the keyboard and screen — liquid and crumbs can damage components. Handle the keyboard, mouse, and screen gently — do not bang or throw them. Shut down the computer properly using the Start menu rather than just switching off the power — sudden power cuts can corrupt files. Clean the screen gently with a soft, dry cloth — do not use water or chemicals. Carry a laptop in a proper padded bag and never place heavy things on it. Use a voltage stabiliser or UPS (Uninterruptible Power Supply) to protect against power cuts and surges. A well-cared-for computer works better and lasts longer.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["computer care", "hardware maintenance", "shutdown properly", "cleaning screen", "laptop care", "UPS"],
+          "prerequisites": ["cs3_c004"],
+          "order": 1
+        },
+        {
+          "id": "cs3_c020",
+          "name": "Good Digital Habits",
+          "description": "Using computers and devices responsibly is an important life skill. Healthy screen time: children aged 6–12 should limit recreational screen time to 2 hours per day. Always take short breaks: every 20–30 minutes, rest your eyes and stretch. Sit correctly: back straight, feet flat, screen at eye level to avoid neck and back pain. Blue light from screens can disturb sleep — avoid screens for at least one hour before bedtime. Be kind online: use the same polite, respectful language you would use face-to-face. Think before you type or post — once something is sent or shared online, it is very hard to take back. Ask permission before using someone else's photos or work. Good digital habits protect our health, relationships, and future.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["screen time", "digital habits", "posture", "eye care", "online kindness", "sleep and screens"],
+          "prerequisites": ["cs3_c019"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

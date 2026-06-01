@@ -1,0 +1,373 @@
+{
+  "metadata": {
+    "grade": 7,
+    "board": "CBSE",
+    "subject": "Geography",
+    "subjectColor": "#16A34A",
+    "subjectIcon": "🌍",
+    "generatedAt": "2026-05-31",
+    "textbook": "NCERT Our Environment — Class 7"
+  },
+  "units": [
+    {
+      "id": "geo7_u01",
+      "name": "Environment",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "geo7_c001",
+          "name": "What is Environment?",
+          "description": "The environment is everything that surrounds us — living (biotic) and non-living (abiotic) components. Biotic components include all plants, animals, fungi, bacteria, and other organisms. Abiotic components include air, water, soil, sunlight, temperature, and landforms. The environment provides us with air to breathe, water to drink, food to eat, and raw materials for shelter and clothing. Humans are part of the environment, not separate from it. We depend on the environment, and our actions affect it deeply. The natural environment (forests, oceans, rivers, mountains) developed over billions of years; the human-made environment (cities, farms, roads, dams) has been built by people. A healthy environment sustains all life; a degraded environment threatens it.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "environment",
+            "biotic abiotic",
+            "natural human-made environment",
+            "components of environment"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "geo7_c002",
+          "name": "Ecosystems and Human-Environment Interaction",
+          "description": "An ecosystem is a community of living organisms (plants, animals, microorganisms) interacting with each other and with their non-living environment (soil, water, sunlight, air). Ecosystems can be terrestrial (forest, grassland, desert) or aquatic (river, lake, ocean). Energy flows through an ecosystem via food chains — producers (plants) capture solar energy; primary consumers (herbivores) eat plants; secondary consumers (carnivores) eat herbivores; decomposers (bacteria, fungi) break down dead matter and return nutrients to the soil. Humans interact with the environment in both positive ways (conservation, sustainable farming, reforestation) and negative ways (pollution, deforestation, overfishing). When humans damage ecosystems, the services they provide — clean air, clean water, flood control, pollination, soil fertility — are also lost.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "ecosystem",
+            "food chain",
+            "producers consumers decomposers",
+            "terrestrial aquatic ecosystem",
+            "human-environment interaction"
+          ],
+          "prerequisites": [
+            "geo7_c001"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "geo7_u02",
+      "name": "Inside Our Earth",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "geo7_c003",
+          "name": "Layers of the Earth",
+          "description": "The Earth is made up of three main layers. The crust is the outermost and thinnest layer (5–70 km thick) — made of rocks and minerals; oceanic crust (under oceans) is thinner and denser; continental crust (under continents) is thicker and less dense. The mantle is the middle layer (about 2,900 km thick) — made of semi-solid rock called magma; convection currents in the mantle drive the movement of tectonic plates. The core is the innermost part — the outer core is liquid iron and nickel; the inner core is solid iron and nickel (temperatures up to 5,100°C). The asthenosphere is the uppermost part of the mantle — plastic (can flow slowly) and allows tectonic plates above it to move. Scientists study the Earth's interior by analysing earthquake waves (seismic waves) that pass through different layers at different speeds.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Earth's layers",
+            "crust mantle core",
+            "asthenosphere",
+            "tectonic plates",
+            "seismic waves"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "geo7_c004",
+          "name": "Rocks and the Rock Cycle",
+          "description": "Rocks are made of minerals. There are three main types. Igneous rocks form when magma (molten rock underground) or lava (magma that reaches the surface through volcanoes) cools and solidifies — granite (intrusive, cools slowly underground) and basalt (extrusive, cools quickly at the surface). Sedimentary rocks form when sediments (fragments of other rocks, sand, shells) accumulate in layers and are compressed over time — sandstone, limestone, coal, and shale are examples; they often contain fossils. Metamorphic rocks form when existing rocks are transformed by extreme heat and pressure deep in the Earth — marble (from limestone) and slate (from shale) are examples. The rock cycle describes how rocks continuously change from one type to another over millions of years through processes of melting, cooling, weathering, erosion, deposition, and metamorphism.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "igneous sedimentary metamorphic rocks",
+            "rock cycle",
+            "granite basalt",
+            "limestone marble",
+            "fossils"
+          ],
+          "prerequisites": [
+            "geo7_c003"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "geo7_u03",
+      "name": "Our Changing Earth",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "geo7_c005",
+          "name": "Lithospheric Plates and Earthquakes",
+          "description": "The Earth's crust is broken into large pieces called tectonic (lithospheric) plates that float on the semi-molten asthenosphere and move very slowly (a few centimetres per year). Plates interact at boundaries: Convergent (plates move toward each other — oceanic plate subducts under continental plate, forming deep ocean trenches and volcanic mountain ranges; two continental plates collide to form fold mountains like the Himalayas). Divergent (plates move apart — magma rises to fill the gap, forming mid-ocean ridges or rift valleys like the East African Rift). Transform (plates slide past each other horizontally — causing earthquakes along fault lines). Earthquakes occur when plates suddenly jerk along faults. The focus is where the earthquake originates; the epicentre is the point on the surface directly above the focus. Seismographs record earthquake waves; magnitude is measured on the Richter scale.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "tectonic plates",
+            "convergent divergent transform boundaries",
+            "Himalayas formation",
+            "earthquakes focus epicentre",
+            "Richter scale"
+          ],
+          "prerequisites": [
+            "geo7_c003"
+          ],
+          "order": 1
+        },
+        {
+          "id": "geo7_c006",
+          "name": "Volcanoes and Weathering",
+          "description": "A volcano is an opening in the Earth's crust through which magma, gases, and ash are ejected. Types: Active volcanoes erupt regularly (Mt. Etna, Italy; Barren Island, India's only active volcano). Dormant volcanoes have not erupted recently but may in the future (Mt. Kilimanjaro). Extinct volcanoes are unlikely to erupt again (Mt. Aconcagua). Volcanic eruptions create new landforms — lava flows form igneous rocks; ash deposits enrich soil. The Pacific 'Ring of Fire' is a horseshoe-shaped zone of intense volcanic and earthquake activity circling the Pacific Ocean. Weathering is the breaking down of rocks by physical, chemical, or biological means. Physical weathering: temperature changes cause rocks to expand and contract, cracking them. Chemical weathering: rainwater (slightly acidic) dissolves certain minerals. Biological weathering: roots of plants widen cracks in rocks. Weathering produces the raw material for soil formation.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "volcanoes active dormant extinct",
+            "Ring of Fire",
+            "Barren Island",
+            "weathering physical chemical biological",
+            "soil formation"
+          ],
+          "prerequisites": [
+            "geo7_c005"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "geo7_u04",
+      "name": "Air",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "geo7_c007",
+          "name": "Composition and Layers of the Atmosphere",
+          "description": "The atmosphere is a blanket of gases surrounding the Earth, held in place by gravity. Composition: nitrogen (78%), oxygen (21%), argon (0.9%), carbon dioxide (0.04%), and small amounts of other gases and water vapour. The atmosphere has five layers. Troposphere (0–12 km): contains 75% of atmospheric mass and all weather; temperature decreases with altitude at about 6.5°C per km. Stratosphere (12–50 km): contains the ozone layer (absorbs harmful UV radiation from the Sun); temperature increases with altitude. Mesosphere (50–80 km): meteorites burn up here; coldest layer. Thermosphere (80–700 km): very thin air; auroras occur here; temperature extremely high. Exosphere: outermost, merging with space. The ozone hole (caused by CFCs — chlorofluorocarbons) is a serious environmental problem — the Montreal Protocol (1987) banned CFCs globally.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "atmosphere composition",
+            "troposphere stratosphere mesosphere",
+            "ozone layer",
+            "nitrogen oxygen",
+            "Montreal Protocol CFC"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "geo7_c008",
+          "name": "Weather, Climate, Temperature, and Wind",
+          "description": "Weather is the day-to-day condition of the atmosphere at a place — it includes temperature, humidity, rainfall, wind speed, and cloud cover. Climate is the average weather pattern of a place over 30 or more years. Temperature is measured in degrees Celsius (°C) using a thermometer. Factors affecting temperature: latitude (higher latitude = colder), altitude (higher altitude = colder), distance from the sea (coastal areas have milder temperatures), ocean currents, and land cover. Atmospheric pressure is the weight of air pressing down on the Earth's surface — measured in millibars (mb) using a barometer. Wind blows from high pressure areas to low pressure areas. Land and sea breezes: during the day, land heats faster than the sea, creating low pressure over land → sea breeze blows from sea to land; at night the reverse occurs. Monsoon winds are seasonal reversals of wind direction — crucial for Indian agriculture.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "weather climate",
+            "temperature factors",
+            "atmospheric pressure",
+            "wind formation",
+            "land sea breeze",
+            "monsoon"
+          ],
+          "prerequisites": [
+            "geo7_c007"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "geo7_u05",
+      "name": "Water",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "geo7_c009",
+          "name": "The Water Cycle and Distribution of Water",
+          "description": "The hydrosphere includes all water on Earth — in oceans, rivers, lakes, glaciers, groundwater, and water vapour in the atmosphere. About 97% of Earth's water is in the oceans (salty); only 3% is fresh water, and most of that is frozen in glaciers and ice caps — less than 1% is easily accessible in rivers, lakes, and shallow groundwater. The water cycle (hydrological cycle): evaporation (solar heat converts liquid water to vapour from oceans, rivers, and lakes) → transpiration (plants release water vapour through leaves) → condensation (water vapour cools and forms clouds) → precipitation (rain, snow, hail fall back to Earth) → runoff (flows into rivers and oceans) → infiltration (soaks into groundwater). The water cycle has no start or end — it continuously circulates the same water through different forms.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "water cycle",
+            "hydrological cycle",
+            "evaporation condensation precipitation",
+            "freshwater saltwater",
+            "groundwater"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "geo7_c010",
+          "name": "Ocean Circulation — Waves, Tides, and Currents",
+          "description": "Oceans cover 71% of Earth's surface and are in constant motion. Waves are surface disturbances caused by wind — energy travels through water, but water molecules move in circles. Tsunamis are giant waves caused by undersea earthquakes or volcanic eruptions — they can travel thousands of kilometres at the speed of a jet plane and cause devastating damage when they hit coastlines. Tides are the regular rise (high tide) and fall (low tide) of sea level caused by the gravitational pull of the Moon and, to a lesser extent, the Sun. Spring tides (very high and very low) occur at new and full moon when Earth, Moon, and Sun are aligned; neap tides (moderate) occur at quarter moon. Ocean currents are continuous flows of water in a definite direction. Warm currents (like the Gulf Stream) flow from the tropics towards the poles, making nearby land warmer. Cold currents (like the Labrador Current) flow from poles toward the tropics, making nearby land cooler and drier.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "waves tides currents",
+            "tsunami",
+            "high tide low tide",
+            "spring neap tides",
+            "Gulf Stream",
+            "ocean circulation"
+          ],
+          "prerequisites": [
+            "geo7_c009"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "geo7_u06",
+      "name": "Natural Vegetation and Wildlife",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "geo7_c011",
+          "name": "Types of Natural Vegetation",
+          "description": "Natural vegetation refers to plant life that grows without human interference, determined by climate and soil. Tropical Evergreen Forests grow in regions with heavy, year-round rainfall (Amazon, Congo, Western Ghats, northeast India) — tall, dense trees that never shed all leaves at once; hardwoods like ebony, mahogany, and rosewood. Tropical Deciduous (Monsoon) Forests cover most of India — trees shed leaves in the dry season; teak, sal, and sandalwood. Temperate Evergreen Forests grow in mild, wet coastal zones. Temperate Deciduous Forests (oak, beech, maple) in regions with moderate rainfall and distinct seasons. Mediterranean Vegetation (scrubby bushes, olive, citrus) with warm, dry summers and mild, wet winters. Grasslands cover regions with moderate rainfall — tropical savanna and temperate grasslands (steppes, prairies). Coniferous (Taiga) forests in cold subarctic zones — pine, fir, spruce — with needle-shaped leaves that reduce water loss.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "natural vegetation",
+            "tropical evergreen deciduous",
+            "temperate forests Mediterranean",
+            "grasslands savanna",
+            "coniferous taiga"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "geo7_c012",
+          "name": "Wildlife and Biodiversity",
+          "description": "Wildlife refers to animals living in natural habitats without domestication. Biodiversity is the variety of all living organisms in an area — highest in tropical rainforests. India is one of 17 'megadiverse' countries with about 7–8% of all recorded species. Threats to wildlife: habitat destruction, poaching, pollution, invasive species, and climate change. Conservation efforts: National Parks (Corbett — tigers, Kaziranga — rhinos, Gir — lions), Wildlife Sanctuaries, Biosphere Reserves. Project Tiger (1973) pulled the tiger back from the edge of extinction — India's tiger population has grown from 1,827 (2002) to over 3,600 (2022). Project Elephant (1992) protects elephant habitats and mitigates human-elephant conflict. The IUCN Red List classifies species by extinction risk: Vulnerable, Endangered, Critically Endangered. Biodiversity loss disrupts food chains and ecosystem services that humans depend on.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "wildlife biodiversity",
+            "megadiverse India",
+            "IUCN Red List",
+            "Project Tiger Project Elephant",
+            "national parks sanctuaries"
+          ],
+          "prerequisites": [
+            "geo7_c011"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "geo7_u07",
+      "name": "Human-Environment Interactions: Tropical and Subtropical Regions",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "geo7_c013",
+          "name": "Life in the Amazon Rainforest",
+          "description": "The Amazon Basin in South America (mainly Brazil) contains the world's largest tropical rainforest — it covers about 5.5 million sq km and is home to 10% of all species on Earth. Climate: hot and wet year-round, with average temperatures of 25–30°C and rainfall over 200 cm annually. Vegetation: dense, multi-layered canopy up to 50 m tall — emergent layer (tallest trees above the canopy), canopy layer (most light and wildlife), understory (shade-tolerant plants), and forest floor (little light, decomposers). People: indigenous communities like the Yanomami have lived in the Amazon for thousands of years, using the forest sustainably. Deforestation: the Amazon is being cleared for cattle ranching, soybean farming, logging, and mining at alarming rates — this releases stored carbon (worsening climate change), destroys habitats, and threatens indigenous peoples. The Amazon regulates global rainfall patterns and is called the 'lungs of the Earth.'",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Amazon rainforest",
+            "tropical rainforest",
+            "Yanomami",
+            "deforestation Amazon",
+            "canopy understory",
+            "lungs of the Earth"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "geo7_c014",
+          "name": "Life in the Ganga-Brahmaputra Basin",
+          "description": "The Ganga-Brahmaputra Basin is the largest river basin of the Indian subcontinent, draining about 1.6 million sq km across India, Nepal, Bhutan, and Bangladesh. Climate: the subtropical climate brings warm summers, cool winters, and the summer monsoon (June–September) which provides most of the annual rainfall. Agriculture: the fertile alluvial plains support intensive cultivation — rice (in wetter eastern areas and Bengal), wheat (in drier western UP and Bihar), sugarcane, jute (Bangladesh and West Bengal), and mustard. People: the basin is one of the most densely populated regions on Earth; major cities include Varanasi, Patna, Kolkata, and Dhaka. The Ganga is considered sacred in Hinduism — millions bathe in its waters at pilgrimage sites. Wildlife: the Ganga river dolphin (endangered), gharial crocodile, and the Bengal tiger of the Sundarbans delta. The Sundarbans is the world's largest mangrove forest (shared by India and Bangladesh) and a UNESCO World Heritage Site.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Ganga Brahmaputra basin",
+            "alluvial plains",
+            "rice wheat jute",
+            "Sundarbans mangrove",
+            "Ganga river dolphin",
+            "sacred Ganga"
+          ],
+          "prerequisites": [
+            "geo7_c013"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "geo7_u08",
+      "name": "Life in the Temperate Grasslands and Polar Regions",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "geo7_c015",
+          "name": "Temperate Grasslands — Prairies and Steppes",
+          "description": "Temperate grasslands are found in the interiors of continents, with cold winters, hot summers, and moderate rainfall (25–75 cm) — too little for forests, too much for deserts. Names: Prairies (North America), Steppes (Eurasia — Russia, Central Asia), Pampas (South America — Argentina), Veldt (South Africa), Downs (Australia). Few trees but thick, nutritious grass — ideal for grazing. Wildlife: bison (prairies), saiga antelope (steppes), guanaco (pampas). The deep, fertile soils (chernozem on steppes, mollisols on prairies) are extremely productive — the USA, Canada, Argentina, and Russia are the world's major wheat and maize exporters. Farming: large mechanised farms use tractors, combine harvesters, and irrigation to produce enormous grain yields. The USA and Canada are called the 'breadbaskets of the world.' Over-farming and removal of native grasses can cause soil erosion (the 'Dust Bowl' in the 1930s USA was caused by over-ploughing).",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "temperate grasslands",
+            "prairies steppes pampas veldt",
+            "chernozem soil",
+            "breadbasket",
+            "Dust Bowl",
+            "bison"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "geo7_c016",
+          "name": "Life in the Polar Regions",
+          "description": "The polar regions — the Arctic (around the North Pole) and Antarctica (around the South Pole) — are the coldest places on Earth. Antarctica is a continent covered by ice up to 4.7 km thick, holding about 70% of the world's fresh water; temperatures fall to −89°C; no indigenous permanent human population. The Arctic is a frozen ocean surrounded by land; temperatures around −40°C in winter. Arctic wildlife: polar bears, walruses, Arctic foxes, snowy owls, and narwhals. Indigenous Inuit people have adapted to Arctic life using igloos, kayaks, and traditional hunting. Scientists operate research stations in both polar regions to study climate, ice cores (which record ancient atmospheric conditions), and cosmic phenomena. Both regions are warming 2–4 times faster than the global average due to climate change — melting Arctic sea ice and Antarctic glaciers raise global sea levels and disrupt ocean circulation.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "polar regions",
+            "Antarctica Arctic",
+            "polar bears Inuit",
+            "ice cores",
+            "climate change polar",
+            "melting glaciers sea level"
+          ],
+          "prerequisites": [
+            "geo7_c015"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "geo7_u09",
+      "name": "Life in the Deserts",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "geo7_c017",
+          "name": "Hot Deserts — The Sahara",
+          "description": "Deserts are areas that receive less than 25 cm of rainfall per year. Hot deserts have extreme temperatures — daytime highs above 40°C, cold nights (because dry air and no clouds means heat escapes quickly after sunset). The Sahara Desert in North Africa is the world's largest hot desert (about 9 million sq km) — stretching across 11 countries from the Atlantic Ocean to the Red Sea. Features: vast sandy plains (ergs), rocky plateaus (hammadas), pebble-covered plains (reg), and isolated mountains. Water: oases — areas around underground springs or rivers — support settlements and farming. Desert wildlife: camels (survive for weeks without water, using fat stored in humps for energy), scorpions, sand snakes, and desert foxes. People: Tuareg nomads have traditionally herded camels and goats across the Sahara, trading in caravans between sub-Saharan Africa and North African cities like Timbuktu and Marrakech.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Sahara desert",
+            "hot desert",
+            "erg hammada",
+            "oasis",
+            "Tuareg nomads",
+            "camel adaptation"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "geo7_c018",
+          "name": "Cold Deserts — Ladakh",
+          "description": "Cold deserts are found at high altitudes or in polar regions — they are cold and dry with sparse vegetation. Ladakh (now a Union Territory of India) is a cold high-altitude desert — elevation 3,000–5,000 m above sea level, flanked by the Karakoram and Himalayan ranges. Climate: long, cold winters (temperatures fall to −45°C), short cool summers (rarely above 15°C), very low rainfall (less than 10 cm). Vegetation: sparse — tough grasses, thorny scrubs, willows near streams, and apricot orchards in valleys. Wildlife: snow leopard (endangered, highly elusive), yak (domesticated; provides milk, wool, and acts as a pack animal), Tibetan antelope (chiru), Himalayan marmot, and migratory birds at Pangong Lake. People: Ladakhi people are of Tibetan cultural heritage; Buddhist gompas (monasteries) dot the landscape. Tourism is growing — hiking, river rafting, and the famous Zanskar and Indus rivers attract visitors. Climate change is melting Himalayan glaciers, threatening Ladakh's water supply.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Ladakh cold desert",
+            "snow leopard yak",
+            "Pangong Lake",
+            "Buddhist gompa",
+            "Himalayan glacier",
+            "Karakoram"
+          ],
+          "prerequisites": [
+            "geo7_c017"
+          ],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

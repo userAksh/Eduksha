@@ -1,0 +1,363 @@
+{
+  "metadata": {
+    "grade": 4,
+    "board": "CBSE",
+    "subject": "Mathematics",
+    "subjectColor": "#3B82F6",
+    "subjectIcon": "📐",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Maths Mela — Class 4 (Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "mat4_u01",
+      "name": "Chapter 1 — Shapes Around Us",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "mat4_c001",
+          "name": "Identifying 2D Shapes",
+          "description": "Two-dimensional (2D) shapes are flat and have only length and width. We see them all around us — the face of a clock is a circle, a window pane is a rectangle, a sandwich cut diagonally is a triangle, and a tile on the floor is a square. Key 2D shapes: circle (no sides, no corners), triangle (3 sides, 3 corners), rectangle (4 sides, opposite sides equal, 4 right-angle corners), square (4 equal sides, 4 right-angle corners), pentagon (5 sides), and hexagon (6 sides). We describe shapes by the number of sides and corners. Regular shapes have all sides equal and all angles equal.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["2D shapes", "circle", "triangle", "rectangle", "square", "pentagon", "hexagon", "flat shapes"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat4_c002",
+          "name": "Identifying 3D Shapes",
+          "description": "Three-dimensional (3D) shapes are solid — they have length, width, and height. We find them in objects around us: a brick is a cuboid, a dice is a cube, a tin can is a cylinder, an ice-cream cone is a cone, and a ball is a sphere. We describe 3D shapes by their faces (flat surfaces), edges (where two faces meet), and vertices (corners). A cube has 6 faces, 12 edges, and 8 vertices. A cylinder has 2 flat circular faces and 1 curved surface. A cone has 1 flat circular face, 1 curved surface, and comes to a point called the apex. A sphere has no flat face and no edges.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["3D shapes", "cube", "cuboid", "cylinder", "cone", "sphere", "faces edges vertices", "solid shapes"],
+          "prerequisites": ["mat4_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat4_u02",
+      "name": "Chapter 2 — Hide and Seek",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "mat4_c003",
+          "name": "Bird's-Eye View and Maps",
+          "description": "A bird's-eye view is what a place looks like when seen from directly above — like a bird flying overhead. When we look down on a table from above, a round plate looks like a circle and a rectangular book looks like a rectangle. Maps are drawings that show places from a bird's-eye view. On a map, each object is represented by a simple shape or symbol. A map key (legend) explains what each symbol means. Reading a map helps us understand where things are in relation to each other — which building is next to the park, which road leads to the school. Map-reading is an essential life skill.",
+          "expectedDifficulty": "OK",
+          "aliases": ["bird's-eye view", "map reading", "top view", "map key", "map legend", "aerial view"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat4_c004",
+          "name": "Directions and Location",
+          "description": "The four main directions are North (N), South (S), East (E), and West (W). The Sun rises in the East and sets in the West — this helps us find direction outdoors. A compass needle always points North. Intermediate directions are North-East (NE), North-West (NW), South-East (SE), and South-West (SW). We use direction words to describe where something is: 'the shop is to the right of the school', 'the park is behind the library', 'the hospital is opposite the market'. On a map, North is usually at the top. Giving clear directions helps others find places without getting lost.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["directions", "North South East West", "compass", "left right", "map directions", "location words"],
+          "prerequisites": ["mat4_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat4_u03",
+      "name": "Chapter 3 — Pattern Around Us",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "mat4_c005",
+          "name": "Patterns in Nature and Art",
+          "description": "A pattern is a repeated arrangement of shapes, colours, or objects following a rule. Patterns are everywhere in nature — the stripes on a tiger, the spots on a ladybird, the spiral of a snail shell, the veins of a leaf, and the honeycomb made by bees. In art and design, patterns appear in rangoli, tiles, fabric (like Ikat or block-print cloth), and architecture (like jali screens). The core of a pattern is the smallest unit that repeats. To extend a pattern, identify the core and repeat it. Creating patterns builds awareness of order, repetition, and beauty in the world around us.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["patterns in nature", "repeating pattern", "pattern core", "rangoli", "tile pattern"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat4_c006",
+          "name": "Number Patterns and Rules",
+          "description": "A number pattern is a list of numbers that follow a rule. In an arithmetic pattern, the same number is added or subtracted each time — for example 2, 5, 8, 11 (adding 3) or 100, 90, 80 (subtracting 10). Odd numbers (1, 3, 5, 7…) and even numbers (2, 4, 6, 8…) are common patterns. Multiplication tables are also patterns. A magic square is a grid where every row, column, and diagonal adds to the same total. To find a rule in a number pattern, look at the difference between consecutive numbers. Extending a pattern correctly requires first identifying the rule precisely.",
+          "expectedDifficulty": "OK",
+          "aliases": ["number patterns", "arithmetic pattern", "odd numbers", "even numbers", "magic square", "pattern rule"],
+          "prerequisites": ["mat4_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat4_u04",
+      "name": "Chapter 4 — Thousands Around Us",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "mat4_c007",
+          "name": "4-Digit Numbers and Place Value",
+          "description": "A 4-digit number has four place values: ones, tens, hundreds, and thousands. In 6,472 — the 6 is in the thousands place (value 6,000), the 4 is in the hundreds place (value 400), the 7 is in the tens place (value 70), and the 2 is in the ones place (value 2). The expanded form is 6,000 + 400 + 70 + 2. The smallest 4-digit number is 1,000 and the largest is 9,999. We put a comma after the thousands digit to make large numbers easier to read. Numbers can be written in words: 6,472 is 'six thousand four hundred and seventy-two.' Place value helps us understand the true value of each digit.",
+          "expectedDifficulty": "OK",
+          "aliases": ["4-digit numbers", "place value", "thousands", "expanded form", "number names", "ones tens hundreds"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat4_c008",
+          "name": "Comparing and Ordering 4-Digit Numbers",
+          "description": "To compare two 4-digit numbers, start from the leftmost (thousands) digit. If the thousands digits differ, the number with the larger thousands digit is greater. If they are equal, compare hundreds, then tens, then ones. For example, 4,523 vs 4,498: both have 4 thousands; hundreds 5 > 4, so 4,523 > 4,498. We use the symbols > (greater than), < (less than), and = (equal to). Ascending order means smallest to largest; descending order means largest to smallest. The number line shows the relative position of numbers — numbers to the right are always greater. Rounding to the nearest 10 or 100 makes estimation easier.",
+          "expectedDifficulty": "OK",
+          "aliases": ["comparing numbers", "greater than less than", "ascending order", "descending order", "rounding", "number line"],
+          "prerequisites": ["mat4_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat4_u05",
+      "name": "Chapter 5 — Sharing and Measuring",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "mat4_c009",
+          "name": "Fractions — Equal Parts of a Whole",
+          "description": "A fraction represents one or more equal parts of a whole. The denominator (bottom number) tells us how many equal parts the whole is divided into; the numerator (top number) tells us how many parts we are taking. Half (1/2) means the whole is cut into 2 equal parts and we take 1; quarter (1/4) means 4 equal parts, taking 1; three-quarters (3/4) means 4 equal parts, taking 3. An important idea: the parts must be equal — cutting a pizza into a big piece and a small piece and calling them 'halves' is wrong. Fractions can be shown with shapes, strips, number lines, and real objects.",
+          "expectedDifficulty": "OK",
+          "aliases": ["fractions", "half", "quarter", "one-third", "numerator", "denominator", "equal parts"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat4_c010",
+          "name": "Sharing Equally and Simple Division",
+          "description": "Sharing equally means dividing a quantity into equal groups. If 12 mangoes are shared equally among 4 friends, each gets 3 (12 ÷ 4 = 3). Division and fractions are closely linked — giving each person 1/4 of 12 is the same as dividing 12 by 4. Division is the inverse of multiplication: if 3 × 4 = 12, then 12 ÷ 4 = 3 and 12 ÷ 3 = 4. The number being divided is called the dividend, the number we divide by is the divisor, and the answer is the quotient. When division does not come out exactly, the leftover amount is the remainder (which is always less than the divisor).",
+          "expectedDifficulty": "OK",
+          "aliases": ["division", "equal sharing", "divisor", "dividend", "quotient", "remainder", "equal groups"],
+          "prerequisites": ["mat4_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat4_u06",
+      "name": "Chapter 6 — Measuring Length",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "mat4_c011",
+          "name": "Standard Units of Length",
+          "description": "We use standard units of length so that everyone measures the same way. The units are: millimetre (mm), centimetre (cm), metre (m), and kilometre (km). Relationships: 10 mm = 1 cm, 100 cm = 1 m, 1,000 m = 1 km. We pick the right unit for the object: mm for a pencil tip or an ant, cm for a book or ruler, m for the height of a door or a room, and km for the distance between cities. A ruler is marked in cm and mm. We place the 0 end of the ruler at one end of the object and read the number at the other end. A measuring tape is used for longer objects like fabric or a person's height.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["millimetre", "centimetre", "metre", "kilometre", "length", "ruler", "measuring tape"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat4_c012",
+          "name": "Estimating and Converting Lengths",
+          "description": "Estimation means making a sensible guess without measuring exactly. Useful benchmarks: a finger's width is about 1 cm, a door is about 2 m tall, a classroom is about 8 m long. Converting between units: to go from a larger unit to a smaller one, multiply (3 m = 3 × 100 = 300 cm); to go from smaller to larger, divide (500 cm = 500 ÷ 100 = 5 m). When adding lengths with different units, convert to the same unit first. For example, 1 m 40 cm + 80 cm = 140 cm + 80 cm = 220 cm = 2 m 20 cm. Measuring accurately and checking with estimation ensures we notice big mistakes.",
+          "expectedDifficulty": "OK",
+          "aliases": ["estimating length", "unit conversion", "metres and centimetres", "adding lengths", "benchmark estimation"],
+          "prerequisites": ["mat4_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat4_u07",
+      "name": "Chapter 7 — The Cleanest Village",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "mat4_c013",
+          "name": "Collecting and Recording Data",
+          "description": "Data is information collected by observing, counting, or asking questions. For example, to find out which method of waste disposal each household uses, we ask every family and record the answers. Tally marks are a quick way to record data as we collect it: four vertical lines are crossed by a fifth diagonal line to make groups of 5, which are easy to count later. A frequency table organises each category with its tally count and total. Good data collection requires a clear question, a complete list of possible answers, and recording every response accurately. In the village story, children survey households to decide which village is the cleanest.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["data collection", "tally marks", "frequency table", "survey", "recording data"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat4_c014",
+          "name": "Interpreting Data and Drawing Conclusions",
+          "description": "Once data is collected and organised in a table, we interpret it — we look for patterns and draw conclusions. For example, if most households compost their waste, we can conclude that composting is the most common method. We can find the total, identify the most common category (mode), compare categories, and answer questions like 'how many more households do X than Y?' A pictograph represents data using pictures where each picture stands for a fixed number (stated in the key). Interpreting correctly means reading the scale carefully and multiplying by the key value. Data helps communities make better decisions — like which village deserves a cleanliness award.",
+          "expectedDifficulty": "OK",
+          "aliases": ["interpreting data", "pictograph", "conclusions from data", "mode", "data analysis"],
+          "prerequisites": ["mat4_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat4_u08",
+      "name": "Chapter 8 — Weigh it, Pour it",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "mat4_c015",
+          "name": "Weight — Grams and Kilograms",
+          "description": "Weight measures how heavy something is. The standard units are grams (g) and kilograms (kg), where 1 kg = 1,000 g. Lighter objects are measured in grams (a biscuit ≈ 15 g, an egg ≈ 55 g); heavier objects are measured in kilograms (a bag of rice = 5 kg, a child ≈ 25–30 kg). A balance scale compares weights on two pans; a spring scale (weighing machine) shows the exact weight. Converting: to change kg to g, multiply by 1,000 (2 kg = 2,000 g); to change g to kg, divide by 1,000 (3,500 g = 3.5 kg). Adding weights: 2 kg 300 g + 1 kg 800 g = 3 kg 1,100 g = 4 kg 100 g (since 1,100 g = 1 kg 100 g).",
+          "expectedDifficulty": "OK",
+          "aliases": ["grams", "kilograms", "weight", "balance scale", "weighing machine", "unit conversion weight"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat4_c016",
+          "name": "Capacity — Litres and Millilitres",
+          "description": "Capacity is how much liquid a container can hold. The standard units are millilitres (ml) and litres (l), where 1 l = 1,000 ml. Smaller quantities are measured in ml (a teaspoon ≈ 5 ml, a small cup ≈ 200 ml); larger quantities in litres (a water bottle = 1 l, a bucket ≈ 10 l). We read a measuring jug by looking at the level of the liquid at the scale markings — always read at eye level. Converting: to change l to ml, multiply by 1,000; to change ml to l, divide by 1,000. Capacity problems arise in cooking (how many cups fill a jug?), in hospitals (how much medicine to give?), and in everyday life (will the tank be enough?).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["litres", "millilitres", "capacity", "measuring jug", "volume", "unit conversion capacity"],
+          "prerequisites": ["mat4_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat4_u09",
+      "name": "Chapter 9 — Equal Groups",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "mat4_c017",
+          "name": "Multiplication as Equal Groups",
+          "description": "Multiplication is a quick way of adding the same number repeatedly. 4 × 6 means 4 groups of 6, which is 6 + 6 + 6 + 6 = 24. An array shows multiplication as rows and columns — 3 rows of 4 dots = 3 × 4 = 12. The commutative property means the order of factors does not change the product: 3 × 4 = 4 × 3 = 12. The identity property says any number multiplied by 1 gives the same number. Any number multiplied by 0 gives 0. Skip counting by a number generates its multiples: skip counting by 5 gives 5, 10, 15, 20, 25… Knowing multiplication facts up to 12 × 12 makes all future mathematics much faster.",
+          "expectedDifficulty": "OK",
+          "aliases": ["multiplication", "equal groups", "array", "repeated addition", "commutative property", "skip counting"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat4_c018",
+          "name": "Multiplying 2-Digit Numbers",
+          "description": "To multiply a 2-digit number by a 1-digit number, we use the standard algorithm: multiply the ones digit first (carry if needed), then the tens digit. For example, 34 × 6: ones 4×6=24 (write 4, carry 2); tens 3×6=18+2=20. Answer: 204. To multiply two 2-digit numbers, use partial products: 23 × 14 = (23 × 4) + (23 × 10) = 92 + 230 = 322. Estimating first (round 23 to 20 and 14 to 10, so estimate ≈ 200) helps check if the answer is reasonable. Real-life problems include finding the total cost of multiple items, number of seats in rows, or tiles needed for a floor.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["2-digit multiplication", "partial products", "standard algorithm", "carrying", "multiplication word problems"],
+          "prerequisites": ["mat4_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat4_u10",
+      "name": "Chapter 10 — Elephants, Tigers, and Leopards",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "mat4_c019",
+          "name": "Working with Large Numbers in Context",
+          "description": "Large numbers appear in real life when we count animals in a wildlife census, people in a city, or trees in a forest. India has around 3,167 tigers (2022 tiger census), about 30,000 elephants, and around 14,000 leopards. Reading such numbers correctly requires understanding place value: 3,167 is three thousand one hundred and sixty-seven. We can represent large numbers on a number line by marking intervals carefully. Comparing wildlife populations — 'which animal has more?' or 'by how many?' — uses subtraction. Understanding these numbers helps us appreciate conservation efforts and why protecting habitats matters.",
+          "expectedDifficulty": "OK",
+          "aliases": ["large numbers", "wildlife census", "number in context", "place value application", "tiger census", "conservation numbers"],
+          "prerequisites": ["mat4_c007"],
+          "order": 1
+        },
+        {
+          "id": "mat4_c020",
+          "name": "Addition and Subtraction of Large Numbers",
+          "description": "Adding and subtracting 4-digit numbers uses the same column method as smaller numbers, working from right to left. In addition: if a column's sum is ≥10, write the units digit and carry the tens digit to the next column. In subtraction: if the top digit is smaller than the bottom digit, borrow 1 from the next column (reducing it by 1 and adding 10 to the current column). Example: 6,034 − 2,478. Ones: 4<8, borrow from tens (tens=3, but tens is 3 so borrow from hundreds…). Always estimate first to check reasonableness. Word problems about wildlife conservation use these operations to find differences in population or total counts.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["addition 4-digit", "subtraction 4-digit", "carrying", "borrowing", "regrouping", "column subtraction"],
+          "prerequisites": ["mat4_c019"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat4_u11",
+      "name": "Chapter 11 — Fun with Symmetry",
+      "order": 11,
+      "concepts": [
+        {
+          "id": "mat4_c021",
+          "name": "Lines of Symmetry",
+          "description": "A shape has line symmetry if it can be folded along a line so that both halves match exactly like a mirror image. The fold line is called the line of symmetry (or axis of symmetry). Many shapes and letters are symmetric: the letter A has one vertical line of symmetry; the letter H has two (vertical and horizontal). A square has 4 lines of symmetry, a rectangle has 2, an equilateral triangle has 3, and a circle has infinitely many. Some shapes have no symmetry (like a scalene triangle or the letter Z). We can check for symmetry by folding paper or using a mirror. Symmetry is found in butterflies, leaves, flowers, buildings, and traditional Indian art like Rangoli.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["line of symmetry", "axis of symmetry", "symmetric shapes", "mirror symmetry", "folding symmetry"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat4_c022",
+          "name": "Creating Symmetric Designs",
+          "description": "Reflection is the process of flipping a shape across a line of symmetry to create its mirror image. The reflected image is the same shape and size but faces the opposite way. To complete a symmetric design on squared paper: for each point in the original shape, count how far it is from the line of symmetry, then mark the mirror point the same distance on the other side. Joining these mirror points creates the reflection. Folding and cutting paper creates symmetric shapes — cut paper dolls, snowflakes, and heart shapes all use this idea. Artists use symmetry in Warli paintings, mehendi patterns, and quilt designs to create balanced, beautiful compositions.",
+          "expectedDifficulty": "OK",
+          "aliases": ["reflection", "mirror image", "symmetric design", "completing symmetry", "folding and cutting"],
+          "prerequisites": ["mat4_c021"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat4_u12",
+      "name": "Chapter 12 — Ticking Clocks and Turning Calendar",
+      "order": 12,
+      "concepts": [
+        {
+          "id": "mat4_c023",
+          "name": "Reading Clocks and Units of Time",
+          "description": "An analogue clock has a short hour hand and a long minute hand. The clock face has 12 numbers; the minute hand takes 60 minutes (1 hour) to go all the way round. When the minute hand points to 12, it is exactly on the hour. When it points to 3, it is 15 minutes past (quarter past); to 6 it is 30 minutes past (half past); to 9 it is 45 minutes past (or 15 minutes to the next hour — quarter to). Digital clocks show time in numbers: 3:45 means 3 hours 45 minutes. Time units: 60 seconds = 1 minute, 60 minutes = 1 hour, 24 hours = 1 day. AM is midnight to noon; PM is noon to midnight. The 24-hour clock runs from 00:00 to 23:59.",
+          "expectedDifficulty": "OK",
+          "aliases": ["reading clocks", "hour hand", "minute hand", "quarter past", "half past", "quarter to", "AM PM"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "mat4_c024",
+          "name": "Calendar — Days, Months, and Years",
+          "description": "A calendar organises days into weeks, months, and years. A week has 7 days (Sunday to Saturday). A year has 12 months. Months with 31 days: January, March, May, July, August, October, December. Months with 30 days: April, June, September, November. February has 28 days, or 29 in a leap year (every 4 years). A year has 365 days (366 in a leap year). Calculating a future date: if today is 15 March and an event is in 20 days, count on: 15+20=35; March has 31 days so 35−31=4 April. Finding elapsed time (how many days between two dates) uses subtraction. Knowing the calendar helps with planning, scheduling, and understanding seasons.",
+          "expectedDifficulty": "OK",
+          "aliases": ["calendar", "months", "leap year", "days of the week", "elapsed days", "date calculation"],
+          "prerequisites": ["mat4_c023"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat4_u13",
+      "name": "Chapter 13 — The Transport Museum",
+      "order": 13,
+      "concepts": [
+        {
+          "id": "mat4_c025",
+          "name": "Addition and Subtraction Word Problems",
+          "description": "Word problems describe a real situation and ask us to find an unknown using mathematics. In the transport museum context, problems involve counting vehicles, calculating distances, finding totals of visitors, or working out ticket costs. To solve a word problem: (1) read carefully to understand what is given and what is asked; (2) identify whether to add, subtract, multiply, or divide; (3) write a number sentence; (4) solve and check the answer by estimating. Signal words for addition: total, altogether, in all, combined, sum. Signal words for subtraction: difference, how many more, how many less, left, remaining. Always write the unit (km, rupees, vehicles) in the answer.",
+          "expectedDifficulty": "OK",
+          "aliases": ["word problems", "addition problems", "subtraction problems", "signal words", "number sentence"],
+          "prerequisites": ["mat4_c020"],
+          "order": 1
+        },
+        {
+          "id": "mat4_c026",
+          "name": "Money — Rupees, Paise, and Shopping",
+          "description": "Indian currency has two units: rupees (₹) and paise (p), where 100 paise = 1 rupee. We write amounts with a decimal point: ₹5.75 means 5 rupees and 75 paise. Adding prices: ₹24.50 + ₹13.75 = ₹38.25 (add paise first: 50+75=125p = ₹1.25; then add rupees: 24+13+1=₹38). Finding change: pay ₹50 for items totalling ₹38.25; change = ₹50.00 − ₹38.25 = ₹11.75. Budgeting means planning spending so the total cost does not exceed the money available. Estimating (rounding prices to the nearest rupee) before shopping helps us know quickly whether we have enough.",
+          "expectedDifficulty": "OK",
+          "aliases": ["rupees paise", "money arithmetic", "shopping problems", "change", "budget", "decimal money"],
+          "prerequisites": ["mat4_c025"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "mat4_u14",
+      "name": "Chapter 14 — Data Handling",
+      "order": 14,
+      "concepts": [
+        {
+          "id": "mat4_c027",
+          "name": "Pictographs and Bar Graphs",
+          "description": "A pictograph uses small pictures or symbols to represent data. The key tells us how many each picture stands for — for example, one apple symbol = 5 students. To find the total for a category, count the pictures and multiply by the key value. A bar graph uses rectangular bars of different heights (or lengths) to show quantities — the taller the bar, the greater the value. Both pictographs and bar graphs have a title, labelled axes, and a scale. Reading a graph means answering questions like 'which has the most?', 'which has the least?', 'what is the difference between two categories?', and 'what is the total?'",
+          "expectedDifficulty": "EASY",
+          "aliases": ["pictograph", "bar graph", "data graph", "reading graphs", "key", "scale"],
+          "prerequisites": ["mat4_c013"],
+          "order": 1
+        },
+        {
+          "id": "mat4_c028",
+          "name": "Organising Data and Drawing Graphs",
+          "description": "To draw a pictograph: (1) choose a key (e.g., 1 symbol = 2 items); (2) for each category, draw the correct number of symbols; (3) add a title and labels. To draw a bar graph: (1) draw two axes — the horizontal axis (x-axis) shows categories, the vertical axis (y-axis) shows values; (2) choose a scale (e.g., each unit = 5); (3) draw bars of the correct height; (4) add a title and labels. The scale must be consistent — each division on the y-axis must represent the same amount. Well-drawn graphs make it easy to compare data at a glance. Data graphs are used in newspapers, science experiments, and school reports to communicate information visually.",
+          "expectedDifficulty": "OK",
+          "aliases": ["drawing pictograph", "drawing bar graph", "x-axis y-axis", "scale", "data visualisation"],
+          "prerequisites": ["mat4_c027"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

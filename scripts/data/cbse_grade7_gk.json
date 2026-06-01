@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 7,
+    "board": "CBSE",
+    "subject": "General Knowledge",
+    "subjectColor": "#F59E0B",
+    "subjectIcon": "🌟",
+    "generatedAt": "2026-06-01",
+    "textbook": "Common Class 7 GK Curriculum (standard topics for CBSE Class 7 level)"
+  },
+  "units": [
+    {
+      "id": "gk7_u01",
+      "name": "India — Geography and Physical Features",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "gk7_c001",
+          "name": "India's Location, Size, and Neighbours",
+          "description": "India is located in South Asia, between latitudes 8°4'N and 37°6'N and longitudes 68°7'E and 97°25'E. It is the 7th largest country in the world by area (3.28 million sq km). India has a coastline of over 7,500 km. It shares land borders with 7 countries: Pakistan (west), Afghanistan (northwest), China, Nepal, Bhutan (north), Bangladesh, Myanmar (east). The southernmost point (mainland) is Kanyakumari (Tamil Nadu). The northernmost point is Indira Col (Jammu & Kashmir). India is divided into 28 states and 8 Union Territories. The Tropic of Cancer (23.5°N) passes through 8 states.",
+          "expectedDifficulty": "OK",
+          "aliases": ["India geography facts", "India neighbours countries", "India size 7th largest", "Tropic of Cancer India", "India states union territories"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk7_c002",
+          "name": "Important Rivers, Mountains, and Lakes of India",
+          "description": "Major rivers: Ganga (longest in India, 2,525 km), Godavari (Dakshina Ganga), Brahmaputra (originates in Tibet), Krishna, Cauvery. The Indus originates in Tibet and flows through India and Pakistan. The Himalayas contain the world's highest peaks — K2 (second highest, 8,611 m) is in Pakistan-administered Kashmir; Kangchenjunga (8,586 m) is the highest peak entirely within India. Important lakes: Dal Lake (J&K), Wular Lake (largest freshwater lake in India, J&K), Chilika Lake (largest brackish water lake, Odisha), Sambhar Lake (largest saltwater lake, Rajasthan), Loktak Lake (Manipur — only floating national park, Keibul Lamjao).",
+          "expectedDifficulty": "HARD",
+          "aliases": ["rivers of India", "Ganga Brahmaputra Godavari", "lakes of India Wular Chilika", "Kangchenjunga highest peak India", "Dal Lake Sambhar Lake"],
+          "prerequisites": ["gk7_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk7_u02",
+      "name": "India — History and National Symbols",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "gk7_c003",
+          "name": "National Symbols of India",
+          "description": "National Animal: Bengal Tiger (Panthera tigris). National Bird: Indian Peacock. National Flower: Lotus. National Fruit: Mango. National Tree: Banyan. National Aquatic Animal: Gangetic River Dolphin. National River: Ganga. National Emblem: Lion Capital of Ashoka (Sarnath) — four lions on a circular abacus with a bull, horse, lion, and elephant; adopted 26 January 1950. National Anthem: 'Jana Gana Mana' (composed by Rabindranath Tagore, duration 52 seconds). National Song: 'Vande Mataram' (from Anandamath, by Bankim Chandra Chattopadhyay). National Currency: Indian Rupee (₹). National Sport: Field Hockey (by tradition, though not officially declared).",
+          "expectedDifficulty": "OK",
+          "aliases": ["national symbols India", "national animal bird flower", "Jana Gana Mana Vande Mataram", "lion capital Ashoka emblem", "national anthem India"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk7_c004",
+          "name": "Important Dates and Events in Indian History",
+          "description": "Key dates: 1857 — First War of Independence (Sepoy Mutiny). 1885 — Indian National Congress founded (A.O. Hume). 1905 — Partition of Bengal by Lord Curzon. 1919 — Jallianwala Bagh massacre (General Dyer, Amritsar, 13 April). 1920 — Non-Cooperation Movement (Gandhi). 1930 — Salt March / Dandi March (Gandhi, 12 March to 6 April). 1942 — Quit India Movement ('Do or Die', Gandhi, 8 August). 15 August 1947 — India's Independence (first PM: Jawaharlal Nehru). 26 January 1950 — India becomes a Republic (Constitution came into force). 1974 — India's first nuclear test (Pokhran I, 'Smiling Buddha'). 1998 — Pokhran II nuclear tests ('Operation Shakti').",
+          "expectedDifficulty": "HARD",
+          "aliases": ["important dates Indian history", "Independence Day 1947", "Salt March 1930", "Jallianwala Bagh 1919", "Quit India 1942"],
+          "prerequisites": ["gk7_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk7_u03",
+      "name": "India — Polity and Government",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "gk7_c005",
+          "name": "The Indian Constitution and Government Structure",
+          "description": "India is a Sovereign, Socialist, Secular, Democratic Republic — these words are in the Preamble to the Constitution. Parliament of India: Lok Sabha (House of the People — lower house, max 552 members, elected directly, term 5 years) and Rajya Sabha (Council of States — upper house, max 250 members, permanent house, 1/3 retire every 2 years). President of India is the constitutional head of state, elected by an Electoral College. Prime Minister is the head of government (leader of the majority party in Lok Sabha). Supreme Court is the highest court; Chief Justice of India heads it. High Courts head each state's judiciary.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Parliament India Lok Sabha Rajya Sabha", "President Prime Minister India", "Preamble Constitution", "Supreme Court India", "Indian government structure"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk7_c006",
+          "name": "Important Constitutional Provisions",
+          "description": "Key constitutional facts: India has 22 officially recognised languages (8th Schedule). Hindi and English are official languages of the Union. Right to Education (Article 21A) makes free and compulsory education a Fundamental Right for children 6–14. The age to vote is 18 (lowered from 21 in 1988 by the 61st Amendment). The age to contest Lok Sabha elections is 25; Rajya Sabha is 30. Chief Election Commissioner heads the Election Commission. CAG (Comptroller and Auditor General) audits government accounts. The Emergency provisions (Article 352, 356, 360) allow special powers during crisis. India has a federal structure — Centre has more power than in a true federation.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["Article 21A Right to Education", "voting age 18 India", "official languages India", "CAG Election Commission India", "Emergency provisions Constitution"],
+          "prerequisites": ["gk7_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk7_u04",
+      "name": "Science and Technology",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "gk7_c007",
+          "name": "India's Space Programme — ISRO",
+          "description": "ISRO (Indian Space Research Organisation), founded 1969 by Vikram Sarabhai, is headquartered in Bengaluru. Key missions: Chandrayaan-1 (2008) — discovered water molecules on the Moon. Chandrayaan-2 (2019) — orbiter still active; lander Vikram crashed. Chandrayaan-3 (2023) — successfully landed near the Moon's south pole on 23 August 2023; India became the 4th country to land on the Moon and the first to land near the south pole. Mangalyaan (Mars Orbiter Mission, 2013) — India was the first country to reach Mars in its very first attempt, at record low cost. Aditya-L1 (2023) — India's first solar mission, studies the Sun from Lagrange Point 1.",
+          "expectedDifficulty": "OK",
+          "aliases": ["ISRO India space", "Chandrayaan-3 Moon landing 2023", "Mangalyaan Mars India", "Aditya-L1 solar mission", "Vikram Sarabhai ISRO"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk7_c008",
+          "name": "Important Indian Scientists and Inventions",
+          "description": "Prominent Indian scientists: C.V. Raman — Nobel Prize in Physics 1930 for the Raman Effect (scattering of light). Homi J. Bhabha — father of India's nuclear programme. A.P.J. Abdul Kalam — missile scientist (Agni, Prithvi), 11th President of India. Jagadish Chandra Bose — pioneer in radio/microwave technology and plant physiology. Srinivasa Ramanujan — mathematical genius (number theory, infinite series). Satyendra Nath Bose — Bose-Einstein statistics; the 'Boson' particle is named after him. Tessy Thomas — 'Missile Woman of India', headed the Agni-IV project. The PARAM series of supercomputers was developed by C-DAC, India.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Indian scientists", "CV Raman Nobel Prize", "APJ Abdul Kalam missile", "Ramanujan mathematics", "Jagadish Bose radio plants"],
+          "prerequisites": ["gk7_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk7_u05",
+      "name": "World Geography",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "gk7_c009",
+          "name": "Continents, Oceans, and Key World Facts",
+          "description": "There are 7 continents: Asia (largest, most populous), Africa (2nd largest), North America, South America, Antarctica (coldest, no permanent population), Europe, Australia/Oceania (smallest). Highest mountain: Mount Everest (8,848.86 m, Nepal/China border). Longest river: Nile (Africa, 6,650 km); Amazon (South America) has the largest discharge. Largest ocean: Pacific (covers ~46% of water surface). Deepest point: Mariana Trench (Pacific, ~11,000 m). Largest country by area: Russia. Largest country by population: India (surpassed China in 2023). Smallest country: Vatican City. Most spoken language: Mandarin Chinese. Largest desert: Antarctica (cold desert); Sahara is the largest hot desert.",
+          "expectedDifficulty": "OK",
+          "aliases": ["continents oceans world", "Mount Everest Nile Amazon", "Pacific Ocean largest", "Mariana Trench deepest", "Russia largest country area"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk7_c010",
+          "name": "Important Countries, Capitals, and International Organisations",
+          "description": "Key capitals: USA — Washington D.C.; UK — London; France — Paris; Germany — Berlin; Russia — Moscow; China — Beijing; Japan — Tokyo; Australia — Canberra; Brazil — Brasília; Canada — Ottawa; South Africa — Pretoria (administrative). United Nations (UN): founded 1945, HQ New York, 193 members. Key UN bodies: UNICEF (children), WHO (health), UNESCO (education/culture), UNHCR (refugees). G20 — India hosted in 2023. BRICS — Brazil, Russia, India, China, South Africa. SAARC — South Asian regional cooperation (8 members, HQ Kathmandu). NATO — North Atlantic Treaty Organization (military alliance). WTO — World Trade Organization (regulates international trade, HQ Geneva).",
+          "expectedDifficulty": "HARD",
+          "aliases": ["capitals countries world", "United Nations UNICEF WHO UNESCO", "G20 BRICS SAARC NATO", "WTO Geneva", "international organisations"],
+          "prerequisites": ["gk7_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk7_u06",
+      "name": "Sports",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "gk7_c011",
+          "name": "Indian Achievements in Sports",
+          "description": "Cricket: India won the ODI World Cup in 1983 (captain Kapil Dev) and 2011 (captain MS Dhoni), and T20 World Cup in 2007 (first T20 WC, captain Dhoni) and 2024 (captain Rohit Sharma). Sachin Tendulkar — 'God of Cricket', first to score 100 international centuries. Hockey: India won 8 Olympic gold medals (most in history). Neeraj Chopra — won India's first individual gold medal in athletics at Tokyo 2020 Olympics (javelin throw, 87.58 m); also won World Athletics Championship 2023. PV Sindhu — two-time Olympic medallist in badminton (silver 2016, bronze 2020). Mirabai Chanu — Olympic silver in weightlifting (Tokyo 2020). India hosted the Cricket World Cup in 2023.",
+          "expectedDifficulty": "OK",
+          "aliases": ["India cricket World Cup", "Neeraj Chopra javelin gold", "PV Sindhu badminton", "Sachin Tendulkar 100 centuries", "India hockey Olympic gold"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk7_c012",
+          "name": "Olympics, Sports Terms, and Awards",
+          "description": "The Modern Olympic Games were revived in 1896 (Athens, Greece) by Pierre de Coubertin. Summer Olympics are held every 4 years; Winter Olympics every 4 years (offset by 2 years). The Olympic motto is 'Faster, Higher, Stronger — Together' (Citius, Altius, Fortius — Communiter). India's highest sports honour: Major Dhyan Chand Khel Ratna Award (formerly Rajiv Gandhi Khel Ratna). Arjuna Award recognises outstanding performance. Dronacharya Award for coaches. Commonwealth Games: India finished 4th at Birmingham 2022 (61 medals). Paralympic Games: India won 19 medals at Tokyo 2020 Paralympics — best ever. Chess: Viswanathan Anand is India's first Grandmaster and former World Chess Champion (5 times).",
+          "expectedDifficulty": "OK",
+          "aliases": ["Olympics facts", "Khel Ratna Arjuna Dronacharya award", "Viswanathan Anand chess", "Commonwealth Games India", "Paralympic India medals"],
+          "prerequisites": ["gk7_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk7_u07",
+      "name": "Famous Personalities",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "gk7_c013",
+          "name": "Indian Freedom Fighters and Leaders",
+          "description": "Mahatma Gandhi — father of the nation; led non-violent independence movements (Non-Cooperation, Salt March, Quit India). Jawaharlal Nehru — first Prime Minister; authored 'Discovery of India' and 'Glimpses of World History'. Subhas Chandra Bose (Netaji) — led the Indian National Army (INA); 'Give me blood and I will give you freedom'. B.R. Ambedkar — chief architect of the Constitution; fought for Dalit rights; converted to Buddhism in 1956. Sardar Vallabhbhai Patel — 'Iron Man of India'; unified 562 princely states. Bhagat Singh — revolutionary; executed 23 March 1931. Rani Laxmibai of Jhansi — led forces in the 1857 revolt. Bal Gangadhar Tilak — 'Lokmanya'; 'Swaraj is my birthright'.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Indian freedom fighters", "Gandhi Nehru Ambedkar Patel", "Netaji Subhas Bose INA", "Bhagat Singh revolutionary", "Rani Laxmibai 1857"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk7_c014",
+          "name": "Nobel Prize Winners of Indian Origin",
+          "description": "Indian Nobel Prize winners: Rabindranath Tagore (Literature, 1913) — first Asian Nobel laureate; wrote Gitanjali; wrote both Indian national anthem and Bangladesh national anthem. C.V. Raman (Physics, 1930) — Raman Effect. Mother Teresa (Peace, 1979) — born in Macedonia, served in Kolkata. Amartya Sen (Economics, 1998) — welfare economics, development as freedom. Venkatraman Ramakrishnan (Chemistry, 2009) — structure of ribosomes. Kailash Satyarthi (Peace, 2014) — child labour activist (shared with Malala Yousafzai). Abhijit Banerjee (Economics, 2019) — poverty alleviation research (shared, his wife Esther Duflo also won).",
+          "expectedDifficulty": "HARD",
+          "aliases": ["Nobel Prize Indians", "Tagore Nobel Literature", "CV Raman Nobel Physics", "Amartya Sen Nobel Economics", "Kailash Satyarthi Nobel Peace"],
+          "prerequisites": ["gk7_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk7_u08",
+      "name": "Art, Culture, and Literature",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "gk7_c015",
+          "name": "Classical Dances and Music of India",
+          "description": "India has 8 classical dance forms recognised by the Sangeet Natak Akademi: Bharatanatyam (Tamil Nadu), Kathak (North India), Odissi (Odisha), Kuchipudi (Andhra Pradesh), Manipuri (Manipur), Mohiniyattam (Kerala), Kathakali (Kerala), Sattriya (Assam). Classical music has two main traditions: Hindustani (North India) and Carnatic (South India). Key instruments: Sitar, Tabla, Veena, Mridangam, Sarod, Santoor. Pt. Ravi Shankar was the most famous sitar player globally. Lata Mangeshkar — the 'Nightingale of India'; M.S. Subbulakshmi — iconic Carnatic vocalist; received Bharat Ratna. World Heritage sites: India has 42 UNESCO World Heritage Sites (as of 2023).",
+          "expectedDifficulty": "OK",
+          "aliases": ["classical dance India", "Bharatanatyam Kathak Odissi Kathakali", "Hindustani Carnatic music", "Ravi Shankar sitar", "UNESCO World Heritage India"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk7_c016",
+          "name": "Famous Indian Books and Authors",
+          "description": "Classic works: Ramayana (Valmiki), Mahabharata (Vyasa), Arthashastra (Kautilya/Chanakya), Thirukkural (Thiruvalluvar). Modern literature: Rabindranath Tagore — Gitanjali, Ghare Baire; R.K. Narayan — Malgudi Days, The Guide; Mulk Raj Anand — Untouchable; Premchand — Godan, Nirmala (Hindi). International works children should know: Harry Potter series (J.K. Rowling), The Jungle Book (Rudyard Kipling — set in India), Kim (Kipling), Around the World in 80 Days (Jules Verne), The Diary of a Young Girl (Anne Frank). Booker Prize winners from India: Arundhati Roy (The God of Small Things), Salman Rushdie (Midnight's Children — often called 'Booker of Bookers').",
+          "expectedDifficulty": "OK",
+          "aliases": ["Indian books authors", "Tagore Narayan Premchand", "Arthashastra Ramayana Mahabharata", "Booker Prize India", "Harry Potter Jungle Book"],
+          "prerequisites": ["gk7_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk7_u09",
+      "name": "Economy and Environment",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "gk7_c017",
+          "name": "Indian Economy — Key Facts",
+          "description": "India is the 5th largest economy in the world by nominal GDP (2024). The three sectors: Primary (agriculture, fishing, mining — ~17% of GDP), Secondary (manufacturing, construction — ~30%), Tertiary/Services (IT, banking, retail — ~53%, largest sector). India's IT industry (Bengaluru, Hyderabad, Pune) is world-leading. Agriculture employs ~45% of the workforce. India is the world's largest producer of milk (White Revolution — Operation Flood, Dr. Verghese Kurien), spices, and bananas. Green Revolution (1960s–70s): Norman Borlaug's high-yield seeds + M.S. Swaminathan's implementation transformed India from food-scarce to food-surplus. GST (Goods and Services Tax) replaced multiple taxes in 2017.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Indian economy GDP", "primary secondary tertiary sector", "Green Revolution White Revolution", "GST India 2017", "IT industry Bengaluru India"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk7_c018",
+          "name": "Environment and Conservation",
+          "description": "Key environmental issues: global warming (rise in Earth's average temperature due to greenhouse gases — CO2, methane, N2O); deforestation; plastic pollution; ozone layer depletion (from CFCs). Paris Agreement (2015): countries committed to limit global temperature rise to 1.5°C above pre-industrial levels. India's environmental commitments: net-zero by 2070, 50% electricity from renewables by 2030. Project Tiger (1973) — saved the Bengal tiger; India now has ~3,000+ tigers (world's largest tiger population). Project Elephant (1992). Chipko Movement (1973, Uttarakhand) — villagers hugged trees to stop felling; led by Sunderlal Bahuguna. International Day of Forests: 21 March. World Environment Day: 5 June.",
+          "expectedDifficulty": "OK",
+          "aliases": ["global warming greenhouse gases", "Paris Agreement climate", "Project Tiger India", "Chipko Movement Bahuguna", "World Environment Day June 5"],
+          "prerequisites": ["gk7_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "gk7_u10",
+      "name": "Miscellaneous — Inventions, Firsts, and Records",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "gk7_c019",
+          "name": "Important Inventions and Discoveries",
+          "description": "Key inventions: Telephone — Alexander Graham Bell (1876). Electric bulb — Thomas Edison (1879). World Wide Web — Tim Berners-Lee (1989). Penicillin — Alexander Fleming (1928). X-ray — Wilhelm Röntgen (1895). Radio — Guglielmo Marconi (1895); Jagadish Chandra Bose also demonstrated radio waves independently. DNA double helix structure — Watson and Crick (1953). Theory of Relativity — Albert Einstein (E=mc²). Gravity — Isaac Newton (laws of motion and gravitation). Vaccination — Edward Jenner (smallpox, 1796). Indian contributions: Zero (ancient India); decimal number system; Yoga; Ayurveda; Chess (originally Chaturanga); the number pi value (Aryabhata).",
+          "expectedDifficulty": "OK",
+          "aliases": ["important inventions", "Bell Edison Marconi Fleming", "DNA Watson Crick", "zero decimal India", "Einstein relativity Newton gravity"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "gk7_c020",
+          "name": "World Records, Firsts, and Interesting Facts",
+          "description": "Firsts in space: Yuri Gagarin (USSR) — first human in space (1961); Neil Armstrong — first human on Moon (20 July 1969, Apollo 11). First Indian in space: Rakesh Sharma (1984). Kalpana Chawla — first Indian-origin woman in space (died in Columbia disaster, 2003). Tallest building: Burj Khalifa, Dubai (828 m). Longest wall: Great Wall of China. Oldest civilization: Mesopotamia / Indus Valley. Fastest land animal: Cheetah (110–120 km/h). Largest mammal: Blue Whale. Largest land animal: African Elephant. Fastest bird in level flight: Peregrine Falcon in a dive (390 km/h). India: largest postal network in the world; first country to ban plastic bags at the national level (2022 for single-use plastics).",
+          "expectedDifficulty": "OK",
+          "aliases": ["world records firsts", "Yuri Gagarin Neil Armstrong Moon", "Rakesh Sharma first Indian space", "Burj Khalifa tallest", "Blue Whale largest mammal"],
+          "prerequisites": ["gk7_c019"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

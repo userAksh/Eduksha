@@ -1,0 +1,416 @@
+{
+  "metadata": {
+    "grade": 8,
+    "board": "CBSE",
+    "subject": "Social Science",
+    "subjectColor": "#8B5CF6",
+    "subjectIcon": "🌏",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Exploring Society: India and Beyond Part 1 — Class 8 (Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "ss8_u01",
+      "name": "Theme A — Natural Resources and Their Use",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "ss8_c001",
+          "name": "Types and Classification of Natural Resources",
+          "description": "Natural resources are materials and energy found in nature that humans use to meet their needs. They are broadly classified into renewable resources (which can replenish naturally — such as sunlight, wind, water, and forests) and non-renewable resources (which exist in finite quantities and cannot be replaced on a human timescale — such as coal, petroleum, and minerals). A third category, perpetual resources like solar energy, is always available regardless of human use. Soil is a critical natural resource that takes thousands of years to form but can be lost to erosion very quickly. India is rich in many natural resources — it has diverse forest cover, significant mineral deposits, and one of the largest river networks in the world.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "renewable non-renewable resources",
+            "types of natural resources",
+            "natural resource classification",
+            "perpetual resources",
+            "soil water forests minerals"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss8_c002",
+          "name": "Sustainable Use of Resources and a Regenerative Economy",
+          "description": "A regenerative economy is one that operates within nature's limits — using resources at a rate that allows them to replenish, and designing systems that restore rather than deplete the natural world. Resource depletion occurs when humans extract or consume a resource faster than it can be naturally replaced, leading to scarcity and environmental damage. Overuse of groundwater, deforestation, and soil degradation are major challenges India faces today. Sustainable development means meeting the needs of the present generation without compromising the ability of future generations to meet their own needs — a principle formally defined in the Brundtland Report. Practices like rainwater harvesting, afforestation, solar energy adoption, and responsible mining are steps toward sustainable resource use in India.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "regenerative economy",
+            "sustainable development",
+            "resource depletion",
+            "sustainable use of resources",
+            "Brundtland Report",
+            "deforestation groundwater"
+          ],
+          "prerequisites": [
+            "ss8_c001"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss8_u02",
+      "name": "Theme B — Reshaping India's Political Map",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "ss8_c003",
+          "name": "Medieval Kingdoms and the Changing Political Map of India",
+          "description": "India's political map has been continuously reshaped by foreign invasions, the rise and fall of dynasties, and shifting alliances over centuries. The Mughal Empire, at its peak under Akbar, Jahangir, Shah Jahan, and Aurangzeb, controlled most of the subcontinent, but its decline from the early 18th century created a power vacuum that regional kingdoms rushed to fill. States like Hyderabad, Mysore, Awadh, and Bengal emerged as strong regional powers. Maps are powerful political documents — they reflect who controls territory and how rulers define their authority; early Indian cartography was shaped by both indigenous traditions and European techniques brought by traders and colonisers.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Mughal decline",
+            "medieval India political map",
+            "regional kingdoms India",
+            "Indian cartography",
+            "political boundaries India history"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss8_c004",
+          "name": "European Arrival and the Transformation of India's Political Landscape",
+          "description": "The arrival of European powers — Portuguese, Dutch, English, French, and Danes — from the late 15th century onwards introduced a new dynamic into India's political order. Unlike earlier invaders who settled and became part of Indian society, European powers were primarily driven by trade interests and maintained connections to their home countries. The Portuguese established the first European trading posts along India's western coast (Goa, 1510). The English East India Company, founded in 1600, gradually transformed from a trading body into a territorial power. By the mid-18th century, competition between the English and French for influence over Indian rulers fundamentally altered the political map, setting the stage for British dominance.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "European arrival India",
+            "Portuguese Goa India",
+            "East India Company origins",
+            "English French rivalry India",
+            "European trading posts India"
+          ],
+          "prerequisites": [
+            "ss8_c003"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss8_u03",
+      "name": "Theme B — The Rise of the Marathas",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "ss8_c005",
+          "name": "Shivaji and the Founding of the Maratha Kingdom",
+          "description": "Shivaji Bhonsle (1630–1680) founded the Maratha kingdom in the western Deccan and is celebrated as one of India's greatest rulers and military strategists. Born in the Bhonsle clan of Maratha chiefs, Shivaji built a formidable force by using guerrilla warfare tactics — swift raids, knowledge of local terrain, and avoiding pitched battles against larger Mughal and Bijapur armies. He captured numerous forts across the Sahyadri (Western Ghats) range, establishing a navy to protect the western coast, and created an efficient administrative system. His coronation in 1674 at Raigad as Chhatrapati (sovereign ruler) was a landmark moment that legitimised Maratha power and gave the Hindu peasantry a king of their own.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Shivaji Bhonsle",
+            "Maratha kingdom founding",
+            "guerrilla warfare Deccan",
+            "Chhatrapati Shivaji",
+            "Raigad coronation",
+            "Maratha rise"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss8_c006",
+          "name": "The Peshwas, Maratha Confederacy, and Battle of Panipat 1761",
+          "description": "After Shivaji's death, the Peshwas (hereditary prime ministers from the Bhat family of Pune) became the de facto rulers of the Maratha Confederacy — a loose alliance of powerful Maratha clans including the Bhonsles of Nagpur, Holkars of Indore, Scindias of Gwalior, and Gaekwads of Baroda. Under Peshwa Baji Rao I (1720–1740), the Marathas expanded dramatically northward and eastward, nearly becoming the paramount power of India. The Third Battle of Panipat (1761) saw a massive Maratha army decisively defeated by Ahmad Shah Abdali (Durrani) of Afghanistan, killing thousands of soldiers and two key Maratha leaders — a blow from which the Confederacy never fully recovered. Despite this setback, the Marathas remained a major force until the Anglo-Maratha Wars of the early 19th century ended their independence.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "Peshwas Maratha",
+            "Maratha Confederacy",
+            "Battle of Panipat 1761",
+            "Baji Rao Peshwa",
+            "Ahmad Shah Abdali",
+            "Anglo-Maratha Wars"
+          ],
+          "prerequisites": [
+            "ss8_c005"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss8_u04",
+      "name": "Theme B — The Colonial Era in India",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "ss8_c007",
+          "name": "British Conquest — Plassey, Buxar, and Revenue Systems",
+          "description": "The Battle of Plassey (1757), in which Robert Clive's forces defeated the Nawab of Bengal Siraj ud-Daula with the treachery of Mir Jafar, marked the real beginning of British territorial power in India. The Battle of Buxar (1764) further consolidated British dominance when the Company defeated a combined force of the Nawabs of Bengal, Awadh, and the Mughal Emperor. The Diwani rights over Bengal, Bihar, and Orissa (1765) gave the Company the right to collect land revenue — transforming it from a trading company into a governing power. Two major revenue systems were imposed on Indian farmers: the Permanent Settlement (Bengal, 1793), which fixed revenue demands but dispossessed many cultivators, and the Ryotwari System (Madras and Bombay), which dealt directly with individual peasant farmers.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "Battle of Plassey 1757",
+            "Battle of Buxar 1764",
+            "Diwani rights Bengal",
+            "Permanent Settlement 1793",
+            "Ryotwari System",
+            "Robert Clive"
+          ],
+          "prerequisites": [
+            "ss8_c004"
+          ],
+          "order": 1
+        },
+        {
+          "id": "ss8_c008",
+          "name": "The Revolt of 1857 and the Transfer to British Crown Rule",
+          "description": "The Revolt of 1857 — also called the Sepoy Mutiny by the British and the First War of Independence by Indian nationalists — was a massive uprising against the East India Company's rule. Immediate causes included the introduction of the Enfield rifle with cartridges rumoured to be greased with cow and pig fat (offensive to Hindu and Muslim soldiers), while deeper causes included resentment of land annexation policies (Doctrine of Lapse), interference with religious practices, and economic exploitation. The revolt began in Meerut in May 1857 and spread to Delhi, Lucknow, Kanpur, and Jhansi. After suppressing it, the British Parliament passed the Government of India Act 1858, abolishing the East India Company and bringing India directly under the British Crown — beginning the period of the British Raj. The experience of 1857 also planted the seeds of organised Indian nationalism.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Revolt of 1857",
+            "Sepoy Mutiny",
+            "First War of Independence",
+            "East India Company abolished",
+            "Doctrine of Lapse",
+            "British Crown India 1858"
+          ],
+          "prerequisites": [
+            "ss8_c007"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss8_u05",
+      "name": "Theme D — Universal Franchise and India's Electoral System",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "ss8_c009",
+          "name": "Universal Adult Franchise and the Election Commission of India",
+          "description": "India adopted the principle of universal adult franchise at independence — meaning every citizen aged 18 and above has the right to vote, regardless of caste, class, religion, gender, or education. This was a bold and historic decision, as many countries at the time restricted voting rights. The Election Commission of India (ECI) is an independent constitutional body established under Article 324 to superintend, direct, and control all elections to Parliament and State Legislatures. The Chief Election Commissioner heads the ECI and has security of tenure to ensure independence from political pressure. The ECI enforces the Model Code of Conduct during elections, which sets rules on campaigning, use of government resources, and conduct of candidates and political parties.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "universal adult franchise India",
+            "Election Commission of India",
+            "right to vote India",
+            "Article 324",
+            "Chief Election Commissioner",
+            "Model Code of Conduct"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss8_c010",
+          "name": "The Electoral Process — Constituencies, EVMs, and FPTP",
+          "description": "India uses the First-Past-The-Post (FPTP) system for Lok Sabha and State Assembly elections — the candidate with the most votes in a constituency wins, even if they do not get a majority (more than 50%). The country is divided into 543 Parliamentary constituencies for Lok Sabha elections, each electing one Member of Parliament. Electronic Voting Machines (EVMs) were introduced to replace paper ballots and have made Indian elections faster, more accurate, and harder to tamper with. The electoral process involves steps: voter registration, announcement of election schedule, filing of nominations, campaigning period, polling day, counting of votes, and declaration of results. NOTA (None of the Above) is an option on the ballot that allows voters to reject all candidates.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "FPTP system India",
+            "Electronic Voting Machines EVM",
+            "Lok Sabha constituencies",
+            "electoral process India",
+            "NOTA voting",
+            "how elections work India"
+          ],
+          "prerequisites": [
+            "ss8_c009"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss8_u06",
+      "name": "Theme D — The Parliamentary System: Legislature and Executive",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "ss8_c011",
+          "name": "Parliament of India — Lok Sabha and Rajya Sabha",
+          "description": "India has a bicameral Parliament consisting of two houses: the Lok Sabha (House of the People) and the Rajya Sabha (Council of States). The Lok Sabha is the lower house, directly elected by the people, with a maximum of 552 members; it has greater power over money bills and can pass a vote of no-confidence against the government. The Rajya Sabha is the upper house, representing the states; it has 250 members (238 elected by state legislatures, 12 nominated by the President) and is a permanent house that cannot be dissolved. Both houses must pass most bills before they can become law. The President of India is the constitutional head who summons, prorogues, and can dissolve the Lok Sabha; the President also gives assent to bills passed by Parliament.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Lok Sabha Rajya Sabha",
+            "Parliament of India",
+            "bicameral legislature",
+            "money bill India",
+            "Rajya Sabha composition",
+            "President of India Parliament"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss8_c012",
+          "name": "The Executive — Prime Minister, Cabinet, and How a Bill Becomes Law",
+          "description": "In India's parliamentary system, the executive is drawn from and accountable to the legislature. The Prime Minister is the head of the Council of Ministers (Cabinet), which collectively holds executive power. The President appoints the leader of the majority party or coalition in the Lok Sabha as Prime Minister. The Cabinet is collectively responsible to the Lok Sabha — if it loses a majority vote (vote of no-confidence), the entire Cabinet must resign. A bill becomes law through several stages: introduction, debate and scrutiny in committee, voting in both houses, Presidential assent. Question Hour in Parliament allows Members of Parliament to hold the government accountable by asking ministers questions about their ministries. The Opposition plays a vital role in scrutinising government actions and providing an alternative viewpoint.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "Prime Minister India",
+            "Cabinet collective responsibility",
+            "how a bill becomes law India",
+            "Question Hour Parliament",
+            "vote of no-confidence",
+            "parliamentary system India"
+          ],
+          "prerequisites": [
+            "ss8_c011"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss8_u07",
+      "name": "Theme E — Factors of Production",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "ss8_c013",
+          "name": "The Four Factors of Production",
+          "description": "Production of any good or service requires combining four factors of production. Land refers to all natural resources used in production — not just soil for farming, but also minerals, water, and forests. Labour is the human effort (physical and mental) applied to production. Capital refers to man-made tools, machinery, buildings, and money used to produce goods — it is divided into fixed capital (durable assets like machines and factories used over many years) and working capital (raw materials and money used up in each production cycle). Enterprise (or Entrepreneurship) is the organising factor — the entrepreneur combines the other three factors, bears risk, and innovates to create a product or service. Together these four factors are the building blocks of all economic activity.",
+          "expectedDifficulty": "EASY",
+          "aliases": [
+            "four factors of production",
+            "land labour capital enterprise",
+            "fixed capital working capital",
+            "factors of production economics",
+            "entrepreneurship factor production"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss8_c014",
+          "name": "Human Capital, India's Factor Endowments, and Economic Development",
+          "description": "Human capital refers to the knowledge, skills, health, and education that workers possess — it enhances the productivity of labour. Investing in education, healthcare, and skill training increases human capital and drives long-term economic growth. India has a unique factor endowment: an abundant and relatively young labour force (a demographic dividend), vast land area with diverse natural resources, but a historically low capital stock compared to developed nations. For a country like India, economists argue that the largest gains in productivity will come from using existing land, labour, and capital more efficiently, and from accumulating human capital through quality education. The relationship between factors of production and economic development is central to understanding why some countries grow faster than others.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "human capital India",
+            "demographic dividend India",
+            "India factor endowments",
+            "economic development factors",
+            "education and productivity",
+            "capital formation India"
+          ],
+          "prerequisites": [
+            "ss8_c013"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss8_u08",
+      "name": "Theme C — Agriculture and Industry in India",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "ss8_c015",
+          "name": "Agriculture in India — Types and Challenges",
+          "description": "India is primarily an agricultural country with about 55% of its population depending on farming for livelihood. Types of farming: Subsistence farming — farmers grow food mainly for themselves (common in hilly and tribal areas); Commercial farming — crops grown for sale (sugarcane plantations, cotton farms); Plantation farming — single crop grown on large estates (tea in Assam and Darjeeling, coffee in Karnataka, rubber in Kerala); Intensive farming — high-yield crops grown on small land using fertilisers and irrigation. Major crops: Food grains (rice, wheat, maize, millets), Cash crops (cotton, sugarcane, jute, tobacco), Plantation crops (tea, coffee, rubber), and Horticulture (fruits, vegetables, flowers). Challenges: small landholdings (average farm 1.1 hectares), dependence on monsoon, lack of credit, poor storage and market access, and soil degradation from over-fertilisation. The Green Revolution (1960s) dramatically increased food grain production through high-yield seeds, irrigation, and fertilisers.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "agriculture India",
+            "subsistence commercial plantation farming",
+            "Green Revolution",
+            "Kharif Rabi crops",
+            "farming challenges"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss8_c016",
+          "name": "Industries — Types and Location Factors",
+          "description": "An industry converts raw materials into finished products. Primary industries extract raw materials (mining, fishing, forestry); secondary industries process raw materials into goods (textiles, steel, chemicals); tertiary industries provide services (banking, transport, IT). Large-scale industries: Iron and Steel (Jamshedpur — TATA, Bhilai, Rourkela); Cotton Textiles (Mumbai — 'Manchester of India'); Jute (Hooghly River, West Bengal); Petrochemicals (Vadodara, Jamnagar); Software/IT (Bengaluru — 'Silicon Valley of India', Hyderabad, Pune). Factors affecting industrial location: raw material availability (proximity reduces transport costs), power (coal, water, electricity), labour, transport links, market, capital, government policy (special economic zones — SEZs). Multinational corporations (MNCs) invest in developing countries for cheaper labour and growing markets. Make in India (2014) and Atmanirbhar Bharat initiatives encourage domestic manufacturing.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "industries India",
+            "primary secondary tertiary",
+            "iron steel textiles IT",
+            "Bengaluru Silicon Valley",
+            "Make in India SEZ"
+          ],
+          "prerequisites": [
+            "ss8_c015"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss8_u09",
+      "name": "Theme D — Judiciary and Rule of Law",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "ss8_c017",
+          "name": "The Indian Judiciary — Structure and Independence",
+          "description": "The judiciary is the third branch of government (alongside legislature and executive) and is responsible for interpreting the Constitution and laws and resolving disputes. Structure: Supreme Court (highest court — 1 Chief Justice + up to 33 judges; located in New Delhi); High Courts (one per state or group of states — handle state-level cases and appeals); District Courts (handle civil and criminal cases at the district level); Subordinate Courts (below district level — closest to citizens). Judicial independence means courts function without interference from the government — judges cannot be easily removed, and their salaries are charged to the Consolidated Fund (not subject to parliamentary vote). The Supreme Court's jurisdiction: original (cases between states, or states vs Centre), appellate (appeals from High Courts), and advisory (President can seek opinion on constitutional questions). Article 21 of the Constitution guarantees the right to life and personal liberty — the Supreme Court has broadly interpreted this to include the right to education, health, livelihood, and a clean environment.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "Indian judiciary",
+            "Supreme Court High Court",
+            "judicial independence",
+            "Article 21",
+            "Chief Justice"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss8_c018",
+          "name": "Fundamental Rights and Duties",
+          "description": "The Indian Constitution (Part III) guarantees six Fundamental Rights to all citizens. Right to Equality (Articles 14–18): equality before law, prohibition of discrimination on grounds of religion, race, caste, sex, or place of birth; abolition of untouchability; abolition of titles. Right to Freedom (Articles 19–22): freedom of speech and expression, assembly, association, movement, residence, and profession. Right against Exploitation (Articles 23–24): prohibition of forced labour and child labour (below 14 in hazardous industries). Right to Freedom of Religion (Articles 25–28): freedom of conscience and to practice, profess, and propagate religion. Cultural and Educational Rights (Articles 29–30): minorities can conserve culture and establish educational institutions. Right to Constitutional Remedies (Article 32): Dr. Ambedkar called this the 'heart and soul of the Constitution' — citizens can approach the Supreme Court to enforce Fundamental Rights. Fundamental Duties (Article 51A, added in 1976): 11 duties including respecting the Constitution, national flag, and anthem; protecting the environment; developing scientific temper.",
+          "expectedDifficulty": "HARD",
+          "aliases": [
+            "Fundamental Rights",
+            "Right to Equality Freedom",
+            "Right to Constitutional Remedies Article 32",
+            "Fundamental Duties",
+            "Indian Constitution Part III"
+          ],
+          "prerequisites": [
+            "ss8_c017"
+          ],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "ss8_u10",
+      "name": "Theme E — Marginalisation and Social Justice",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "ss8_c019",
+          "name": "Marginalisation — Who is Left Behind?",
+          "description": "Marginalisation refers to the process by which certain groups are pushed to the edges of society and denied access to power, resources, and opportunities. Marginalised groups in India include: Scheduled Castes (SCs/Dalits) — historically subjected to untouchability and discrimination despite its constitutional abolition; Scheduled Tribes (STs/Adivasis) — indigenous communities with distinctive cultures, often living in forests and hills, facing displacement from development projects; Minorities — religious and linguistic minorities who may face social discrimination; Women — face gender-based discrimination in education, employment, and property rights; People with disabilities — face physical, social, and economic barriers. Marginalisation is perpetuated by prejudice (unfair negative beliefs), stereotyping (oversimplified generalisations about groups), and systemic discrimination (barriers embedded in laws or institutions). Poverty and marginalisation are closely linked — those at the margins often have the least access to education, healthcare, and legal protection.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "marginalisation",
+            "Dalits Adivasis",
+            "Scheduled Castes Tribes",
+            "minorities discrimination",
+            "prejudice stereotyping"
+          ],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "ss8_c020",
+          "name": "Social Justice and Constitutional Safeguards",
+          "description": "Social justice means equal rights, opportunities, and dignity for all members of society — regardless of caste, gender, religion, or economic status. Constitutional provisions for social justice: Reservation policy — seats reserved in educational institutions, government jobs, and legislatures for SCs (15%), STs (7.5%), and OBCs (27%) to address historical discrimination. Article 17: abolishes untouchability; its practice is a punishable offence. Protection of Civil Rights Act (1955) and Scheduled Castes and Tribes (Prevention of Atrocities) Act (1989) penalise discrimination and violence against Dalits. Right to Education Act (2009): free and compulsory education for children aged 6–14. Child Labour (Prohibition and Regulation) Act: prohibits employment of children below 14 in hazardous occupations. MNREGA (Mahatma Gandhi National Rural Employment Guarantee Act, 2005): guarantees 100 days of paid work per year to rural households. These laws reflect India's commitment to building an inclusive, equitable society.",
+          "expectedDifficulty": "OK",
+          "aliases": [
+            "social justice",
+            "reservation policy",
+            "Right to Education",
+            "MNREGA",
+            "Protection of Civil Rights",
+            "Article 17 untouchability"
+          ],
+          "prerequisites": [
+            "ss8_c019"
+          ],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

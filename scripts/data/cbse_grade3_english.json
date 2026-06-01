@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 3,
+    "board": "CBSE",
+    "subject": "English",
+    "subjectColor": "#EA580C",
+    "subjectIcon": "📚",
+    "generatedAt": "2026-06-01",
+    "textbook": "NCERT Santoor — Class 3 (Reprint 2026-27)"
+  },
+  "units": [
+    {
+      "id": "eng3_u01",
+      "name": "Unit 1 — Fun with Friends: Colours & Badal and Moti",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "eng3_c001",
+          "name": "Colours (Poem)",
+          "description": "A cheerful poem about two children who each have an incomplete set of crayons. One child has red, yellow, and blue; the other has green, purple, and black. Each needs a colour the other has, so they decide to share — and together they can draw anything they like. The poem teaches that sharing with friends makes everyone richer. Through the simple act of sharing crayons, the poem introduces colour names, the joy of cooperation, and the idea that working together achieves more than working alone. Students learn colour vocabulary, discuss a time they shared something, and practise using colour adjectives in their own sentences.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Colours poem", "sharing crayons", "colour vocabulary", "cooperation poem", "sharing poem"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng3_c002",
+          "name": "Badal and Moti (Story)",
+          "description": "Badal is a young boy who one evening finds a shivering puppy on his way home from school. He brings the puppy home, and he and his mother name it Moti. The two become inseparable best friends — eating together, playing together, and going everywhere side by side. One rainy day, Badal slips on a muddy lane and falls into a deep pit. Moti tracks him by scent, finds the pit, and barks loudly until neighbours come to rescue Badal. The story shows that true friendship means being there in moments of real need. Students retell the story in sequence, discuss Moti's loyalty, and write about a time a friend or pet helped them. Key vocabulary: shivering, rescue, scent, bark, loyal.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Badal and Moti", "boy and dog story", "loyal pet", "friendship rescue", "puppy story"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng3_u02",
+      "name": "Unit 1 — Fun with Friends: Best Friends & Out in the Garden",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "eng3_c003",
+          "name": "Best Friends (Story)",
+          "description": "Four geometric shape characters — Circle, Square, Triangle, and Rectangle — are friends who begin to argue about who is the best shape. Circle boasts about having no sharp corners; Square claims four perfectly equal sides; Triangle insists its three sides make it special; Rectangle talks about its two long and two short sides. Unable to agree, they ask a wise Star to judge. The Star refuses to declare a winner — instead, she shows them that together their different shapes can create beautiful pictures and patterns that none could make alone. The moral: teamwork and cooperation are more valuable than individual rivalry. Students identify each shape's properties, discuss what makes someone a good team member, and create a picture using all four shapes working together.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Best Friends story", "geometric shapes story", "Circle Square Triangle Rectangle", "teamwork cooperation", "shapes characters"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng3_c004",
+          "name": "Out in the Garden (Poem)",
+          "description": "This fresh, cheerful poem describes the joy of playing outdoors — watching butterflies, smelling flowers, feeling the grass under bare feet, and listening to birds. The poet uses the five senses (sight, smell, touch, sound, and taste) to make the reader feel as though they are right there in the garden. The poem encourages children to spend time in nature and notice small, beautiful things. Students identify sensory words in the poem, write a short poem about their own favourite outdoor place using at least three sense words, and discuss how nature makes them feel. The poem links English to an appreciation for the environment.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Out in the Garden poem", "sensory poem", "nature poem", "five senses", "outdoor play"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng3_u03",
+      "name": "Unit 2 — Toys and Games: Talking Toys & Paper Boats",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "eng3_c005",
+          "name": "Talking Toys (Story)",
+          "description": "This story is set in a toy shop filled with all kinds of wonderful toys — board games, balls, a talking doll, a toy elephant, a Vande Bharat toy train, a toy aeroplane, a toy phone, marbles, a spinning top, and dancing dolls. The toys wait eagerly and excitedly to be chosen by children. Each toy has its own character and wishes to go home with a child who will play with and love it. The story celebrates traditional and modern toys together, touching on the joy children feel when picking a favourite toy and the joy of imaginative play. Students describe their own favourite toy using adjectives, compare traditional toys (marbles, spinning top) to modern ones, and write about what they would choose from the toy shop and why.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Talking Toys story", "toy shop", "Vande Bharat train toy", "traditional toys", "choosing a toy"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng3_c006",
+          "name": "Paper Boats (Poem)",
+          "description": "Inspired by Rabindranath Tagore's famous poem 'Paper Boats', this unit's poem captures a child's dream of setting paper boats into a stream and imagining they will float to faraway lands, carrying the child's name and village written on them. The poem blends childhood imagination with a gentle longing for adventure. It introduces the idea of a poem carrying feeling, not just facts. Students identify the mood (dreamy, hopeful) and the imagery (stream, night clouds, petals), read the poem aloud expressively, fold a paper boat as a craft activity, and discuss what message they would send in their paper boat if they could.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Paper Boats poem", "Rabindranath Tagore", "imagination poem", "dreams poem", "stream boat"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng3_u04",
+      "name": "Unit 3 — Good Food: The Big Laddoo & Thank God",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "eng3_c007",
+          "name": "The Big Laddoo (Story)",
+          "description": "This warm, funny story revolves around a very big laddoo (a round Indian sweet) made for a special occasion. Everyone in the family — grandparents, parents, siblings — wants a bite. The story explores themes of sharing, generosity, and family joy around food. Through the laddoo, students learn vocabulary for family members, food, and describing size and taste. They practise sequencing (first Grandma took a bite, then…), discuss a time they shared something they loved, and write a simple recipe for their favourite food. The story connects food to culture, family bonds, and the happiness of giving.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["The Big Laddoo", "food story", "sharing story", "family story", "Indian sweets"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng3_c008",
+          "name": "Thank God (Story)",
+          "description": "A child discovers that a simple meal — dal, rice, roti, and vegetables — placed before them every day is something millions of children do not have. The story gently teaches gratitude for food, water, shelter, and family through the child's reflection. It may involve a visit to a place of less privilege or a conversation with a grandparent about simpler times. Students discuss what they are grateful for, learn to express gratitude in spoken and written English ('Thank you for…', 'I am grateful for…'), and write a short paragraph about things in their life they are thankful for. The story nurtures empathy and an awareness of privilege.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Thank God story", "gratitude story", "thankfulness", "food appreciation", "empathy story"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng3_u05",
+      "name": "Unit 3 & 4 — Madhu's Wish & Night",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "eng3_c009",
+          "name": "Madhu's Wish (Story)",
+          "description": "Madhu is a boy who loves food. While eating lunch under a Banyan tree, he shares his meal with a hungry old man. Grateful, the old man offers Madhu a magical wish — he can ask for anything he wants from the tree. Excited, Madhu wishes for endless different types of food, imagining he can eat all his favourites forever. The tree grants the wish. But soon Madhu gets terrible hiccups and desperately needs water — yet there is no water to be found anywhere. He realises his mistake: a wish for endless food is useless without water. The moral is clear: think carefully before you wish, and remember that the simplest things (like water) can matter more than grand desires. Students discuss the moral, list things they take for granted, and write about a wish they would make — and why.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Madhu's Wish", "careful wishing story", "Banyan tree wish", "food and water moral", "think before you wish"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng3_c010",
+          "name": "Night (Poem)",
+          "description": "This soothing poem describes the beauty and mystery of the night — the silver moon, twinkling stars, the sound of crickets, and the quiet hush that falls when the world goes to sleep. The poet uses gentle, calming language to show that night is not something to fear but something to wonder at. The poem introduces night-time vocabulary and the idea of the Earth turning (day becoming night). Students identify rhyming pairs, discuss what they see or hear at night, create a night-sky artwork, and write two or three lines describing what the night looks, sounds, or feels like to them. The poem links to science (stars, moon, darkness) and to the concept of rest.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Night poem", "night sky", "stars moon", "calming poem", "night vocabulary"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng3_u06",
+      "name": "Unit 4 — The Sky: Chanda Mama & Chandrayaan",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "eng3_c011",
+          "name": "Chanda Mama Counts the Stars (Story/Poem)",
+          "description": "Chanda Mama (Uncle Moon) is a beloved figure in Indian children's stories and rhymes. In this piece, Chanda Mama tries to count all the stars in the sky — but every time he gets close, more seem to appear! The story/poem playfully connects the idea of counting (mathematics) with the wonder of the night sky. Students learn vocabulary for numbers and for the sky (constellation, galaxy, twinkle, glimmer), discuss why stars seem to appear and disappear, practise counting large numbers, and draw and label their own star map. The text links English to maths and science in a magical, imaginative way.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["Chanda Mama", "moon story", "stars counting", "night sky poem", "Indian nursery rhyme"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng3_c012",
+          "name": "Chandrayaan (Informational Text)",
+          "description": "Chandrayaan means 'Moon Vehicle' in Sanskrit. This text introduces children to India's lunar exploration programme. Chandrayaan-1 (2008) was India's first Moon mission and discovered water molecules on the lunar surface. Chandrayaan-3 (2023) successfully landed the Vikram lander on the Moon's south pole — a historic first for any country. The mission was carried out by ISRO (Indian Space Research Organisation). The text celebrates India's achievement, explains what scientists hope to learn from the Moon, and inspires children to think about science and space. Students discuss what they know about the Moon, write three facts they learnt, and discuss what they would do if they could go to the Moon.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Chandrayaan", "ISRO", "Moon mission", "India space", "Vikram lander", "lunar exploration"],
+          "prerequisites": [],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng3_u07",
+      "name": "Grammar — Nouns and Adjectives",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "eng3_c013",
+          "name": "Nouns — Naming Words",
+          "description": "A noun is a naming word — it names a person (girl, teacher, Priya), a place (school, garden, Delhi), a thing (book, ball, cloud), or an animal (dog, bird, elephant). Common nouns name general things (river, city); proper nouns name specific things and always start with a capital letter (Ganga, Mumbai). Collective nouns name a group: a flock of birds, a herd of cows, a bunch of bananas, a pride of lions, a swarm of bees. To make most nouns plural (more than one), we add -s (book → books) or -es (box → boxes, bus → buses). Some nouns are irregular in plural: child → children, mouse → mice, tooth → teeth, foot → feet.",
+          "expectedDifficulty": "OK",
+          "aliases": ["nouns", "naming words", "common noun", "proper noun", "collective noun", "plural nouns"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng3_c014",
+          "name": "Adjectives — Describing Words",
+          "description": "An adjective is a describing word that tells us more about a noun. Adjectives describe: size (big, tiny, tall), colour (red, golden, dark), shape (round, flat, pointed), texture (smooth, rough, soft), taste (sweet, sour, spicy), and feeling (happy, scared, excited). An adjective usually comes before the noun it describes: a fluffy cloud, a shiny star, a juicy mango. Sometimes it comes after the verb 'to be': the cloud is fluffy. Using adjectives makes writing vivid and interesting. Comparative adjectives compare two nouns: 'The star is brighter than the moon.' Superlative adjectives compare three or more: 'The sun is the brightest object in the sky.' We usually add -er and -est for short adjectives.",
+          "expectedDifficulty": "OK",
+          "aliases": ["adjectives", "describing words", "size colour shape", "comparative adjective", "superlative adjective"],
+          "prerequisites": ["eng3_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng3_u08",
+      "name": "Grammar — Verbs and Pronouns",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "eng3_c015",
+          "name": "Verbs — Action and Being Words",
+          "description": "A verb tells us what the subject of a sentence does (action verb) or is (being/linking verb). Action verbs: run, jump, eat, write, sing, float, count. Being verbs: is, am, are, was, were. Every sentence needs a verb. Verbs change depending on the subject: 'I eat' but 'she eats'; 'we run' but 'he runs'. This change is called agreement. Verbs also change according to tense — when the action happens. Present tense (now): 'She sings.' Past tense (already happened): 'She sang.' Future tense (will happen): 'She will sing.' Regular past tense adds -ed (jump → jumped, play → played). Some verbs are irregular and must be memorised: eat → ate, go → went, see → saw, make → made.",
+          "expectedDifficulty": "OK",
+          "aliases": ["verbs", "action words", "being verbs", "present past future tense", "irregular verbs"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng3_c016",
+          "name": "Pronouns — Replacing Nouns",
+          "description": "A pronoun is a word used instead of a noun to avoid repeating the same noun again and again. Personal pronouns for the subject of a sentence: I, you, he, she, it, we, they. For the object of a sentence: me, you, him, her, it, us, them. For example: 'Moti saw Badal. Moti liked Badal.' becomes 'Moti saw Badal. He liked him.' Possessive pronouns show belonging: my, your, his, her, its, our, their (used before a noun — 'his toy'); mine, yours, his, hers, ours, theirs (used alone — 'the toy is his'). Using pronouns correctly makes writing flow naturally and avoids clunky repetition. Identifying who or what the pronoun refers to (its antecedent) is an important reading skill.",
+          "expectedDifficulty": "OK",
+          "aliases": ["pronouns", "personal pronouns", "possessive pronouns", "he she it they", "antecedent"],
+          "prerequisites": ["eng3_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng3_u09",
+      "name": "Grammar — Sentences and Punctuation",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "eng3_c017",
+          "name": "Sentences — Statements and Questions",
+          "description": "A sentence is a group of words that makes complete sense. Every sentence has two parts: a subject (who or what the sentence is about) and a predicate (what the subject does or is). 'The dog barked loudly.' — subject: The dog; predicate: barked loudly. A statement (declarative sentence) tells us something and ends with a full stop. A question (interrogative sentence) asks something and ends with a question mark. Questions often start with question words: who, what, where, when, why, how. A command (imperative sentence) tells someone to do something and ends with a full stop or exclamation mark. An exclamation (exclamatory sentence) expresses strong feeling and ends with an exclamation mark.",
+          "expectedDifficulty": "OK",
+          "aliases": ["sentences", "subject predicate", "statement", "question", "command", "exclamation"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "eng3_c018",
+          "name": "Punctuation and Capital Letters",
+          "description": "Punctuation marks guide the reader on how to read a sentence. Full stop (.) ends a statement or command. Question mark (?) ends a question. Exclamation mark (!) ends an exclamation or strong command. Comma (,) separates items in a list ('I saw a dog, a cat, and a parrot.') and shows a short pause. Capital letters are used: at the start of every sentence, for proper nouns (names of people, places, days, months), for the pronoun 'I', and for the first word of a quotation. Apostrophe (') shows possession (Moti's ball) or a missing letter in a contraction (can't = cannot; I'm = I am; it's = it is). Reading aloud carefully with correct pausing at punctuation helps comprehension.",
+          "expectedDifficulty": "OK",
+          "aliases": ["punctuation", "full stop", "question mark", "comma", "capital letters", "apostrophe", "contraction"],
+          "prerequisites": ["eng3_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "eng3_u10",
+      "name": "Writing — Short Compositions",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "eng3_c019",
+          "name": "Writing a Short Paragraph",
+          "description": "A paragraph is a group of sentences about one topic. It begins with a topic sentence that states the main idea, followed by 2–4 supporting sentences with details or examples, and ends with a concluding sentence. For example, a paragraph about 'My Garden': Topic sentence — 'My garden is my favourite place at home.' Supporting sentences — 'It has red roses and a tall mango tree. A family of sparrows lives in the tree.' Concluding sentence — 'I love spending time there every evening.' Good paragraphs are focused (one idea only), complete (not too short), and use describing words to bring the topic to life. Planning — thinking before writing — makes the paragraph better organised.",
+          "expectedDifficulty": "OK",
+          "aliases": ["paragraph writing", "topic sentence", "supporting sentences", "concluding sentence", "composition"],
+          "prerequisites": ["eng3_c017"],
+          "order": 1
+        },
+        {
+          "id": "eng3_c020",
+          "name": "Writing a Short Story and an Informal Letter",
+          "description": "A short story has three parts: a beginning (introduces characters and setting), a middle (where a problem or event happens), and an end (how the problem is solved or the story wraps up). Good stories use interesting characters, vivid descriptions, and clear sequence words (first, then, next, finally). An informal letter is written to a friend or family member. It has: a date, a greeting ('Dear Nani,'), the body (the main message in a friendly tone — sharing news, asking questions), a closing ('With love,' or 'Your friend,'), and the writer's name. Contractions and conversational language are fine in informal letters. Letter writing practises organising thoughts, addressing an audience, and expressing feelings in writing.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["short story", "beginning middle end", "informal letter", "greeting closing", "story writing"],
+          "prerequisites": ["eng3_c019"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

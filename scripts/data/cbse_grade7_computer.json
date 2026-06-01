@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "grade": 7,
+    "board": "CBSE",
+    "subject": "Computer Science",
+    "subjectColor": "#0EA5E9",
+    "subjectIcon": "💻",
+    "generatedAt": "2026-06-01",
+    "textbook": "Common Class 7 Computer Science Curriculum (Kips/Oxford/IT Beans aligned)"
+  },
+  "units": [
+    {
+      "id": "cs7_u01",
+      "name": "Evolution of Computers",
+      "order": 1,
+      "concepts": [
+        {
+          "id": "cs7_c001",
+          "name": "Generations of Computers",
+          "description": "Computers have evolved through five generations. First generation (1940s–50s): used vacuum tubes; large, slow, expensive, generated enormous heat — e.g., ENIAC, UNIVAC. Second generation (1950s–60s): transistors replaced vacuum tubes; faster, smaller, more reliable. Third generation (1960s–70s): Integrated Circuits (ICs) packed many transistors on a silicon chip; much smaller and faster. Fourth generation (1970s–present): microprocessors — entire CPU on one chip; personal computers emerged. Fifth generation (present–future): AI, machine learning, parallel processing, quantum computing. Each generation became faster, cheaper, and smaller.",
+          "expectedDifficulty": "OK",
+          "aliases": ["generations of computers", "vacuum tube transistor IC microprocessor", "ENIAC UNIVAC", "computer history", "first second third generation"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs7_c002",
+          "name": "Types of Computers",
+          "description": "Computers are classified by size and power. Supercomputers: the most powerful; used for weather forecasting, nuclear research (e.g., Param Siddhi — India's supercomputer). Mainframe computers: large, powerful; used by banks and airlines to handle millions of transactions. Minicomputers (mid-range): medium-sized; used by mid-size organizations. Microcomputers (personal computers): desktops, laptops, tablets, smartphones — the most widely used. Embedded computers: built into devices like washing machines, cars, ATMs, and medical equipment. Each type serves different needs based on processing power, cost, and size.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["types of computers", "supercomputer mainframe minicomputer", "Param Siddhi supercomputer", "embedded computer", "microcomputer laptop desktop"],
+          "prerequisites": ["cs7_c001"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs7_u02",
+      "name": "Memory and Storage Devices",
+      "order": 2,
+      "concepts": [
+        {
+          "id": "cs7_c003",
+          "name": "Primary Memory — RAM and ROM",
+          "description": "Primary memory is the computer's main working memory, directly accessed by the CPU. RAM (Random Access Memory): temporary, volatile memory — data is lost when power is switched off. It stores the programs and data currently in use. More RAM means the computer can run more programs simultaneously. ROM (Read-Only Memory): permanent, non-volatile memory — stores the BIOS/firmware that boots the computer. It cannot be modified by the user. Cache memory is very fast memory between the CPU and RAM that stores frequently used data for quick access. Primary memory is measured in gigabytes (GB).",
+          "expectedDifficulty": "OK",
+          "aliases": ["RAM ROM primary memory", "volatile non-volatile memory", "cache memory", "BIOS firmware ROM", "random access memory"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs7_c004",
+          "name": "Secondary Storage Devices",
+          "description": "Secondary storage holds data permanently even without power. Hard Disk Drive (HDD): uses magnetic platters; large capacity (terabytes) but slower. Solid State Drive (SSD): uses flash memory chips; much faster than HDD, no moving parts, more durable. Pen Drive / USB Flash Drive: portable, plug-and-play storage. Optical Discs: CD (700 MB), DVD (4.7 GB), Blu-ray (25+ GB) — data stored using laser. SD Cards: used in cameras, phones, tablets. Cloud Storage: data stored on remote servers accessed via internet (Google Drive, OneDrive, iCloud). Units of storage: 1 KB = 1024 bytes; 1 MB = 1024 KB; 1 GB = 1024 MB; 1 TB = 1024 GB.",
+          "expectedDifficulty": "OK",
+          "aliases": ["secondary storage", "HDD SSD pen drive", "optical disc CD DVD Blu-ray", "cloud storage", "storage units KB MB GB TB"],
+          "prerequisites": ["cs7_c003"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs7_u03",
+      "name": "Operating Systems",
+      "order": 3,
+      "concepts": [
+        {
+          "id": "cs7_c005",
+          "name": "What is an Operating System?",
+          "description": "An operating system (OS) is system software that manages all hardware and software resources of a computer. It acts as an interface between the user and the hardware. Functions: process management (runs programs), memory management (allocates RAM), file management (organizes files and folders), device management (controls peripherals), and security (user accounts and passwords). Without an OS, no other software can run. Popular OS: Windows (Microsoft), macOS (Apple), Linux (open source), Android (mobile, based on Linux), iOS (Apple mobile). The OS loads first when the computer starts — this is called booting.",
+          "expectedDifficulty": "OK",
+          "aliases": ["operating system functions", "Windows macOS Linux Android", "OS interface user hardware", "booting", "process memory management OS"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs7_c006",
+          "name": "Working with Files and Folders in Windows",
+          "description": "In Windows, data is organized using files and folders (directories). A file stores data (document, image, video); a folder organizes files. File Explorer is used to browse files. Key operations: Create, Copy (Ctrl+C), Cut (Ctrl+X), Paste (Ctrl+V), Rename (F2), Delete (Del — sends to Recycle Bin), and permanent delete (Shift+Del). File extensions identify type: .docx (Word), .xlsx (Excel), .pptx (PowerPoint), .pdf, .jpg/.png (images), .mp3 (audio), .mp4 (video), .exe (program). The Recycle Bin temporarily holds deleted files — they can be restored. Properties show file size, creation date, and type.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["files folders Windows", "File Explorer", "copy paste cut keyboard shortcuts", "file extensions docx xlsx jpg", "Recycle Bin restore"],
+          "prerequisites": ["cs7_c005"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs7_u04",
+      "name": "Advanced Word Processing (MS Word)",
+      "order": 4,
+      "concepts": [
+        {
+          "id": "cs7_c007",
+          "name": "Formatting and Editing in MS Word",
+          "description": "Microsoft Word is used to create, edit, and format text documents. Key formatting: Font (face, size, bold/italic/underline), Paragraph (alignment — left, centre, right, justify; line spacing; indentation), Page Layout (margins, orientation — portrait/landscape, page size). The Find and Replace tool (Ctrl+H) finds text and replaces it throughout the document. Spell Check (F7) highlights errors. Track Changes records edits for review. Styles (Heading 1, Normal, etc.) apply consistent formatting. The Format Painter copies formatting from one section to another. Save as PDF creates a portable, read-only version.",
+          "expectedDifficulty": "OK",
+          "aliases": ["MS Word formatting", "Find Replace Word", "paragraph alignment spacing", "Track Changes", "Format Painter", "Save as PDF"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs7_c008",
+          "name": "Tables, Mail Merge, and Headers/Footers",
+          "description": "Tables in Word organise data in rows and columns — insert via the Insert tab, then add/delete rows and columns, merge cells, apply borders and shading. Headers appear at the top of every page (e.g., document title); footers at the bottom (e.g., page numbers). Mail Merge is a powerful tool: it combines a main document (like a letter) with a data source (like an Excel list of names and addresses) to produce multiple personalised copies automatically — used for invitations, certificates, and bulk letters. Page numbers can be inserted from the Insert tab.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["tables MS Word", "mail merge Word", "header footer Word", "merge cells table", "page numbers Word"],
+          "prerequisites": ["cs7_c007"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs7_u05",
+      "name": "Spreadsheets (MS Excel)",
+      "order": 5,
+      "concepts": [
+        {
+          "id": "cs7_c009",
+          "name": "Excel Basics — Cells, Formulas, and Functions",
+          "description": "Microsoft Excel is a spreadsheet program that organises data in rows (numbered) and columns (lettered) — their intersection is a cell (e.g., A1). A workbook contains multiple worksheets (tabs). Formulas begin with = and perform calculations: =A1+B1, =A1*B1. Functions are built-in formulas: SUM (adds), AVERAGE (mean), MAX (largest), MIN (smallest), COUNT (number of values), IF (conditional logic). Example: =SUM(A1:A10) adds all values from A1 to A10. Relative references (A1) change when copied; absolute references ($A$1) stay fixed. AutoFill copies a formula down a column.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Excel formulas functions", "SUM AVERAGE MAX MIN Excel", "cell reference relative absolute", "spreadsheet rows columns", "AutoFill Excel"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs7_c010",
+          "name": "Charts and Data Sorting in Excel",
+          "description": "Excel can visualise data as charts. Chart types: Column/Bar (comparisons), Line (trends over time), Pie (parts of a whole), Scatter (relationship between two variables). To create: select data → Insert → Chart → choose type. Chart elements: title, axes labels, legend. Sorting: arrange data in ascending (A–Z, 1–9) or descending order. Filtering: show only rows matching a condition (e.g., marks > 80). Conditional Formatting highlights cells based on rules (e.g., colour cells red if value < 40). These tools make it easy to analyse and present data clearly.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Excel charts", "bar pie line chart Excel", "sorting filtering Excel", "conditional formatting", "data visualisation spreadsheet"],
+          "prerequisites": ["cs7_c009"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs7_u06",
+      "name": "Presentations (MS PowerPoint)",
+      "order": 6,
+      "concepts": [
+        {
+          "id": "cs7_c011",
+          "name": "Creating Effective Presentations",
+          "description": "Microsoft PowerPoint is used to create visual presentations made of slides. Key elements: slide layout (Title Slide, Content, Two Content), text boxes, images, shapes, and SmartArt (diagrams). Design themes apply consistent colours and fonts. Good presentation rules: one idea per slide, minimal text (use bullet points), high-contrast colours, large font (min 24pt). Slide Sorter view shows all slides as thumbnails for rearranging. Notes pane adds speaker notes visible only to the presenter. Presenter View shows slides, notes, and timer during a presentation.",
+          "expectedDifficulty": "EASY",
+          "aliases": ["PowerPoint slides", "presentation design tips", "slide layout theme", "SmartArt PowerPoint", "Presenter View PowerPoint"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs7_c012",
+          "name": "Animations, Transitions, and Slide Shows",
+          "description": "Animations apply movement to objects on a slide: Entrance (object appears), Exit (object leaves), Emphasis (object highlights), Motion Path (object moves along a path). Transitions are effects between slides — e.g., Fade, Wipe, Push. Animation Pane controls the order and timing of animations. Slide Show settings: set up timings (auto-advance after X seconds) or manual advancement. Hyperlinks in PowerPoint can link to another slide, a website, or a file — useful for interactive presentations. Export as PDF or video for sharing. Keep animations purposeful — too many distract from content.",
+          "expectedDifficulty": "OK",
+          "aliases": ["PowerPoint animations", "slide transitions PowerPoint", "Animation Pane", "hyperlinks PowerPoint", "Slide Show setup"],
+          "prerequisites": ["cs7_c011"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs7_u07",
+      "name": "Internet and Communication",
+      "order": 7,
+      "concepts": [
+        {
+          "id": "cs7_c013",
+          "name": "How the Internet Works",
+          "description": "The internet is a global network of millions of computers connected together. It uses the TCP/IP protocol — rules that govern how data is sent and received. Data is broken into packets, sent via different routes, and reassembled at the destination. ISP (Internet Service Provider) connects homes and offices to the internet. Types of internet connection: broadband (cable, DSL), Wi-Fi (wireless), 4G/5G (mobile data), fibre optic (fastest). URL (Uniform Resource Locator) is the address of a webpage (e.g., https://www.ncert.nic.in). DNS (Domain Name System) translates domain names into IP addresses. HTTP/HTTPS are protocols for accessing websites (S = secure/encrypted).",
+          "expectedDifficulty": "OK",
+          "aliases": ["how internet works", "TCP IP protocol", "ISP broadband Wi-Fi", "URL DNS HTTP HTTPS", "internet packets"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs7_c014",
+          "name": "Email, Search Engines, and Online Services",
+          "description": "Email (electronic mail) is a way to send messages and files digitally. An email address has two parts: username@domain (e.g., student@gmail.com). Key email features: To (recipient), CC (carbon copy — others who receive the same email), BCC (blind carbon copy — recipients who are not visible to others), Attachment (files sent along with the email), Reply, and Forward. Search engines (Google, Bing) index billions of webpages; use quotes for exact phrase search, site: to search within a site. Online services: video calls (Google Meet, Zoom), cloud storage (Drive), online banking, e-learning, and government services (DigiLocker, UMANG).",
+          "expectedDifficulty": "EASY",
+          "aliases": ["email CC BCC attachment", "search engines Google Bing", "online services", "Google Meet Zoom video call", "DigiLocker e-services India"],
+          "prerequisites": ["cs7_c013"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs7_u08",
+      "name": "Introduction to HTML",
+      "order": 8,
+      "concepts": [
+        {
+          "id": "cs7_c015",
+          "name": "HTML Basics — Structure of a Webpage",
+          "description": "HTML (HyperText Markup Language) is the language used to create webpages. HTML uses tags — keywords enclosed in angle brackets. Tags usually come in pairs: an opening tag and a closing tag. Basic structure: <!DOCTYPE html> declares HTML5; <html> is the root element; <head> contains metadata (title, links); <body> contains visible content. Common tags: <h1>–<h6> (headings, largest to smallest); <p> (paragraph); <b> (bold); <i> (italic); <br> (line break, no closing tag); <hr> (horizontal line). HTML files are saved with .html extension and opened in a web browser.",
+          "expectedDifficulty": "OK",
+          "aliases": ["HTML tags", "HTML structure head body", "heading paragraph bold italic", "DOCTYPE HTML5", "webpage HTML"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs7_c016",
+          "name": "HTML — Links, Images, and Lists",
+          "description": "HTML supports rich content. Hyperlinks: <a href=\"URL\">Link Text</a> creates a clickable link; target=\"_blank\" opens in a new tab. Images: <img src=\"filename.jpg\" alt=\"description\" width=\"300\"> embeds an image; alt text helps accessibility and displays if the image fails to load. Lists: <ul> creates an unordered (bulleted) list; <ol> creates an ordered (numbered) list; each item uses <li>. Tables: <table>, <tr> (row), <th> (header cell), <td> (data cell). Attributes like bgcolor, align, and border style elements. Viewing source code (Ctrl+U in browser) shows the HTML behind any webpage.",
+          "expectedDifficulty": "HARD",
+          "aliases": ["HTML links images", "anchor tag href", "HTML lists ul ol li", "img tag alt", "HTML tables tr td th"],
+          "prerequisites": ["cs7_c015"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs7_u09",
+      "name": "Programming Concepts",
+      "order": 9,
+      "concepts": [
+        {
+          "id": "cs7_c017",
+          "name": "Introduction to Programming and Scratch",
+          "description": "A program is a set of instructions that tells the computer what to do. Programming languages: high-level (Python, Java, Scratch — easier for humans to read) and low-level (Assembly, Machine code — closer to hardware). Scratch (scratch.mit.edu) is a visual block-based programming language designed for beginners — programs are built by snapping colourful blocks together. Key concepts in Scratch: Sprites (the characters/objects), Stage (the background), Scripts (sequences of blocks). Event blocks (When green flag clicked), Motion blocks, Sound blocks, Control blocks, and Sensing blocks allow interactive games and animations. Scratch is free and runs in a browser.",
+          "expectedDifficulty": "OK",
+          "aliases": ["Scratch programming", "introduction to programming", "high level low level languages", "sprites stage scripts Scratch", "visual programming blocks"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs7_c018",
+          "name": "Algorithms and Logical Thinking",
+          "description": "An algorithm is a step-by-step set of instructions to solve a problem. Good algorithms are clear, finite, and produce the correct output. Algorithms can be represented as flowcharts (using standard symbols: oval = start/end, rectangle = process, diamond = decision, parallelogram = input/output, arrows = flow). Key programming concepts: Sequence (steps in order), Selection (if-else decisions — e.g., if marks > 33 then 'Pass'), Repetition/Loops (repeat steps — e.g., for loop, while loop). Decomposition (breaking a big problem into smaller parts) and debugging (finding and fixing errors) are essential programming skills.",
+          "expectedDifficulty": "OK",
+          "aliases": ["algorithm flowchart", "sequence selection repetition", "if-else loop programming", "debugging", "decomposition programming", "flowchart symbols"],
+          "prerequisites": ["cs7_c017"],
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "cs7_u10",
+      "name": "Networking and Cyber Safety",
+      "order": 10,
+      "concepts": [
+        {
+          "id": "cs7_c019",
+          "name": "Computer Networks",
+          "description": "A network is two or more computers connected to share data and resources (printers, internet). Types by size: LAN (Local Area Network) — within one building (school, office); MAN (Metropolitan Area Network) — within a city; WAN (Wide Area Network) — across cities/countries (the internet is the largest WAN). Network devices: Router (directs data between networks — connects home to internet), Switch (connects devices within a LAN), Modem (converts digital data to signals for transmission). Topology is the arrangement of devices: Bus (all on one cable), Star (all connected to a central switch — most common), Ring (devices in a circle).",
+          "expectedDifficulty": "HARD",
+          "aliases": ["LAN MAN WAN network types", "router switch modem", "network topology bus star ring", "computer network", "LAN local area network"],
+          "prerequisites": [],
+          "order": 1
+        },
+        {
+          "id": "cs7_c020",
+          "name": "Cyber Safety and Digital Citizenship",
+          "description": "Cyber safety means staying safe while using the internet. Key risks: Phishing (fake emails/websites that steal passwords), Malware (viruses, ransomware, spyware that damage or steal data), Cyberbullying (harassment online), Identity theft, and Online scams. Safe practices: use strong passwords (mix of letters, numbers, symbols, 8+ characters); never share passwords; update software regularly; use antivirus software; don't click suspicious links; use 2-factor authentication. Digital citizenship means using technology responsibly — respecting others online, not spreading misinformation, protecting your digital footprint. Report cybercrime to cybercrime.gov.in in India.",
+          "expectedDifficulty": "OK",
+          "aliases": ["cyber safety", "phishing malware virus ransomware", "strong password tips", "cyberbullying digital citizenship", "cybercrime.gov.in India"],
+          "prerequisites": ["cs7_c019"],
+          "order": 2
+        }
+      ]
+    }
+  ]
+}
