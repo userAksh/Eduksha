@@ -1,0 +1,2 @@
+# Force GitHub Linguist to detect Swift alongside Kotlin
+*.swift linguist-detectable=true
