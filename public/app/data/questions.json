@@ -1,0 +1,65 @@
+{
+  "byUnit": {
+    "sci6_u01": [
+      {"id":"sci6_u01_q1","text":"Plants that we grow only for one season and use as food are called?","options":["Crops","Weeds","Shrubs","Saplings"],"correctIndex":0,"explanation":"Plants of the same kind grown together on a large scale for food are called crops."},
+      {"id":"sci6_u01_q2","text":"Honey is mainly produced by which of these?","options":["Ants","Honey bees","Butterflies","Spiders"],"correctIndex":1,"explanation":"Honey bees collect nectar from flowers and convert it into honey inside their hive."},
+      {"id":"sci6_u01_q3","text":"Animals that eat only plants are called?","options":["Carnivores","Herbivores","Omnivores","Scavengers"],"correctIndex":1,"explanation":"Cow, goat, deer and rabbit eat only plants — they are called herbivores."},
+      {"id":"sci6_u01_q4","text":"Which part of the wheat plant do we eat?","options":["Roots","Stem","Seeds","Leaves"],"correctIndex":2,"explanation":"Wheat grains are seeds. They are ground into flour to make rotis and bread."},
+      {"id":"sci6_u01_q5","text":"From which plant do we get sugar?","options":["Wheat","Sugarcane","Mustard","Cotton"],"correctIndex":1,"explanation":"Sugar is made from the juice of the sugarcane plant."},
+      {"id":"sci6_u01_q6","text":"Which of these animals provides milk?","options":["Cow","Hen","Crocodile","Snake"],"correctIndex":0,"explanation":"Cow, buffalo and goat are common milk-giving animals in India."},
+      {"id":"sci6_u01_q7","text":"Pulses such as moong and chana are obtained from which group of plants?","options":["Cereals","Legumes","Oilseeds","Grasses"],"correctIndex":1,"explanation":"Pulses come from leguminous plants — they store protein in their seeds."},
+      {"id":"sci6_u01_q8","text":"The edible part of a carrot is its?","options":["Stem","Fruit","Root","Leaf"],"correctIndex":2,"explanation":"We eat the underground root of the carrot plant — it stores food for the plant."},
+      {"id":"sci6_u01_q9","text":"Tigers and lions are examples of?","options":["Herbivores","Carnivores","Omnivores","Producers"],"correctIndex":1,"explanation":"Animals that eat other animals are called carnivores."},
+      {"id":"sci6_u01_q10","text":"Humans, who eat both plants and animals, are called?","options":["Herbivores","Carnivores","Omnivores","Decomposers"],"correctIndex":2,"explanation":"Animals that eat both plants and animal products are called omnivores."}
+    ],
+    "sci6_u02": [
+      {"id":"sci6_u02_q1","text":"Which nutrient mainly provides energy to our body?","options":["Proteins","Carbohydrates","Vitamins","Minerals"],"correctIndex":1,"explanation":"Carbohydrates are the body's main source of energy. Rice, wheat and potatoes are rich in them."},
+      {"id":"sci6_u02_q2","text":"Proteins are also known as?","options":["Energy-giving foods","Body-building foods","Protective foods","Junk foods"],"correctIndex":1,"explanation":"Proteins help in the growth and repair of our body, so they are called body-building foods."},
+      {"id":"sci6_u02_q3","text":"Scurvy is caused by the deficiency of which vitamin?","options":["Vitamin A","Vitamin B","Vitamin C","Vitamin D"],"correctIndex":2,"explanation":"Lack of Vitamin C causes scurvy — bleeding gums and slow healing of wounds. Citrus fruits prevent it."},
+      {"id":"sci6_u02_q4","text":"Goitre is caused by deficiency of which mineral?","options":["Iron","Calcium","Iodine","Phosphorus"],"correctIndex":2,"explanation":"Iodine deficiency leads to goitre — a swelling in the neck. Iodised salt helps prevent it."},
+      {"id":"sci6_u02_q5","text":"Which of these is the richest source of fats?","options":["Butter","Spinach","Apples","Bread"],"correctIndex":0,"explanation":"Butter, ghee, and oils are rich in fats — they give a lot of energy in a small quantity."},
+      {"id":"sci6_u02_q6","text":"Roughage in our food is provided mainly by?","options":["Sugar","Meat","Fibre from plants","Salt"],"correctIndex":2,"explanation":"Roughage is plant fibre — it does not give energy but helps the body get rid of waste."},
+      {"id":"sci6_u02_q7","text":"Rickets is caused by lack of which vitamin?","options":["Vitamin A","Vitamin B","Vitamin C","Vitamin D"],"correctIndex":3,"explanation":"Vitamin D helps absorb calcium for strong bones. Without it, children can develop rickets."},
+      {"id":"sci6_u02_q8","text":"Anaemia is caused by deficiency of which mineral?","options":["Iron","Iodine","Calcium","Sodium"],"correctIndex":0,"explanation":"Iron is needed to make haemoglobin in blood. Lack of iron causes weakness called anaemia."},
+      {"id":"sci6_u02_q9","text":"Which of these is a balanced diet?","options":["Only rice and water","Rice, dal, vegetables, fruits and milk","Only chocolates","Only fried food"],"correctIndex":1,"explanation":"A balanced diet has all nutrients in the right amounts — carbs, proteins, fats, vitamins and minerals."},
+      {"id":"sci6_u02_q10","text":"Which simple test is used to detect starch in food?","options":["Burning test","Iodine test","Litmus test","Salt test"],"correctIndex":1,"explanation":"A drop of iodine on a starchy food turns blue-black — that's how we test for starch."}
+    ]
+  },
+  "byConcept": {
+    "sci6_c001": [
+      {"id":"sci6_c001_q1","text":"Which of these is the edible part of a carrot plant?","options":["Leaf","Root","Flower","Fruit"],"correctIndex":1,"explanation":"We eat the underground root of a carrot — it stores food for the plant."},
+      {"id":"sci6_c001_q2","text":"From which plant do we get the spice 'ginger'?","options":["Roots","Stems","Leaves","Flowers"],"correctIndex":1,"explanation":"Ginger is an underground stem we use as a spice."},
+      {"id":"sci6_c001_q3","text":"Wheat that we eat is which part of the plant?","options":["Stem","Root","Leaf","Seed"],"correctIndex":3,"explanation":"Wheat grains are seeds that are ground to make flour."},
+      {"id":"sci6_c001_q4","text":"Cauliflower belongs to which plant part?","options":["Flower","Fruit","Root","Stem"],"correctIndex":0,"explanation":"Cauliflower is a flower head we eat as a vegetable."},
+      {"id":"sci6_c001_q5","text":"Which of these plant parts gives us spinach?","options":["Leaves","Roots","Seeds","Fruits"],"correctIndex":0,"explanation":"Spinach is a leafy vegetable — we eat its leaves."}
+    ],
+    "sci6_c002": [
+      {"id":"sci6_c002_q1","text":"Which of these animals gives us honey?","options":["Cow","Honey bee","Hen","Goat"],"correctIndex":1,"explanation":"Honey bees collect nectar from flowers and turn it into honey."},
+      {"id":"sci6_c002_q2","text":"Eggs are usually obtained from which animal?","options":["Goat","Cow","Hen","Dog"],"correctIndex":2,"explanation":"Hens lay eggs that are a common protein source."},
+      {"id":"sci6_c002_q3","text":"Which of these is an animal product?","options":["Rice","Butter","Wheat","Sugar"],"correctIndex":1,"explanation":"Butter is made from milk, which comes from animals like cows."},
+      {"id":"sci6_c002_q4","text":"Curd is made from?","options":["Milk","Eggs","Honey","Meat"],"correctIndex":0,"explanation":"Curd is set by adding a starter to warm milk."},
+      {"id":"sci6_c002_q5","text":"Which of these animals is reared mainly for milk?","options":["Buffalo","Tiger","Crocodile","Snake"],"correctIndex":0,"explanation":"Buffalo is one of the most common milk-giving animals in India."}
+    ],
+    "sci6_c003": [
+      {"id":"sci6_c003_q1","text":"Animals that eat only plants are called?","options":["Carnivores","Herbivores","Omnivores","Decomposers"],"correctIndex":1,"explanation":"Cow, deer and rabbit eat only plants — they are herbivores."},
+      {"id":"sci6_c003_q2","text":"Which of these is a carnivore?","options":["Goat","Cow","Lion","Rabbit"],"correctIndex":2,"explanation":"Lions hunt and eat other animals — they are carnivores."},
+      {"id":"sci6_c003_q3","text":"Humans eat both plants and animal products. We are?","options":["Herbivores","Carnivores","Omnivores","Insectivores"],"correctIndex":2,"explanation":"Animals that eat both plants and animals are called omnivores."},
+      {"id":"sci6_c003_q4","text":"Which of these is an omnivore?","options":["Cow","Bear","Tiger","Deer"],"correctIndex":1,"explanation":"Bears eat fruits, honey AND fish — they're omnivores."},
+      {"id":"sci6_c003_q5","text":"An eagle eats other animals. It is a?","options":["Herbivore","Carnivore","Omnivore","Producer"],"correctIndex":1,"explanation":"Eagles hunt smaller animals — they are carnivores."}
+    ],
+    "sci6_c004": [
+      {"id":"sci6_c004_q1","text":"Potato is which part of the plant?","options":["Root","Stem","Leaf","Fruit"],"correctIndex":1,"explanation":"Potato is an underground stem (a tuber)."},
+      {"id":"sci6_c004_q2","text":"Which of these is a seed we eat?","options":["Cabbage","Radish","Mustard","Spinach"],"correctIndex":2,"explanation":"Mustard seeds are used as spice and to extract oil."},
+      {"id":"sci6_c004_q3","text":"Sugarcane is which plant part?","options":["Stem","Root","Fruit","Leaf"],"correctIndex":0,"explanation":"We crush the sugarcane stem to get sweet juice."},
+      {"id":"sci6_c004_q4","text":"Which of these is a fruit we eat?","options":["Carrot","Mango","Spinach","Sugarcane"],"correctIndex":1,"explanation":"Mango is a sweet, juicy fruit of the mango tree."},
+      {"id":"sci6_c004_q5","text":"Cabbage is which plant part?","options":["Root","Flower","Leaf","Stem"],"correctIndex":2,"explanation":"A cabbage is a tight ball of leaves we eat as a vegetable."}
+    ],
+    "sci6_c005": [
+      {"id":"sci6_c005_q1","text":"How many main nutrients do we usually count in food?","options":["Three","Four","Five","Seven"],"correctIndex":2,"explanation":"The five main nutrients: carbohydrates, proteins, fats, vitamins, and minerals."},
+      {"id":"sci6_c005_q2","text":"Roughage is also known as?","options":["Fibre","Fat","Mineral","Vitamin"],"correctIndex":0,"explanation":"Roughage is dietary fibre that helps our digestion."},
+      {"id":"sci6_c005_q3","text":"Which of these is needed in small amounts but very important?","options":["Carbohydrates","Vitamins","Fats","Water"],"correctIndex":1,"explanation":"Vitamins are micronutrients — needed in tiny amounts but essential."},
+      {"id":"sci6_c005_q4","text":"Which nutrient is the body's main source of quick energy?","options":["Proteins","Vitamins","Carbohydrates","Minerals"],"correctIndex":2,"explanation":"Carbohydrates are broken down quickly to give energy."},
+      {"id":"sci6_c005_q5","text":"Water in our body helps with?","options":["Digestion only","Cooling only","Many body functions","Just thirst"],"correctIndex":2,"explanation":"Water helps with digestion, temperature control, and removing waste."}
+    ]
+  }
+}

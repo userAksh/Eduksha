@@ -1,0 +1,14 @@
+{
+  "name": "Eduksha",
+  "short_name": "Eduksha",
+  "description": "A daily learning ritual for Indian families",
+  "start_url": "/app/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5F7FA",
+  "theme_color": "#2F7DFF",
+  "icons": [
+    { "src": "/assets/logo.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/logo.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#F5F7FA" />
+  <title>Eduksha</title>
+  <link rel="icon" href="/assets/logo.png" />
+  <link rel="manifest" href="/app/manifest.json" />
+  <link rel="stylesheet" href="/app/app.css" />
+
+  <!-- Preconnect for Firebase CDN -->
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin />
+</head>
+<body>
+  <!-- Loading overlay -->
+  <div id="global-loading" hidden>
+    <div class="loading-backdrop"></div>
+    <div class="loading-box">
+      <div class="loading-spinner"></div>
+      <div class="loading-msg"></div>
+    </div>
+  </div>
+
+  <!-- Toast container rendered dynamically -->
+
+  <!-- Main screen container (SPA renders here) -->
+  <div id="screen"></div>
+
+  <!-- Firebase requires module script -->
+  <script type="module" src="/app/js/app.js"></script>
+</body>
+</html>
