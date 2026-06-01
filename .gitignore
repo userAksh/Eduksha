@@ -36,3 +36,4 @@ iosApp/Pods/
 iosApp/**/*.xcuserstate
 iosApp/**/xcuserdata/
 
+.claude/
