@@ -22,5 +22,18 @@ data class SubjectStat(
     val name: String,
     val emoji: String,
     val topicsCount: Int,
-    val accuracyPct: Int?
+    val accuracyPct: Int?,
+    val topics: List<TopicActivityItem> = emptyList()
+)
+
+data class TopicActivityItem(
+    val name: String,
+    val groupKey: String,
+    val quizUnitId: String,
+    val quizConceptId: String,
+    val uploadKinds: Set<String>,
+    val hasQuiz: Boolean,
+    val hasSubjective: Boolean,
+    val accuracyPct: Int?,
+    val lastActivityMs: Long
 )

@@ -6,6 +6,7 @@ import java.util.Locale
 
 data class HomeworkLogUiState(
     val subject: String = "",
+    val teacherHonorific: String = "",
     val teacherName: String = "",
     val chapterName: String = "",
     val dateMillis: Long = System.currentTimeMillis(),

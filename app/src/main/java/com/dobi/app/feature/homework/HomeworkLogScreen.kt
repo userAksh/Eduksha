@@ -2,6 +2,7 @@ package com.dobi.app.feature.homework
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -204,6 +205,16 @@ fun HomeworkLogScreen(
             // ── Teacher name ───────────────────────────────────────────────────
             FieldLabel(text = "Teacher's Name")
             Spacer(Modifier.height(10.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                listOf("Sir", "Madam").forEach { honorific ->
+                    HonorificChip(
+                        label = honorific,
+                        selected = uiState.teacherHonorific == honorific,
+                        onClick = { viewModel.onTeacherHonorificChanged(honorific) }
+                    )
+                }
+            }
+            Spacer(Modifier.height(10.dp))
             OutlinedTextField(
                 value = uiState.teacherName,
                 onValueChange = { input ->
@@ -212,7 +223,7 @@ fun HomeworkLogScreen(
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
-                placeholder = { Text("e.g. Mrs. Sharma", color = DobiTextSecondary) },
+                placeholder = { Text("e.g. Sharma", color = DobiTextSecondary) },
                 singleLine = true,
                 shape = RoundedCornerShape(14.dp),
                 colors = dobiTextFieldColors()
@@ -435,6 +446,43 @@ private fun AddPhotosButton(onClick: () -> Unit) {
             fontWeight = SFProSemiBold,
             color = DobiPrimary
         )
+    }
+}
+
+// ── Honorific chip (Sir / Madam) ───────────────────────────────────────────────
+
+@Composable
+private fun HonorificChip(label: String, selected: Boolean, onClick: () -> Unit) {
+    val bg by animateColorAsState(
+        targetValue = if (selected) DobiPrimary else Color.White,
+        label = "chip-bg"
+    )
+    val border by animateColorAsState(
+        targetValue = if (selected) DobiPrimary else Color(0xFFE2E8F0),
+        label = "chip-border"
+    )
+    val content by animateColorAsState(
+        targetValue = if (selected) Color.White else DobiTextSecondary,
+        label = "chip-fg"
+    )
+    Row(
+        modifier = Modifier
+            .clip(RoundedCornerShape(50))
+            .background(bg)
+            .border(1.5.dp, border, RoundedCornerShape(50))
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = onClick
+            )
+            .padding(horizontal = 14.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        if (selected) {
+            Icon(Icons.Default.Check, contentDescription = null, tint = Color.White, modifier = Modifier.size(14.dp))
+            Spacer(Modifier.width(6.dp))
+        }
+        Text(text = label, fontSize = 13.sp, fontWeight = SFProSemiBold, color = content)
     }
 }
 

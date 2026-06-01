@@ -2,6 +2,7 @@ package com.dobi.app.feature.pairing
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dobi.app.data.local.UserPreferences
 import com.dobi.app.domain.repository.PairingRepository
 import com.dobi.app.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class EnterPairingCodeViewModel @Inject constructor(
     private val pairingRepository: PairingRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val userPreferences: UserPreferences
 ) : ViewModel() {
 
     sealed class UiState {
@@ -37,6 +39,7 @@ class EnterPairingCodeViewModel @Inject constructor(
             pairingRepository.redeemCode(code)
                 .onSuccess { pairing ->
                     userRepository.saveLinkedChild(pairing.parentId, pairing.childId)
+                    userPreferences.markAsChildDevice()
                     _navToChildHome.emit(pairing.childId)
                     _uiState.value = UiState.Idle
                 }

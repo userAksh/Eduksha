@@ -49,7 +49,7 @@ private fun dev.gitlive.firebase.firestore.DocumentSnapshot.toChild() = Child(
     gender = get("gender") as? String ?: "boy",
     dateOfBirth = get("dateOfBirth") as? String ?: "",
     pin = get("pin") as? String ?: "",
-    friends = (get("friends") as? List<*>)?.mapNotNull { it.toFriend() } ?: emptyList()
+    friends = runCatching { (get("friends") as? List<*>)?.mapNotNull { it.toFriend() } }.getOrNull() ?: emptyList()
 )
 
 @Suppress("UNCHECKED_CAST")

@@ -1,5 +1,6 @@
 package com.dobi.app.feature.parenthome
 
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -108,6 +109,7 @@ fun ParentHomeScreen(
     onRedirectToAddChild: () -> Unit,
     onNavigateToRoleSelection: () -> Unit,
     onNavigateToParentTask: (taskId: String) -> Unit = {},
+    onNavigateToAllActionableTasks: () -> Unit = {},
     onNavigateToActivityDetail: (categoryKey: String, childId: String) -> Unit = { _, _ -> },
     onNavigateToInsights: (childId: String) -> Unit = {},
     onNavigateToUploadGroup: (groupKey: String) -> Unit = {},
@@ -127,7 +129,9 @@ fun ParentHomeScreen(
     }
 
     LaunchedEffect(uiState.isLoading, uiState.children.size) {
+        Log.d("ParentHomeScreen", "LaunchedEffect: isLoading=${uiState.isLoading} children.size=${uiState.children.size}")
         if (!uiState.isLoading && uiState.children.isEmpty()) {
+            Log.w("ParentHomeScreen", "REDIRECTING to AddChild — isLoading=false and children is empty")
             onRedirectToAddChild()
         }
     }
@@ -162,6 +166,7 @@ fun ParentHomeScreen(
                     engagements = uiState.engagements,
                     onNavigateToChildHome = onNavigateToChildHome,
                     onNavigateToParentTask = onNavigateToParentTask,
+                    onNavigateToAllActionableTasks = onNavigateToAllActionableTasks,
                     onAddChild = onNavigateToAddChild,
                     onPairDevice = viewModel::onPairDeviceTapped,
                     onSendReminder = viewModel::sendReminder,
@@ -216,23 +221,31 @@ private fun ChildrenTab(
     engagements: Map<String, ChildEngagement>,
     onNavigateToChildHome: (String) -> Unit,
     onNavigateToParentTask: (String) -> Unit,
+    onNavigateToAllActionableTasks: () -> Unit,
     onAddChild: () -> Unit,
     onPairDevice: (Child) -> Unit,
     onSendReminder: (String) -> Unit,
 ) {
     val now = System.currentTimeMillis()
-    val twentyFourH = 24L * 60L * 60L * 1000L
+    val twelveH = 12L * 60L * 60L * 1000L
     val actionableTasks = parentTasks.filter { task ->
         when (task.status) {
             ParentTaskStatus.REQUESTED, ParentTaskStatus.PENDING_REVIEW -> true
-            // Stale ASSIGNED — assigned ≥24h ago and either never reminded
-            // or last reminder was also ≥24h ago. Surfaces a "Send reminder" CTA.
+            // Stale ASSIGNED — assigned ≥12h ago and either never reminded
+            // or last reminder was also ≥12h ago. Surfaces a "Send reminder" CTA.
             ParentTaskStatus.ASSIGNED ->
                 task.assignedAtMillis > 0L &&
-                    now - task.assignedAtMillis >= twentyFourH &&
+                    now - task.assignedAtMillis >= twelveH &&
                     (task.reminderSentAtMillis == 0L ||
-                        now - task.reminderSentAtMillis >= twentyFourH)
+                        now - task.reminderSentAtMillis >= twelveH)
             else -> false
+        }
+    }.sortedBy { task ->
+        when (task.status) {
+            ParentTaskStatus.PENDING_REVIEW ->
+                if (task.submittedAtMillis > 0L) task.submittedAtMillis else task.assignedAtMillis
+            ParentTaskStatus.REQUESTED -> task.requestedAtMillis
+            else -> task.assignedAtMillis
         }
     }
     val childById: Map<String, Child> = remember(children) {
@@ -269,6 +282,7 @@ private fun ChildrenTab(
                     actionableTasks = actionableTasks,
                     childById = childById,
                     onNavigateToParentTask = onNavigateToParentTask,
+                    onViewAll = onNavigateToAllActionableTasks,
                     onSendReminder = onSendReminder,
                     modifier = Modifier.padding(horizontal = 20.dp)
                 )
@@ -408,6 +422,7 @@ private fun TasksCard(
     actionableTasks: List<ParentTask>,
     childById: Map<String, Child>,
     onNavigateToParentTask: (String) -> Unit,
+    onViewAll: () -> Unit,
     onSendReminder: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -440,7 +455,7 @@ private fun TasksCard(
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },
                                 indication = null,
-                                onClick = { onNavigateToParentTask(firstTask.id) }
+                                onClick = onViewAll
                             )
                             .padding(horizontal = 4.dp, vertical = 4.dp)
                     ) {

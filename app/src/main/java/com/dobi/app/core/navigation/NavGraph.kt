@@ -18,6 +18,7 @@ import com.dobi.app.feature.childhome.ChildHomeScreen
 import com.dobi.app.feature.childhome.ParentTasksListScreen
 import com.dobi.app.feature.earnreward.EarnRewardPickerScreen
 import com.dobi.app.feature.parenttask.DoParentTaskScreen
+import com.dobi.app.feature.parenttask.ParentActionableTasksScreen
 import com.dobi.app.feature.parenttask.ParentTaskDetailScreen
 import com.dobi.app.feature.conceptdetail.ConceptDetailScreen
 import com.dobi.app.feature.conceptlist.ConceptListScreen
@@ -226,6 +227,17 @@ fun DobiNavGraph(
                 onOpenUploadGroup = { groupKey ->
                     navController.navigate(Screen.RevisitDetail(groupKey))
                 },
+                onOpenQuizResultFromProfile = { unitId, conceptId ->
+                    navController.navigate(
+                        Screen.Quiz(
+                            unitId = unitId,
+                            conceptId = conceptId,
+                            source = "curated",
+                            viewResult = true,
+                            fromProfile = true
+                        )
+                    )
+                },
                 onNavigateToParentTasksList = {
                     navController.navigate(Screen.ParentTasksList)
                 },
@@ -273,6 +285,9 @@ fun DobiNavGraph(
                 },
                 onNavigateToParentTask = { taskId ->
                     navController.navigate(Screen.ParentTaskDetail(taskId))
+                },
+                onNavigateToAllActionableTasks = {
+                    navController.navigate(Screen.ParentActionableTasks)
                 },
                 onNavigateToActivityDetail = { categoryKey, childId ->
                     navController.navigate(Screen.ActivityDetail(categoryKey, childId))
@@ -659,6 +674,15 @@ fun DobiNavGraph(
             ParentTaskDetailScreen(
                 onNavigateBack = { navController.popBackStack() },
                 onFinished = { navController.popBackStack() }
+            )
+        }
+
+        composable<Screen.ParentActionableTasks> {
+            ParentActionableTasksScreen(
+                onBack = { navController.popBackStack() },
+                onNavigateToParentTask = { taskId ->
+                    navController.navigate(Screen.ParentTaskDetail(taskId))
+                }
             )
         }
 

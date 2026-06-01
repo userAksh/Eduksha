@@ -44,7 +44,10 @@ enum class ConceptListMode { DEFAULT, PRACTISE_LESSON, TEST_YOURSELF }
         /** When non-blank, the VM treats this as a parent viewing a specific
          *  child's attempt — overrides UserPreferences.linkedChildId for the
          *  attempt lookup. Only honored when viewResult is true. */
-        val childId: String = ""
+        val childId: String = "",
+        /** Hides Retake and Snap & Send actions — used when opening a result
+         *  from the child's profile tab where re-attempting makes no sense. */
+        val fromProfile: Boolean = false
     ) : Screen()
     @Serializable data object HomeworkLog : Screen()
     @Serializable data object ClassTestPrep : Screen()
@@ -87,4 +90,5 @@ enum class ConceptListMode { DEFAULT, PRACTISE_LESSON, TEST_YOURSELF }
     @Serializable data class WebView(val url: String, val title: String) : Screen()
     @Serializable data class StudyGoals(val childId: String) : Screen()
     @Serializable data object ParentTasksList : Screen()
+    @Serializable data object ParentActionableTasks : Screen()
 }

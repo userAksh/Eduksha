@@ -2,6 +2,7 @@ package com.dobi.app.di
 
 import com.dobi.app.data.repository.CompletionRepositoryImpl
 import com.dobi.app.domain.repository.CompletionRepository
+import com.dobi.app.domain.usecase.SaveCompletionUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,4 +17,9 @@ object CompletionModule {
     fun provideCompletionRepository(
         firestore: dev.gitlive.firebase.firestore.FirebaseFirestore
     ): CompletionRepository = CompletionRepositoryImpl(firestore)
+
+    @Provides @Singleton
+    fun provideSaveCompletionUseCase(
+        repository: CompletionRepository
+    ): SaveCompletionUseCase = SaveCompletionUseCase(repository)
 }

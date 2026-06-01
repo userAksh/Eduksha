@@ -12,6 +12,7 @@ import com.dobi.app.domain.repository.ChildRepository
 import com.dobi.app.domain.repository.FcmTokenRepository
 import com.dobi.app.domain.repository.PairingRepository
 import com.dobi.app.domain.repository.ParentTaskRepository
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -106,12 +107,13 @@ class ParentHomeViewModel @Inject constructor(
     }
 
     private fun loadData() {
-        val uid = auth.currentUser?.uid ?: return
-        // Children and profile load in parallel. isLoading clears as soon as
-        // children arrive — the header name fills in a moment later once the
-        // profile fetch completes.
+        val uid = auth.currentUser?.uid
+        Log.d(TAG, "loadData: uid=$uid")
+        if (uid == null) { Log.w(TAG, "loadData: auth.currentUser is null — returning early, isLoading stays true"); return }
         viewModelScope.launch {
+            Log.d(TAG, "loadData: starting getChildren listener for uid=$uid")
             childRepository.getChildren(uid).collect { children ->
+                Log.d(TAG, "loadData: getChildren emitted count=${children.size} ids=${children.map { it.id }}")
                 _uiState.value = _uiState.value.copy(children = children, isLoading = false)
             }
         }
@@ -150,5 +152,9 @@ class ParentHomeViewModel @Inject constructor(
     fun sendReminder(taskId: String) {
         if (taskId.isBlank()) return
         viewModelScope.launch { parentTaskRepository.sendReminder(taskId) }
+    }
+
+    companion object {
+        private const val TAG = "ParentHomeVM"
     }
 }

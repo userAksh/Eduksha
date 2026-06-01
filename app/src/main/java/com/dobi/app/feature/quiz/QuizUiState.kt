@@ -29,8 +29,10 @@ data class QuizUiState(
     val quizAssigned: Boolean = false,
     /** True when this quiz was already assigned to the child before this session opened. */
     val quizAlreadyAssigned: Boolean = false,
+    /** Hides Retake and Snap & Send — set when opened from the child's profile tab. */
+    val hideActions: Boolean = false,
 ) {
-    val canRetry: Boolean get() = !isParentView && !isScoreOnly && attemptsTaken < MAX_ATTEMPTS
+    val canRetry: Boolean get() = !isParentView && !isScoreOnly && !hideActions && attemptsTaken < MAX_ATTEMPTS
 
     companion object {
         const val MAX_ATTEMPTS = 2

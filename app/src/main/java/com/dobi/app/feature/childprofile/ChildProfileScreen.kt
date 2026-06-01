@@ -28,13 +28,19 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import android.widget.Toast
 import kotlinx.coroutines.flow.collectLatest
@@ -64,17 +70,25 @@ import com.dobi.app.core.ui.theme.SFProBold
 import com.dobi.app.core.ui.theme.SFProMedium
 import com.dobi.app.core.ui.theme.SFProSemiBold
 import com.dobi.app.domain.model.Friend
+import androidx.compose.foundation.lazy.items
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChildProfileContent(
     contentPadding: PaddingValues,
     onInviteFriend: () -> Unit,
     onSwitchProfile: () -> Unit,
     onAccountDeleted: () -> Unit = {},
+    onOpenUploadGroup: (groupKey: String) -> Unit = {},
+    onOpenQuizResult: (unitId: String, conceptId: String) -> Unit = { _, _ -> },
     viewModel: ChildProfileViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    var selectedSubject by remember { mutableStateOf<SubjectStat?>(null) }
 
     LaunchedEffect(viewModel) {
         viewModel.deletionEvents.collectLatest { event ->
@@ -99,7 +113,8 @@ fun ChildProfileContent(
         contentPadding = contentPadding,
         onInviteFriend = onInviteFriend,
         onSwitchProfile = onSwitchProfile,
-        onDeleteAccountClick = viewModel::showDeleteDialog
+        onDeleteAccountClick = viewModel::showDeleteDialog,
+        onSubjectClick = { selectedSubject = it }
     )
 
     if (uiState.deleteDialogVisible) {
@@ -109,6 +124,25 @@ fun ChildProfileContent(
             onDismiss = viewModel::dismissDeleteDialog
         )
     }
+
+    selectedSubject?.let { subject ->
+        ModalBottomSheet(
+            onDismissRequest = { selectedSubject = null },
+            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false),
+            containerColor = Color.White
+        ) {
+            SubjectDetailSheet(
+                subject = subject,
+                onTopicClick = { topic ->
+                    when {
+                        topic.groupKey.isNotBlank() -> onOpenUploadGroup(topic.groupKey)
+                        topic.quizUnitId.isNotBlank() || topic.quizConceptId.isNotBlank() ->
+                            onOpenQuizResult(topic.quizUnitId, topic.quizConceptId)
+                    }
+                }
+            )
+        }
+    }
 }
 
 @Composable
@@ -117,7 +151,8 @@ private fun ChildProfileLayout(
     contentPadding: PaddingValues,
     onInviteFriend: () -> Unit,
     onSwitchProfile: () -> Unit,
-    onDeleteAccountClick: () -> Unit = {}
+    onDeleteAccountClick: () -> Unit = {},
+    onSubjectClick: (SubjectStat) -> Unit = {}
 ) {
     LazyColumn(
         modifier = Modifier
@@ -142,7 +177,7 @@ private fun ChildProfileLayout(
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     uiState.subjects.forEach { subject ->
-                        SubjectRow(subject)
+                        SubjectRow(subject, onClick = { onSubjectClick(subject) })
                     }
                 }
             }
@@ -390,8 +425,9 @@ private fun SectionHeader(
 // ── Subjects ───────────────────────────────────────────────────────────────────
 
 @Composable
-private fun SubjectRow(subject: SubjectStat) {
+private fun SubjectRow(subject: SubjectStat, onClick: () -> Unit = {}) {
     Card(
+        onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
             .shadow(
@@ -451,6 +487,196 @@ private fun SubjectRow(subject: SubjectStat) {
                 )
             }
         }
+    }
+}
+
+// ── Subject detail bottom sheet ────────────────────────────────────────────────
+
+@Composable
+private fun SubjectDetailSheet(
+    subject: SubjectStat,
+    onTopicClick: (TopicActivityItem) -> Unit = {}
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        // Fixed header
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
+                .padding(top = 4.dp, bottom = 16.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(44.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color(0xFFF4F6FE)),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(subject.emoji, fontSize = 24.sp)
+            }
+            Spacer(Modifier.width(12.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = subject.name,
+                    fontSize = 17.sp,
+                    fontWeight = SFProBold,
+                    color = DobiTextPrimary
+                )
+                Text(
+                    text = "${subject.topicsCount} topic${if (subject.topicsCount == 1) "" else "s"} explored",
+                    fontSize = 12.sp,
+                    color = DobiTextSecondary
+                )
+            }
+            if (subject.accuracyPct != null) {
+                val (fg, bg) = when {
+                    subject.accuracyPct >= 80 -> DobiSuccess to DobiSuccessContainer
+                    subject.accuracyPct >= 50 -> DobiWarning to DobiWarningContainer
+                    else -> Color(0xFFEF4444) to Color(0xFFFEE2E2)
+                }
+                Text(
+                    text = "${subject.accuracyPct}% avg",
+                    fontSize = 12.sp,
+                    fontWeight = SFProBold,
+                    color = fg,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(bg)
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                )
+            }
+        }
+
+        // Scrollable topic list
+        if (subject.topics.isEmpty()) {
+            Text(
+                text = "No topic details available yet.",
+                fontSize = 13.sp,
+                color = DobiTextSecondary,
+                modifier = Modifier
+                    .padding(horizontal = 20.dp)
+                    .padding(bottom = 32.dp)
+            )
+        } else {
+            LazyColumn(
+                contentPadding = PaddingValues(
+                    start = 20.dp,
+                    end = 20.dp,
+                    bottom = 32.dp
+                ),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(subject.topics) { topic ->
+                    TopicActivityRow(topic, onClick = { onTopicClick(topic) })
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun TopicActivityRow(topic: TopicActivityItem, onClick: () -> Unit = {}) {
+    val isNavigable = topic.uploadKinds.isNotEmpty() || topic.quizUnitId.isNotBlank() || topic.quizConceptId.isNotBlank()
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color(0xFFF8FAFF))
+            .then(if (isNavigable) Modifier.clickable(onClick = onClick) else Modifier)
+            .padding(horizontal = 14.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = topic.name,
+                fontSize = 13.sp,
+                fontWeight = SFProSemiBold,
+                color = DobiTextPrimary,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+            Spacer(Modifier.height(5.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                topic.uploadKinds
+                    .map { uploadKindPill(it) }
+                    .distinct()
+                    .forEach { (emoji, label) -> ActivityPill(emoji = emoji, label = label) }
+                if (topic.hasQuiz) ActivityPill(emoji = "🧠", label = "Quiz")
+                if (topic.hasSubjective) ActivityPill(emoji = "✍️", label = "Written")
+            }
+            val timeStr = formatActivityTime(topic.lastActivityMs)
+            if (timeStr.isNotBlank()) {
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = timeStr,
+                    fontSize = 10.sp,
+                    color = DobiTextSecondary
+                )
+            }
+        }
+        if (topic.accuracyPct != null) {
+            Spacer(Modifier.width(10.dp))
+            val (fg, bg) = when {
+                topic.accuracyPct >= 80 -> DobiSuccess to DobiSuccessContainer
+                topic.accuracyPct >= 50 -> DobiWarning to DobiWarningContainer
+                else -> Color(0xFFEF4444) to Color(0xFFFEE2E2)
+            }
+            Text(
+                text = "${topic.accuracyPct}%",
+                fontSize = 12.sp,
+                fontWeight = SFProBold,
+                color = fg,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(bg)
+                    .padding(horizontal = 8.dp, vertical = 4.dp)
+            )
+        }
+        if (isNavigable) {
+            Spacer(Modifier.width(8.dp))
+            Text("›", fontSize = 18.sp, color = DobiTextSecondary)
+        }
+    }
+}
+
+@Composable
+private fun ActivityPill(emoji: String, label: String) {
+    Row(
+        modifier = Modifier
+            .clip(RoundedCornerShape(20.dp))
+            .background(Color.White)
+            .border(1.dp, Color(0xFFE5EBF5), RoundedCornerShape(20.dp))
+            .padding(horizontal = 8.dp, vertical = 3.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(3.dp)
+    ) {
+        Text(emoji, fontSize = 11.sp)
+        Text(label, fontSize = 11.sp, color = DobiTextSecondary, fontWeight = SFProMedium)
+    }
+}
+
+private fun uploadKindPill(kind: String): Pair<String, String> = when {
+    kind == "class_work"             -> "📝" to "Class Work"
+    kind == "self_learning"          -> "📖" to "Self Study"
+    kind == "homework"               -> "📓" to "Homework"
+    kind == "ai_test_prep"           -> "🤖" to "AI Practice"
+    kind.startsWith("tuition_hw")    -> "🎒" to "Tuition HW"
+    kind.startsWith("tuition_")      -> "🎒" to "Tuition Work"
+    else                             -> "📤" to "Work"
+}
+
+private fun formatActivityTime(ms: Long): String {
+    if (ms <= 0L) return ""
+    val diff = System.currentTimeMillis() - ms
+    if (diff < 0L) return "just now"
+    val mins = diff / 60_000L
+    val hours = mins / 60L
+    return when {
+        diff < 60_000L -> "just now"
+        mins < 60L -> if (mins == 1L) "1 min ago" else "$mins mins ago"
+        hours < 24L -> if (hours == 1L) "1 hour ago" else "$hours hours ago"
+        else -> SimpleDateFormat("d MMM", Locale.getDefault()).format(Date(ms))
     }
 }
 

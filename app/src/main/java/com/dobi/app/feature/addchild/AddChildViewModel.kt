@@ -1,5 +1,6 @@
 package com.dobi.app.feature.addchild
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dobi.app.domain.model.Child
@@ -107,7 +108,7 @@ class AddChildViewModel @Inject constructor(
     fun updatePin(v: String) { _draft.value = _draft.value.copy(pin = v.filter { it.isDigit() }.take(4)) }
 
     fun saveChild() {
-        val parentId = auth.currentUser?.uid ?: return
+        val parentId = auth.currentUser?.uid ?: run { Log.e("AddChildVM", "saveChild: auth.currentUser is null!"); return }
         val editingId = _editingChildId.value
         viewModelScope.launch {
             _isSaving.value = true
@@ -138,6 +139,7 @@ class AddChildViewModel @Inject constructor(
             }
 
             result.onSuccess { saved ->
+                Log.d("AddChildVM", "saveChild: success — id=${saved.id} name=${saved.name} parentId=${saved.parentId}")
                 _addedChildren.value = if (editingId != null) {
                     _addedChildren.value.map { if (it.id == editingId) saved else it }
                 } else {
@@ -147,6 +149,7 @@ class AddChildViewModel @Inject constructor(
                 _editingChildId.value = null
                 _step.value = AddChildStep.DONE
             }.onFailure {
+                Log.e("AddChildVM", "saveChild: FAILED — ${it.message}", it)
                 _error.value = it.message ?: "Failed to save. Please try again."
             }
             _isSaving.value = false
@@ -160,6 +163,7 @@ class AddChildViewModel @Inject constructor(
     }
 
     fun finish() {
+        Log.d("AddChildVM", "finish: navigating to ParentHome, addedChildren=${_addedChildren.value.map { it.name }}")
         viewModelScope.launch { _navToParentHome.emit(Unit) }
     }
 }

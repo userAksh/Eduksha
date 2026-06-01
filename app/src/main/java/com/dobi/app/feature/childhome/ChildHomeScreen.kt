@@ -127,6 +127,7 @@ fun ChildHomeScreen(
     onOpenQuizResult: (unitId: String, conceptId: String) -> Unit = { _, _ -> },
     onOpenSubjectiveResult: (resultId: String) -> Unit = {},
     onOpenUploadGroup: (groupKey: String) -> Unit = {},
+    onOpenQuizResultFromProfile: (unitId: String, conceptId: String) -> Unit = { _, _ -> },
     onRequestParentAccess: () -> Unit = {},
     viewModel: ChildHomeViewModel = hiltViewModel()
 ) {
@@ -245,7 +246,9 @@ fun ChildHomeScreen(
                 contentPadding = innerPadding,
                 onInviteFriend = viewModel::onInviteFriendClicked,
                 onSwitchProfile = onRequestParentAccess,
-                onAccountDeleted = onRequestParentAccess
+                onAccountDeleted = onRequestParentAccess,
+                onOpenUploadGroup = onOpenUploadGroup,
+                onOpenQuizResult = onOpenQuizResultFromProfile
             )
         }
     }

@@ -184,7 +184,7 @@ fun QuizScreen(
                 onRetry = viewModel::retry,
                 onDone = onNavigateBack,
                 onAssignQuiz = viewModel::assignQuiz,
-                onSnapSend = if (uiState.showSnapAndSend) {
+                onSnapSend = if (uiState.showSnapAndSend && !uiState.hideActions) {
                     {
                         viewModel.markSnapSent()
                         onSnapSend(uiState.unitName)

@@ -31,6 +31,7 @@ const { getAuth } = require("firebase-admin/auth");
 const { getStorage } = require("firebase-admin/storage");
 const logger = require("firebase-functions/logger");
 const { google } = require("googleapis");
+const { GoogleGenAI } = require("@google/genai");
 
 // Daily-news Gemini key. Set with:
 //   firebase functions:secrets:set GEMINI_API_KEY
@@ -594,6 +595,95 @@ async function fetchDailyNewsFromGemini() {
 // Order matters: Firestore + Storage first (we need the auth token to be
 // valid for cross-collection queries), Auth user last.
 
+// ── Generate MCQ quiz questions via Gemini ─────────────────────────────────────
+
+exports.generateMcq = onCall(
+  { secrets: [GEMINI_API_KEY], timeoutSeconds: 60 },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "Sign in required");
+    }
+    const { conceptId, conceptName, conceptDescription, subject, grade, unitName, targetCount = 10 } = request.data || {};
+    if (!subject || !unitName) {
+      throw new HttpsError("invalid-argument", "subject and unitName required");
+    }
+
+    const { GoogleGenAI } = require("@google/genai");
+    const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY.value() });
+
+    const systemInstruction = `You are an Indian school-textbook tutor. The user message names a
+specific lesson or concept from the NCERT / CBSE syllabus. Your job
+is to write multiple-choice questions that match the difficulty and
+tone of the CBSE textbook for that grade and subject.
+
+Rules:
+- Write exactly the number of questions the user asks for.
+- 4 options per question, exactly one correct.
+- Wrong options must be plausible misconceptions a real student that
+  age would have — not random unrelated text.
+- Cover the topic broadly (recall, understanding, application).
+- Each question carries a one-line kid-friendly explanation.
+- Do NOT invent facts that wouldn't appear in a Class 6 / 7 NCERT
+  textbook for this subject.
+- Output ONLY valid JSON with a "questions" array where each item has:
+  "id", "text", "options" (array of 4 strings), "correctIndex" (0-based integer), "explanation".`;
+
+    const scope = conceptName
+      ? `Lesson: ${unitName}\nConcept (focus narrowly on this): ${conceptName}${conceptDescription ? `\nConcept description: ${conceptDescription}` : ""}`
+      : `Lesson: ${unitName}`;
+
+    const userPrompt = `You are an Indian school-textbook tutor. Write ${targetCount} NCERT-style
+multiple-choice questions for a Class ${grade || 6} ${subject} student about the
+topic below. The questions should match the difficulty and tone of the
+CBSE textbook for this grade.
+
+${scope}
+
+Rules:
+- Exactly ${targetCount} questions, each with 4 options.
+- One option clearly correct; wrong options must be plausible
+  misconceptions a real student that age would have — not random text.
+- Cover the topic broadly: include some recall, some understanding,
+  some application questions.
+- Each question carries a one-line kid-friendly explanation.
+- Output JSON only: { "questions": [ { "id": "q1", "text": "...", "options": ["A","B","C","D"], "correctIndex": 0, "explanation": "..." } ] }`;
+
+    let raw;
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash-lite",
+        contents: userPrompt,
+        config: {
+          temperature: 0.3,
+          systemInstruction,
+        },
+      });
+      raw = (response.text || "").trim();
+    } catch (err) {
+      logger.error("generateMcq: Gemini error", err);
+      throw new HttpsError("unavailable", "Question generation failed. Please try again.");
+    }
+
+    const jsonMatch = raw.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new HttpsError("internal", "Invalid response from AI");
+    let parsed;
+    try {
+      parsed = JSON.parse(jsonMatch[0]);
+    } catch (err) {
+      throw new HttpsError("internal", "Could not parse AI response");
+    }
+    const questions = (parsed.questions || []).filter(
+      (q) => q.text && Array.isArray(q.options) && q.options.length === 4
+    );
+    if (questions.length === 0) {
+      throw new HttpsError("internal", "No valid questions generated");
+    }
+    return { questions };
+  }
+);
+
+// ── Delete account ──────────────────────────────────────────────────────────────
+
 exports.deleteAccount = onCall({ timeoutSeconds: 540 }, async (request) => {
   if (!request.auth) {
     throw new HttpsError("unauthenticated", "Sign in required");
@@ -737,6 +827,682 @@ exports.mirrorWaitlistToSheet = onDocumentCreated(
       logger.info(`mirrorWaitlistToSheet: appended ${docId} (phone=${data.phone || "—"})`);
     } catch (err) {
       logger.error(`mirrorWaitlistToSheet: failed for ${docId}: ${err.message}`, err);
+    }
+  }
+);
+
+// ── generateSubjectiveQuestions ───────────────────────────────────────────────
+// Generates short subjective questions for a given topic scope (text-only).
+// Input:  { scopeText, subject, grade, targetCount? }
+// Output: { questions: [{ id, text, expected_keywords[], max_marks }] }
+exports.generateSubjectiveQuestions = onCall(
+  { secrets: [GEMINI_API_KEY], timeoutSeconds: 60 },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "Sign in required");
+    }
+    const { scopeText, subject, grade = 6, targetCount = 5 } = request.data || {};
+    if (!scopeText || !subject) {
+      throw new HttpsError("invalid-argument", "scopeText and subject required");
+    }
+
+    logger.info(`generateSubjectiveQuestions: subject=${subject} grade=${grade} count=${targetCount}`);
+
+    const { GoogleGenAI } = require("@google/genai");
+    const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY.value() });
+
+    const systemInstruction =
+      "You are an Indian school-textbook tutor. Generate short subjective " +
+      "questions for the named lesson(s)/concept(s) at the named grade level. " +
+      "Avoid pure recall; prefer questions that ask the student to explain, " +
+      "compare, give an example, or apply the idea. " +
+      "Output ONLY valid JSON: { \"questions\": [ { \"id\": \"q1\", \"text\": \"...\", " +
+      "\"expected_keywords\": [\"...\"], \"max_marks\": 2 } ] }. " +
+      "If the topic input doesn't make sense, return { \"error\": \"<reason>\" }.";
+
+    const userPrompt =
+      `${scopeText}\nSubject: ${subject}\nGrade: ${grade}\n\n` +
+      `Generate exactly ${targetCount} short subjective questions covering the topic(s) above. ` +
+      `Mix difficulty: roughly half short-answer (1–2 marks) and half slightly deeper (3 marks). ` +
+      `Avoid pure recall — prefer "explain", "why", "how", "give an example". ` +
+      `Output JSON only: { "questions": [ { "id": "q1", "text": "...", "expected_keywords": ["..."], "max_marks": 2 } ] }`;
+
+    let raw;
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: userPrompt,
+        config: { temperature: 0.15, systemInstruction },
+      });
+      raw = (response.text || "").trim();
+    } catch (err) {
+      logger.error("generateSubjectiveQuestions: Gemini error", err);
+      throw new HttpsError("unavailable", "Question generation failed. Please try again.");
+    }
+
+    const jsonMatch = raw.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new HttpsError("internal", "Invalid response from AI");
+    let parsed;
+    try {
+      parsed = JSON.parse(jsonMatch[0]);
+    } catch (_) {
+      throw new HttpsError("internal", "Could not parse AI response");
+    }
+    if (parsed.error) throw new HttpsError("internal", parsed.error);
+
+    const questions = (parsed.questions || [])
+      .filter((q) => q.text)
+      .map((q, i) => ({
+        id: q.id || `q${i + 1}`,
+        text: q.text,
+        expected_keywords: Array.isArray(q.expected_keywords) ? q.expected_keywords : [],
+        max_marks: typeof q.max_marks === "number" ? q.max_marks : 2,
+      }));
+
+    if (questions.length === 0) {
+      throw new HttpsError("internal", "No valid questions generated");
+    }
+    return { questions };
+  }
+);
+
+// ── gradeNotebookAnswers ───────────────────────────────────────────────────────
+// Grades a child's freeform notebook photos against a topic scope.
+// Uses Vertex AI + gemini-2.5-flash (same as validateImageScope).
+// Input:  { scopeText, subject, grade, images: [base64jpeg] }
+// Output: { is_on_topic_overall, off_topic_reason, grades: [...] }
+exports.gradeNotebookAnswers = onCall(
+  { region: "us-central1", timeoutSeconds: 120, memory: "512MiB", invoker: "public" },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "Must be signed in.");
+    }
+
+    const { scopeText = "", subject = "", grade = 6, images = [] } = request.data;
+    if (!images.length) {
+      throw new HttpsError("invalid-argument", "No images provided.");
+    }
+    if (!scopeText || !subject) {
+      throw new HttpsError("invalid-argument", "scopeText and subject required");
+    }
+
+    logger.info(`gradeNotebookAnswers: subject=${subject} grade=${grade} images=${images.length}`);
+
+    const ai = new GoogleGenAI({
+      vertexai: true,
+      project: "dobi-ac085",
+      location: "us-central1",
+    });
+
+    const systemPrompt =
+      "You are an Indian school-textbook tutor reviewing a child's handwritten answers. " +
+      "The lesson/concept(s) being revised are given in the user message.\n\n" +
+      "STEP 1 — Decide if the uploaded photos are about the named topic(s).\n" +
+      "  (a) on-topic — proceed\n" +
+      "  (b) different chapter — return is_on_topic_overall=false with off_topic_reason naming topic + what you saw\n" +
+      "  (c) mixed paper/mock test — return is_on_topic_overall=false (mention 'mixed paper')\n" +
+      "  (d) not a textbook/notebook page — return is_on_topic_overall=false (describe what you see)\n" +
+      "  (e) unreadable — return is_on_topic_overall=false ('the writing is too faint to read')\n" +
+      "Return grades=[] in any refusal case.\n\n" +
+      "STEP 2 — When on-topic, GRADE each answer:\n" +
+      "  - question_id: unique string per detected answer\n" +
+      "  - question_seen: short snippet of the question the student wrote (or inferred)\n" +
+      "  - answer_seen: short snippet of the student's answer\n" +
+      "  - is_attempted: true if student wrote anything\n" +
+      "  - is_on_topic: true if the answer is about the question\n" +
+      "  - score: 0.0–1.0 based on correctness + completeness\n" +
+      "  - is_correct: true iff score >= 0.6\n" +
+      "  - soft_verdict: 5–10 kid-friendly words ('Spot on!', 'Good try!')\n" +
+      "  - strict_feedback: 1 sentence honest assessment for parent dashboard\n\n" +
+      "Output ONLY valid JSON.";
+
+    const userPromptText =
+      `${scopeText}\nSubject: ${subject}  Grade: ${grade}\n\n` +
+      "MODE: freeform-notebook. The student practised in their own notebook and uploaded photo(s) of their answers. " +
+      "Find each answer the student wrote, infer what question they were answering (or what concept the answer covers), and grade it. " +
+      "Return one entry per detected answer in the 'grades' array.\n\n" +
+      "If the notebook page is NOT about the topic(s) above, set is_on_topic_overall=false, give a short off_topic_reason, and return grades=[].";
+
+    const parts = [
+      { text: userPromptText },
+      ...images.map((b64) => ({
+        inlineData: { mimeType: "image/jpeg", data: b64 },
+      })),
+    ];
+
+    let rawText;
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        systemInstruction: systemPrompt,
+        contents: [{ role: "user", parts }],
+        config: {
+          temperature: 0.15,
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: "object",
+            properties: {
+              is_on_topic_overall: { type: "boolean" },
+              off_topic_reason:    { type: "string" },
+              grades: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    question_id:      { type: "string" },
+                    question_seen:    { type: "string" },
+                    answer_seen:      { type: "string" },
+                    is_attempted:     { type: "boolean" },
+                    is_on_topic:      { type: "boolean" },
+                    score:            { type: "number" },
+                    is_correct:       { type: "boolean" },
+                    soft_verdict:     { type: "string" },
+                    strict_feedback:  { type: "string" },
+                  },
+                },
+              },
+            },
+            required: ["is_on_topic_overall", "grades"],
+          },
+        },
+      });
+      rawText = response.text;
+      logger.info(`gradeNotebookAnswers: rawText=${rawText}`);
+    } catch (err) {
+      logger.error(`gradeNotebookAnswers: model error: ${err.message}`, err);
+      throw new HttpsError("internal", `Model error: ${err.message}`);
+    }
+
+    try {
+      const verdict = JSON.parse(rawText);
+      if (verdict.is_on_topic_overall === false) {
+        return {
+          is_on_topic_overall: false,
+          off_topic_reason: verdict.off_topic_reason || "",
+          grades: [],
+        };
+      }
+      const grades = (verdict.grades || []).map((g) => ({
+        question_id:     g.question_id     || String(Math.random()),
+        question_seen:   g.question_seen   || "",
+        answer_seen:     g.answer_seen     || "",
+        is_attempted:    g.is_attempted    === true,
+        is_on_topic:     g.is_on_topic     !== false,
+        score:           Math.min(1, Math.max(0, Number(g.score) || 0)),
+        is_correct:      g.is_correct      === true,
+        soft_verdict:    g.soft_verdict    || "",
+        strict_feedback: g.strict_feedback || "",
+      }));
+      return { is_on_topic_overall: true, off_topic_reason: "", grades };
+    } catch (_) {
+      logger.warn(`gradeNotebookAnswers: could not parse: ${rawText}`);
+      throw new HttpsError("internal", "Could not parse AI grading response");
+    }
+  }
+);
+
+// ── generateMcqFromImage ───────────────────────────────────────────────────────
+// Generates MCQ questions from uploaded textbook/notes photos.
+// Mirrors Android's McqGenerationRepositoryImpl.generate() exactly.
+// Input:  { scopeText, subject, grade, images: [base64jpeg],
+//           targetCount?, bloomMix?: {recall, understand, apply, analyze} }
+// Output: { questions: [...] } OR { error: "kid-friendly refusal" }
+exports.generateMcqFromImage = onCall(
+  { region: "us-central1", timeoutSeconds: 120, memory: "512MiB", invoker: "public" },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "Must be signed in.");
+    }
+
+    const {
+      scopeText = "",
+      subject = "",
+      grade = 6,
+      images = [],
+      targetCount = 8,
+      bloomMix = { recall: 2, understand: 2, apply: 2, analyze: 2 },
+    } = request.data;
+
+    if (!images.length) {
+      throw new HttpsError("invalid-argument", "No images provided.");
+    }
+    if (!scopeText || !subject) {
+      throw new HttpsError("invalid-argument", "scopeText and subject required");
+    }
+
+    logger.info(`generateMcqFromImage: subject=${subject} grade=${grade} images=${images.length} count=${targetCount}`);
+
+    const ai = new GoogleGenAI({
+      vertexai: true,
+      project: "dobi-ac085",
+      location: "us-central1",
+    });
+
+    // Exact Android SYSTEM_PROMPT — 4-step classification
+    const systemPrompt =
+      "You are an Indian school-textbook tutor. A student has uploaded photos of\n" +
+      "their textbook pages. The student has ALREADY told you which lesson /\n" +
+      "concept(s) they want to revise (provided in the user message). Your job\n" +
+      "is to generate multiple-choice questions ONLY when the uploaded content\n" +
+      "actually belongs to those exact topics.\n\n" +
+      "────────────────────────────────────────────────────────────────────────\n" +
+      "STEP 1 — CLASSIFY EACH PHOTO INDIVIDUALLY (you must do this first)\n" +
+      "────────────────────────────────────────────────────────────────────────\n" +
+      "The user may upload one OR multiple photos. Number them 1, 2, 3 … in\n" +
+      "the order they were sent. For EACH photo independently, decide which\n" +
+      "bucket it falls into:\n" +
+      "  (a) A textbook chapter / notes from a SINGLE chapter that matches the\n" +
+      "      named lesson/concept.\n" +
+      "  (b) A textbook chapter / notes from a SINGLE chapter that is NOT the\n" +
+      "      named lesson/concept (a different chapter from the same subject).\n" +
+      "  (c) A mixed multi-chapter document — e.g. a sample paper, mock test,\n" +
+      "      exam paper, question bank, or revision worksheet that pulls\n" +
+      "      questions from many different chapters at once.\n" +
+      "  (d) Not from a school textbook at all (random photo, screenshot,\n" +
+      "      selfie, handwritten notes from another subject).\n" +
+      "  (e) Unreadable / blurry / torn.\n\n" +
+      "────────────────────────────────────────────────────────────────────────\n" +
+      "STEP 2 — DECIDE FOR THE WHOLE BATCH\n" +
+      "────────────────────────────────────────────────────────────────────────\n" +
+      "✅ ONLY when EVERY photo is (a) → proceed to generation.\n" +
+      "❌ If ANY photo is (b), (c), (d), or (e) → REFUSE THE ENTIRE BATCH.\n" +
+      "  Do NOT silently use only the matching photos and ignore the rest.\n\n" +
+      "Critically: case (c) — mixed sample papers / mock tests / question banks\n" +
+      "— MUST be refused even if a couple of the questions on the page happen\n" +
+      "to mention something related to the named lesson. When in doubt between\n" +
+      "(a) and (c), choose (c) and refuse.\n\n" +
+      "────────────────────────────────────────────────────────────────────────\n" +
+      "STEP 3 — REFUSAL FORMAT\n" +
+      "────────────────────────────────────────────────────────────────────────\n" +
+      "When refusing, return ONLY:\n" +
+      '  {"error": "<one short kid-friendly sentence>"}\n' +
+      "with no questions.\n\n" +
+      "For SINGLE-photo uploads, the sentence MUST mention the lesson the\n" +
+      "student picked AND describe what you actually saw.\n" +
+      "For MULTI-photo uploads where SOME match and SOME don't, name the\n" +
+      "offending photo by 1-based index and say what it actually is.\n\n" +
+      "────────────────────────────────────────────────────────────────────────\n" +
+      "STEP 4 — GENERATION (only when STEP 2 said proceed)\n" +
+      "────────────────────────────────────────────────────────────────────────\n" +
+      "- Generate exactly the count the user asked for.\n" +
+      "- 4 options per question.\n" +
+      "- Wrong options must reflect plausible misconceptions.\n" +
+      "- Do NOT invent facts that aren't visible on the uploaded page.\n" +
+      "- Each question carries a one-line explanation AND a verbatim\n" +
+      "  source_quote copied EXACTLY from the page.\n\n" +
+      "────────────────────────────────────────────────────────────────────────\n" +
+      "OUTPUT\n" +
+      "────────────────────────────────────────────────────────────────────────\n" +
+      'Output only valid JSON. Either "questions" with all required fields,\n' +
+      'OR "error" — never both, never neither.';
+
+    // Exact Android buildUserPrompt() format
+    const userPromptText =
+      `${scopeText}\nSubject: ${subject}\nGrade: ${grade}\n\n` +
+      "Apply the 4-step procedure from the system prompt now:\n" +
+      "1. Classify EACH photo independently as (a/b/c/d/e). Number them in\n" +
+      "   upload order: photo 1, photo 2, …\n" +
+      "2. Decide for the whole batch. Generate ONLY if EVERY photo is (a).\n" +
+      "   If even one photo is (b)/(c)/(d)/(e), refuse the entire batch and\n" +
+      "   name the offending photo(s) by index — do not silently proceed using\n" +
+      "   only the matching photos.\n" +
+      "3. If refusing, mention the topic(s) above by name, list which photo(s)\n" +
+      "   are off-topic by 1-based index, and describe what each off-topic\n" +
+      "   photo actually is.\n" +
+      `4. Only when every photo is (a), generate exactly ${targetCount}\n` +
+      `   questions with Bloom mix recall=${bloomMix.recall || 2},\n` +
+      `   understand=${bloomMix.understand || 2}, apply=${bloomMix.apply || 2},\n` +
+      `   analyze=${bloomMix.analyze || 2}.\n\n` +
+      "Reminder: a page that mixes Q&A from many chapters is case (c) and must\n" +
+      "be refused, even if one or two of its items happen to relate to the\n" +
+      "topic(s) above. Default to refusing when uncertain.";
+
+    const parts = [
+      { text: userPromptText },
+      ...images.map((b64) => ({
+        inlineData: { mimeType: "image/jpeg", data: b64 },
+      })),
+    ];
+
+    let rawText;
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        systemInstruction: systemPrompt,
+        contents: [{ role: "user", parts }],
+        config: {
+          temperature: 0.15,
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: "object",
+            properties: {
+              questions: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    text:         { type: "string" },
+                    options:      { type: "array", items: { type: "string" } },
+                    correct_index: { type: "integer" },
+                    explanation:  { type: "string" },
+                    bloom_level:  { type: "string" },
+                    source_quote: { type: "string" },
+                  },
+                },
+              },
+              error: { type: "string" },
+            },
+          },
+        },
+      });
+      rawText = response.text;
+      logger.info(`generateMcqFromImage: rawText=${rawText?.slice(0, 200)}`);
+    } catch (err) {
+      logger.error(`generateMcqFromImage: model error: ${err.message}`, err);
+      throw new HttpsError("internal", `Model error: ${err.message}`);
+    }
+
+    try {
+      const parsed = JSON.parse(rawText);
+      if (parsed.error) {
+        // Model refused (off-topic/random photo) — surface as HttpsError so iOS
+        // can display the kid-friendly message as uploadError inline.
+        throw new HttpsError("failed-precondition", parsed.error);
+      }
+      const questions = (parsed.questions || [])
+        .filter((q) => q.text && Array.isArray(q.options) && q.options.length === 4)
+        .map((q) => ({
+          text:         q.text,
+          options:      q.options,
+          correct_index: typeof q.correct_index === "number" ? q.correct_index : 0,
+          explanation:  q.source_quote
+            ? `${q.explanation || ""}\n\nFrom your page: "${q.source_quote}"`
+            : (q.explanation || ""),
+          bloom_level:  q.bloom_level || "",
+          source_quote: q.source_quote || "",
+        }));
+      if (questions.length === 0) {
+        throw new HttpsError("internal", "No valid questions generated. Please try again.");
+      }
+      return { questions };
+    } catch (err) {
+      if (err.code) throw err; // re-throw HttpsError
+      logger.warn(`generateMcqFromImage: could not parse: ${rawText}`);
+      throw new HttpsError("internal", "Could not parse AI response");
+    }
+  }
+);
+
+// ── gradeStructuredAnswers ────────────────────────────────────────────────────
+// Grades per-question handwritten answers with their photos.
+// Mirrors Android's WriteAnswerRepositoryImpl.gradeStructured().
+// Input:  { scopeText, subject, grade,
+//           questions: [{id, text, max_marks}],
+//           photosByQuestionId: { [qId]: [base64jpeg] } }
+// Output: { is_on_topic_overall, off_topic_reason, grades: [...] }
+exports.gradeStructuredAnswers = onCall(
+  { region: "us-central1", timeoutSeconds: 120, memory: "512MiB", invoker: "public" },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "Must be signed in.");
+    }
+
+    const {
+      scopeText = "",
+      subject = "",
+      grade = 6,
+      questions = [],
+      photosByQuestionId = {},
+    } = request.data;
+
+    if (!scopeText || !subject) {
+      throw new HttpsError("invalid-argument", "scopeText and subject required");
+    }
+    if (!questions.length) {
+      throw new HttpsError("invalid-argument", "No questions provided");
+    }
+
+    logger.info(`gradeStructuredAnswers: subject=${subject} grade=${grade} questions=${questions.length}`);
+
+    const ai = new GoogleGenAI({
+      vertexai: true,
+      project: "dobi-ac085",
+      location: "us-central1",
+    });
+
+    const systemPrompt =
+      "You are an Indian school-textbook tutor reviewing a child's handwritten " +
+      "answers to subjective questions. The lesson/concept(s) being revised " +
+      "are given in the user message.\n\n" +
+      "STEP 1 — Decide if the uploaded photos are about the named topic(s).\n" +
+      "  (a) on-topic single chapter — proceed\n" +
+      "  (b) different chapter — return is_on_topic_overall=false with off_topic_reason\n" +
+      "  (c) mixed paper/mock test — return is_on_topic_overall=false (mention 'mixed paper')\n" +
+      "  (d) not a textbook/notebook page — return is_on_topic_overall=false (describe what you see)\n" +
+      "  (e) unreadable — return is_on_topic_overall=false ('the writing is too faint to read')\n" +
+      "Return grades=[] in any refusal case.\n\n" +
+      "STEP 2 — When on-topic, GRADE each answer:\n" +
+      "  - question_id: use the id field from the question header\n" +
+      "  - question_seen: short verbatim snippet of the question\n" +
+      "  - answer_seen: short verbatim snippet of student's answer\n" +
+      "  - is_attempted: true if student wrote anything at all\n" +
+      "  - is_on_topic: true if the answer addresses the question\n" +
+      "  - score: 0.0–1.0 based on correctness + completeness\n" +
+      "  - is_correct: true iff score >= 0.6\n" +
+      "  - soft_verdict: 5–10 kid-friendly words ('Spot on!', 'Almost there!')\n" +
+      "  - strict_feedback: 1 sentence honest assessment for parent dashboard\n" +
+      "Be strict on correctness, soft on tone. Output only valid JSON.";
+
+    // Build interleaved parts matching Android's gradeStructured() prompt exactly.
+    const parts = [];
+    let sb =
+      `${scopeText}\nSubject: ${subject}  Grade: ${grade}\n\n` +
+      `MODE: structured. Below are ${questions.length} questions.\n` +
+      "For each question I'll show the question, then the student's " +
+      "answer photo(s). Grade each one. If a question has no photo, mark " +
+      "it is_attempted=false.\n";
+
+    for (let i = 0; i < questions.length; i++) {
+      const q = questions[i];
+      sb += `\nQ${i + 1} (id=${q.id}, max_marks=${q.max_marks || 2}):\n${q.text}\n`;
+      const photos = photosByQuestionId[q.id] || [];
+      if (photos.length === 0) {
+        sb += "[No photo uploaded — mark is_attempted=false.]\n";
+      } else {
+        sb += `[Student answer photo(s) for Q${i + 1} follow.]\n`;
+        for (const b64 of photos) {
+          parts.push({ text: sb });
+          sb = "";
+          parts.push({ inlineData: { mimeType: "image/jpeg", data: b64 } });
+        }
+      }
+    }
+    if (sb.length > 0) parts.push({ text: sb });
+
+    let rawText;
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        systemInstruction: systemPrompt,
+        contents: [{ role: "user", parts }],
+        config: {
+          temperature: 0.15,
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: "object",
+            properties: {
+              is_on_topic_overall: { type: "boolean" },
+              off_topic_reason:    { type: "string" },
+              grades: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    question_id:      { type: "string" },
+                    question_seen:    { type: "string" },
+                    answer_seen:      { type: "string" },
+                    is_attempted:     { type: "boolean" },
+                    is_on_topic:      { type: "boolean" },
+                    score:            { type: "number" },
+                    is_correct:       { type: "boolean" },
+                    soft_verdict:     { type: "string" },
+                    strict_feedback:  { type: "string" },
+                  },
+                },
+              },
+            },
+            required: ["is_on_topic_overall", "grades"],
+          },
+        },
+      });
+      rawText = response.text;
+      logger.info(`gradeStructuredAnswers: rawText=${rawText}`);
+    } catch (err) {
+      logger.error(`gradeStructuredAnswers: model error: ${err.message}`, err);
+      throw new HttpsError("internal", `Model error: ${err.message}`);
+    }
+
+    try {
+      const verdict = JSON.parse(rawText);
+      if (verdict.is_on_topic_overall === false) {
+        return {
+          is_on_topic_overall: false,
+          off_topic_reason: verdict.off_topic_reason || "",
+          grades: [],
+        };
+      }
+      const grades = (verdict.grades || []).map((g) => ({
+        question_id:     g.question_id     || "",
+        question_seen:   g.question_seen   || "",
+        answer_seen:     g.answer_seen     || "",
+        is_attempted:    g.is_attempted    === true,
+        is_on_topic:     g.is_on_topic     !== false,
+        score:           Math.min(1, Math.max(0, Number(g.score) || 0)),
+        is_correct:      g.is_correct      === true,
+        soft_verdict:    g.soft_verdict    || "",
+        strict_feedback: g.strict_feedback || "",
+      }));
+      // Fill in any questions that had no photo as not-attempted (matches Android).
+      const gradeMap = Object.fromEntries(grades.map((g) => [g.question_id, g]));
+      const finalGrades = questions.map((q) =>
+        gradeMap[q.id] || {
+          question_id:     q.id,
+          question_seen:   q.text || "",
+          answer_seen:     "",
+          is_attempted:    false,
+          is_on_topic:     true,
+          score:           0,
+          is_correct:      false,
+          soft_verdict:    "Not yet answered",
+          strict_feedback: "No answer photo uploaded.",
+        }
+      );
+      return { is_on_topic_overall: true, off_topic_reason: "", grades: finalGrades };
+    } catch (_) {
+      logger.warn(`gradeStructuredAnswers: could not parse: ${rawText}`);
+      throw new HttpsError("internal", "Could not parse AI grading response");
+    }
+  }
+);
+
+// ── validateImageScope ─────────────────────────────────────────────────────────
+// Callable that mirrors Android's ImageScopeValidator.
+// Runs on Google Cloud with Application Default Credentials → Vertex AI access.
+// iOS calls this via FirebaseFunctions SDK (no API key needed on client).
+exports.validateImageScope = onCall(
+  { region: "us-central1", timeoutSeconds: 120, memory: "512MiB", invoker: "public" },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "Must be signed in.");
+    }
+
+    const {
+      subject = "",
+      grade = 6,
+      topic = "",
+      lessonContext = "",
+      artefactLabel = "class work",
+      images = [],
+    } = request.data;
+
+    if (!images.length) {
+      throw new HttpsError("invalid-argument", "No images provided.");
+    }
+
+    logger.info(`validateImageScope: subject=${subject} grade=${grade} topic=${topic} images=${images.length}`);
+
+    const ai = new GoogleGenAI({
+      vertexai: true,
+      project: "dobi-ac085",
+      location: "us-central1",
+    });
+
+    const systemPrompt =
+      "You are an Indian school-textbook tutor verifying whether a child's " +
+      "uploaded photos belong to a stated topic. You only output JSON. " +
+      "Be strict — if even one photo is off-topic, not school work, or " +
+      "unreadable, refuse the whole batch with a kid-friendly reason that " +
+      "names the topic and says what you saw.";
+
+    const ctx =
+      lessonContext && lessonContext !== topic
+        ? `Lesson: ${lessonContext}\nTopic: ${topic}`
+        : `Topic: ${topic}`;
+    const cap = artefactLabel.charAt(0).toUpperCase() + artefactLabel.slice(1);
+
+    const userPrompt =
+      `A student in India says they uploaded photos of their ${artefactLabel} ` +
+      `for Class ${grade} ${subject}.\n${ctx}\n\n` +
+      `Decide whether EVERY photo actually shows ${artefactLabel} for ` +
+      `this topic. ${cap} can be handwritten notes, worksheets, or ` +
+      `textbook pages — anything educational. It is NOT random objects, ` +
+      `screenshots, selfies, or pages from a totally different chapter.\n\n` +
+      `Reply with ONLY this JSON:\n` +
+      `  { "ok": true } — when every photo fits\n` +
+      `  { "ok": false, "reason": "<one short kid-friendly sentence>" }\n\n` +
+      `The reason MUST mention the topic by name and describe what you saw ` +
+      `in the off-topic photo (e.g. "This looks like a purse, not ${subject} ` +
+      `class work for '${topic}'."). Be strict. If you're unsure, refuse.`;
+
+    const parts = [
+      { text: userPrompt },
+      ...images.map((b64) => ({
+        inlineData: { mimeType: "image/jpeg", data: b64 },
+      })),
+    ];
+
+    let rawText;
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash-lite",
+        systemInstruction: systemPrompt,
+        contents: [{ role: "user", parts }],
+        config: {
+          temperature: 0,
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: "object",
+            properties: {
+              ok:     { type: "boolean" },
+              reason: { type: "string" },
+            },
+            required: ["ok"],
+          },
+        },
+      });
+      rawText = response.text;
+      logger.info(`validateImageScope: rawText=${rawText}`);
+    } catch (err) {
+      logger.error(`validateImageScope: model error: ${err.message}`, err);
+      throw new HttpsError("internal", `Model error: ${err.message}`);
+    }
+
+    try {
+      const verdict = JSON.parse(rawText);
+      return { ok: verdict.ok === true, reason: verdict.reason || "" };
+    } catch (_) {
+      logger.warn(`validateImageScope: could not parse: ${rawText}`);
+      return { ok: false, reason: "" };
     }
   }
 );

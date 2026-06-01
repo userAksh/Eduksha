@@ -3,6 +3,7 @@ package com.dobi.app.feature.childprofile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dobi.app.data.local.UserPreferences
+import com.dobi.app.data.repository.AttemptScope
 import com.dobi.app.data.repository.QuizAttemptRepository
 import com.dobi.app.data.repository.SubjectiveResultRepository
 import com.dobi.app.data.repository.UploadEntryRepository
@@ -155,9 +156,12 @@ private fun computeStats(
     quizzes: List<QuizAttemptRepository.RecentQuizAttempt>
 ): ProfileStatsSnapshot {
     // Distinct topics — every upload group, plus every subjective + quiz target.
-    val syllabusUploads = uploads.filter { it.unitId.isNotBlank() || it.conceptId.isNotBlank() }
+    // countableUploads includes both curriculum-bound uploads and homework entries.
+    val countableUploads = uploads.filter {
+        it.unitId.isNotBlank() || it.conceptId.isNotBlank() || it.kind == "homework"
+    }
     val topicKeys = mutableSetOf<String>()
-    syllabusUploads.forEach { topicKeys += it.groupKey }
+    countableUploads.forEach { topicKeys += it.groupKey }
     subjectives.forEach { topicKeys += "subj-${it.targetId.ifBlank { it.id }}" }
     quizzes.filter { it.lastTotal > 0 }.forEach { topicKeys += "quiz-${it.scope.name}-${it.targetId}" }
 
@@ -187,7 +191,7 @@ private fun computeStats(
         acc.correct += correct
         acc.total += total
     }
-    syllabusUploads.forEach { bump(it.subject, it.groupKey) }
+    countableUploads.forEach { bump(it.subject, it.groupKey) }
     subjectives.forEach {
         bump(it.subject, "subj-${it.id}", it.correctCount, it.attemptedCount)
     }
@@ -202,7 +206,8 @@ private fun computeStats(
                 topicsCount = acc.topics.size,
                 accuracyPct = if (acc.total > 0)
                     ((acc.correct.toFloat() / acc.total) * 100f).toInt()
-                else null
+                else null,
+                topics = buildTopicsForSubject(name, uploads, subjectives, quizzes)
             )
         }
         .sortedByDescending { it.topicsCount }
@@ -221,6 +226,19 @@ private class SubjectAcc(
     val topics: MutableSet<String> = mutableSetOf(),
     var correct: Int = 0,
     var total: Int = 0
+)
+
+private class TopicAcc(
+    var name: String = "",
+    var groupKey: String = "",
+    var quizUnitId: String = "",
+    var quizConceptId: String = "",
+    val uploadKinds: MutableSet<String> = mutableSetOf(),
+    var hasQuiz: Boolean = false,
+    var hasSubjective: Boolean = false,
+    var correct: Int = 0,
+    var total: Int = 0,
+    var lastMs: Long = 0L
 )
 
 private fun dayIndex(ts: Long): Long {
@@ -247,6 +265,63 @@ private fun streakFromDays(days: Set<Long>): Int {
         d -= 1
     }
     return streak
+}
+
+private fun buildTopicsForSubject(
+    subject: String,
+    uploads: List<UploadEntry>,
+    subjectives: List<SubjectiveResult>,
+    quizzes: List<QuizAttemptRepository.RecentQuizAttempt>
+): List<TopicActivityItem> {
+    val map = mutableMapOf<String, TopicAcc>()
+    fun acc(displayName: String): TopicAcc? {
+        val key = displayName.trim().lowercase().ifBlank { return null }
+        return map.getOrPut(key) { TopicAcc(name = displayName.trim()) }
+    }
+    for (u in uploads.filter { it.subject.trim().equals(subject, ignoreCase = true) }) {
+        acc(u.displayTitle)?.let { t ->
+            t.uploadKinds += u.kind
+            if (t.groupKey.isBlank()) t.groupKey = u.groupKey
+            if (u.timestamp > t.lastMs) t.lastMs = u.timestamp
+        }
+    }
+    for (q in quizzes.filter { it.subject.trim().equals(subject, ignoreCase = true) && it.lastTotal > 0 }) {
+        acc(q.displayName)?.let { t ->
+            t.hasQuiz = true
+            if (q.scope == AttemptScope.CONCEPT) {
+                if (t.quizConceptId.isBlank()) t.quizConceptId = q.targetId
+            } else {
+                if (t.quizUnitId.isBlank()) t.quizUnitId = q.targetId
+            }
+            t.correct += q.lastCorrect
+            t.total += q.lastTotal
+            if (q.lastUpdated > t.lastMs) t.lastMs = q.lastUpdated
+        }
+    }
+    for (s in subjectives.filter { it.subject.trim().equals(subject, ignoreCase = true) }) {
+        acc(s.displayName)?.let { t ->
+            t.hasSubjective = true
+            t.correct += s.correctCount
+            t.total += s.attemptedCount
+            if (s.timestamp > t.lastMs) t.lastMs = s.timestamp
+        }
+    }
+    return map.values
+        .filter { it.name.isNotBlank() }
+        .map { t ->
+            TopicActivityItem(
+                name = t.name,
+                groupKey = t.groupKey,
+                quizUnitId = t.quizUnitId,
+                quizConceptId = t.quizConceptId,
+                uploadKinds = t.uploadKinds.toSet(),
+                hasQuiz = t.hasQuiz,
+                hasSubjective = t.hasSubjective,
+                accuracyPct = if (t.total > 0) ((t.correct.toFloat() / t.total) * 100f).toInt() else null,
+                lastActivityMs = t.lastMs
+            )
+        }
+        .sortedByDescending { it.lastActivityMs }
 }
 
 private fun subjectEmoji(subject: String): String = when (subject.lowercase().trim()) {

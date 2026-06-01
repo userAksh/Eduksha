@@ -24,6 +24,7 @@ class UserPreferences @Inject constructor(
         private val KEY_TUTOR_HONORIFIC = stringPreferencesKey("tutor_honorific")
         private val KEY_TUTOR_NAME = stringPreferencesKey("tutor_name")
         private val KEY_INVITE_CLAIMED = booleanPreferencesKey("invite_claim_done")
+        private val KEY_IS_CHILD_DEVICE = booleanPreferencesKey("is_child_device")
         const val DEFAULT_GRADE = 6
     }
 
@@ -38,6 +39,7 @@ class UserPreferences @Inject constructor(
     val tutorHonorific: Flow<String> = dataStore.data.map { it[KEY_TUTOR_HONORIFIC].orEmpty() }
     val tutorName: Flow<String> = dataStore.data.map { it[KEY_TUTOR_NAME].orEmpty() }
     val inviteClaimDone: Flow<Boolean> = dataStore.data.map { it[KEY_INVITE_CLAIMED] ?: false }
+    val isChildDevice: Flow<Boolean> = dataStore.data.map { it[KEY_IS_CHILD_DEVICE] ?: false }
 
     suspend fun saveRole(role: UserRole) {
         dataStore.edit { it[KEY_USER_ROLE] = role.name }
@@ -63,6 +65,10 @@ class UserPreferences @Inject constructor(
 
     suspend fun markInviteClaimDone() {
         dataStore.edit { it[KEY_INVITE_CLAIMED] = true }
+    }
+
+    suspend fun markAsChildDevice() {
+        dataStore.edit { it[KEY_IS_CHILD_DEVICE] = true }
     }
 
     /**

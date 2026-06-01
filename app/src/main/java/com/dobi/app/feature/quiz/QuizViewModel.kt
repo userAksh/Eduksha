@@ -60,13 +60,14 @@ class QuizViewModel @Inject constructor(
      *  back to UserPreferences.linkedChildId (which is blank on the parent). */
     private val parentViewChildId: String = route.childId
     private val isParentView: Boolean = viewResult && parentViewChildId.isNotBlank()
+    private val fromProfile: Boolean = route.fromProfile
 
     // Populated during load() when concept data is available.
     private var cachedSubjectColor: String = ""
     private var cachedSubjectIcon: String = ""
     private var cachedConceptName: String = ""
 
-    private val _uiState = MutableStateFlow(QuizUiState(isParentView = isParentView))
+    private val _uiState = MutableStateFlow(QuizUiState(isParentView = isParentView, hideActions = fromProfile))
     val uiState = _uiState.asStateFlow()
 
     init {
@@ -426,9 +427,11 @@ class QuizViewModel @Inject constructor(
 
     private fun subjectStyleFor(subject: String): Pair<String, String> = when (subject) {
         "Science" -> "#22C55E" to "🔬"
-        "Mathematics" -> "#3B82F6" to "🔢"
-        "English" -> "#EC4899" to "📖"
-        "Social Science" -> "#F59E0B" to "🌍"
+        "Mathematics" -> "#3B82F6" to "📐"
+        "English" -> "#EC4899" to "📚"
+        "Social Science" -> "#8B5CF6" to "🌏"
+        "Computer Science" -> "#0EA5E9" to "💻"
+        "General Knowledge" -> "#F59E0B" to "🌟"
         "Hindi" -> "#EF4444" to "✍️"
         "Sanskrit" -> "#8B5CF6" to "📜"
         else -> "#94A3B8" to "📘"

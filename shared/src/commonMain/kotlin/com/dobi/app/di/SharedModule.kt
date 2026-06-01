@@ -3,14 +3,12 @@ package com.dobi.app.di
 import com.dobi.app.data.repository.ChildRepositoryImpl
 import com.dobi.app.data.repository.CompletionRepositoryImpl
 import com.dobi.app.data.repository.ConceptRepositoryImpl
-import com.dobi.app.data.repository.DailyNewsRepositoryImpl
 import com.dobi.app.data.repository.DeleteAccountRepositoryImpl
 import com.dobi.app.data.repository.FriendSnapsRepositoryImpl
 import com.dobi.app.data.repository.PairingRepositoryImpl
 import com.dobi.app.domain.repository.ChildRepository
 import com.dobi.app.domain.repository.CompletionRepository
 import com.dobi.app.domain.repository.ConceptRepository
-import com.dobi.app.domain.repository.DailyNewsRepository
 import com.dobi.app.domain.repository.DeleteAccountRepository
 import com.dobi.app.domain.repository.FriendSnapsRepository
 import com.dobi.app.domain.repository.PairingRepository
@@ -32,7 +30,6 @@ val repositoryModule = module {
     single<ConceptRepository> { ConceptRepositoryImpl(get()) }
     single<PairingRepository> { PairingRepositoryImpl(get()) }
     single<CompletionRepository> { CompletionRepositoryImpl(get()) }
-    single<DailyNewsRepository> { DailyNewsRepositoryImpl(get()) }
     single<DeleteAccountRepository> { DeleteAccountRepositoryImpl(get()) }
     single<FriendSnapsRepository> { FriendSnapsRepositoryImpl() }
 }

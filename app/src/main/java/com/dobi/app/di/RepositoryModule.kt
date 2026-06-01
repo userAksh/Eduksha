@@ -20,6 +20,7 @@ import com.dobi.app.domain.repository.InviteRepository
 import com.dobi.app.domain.repository.ParentTaskRepository
 import com.dobi.app.domain.repository.StreakShareRepository
 import com.dobi.app.domain.repository.UserRepository
+import com.dobi.app.domain.usecase.SelectRoleUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -58,12 +59,17 @@ abstract class RepositoryModule {
 
         @Provides @Singleton
         fun provideDailyNewsRepository(
-            functions: dev.gitlive.firebase.functions.FirebaseFunctions
+            functions: com.google.firebase.functions.FirebaseFunctions
         ): DailyNewsRepository = DailyNewsRepositoryImpl(functions)
 
         @Provides @Singleton
         fun provideDeleteAccountRepository(
             functions: dev.gitlive.firebase.functions.FirebaseFunctions
         ): DeleteAccountRepository = DeleteAccountRepositoryImpl(functions)
+
+        @Provides @Singleton
+        fun provideSelectRoleUseCase(
+            repository: UserRepository
+        ): SelectRoleUseCase = SelectRoleUseCase(repository)
     }
 }

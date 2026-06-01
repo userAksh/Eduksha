@@ -30,6 +30,7 @@ class HomeworkLogViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     fun onSubjectChanged(subject: String) = _uiState.update { it.copy(subject = subject) }
+    fun onTeacherHonorificChanged(honorific: String) = _uiState.update { it.copy(teacherHonorific = honorific) }
     fun onTeacherNameChanged(name: String) = _uiState.update { it.copy(teacherName = name) }
     fun onChapterNameChanged(name: String) = _uiState.update { it.copy(chapterName = name) }
     fun onDateChanged(millis: Long) = _uiState.update { it.copy(dateMillis = millis) }
@@ -81,12 +82,15 @@ class HomeworkLogViewModel @Inject constructor(
             }
             _uiState.update { it.copy(isValidatingPhotos = false) }
 
+            val fullTeacherName = listOf(state.teacherHonorific, state.teacherName)
+                .filter { it.isNotBlank() }
+                .joinToString(" ")
             val homeworkResult = runCatching {
                 saveHomeworkUseCase(
                     Homework(
                         childId     = childId,
                         subject     = state.subject,
-                        teacherName = state.teacherName,
+                        teacherName = fullTeacherName,
                         chapterName = state.chapterName,
                         date        = state.isoDate
                     ),

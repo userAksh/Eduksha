@@ -319,7 +319,7 @@ private fun SubjectStep(state: StudyGoalsUiState, onPick: (SubjectChoice) -> Uni
     }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, top = 8.dp, bottom = 32.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         items(state.subjects, key = { it.name }) { subject ->
@@ -345,7 +345,7 @@ private fun TopicStep(state: StudyGoalsUiState, onPick: (TopicChoice) -> Unit) {
     }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, top = 8.dp, bottom = 32.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         items(topics, key = { it.unitId }) { topic ->

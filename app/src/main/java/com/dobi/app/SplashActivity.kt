@@ -25,13 +25,16 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
 import com.dobi.app.core.navigation.Screen
+import com.dobi.app.data.local.UserPreferences
 import com.dobi.app.domain.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
+import kotlin.coroutines.resume
 
 /**
  * First activity on launch. Plays the branded intro video and, in parallel,
@@ -52,6 +55,7 @@ class SplashActivity : ComponentActivity() {
 
     @Inject lateinit var auth: FirebaseAuth
     @Inject lateinit var userRepository: UserRepository
+    @Inject lateinit var userPreferences: UserPreferences
 
     override fun attachBaseContext(newBase: Context) {
         val lang = LanguagePreference.get(newBase)
@@ -95,11 +99,26 @@ class SplashActivity : ComponentActivity() {
         // used to live in MainViewModel; doing it here lets us hand the
         // resolved Screen to MainActivity so it renders without a blank frame.
         lifecycleScope.launch {
-            val screen = if (auth.currentUser != null) {
+            // Use addAuthStateListener instead of reading currentUser directly.
+            // After a device unlock Firebase decrypts its keystore async, so
+            // currentUser can be null for a few hundred ms even with a persisted user.
+            // The listener fires once Firebase has settled on a definitive state.
+            val currentUser = suspendCancellableCoroutine { cont ->
+                val listener = object : FirebaseAuth.AuthStateListener {
+                    override fun onAuthStateChanged(firebaseAuth: FirebaseAuth) {
+                        firebaseAuth.removeAuthStateListener(this)
+                        if (cont.isActive) cont.resume(firebaseAuth.currentUser)
+                    }
+                }
+                auth.addAuthStateListener(listener)
+                cont.invokeOnCancellation { auth.removeAuthStateListener(listener) }
+            }
+            val screen = if (currentUser != null) {
                 Screen.ParentHome
             } else {
+                val isChildDevice = userPreferences.isChildDevice.first()
                 val linked = userRepository.linkedChildId.first()
-                if (linked != null) Screen.ChildHome(linked) else Screen.RoleSelection
+                if (isChildDevice && linked != null) Screen.ChildHome(linked) else Screen.RoleSelection
             }
             Log.d(TAG, "routing resolved: $screen")
             resolvedScreen = screen

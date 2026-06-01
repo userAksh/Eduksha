@@ -44,7 +44,7 @@ private fun dev.gitlive.firebase.firestore.DocumentSnapshot.toConcept() = Concep
     expectedDifficulty = runCatching {
         Difficulty.valueOf(get("expectedDifficulty") as? String ?: "OK")
     }.getOrDefault(Difficulty.OK),
-    aliases = (get("aliases") as? List<*>)?.filterIsInstance<String>() ?: emptyList(),
-    prerequisites = (get("prerequisites") as? List<*>)?.filterIsInstance<String>() ?: emptyList(),
+    aliases = runCatching { (get("aliases") as? List<*>)?.filterIsInstance<String>() }.getOrNull() ?: emptyList(),
+    prerequisites = runCatching { (get("prerequisites") as? List<*>)?.filterIsInstance<String>() }.getOrNull() ?: emptyList(),
     order = (get("order") as? Long)?.toInt() ?: 0
 )
