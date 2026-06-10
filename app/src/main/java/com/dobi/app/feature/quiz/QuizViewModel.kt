@@ -15,6 +15,10 @@ import com.dobi.app.domain.model.ParentTaskStatus
 import com.dobi.app.domain.model.ParentTaskType
 import com.dobi.app.domain.repository.ParentTaskRepository
 import com.google.firebase.auth.FirebaseAuth
+import com.dobi.app.analytics.AnalyticsTracker
+import com.dobi.app.analytics.Events
+import com.dobi.app.data.repository.ChildEngagementRepository
+import com.dobi.app.domain.repository.ChildRepository
 import com.dobi.app.domain.repository.StreakShareRepository
 import com.dobi.app.domain.repository.UserRepository
 import com.dobi.app.domain.usecase.GetConceptsUseCase
@@ -41,9 +45,12 @@ class QuizViewModel @Inject constructor(
     private val curatedQuizCache: CuratedQuizCache,
     private val mcqGenerationRepository: McqGenerationRepository,
     private val userRepository: UserRepository,
+    private val childRepository: ChildRepository,
+    private val childEngagementRepository: ChildEngagementRepository,
     private val streakShareRepository: StreakShareRepository,
     private val parentTaskRepository: ParentTaskRepository,
     private val auth: FirebaseAuth,
+    private val analytics: AnalyticsTracker,
 ) : ViewModel() {
 
     private val route = savedStateHandle.toRoute<Screen.Quiz>()
@@ -73,6 +80,7 @@ class QuizViewModel @Inject constructor(
     init {
         load()
         observeShareGate()
+        loadSnapShareData()
         if (isParentView) checkExistingAssignment()
     }
 
@@ -87,6 +95,35 @@ class QuizViewModel @Inject constructor(
     /** Called from the screen after the snap share intent has been fired. */
     fun markSnapSent() {
         viewModelScope.launch { streakShareRepository.markSharedToday() }
+    }
+
+    fun openSnapShareDialog()    { _uiState.update { it.copy(showSnapShareDialog = true) } }
+    fun dismissSnapShareDialog() { _uiState.update { it.copy(showSnapShareDialog = false) } }
+
+    /** Loads child name, friends, and current streak for the snap-share dialog. */
+    private fun loadSnapShareData() {
+        if (isParentView) return  // snap-share is child-only
+        viewModelScope.launch {
+            val childId  = userRepository.linkedChildId.first()  ?: return@launch
+            val parentId = userRepository.linkedParentId.first() ?: return@launch
+
+            // Child name + friends list (one-shot fetch)
+            val child = childRepository.getChild(parentId, childId).getOrNull()
+            if (child != null) {
+                _uiState.update {
+                    it.copy(
+                        childName = child.name.split(" ").firstOrNull() ?: child.name,
+                        friends   = child.friends
+                    )
+                }
+            }
+
+            // Streak: observe once and take first emission
+            childEngagementRepository.observeEngagement(childId)
+                .collect { eng ->
+                    _uiState.update { it.copy(streakDays = eng.streakDays) }
+                }
+        }
     }
 
     private fun load() {
@@ -307,8 +344,12 @@ class QuizViewModel @Inject constructor(
         }
     }
 
-    fun startQuiz() = _uiState.update {
-        it.copy(phase = QuizPhase.QUESTION, currentIndex = 0)
+    fun startQuiz() {
+        analytics.log(Events.QUIZ_STARTED) {
+            putString("subject", _uiState.value.subject)
+            putString("scope", if (isConceptScope) "concept" else "unit")
+        }
+        _uiState.update { it.copy(phase = QuizPhase.QUESTION, currentIndex = 0) }
     }
 
     fun selectOption(optionIndex: Int) = _uiState.update { state ->
@@ -332,6 +373,12 @@ class QuizViewModel @Inject constructor(
                 current.selections[idx] == current.questions.getOrNull(idx)?.correctIndex
             }
             val total = current.questions.size
+            val scorePct = if (total > 0) (correctCount * 100) / total else 0
+            analytics.log(Events.QUIZ_COMPLETED) {
+                putString("subject", current.subject)
+                putInt("score_pct", scorePct)
+                putBoolean("passed", scorePct >= 60)
+            }
             if (!isAiSource) {
                 viewModelScope.launch {
                     quizAttemptRepository.recordAttempt(
@@ -355,6 +402,7 @@ class QuizViewModel @Inject constructor(
                         total = total
                     )
                 }
+                analytics.log(Events.TASK_SUBMITTED) { putString("task_type", "OUR_QUESTIONS") }
             }
         } else {
             _uiState.update { it.copy(currentIndex = it.currentIndex + 1) }

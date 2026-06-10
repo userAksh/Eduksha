@@ -3,6 +3,8 @@ package com.dobi.app.feature.roleselection
 import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dobi.app.analytics.AnalyticsTracker
+import com.dobi.app.analytics.Events
 import com.dobi.app.domain.model.OtpState
 import com.dobi.app.domain.repository.AuthRepository
 import com.dobi.app.domain.repository.ChildRepository
@@ -20,7 +22,8 @@ import javax.inject.Inject
 class RoleSelectionViewModel @Inject constructor(
     private val auth: FirebaseAuth,
     private val authRepository: AuthRepository,
-    private val childRepository: ChildRepository
+    private val childRepository: ChildRepository,
+    private val analytics: AnalyticsTracker,
 ) : ViewModel() {
 
     sealed class NavEvent {
@@ -49,6 +52,7 @@ class RoleSelectionViewModel @Inject constructor(
     val reauth = _reauth.asStateFlow()
 
     fun onParentSelected() {
+        analytics.log(Events.ROLE_SELECTED) { putString("role", "parent") }
         viewModelScope.launch {
             val signedIn = auth.currentUser != null
             if (!signedIn) {
@@ -124,6 +128,7 @@ class RoleSelectionViewModel @Inject constructor(
     }
 
     fun onChildSelected() {
+        analytics.log(Events.ROLE_SELECTED) { putString("role", "child") }
         viewModelScope.launch {
             val uid = auth.currentUser?.uid
             if (uid == null) {

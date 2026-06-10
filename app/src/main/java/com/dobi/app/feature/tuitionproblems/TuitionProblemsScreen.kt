@@ -43,6 +43,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -66,6 +67,7 @@ fun TuitionProblemsScreen(
     viewModel: TuitionProblemsViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val focusManager = LocalFocusManager.current
     val accent = Color(0xFF7C3AED) // tuition purple
 
     LaunchedEffect(uiState.sent) {
@@ -199,7 +201,7 @@ fun TuitionProblemsScreen(
             Spacer(Modifier.height(20.dp))
 
             Button(
-                onClick = viewModel::onSend,
+                onClick = { focusManager.clearFocus(); viewModel.onSend() },
                 enabled = uiState.canSend,
                 modifier = Modifier
                     .fillMaxWidth()

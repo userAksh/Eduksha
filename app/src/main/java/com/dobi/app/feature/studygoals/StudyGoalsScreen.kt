@@ -44,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -319,7 +320,7 @@ private fun SubjectStep(state: StudyGoalsUiState, onPick: (SubjectChoice) -> Uni
     }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(horizontal = 16.dp, top = 8.dp, bottom = 32.dp),
+        contentPadding = PaddingValues(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 32.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         items(state.subjects, key = { it.name }) { subject ->
@@ -345,7 +346,7 @@ private fun TopicStep(state: StudyGoalsUiState, onPick: (TopicChoice) -> Unit) {
     }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(horizontal = 16.dp, top = 8.dp, bottom = 32.dp),
+        contentPadding = PaddingValues(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 32.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         items(topics, key = { it.unitId }) { topic ->
@@ -598,6 +599,7 @@ private fun BottomBar(
     onRegenerate: () -> Unit,
     onAssign: () -> Unit,
 ) {
+    val focusManager = LocalFocusManager.current
     val type = state.selectedType
     val canAssign = when (type) {
         ParentTaskType.OUR_QUESTIONS -> state.previewMcqs.isNotEmpty() && !state.generatingPreview
@@ -633,7 +635,7 @@ private fun BottomBar(
                     }
                 }
                 Button(
-                    onClick = onAssign,
+                    onClick = { focusManager.clearFocus(); onAssign() },
                     modifier = Modifier.weight(1f).height(48.dp),
                     shape = RoundedCornerShape(14.dp),
                     enabled = canAssign,

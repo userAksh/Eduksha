@@ -91,4 +91,6 @@ enum class ConceptListMode { DEFAULT, PRACTISE_LESSON, TEST_YOURSELF }
     @Serializable data class StudyGoals(val childId: String) : Screen()
     @Serializable data object ParentTasksList : Screen()
     @Serializable data object ParentActionableTasks : Screen()
+    @Serializable data object Paywall : Screen()
+    @Serializable data object ForceUpdate : Screen()
 }

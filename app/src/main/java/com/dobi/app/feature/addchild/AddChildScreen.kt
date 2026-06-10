@@ -59,6 +59,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -368,6 +369,7 @@ private fun DetailsStep(
     onPinChange: (String) -> Unit,
     onSave: () -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
     var gradeExpanded by remember { mutableStateOf(false) }
     var boardExpanded by remember { mutableStateOf(false) }
     val supportedGrades = ChildDraft.SUPPORTED_GRADES
@@ -628,7 +630,7 @@ private fun DetailsStep(
             Spacer(Modifier.height(28.dp))
 
             Button(
-                onClick = onSave,
+                onClick = { focusManager.clearFocus(); onSave() },
                 modifier = Modifier.fillMaxWidth().height(56.dp),
                 shape = RoundedCornerShape(16.dp),
                 enabled = draft.name.isNotBlank() && draft.pin.length == 4 && !isSaving,

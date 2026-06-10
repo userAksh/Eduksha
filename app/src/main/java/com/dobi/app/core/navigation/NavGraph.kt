@@ -1,12 +1,10 @@
 package com.dobi.app.core.navigation
 
-import android.content.Intent
 import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -50,12 +48,14 @@ import com.dobi.app.feature.parentdashboard.HomeworkSubmissionScreen
 import com.dobi.app.feature.parentdashboard.InsightsScreen
 import com.dobi.app.feature.parentdashboard.SubjectDetailScreen
 import com.dobi.app.feature.parenthome.ParentHomeScreen
+import com.dobi.app.feature.paywall.PaywallScreen
 import com.dobi.app.feature.roleselection.RoleSelectionScreen
 import com.dobi.app.feature.selectchild.SelectChildScreen
 import com.dobi.app.feature.streak.ClanLeaderboardScreen
 import com.dobi.app.feature.streak.StreakHomeScreen
 import com.dobi.app.feature.streak.StreakShareOptionsScreen
 import com.dobi.app.feature.streak.StreakUploadPickerScreen
+import com.dobi.app.feature.forceupdate.ForceUpdateScreen
 import com.dobi.app.feature.studygoals.StudyGoalsScreen
 import com.dobi.app.feature.subjectiveresult.SubjectiveResultScreen
 import com.dobi.app.feature.webview.WebViewScreen
@@ -89,7 +89,7 @@ fun DobiNavGraph(
             RoleSelectionScreen(
                 onNavigateToPhoneAuth = { navController.navigate(Screen.PhoneAuth) },
                 onNavigateToParentHome = {
-                    navController.navigate(Screen.ParentHome) {
+                    navController.navigate(Screen.Paywall) {
                         popUpTo<Screen.RoleSelection> { inclusive = true }
                     }
                 },
@@ -113,7 +113,7 @@ fun DobiNavGraph(
             PhoneAuthScreen(
                 onNavigateToOtp = { otpScreen -> navController.navigate(otpScreen) },
                 onNavigateToParentHome = {
-                    navController.navigate(Screen.ParentHome) {
+                    navController.navigate(Screen.Paywall) {
                         popUpTo<Screen.RoleSelection> { inclusive = true }
                     }
                 }
@@ -124,7 +124,7 @@ fun DobiNavGraph(
             OtpVerificationScreen(
                 onNavigateBack = { navController.popBackStack() },
                 onNavigateToParentHome = {
-                    navController.navigate(Screen.ParentHome) {
+                    navController.navigate(Screen.Paywall) {
                         popUpTo<Screen.RoleSelection> { inclusive = true }
                     }
                 }
@@ -263,6 +263,20 @@ fun DobiNavGraph(
                 onTaskClick = { taskId -> navController.navigate(Screen.DoParentTask(taskId)) },
                 onNavigateToEarnReward = { navController.navigate(Screen.EarnRewardPicker) }
             )
+        }
+
+        composable<Screen.Paywall> {
+            PaywallScreen(
+                onNavigateToParentHome = {
+                    navController.navigate(Screen.ParentHome) {
+                        popUpTo<Screen.Paywall> { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable<Screen.ForceUpdate> {
+            ForceUpdateScreen()
         }
 
         composable<Screen.ParentHome> {
@@ -513,6 +527,9 @@ fun DobiNavGraph(
                         )
                     )
                 },
+                onPickWriteAnswers = {
+                    navController.navigate(Screen.WriteAnswer)
+                },
                 onViewLastResult = {
                     navController.navigate(
                         Screen.Quiz(
@@ -526,27 +543,16 @@ fun DobiNavGraph(
         }
 
         composable<Screen.Quiz> {
-            val quizContext = LocalContext.current
             QuizScreen(
                 onNavigateBack = { navController.popBackStack() },
-                onSnapSend = { displayName ->
-                    val text = "🔥 Today's streak unlocked! I just nailed a quiz on " +
-                        "\"$displayName\" on Eduksha. Your turn!"
-                    val intent = Intent(Intent.ACTION_SEND).apply {
-                        type = "text/plain"
-                        putExtra(Intent.EXTRA_TEXT, text)
-                    }
-                    quizContext.startActivity(
-                        Intent.createChooser(intent, "Share your streak")
-                    )
+                onSnapSend = { _ ->
+                    // Share intent is fired inside SnapShareDialog.
+                    // Here we only handle navigation after sharing.
                     val popped = navController.popBackStack(
                         route = Screen.StreakHome,
                         inclusive = false
                     )
                     if (!popped) {
-                        // Quiz launched from a flow that didn't go through
-                        // StreakHome (e.g. Practise Lesson) — navigate there
-                        // and clear the back stack down to ChildHome.
                         navController.navigate(Screen.StreakHome) {
                             popUpTo<Screen.ChildHome>()
                         }

@@ -63,6 +63,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
@@ -90,6 +91,7 @@ fun UploadWorkScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val focusManager = LocalFocusManager.current
 
     LaunchedEffect(uiState.isSaved) {
         if (uiState.isSaved) {
@@ -309,7 +311,7 @@ fun UploadWorkScreen(
             }
 
             Button(
-                onClick = viewModel::onSave,
+                onClick = { focusManager.clearFocus(); viewModel.onSave() },
                 enabled = uiState.canSave,
                 modifier = Modifier
                     .fillMaxWidth()

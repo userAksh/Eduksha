@@ -51,6 +51,7 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -88,6 +89,7 @@ fun HomeworkLogScreen(
     viewModel: HomeworkLogViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val focusManager = LocalFocusManager.current
 
     LaunchedEffect(uiState.isSaved) {
         if (uiState.isSaved) onNavigateBack()
@@ -283,7 +285,7 @@ fun HomeworkLogScreen(
             }
 
             Button(
-                onClick = viewModel::onSave,
+                onClick = { focusManager.clearFocus(); viewModel.onSave() },
                 enabled = uiState.canSave,
                 modifier = Modifier
                     .fillMaxWidth()

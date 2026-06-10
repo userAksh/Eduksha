@@ -23,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -62,6 +63,7 @@ fun EnterChildPinScreen(
     viewModel: EnterChildPinViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val focusManager = LocalFocusManager.current
     var pin by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
@@ -144,7 +146,7 @@ fun EnterChildPinScreen(
                         val digits = new.filter { it.isDigit() }
                         pin = digits
                         viewModel.clearError()
-                        if (digits.length == 4) viewModel.verify(digits)
+                        if (digits.length == 4) { focusManager.clearFocus(); viewModel.verify(digits) }
                     }
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),

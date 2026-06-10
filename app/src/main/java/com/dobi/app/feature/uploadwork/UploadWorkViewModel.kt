@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import android.util.Log
+import com.dobi.app.analytics.AnalyticsTracker
+import com.dobi.app.analytics.Events
 import com.dobi.app.core.navigation.Screen
 import com.dobi.app.data.repository.AiPracticeContextHolder
 import com.dobi.app.data.repository.GeneratedQuizCache
@@ -37,7 +39,8 @@ class UploadWorkViewModel @Inject constructor(
     private val aiPracticeContextHolder: AiPracticeContextHolder,
     private val userRepository: UserRepository,
     private val uploadEntryRepository: UploadEntryRepository,
-    private val imageScopeValidator: ImageScopeValidator
+    private val imageScopeValidator: ImageScopeValidator,
+    private val analytics: AnalyticsTracker,
 ) : ViewModel() {
 
     private val route = savedStateHandle.toRoute<Screen.UploadWork>()
@@ -185,6 +188,7 @@ class UploadWorkViewModel @Inject constructor(
     fun onSave() {
         if (!_uiState.value.canSave) return
         val state = _uiState.value
+        analytics.log(Events.UPLOAD_INITIATED) { putString("kind", kind.key) }
         when {
             kind == WorkUploadKind.SELF_LEARNING -> {
                 // Generate quiz AND persist photos so they show on Revisit.
@@ -228,6 +232,10 @@ class UploadWorkViewModel @Inject constructor(
                     )
                     result.fold(
                         onSuccess = {
+                            analytics.log(Events.UPLOAD_COMPLETED) {
+                                putString("kind", kind.key)
+                                putString("subject", state.subject)
+                            }
                             _uiState.update { it.copy(isSaving = false, isSaved = true) }
                         },
                         onFailure = { e ->
@@ -301,6 +309,11 @@ class UploadWorkViewModel @Inject constructor(
             result.fold(
                 onSuccess = { mcqs ->
                     generatedQuizCache.put(cacheKey, mcqs)
+                    val s = _uiState.value
+                    analytics.log(Events.UPLOAD_COMPLETED) {
+                        putString("kind", kind.key)
+                        putString("subject", s.subject)
+                    }
                     _uiState.update {
                         it.copy(
                             isSaving = false,

@@ -9,6 +9,7 @@ import FirebaseMessaging
 @MainActor
 final class AppState: ObservableObject {
     @Published var isAuthenticated = false
+    @Published var isPremium: Bool? = nil  // nil = still checking, resolved before routing
     @Published var parentUID: String? = nil
     @Published var parentName: String = ""
     @Published var parentPhone: String = ""
@@ -42,6 +43,8 @@ final class AppState: ObservableObject {
             Task { @MainActor in
                 await self.loadParentProfile(uid: uid)
                 self.startListeningChildren(uid: uid)
+                await self.checkSubscription(uid: uid)
+                await InviteService.shared.tryClaimParentReferral()
             }
         }
         return
@@ -55,10 +58,13 @@ final class AppState: ObservableObject {
                     self.parentUID = uid
                     await self.loadParentProfile(uid: uid)
                     self.startListeningChildren(uid: uid)
+                    // Check subscription before routing — AppRootView reacts to isPremium
+                    await self.checkSubscription(uid: uid)
                     // Save whatever FCM token we already have (token may arrive before auth)
                     if let token = self.latestFcmToken {
                         Task { try? await self.firebase.saveFcmToken(parentUID: uid, token: token) }
                     }
+                    Task { await InviteService.shared.tryClaimParentReferral() }
                 } else {
                     self.reset()
                 }
@@ -117,6 +123,17 @@ final class AppState: ObservableObject {
     }
 
     // MARK: Private helpers
+
+    func checkSubscription(uid: String) async {
+        do {
+            let doc = try await Firestore.firestore()
+                .collection("subscriptions").document(uid)
+                .getDocument()
+            isPremium = doc.data()?["isPremium"] as? Bool == true
+        } catch {
+            isPremium = false  // fail-open: show paywall, not a hard block
+        }
+    }
 
     private func loadParentProfile(uid: String) async {
         guard let profile = try? await firebase.getParentProfile(uid: uid) else { return }
@@ -190,6 +207,7 @@ final class AppState: ObservableObject {
 
     private func reset() {
         isAuthenticated = false
+        isPremium = nil
         parentUID = nil
         parentName = ""
         parentPhone = ""

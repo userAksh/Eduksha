@@ -2,61 +2,76 @@ package com.dobi.app.feature.streak
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dobi.app.data.repository.ChildEngagementRepository
 import com.dobi.app.domain.model.ClanInfo
 import com.dobi.app.domain.model.ClanTier
 import com.dobi.app.domain.model.StreakState
+import com.dobi.app.domain.repository.ChildRepository
 import com.dobi.app.domain.repository.FriendSnapsRepository
 import com.dobi.app.domain.repository.StreakShareRepository
+import com.dobi.app.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-/**
- * Backing state for the Streak & Clan Home screen.
- *
- * Streak / clan / friend-activity backend isn't built yet, so the static
- * snapshot below stands in. Live signals already wired:
- *  - [hasSharedToday] from [StreakShareRepository] — flips after the child
- *    fires the snap & send button on any quiz result.
- *  - [friendSnaps] from [FriendSnapsRepository] — currently empty stub;
- *    swap for the Firestore-backed feed when ready.
- */
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class StreakHomeViewModel @Inject constructor(
-    streakShareRepository: StreakShareRepository,
-    friendSnapsRepository: FriendSnapsRepository
+    private val userRepository: UserRepository,
+    private val engagementRepository: ChildEngagementRepository,
+    private val childRepository: ChildRepository,
+    private val streakShareRepository: StreakShareRepository,
+    private val friendSnapsRepository: FriendSnapsRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(seed())
+    private val _uiState = MutableStateFlow(StreakHomeUiState(isLoading = true))
     val uiState = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
             combine(
-                streakShareRepository.hasSharedToday(),
-                friendSnapsRepository.snapsForCurrentChild()
-            ) { hasShared, snaps -> hasShared to snaps }
-                .collect { (hasShared, snaps) ->
-                    _uiState.update {
-                        it.copy(hasSharedToday = hasShared, friendSnaps = snaps)
+                userRepository.linkedChildId,
+                userRepository.linkedParentId
+            ) { childId, parentId -> childId to parentId }
+                .flatMapLatest { (childId, parentId) ->
+                    if (childId.isNullOrBlank() || parentId.isNullOrBlank()) {
+                        flowOf(StreakHomeUiState(isLoading = false))
+                    } else {
+                        liveState(childId, parentId)
                     }
                 }
+                .collect { _uiState.value = it }
         }
     }
 
-    private fun seed(): StreakHomeUiState = StreakHomeUiState(
-        childName = "Emma",
-        streak = StreakState(
-            days = 0,
-            lastUpdatedMillis = 0L,
-            taskCompletedToday = false
-        ),
-        clan = ClanInfo(tier = ClanTier.NONE),
-        friendsInvited = 0,
-        friendsActivity = emptyList()
-    )
+    private fun liveState(childId: String, parentId: String) = combine(
+        flow { emit(childRepository.getChild(parentId, childId).getOrNull()) },
+        engagementRepository.observeEngagement(childId),
+        streakShareRepository.hasSharedToday(),
+        friendSnapsRepository.snapsForCurrentChild()
+    ) { child, eng, hasShared, snaps ->
+        val friendsCount = child?.friends?.size ?: 0
+        val tier = ClanTier.resolve(friendsCount, eng.streakDays)
+        StreakHomeUiState(
+            childName = child?.name?.split(" ")?.firstOrNull() ?: "",
+            streak = StreakState(
+                days = eng.streakDays,
+                lastUpdatedMillis = eng.lastActivityMs,
+                taskCompletedToday = eng.isActiveToday
+            ),
+            clan = ClanInfo(tier = tier),
+            friendsInvited = friendsCount,
+            friendsNeededForBonus = ClanTier.STREAK_WARRIOR.friendThreshold,
+            hasSharedToday = hasShared,
+            friendSnaps = snaps,
+            isLoading = false
+        )
+    }
 }

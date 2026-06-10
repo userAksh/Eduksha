@@ -1408,10 +1408,9 @@ PODS:
   - nanopb/decode (3.30910.0)
   - nanopb/encode (3.30910.0)
   - PromisesObjC (2.4.0)
+  - razorpay-pod (1.5.4)
   - RecaptchaInterop (101.0.0)
-  - shared (1.0):
-    - FirebaseFirestore (~> 11.0)
-    - FirebaseFunctions (~> 11.0)
+  - shared (1.0)
 
 DEPENDENCIES:
   - Firebase/Auth (>= 11.15.0)
@@ -1419,6 +1418,7 @@ DEPENDENCIES:
   - Firebase/Functions (>= 11.15.0)
   - Firebase/Messaging (>= 11.15.0)
   - Firebase/Storage (>= 11.15.0)
+  - razorpay-pod (~> 1.5.4)
   - shared (from `../shared`)
 
 SPEC REPOS:
@@ -1448,6 +1448,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - razorpay-pod
     - RecaptchaInterop
 
 EXTERNAL SOURCES:
@@ -1480,9 +1481,10 @@ SPEC CHECKSUMS:
   leveldb-library: cc8b8f8e013647a295ad3f8cd2ddf49a6f19be19
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
+  razorpay-pod: 3ba80419f3315352d6ffa336a194ad95ab249700
   RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
-  shared: 66b56e1280b2d4ae72aaa80131383bc406b370be
+  shared: f90971ef481eaf0985b8a1caa033248edffb9f90
 
-PODFILE CHECKSUM: c4019660fe4d99ef9ae727895d2a80adfcdbee2d
+PODFILE CHECKSUM: 6643f482ee73c04e1d107e74fe8e5a814f0b5c45
 
 COCOAPODS: 1.16.2

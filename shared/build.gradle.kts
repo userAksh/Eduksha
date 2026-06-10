@@ -28,8 +28,7 @@ kotlin {
             isStatic = true
         }
         // GitLive Firebase wraps these native Firebase pods for iOS
-        pod("FirebaseFirestore") { version = "~> 11.0" }
-        pod("FirebaseFunctions") { version = "~> 11.0" }
+        // Firebase pods omitted: dev.gitlive KMP library handles its own cinterop.
     }
 
     sourceSets {

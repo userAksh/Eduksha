@@ -4,6 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.dobi.app.analytics.AnalyticsTracker
+import com.dobi.app.analytics.Events
 import com.dobi.app.core.navigation.Screen
 import com.dobi.app.data.repository.McqGenerationRepository
 import com.dobi.app.data.repository.WriteAnswerRepository
@@ -83,6 +85,7 @@ class StudyGoalsViewModel @Inject constructor(
     private val parentTaskRepository: ParentTaskRepository,
     private val mcqGenerationRepository: McqGenerationRepository,
     private val writeAnswerRepository: WriteAnswerRepository,
+    private val analytics: AnalyticsTracker,
 ) : ViewModel() {
 
     private val route: Screen.StudyGoals = savedStateHandle.toRoute()
@@ -91,7 +94,10 @@ class StudyGoalsViewModel @Inject constructor(
     private val _state = MutableStateFlow(StudyGoalsUiState(childId = childId))
     val state = _state.asStateFlow()
 
-    init { loadChildAndCurriculum() }
+    init {
+        loadChildAndCurriculum()
+        analytics.log(Events.STUDY_GOALS_OPENED)
+    }
 
     private fun loadChildAndCurriculum() {
         val parentId = auth.currentUser?.uid.orEmpty()
@@ -271,6 +277,11 @@ class StudyGoalsViewModel @Inject constructor(
                 assignedSubjectiveQs = if (type == ParentTaskType.WRITE_QA) s.previewSubjectiveQs else emptyList(),
             )
             if (result.isSuccess) {
+                analytics.log(Events.TASK_ASSIGNED) {
+                    putString("source", "study_goals")
+                    putString("task_type", type.name)
+                    putString("subject", topic.subject)
+                }
                 _state.value = _state.value.copy(step = StudyGoalsStep.DONE)
             } else {
                 _state.value = _state.value.copy(

@@ -4,6 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.dobi.app.analytics.AnalyticsTracker
+import com.dobi.app.analytics.Events
 import com.dobi.app.core.navigation.Screen
 import com.dobi.app.domain.model.ParentTaskType
 import com.dobi.app.domain.repository.ParentTaskRepository
@@ -17,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ParentTaskDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val repository: ParentTaskRepository
+    private val repository: ParentTaskRepository,
+    private val analytics: AnalyticsTracker,
 ) : ViewModel() {
 
     private val taskId: String = savedStateHandle.toRoute<Screen.ParentTaskDetail>().taskId
@@ -76,7 +79,13 @@ class ParentTaskDetailViewModel @Inject constructor(
                 customNote = _uiState.value.customNote.trim(),
                 mcqCount = _uiState.value.mcqCount
             ).fold(
-                onSuccess = { _uiState.update { it.copy(isSubmitting = false, finished = true) } },
+                onSuccess = {
+                    analytics.log(Events.TASK_ASSIGNED) {
+                        putString("source", "direct")
+                        putString("task_type", type.name)
+                    }
+                    _uiState.update { it.copy(isSubmitting = false, finished = true) }
+                },
                 onFailure = { e ->
                     _uiState.update {
                         it.copy(
@@ -94,7 +103,10 @@ class ParentTaskDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(isSubmitting = true, error = null) }
             repository.acceptByParent(taskId, _uiState.value.reviewNote.trim()).fold(
-                onSuccess = { _uiState.update { it.copy(isSubmitting = false, finished = true) } },
+                onSuccess = {
+                    analytics.log(Events.TASK_REVIEWED) { putString("decision", "accepted") }
+                    _uiState.update { it.copy(isSubmitting = false, finished = true) }
+                },
                 onFailure = { e ->
                     _uiState.update {
                         it.copy(
@@ -119,7 +131,10 @@ class ParentTaskDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(isSubmitting = true, error = null) }
             repository.rejectByParent(taskId, note).fold(
-                onSuccess = { _uiState.update { it.copy(isSubmitting = false, finished = true) } },
+                onSuccess = {
+                    analytics.log(Events.TASK_REVIEWED) { putString("decision", "rejected") }
+                    _uiState.update { it.copy(isSubmitting = false, finished = true) }
+                },
                 onFailure = { e ->
                     _uiState.update {
                         it.copy(

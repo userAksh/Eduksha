@@ -9,6 +9,9 @@ import com.google.firebase.Firebase
 import com.google.firebase.ai.GenerativeModel
 import com.google.firebase.ai.ai
 import com.google.firebase.ai.type.GenerativeBackend
+import com.google.firebase.ai.type.HarmBlockThreshold
+import com.google.firebase.ai.type.HarmCategory
+import com.google.firebase.ai.type.SafetySetting
 import com.google.firebase.ai.type.Schema
 import com.google.firebase.ai.type.content
 import com.google.firebase.ai.type.generationConfig
@@ -55,6 +58,12 @@ class ImageScopeValidator @Inject constructor(
                 responseMimeType = "application/json"
                 responseSchema = SCHEMA
             },
+            safetySettings = listOf(
+                SafetySetting(HarmCategory.HARASSMENT, HarmBlockThreshold.BLOCK_ONLY_HIGH),
+                SafetySetting(HarmCategory.HATE_SPEECH, HarmBlockThreshold.BLOCK_ONLY_HIGH),
+                SafetySetting(HarmCategory.SEXUALLY_EXPLICIT, HarmBlockThreshold.BLOCK_ONLY_HIGH),
+                SafetySetting(HarmCategory.DANGEROUS_CONTENT, HarmBlockThreshold.BLOCK_ONLY_HIGH),
+            ),
             systemInstruction = content { text(SYSTEM_PROMPT) }
         )
     }

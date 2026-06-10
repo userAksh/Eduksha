@@ -5,6 +5,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.dobi.app.analytics.AnalyticsTracker
+import com.dobi.app.analytics.Events
 import com.dobi.app.core.navigation.Screen
 import com.dobi.app.data.local.UserPreferences
 import com.dobi.app.data.repository.QuizAttemptRepository
@@ -44,6 +46,7 @@ class ChildHomeViewModel @Inject constructor(
     private val uploadEntryRepository: UploadEntryRepository,
     private val subjectiveResultRepository: SubjectiveResultRepository,
     private val quizAttemptRepository: QuizAttemptRepository,
+    private val analytics: AnalyticsTracker,
 ) : ViewModel() {
 
     private val childId: String = savedStateHandle.toRoute<Screen.ChildHome>().childId
@@ -65,6 +68,7 @@ class ChildHomeViewModel @Inject constructor(
         observeTutor()
         observeParentTasks()
         observeStreak()
+        analytics.log(Events.CHILD_HOME_REACHED)
     }
 
     private fun observeStreak() {
@@ -149,6 +153,7 @@ class ChildHomeViewModel @Inject constructor(
             .onSuccess { outcome ->
                 Log.i(TAG, "claimInvite outcome=$outcome")
                 if (outcome != ClaimOutcome.SELF_INVITE) {
+                    analytics.log(Events.REFERRAL_CLAIMED) { putString("type", "child") }
                     userPreferences.markInviteClaimDone()
                 }
             }
@@ -161,7 +166,10 @@ class ChildHomeViewModel @Inject constructor(
     fun onInviteFriendClicked() {
         viewModelScope.launch {
             inviteRepository.createInviteShareUrl(childId)
-                .onSuccess { url -> _inviteEvents.tryEmit(InviteUiEvent.Share(url)) }
+                .onSuccess { url ->
+                    analytics.log(Events.INVITE_SHARED) { putString("type", "child") }
+                    _inviteEvents.tryEmit(InviteUiEvent.Share(url))
+                }
                 .onFailure { _inviteEvents.tryEmit(InviteUiEvent.CreateFailed) }
         }
     }

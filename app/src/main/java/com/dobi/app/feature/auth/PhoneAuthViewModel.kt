@@ -3,7 +3,11 @@ package com.dobi.app.feature.auth
 import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dobi.app.analytics.AnalyticsTracker
+import com.dobi.app.analytics.Events
+import com.dobi.app.data.local.UserPreferences
 import com.dobi.app.domain.model.OtpState
+import com.dobi.app.domain.model.UserRole
 import com.dobi.app.domain.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -15,7 +19,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PhoneAuthViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val userPreferences: UserPreferences,
+    private val analytics: AnalyticsTracker,
 ) : ViewModel() {
 
     sealed class UiState {
@@ -40,6 +46,7 @@ class PhoneAuthViewModel @Inject constructor(
     val navEvent = _navEvent.asSharedFlow()
 
     fun sendOtp(name: String, phone: String, activity: Activity) {
+        analytics.log(Events.PHONE_AUTH_INITIATED)
         viewModelScope.launch {
             authRepository.sendOtp("+91$phone", activity).collect { state ->
                 when (state) {
@@ -63,6 +70,7 @@ class PhoneAuthViewModel @Inject constructor(
         if (existing == null) {
             authRepository.saveParentProfile(name, phone)
         }
+        userPreferences.saveRole(UserRole.PARENT)
         _navEvent.emit(NavEvent.ToParentHome)
         _uiState.value = UiState.Idle
     }

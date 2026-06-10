@@ -80,6 +80,7 @@ import com.dobi.app.core.ui.theme.SFProBold
 import com.dobi.app.core.ui.theme.SFProMedium
 import com.dobi.app.core.ui.theme.SFProSemiBold
 import com.dobi.app.domain.model.McqQuestion
+import com.dobi.app.feature.streak.SnapShareDialog
 
 // ── Entry point ────────────────────────────────────────────────────────────────
 
@@ -185,14 +186,25 @@ fun QuizScreen(
                 onDone = onNavigateBack,
                 onAssignQuiz = viewModel::assignQuiz,
                 onSnapSend = if (uiState.showSnapAndSend && !uiState.hideActions) {
-                    {
-                        viewModel.markSnapSent()
-                        onSnapSend(uiState.unitName)
-                    }
+                    { viewModel.openSnapShareDialog() }
                 } else null,
                 modifier = Modifier.padding(innerPadding)
             )
         }
+    }
+
+    if (uiState.showSnapShareDialog) {
+        SnapShareDialog(
+            streakDays = uiState.streakDays,
+            childName  = uiState.childName,
+            friends    = uiState.friends,
+            onDismiss  = viewModel::dismissSnapShareDialog,
+            onShared   = {
+                viewModel.markSnapSent()
+                viewModel.dismissSnapShareDialog()
+                onSnapSend(uiState.unitName)
+            }
+        )
     }
 }
 

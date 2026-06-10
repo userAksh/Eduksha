@@ -5,11 +5,14 @@ struct OTPVerificationView: View {
     var onVerify: (String, @escaping (String?) -> Void) -> Void
     var onResend: () -> Void
     var onBack: () -> Void
+    var onReferralCodeEntered: (String) -> Void = { _ in }
 
     @State private var otp = ""
     @State private var isVerifying = false
     @State private var error: String? = nil
     @State private var resendCountdown = 30
+    @State private var referralCode = ""
+    @State private var showReferralField = false
 
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
@@ -103,6 +106,48 @@ struct OTPVerificationView: View {
                     .padding(12)
                     .background(Color.dobiSurfaceAlt)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
+
+                    // Referral code (optional, collapsible)
+                    VStack(spacing: 10) {
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.2)) { showReferralField.toggle() }
+                        } label: {
+                            HStack(spacing: 6) {
+                                Image(systemName: "gift")
+                                    .font(.system(size: 12))
+                                    .foregroundStyle(Color.dobiPrimary)
+                                Text("Have a referral code?")
+                                    .font(.dobiCaptionMedium())
+                                    .foregroundStyle(Color.dobiPrimary)
+                                Spacer()
+                                Image(systemName: showReferralField ? "chevron.up" : "chevron.down")
+                                    .font(.system(size: 11))
+                                    .foregroundStyle(Color.dobiTextTertiary)
+                            }
+                        }
+                        .buttonStyle(.plain)
+
+                        if showReferralField {
+                            HStack(spacing: 10) {
+                                TextField("Enter code", text: $referralCode)
+                                    .font(.dobiBodyMedium())
+                                    .foregroundStyle(Color.dobiTextPrimary)
+                                    .textInputAutocapitalization(.never)
+                                    .autocorrectionDisabled()
+                                    .padding(.horizontal, 14)
+                                    .padding(.vertical, 10)
+                                    .background(Color.dobiSurfaceAlt)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    .onChange(of: referralCode) { code in
+                                        let trimmed = code.trimmingCharacters(in: .whitespaces)
+                                        if trimmed.count >= 6 {
+                                            onReferralCodeEntered(trimmed)
+                                        }
+                                    }
+                            }
+                        }
+                    }
+                    .padding(.top, 4)
 
                     // Resend
                     HStack(spacing: 6) {

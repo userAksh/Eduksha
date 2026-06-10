@@ -26,6 +26,8 @@ struct ChildHomeView: View {
     @State private var selectedModeIndex: Int? = nil
     @State private var tutorHonorific: String = UserDefaults.standard.string(forKey: "tutor_honorific") ?? ""
     @State private var tutorName: String = UserDefaults.standard.string(forKey: "tutor_name") ?? ""
+    @State private var childShareItem: ShareItem? = nil
+    @State private var isInviteLoading = false
 
     private var myTasks: [ParentTaskItem] {
         appState.parentTasks.filter { $0.childId == childId }
@@ -51,7 +53,8 @@ struct ChildHomeView: View {
                     onStreak: onNavigateToStreakHome,
                     onParentTask: onNavigateToParentTask,
                     onSeeAllTasks: onNavigateToParentTasksList,
-                    onEarnReward: onNavigateToEarnReward
+                    onEarnReward: onNavigateToEarnReward,
+                    onInviteFriend: triggerChildInvite
                 )
                 .opacity(selectedTab == 0 ? 1 : 0)
                 .allowsHitTesting(selectedTab == 0)
@@ -65,9 +68,14 @@ struct ChildHomeView: View {
                 .opacity(selectedTab == 1 ? 1 : 0)
                 .allowsHitTesting(selectedTab == 1)
 
-                ChildProfileTab(childId: childId, childName: childName, onSwitchToParent: onRequestParentAccess)
-                    .opacity(selectedTab == 2 ? 1 : 0)
-                    .allowsHitTesting(selectedTab == 2)
+                ChildProfileTab(
+                    childId: childId,
+                    childName: childName,
+                    onSwitchToParent: onRequestParentAccess,
+                    onInviteFriend: triggerChildInvite
+                )
+                .opacity(selectedTab == 2 ? 1 : 0)
+                .allowsHitTesting(selectedTab == 2)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
@@ -119,6 +127,25 @@ struct ChildHomeView: View {
         .animation(.spring(duration: 0.3), value: selectedModeIndex == nil)
         .navigationBarHidden(true)
         .ignoresSafeArea(edges: .bottom)
+        .sheet(item: $childShareItem) { item in
+            ShareSheet(items: [item.text])
+        }
+        .task(id: childId) {
+            await InviteService.shared.tryClaimPendingInvite(childId: childId)
+        }
+    }
+
+    private func triggerChildInvite() {
+        guard !isInviteLoading else { return }
+        isInviteLoading = true
+        Task {
+            let text = await InviteService.shared.createChildInviteText(
+                childId: childId,
+                childName: childName
+            )
+            isInviteLoading = false
+            if let text { childShareItem = ShareItem(text: text) }
+        }
     }
 }
 
@@ -176,6 +203,7 @@ private struct ChildDashboardTab: View {
     var onParentTask: (String) -> Void
     var onSeeAllTasks: () -> Void
     var onEarnReward: () -> Void = {}
+    var onInviteFriend: () -> Void = {}
 
     private var firstName: String { childName.components(separatedBy: " ").first ?? childName }
     private var assignedTasks: [ParentTaskItem] { parentTasks.filter { $0.status == "ASSIGNED" } }
@@ -207,7 +235,7 @@ private struct ChildDashboardTab: View {
                 // Streak banner
                 ChildStreakBanner(
                     streakDays: streakDays,
-                    onInviteFriend: {},
+                    onInviteFriend: onInviteFriend,
                     onViewDashboard: onStreak
                 )
                 .padding(.horizontal, 20)

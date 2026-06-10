@@ -24,14 +24,19 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
+import com.dobi.app.BuildConfig
 import com.dobi.app.core.navigation.Screen
 import com.dobi.app.data.local.UserPreferences
+import com.dobi.app.domain.model.UserRole
 import com.dobi.app.domain.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 import kotlin.coroutines.resume
@@ -56,6 +61,7 @@ class SplashActivity : ComponentActivity() {
     @Inject lateinit var auth: FirebaseAuth
     @Inject lateinit var userRepository: UserRepository
     @Inject lateinit var userPreferences: UserPreferences
+    @Inject lateinit var firestore: FirebaseFirestore
 
     override fun attachBaseContext(newBase: Context) {
         val lang = LanguagePreference.get(newBase)
@@ -98,27 +104,69 @@ class SplashActivity : ComponentActivity() {
         // Resolve routing in parallel with video playback. Same logic that
         // used to live in MainViewModel; doing it here lets us hand the
         // resolved Screen to MainActivity so it renders without a blank frame.
+        // Diagnostic: check currentUser synchronously before coroutine starts
+        Log.d(TAG, "onCreate: auth.currentUser sync-check = ${auth.currentUser?.uid ?: "null"}")
+
         lifecycleScope.launch {
-            // Use addAuthStateListener instead of reading currentUser directly.
-            // After a device unlock Firebase decrypts its keystore async, so
-            // currentUser can be null for a few hundred ms even with a persisted user.
-            // The listener fires once Firebase has settled on a definitive state.
-            val currentUser = suspendCancellableCoroutine { cont ->
-                val listener = object : FirebaseAuth.AuthStateListener {
-                    override fun onAuthStateChanged(firebaseAuth: FirebaseAuth) {
-                        firebaseAuth.removeAuthStateListener(this)
-                        if (cont.isActive) cont.resume(firebaseAuth.currentUser)
+            // Check minimum required version first. Fail-open if Firestore is
+            // unreachable (offline users must not be blocked by a network error).
+            val minVersionCode = try {
+                val doc = firestore.collection("dobi_meta").document("appConfig").get().await()
+                doc.getLong("minVersionCode")?.toInt() ?: 0
+            } catch (e: Exception) {
+                Log.w(TAG, "version check failed (fail-open): ${e.message}")
+                0
+            }
+            if (BuildConfig.VERSION_CODE < minVersionCode) {
+                Log.i(TAG, "force update: versionCode=${BuildConfig.VERSION_CODE} < min=$minVersionCode")
+                resolvedScreen = Screen.ForceUpdate
+                if (handoffRequested) handOff()
+                return@launch
+            }
+
+            // Firebase fires the AuthStateListener immediately on registration.
+            // On cold start with a Keystore-encrypted refresh token, the first
+            // callback can be null before decryption completes; Firebase fires
+            // the listener AGAIN once decryption succeeds. Removing it on the
+            // first null callback (previous approach) caused us to miss that
+            // second fire and incorrectly treat the user as logged-out.
+            // Fix: keep the listener alive; only remove when user is non-null.
+            // withTimeoutOrNull bounds the wait for genuinely logged-out users.
+            // Check synchronously first — Firebase loads the cached user before
+            // the first onAuthStateChanged post reaches the Main thread. If the
+            // sync check returns a user we can route immediately without any wait.
+            val syncUser = auth.currentUser
+            Log.d(TAG, "auth resolution start: syncUser=${syncUser?.uid ?: "null"}")
+            val currentUser = syncUser ?: withTimeoutOrNull(4_000) {
+                suspendCancellableCoroutine { cont ->
+                    val listener = object : FirebaseAuth.AuthStateListener {
+                        override fun onAuthStateChanged(firebaseAuth: FirebaseAuth) {
+                            Log.d(TAG, "AuthStateListener fired: currentUser=${firebaseAuth.currentUser?.uid ?: "null"}")
+                            val user = firebaseAuth.currentUser ?: return
+                            firebaseAuth.removeAuthStateListener(this)
+                            if (cont.isActive) cont.resume(user)
+                        }
                     }
+                    auth.addAuthStateListener(listener)
+                    cont.invokeOnCancellation { auth.removeAuthStateListener(listener) }
                 }
-                auth.addAuthStateListener(listener)
-                cont.invokeOnCancellation { auth.removeAuthStateListener(listener) }
+            } ?: auth.currentUser.also {
+                Log.d(TAG, "auth timeout fired; fallback currentUser=${it?.uid ?: "null"}")
             }
             val screen = if (currentUser != null) {
-                Screen.ParentHome
+                Screen.Paywall
             } else {
                 val isChildDevice = userPreferences.isChildDevice.first()
                 val linked = userRepository.linkedChildId.first()
-                if (isChildDevice && linked != null) Screen.ChildHome(linked) else Screen.RoleSelection
+                when {
+                    isChildDevice && linked != null -> Screen.ChildHome(linked)
+                    // Firebase session lost (Keystore key invalidated, reinstall, etc.)
+                    // but this device was previously used as a parent account — skip
+                    // role selection and go straight to phone re-auth.
+                    userPreferences.userRole.first() == UserRole.PARENT ->
+                        Screen.PhoneAuth
+                    else -> Screen.RoleSelection
+                }
             }
             Log.d(TAG, "routing resolved: $screen")
             resolvedScreen = screen

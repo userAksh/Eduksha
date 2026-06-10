@@ -1,36 +1,43 @@
 package com.dobi.app.domain.repository
 
+import com.dobi.app.domain.model.ReferralReward
+import kotlinx.coroutines.flow.Flow
+
 interface InviteRepository {
 
-    /**
-     * Asks the server for a fresh invite code tied to [childId]. Returns the
-     * Play Store URL that the inviter shares — friend taps it, installs, and
-     * Play Store passes `referrer=invite_{code}` to the new install.
-     */
+    // ── Child invite (existing) ─────────────────────────────────────────────
+
     suspend fun createInviteShareUrl(childId: String): Result<String>
-
-    /**
-     * Idempotent on the server. Safe to call repeatedly while we still have
-     * an unclaimed install referrer in the prefs.
-     */
     suspend fun claimInvite(code: String, childId: String): Result<ClaimOutcome>
+    suspend fun readPendingInviteCode(): String?
+
+    // ── Parent referral (new) ───────────────────────────────────────────────
+
+    /** Creates a parent-type invite. Returns Pair(shareUrl, code). */
+    suspend fun createParentInviteShareUrl(): Result<Pair<String, String>>
+
+    /** Claims a parent-type invite (no childId needed). Idempotent. */
+    suspend fun claimParentInvite(code: String): Result<ClaimOutcome>
 
     /**
-     * Reads the Play Install Referrer once, returns the embedded invite code
-     * if present (i.e. referrer matched `invite_{code}`). Returns null on no
-     * referrer, malformed referrer, or any client error — caller treats null
-     * as "nothing to claim, try again next cold start".
+     * Called after the referee adds their first child. Server checks grade+board
+     * match and writes friend edges + Stage 1 reward if matched.
      */
-    suspend fun readPendingInviteCode(): String?
+    suspend fun applyReferralMatch(childId: String, grade: Int, board: String): Result<Unit>
+
+    /** Called after 7 days of activity. Server unlocks Stage 2 reward. */
+    suspend fun recordReferralWeekActivity(): Result<Unit>
+
+    /** Live stream of scratch-card rewards for the signed-in parent. */
+    fun observeReferralRewards(): Flow<List<ReferralReward>>
+
+    /** Marks a reward scratched and returns the revealed value. */
+    suspend fun scratchReward(rewardId: String): Result<String>
 }
 
 enum class ClaimOutcome {
-    /** Friend edges were written and the inviter was notified. */
     CLAIMED,
-    /** Server saw this child had already claimed this code; no-op. */
     ALREADY_CLAIMED,
-    /** Caller is the inviter; can't befriend yourself. */
     SELF_INVITE,
-    /** Inviter child was deleted before we could claim. */
     INVITER_MISSING
 }

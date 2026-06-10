@@ -3,10 +3,13 @@ package com.dobi.app.feature.parenthome
 import android.app.Activity
 import android.content.ContextWrapper
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,6 +31,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.HelpOutline
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CardGiftcard
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Edit
@@ -54,11 +58,19 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -71,7 +83,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
@@ -113,6 +124,9 @@ fun ParentSettingsTab(
     onManageChildren: () -> Unit = {},
     onAddChild: () -> Unit = {},
     onStudyGoals: (childId: String) -> Unit = {},
+    onInviteParents: () -> Unit = {},
+    referralRewards: List<com.dobi.app.domain.model.ReferralReward> = emptyList(),
+    onScratchReward: (rewardId: String, onRevealed: (String) -> Unit) -> Unit = { _, _ -> },
     onLanguage: () -> Unit = {},
     onPrivacyData: () -> Unit = {},
     onFaq: () -> Unit = {},
@@ -244,6 +258,37 @@ fun ParentSettingsTab(
                         },
                         onClick = { showLanguagePicker = true },
                     )
+                }
+            }
+
+            item {
+                SectionHeader(title = "Invite & Rewards")
+                Spacer(Modifier.height(8.dp))
+                GroupCard {
+                    SettingsRow(
+                        icon = Icons.Filled.CardGiftcard,
+                        iconTint = AmberDeep,
+                        iconBg = AmberSoft,
+                        title = "Invite a parent",
+                        subtitle = "Share Eduksha and earn rewards when they join",
+                        trailing = { ChevronTrailing() },
+                        onClick = onInviteParents,
+                    )
+                }
+            }
+
+            if (referralRewards.isNotEmpty()) {
+                item {
+                    SectionHeader(title = "Your Rewards")
+                    Spacer(Modifier.height(8.dp))
+                    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        referralRewards.forEach { reward ->
+                            ScratchCard(
+                                reward = reward,
+                                onScratch = { onScratchReward(reward.id) { } },
+                            )
+                        }
+                    }
                 }
             }
 
@@ -735,6 +780,136 @@ private fun LanguageOption(label: String, selected: Boolean, onClick: () -> Unit
 }
 
 // ── Trust footer ─────────────────────────────────────────────────────────────
+
+// ── Scratch card ─────────────────────────────────────────────────────────────
+
+@Composable
+private fun ScratchCard(
+    reward: com.dobi.app.domain.model.ReferralReward,
+    onScratch: () -> Unit,
+) {
+    val scratchedLines = remember { mutableListOf<Pair<Offset, Offset>>() }
+    var scratchProgress by remember { mutableFloatStateOf(if (reward.isScratched) 1f else 0f) }
+    var revealed by remember { mutableStateOf(reward.isScratched) }
+    var lastPos by remember { mutableStateOf<Offset?>(null) }
+
+    val cardBg = Color(0xFFFFF8E6)
+    val scratchBg = Color(0xFFFFD700)
+
+    Surface(
+        shape = RoundedCornerShape(16.dp),
+        color = cardBg,
+        border = BorderStroke(1.dp, Color(0xFFE8D090)),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("🎁", fontSize = 22.sp)
+                Spacer(Modifier.width(10.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = if (reward.referredParentName.isNotBlank())
+                            "${reward.referredParentName} joined Eduksha!"
+                        else "Referral reward unlocked!",
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = AmberDeep,
+                    )
+                    Text(
+                        text = reward.rewardLabel,
+                        fontSize = 11.sp,
+                        color = SecondaryText,
+                    )
+                }
+            }
+
+            Spacer(Modifier.height(12.dp))
+
+            // The scratch area
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(72.dp)
+                    .clip(RoundedCornerShape(12.dp)),
+                contentAlignment = Alignment.Center,
+            ) {
+                // Revealed content beneath
+                Box(
+                    modifier = Modifier
+                        .matchParentSize()
+                        .background(Color(0xFFEFF9F0)),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        text = if (revealed) reward.rewardValue else "🎉",
+                        fontSize = if (revealed) 18.sp else 28.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF15803D),
+                        textAlign = TextAlign.Center,
+                    )
+                }
+
+                if (!revealed) {
+                    // Scratchable overlay
+                    Canvas(
+                        modifier = Modifier
+                            .matchParentSize()
+                            .pointerInput(Unit) {
+                                detectDragGestures(
+                                    onDragStart = { pos -> lastPos = pos },
+                                    onDrag = { change, _ ->
+                                        val cur = change.position
+                                        lastPos?.let { prev -> scratchedLines.add(prev to cur) }
+                                        lastPos = cur
+                                        // Rough progress: count lines relative to card area.
+                                        scratchProgress =
+                                            (scratchedLines.size / 80f).coerceAtMost(1f)
+                                        if (scratchProgress >= 0.5f && !revealed) {
+                                            revealed = true
+                                            onScratch()
+                                        }
+                                    },
+                                    onDragEnd = { lastPos = null },
+                                )
+                            }
+                    ) {
+                        drawRect(color = scratchBg)
+                        val erasePaint = Paint().apply {
+                            blendMode = BlendMode.Clear
+                            strokeWidth = 40f
+                            strokeCap = androidx.compose.ui.graphics.StrokeCap.Round
+                        }
+                        drawIntoCanvas { canvas ->
+                            scratchedLines.forEach { (a, b) ->
+                                canvas.drawLine(a, b, erasePaint)
+                            }
+                        }
+                    }
+
+                    Text(
+                        text = "← Scratch to reveal →",
+                        fontSize = 11.sp,
+                        color = Color(0xFF5C4500),
+                        modifier = Modifier.align(Alignment.Center),
+                    )
+                }
+            }
+
+            if (revealed && reward.rewardValue.isNotBlank()) {
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = "Show this code at checkout or apply in-app",
+                    fontSize = 11.sp,
+                    color = SecondaryText,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+        }
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 @Composable
 private fun TrustFooter() {

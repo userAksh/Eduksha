@@ -3,8 +3,11 @@ package com.dobi.app.feature.addchild
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dobi.app.analytics.AnalyticsTracker
+import com.dobi.app.analytics.Events
 import com.dobi.app.domain.model.Child
 import com.dobi.app.domain.repository.ChildRepository
+import com.dobi.app.domain.repository.InviteRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -46,7 +49,9 @@ enum class AddChildStep { WELCOME, DETAILS, DONE }
 @HiltViewModel
 class AddChildViewModel @Inject constructor(
     private val auth: FirebaseAuth,
-    private val childRepository: ChildRepository
+    private val childRepository: ChildRepository,
+    private val inviteRepository: InviteRepository,
+    private val analytics: AnalyticsTracker,
 ) : ViewModel() {
 
     private val _step = MutableStateFlow(AddChildStep.WELCOME)
@@ -71,6 +76,7 @@ class AddChildViewModel @Inject constructor(
     val navToParentHome = _navToParentHome.asSharedFlow()
 
     fun startAdding() {
+        analytics.log(Events.ADD_CHILD_STARTED)
         _editingChildId.value = null
         _draft.value = ChildDraft()
         _step.value = AddChildStep.DETAILS
@@ -148,6 +154,14 @@ class AddChildViewModel @Inject constructor(
                 _draft.value = ChildDraft()
                 _editingChildId.value = null
                 _step.value = AddChildStep.DONE
+                if (editingId == null) {
+                    analytics.log(Events.CHILD_PROFILE_CREATED) {
+                        putInt("grade", saved.grade)
+                        putString("board", saved.board)
+                    }
+                    inviteRepository.applyReferralMatch(saved.id, saved.grade, saved.board)
+                        .onFailure { Log.w("AddChildVM", "applyReferralMatch failed", it) }
+                }
             }.onFailure {
                 Log.e("AddChildVM", "saveChild: FAILED — ${it.message}", it)
                 _error.value = it.message ?: "Failed to save. Please try again."

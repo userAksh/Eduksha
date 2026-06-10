@@ -5,8 +5,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.dobi.app.analytics.AnalyticsTracker
+import com.dobi.app.analytics.Events
 import com.dobi.app.core.navigation.Screen
 import com.dobi.app.domain.model.OtpState
+import com.dobi.app.domain.model.UserRole
 import com.dobi.app.domain.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -19,7 +22,9 @@ import javax.inject.Inject
 @HiltViewModel
 class OtpVerificationViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val userPreferences: com.dobi.app.data.local.UserPreferences,
+    private val analytics: AnalyticsTracker,
 ) : ViewModel() {
 
     sealed class UiState {
@@ -53,6 +58,8 @@ class OtpVerificationViewModel @Inject constructor(
                         if (existing == null) {
                             authRepository.saveParentProfile(name, "+91$phone")
                         }
+                        userPreferences.saveRole(UserRole.PARENT)
+                        analytics.log(Events.OTP_VERIFIED)
                         _navEvent.emit(NavEvent.ToParentHome)
                         _uiState.value = UiState.Idle
                     }
@@ -62,6 +69,15 @@ class OtpVerificationViewModel @Inject constructor(
             } catch (e: Exception) {
                 _uiState.value = UiState.Error(e.message ?: "Something went wrong. Please try again.")
             }
+        }
+    }
+
+    fun saveReferralCode(code: String) {
+        val trimmed = code.trim().lowercase()
+        if (trimmed.isBlank()) return
+        viewModelScope.launch {
+            userPreferences.saveParentReferralCode(trimmed)
+            analytics.log(Events.REFERRAL_CODE_APPLIED) { putString("code", trimmed) }
         }
     }
 
@@ -80,6 +96,8 @@ class OtpVerificationViewModel @Inject constructor(
                         if (existing == null) {
                             authRepository.saveParentProfile(name, "+91$phone")
                         }
+                        userPreferences.saveRole(UserRole.PARENT)
+                        analytics.log(Events.OTP_VERIFIED)
                         _navEvent.emit(NavEvent.ToParentHome)
                         _uiState.value = UiState.Idle
                     }

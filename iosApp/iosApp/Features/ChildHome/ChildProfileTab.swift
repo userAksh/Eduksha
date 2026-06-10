@@ -6,6 +6,7 @@ struct ChildProfileTab: View {
     let childId: String
     let childName: String
     var onSwitchToParent: () -> Void
+    var onInviteFriend: () -> Void = {}
 
     @EnvironmentObject private var appState: AppState
     @State private var topicsCount = 0
@@ -68,10 +69,10 @@ struct ChildProfileTab: View {
                     title: "Studying with friends",
                     emoji: "🤝",
                     trailing: "Invite",
-                    onTrailingClick: {}
+                    onTrailingClick: onInviteFriend
                 )
 
-                CPFriendsCard(onInvite: {})
+                CPFriendsCard(onInvite: onInviteFriend)
 
                 Spacer().frame(height: 4)
                 CPSwitchProfileCard(onClick: onSwitchToParent)

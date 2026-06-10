@@ -255,8 +255,7 @@ struct WriteAnswerView: View {
         phase = .modePicker
     }
 
-    // MARK: - Cloud Function calls (generateSubjectiveQuestions / gradeNotebookAnswers /
-    //         gradeStructuredAnswers are not yet deployed — will fail gracefully)
+    // MARK: - Cloud Function calls
 
     private func callGenerateSubjectiveQuestions() async throws -> [WAQuestion] {
         let fn = Functions.functions().httpsCallable("generateSubjectiveQuestions")

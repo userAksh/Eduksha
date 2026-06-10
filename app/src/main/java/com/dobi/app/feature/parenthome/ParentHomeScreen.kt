@@ -1,5 +1,6 @@
 package com.dobi.app.feature.parenthome
 
+import android.content.Intent
 import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -62,6 +63,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
@@ -77,6 +79,7 @@ import com.dobi.app.domain.model.ChildEngagement
 import com.dobi.app.domain.model.ParentTask
 import com.dobi.app.domain.model.ParentTaskStatus
 import com.dobi.app.domain.model.ParentTaskType
+import com.dobi.app.domain.model.ReferralReward
 import com.dobi.app.core.ui.theme.DobiError
 import com.dobi.app.core.ui.theme.DobiPrimary
 import com.dobi.app.core.ui.theme.DobiPrimaryContainer
@@ -122,10 +125,26 @@ fun ParentHomeScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val pairingDialog by viewModel.pairingDialog.collectAsStateWithLifecycle()
+    val referralRewards by viewModel.referralRewards.collectAsStateWithLifecycle()
     var selectedTab by rememberSaveable { mutableIntStateOf(ParentTab.CHILDREN.ordinal) }
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         viewModel.navToRoleSelection.collect { onNavigateToRoleSelection() }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.inviteEvent.collect { event ->
+            when (event) {
+                is ParentHomeViewModel.InviteEvent.Share -> {
+                    val intent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, event.text)
+                    }
+                    context.startActivity(Intent.createChooser(intent, "Invite a parent"))
+                }
+            }
+        }
     }
 
     LaunchedEffect(uiState.isLoading, uiState.children.size) {
@@ -197,6 +216,9 @@ fun ParentHomeScreen(
                         onNavigateToWebView("https://eduksha.in/support.html", "Help & Support")
                     },
                     onStudyGoals = onNavigateToStudyGoals,
+                    onInviteParents = viewModel::onInviteParentsClicked,
+                    referralRewards = referralRewards,
+                    onScratchReward = { id, cb -> viewModel.scratchReward(id, cb) },
                     onSignOut = viewModel::signOut,
                 )
             }

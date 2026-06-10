@@ -17,6 +17,8 @@ struct TestYourselfFormatView: View {
     private var isAi: Bool { source == "ai" }
     private var isUnitScope: Bool { conceptId.isEmpty }
 
+    @State private var mcqAttemptCount: Int = 0
+
     private var displayTitle: String {
         isUnitScope ? unitName : (conceptName.isEmpty ? unitName : conceptName)
     }
@@ -69,6 +71,7 @@ struct TestYourselfFormatView: View {
                         .padding(.top, 6)
 
                     // MCQ card
+                    let mcqDisabled = !isAi && mcqAttemptCount >= 2
                     TYFFormatCard(
                         iconSystemName: "list.bullet.clipboard",
                         iconBg: Color(hex: 0xDBEAFE),
@@ -76,9 +79,18 @@ struct TestYourselfFormatView: View {
                         title: "MCQ",
                         subtitle: "Multiple-choice questions with one correct answer.",
                         ctaLabel: isAi ? "Snap & Generate MCQs" : "Start MCQ Quiz",
+                        disabled: mcqDisabled,
                         onClick: onPickMcq
                     )
                     .padding(.top, 20)
+
+                    if mcqDisabled {
+                        Text("Max attempts reached for this topic.")
+                            .font(.system(size: 12))
+                            .foregroundStyle(Color.dobiTextSecondary)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding(.top, 6)
+                    }
 
                     // Subjective card
                     TYFFormatCard(
@@ -117,6 +129,13 @@ struct TestYourselfFormatView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.dobiPageBg.ignoresSafeArea())
         .navigationBarHidden(true)
+        .task {
+            guard !isAi && !childId.isEmpty else { return }
+            let id = isUnitScope ? unitId : conceptId
+            mcqAttemptCount = await FirebaseService.shared.fetchAttemptCount(
+                childId: childId, id: id, isUnit: isUnitScope
+            )
+        }
     }
 }
 
@@ -159,10 +178,11 @@ private struct TYFFormatCard: View {
     let title: String
     let subtitle: String
     let ctaLabel: String
+    var disabled: Bool = false
     let onClick: () -> Void
 
     var body: some View {
-        Button(action: onClick) {
+        Button(action: disabled ? {} : onClick) {
             VStack(spacing: 0) {
                 HStack(spacing: 14) {
                     ZStack {
@@ -190,7 +210,7 @@ private struct TYFFormatCard: View {
                         Circle()
                             .fill(iconBg)
                             .frame(width: 32, height: 32)
-                        Image(systemName: "chevron.right")
+                        Image(systemName: disabled ? "lock.fill" : "chevron.right")
                             .font(.system(size: 13, weight: .semibold))
                             .foregroundStyle(iconTint)
                     }
@@ -213,6 +233,7 @@ private struct TYFFormatCard: View {
                 RoundedRectangle(cornerRadius: 18)
                     .stroke(iconTint.opacity(0.5), lineWidth: 1)
             )
+            .opacity(disabled ? 0.45 : 1.0)
         }
         .buttonStyle(.plain)
     }

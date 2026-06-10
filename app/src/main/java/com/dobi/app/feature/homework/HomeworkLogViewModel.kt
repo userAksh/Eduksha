@@ -3,6 +3,8 @@ package com.dobi.app.feature.homework
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dobi.app.analytics.AnalyticsTracker
+import com.dobi.app.analytics.Events
 import com.dobi.app.data.repository.ImageScopeRequest
 import com.dobi.app.data.repository.ImageScopeValidator
 import com.dobi.app.data.repository.UploadEntryRepository
@@ -23,7 +25,8 @@ class HomeworkLogViewModel @Inject constructor(
     private val saveHomeworkUseCase: SaveHomeworkUseCase,
     private val userRepository: UserRepository,
     private val uploadEntryRepository: UploadEntryRepository,
-    private val imageScopeValidator: ImageScopeValidator
+    private val imageScopeValidator: ImageScopeValidator,
+    private val analytics: AnalyticsTracker,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeworkLogUiState())
@@ -124,6 +127,7 @@ class HomeworkLogViewModel @Inject constructor(
                 ).onFailure { Log.w("HomeworkLog", "Mirror to uploads failed", it) }
             }
 
+            analytics.log(Events.HOMEWORK_LOGGED) { putString("subject", state.subject) }
             _uiState.update { it.copy(isSaving = false, isSaved = true) }
         }
     }

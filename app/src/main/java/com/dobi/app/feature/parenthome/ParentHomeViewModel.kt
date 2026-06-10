@@ -1,32 +1,40 @@
 package com.dobi.app.feature.parenthome
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dobi.app.analytics.AnalyticsTracker
+import com.dobi.app.analytics.Events
+import com.dobi.app.data.local.UserPreferences
 import com.dobi.app.data.repository.ChildEngagementRepository
 import com.dobi.app.domain.model.Child
 import com.dobi.app.domain.model.ChildEngagement
 import com.dobi.app.domain.model.ParentProfile
 import com.dobi.app.domain.model.ParentTask
+import com.dobi.app.domain.model.ReferralReward
 import com.dobi.app.domain.repository.AuthRepository
 import com.dobi.app.domain.repository.ChildRepository
 import com.dobi.app.domain.repository.FcmTokenRepository
+import com.dobi.app.domain.repository.InviteRepository
 import com.dobi.app.domain.repository.PairingRepository
 import com.dobi.app.domain.repository.ParentTaskRepository
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -39,7 +47,10 @@ class ParentHomeViewModel @Inject constructor(
     private val pairingRepository: PairingRepository,
     private val parentTaskRepository: ParentTaskRepository,
     private val fcmTokenRepository: FcmTokenRepository,
-    private val engagementRepository: ChildEngagementRepository
+    private val engagementRepository: ChildEngagementRepository,
+    private val inviteRepository: InviteRepository,
+    private val userPreferences: UserPreferences,
+    private val analytics: AnalyticsTracker,
 ) : ViewModel() {
 
     data class UiState(
@@ -49,6 +60,10 @@ class ParentHomeViewModel @Inject constructor(
         val engagements: Map<String, ChildEngagement> = emptyMap(),
         val isLoading: Boolean = true
     )
+
+    sealed class InviteEvent {
+        data class Share(val text: String) : InviteEvent()
+    }
 
     sealed class PairingDialogState {
         object Hidden : PairingDialogState()
@@ -66,11 +81,20 @@ class ParentHomeViewModel @Inject constructor(
     private val _navToRoleSelection = MutableSharedFlow<Unit>()
     val navToRoleSelection = _navToRoleSelection.asSharedFlow()
 
+    private val _inviteEvent = MutableSharedFlow<InviteEvent>(extraBufferCapacity = 1)
+    val inviteEvent = _inviteEvent.asSharedFlow()
+
+    val referralRewards = inviteRepository.observeReferralRewards()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+
     init {
         loadData()
         observeParentTasks()
         observeEngagements()
         viewModelScope.launch { fcmTokenRepository.syncCurrentToken() }
+        viewModelScope.launch { tryClaimParentReferral() }
+        viewModelScope.launch { trackFirstActiveAndCheckMilestone() }
+        analytics.log(Events.PARENT_HOME_REACHED)
     }
 
     private fun observeParentTasks() {
@@ -129,6 +153,7 @@ class ParentHomeViewModel @Inject constructor(
         viewModelScope.launch {
             pairingRepository.generateCode(parentId, child.id)
                 .onSuccess { pairing ->
+                    analytics.log(Events.PAIRING_CODE_GENERATED)
                     _pairingDialog.value = PairingDialogState.Shown(child, pairing.code)
                 }
                 .onFailure {
@@ -152,6 +177,61 @@ class ParentHomeViewModel @Inject constructor(
     fun sendReminder(taskId: String) {
         if (taskId.isBlank()) return
         viewModelScope.launch { parentTaskRepository.sendReminder(taskId) }
+    }
+
+    fun onInviteParentsClicked() {
+        viewModelScope.launch {
+            inviteRepository.createParentInviteShareUrl()
+                .onSuccess { (url, code) ->
+                    val name = _uiState.value.profile?.name?.substringBefore(" ")?.ifBlank { null }
+                    val greeting = if (name != null) "Hi! $name invited you to Eduksha" else "Hi! You've been invited to Eduksha"
+                    val text = "$greeting — the app that helps parents track their child's learning.\n\n" +
+                        "📚 Set tasks, review homework, and stay connected with your child's progress.\n\n" +
+                        "Download here 👇\n$url\n\n" +
+                        "Or use referral code: ${code.uppercase()} when signing up."
+                    analytics.log(Events.INVITE_SHARED) { putString("type", "parent") }
+                    _inviteEvent.tryEmit(InviteEvent.Share(text))
+                }
+                .onFailure { Log.w(TAG, "createParentInvite failed", it) }
+        }
+    }
+
+    fun scratchReward(rewardId: String, onRevealed: (String) -> Unit) {
+        viewModelScope.launch {
+            inviteRepository.scratchReward(rewardId)
+                .onSuccess { value ->
+                    analytics.log(Events.REWARD_SCRATCHED)
+                    onRevealed(value)
+                }
+                .onFailure { Log.w(TAG, "scratchReward failed", it) }
+        }
+    }
+
+    private suspend fun tryClaimParentReferral() {
+        if (userPreferences.parentReferralClaimDone.first()) return
+        // Try manual code first (entered on OTP screen), then install referrer.
+        val code = userPreferences.parentReferralCode.first()
+            ?: inviteRepository.readPendingInviteCode()
+            ?: run { userPreferences.markParentReferralClaimDone(); return }
+        inviteRepository.claimParentInvite(code)
+            .onSuccess {
+                Log.i(TAG, "parent referral claimed: code=$code")
+                analytics.log(Events.REFERRAL_CLAIMED) { putString("type", "parent") }
+            }
+            .onFailure { Log.w(TAG, "parent referral claim failed", it) }
+        userPreferences.markParentReferralClaimDone()
+    }
+
+    private suspend fun trackFirstActiveAndCheckMilestone() {
+        userPreferences.saveParentFirstActiveAt(System.currentTimeMillis())
+        val firstActive = userPreferences.parentFirstActiveAt.first()
+        if (firstActive <= 0L) return
+        val weekMs = 7L * 24 * 60 * 60 * 1000
+        if (System.currentTimeMillis() - firstActive >= weekMs) {
+            inviteRepository.recordReferralWeekActivity()
+                .onSuccess { Log.i(TAG, "week milestone recorded") }
+                .onFailure { Log.w(TAG, "week milestone failed", it) }
+        }
     }
 
     companion object {

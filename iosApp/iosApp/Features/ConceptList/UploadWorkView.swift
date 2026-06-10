@@ -308,7 +308,10 @@ struct UploadWorkView: View {
                 let qs: [McqQuestion] = rawQs.compactMap { m in
                     guard let text = m["text"] as? String,
                           let options = m["options"] as? [String], options.count == 4 else { return nil }
-                    let ci = m["correct_index"] as? Int ?? 0
+                    let ci = (m["correct_index"] as? Int)
+                        ?? (m["correct_index"] as? Int64).map(Int.init)
+                        ?? (m["correct_index"] as? NSNumber).map(\.intValue)
+                        ?? 0
                     return McqQuestion(
                         id: UUID().uuidString,
                         text: text,

@@ -12,6 +12,9 @@ import com.google.firebase.ai.GenerativeModel
 import com.google.firebase.ai.ai
 import com.google.firebase.ai.type.Content
 import com.google.firebase.ai.type.GenerativeBackend
+import com.google.firebase.ai.type.HarmBlockThreshold
+import com.google.firebase.ai.type.HarmCategory
+import com.google.firebase.ai.type.SafetySetting
 import com.google.firebase.ai.type.Schema
 import com.google.firebase.ai.type.content
 import com.google.firebase.ai.type.generationConfig
@@ -53,6 +56,7 @@ class McqGenerationRepositoryImpl @Inject constructor(
                 responseMimeType = "application/json"
                 responseSchema = MCQ_SCHEMA
             },
+            safetySettings = SAFETY_SETTINGS,
             systemInstruction = content { text(LESSON_SYSTEM_PROMPT) }
         )
     }
@@ -65,6 +69,7 @@ class McqGenerationRepositoryImpl @Inject constructor(
                 responseMimeType = "application/json"
                 responseSchema = MCQ_SCHEMA
             },
+            safetySettings = SAFETY_SETTINGS,
             systemInstruction = content { text(SYSTEM_PROMPT) }
         )
 
@@ -203,6 +208,7 @@ class McqGenerationRepositoryImpl @Inject constructor(
 
     private fun isRetryable(t: Throwable): Boolean {
         val msg = (t.message ?: "").lowercase()
+        if ("400" in msg || "content filtering" in msg || "output blocked" in msg) return false
         return "unavailable" in msg ||
             "overloaded" in msg ||
             "503" in msg ||
@@ -294,6 +300,13 @@ class McqGenerationRepositoryImpl @Inject constructor(
     companion object {
         private const val TAG = "McqGen"
         private const val MAX_IMAGE_SIDE = 1280
+
+        private val SAFETY_SETTINGS = listOf(
+            SafetySetting(HarmCategory.HARASSMENT, HarmBlockThreshold.BLOCK_ONLY_HIGH),
+            SafetySetting(HarmCategory.HATE_SPEECH, HarmBlockThreshold.BLOCK_ONLY_HIGH),
+            SafetySetting(HarmCategory.SEXUALLY_EXPLICIT, HarmBlockThreshold.BLOCK_ONLY_HIGH),
+            SafetySetting(HarmCategory.DANGEROUS_CONTENT, HarmBlockThreshold.BLOCK_ONLY_HIGH),
+        )
 
         private val SYSTEM_PROMPT = """
             You are an Indian school-textbook tutor. A student has uploaded photos of

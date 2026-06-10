@@ -54,6 +54,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -227,6 +228,7 @@ private fun FormCard(
     error: String?,
     onSendOtp: () -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
@@ -282,7 +284,7 @@ private fun FormCard(
             SendOtpButton(
                 enabled = name.isNotBlank() && phone.length == 10 && !isLoading,
                 isLoading = isLoading,
-                onClick = onSendOtp
+                onClick = { focusManager.clearFocus(); onSendOtp() }
             )
 
             Spacer(modifier = Modifier.height(20.dp))

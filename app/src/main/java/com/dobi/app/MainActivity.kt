@@ -36,14 +36,18 @@ import com.dobi.app.core.navigation.Screen
 import com.dobi.app.core.ui.theme.DobiBackground
 import com.dobi.app.core.ui.theme.DobiTheme
 import com.dobi.app.domain.repository.FcmTokenRepository
+import com.dobi.app.feature.paywall.PaymentEventBus
+import com.dobi.app.feature.paywall.PaymentResult
 import com.dobi.app.messaging.DobiMessagingService
+import com.razorpay.PaymentData
+import com.razorpay.PaymentResultWithDataListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), PaymentResultWithDataListener {
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -147,6 +151,20 @@ class MainActivity : ComponentActivity() {
             }
             val outcome = inviteRepository.claimInvite(code, childId)
             Log.i(TAG, "Test claim outcome=$outcome (code=$code)")
+        }
+    }
+
+    override fun onPaymentSuccess(razorpayPaymentId: String?, data: PaymentData?) {
+        android.util.Log.d(TAG, "onPaymentSuccess paymentId=$razorpayPaymentId")
+        lifecycleScope.launch {
+            PaymentEventBus.results.emit(PaymentResult.Success(razorpayPaymentId.orEmpty()))
+        }
+    }
+
+    override fun onPaymentError(code: Int, description: String?, data: PaymentData?) {
+        android.util.Log.d(TAG, "onPaymentError code=$code description=$description")
+        lifecycleScope.launch {
+            PaymentEventBus.results.emit(PaymentResult.Failure(code, description.orEmpty()))
         }
     }
 

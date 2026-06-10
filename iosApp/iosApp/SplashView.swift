@@ -1,11 +1,13 @@
 import SwiftUI
 import AVKit
+import FirebaseFirestore
 
 struct SplashView: View {
     @EnvironmentObject var appState: AppState
     @State private var handedOff = false
     @State private var videoFinished = false
     @State private var routeResolved = false
+    @State private var needsForceUpdate = false
 
     private let player: AVPlayer? = {
         guard let url = Bundle.main.url(forResource: "splash_intro", withExtension: "mp4") else { return nil }
@@ -38,6 +40,9 @@ struct SplashView: View {
             AppRootView()
                 .environmentObject(appState)
         }
+        .fullScreenCover(isPresented: $needsForceUpdate) {
+            ForceUpdateView()
+        }
     }
 
     private func setupPlayer() {
@@ -59,10 +64,30 @@ struct SplashView: View {
     }
 
     private func resolveRoute() {
-        // AppState.init() restores auth immediately (simulator: UserDefaults,
-        // device: Firebase Auth listener). 200ms is enough headroom before
-        // the video ends so AppRootView navigates without a blank frame.
         Task { @MainActor in
+            // Check minimum required build number. Fail-open if Firestore is
+            // unreachable — don't block offline users on a network error.
+            let currentBuild = Int(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0") ?? 0
+            let minBuild: Int = await {
+                do {
+                    let doc = try await Firestore.firestore()
+                        .collection("dobi_meta").document("appConfig").getDocument()
+                    return Int(doc.get("minVersionCodeIos") as? Int64 ?? 0)
+                } catch {
+                    NSLog("[SplashView] version check failed (fail-open): \(error)")
+                    return 0
+                }
+            }()
+
+            if currentBuild < minBuild {
+                NSLog("[SplashView] force update: build=\(currentBuild) < min=\(minBuild)")
+                needsForceUpdate = true
+                return
+            }
+
+            // AppState.init() restores auth immediately (simulator: UserDefaults,
+            // device: Firebase Auth listener). 200ms headroom before video ends
+            // so AppRootView can navigate without a blank frame.
             try? await Task.sleep(nanoseconds: 200_000_000)
             routeResolved = true
             tryHandOff()

@@ -47,6 +47,8 @@ struct ParentHomeView: View {
     @EnvironmentObject private var appState: AppState
     @State private var selectedTab: ParentTab = .children
     @State private var safariItem: IdentifiableURL? = nil
+    @State private var parentShareItem: ShareItem? = nil
+    @State private var isInviteLoading = false
 
     enum ParentTab { case children, dashboard, settings }
 
@@ -86,6 +88,7 @@ struct ParentHomeView: View {
                         onEditProfile: {},
                         onStudyGoals: onNavigateToStudyGoals,
                         onAddChild: onNavigateToAddChild,
+                        onInviteParents: triggerParentInvite,
                         onPrivacyData: { if let u = URL(string: "https://eduksha.in/privacy.html") { safariItem = IdentifiableURL(url: u) } },
                         onFaq: { if let u = URL(string: "https://eduksha.in/#faq") { safariItem = IdentifiableURL(url: u) } },
                         onHelpSupport: { if let u = URL(string: "https://eduksha.in/support.html") { safariItem = IdentifiableURL(url: u) } },
@@ -102,6 +105,19 @@ struct ParentHomeView: View {
         .sheet(item: $safariItem) { item in
             SafariSheet(url: item.url)
                 .ignoresSafeArea()
+        }
+        .sheet(item: $parentShareItem) { item in
+            ShareSheet(items: [item.text])
+        }
+    }
+
+    private func triggerParentInvite() {
+        guard !isInviteLoading else { return }
+        isInviteLoading = true
+        Task {
+            let text = await InviteService.shared.createParentInviteText(parentName: appState.parentName)
+            isInviteLoading = false
+            if let text { parentShareItem = ShareItem(text: text) }
         }
     }
 }
@@ -1893,6 +1909,7 @@ struct ParentSettingsTab: View {
     var onEditProfile: () -> Void = {}
     var onStudyGoals: (String) -> Void = { _ in }
     var onAddChild: () -> Void = {}
+    var onInviteParents: () -> Void = {}
     var onPrivacyData: () -> Void = {}
     var onFaq: () -> Void = {}
     var onHelpSupport: () -> Void = {}
@@ -1960,6 +1977,23 @@ struct ParentSettingsTab: View {
                             let id = selectedChildId.isEmpty ? (children.first?.id ?? "") : selectedChildId
                             onStudyGoals(id)
                         }
+                    }
+                    .padding(.horizontal, 16)
+                }
+
+                // Referral section
+                VStack(alignment: .leading, spacing: 8) {
+                    SettingsSectionLabel("Share")
+                        .padding(.horizontal, 20)
+                    SettingsGroupCard {
+                        SettingsRowItem(
+                            icon: "person.2.fill", iconTint: Color(hex: 0x8B5CF6), iconBg: Color(hex: 0xEDE9FE),
+                            title: "Invite a Parent Friend",
+                            subtitle: "Earn rewards when they join Eduksha"
+                        ) {
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: 14)).foregroundStyle(TertiaryText)
+                        } onTap: { onInviteParents() }
                     }
                     .padding(.horizontal, 16)
                 }

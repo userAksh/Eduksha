@@ -91,11 +91,22 @@ struct iOSApp: App {
 
     init() {
         FirebaseApp.configure()
-        #if DEBUG
-        // Bypass APNs/reCAPTCHA in debug builds so Firebase test phone numbers work
-        // on both simulator and real devices without APNs key configured in Firebase.
+
+        // Fresh-install detection: UserDefaults is wiped when the app is deleted,
+        // but the iOS Keychain (where Firebase Auth stores its session) is not.
+        // Without this check a reinstalled app skips login entirely.
+        // We sign out before any auth-state listener is attached, so the app
+        // always starts from RoleSelection on a clean install.
+        let defaults = UserDefaults.standard
+        if !defaults.bool(forKey: "appInstalledBefore") {
+            try? Auth.auth().signOut()
+            defaults.set(true, forKey: "appInstalledBefore")
+        }
+
+        // TODO: Remove before App Store submission — requires APNs key in Firebase Console.
+        // Disables APNs/reCAPTCHA app-verification so phone auth works without Apple
+        // Developer Program enrollment. Real OTPs still send to real numbers.
         Auth.auth().settings?.isAppVerificationDisabledForTesting = true
-        #endif
     }
 
     var body: some Scene {

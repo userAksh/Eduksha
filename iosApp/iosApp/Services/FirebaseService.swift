@@ -328,7 +328,10 @@ final class FirebaseService {
                 id: m["id"] as? String ?? UUID().uuidString,
                 text: text,
                 options: options,
-                correctIndex: (m["correctIndex"] as? Int) ?? 0,
+                correctIndex: (m["correctIndex"] as? Int)
+                    ?? (m["correctIndex"] as? Int64).map(Int.init)
+                    ?? (m["correctIndex"] as? NSNumber).map(\.intValue)
+                    ?? 0,
                 explanation: m["explanation"] as? String ?? ""
             )
         }
@@ -804,6 +807,21 @@ final class FirebaseService {
         default:
             return nil
         }
+    }
+
+    func fetchCurrentStreak(childId: String) async -> Int {
+        guard let snap = try? await db.collection("uploads")
+            .whereField("childId", isEqualTo: childId)
+            .getDocuments() else { return 0 }
+        let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
+        let timestamps = snap.documents.compactMap { longMillis($0.data()["timestamp"]) }.filter { $0 > 0 }
+        let epochDays = Set(timestamps.map { Int($0 / 86_400_000) })
+        if epochDays.isEmpty { return 0 }
+        let today = Int(nowMs / 86_400_000)
+        var d = epochDays.contains(today) ? today : (epochDays.contains(today - 1) ? today - 1 : today)
+        var streak = 0
+        while epochDays.contains(d) { streak += 1; d -= 1 }
+        return streak
     }
 
     // Firestore stores longs as Int64 or Double depending on SDK version

@@ -2,6 +2,8 @@ package com.dobi.app.feature.pairing
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dobi.app.analytics.AnalyticsTracker
+import com.dobi.app.analytics.Events
 import com.dobi.app.data.local.UserPreferences
 import com.dobi.app.domain.repository.PairingRepository
 import com.dobi.app.domain.repository.UserRepository
@@ -17,7 +19,8 @@ import javax.inject.Inject
 class EnterPairingCodeViewModel @Inject constructor(
     private val pairingRepository: PairingRepository,
     private val userRepository: UserRepository,
-    private val userPreferences: UserPreferences
+    private val userPreferences: UserPreferences,
+    private val analytics: AnalyticsTracker,
 ) : ViewModel() {
 
     sealed class UiState {
@@ -38,6 +41,7 @@ class EnterPairingCodeViewModel @Inject constructor(
             _uiState.value = UiState.Verifying
             pairingRepository.redeemCode(code)
                 .onSuccess { pairing ->
+                    analytics.log(Events.PAIRING_SUCCESS)
                     userRepository.saveLinkedChild(pairing.parentId, pairing.childId)
                     userPreferences.markAsChildDevice()
                     _navToChildHome.emit(pairing.childId)

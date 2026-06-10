@@ -13,6 +13,9 @@ import com.google.firebase.ai.GenerativeModel
 import com.google.firebase.ai.ai
 import com.google.firebase.ai.type.Content
 import com.google.firebase.ai.type.GenerativeBackend
+import com.google.firebase.ai.type.HarmBlockThreshold
+import com.google.firebase.ai.type.HarmCategory
+import com.google.firebase.ai.type.SafetySetting
 import com.google.firebase.ai.type.Schema
 import com.google.firebase.ai.type.content
 import com.google.firebase.ai.type.generationConfig
@@ -52,6 +55,7 @@ class WriteAnswerRepositoryImpl @Inject constructor(
                 responseMimeType = "application/json"
                 responseSchema = schema
             },
+            safetySettings = SAFETY_SETTINGS,
             systemInstruction = content { text(sysPrompt) }
         )
 
@@ -356,6 +360,13 @@ class WriteAnswerRepositoryImpl @Inject constructor(
 
     companion object {
         private const val TAG = "WriteAns"
+
+        private val SAFETY_SETTINGS = listOf(
+            SafetySetting(HarmCategory.HARASSMENT, HarmBlockThreshold.BLOCK_ONLY_HIGH),
+            SafetySetting(HarmCategory.HATE_SPEECH, HarmBlockThreshold.BLOCK_ONLY_HIGH),
+            SafetySetting(HarmCategory.SEXUALLY_EXPLICIT, HarmBlockThreshold.BLOCK_ONLY_HIGH),
+            SafetySetting(HarmCategory.DANGEROUS_CONTENT, HarmBlockThreshold.BLOCK_ONLY_HIGH),
+        )
 
         private val QUESTION_GEN_SYSTEM = """
             You are an Indian school-textbook tutor. Generate short subjective

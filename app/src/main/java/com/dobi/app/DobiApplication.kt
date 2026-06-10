@@ -9,6 +9,7 @@ import com.google.firebase.appcheck.appCheck
 import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
+import com.razorpay.Checkout
 import dagger.hilt.android.HiltAndroidApp
 import java.util.Locale
 
@@ -30,6 +31,7 @@ class DobiApplication : Application() {
             if (BuildConfig.DEBUG) DebugAppCheckProviderFactory.getInstance()
             else PlayIntegrityAppCheckProviderFactory.getInstance()
         )
+        Checkout.preload(this)
         if (BuildConfig.DEBUG) {
             FirebaseAuth.getInstance().firebaseAuthSettings
                 .setAppVerificationDisabledForTesting(true)

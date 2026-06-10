@@ -7,6 +7,7 @@ struct QuizView: View {
     let childId: String
     let unitName: String
     let subject: String
+    var childName: String = ""
     var parentTaskId: String = ""
     var onBack: () -> Void = {}
 
@@ -16,6 +17,11 @@ struct QuizView: View {
     @State private var selections: [Int: Int] = [:]
     @State private var revealed: Set<Int> = []
     @State private var loadError: String? = nil
+    @State private var streakDays: Int = 0
+    @State private var showSnapShare: Bool = false
+    @State private var snapShareItem: ShareItem? = nil
+    @State private var attemptsTaken: Int = 0
+    @State private var hasSharedSnap: Bool = false
 
     private var currentQuestion: McqQuestion? { questions[safe: currentIndex] }
     private var currentSelection: Int? { selections[currentIndex] }
@@ -76,7 +82,10 @@ struct QuizView: View {
                     questions: questions,
                     selections: selections,
                     score: score,
+                    canRetry: attemptsTaken < 2,
+                    showSnapSend: !hasSharedSnap,
                     onRetry: retry,
+                    onSnapSend: { showSnapShare = true },
                     onDone: onBack
                 )
             }
@@ -85,6 +94,28 @@ struct QuizView: View {
         .background(Color.dobiPageBg.ignoresSafeArea())
         .navigationBarHidden(true)
         .onAppear { loadQuestions() }
+        .overlay {
+            if showSnapShare {
+                SnapShareDialog(
+                    streakDays: streakDays,
+                    childName: childName.isEmpty ? "Your child" : childName,
+                    onDismiss: { showSnapShare = false },
+                    onShare: { text in
+                        showSnapShare = false
+                        hasSharedSnap = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                            snapShareItem = ShareItem(text: text)
+                        }
+                    }
+                )
+                .ignoresSafeArea()
+                .transition(.opacity.animation(.easeInOut(duration: 0.2)))
+            }
+        }
+        .animation(.easeInOut(duration: 0.2), value: showSnapShare)
+        .sheet(item: $snapShareItem) { item in
+            ShareSheet(items: [item.text])
+        }
     }
 
     private var navTitle: String {
@@ -187,7 +218,7 @@ struct QuizView: View {
                     return
                 }
             } catch {
-                // AI failed — fall through to local bank
+                print("⚠️ generateMcq failed: \(error)")
             }
 
             // 2. Local curated bank fallback
@@ -214,8 +245,12 @@ struct QuizView: View {
         guard isCurrentRevealed else { return }
         if isLastQuestion {
             phase = .done
+            attemptsTaken += 1
             let finalScore = score
             let finalTotal = questions.count
+            Task { @MainActor in
+                streakDays = await FirebaseService.shared.fetchCurrentStreak(childId: childId)
+            }
             Task { @MainActor in
                 await FirebaseService.shared.saveQuizAttempt(
                     childId: childId,
@@ -688,7 +723,10 @@ private struct QuizDoneBody: View {
     let questions: [McqQuestion]
     let selections: [Int: Int]
     let score: Int
+    let canRetry: Bool
+    let showSnapSend: Bool
     let onRetry: () -> Void
+    let onSnapSend: () -> Void
     let onDone: () -> Void
 
     private var total: Int { questions.count }
@@ -767,34 +805,41 @@ private struct QuizDoneBody: View {
                 }
             }
 
-            // Bottom action bar
+            // Bottom action bar — matches Android: outline Retake (if canRetry) + solid primary button
             VStack(spacing: 12) {
-                // Retake Quiz (outline, matches Android)
-                Button(action: onRetry) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "arrow.clockwise")
-                            .font(.system(size: 14, weight: .semibold))
-                        Text("Retake Quiz")
-                            .font(.system(size: 14, weight: .semibold))
-                    }
-                    .foregroundStyle(Color.dobiPrimary)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 52)
-                    .background(Color.white)
-                    .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.dobiPrimary, lineWidth: 1.5))
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                }
-                .buttonStyle(.plain)
-
-                // Done (solid primary)
-                Button(action: onDone) {
-                    Text("Done")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundStyle(Color.white)
+                if canRetry {
+                    Button(action: onRetry) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "arrow.clockwise")
+                                .font(.system(size: 14, weight: .semibold))
+                            Text("Retake Quiz")
+                                .font(.system(size: 14, weight: .semibold))
+                        }
+                        .foregroundStyle(Color.dobiPrimary)
                         .frame(maxWidth: .infinity)
                         .frame(height: 52)
-                        .background(Color.dobiPrimary)
+                        .background(Color.white)
+                        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.dobiPrimary, lineWidth: 1.5))
                         .clipShape(RoundedRectangle(cornerRadius: 16))
+                    }
+                    .buttonStyle(.plain)
+                }
+
+                // Single primary button: Snap & Send OR Done (mirrors Android)
+                Button(action: showSnapSend ? onSnapSend : onDone) {
+                    HStack(spacing: 8) {
+                        if showSnapSend {
+                            Text("📸").font(.system(size: 16))
+                            Text("Snap & Send").font(.system(size: 15, weight: .semibold))
+                        } else {
+                            Text("Done").font(.system(size: 15, weight: .semibold))
+                        }
+                    }
+                    .foregroundStyle(Color.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 52)
+                    .background(Color.dobiPrimary)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
                 }
                 .buttonStyle(.plain)
             }

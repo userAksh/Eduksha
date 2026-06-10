@@ -30,8 +30,8 @@ android {
         applicationId = "in.eduksha.app"
         minSdk = 24
         targetSdk = 35
-        versionCode = 7
-        versionName = "1.0.6"
+        versionCode = 8
+        versionName = "1.0.7"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -135,6 +135,7 @@ dependencies {
      // DebugAppCheckProviderFactory directly under a BuildConfig.DEBUG
      // guard. R8 dead-code-eliminates the unreachable branch in release.
      implementation("com.google.firebase:firebase-appcheck-debug")
+     implementation("com.google.firebase:firebase-analytics-ktx")
 
     // Play Install Referrer — used to attribute deferred deep-links from
     // friend-invite shares to the new install on first launch.
@@ -147,6 +148,9 @@ dependencies {
     // used in DI modules that provide shared repository implementations.
     implementation("dev.gitlive:firebase-firestore:1.13.0")
     implementation("dev.gitlive:firebase-functions:1.13.0")
+
+    // Razorpay Android Checkout SDK
+    implementation("com.razorpay:checkout:1.6.40")
 
     // Testing
     testImplementation(libs.junit)

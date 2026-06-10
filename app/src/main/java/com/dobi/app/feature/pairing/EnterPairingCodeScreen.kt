@@ -24,6 +24,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -84,6 +85,7 @@ private fun Content(
     onVerify: (String) -> Unit,
     onClearError: () -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
     var code by remember { mutableStateOf("") }
     val isVerifying = uiState is EnterPairingCodeViewModel.UiState.Verifying
     val error = (uiState as? EnterPairingCodeViewModel.UiState.Error)?.message
@@ -221,7 +223,7 @@ private fun Content(
             Spacer(Modifier.height(32.dp))
 
             Button(
-                onClick = { onVerify(code) },
+                onClick = { focusManager.clearFocus(); onVerify(code) },
                 modifier = Modifier.fillMaxWidth().height(54.dp),
                 shape = RoundedCornerShape(16.dp),
                 enabled = code.length == 6 && !isVerifying,

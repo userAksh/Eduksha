@@ -4,6 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.dobi.app.analytics.AnalyticsTracker
+import com.dobi.app.analytics.Events
 import com.dobi.app.core.navigation.Screen
 import com.dobi.app.data.repository.GeneratedQuizCache
 import com.dobi.app.data.repository.McqGenerationRepository
@@ -27,7 +29,8 @@ class DoParentTaskViewModel @Inject constructor(
     private val getConceptsUseCase: GetConceptsUseCase,
     private val userRepository: UserRepository,
     private val mcqGenerationRepository: McqGenerationRepository,
-    private val generatedQuizCache: GeneratedQuizCache
+    private val generatedQuizCache: GeneratedQuizCache,
+    private val analytics: AnalyticsTracker,
 ) : ViewModel() {
 
     private val taskId: String = savedStateHandle.toRoute<Screen.DoParentTask>().taskId
@@ -65,7 +68,12 @@ class DoParentTaskViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(isSubmitting = true, error = null) }
             repository.submitWithLocalPhotos(taskId, _uiState.value.selectedPhotoUris).fold(
-                onSuccess = { _uiState.update { it.copy(isSubmitting = false, finished = true) } },
+                onSuccess = {
+                    analytics.log(Events.TASK_SUBMITTED) {
+                        putString("task_type", _uiState.value.task?.type?.name ?: "PHOTO")
+                    }
+                    _uiState.update { it.copy(isSubmitting = false, finished = true) }
+                },
                 onFailure = { e ->
                     _uiState.update {
                         it.copy(
@@ -145,7 +153,10 @@ class DoParentTaskViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(isSubmitting = true) }
             repository.submitByChild(taskId, emptyList(), score, total).fold(
-                onSuccess = { _uiState.update { it.copy(isSubmitting = false, finished = true) } },
+                onSuccess = {
+                    analytics.log(Events.TASK_SUBMITTED) { putString("task_type", "OUR_QUESTIONS") }
+                    _uiState.update { it.copy(isSubmitting = false, finished = true) }
+                },
                 onFailure = { e ->
                     _uiState.update {
                         it.copy(

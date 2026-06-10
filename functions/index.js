@@ -32,10 +32,17 @@ const { getStorage } = require("firebase-admin/storage");
 const logger = require("firebase-functions/logger");
 const { google } = require("googleapis");
 const { GoogleGenAI } = require("@google/genai");
+const Razorpay = require("razorpay");
 
 // Daily-news Gemini key. Set with:
 //   firebase functions:secrets:set GEMINI_API_KEY
 const GEMINI_API_KEY = defineSecret("GEMINI_API_KEY");
+
+// Razorpay keys. Set with:
+//   firebase functions:secrets:set RAZORPAY_KEY_ID
+//   firebase functions:secrets:set RAZORPAY_KEY_SECRET
+const RAZORPAY_KEY_ID     = defineSecret("RAZORPAY_KEY_ID");
+const RAZORPAY_KEY_SECRET = defineSecret("RAZORPAY_KEY_SECRET");
 
 initializeApp();
 const db = getFirestore();
@@ -256,6 +263,13 @@ async function sendPush(token, { title, body, target }, taskId) {
 const INVITE_CODE_ALPHABET = "abcdefghjkmnpqrstuvwxyz23456789"; // no 0/o/1/l/i
 const INVITE_CODE_LENGTH = 8;
 const INVITE_TTL_MS = 90 * 24 * 60 * 60 * 1000; // 90 days
+const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+
+// ── Referral reward config — edit here to change reward values without an app release ──
+const PARENT_REFERRAL_REWARDS = {
+  1: { label: "Welcome gift 🎁", value: "EDUKSHA10" },   // stage 1: referee adds first child
+  2: { label: "Week reward 🏆",  value: "PREMIUM7DAYS" }, // stage 2: referee active for 7 days
+};
 
 function generateInviteCode() {
   let code = "";
@@ -272,32 +286,48 @@ exports.createInvite = onCall(async (request) => {
     throw new HttpsError("unauthenticated", "Sign in required");
   }
   const parentId = request.auth.uid;
-  const { childId } = request.data || {};
-  if (!childId) {
-    throw new HttpsError("invalid-argument", "childId required");
-  }
-
-  const childRef = db.collection("parents").doc(parentId)
-    .collection("children").doc(childId);
-  const childSnap = await childRef.get();
-  if (!childSnap.exists) {
-    throw new HttpsError("not-found", "Child not found under caller");
-  }
-  const child = childSnap.data();
+  const { childId, inviterType = "child" } = request.data || {};
   const code = generateInviteCode();
   const now = Date.now();
-
-  await db.collection("invites").doc(code).set({
+  const base = {
     code,
+    inviterType,
     inviterParentId: parentId,
-    inviterChildId: childId,
-    inviterName: child.name || "",
-    inviterGrade: child.grade || 0,
-    inviterGender: child.gender || "",
     createdAtMillis: now,
     expiresAtMillis: now + INVITE_TTL_MS,
     claimedBy: [],
-  });
+  };
+
+  if (inviterType === "parent") {
+    // Fetch all children so we can do a grade+board match at claim time.
+    const childrenSnap = await db.collection("parents").doc(parentId)
+      .collection("children").get();
+    const inviterChildren = childrenSnap.docs.map((d) => ({
+      childId: d.id,
+      name: d.data().name || "",
+      grade: d.data().grade || 0,
+      board: (d.data().board || "").trim().toUpperCase(),
+      gender: d.data().gender || "",
+    }));
+    await db.collection("invites").doc(code).set({
+      ...base,
+      inviterChildren,
+    });
+  } else {
+    // Child invite — existing behaviour.
+    if (!childId) throw new HttpsError("invalid-argument", "childId required for child invite");
+    const childSnap = await db.collection("parents").doc(parentId)
+      .collection("children").doc(childId).get();
+    if (!childSnap.exists) throw new HttpsError("not-found", "Child not found under caller");
+    const child = childSnap.data();
+    await db.collection("invites").doc(code).set({
+      ...base,
+      inviterChildId: childId,
+      inviterName: child.name || "",
+      inviterGrade: child.grade || 0,
+      inviterGender: child.gender || "",
+    });
+  }
   return { code };
 });
 
@@ -307,59 +337,76 @@ exports.claimInvite = onCall(async (request) => {
   }
   const claimerParentId = request.auth.uid;
   const { code, childId: claimerChildId } = request.data || {};
-  if (!code || !claimerChildId) {
-    throw new HttpsError("invalid-argument", "code and childId required");
+  if (!code) throw new HttpsError("invalid-argument", "code required");
+
+  // Read invite first to determine type before requiring childId.
+  const inviteRef = db.collection("invites").doc(code);
+  const inviteSnap = await inviteRef.get();
+  if (!inviteSnap.exists) throw new HttpsError("not-found", "Invite not found");
+  const invite = inviteSnap.data();
+  if (Date.now() > (invite.expiresAtMillis || 0)) {
+    throw new HttpsError("deadline-exceeded", "Invite expired");
   }
 
-  const inviteRef = db.collection("invites").doc(code);
+  // ── Parent-type invite: store pendingReferral, no friend edges yet ──────────
+  if (invite.inviterType === "parent") {
+    if (invite.inviterParentId === claimerParentId) return { ok: true, status: "self" };
+    const alreadyClaimed = (invite.claimedBy || []).some(
+      (c) => c.parentId === claimerParentId
+    );
+    if (alreadyClaimed) return { ok: true, status: "already-claimed" };
+
+    const now = Date.now();
+    await db.runTransaction(async (tx) => {
+      tx.set(db.collection("parents").doc(claimerParentId), {
+        pendingReferral: {
+          code,
+          inviterParentId: invite.inviterParentId,
+          inviterChildren: invite.inviterChildren || [],
+          claimedAtMillis: now,
+          childAddedAtMillis: null,
+          weekMilestoneDone: false,
+        },
+      }, { merge: true });
+      tx.update(inviteRef, {
+        claimedBy: FieldValue.arrayUnion({
+          parentId: claimerParentId,
+          claimedAtMillis: now,
+          status: "claimed",
+        }),
+      });
+    });
+    return { ok: true, status: "claimed" };
+  }
+
+  // ── Child-type invite: existing reciprocal friend-edge behaviour ─────────────
+  if (!claimerChildId) throw new HttpsError("invalid-argument", "childId required for child invite");
   const claimerRef = db.collection("parents").doc(claimerParentId)
     .collection("children").doc(claimerChildId);
 
   const result = await db.runTransaction(async (tx) => {
-    const inviteSnap = await tx.get(inviteRef);
-    if (!inviteSnap.exists) {
-      throw new HttpsError("not-found", "Invite not found");
-    }
-    const invite = inviteSnap.data();
-    if (Date.now() > (invite.expiresAtMillis || 0)) {
-      throw new HttpsError("deadline-exceeded", "Invite expired");
-    }
-
-    // No-op if a child tries to claim their own invite.
     if (
       invite.inviterParentId === claimerParentId &&
       invite.inviterChildId === claimerChildId
-    ) {
-      return { skipped: "self" };
-    }
+    ) return { skipped: "self" };
 
     const claimerSnap = await tx.get(claimerRef);
-    if (!claimerSnap.exists) {
-      throw new HttpsError("not-found", "Claimer child not found");
-    }
+    if (!claimerSnap.exists) throw new HttpsError("not-found", "Claimer child not found");
     const claimer = claimerSnap.data();
 
-    // Idempotent re-claim: app may retry if FCM isn't ready, etc.
     const alreadyClaimed = (invite.claimedBy || []).some(
       (c) => c.parentId === claimerParentId && c.childId === claimerChildId
     );
-    if (alreadyClaimed) {
-      return { skipped: "already-claimed" };
-    }
+    if (alreadyClaimed) return { skipped: "already-claimed" };
 
     const inviterRef = db.collection("parents").doc(invite.inviterParentId)
       .collection("children").doc(invite.inviterChildId);
     const inviterSnap = await tx.get(inviterRef);
     if (!inviterSnap.exists) {
-      // Inviter child was deleted between create and claim. Mark the
-      // claim so we don't keep retrying, but skip the friend writes.
       tx.update(inviteRef, {
         claimedBy: FieldValue.arrayUnion({
-          parentId: claimerParentId,
-          childId: claimerChildId,
-          name: claimer.name || "",
-          claimedAtMillis: Date.now(),
-          status: "inviter-missing",
+          parentId: claimerParentId, childId: claimerChildId,
+          name: claimer.name || "", claimedAtMillis: Date.now(), status: "inviter-missing",
         }),
       });
       return { skipped: "inviter-missing" };
@@ -367,39 +414,28 @@ exports.claimInvite = onCall(async (request) => {
     const inviter = inviterSnap.data();
     const now = Date.now();
 
-    // Reciprocal friend edges.
     tx.set(inviterRef, {
       friends: FieldValue.arrayUnion({
-        parentId: claimerParentId,
-        childId: claimerChildId,
-        name: claimer.name || "",
-        grade: claimer.grade || 0,
-        gender: claimer.gender || "",
-        addedAtMillis: now,
+        parentId: claimerParentId, childId: claimerChildId,
+        name: claimer.name || "", grade: claimer.grade || 0,
+        gender: claimer.gender || "", addedAtMillis: now,
       }),
     }, { merge: true });
-
     tx.set(claimerRef, {
       friends: FieldValue.arrayUnion({
-        parentId: invite.inviterParentId,
-        childId: invite.inviterChildId,
+        parentId: invite.inviterParentId, childId: invite.inviterChildId,
         name: invite.inviterName || inviter.name || "",
         grade: invite.inviterGrade || inviter.grade || 0,
         gender: invite.inviterGender || inviter.gender || "",
         addedAtMillis: now,
       }),
     }, { merge: true });
-
     tx.update(inviteRef, {
       claimedBy: FieldValue.arrayUnion({
-        parentId: claimerParentId,
-        childId: claimerChildId,
-        name: claimer.name || "",
-        claimedAtMillis: now,
-        status: "claimed",
+        parentId: claimerParentId, childId: claimerChildId,
+        name: claimer.name || "", claimedAtMillis: now, status: "claimed",
       }),
     });
-
     return {
       claimed: true,
       inviterParentId: invite.inviterParentId,
@@ -420,18 +456,217 @@ exports.claimInvite = onCall(async (request) => {
             body: `${result.claimerName} joined Eduksha from ${result.inviterChildName}'s invite.`,
           },
           data: { kind: "friend_joined", role: "parent" },
-          android: {
-            priority: "high",
-            notification: { channelId: "dobi_default" },
-          },
+          android: { priority: "high", notification: { channelId: "dobi_default" } },
         });
       } catch (err) {
         logger.warn(`friend_joined push failed: ${err.message}`);
       }
     }
   }
-
   return { ok: true, status: result.skipped || "claimed" };
+});
+
+// ── applyReferralMatch ─────────────────────────────────────────────────────
+//
+// Called by the referee's app after they add their first child.
+// Checks grade+board match against the inviter's children. If matched:
+//   1. Writes reciprocal friend edges between the matched children.
+//   2. Unlocks Stage 1 reward for the inviter parent.
+//   3. Sets pendingReferral.childAddedAtMillis (enables week-milestone check).
+//   4. Sends FCM to inviter.
+
+exports.applyReferralMatch = onCall(async (request) => {
+  if (!request.auth) throw new HttpsError("unauthenticated", "Sign in required");
+  const refereeParentId = request.auth.uid;
+  const { childId: refereeChildId, grade: refereeGrade, board: refereeBoard } = request.data || {};
+  if (!refereeChildId || !refereeGrade || !refereeBoard) {
+    throw new HttpsError("invalid-argument", "childId, grade and board required");
+  }
+
+  const refereeParentRef = db.collection("parents").doc(refereeParentId);
+  const refereeParentSnap = await refereeParentRef.get();
+  const pendingReferral = refereeParentSnap.data()?.pendingReferral;
+  if (!pendingReferral || !pendingReferral.inviterParentId) {
+    return { ok: true, status: "no-pending-referral" };
+  }
+  if (pendingReferral.childAddedAtMillis) {
+    return { ok: true, status: "already-applied" };
+  }
+
+  const normalizedBoard = (refereeBoard || "").trim().toUpperCase();
+  const matchedInviterChild = (pendingReferral.inviterChildren || []).find(
+    (c) => c.grade === refereeGrade && (c.board || "").trim().toUpperCase() === normalizedBoard
+  );
+
+  const now = Date.now();
+  const inviterParentId = pendingReferral.inviterParentId;
+  const rewardCfg = PARENT_REFERRAL_REWARDS[1];
+  const rewardId = db.collection("parents").doc(inviterParentId)
+    .collection("referralRewards").doc().id;
+
+  await db.runTransaction(async (tx) => {
+    // Mark childAdded on pendingReferral regardless of grade match.
+    tx.set(refereeParentRef, {
+      pendingReferral: { ...pendingReferral, childAddedAtMillis: now },
+    }, { merge: true });
+
+    // Stage 1 reward for inviter.
+    tx.set(
+      db.collection("parents").doc(inviterParentId)
+        .collection("referralRewards").doc(rewardId),
+      {
+        id: rewardId,
+        stage: 1,
+        referredParentId: refereeParentId,
+        referredParentName: refereeParentSnap.data()?.name || "",
+        unlockedAtMillis: now,
+        scratchedAtMillis: null,
+        rewardLabel: rewardCfg.label,
+        rewardValue: rewardCfg.value,
+      }
+    );
+
+    if (matchedInviterChild) {
+      // Reciprocal friend edges between the grade-matched children.
+      const inviterChildRef = db.collection("parents").doc(inviterParentId)
+        .collection("children").doc(matchedInviterChild.childId);
+      const refereeChildRef = db.collection("parents").doc(refereeParentId)
+        .collection("children").doc(refereeChildId);
+      const [inviterChildSnap, refereeChildSnap] = await Promise.all([
+        tx.get(inviterChildRef), tx.get(refereeChildRef),
+      ]);
+      if (inviterChildSnap.exists && refereeChildSnap.exists) {
+        const ic = inviterChildSnap.data();
+        const rc = refereeChildSnap.data();
+        tx.set(inviterChildRef, {
+          friends: FieldValue.arrayUnion({
+            parentId: refereeParentId, childId: refereeChildId,
+            name: rc.name || "", grade: rc.grade || 0,
+            gender: rc.gender || "", addedAtMillis: now,
+          }),
+        }, { merge: true });
+        tx.set(refereeChildRef, {
+          friends: FieldValue.arrayUnion({
+            parentId: inviterParentId, childId: matchedInviterChild.childId,
+            name: ic.name || "", grade: ic.grade || 0,
+            gender: ic.gender || "", addedAtMillis: now,
+          }),
+        }, { merge: true });
+      }
+    }
+  });
+
+  // FCM to inviter.
+  try {
+    const inviterParentSnap = await db.collection("parents").doc(inviterParentId).get();
+    const token = inviterParentSnap.data()?.fcmToken;
+    if (token) {
+      await fcm.send({
+        token,
+        notification: {
+          title: "🎁 Scratch card unlocked!",
+          body: matchedInviterChild
+            ? "Your referral joined and your kids are now study friends!"
+            : "Your referral joined Eduksha — scratch your reward!",
+        },
+        data: { kind: "referral_stage1", role: "parent" },
+        android: { priority: "high", notification: { channelId: "dobi_default" } },
+      });
+    }
+  } catch (err) {
+    logger.warn(`referral_stage1 push failed: ${err.message}`);
+  }
+
+  return { ok: true, status: matchedInviterChild ? "matched" : "no-grade-match" };
+});
+
+// ── recordReferralWeekActivity ─────────────────────────────────────────────
+//
+// Called by the referee's app once per session after 7+ days since
+// childAddedAtMillis. Unlocks Stage 2 reward for the inviter and marks the
+// referral complete so it won't be checked again.
+
+exports.recordReferralWeekActivity = onCall(async (request) => {
+  if (!request.auth) throw new HttpsError("unauthenticated", "Sign in required");
+  const refereeParentId = request.auth.uid;
+
+  const refereeParentRef = db.collection("parents").doc(refereeParentId);
+  const refereeParentSnap = await refereeParentRef.get();
+  const pendingReferral = refereeParentSnap.data()?.pendingReferral;
+  if (!pendingReferral?.inviterParentId) return { ok: true, status: "no-pending-referral" };
+  if (pendingReferral.weekMilestoneDone) return { ok: true, status: "already-done" };
+  if (!pendingReferral.childAddedAtMillis) return { ok: true, status: "child-not-added-yet" };
+  if (Date.now() - pendingReferral.childAddedAtMillis < WEEK_MS) {
+    return { ok: true, status: "too-early" };
+  }
+
+  const now = Date.now();
+  const inviterParentId = pendingReferral.inviterParentId;
+  const rewardCfg = PARENT_REFERRAL_REWARDS[2];
+  const rewardId = db.collection("parents").doc(inviterParentId)
+    .collection("referralRewards").doc().id;
+
+  await db.runTransaction(async (tx) => {
+    tx.set(refereeParentRef, {
+      pendingReferral: { ...pendingReferral, weekMilestoneDone: true },
+    }, { merge: true });
+    tx.set(
+      db.collection("parents").doc(inviterParentId)
+        .collection("referralRewards").doc(rewardId),
+      {
+        id: rewardId,
+        stage: 2,
+        referredParentId: refereeParentId,
+        referredParentName: refereeParentSnap.data()?.name || "",
+        unlockedAtMillis: now,
+        scratchedAtMillis: null,
+        rewardLabel: rewardCfg.label,
+        rewardValue: rewardCfg.value,
+      }
+    );
+  });
+
+  try {
+    const inviterParentSnap = await db.collection("parents").doc(inviterParentId).get();
+    const token = inviterParentSnap.data()?.fcmToken;
+    if (token) {
+      await fcm.send({
+        token,
+        notification: {
+          title: "🏆 Week reward unlocked!",
+          body: "Your referral has been active for a week — scratch your bonus reward!",
+        },
+        data: { kind: "referral_stage2", role: "parent" },
+        android: { priority: "high", notification: { channelId: "dobi_default" } },
+      });
+    }
+  } catch (err) {
+    logger.warn(`referral_stage2 push failed: ${err.message}`);
+  }
+  return { ok: true, status: "unlocked" };
+});
+
+// ── scratchReward ──────────────────────────────────────────────────────────
+//
+// Marks a referral reward as scratched and returns the rewardValue.
+// The value is intentionally only returned at scratch-time so it can't be
+// read from the client before the user interacts.
+
+exports.scratchReward = onCall(async (request) => {
+  if (!request.auth) throw new HttpsError("unauthenticated", "Sign in required");
+  const parentId = request.auth.uid;
+  const { rewardId } = request.data || {};
+  if (!rewardId) throw new HttpsError("invalid-argument", "rewardId required");
+
+  const rewardRef = db.collection("parents").doc(parentId)
+    .collection("referralRewards").doc(rewardId);
+  const snap = await rewardRef.get();
+  if (!snap.exists) throw new HttpsError("not-found", "Reward not found");
+  const reward = snap.data();
+  if (!reward.scratchedAtMillis) {
+    await rewardRef.update({ scratchedAtMillis: Date.now() });
+  }
+  return { rewardValue: reward.rewardValue, rewardLabel: reward.rewardLabel };
 });
 
 // ── Daily kid-safe news ────────────────────────────────────────────────────
@@ -485,7 +720,7 @@ Schema:
 Always return exactly 5 India-focused stories spanning at least 3 different categories.`;
 
 exports.getDailyNews = onCall(
-  { secrets: [GEMINI_API_KEY], timeoutSeconds: 60 },
+  { timeoutSeconds: 60 },
   async (request) => {
     if (!request.auth) {
       throw new HttpsError("unauthenticated", "Sign in required");
@@ -543,8 +778,7 @@ exports.getDailyNews = onCall(
 );
 
 async function fetchDailyNewsFromGemini() {
-  const { GoogleGenAI } = require("@google/genai");
-  const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY.value() });
+  const ai = new GoogleGenAI({ vertexai: true, project: "dobi-ac085", location: "us-central1" });
 
   const today = new Date().toISOString().slice(0, 10);
   const prompt = `Today's date is ${today}. Use Google Search to find the most interesting child-safe stories from INDIA over the last 1 to 2 days. EVERY story must be from India — Indian people, Indian places, Indian institutions. Do NOT include international news. If fewer than 5 fresh Indian stories exist, fill the remainder with India-focused "did you know?" facts (heritage, wildlife, science, ISRO milestones). Return exactly 5 India-only stories as JSON, following the schema in the system instructions. Output ONLY the JSON object.`;
@@ -598,7 +832,7 @@ async function fetchDailyNewsFromGemini() {
 // ── Generate MCQ quiz questions via Gemini ─────────────────────────────────────
 
 exports.generateMcq = onCall(
-  { secrets: [GEMINI_API_KEY], timeoutSeconds: 60 },
+  { timeoutSeconds: 60 },
   async (request) => {
     if (!request.auth) {
       throw new HttpsError("unauthenticated", "Sign in required");
@@ -608,8 +842,7 @@ exports.generateMcq = onCall(
       throw new HttpsError("invalid-argument", "subject and unitName required");
     }
 
-    const { GoogleGenAI } = require("@google/genai");
-    const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY.value() });
+    const ai = new GoogleGenAI({ vertexai: true, project: "dobi-ac085", location: "us-central1" });
 
     const systemInstruction = `You are an Indian school-textbook tutor. The user message names a
 specific lesson or concept from the NCERT / CBSE syllabus. Your job
@@ -651,16 +884,35 @@ Rules:
     let raw;
     try {
       const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash-lite",
-        contents: userPrompt,
+        model: "gemini-2.5-flash",
+        systemInstruction,
+        contents: [{ role: "user", parts: [{ text: userPrompt }] }],
         config: {
           temperature: 0.3,
-          systemInstruction,
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: "object",
+            properties: {
+              questions: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    id:           { type: "string" },
+                    text:         { type: "string" },
+                    options:      { type: "array", items: { type: "string" } },
+                    correctIndex: { type: "integer" },
+                    explanation:  { type: "string" },
+                  },
+                },
+              },
+            },
+          },
         },
       });
       raw = (response.text || "").trim();
     } catch (err) {
-      logger.error("generateMcq: Gemini error", err);
+      logger.error("generateMcq: Gemini error", { message: err.message, stack: err.stack, status: err.status });
       throw new HttpsError("unavailable", "Question generation failed. Please try again.");
     }
 
@@ -674,6 +926,7 @@ Rules:
     }
     const questions = (parsed.questions || []).filter(
       (q) => q.text && Array.isArray(q.options) && q.options.length === 4
+             && typeof q.correctIndex === "number" && q.correctIndex >= 0 && q.correctIndex <= 3
     );
     if (questions.length === 0) {
       throw new HttpsError("internal", "No valid questions generated");
@@ -836,7 +1089,7 @@ exports.mirrorWaitlistToSheet = onDocumentCreated(
 // Input:  { scopeText, subject, grade, targetCount? }
 // Output: { questions: [{ id, text, expected_keywords[], max_marks }] }
 exports.generateSubjectiveQuestions = onCall(
-  { secrets: [GEMINI_API_KEY], timeoutSeconds: 60 },
+  { timeoutSeconds: 60 },
   async (request) => {
     if (!request.auth) {
       throw new HttpsError("unauthenticated", "Sign in required");
@@ -848,8 +1101,7 @@ exports.generateSubjectiveQuestions = onCall(
 
     logger.info(`generateSubjectiveQuestions: subject=${subject} grade=${grade} count=${targetCount}`);
 
-    const { GoogleGenAI } = require("@google/genai");
-    const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY.value() });
+    const ai = new GoogleGenAI({ vertexai: true, project: "dobi-ac085", location: "us-central1" });
 
     const systemInstruction =
       "You are an Indian school-textbook tutor. Generate short subjective " +
@@ -872,7 +1124,10 @@ exports.generateSubjectiveQuestions = onCall(
       const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
         contents: userPrompt,
-        config: { temperature: 0.15, systemInstruction },
+        config: {
+          temperature: 0.15,
+          systemInstruction,
+        },
       });
       raw = (response.text || "").trim();
     } catch (err) {
@@ -1504,5 +1759,288 @@ exports.validateImageScope = onCall(
       logger.warn(`validateImageScope: could not parse: ${rawText}`);
       return { ok: false, reason: "" };
     }
+  }
+);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RAZORPAY SUBSCRIPTION FUNCTIONS
+// ─────────────────────────────────────────────────────────────────────────────
+
+const { onRequest } = require("firebase-functions/v2/https");
+const crypto = require("crypto");
+
+const PLAN_MONTHLY    = "plan_SzRWiVex69GbLB"; // ₹149/month
+const PLAN_QUARTERLY  = "plan_SzRWik76iUw6lz"; // ₹249/3 months
+const PLAN_HALFYEARLY = "plan_SzRWiyEVfEO6Iu"; // ₹449/6 months
+const PLAN_TRIAL      = "plan_SzRqTUAERvbITe"; // ₹1 trial (1 billing cycle, then webhook creates monthly)
+
+// ── createSubscription ────────────────────────────────────────────────────────
+// Called by the app after the user picks a plan. Creates a Razorpay subscription
+// and returns the subscription_id + key_id to open the Razorpay checkout SDK.
+//
+// Request body: { planType: "trial" | "monthly" | "quarterly" | "halfyearly", userId: string }
+// Response:     { subscriptionId, keyId }
+exports.createSubscription = onCall(
+  { region: "asia-south1", secrets: [RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET] },
+  async (request) => {
+    const { planType, userId } = request.data;
+    if (!userId) throw new HttpsError("unauthenticated", "userId required");
+    if (!["trial", "monthly", "quarterly", "halfyearly"].includes(planType)) {
+      throw new HttpsError("invalid-argument", "invalid planType");
+    }
+
+    const rzp = new Razorpay({
+      key_id:     RAZORPAY_KEY_ID.value(),
+      key_secret: RAZORPAY_KEY_SECRET.value(),
+    });
+
+    const isTrial = planType === "trial";
+    // Trial uses a dedicated ₹1 plan (1 billing cycle).
+    // After the cycle completes, the webhook creates the ₹149/month subscription.
+    const planId  = isTrial            ? PLAN_TRIAL
+                  : planType === "quarterly"  ? PLAN_QUARTERLY
+                  : planType === "halfyearly" ? PLAN_HALFYEARLY
+                  : PLAN_MONTHLY;
+
+    // Run Firebase Auth lookup and Firestore customer-ID read in parallel
+    const userDocRef = db.collection("subscriptions").doc(userId);
+    const [userRecord, userDoc] = await Promise.all([
+      getAuth().getUser(userId),
+      userDocRef.get(),
+    ]);
+    const phone = userRecord.phoneNumber ?? "";
+    const email = `${userId}@eduksha.app`;
+    let razorpayCustomerId = userDoc.exists ? userDoc.data()?.razorpayCustomerId : null;
+
+    if (!razorpayCustomerId) {
+      try {
+        const customer = await rzp.customers.create({
+          name:    "Eduksha User",
+          email,
+          contact: phone,
+        });
+        razorpayCustomerId = customer.id;
+      } catch (err) {
+        // Razorpay throws 400 "Customer already exists" even with fail_existing:0.
+        // Fall back to searching by contact to recover the existing customer ID.
+        const isAlreadyExists = err?.error?.description?.toLowerCase().includes("already exists")
+          || err?.statusCode === 400;
+        if (isAlreadyExists && phone) {
+          try {
+            const list = await rzp.customers.all({ contact: phone });
+            razorpayCustomerId = list?.items?.[0]?.id ?? null;
+          } catch (_) { /* fall through to error below */ }
+        }
+        if (!razorpayCustomerId) {
+          const detail = err?.error?.description || err?.error?.code || err?.message || JSON.stringify(err);
+          logger.error("createSubscription: customer create error", { detail });
+          throw new HttpsError("internal", detail);
+        }
+      }
+      await userDocRef.set({ razorpayCustomerId }, { merge: true });
+    }
+
+    const subPayload = {
+      plan_id:         planId,
+      customer_id:     razorpayCustomerId,
+      customer_notify: 0,
+      // Trial: 1 cycle at ₹1. After completion the webhook auto-creates the monthly sub.
+      total_count:     isTrial ? 1 : (planType === "quarterly" ? 4 : planType === "halfyearly" ? 2 : 12),
+      quantity:        1,
+      notes:           { userId, planType },
+    };
+
+    let sub;
+    try {
+      sub = await rzp.subscriptions.create(subPayload);
+    } catch (err) {
+      const detail = err?.error?.description
+        || err?.error?.code
+        || err?.message
+        || JSON.stringify(err?.error ?? err);
+      logger.error("createSubscription: razorpay error", { detail, raw: JSON.stringify(err) });
+      throw new HttpsError("internal", detail);
+    }
+
+    // Persist subscription record — fire-and-forget so the client gets the
+    // subscription ID immediately without waiting for the Firestore write.
+    db.collection("subscriptions").doc(userId).set({
+      userId,
+      planType,
+      planId,
+      razorpaySubscriptionId: sub.id,
+      status:    "created",
+      createdAt: FieldValue.serverTimestamp(),
+    }, { merge: true }).catch(err =>
+      logger.error("createSubscription: Firestore write error", { err })
+    );
+
+    logger.info(`createSubscription: userId=${userId} planType=${planType} subId=${sub.id}`);
+    return { subscriptionId: sub.id, keyId: RAZORPAY_KEY_ID.value() };
+  }
+);
+
+// ── razorpayWebhook ───────────────────────────────────────────────────────────
+// Razorpay calls this URL on every subscription event.
+// Verifies the webhook signature then updates Firestore subscription status.
+//
+// Dashboard → Settings → Webhooks → add this function's URL
+// Events to enable: subscription.activated, subscription.charged,
+//                   subscription.cancelled, subscription.halted
+exports.razorpayWebhook = onRequest(
+  { secrets: [RAZORPAY_KEY_SECRET] },
+  async (req, res) => {
+    if (req.method !== "POST") { res.status(405).send("Method Not Allowed"); return; }
+
+    const webhookSecret = RAZORPAY_KEY_SECRET.value();
+    const signature     = req.headers["x-razorpay-signature"] || "";
+    const rawBody       = req.rawBody;
+
+    const expectedSig = crypto
+      .createHmac("sha256", webhookSecret)
+      .update(rawBody)
+      .digest("hex");
+
+    if (signature !== expectedSig) {
+      logger.warn("razorpayWebhook: invalid signature");
+      res.status(400).send("Invalid signature");
+      return;
+    }
+
+    const event   = req.body.event;
+    const payload = req.body.payload?.subscription?.entity || {};
+    const subId   = payload.id;
+    const notes   = payload.notes || {};
+    const userId  = notes.userId;
+
+    logger.info(`razorpayWebhook: event=${event} subId=${subId} userId=${userId}`);
+
+    if (!userId || !subId) { res.status(200).send("ok"); return; }
+
+    const subRef = db.collection("subscriptions").doc(userId);
+
+    switch (event) {
+      case "subscription.activated":
+      case "subscription.charged": {
+        const chargeAt   = payload.charge_at   ? new Date(payload.charge_at * 1000)   : null;
+        const currentEnd = payload.current_end ? new Date(payload.current_end * 1000) : null;
+        await subRef.set({
+          status:         "active",
+          isPremium:      true,
+          razorpaySubscriptionId: subId,
+          currentPeriodEnd: currentEnd,
+          nextChargeAt:     chargeAt,
+          activatedAt:    FieldValue.serverTimestamp(),
+          updatedAt:      FieldValue.serverTimestamp(),
+        }, { merge: true });
+
+        // Also stamp isPremium on the parent doc for easy app-side reads
+        const snap = await subRef.get();
+        const planType = snap.data()?.planType || "monthly";
+        logger.info(`razorpayWebhook: activated userId=${userId} planType=${planType}`);
+        break;
+      }
+
+      case "subscription.halted":
+        await subRef.set({
+          status:    "halted",
+          isPremium: false,
+          updatedAt: FieldValue.serverTimestamp(),
+        }, { merge: true });
+        break;
+
+      case "subscription.cancelled":
+        await subRef.set({
+          status:    "cancelled",
+          isPremium: false,
+          cancelledAt: FieldValue.serverTimestamp(),
+          updatedAt:   FieldValue.serverTimestamp(),
+        }, { merge: true });
+        break;
+
+      case "subscription.completed": {
+        // Trial subscription (1 cycle at ₹1) finished — auto-create the monthly
+        // subscription so the user seamlessly transitions to ₹149/month.
+        // Razorpay will send the customer a payment notification to authorize it.
+        const snap = await subRef.get();
+        const planType = snap.data()?.planType;
+        const razorpayCustomerId = snap.data()?.razorpayCustomerId;
+        if (planType === "trial" && razorpayCustomerId) {
+          const Razorpay = require("razorpay");
+          const rzp = new Razorpay({
+            key_id:     RAZORPAY_KEY_ID.value(),
+            key_secret: RAZORPAY_KEY_SECRET.value(),
+          });
+          const newSub = await rzp.subscriptions.create({
+            plan_id:         PLAN_MONTHLY,
+            customer_id:     razorpayCustomerId,
+            customer_notify: 1, // Razorpay notifies user to authorize ₹149/month
+            total_count:     12,
+            notes:           { userId, planType: "monthly", fromTrial: "true" },
+          });
+          await subRef.set({
+            planType: "monthly",
+            razorpaySubscriptionId: newSub.id,
+            status:   "created",
+            updatedAt: FieldValue.serverTimestamp(),
+          }, { merge: true });
+          logger.info(`razorpayWebhook: trial→monthly userId=${userId} newSubId=${newSub.id}`);
+        } else {
+          // Non-trial subscription completed naturally (all cycles billed)
+          await subRef.set({
+            status:    "completed",
+            isPremium: false,
+            updatedAt: FieldValue.serverTimestamp(),
+          }, { merge: true });
+        }
+        break;
+      }
+
+      default:
+        logger.info(`razorpayWebhook: unhandled event=${event}`);
+    }
+
+    res.status(200).send("ok");
+  }
+);
+
+// ── cancelSubscription ────────────────────────────────────────────────────────
+// Called by the app when the user taps "Cancel subscription".
+// Cancels at period end (user keeps access until current period expires).
+exports.cancelSubscription = onCall(
+  { secrets: [RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET] },
+  async (request) => {
+    const { userId } = request.data;
+    if (!userId) throw new HttpsError("unauthenticated", "userId required");
+
+    const snap = await db.collection("subscriptions").doc(userId).get();
+    if (!snap.exists) throw new HttpsError("not-found", "No subscription found");
+
+    const { razorpaySubscriptionId, status } = snap.data();
+    if (!razorpaySubscriptionId) throw new HttpsError("not-found", "No Razorpay subscription ID");
+    if (status === "cancelled") throw new HttpsError("already-exists", "Already cancelled");
+
+    const Razorpay = require("razorpay");
+    const rzp = new Razorpay({
+      key_id:     RAZORPAY_KEY_ID.value(),
+      key_secret: RAZORPAY_KEY_SECRET.value(),
+    });
+
+    try {
+      // cancel_at_cycle_end=1 means user keeps access until current period ends
+      await rzp.subscriptions.cancel(razorpaySubscriptionId, true);
+    } catch (err) {
+      logger.error("cancelSubscription: razorpay error", err);
+      throw new HttpsError("internal", err.error?.description || err.message);
+    }
+
+    await db.collection("subscriptions").doc(userId).set({
+      status:           "cancel_scheduled",
+      cancelledAt:      FieldValue.serverTimestamp(),
+      updatedAt:        FieldValue.serverTimestamp(),
+    }, { merge: true });
+
+    logger.info(`cancelSubscription: userId=${userId} subId=${razorpaySubscriptionId}`);
+    return { success: true };
   }
 );

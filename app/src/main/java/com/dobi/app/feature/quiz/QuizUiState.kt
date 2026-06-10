@@ -1,5 +1,6 @@
 package com.dobi.app.feature.quiz
 
+import com.dobi.app.domain.model.Friend
 import com.dobi.app.domain.model.McqQuestion
 
 enum class QuizPhase { INTRO, QUESTION, DONE }
@@ -31,6 +32,14 @@ data class QuizUiState(
     val quizAlreadyAssigned: Boolean = false,
     /** Hides Retake and Snap & Send — set when opened from the child's profile tab. */
     val hideActions: Boolean = false,
+    /** True while the snap-share template dialog is open. */
+    val showSnapShareDialog: Boolean = false,
+    /** Current streak days for the share-snap templates. */
+    val streakDays: Int = 0,
+    /** Child's first name for personalising share text. */
+    val childName: String = "",
+    /** Friends list used to populate the share-to-friend row in the dialog. */
+    val friends: List<Friend> = emptyList(),
 ) {
     val canRetry: Boolean get() = !isParentView && !isScoreOnly && !hideActions && attemptsTaken < MAX_ATTEMPTS
 

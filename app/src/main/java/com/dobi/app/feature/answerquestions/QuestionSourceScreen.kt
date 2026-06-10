@@ -20,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Quiz
 import androidx.compose.material3.Card
@@ -34,6 +35,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -67,10 +69,19 @@ fun QuestionSourceScreen(
     onNavigateBack: () -> Unit,
     onPickCuratedSet: () -> Unit,
     onPickUploadAndGenerate: () -> Unit,
+    onPickWriteAnswers: () -> Unit,
     onViewLastResult: () -> Unit,
     viewModel: QuestionSourceViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.navEvents.collect { event ->
+            when (event) {
+                is QuestionSourceNavEvent.LaunchWriteAnswers -> onPickWriteAnswers()
+            }
+        }
+    }
 
     Scaffold(
         containerColor = DobiBackground,
@@ -145,6 +156,17 @@ fun QuestionSourceScreen(
                 description = "Snap your textbook questions or chapter pages — Dobi will turn them into questions for you.",
                 accent = Color(0xFF8B5CF6),
                 onClick = onPickUploadAndGenerate
+            )
+
+            Spacer(Modifier.height(14.dp))
+
+            QuestionSourceCard(
+                icon = Icons.Default.Edit,
+                badgeText = "📝 Write answers",
+                title = "Write Answers",
+                description = "Dobi generates questions from this lesson — write your answers by hand or type them in.",
+                accent = Color(0xFF059669),
+                onClick = viewModel::onWriteAnswersClick
             )
 
             Spacer(Modifier.height(20.dp))

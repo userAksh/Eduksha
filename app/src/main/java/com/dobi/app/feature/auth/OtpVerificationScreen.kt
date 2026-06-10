@@ -50,6 +50,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -96,7 +97,8 @@ fun OtpVerificationScreen(
         uiState = uiState,
         onNavigateBack = onNavigateBack,
         onVerify = viewModel::verifyOtp,
-        onResend = { viewModel.resendOtp(activity) }
+        onResend = { viewModel.resendOtp(activity) },
+        onReferralCodeEntered = viewModel::saveReferralCode
     )
 }
 
@@ -106,8 +108,10 @@ private fun OtpContent(
     uiState: OtpVerificationViewModel.UiState,
     onNavigateBack: () -> Unit,
     onVerify: (String) -> Unit,
-    onResend: () -> Unit
+    onResend: () -> Unit,
+    onReferralCodeEntered: (String) -> Unit = {},
 ) {
+    val focusManager = LocalFocusManager.current
     var otp by remember { mutableStateOf("") }
     var resendTick by remember { mutableStateOf(0) }
     var secondsRemaining by remember { mutableStateOf(30) }
@@ -401,7 +405,7 @@ private fun OtpContent(
                             else DobiPrimaryLight.copy(alpha = 0.45f)
                         )
                         .then(
-                            if (buttonEnabled) Modifier.clickable { onVerify(otp) } else Modifier
+                            if (buttonEnabled) Modifier.clickable { focusManager.clearFocus(); onVerify(otp) } else Modifier
                         ),
                     contentAlignment = Alignment.Center
                 ) {
@@ -439,7 +443,12 @@ private fun OtpContent(
             }
         }
 
-        Spacer(modifier = Modifier.height(28.dp))
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // ── Referral code (optional) ──────────────────────────────────────────
+        ReferralCodeField(onCodeEntered = onReferralCodeEntered)
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         // ── Trust footer ──────────────────────────────────────────────────────
         Column(
@@ -493,4 +502,100 @@ private fun OtpContent(
         }
         } // end scrollable Column
     } // end outer Column
+}
+
+// ── Referral code field ────────────────────────────────────────────────────────
+
+@Composable
+private fun ReferralCodeField(onCodeEntered: (String) -> Unit) {
+    val focusManager = LocalFocusManager.current
+    var expanded by remember { mutableStateOf(false) }
+    var code by remember { mutableStateOf("") }
+    var saved by remember { mutableStateOf(false) }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { expanded = !expanded }
+                .padding(vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = if (saved) "✅ Referral code saved" else "Have a referral code?",
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Medium,
+                color = if (saved) DobiSuccess else DobiTextSecondary
+            )
+            if (!saved) {
+                Spacer(Modifier.width(4.dp))
+                Text(
+                    text = if (expanded) "▲" else "▼",
+                    fontSize = 11.sp,
+                    color = DobiTextSecondary
+                )
+            }
+        }
+
+        if (expanded && !saved) {
+            Spacer(Modifier.height(8.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                BasicTextField(
+                    value = code,
+                    onValueChange = { code = it.trim().lowercase() },
+                    singleLine = true,
+                    textStyle = androidx.compose.ui.text.TextStyle(
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = DobiTextPrimary,
+                        letterSpacing = 1.sp
+                    ),
+                    decorationBox = { inner ->
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .border(1.dp, if (code.isNotBlank()) DobiPrimary else Color(0xFFDDE3F0), RoundedCornerShape(12.dp))
+                                .padding(horizontal = 14.dp, vertical = 12.dp)
+                        ) {
+                            if (code.isEmpty()) {
+                                Text("Enter referral code", fontSize = 14.sp, color = DobiTextSecondary)
+                            }
+                            inner()
+                        }
+                    },
+                    modifier = Modifier.weight(1f)
+                )
+                Box(
+                    modifier = Modifier
+                        .height(44.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(if (code.length >= 6) DobiPrimary else DobiPrimarySoft)
+                        .then(if (code.length >= 6) Modifier.clickable {
+                            focusManager.clearFocus()
+                            onCodeEntered(code)
+                            saved = true
+                            expanded = false
+                        } else Modifier)
+                        .padding(horizontal = 16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "Apply",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = if (code.length >= 6) Color.White else DobiTextSecondary
+                    )
+                }
+            }
+        }
+    }
 }

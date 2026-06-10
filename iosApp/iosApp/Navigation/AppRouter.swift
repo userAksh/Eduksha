@@ -11,9 +11,10 @@ enum AppDestination: Hashable {
     case childHome(childId: String, childName: String)
     case parentHome
     case conceptList(childId: String)
+    case testYourselfPicker(childId: String)
     case conceptDetail(conceptId: String, childId: String)
     case homeworkLog(childId: String)
-    case streakHome(childName: String)
+    case streakHome(childId: String, childName: String)
     case insights(childId: String, childName: String, grade: String, board: String)
     case studyGoals(childId: String, childName: String)
     case addChild
@@ -40,6 +41,7 @@ enum AppDestination: Hashable {
     case writeAnswer(displayName: String, subject: String, grade: Int, scopeText: String, childId: String)
     case aiPracticeUpload(childId: String, grade: Int, conceptId: String, unitId: String, displayName: String, conceptName: String, subject: String, subjectColor: String, subjectIcon: String, teacherHonorific: String, teacherName: String, testDateInterval: Double, scopeText: String)
     case quizResult(conceptId: String, unitId: String, childId: String)
+    case paywall
 
     func hash(into hasher: inout Hasher) {
         switch self {
@@ -51,9 +53,10 @@ enum AppDestination: Hashable {
         case .childHome(let id, _):                       hasher.combine(5); hasher.combine(id)
         case .parentHome:                                 hasher.combine(6)
         case .conceptList(let id):                        hasher.combine(7); hasher.combine(id)
+        case .testYourselfPicker(let id):                 hasher.combine(94); hasher.combine(id)
         case .conceptDetail(let id, _):                  hasher.combine(16); hasher.combine(id)
         case .homeworkLog(let id):                        hasher.combine(8); hasher.combine(id)
-        case .streakHome(let n):                          hasher.combine(9); hasher.combine(n)
+        case .streakHome(let cid, let n):                 hasher.combine(9); hasher.combine(cid); hasher.combine(n)
         case .insights(let id, _, _, _):                  hasher.combine(10); hasher.combine(id)
         case .studyGoals(let id, _):                      hasher.combine(11); hasher.combine(id)
         case .addChild:                                   hasher.combine(12)
@@ -80,6 +83,7 @@ enum AppDestination: Hashable {
         case .writeAnswer(let name, _, _, _, let id):      hasher.combine(26); hasher.combine(name); hasher.combine(id)
         case .aiPracticeUpload(let id, _, let cid, _, _, _, _, _, _, _, _, _, _): hasher.combine(27); hasher.combine(id); hasher.combine(cid)
         case .quizResult(let cid, let uid, let kid): hasher.combine(32); hasher.combine(cid); hasher.combine(uid); hasher.combine(kid)
+        case .paywall:                                hasher.combine(33)
         }
     }
 
@@ -128,15 +132,34 @@ struct AppRootView: View {
             }
         }
         .environmentObject(router)
-        .onAppear {
-            // Handles the case where isAuthenticated is already true on launch
-            // (e.g. restored from UserDefaults on simulator, or Firebase Auth session on device).
-            if appState.isAuthenticated {
-                router.replace(with: .parentHome)
+        .overlay {
+            // Show a white cover while subscription check is in-flight so the
+            // RoleSelectionView never flashes through for returning users.
+            if appState.isAuthenticated && appState.isPremium == nil {
+                ZStack {
+                    Color.white.ignoresSafeArea()
+                    ProgressView().scaleEffect(1.3).tint(Color.dobiPrimary)
+                }
             }
         }
-        .onChange(of: appState.isAuthenticated) { authed in
-            if authed { router.replace(with: .parentHome) }
+        .onOpenURL { url in
+            // Universal / custom-scheme invite links: eduksha://invite?code=X or https://eduksha.in/i/X
+            // iOS is always a parent device — store as parent referral code.
+            if let code = InviteService.shared.parseInviteURL(url) {
+                InviteService.shared.storeParentReferralCode(code)
+            }
+        }
+        .onAppear {
+            // isPremium is resolved by AppState before routing.
+            // onAppear fires after splash hand-off; isPremium may already be set.
+            if appState.isAuthenticated, let isPremium = appState.isPremium {
+                router.replace(with: isPremium ? .parentHome : .paywall)
+            }
+        }
+        .onChange(of: appState.isPremium) { isPremium in
+            // Fires once subscription check completes after auth.
+            guard appState.isAuthenticated, let isPremium else { return }
+            router.replace(with: isPremium ? .parentHome : .paywall)
         }
         .onChange(of: appState.pendingTaskTap?.taskId) { taskId in
             guard let taskId, appState.isAuthenticated else { return }
@@ -202,7 +225,10 @@ struct AppRootView: View {
                         router.replace(with: .otpVerification(phone: phone, verificationID: id))
                     }
                 },
-                onBack: { router.pop() }
+                onBack: { router.pop() },
+                onReferralCodeEntered: { code in
+                    InviteService.shared.storeParentReferralCode(code)
+                }
             )
 
         case .selectChild(let children):
@@ -249,9 +275,9 @@ struct AppRootView: View {
                 onNavigateToTuitionProblems: { router.push(.tuitionProblems) },
                 onNavigateToRevisitTopics: { router.push(.revisitTopics(childId: childId)) },
                 onNavigateToNeedRevision: { router.push(.needRevision(childId: childId)) },
-                onNavigateToTestYourself: { router.push(.conceptList(childId: childId)) },
+                onNavigateToTestYourself: { router.push(.testYourselfPicker(childId: childId)) },
                 onNavigateToStreakHome: {
-                    router.push(.streakHome(childName: childName.components(separatedBy: " ").first ?? childName))
+                    router.push(.streakHome(childId: childId, childName: childName.components(separatedBy: " ").first ?? childName))
                 },
                 onNavigateToParentTask: { taskId in router.push(.doParentTask(taskId: taskId, childId: childId)) },
                 onNavigateToParentTasksList: { router.push(.parentTasksList(childId: childId)) },
@@ -303,6 +329,20 @@ struct AppRootView: View {
             .environmentObject(appState)
 
         case .conceptList(let childId):
+            // DEFAULT mode: units expand/collapse only, concept tap → ConceptDetail (mirrors Android DEFAULT)
+            ConceptListView(
+                childId: childId,
+                mode: .default,
+                onBack: { router.pop() },
+                onConceptTap: { concept in
+                    router.push(.conceptDetail(conceptId: concept.id, childId: childId))
+                },
+                onUnitTap: { _, _, _ in }
+            )
+            .environmentObject(appState)
+
+        case .testYourselfPicker(let childId):
+            // TEST_YOURSELF mode: unit/concept tap → questionSource (quiz format picker)
             ConceptListView(
                 childId: childId,
                 mode: .testYourself,
@@ -349,8 +389,8 @@ struct AppRootView: View {
         case .homeworkLog(let childId):
             HomeworkLogView(childId: childId, onBack: { router.pop() }, onSaved: { router.pop() })
 
-        case .streakHome(let childName):
-            StreakHomeView(childName: childName, onBack: { router.pop() }, onUploadToday: {})
+        case .streakHome(let childId, let childName):
+            StreakHomeView(childId: childId, childName: childName, onBack: { router.pop() }, onUploadToday: { router.pop() })
 
         case .insights(let childId, let childName, let grade, let board):
             let insChild = appState.children.first { $0.id == childId }
@@ -534,20 +574,24 @@ struct AppRootView: View {
             .environmentObject(appState)
 
         case .quiz(let conceptId, let childId, let unitName, let subject):
+            let qzChildName = appState.children.first { $0.id == childId }?.name ?? ""
             QuizView(
                 conceptId: conceptId,
                 childId: childId,
                 unitName: unitName,
                 subject: subject,
+                childName: qzChildName,
                 onBack: { router.pop() }
             )
 
         case .quizForParentTask(let conceptId, let childId, let unitName, let subject, let parentTaskId):
+            let pqzChildName = appState.children.first { $0.id == childId }?.name ?? ""
             QuizView(
                 conceptId: conceptId,
                 childId: childId,
                 unitName: unitName,
                 subject: subject,
+                childName: pqzChildName,
                 parentTaskId: parentTaskId,
                 onBack: { router.pop() }
             )
@@ -640,7 +684,7 @@ struct AppRootView: View {
                     } else {
                         let quizId = conceptId.isEmpty ? unitId : conceptId
                         router.push(.quiz(conceptId: quizId, childId: childId,
-                                          unitName: unitName, subject: subject))
+                                          unitName: displayName, subject: subject))
                     }
                 },
                 onPickSubjective: {
@@ -714,6 +758,12 @@ struct AppRootView: View {
                     ))
                 }
             )
+
+        case .paywall:
+            PaywallView(onNavigateToParentHome: {
+                appState.isPremium = true  // keep routing state consistent after payment
+                router.replace(with: .parentHome)
+            })
 
         case .quizResult(let conceptId, let unitId, let childId):
             QuizResultLoaderView(

@@ -1,13 +1,17 @@
 import SwiftUI
 
 struct StreakHomeView: View {
-    var childName: String = "Aarav"
-    var currentStreak: Int = 5
+    @StateObject private var vm: StreakHomeViewModel
     var onBack: () -> Void = {}
     var onUploadToday: () -> Void = {}
 
     private let weekDays = ["M", "T", "W", "T", "F", "S", "S"]
-    private let completedDays = [true, true, true, true, true, false, false]
+
+    init(childId: String, childName: String, onBack: @escaping () -> Void = {}, onUploadToday: @escaping () -> Void = {}) {
+        _vm = StateObject(wrappedValue: StreakHomeViewModel(childId: childId, childName: childName))
+        self.onBack = onBack
+        self.onUploadToday = onUploadToday
+    }
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -24,16 +28,26 @@ struct StreakHomeView: View {
                                 .font(.system(size: 64))
 
                             VStack(spacing: 4) {
-                                Text("\(currentStreak) Day Streak!")
-                                    .font(.dobiTitle1())
-                                    .foregroundStyle(Color.dobiTextPrimary)
-                                Text("Keep going, \(childName)! Don't break the chain.")
-                                    .font(.dobiBody())
-                                    .foregroundStyle(Color.dobiTextSecondary)
-                                    .multilineTextAlignment(.center)
+                                if vm.streakDays > 0 {
+                                    Text("\(vm.streakDays) Day Streak!")
+                                        .font(.dobiTitle1())
+                                        .foregroundStyle(Color.dobiTextPrimary)
+                                    Text("Keep going, \(vm.childName)! Don't break the chain.")
+                                        .font(.dobiBody())
+                                        .foregroundStyle(Color.dobiTextSecondary)
+                                        .multilineTextAlignment(.center)
+                                } else {
+                                    Text("Start Your Streak!")
+                                        .font(.dobiTitle1())
+                                        .foregroundStyle(Color.dobiTextPrimary)
+                                    Text("Hi \(vm.childName)! Upload today to light up Day 1.")
+                                        .font(.dobiBody())
+                                        .foregroundStyle(Color.dobiTextSecondary)
+                                        .multilineTextAlignment(.center)
+                                }
                             }
 
-                            // Week calendar
+                            // Week calendar (Mon – Sun of current week)
                             HStack(spacing: 0) {
                                 ForEach(0..<7, id: \.self) { i in
                                     VStack(spacing: 6) {
@@ -42,15 +56,12 @@ struct StreakHomeView: View {
                                             .foregroundStyle(Color.dobiTextTertiary)
                                         ZStack {
                                             Circle()
-                                                .fill(completedDays[i] ? Color.dobiPrimary : Color.dobiSurfaceAlt)
+                                                .fill(vm.weekActivity[i] ? Color.dobiPrimary : Color.dobiSurfaceAlt)
                                                 .frame(width: 34, height: 34)
-                                            if completedDays[i] {
+                                            if vm.weekActivity[i] {
                                                 Image(systemName: "checkmark")
                                                     .font(.system(size: 12, weight: .bold))
                                                     .foregroundStyle(.white)
-                                            } else if i == completedDays.lastIndex(where: { $0 }) ?? -1 + 1 {
-                                                Text("📚")
-                                                    .font(.system(size: 16))
                                             }
                                         }
                                     }
@@ -74,10 +85,12 @@ struct StreakHomeView: View {
                                     .font(.system(size: 26))
                             }
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("Upload Today's Work")
+                                Text(vm.isActiveToday ? "Great work today!" : "Upload Today's Work")
                                     .font(.dobiBodyBold())
                                     .foregroundStyle(Color.dobiTextPrimary)
-                                Text("Snap a photo of what you studied today to keep your streak alive!")
+                                Text(vm.isActiveToday
+                                     ? "You've uploaded today. Keep the streak going tomorrow!"
+                                     : "Snap a photo of what you studied today to keep your streak alive!")
                                     .font(.dobiSmall())
                                     .foregroundStyle(Color.dobiTextSecondary)
                                     .lineSpacing(2)
@@ -86,22 +99,26 @@ struct StreakHomeView: View {
                         }
                         .padding(16)
 
-                        Button(action: onUploadToday) {
-                            HStack {
-                                Image(systemName: "camera.fill")
-                                    .font(.system(size: 14))
-                                Text("Upload Now")
-                                    .font(.dobiCaptionBold())
+                        if !vm.isActiveToday {
+                            Button(action: onUploadToday) {
+                                HStack {
+                                    Image(systemName: "camera.fill")
+                                        .font(.system(size: 14))
+                                    Text("Upload Now")
+                                        .font(.dobiCaptionBold())
+                                }
+                                .foregroundStyle(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 12)
+                                .background(Color.dobiPrimary)
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
                             }
-                            .foregroundStyle(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
-                            .background(Color.dobiPrimary)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .buttonStyle(.plain)
+                            .padding(.horizontal, 16)
+                            .padding(.bottom, 16)
+                        } else {
+                            Spacer().frame(height: 4)
                         }
-                        .buttonStyle(.plain)
-                        .padding(.horizontal, 16)
-                        .padding(.bottom, 16)
                     }
                     .padding(.horizontal, 20)
 
@@ -112,10 +129,10 @@ struct StreakHomeView: View {
 
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
-                                MilestoneCard(days: 7, emoji: "⭐️", isUnlocked: currentStreak >= 7)
-                                MilestoneCard(days: 14, emoji: "🏅", isUnlocked: currentStreak >= 14)
-                                MilestoneCard(days: 30, emoji: "🏆", isUnlocked: currentStreak >= 30)
-                                MilestoneCard(days: 60, emoji: "💎", isUnlocked: currentStreak >= 60)
+                                MilestoneCard(days: 7,  emoji: "⭐️", isUnlocked: vm.streakDays >= 7)
+                                MilestoneCard(days: 14, emoji: "🏅", isUnlocked: vm.streakDays >= 14)
+                                MilestoneCard(days: 30, emoji: "🏆", isUnlocked: vm.streakDays >= 30)
+                                MilestoneCard(days: 60, emoji: "💎", isUnlocked: vm.streakDays >= 60)
                             }
                             .padding(.horizontal, 20)
                         }
@@ -123,9 +140,9 @@ struct StreakHomeView: View {
 
                     // Stats row
                     HStack(spacing: 12) {
-                        StreakStatCard(emoji: "📅", value: "12", label: "Total Days")
-                        StreakStatCard(emoji: "🔥", value: "\(currentStreak)", label: "Best Streak")
-                        StreakStatCard(emoji: "📚", value: "34", label: "Topics Done")
+                        StreakStatCard(emoji: "📅", value: "\(vm.totalActiveDays)", label: "Total Days")
+                        StreakStatCard(emoji: "🔥", value: "\(vm.bestStreak)",      label: "Best Streak")
+                        StreakStatCard(emoji: "📸", value: "\(vm.totalUploads)",    label: "Uploads")
                     }
                     .padding(.horizontal, 20)
 
@@ -209,5 +226,5 @@ private struct StreakStatCard: View {
 }
 
 #Preview {
-    StreakHomeView(childName: "Aarav", currentStreak: 5)
+    StreakHomeView(childId: "preview", childName: "Aarav")
 }
