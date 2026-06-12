@@ -20,21 +20,21 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         UNUserNotificationCenter.current().delegate = self
         Messaging.messaging().delegate = self
-
-        // Ask for push permission — required for FCM token delivery on device
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
-            NSLog("[FCM] notification permission granted=\(granted) error=\(String(describing: error))")
-            guard granted else { return }
-            DispatchQueue.main.async { UIApplication.shared.registerForRemoteNotifications() }
+        // Register for remote notifications immediately — required for Firebase
+        // Phone Auth silent APNs verification (swizzling is disabled).
+        UIApplication.shared.registerForRemoteNotifications()
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
+            NSLog("[FCM] notification permission granted=\(granted)")
         }
         return true
     }
 
-    // Forward APNs device token to Firebase Messaging so it can exchange for an FCM token
+    // Forward APNs token to both Firebase Auth and Firebase Messaging
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Auth.auth().setAPNSToken(deviceToken, type: .unknown)
         Messaging.messaging().apnsToken = deviceToken
-        NSLog("[FCM] APNs device token set (len=\(deviceToken.count))")
+        NSLog("[FCM] APNs token registered len=\(deviceToken.count)")
     }
 
     func application(_ application: UIApplication,
@@ -42,7 +42,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
         NSLog("[FCM] APNs registration failed: \(error.localizedDescription)")
     }
 
-    // Forward silent APNs to Firebase Auth so Phone Auth verification works
+    // Forward silent APNs to Firebase Auth — required when swizzling is disabled
     func application(_ application: UIApplication,
                      didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -53,6 +53,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
         completionHandler(.newData)
     }
 
+    // Forward URL callbacks to Firebase Auth (reCAPTCHA + Phone Auth)
     func application(_ application: UIApplication, open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         return Auth.auth().canHandle(url)
