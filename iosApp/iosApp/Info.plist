@@ -37,6 +37,17 @@
     </array>
     <key>NSCameraUsageDescription</key>
     <string>Camera access is needed to upload profile photos.</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>in.eduksha.app.ios</string>
+            </array>
+        </dict>
+    </array>
     <key>LSApplicationQueriesSchemes</key>
     <array>
         <string>upi</string>
