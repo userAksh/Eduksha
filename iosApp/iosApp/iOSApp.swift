@@ -42,6 +42,17 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
         NSLog("[FCM] APNs registration failed: \(error.localizedDescription)")
     }
 
+    // Forward silent APNs to Firebase Auth so Phone Auth verification works
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if Auth.auth().canHandleNotification(userInfo) {
+            completionHandler(.noData)
+            return
+        }
+        completionHandler(.newData)
+    }
+
     func application(_ application: UIApplication, open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         return Auth.auth().canHandle(url)
@@ -103,10 +114,6 @@ struct iOSApp: App {
             defaults.set(true, forKey: "appInstalledBefore")
         }
 
-        // TODO: Remove before App Store submission — requires APNs key in Firebase Console.
-        // Disables APNs/reCAPTCHA app-verification so phone auth works without Apple
-        // Developer Program enrollment. Real OTPs still send to real numbers.
-        Auth.auth().settings?.isAppVerificationDisabledForTesting = true
     }
 
     var body: some Scene {
