@@ -1,4 +1,5 @@
 import SwiftUI
+import AVKit
 import FirebaseAuth
 import Razorpay
 
@@ -88,8 +89,10 @@ struct PaywallView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     VStack(spacing: 0) {
-                        // Hero spacer — top 32% of screen height
-                        Spacer().frame(height: geo.size.height * 0.32)
+                        // Hero video — top 32% of screen height, muted loop
+                        PaywallVideoPlayer()
+                            .frame(height: geo.size.height * 0.32)
+                            .clipped()
 
                         // Floating card — remaining 68%
                         PaywallCard(viewModel: viewModel)
@@ -545,6 +548,51 @@ private struct SecurePaymentsFooter: View {
                 .foregroundColor(paywallPurple)
         }
         .frame(maxWidth: .infinity)
+    }
+}
+
+// ── Paywall hero video (muted, looping) ──────────────────────────────────────
+
+private let paywallVideoURL = URL(string:
+    "https://firebasestorage.googleapis.com/v0/b/dobi-ac085.firebasestorage.app/o/paywall_video.mp4?alt=media&token=0e1eb69c-88de-4efa-b661-62bd1d7d8d29"
+)!
+
+private struct PaywallVideoPlayer: UIViewRepresentable {
+    func makeUIView(context: Context) -> UIView {
+        let player = AVPlayer(url: paywallVideoURL)
+        player.volume = 0
+        player.actionAtItemEnd = .none
+        let view = LoopingPlayerView(player: player)
+        player.play()
+        return view
+    }
+
+    func updateUIView(_ uiView: UIView, context: Context) {}
+
+    final class LoopingPlayerView: UIView {
+        override class var layerClass: AnyClass { AVPlayerLayer.self }
+        private var playerLayer: AVPlayerLayer { layer as! AVPlayerLayer }
+        private var token: Any?
+
+        init(player: AVPlayer) {
+            super.init(frame: .zero)
+            playerLayer.player = player
+            playerLayer.videoGravity = .resizeAspectFill
+            token = NotificationCenter.default.addObserver(
+                forName: .AVPlayerItemDidPlayToEndTime,
+                object: player.currentItem,
+                queue: .main
+            ) { _ in
+                player.seek(to: .zero)
+                player.play()
+            }
+        }
+
+        required init?(coder: NSCoder) { fatalError() }
+
+        deinit {
+            if let token { NotificationCenter.default.removeObserver(token) }
+        }
     }
 }
 

@@ -48,11 +48,19 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.AspectRatioFrameLayout
+import androidx.media3.ui.PlayerView
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
@@ -157,8 +165,8 @@ fun PaywallScreen(
         }
 
         Column(modifier = Modifier.fillMaxSize()) {
-            // ── Hero: background image strip, no text ─────────────────────────
-            Spacer(
+            // ── Hero: video plays muted on loop over the background image ─────
+            PaywallVideoPlayer(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.32f),
@@ -267,6 +275,38 @@ fun PaywallScreen(
             } // Box
         }
     }
+}
+
+// ── Paywall hero video ────────────────────────────────────────────────────────
+
+private const val PAYWALL_VIDEO_URL =
+    "https://firebasestorage.googleapis.com/v0/b/dobi-ac085.firebasestorage.app/o/paywall_video.mp4?alt=media&token=0e1eb69c-88de-4efa-b661-62bd1d7d8d29"
+
+@androidx.annotation.OptIn(UnstableApi::class)
+@Composable
+private fun PaywallVideoPlayer(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    val player = remember {
+        ExoPlayer.Builder(context).build().apply {
+            setMediaItem(MediaItem.fromUri(PAYWALL_VIDEO_URL))
+            volume = 0f
+            repeatMode = Player.REPEAT_MODE_ONE
+            prepare()
+            playWhenReady = true
+        }
+    }
+    DisposableEffect(Unit) { onDispose { player.release() } }
+
+    AndroidView(
+        factory = { ctx ->
+            PlayerView(ctx).apply {
+                this.player = player
+                useController = false
+                resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
+            }
+        },
+        modifier = modifier,
+    )
 }
 
 // ── Tab row ──────────────────────────────────────────────────────────────────
