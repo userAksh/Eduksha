@@ -4,6 +4,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFunctions
 import FirebaseStorage
+import FirebaseVertexAI
 
 
 // MARK: - FirebaseService
@@ -16,60 +17,73 @@ final class FirebaseService {
 
     private let db = Firestore.firestore()
 
+    // MARK: Vertex AI — text-only MCQ model (mirrors Android textModel)
+    private lazy var mcqTextModel: GenerativeModel = {
+        let schema = Schema.object(properties: [
+            "questions": Schema.array(items: Schema.object(properties: [
+                "id":           Schema.string(),
+                "text":         Schema.string(),
+                "options":      Schema.array(items: Schema.string()),
+                "correct_index": Schema.integer(),
+                "explanation":  Schema.string()
+            ]))
+        ])
+        let config = GenerationConfig(
+            temperature: 0.3,
+            responseMIMEType: "application/json",
+            responseSchema: schema
+        )
+        let systemPrompt = """
+        You are an Indian school-textbook tutor. The user message names a \
+        specific lesson or concept from the NCERT / CBSE syllabus. Your job \
+        is to write multiple-choice questions that match the difficulty and \
+        tone of the CBSE textbook for that grade and subject.
+
+        Rules:
+        - Write exactly the number of questions the user asks for.
+        - 4 options per question, exactly one correct.
+        - Wrong options must be plausible misconceptions a real student that \
+          age would have — not random unrelated text.
+        - Cover the topic broadly (recall, understanding, application).
+        - Each question carries a one-line kid-friendly explanation.
+        - Do NOT invent facts that wouldn't appear in a Class 6 / 7 NCERT \
+          textbook for this subject.
+        - Output ONLY valid JSON matching the schema. Use the questions array \
+          on success.
+        """
+        return VertexAI.vertexAI().generativeModel(
+            modelName: "gemini-2.5-flash-lite",
+            generationConfig: config,
+            systemInstruction: ModelContent(role: "system", parts: systemPrompt)
+        )
+    }()
+
     // MARK: Phone Auth
 
     func sendOTP(phone: String) async throws -> String {
-        NSLog("[OTP] sendOTP called, phone=\(phone), isMainThread=\(Thread.isMainThread)")
+        NSLog("[OTP] sendOTP called, phone=\(phone)")
         #if targetEnvironment(simulator)
-        NSLog("[OTP] Simulator path — returning stub ID")
         try await Task.sleep(nanoseconds: 400_000_000)
         return "SIMULATOR_VID_\(phone)"
         #else
-        NSLog("[OTP] Device path — calling REST API (bypassing Firebase SDK crash on iOS 26)")
-        // Firebase SDK 11.15.0 crashes on iOS 26 inside verifyPhoneNumber — it reads
-        // UIWindowScene.windows before checking isAppVerificationDisabledForTesting, hitting a
-        // nil force-unwrap. Bypass the SDK entirely and call the REST API directly.
-        // Firebase backend accepts recaptchaToken:"recaptchaToken" as a test-bypass sentinel
-        // and allows configured test phone numbers (e.g. +919999999999) through without real SMS.
-        let apiKey = "AIzaSyCR8kR8CvANrCgKgGbAJyzYXnYS-pd3lVA"
-        guard let url = URL(string: "https://identitytoolkit.googleapis.com/v1/accounts:sendVerificationCode?key=\(apiKey)") else {
-            NSLog("[OTP] ERROR: Bad URL")
-            throw NSError(domain: "PhoneAuth", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bad URL"])
+        // Pass the root view controller so Firebase can show reCAPTCHA
+        // fallback when APNs silent push is unavailable (e.g. dev builds).
+        let uiDelegate: AuthUIDelegate? = await MainActor.run {
+            UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .first(where: { $0.activationState == .foregroundActive })?
+                .keyWindow?
+                .rootViewController
         }
-        NSLog("[OTP] Building request for \(phone)")
-        var req = URLRequest(url: url)
-        req.httpMethod = "POST"
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body: [String: Any] = ["phoneNumber": phone, "recaptchaToken": "recaptchaToken"]
-        req.httpBody = try JSONSerialization.data(withJSONObject: body)
-        NSLog("[OTP] Sending REST request...")
-        let (data, response) = try await URLSession.shared.data(for: req)
-        let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? -1
-        let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8>"
-        NSLog("[OTP] REST response status=\(httpStatus) body=\(rawBody)")
-        if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-           let sessionInfo = json["sessionInfo"] as? String {
-            NSLog("[OTP] SUCCESS — got sessionInfo (len=\(sessionInfo.count))")
-            return sessionInfo
-        }
-        let msg: String
-        if let errJson = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-           let errObj = errJson["error"] as? [String: Any],
-           let errMsg = errObj["message"] as? String {
-            msg = errMsg
-        } else {
-            msg = rawBody
-        }
-        NSLog("[OTP] FAILED — error: \(msg)")
-        throw NSError(domain: "PhoneAuth", code: httpStatus, userInfo: [NSLocalizedDescriptionKey: msg])
+        NSLog("[OTP] Device path — uiDelegate=\(uiDelegate != nil ? "found" : "nil")")
+        return try await PhoneAuthProvider.provider().verifyPhoneNumber(phone, uiDelegate: uiDelegate)
         #endif
     }
 
     func verifyOTP(verificationID: String, code: String) async throws -> String {
-        NSLog("[OTP] verifyOTP called, vidLen=\(verificationID.count) code=\(code) isMainThread=\(Thread.isMainThread)")
+        NSLog("[OTP] verifyOTP called")
         let credential = PhoneAuthProvider.provider()
             .credential(withVerificationID: verificationID, verificationCode: code)
-        NSLog("[OTP] credential created, calling signIn...")
         let result = try await Auth.auth().signIn(with: credential)
         NSLog("[OTP] signIn succeeded, uid=\(result.user.uid)")
         return result.user.uid
@@ -298,47 +312,65 @@ final class FirebaseService {
         conceptId: String, conceptName: String, conceptDescription: String,
         subject: String, grade: Int, unitName: String
     ) async throws -> [McqQuestion] {
-        // On simulator, phone auth (APNs) doesn't work — sign in anonymously to get
-        // a real Firebase auth token so Cloud Functions accept the request.
-        #if targetEnvironment(simulator)
-        if Auth.auth().currentUser == nil {
-            try await Auth.auth().signInAnonymously()
+        let scope: String
+        if !conceptName.isEmpty && conceptName != unitName {
+            scope = "Lesson: \(unitName)\nConcept (focus narrowly on this): \(conceptName)"
+        } else {
+            scope = "Lesson: \(unitName)"
         }
-        #endif
-        let fn = Functions.functions().httpsCallable("generateMcq")
-        let data: [String: Any] = [
-            "conceptId": conceptId,
-            "conceptName": conceptName,
-            "conceptDescription": conceptDescription,
-            "subject": subject,
-            "grade": grade,
-            "unitName": unitName,
-            "targetCount": 10
-        ]
-        let result = try await fn.call(data)
-        guard let dict = result.data as? [String: Any],
-              let rawQuestions = dict["questions"] as? [[String: Any]] else {
-            throw NSError(domain: "Quiz", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid response from generateMcq"])
+        let prompt = """
+        You are an Indian school-textbook tutor. Write 10 NCERT-style \
+        multiple-choice questions for a Class \(grade) \(subject) student about the \
+        topic below. Match the difficulty and tone of the CBSE textbook.
+
+        \(scope)
+
+        Rules:
+        - Exactly 10 questions, each with 4 options.
+        - One option clearly correct; wrong options must be plausible misconceptions.
+        - Cover recall, understanding, and application.
+        - Each question carries a one-line kid-friendly explanation.
+        - Output JSON only, matching the provided schema.
+        """
+
+        let backoffs: [UInt64] = [0, 1_500_000_000, 4_000_000_000]
+        var lastError: Error = NSError(domain: "Quiz", code: -1)
+        for delay in backoffs {
+            if delay > 0 { try await Task.sleep(nanoseconds: delay) }
+            do {
+                let response = try await mcqTextModel.generateContent(prompt)
+                guard let text = response.text,
+                      let data = text.data(using: .utf8),
+                      let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                      let rawQ = json["questions"] as? [[String: Any]] else {
+                    throw NSError(domain: "Quiz", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid AI response"])
+                }
+                let parsed = rawQ.compactMap { m -> McqQuestion? in
+                    guard let qText = m["text"] as? String,
+                          let options = m["options"] as? [String],
+                          options.count == 4 else { return nil }
+                    let ci = (m["correct_index"] as? Int)
+                        ?? (m["correct_index"] as? Int64).map(Int.init)
+                        ?? (m["correct_index"] as? NSNumber).map(\.intValue)
+                        ?? 0
+                    return McqQuestion(
+                        id: m["id"] as? String ?? UUID().uuidString,
+                        text: qText,
+                        options: options,
+                        correctIndex: ci,
+                        explanation: m["explanation"] as? String ?? ""
+                    )
+                }
+                if parsed.isEmpty {
+                    throw NSError(domain: "Quiz", code: -2, userInfo: [NSLocalizedDescriptionKey: "No valid questions in response"])
+                }
+                return parsed
+            } catch {
+                lastError = error
+                print("⚠️ generateQuizQuestions attempt failed: \(error)")
+            }
         }
-        let parsed = rawQuestions.compactMap { m -> McqQuestion? in
-            guard let text = m["text"] as? String,
-                  let options = m["options"] as? [String],
-                  options.count == 4 else { return nil }
-            return McqQuestion(
-                id: m["id"] as? String ?? UUID().uuidString,
-                text: text,
-                options: options,
-                correctIndex: (m["correctIndex"] as? Int)
-                    ?? (m["correctIndex"] as? Int64).map(Int.init)
-                    ?? (m["correctIndex"] as? NSNumber).map(\.intValue)
-                    ?? 0,
-                explanation: m["explanation"] as? String ?? ""
-            )
-        }
-        if parsed.isEmpty {
-            throw NSError(domain: "Quiz", code: -2, userInfo: [NSLocalizedDescriptionKey: "No valid questions in response"])
-        }
-        return parsed
+        throw lastError
     }
 
     func saveQuizAttempt(
