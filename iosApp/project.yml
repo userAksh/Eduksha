@@ -30,7 +30,7 @@ targets:
           - "**/*.md"
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: in.eduksha.ios
+        PRODUCT_BUNDLE_IDENTIFIER: in.eduksha.app.ios
         INFOPLIST_FILE: iosApp/Info.plist
         PRODUCT_NAME: iosApp
         SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"

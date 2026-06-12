@@ -717,7 +717,7 @@
 			baseConfigurationReference = 32FFD6F4FF52B807D44B4814 /* Pods-iosApp.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = iosApp/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = in.eduksha.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = in.eduksha.app.ios;
 				PRODUCT_NAME = Eduksha;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 			};
@@ -728,7 +728,7 @@
 			baseConfigurationReference = 1CF54D221E4A89383FC9D45E /* Pods-iosApp.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = iosApp/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = in.eduksha.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = in.eduksha.app.ios;
 				PRODUCT_NAME = Eduksha;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 			};
