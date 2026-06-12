@@ -32,7 +32,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
     // Forward APNs token to both Firebase Auth and Firebase Messaging
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        Auth.auth().setAPNSToken(deviceToken, type: .unknown)
+        #if DEBUG
+        Auth.auth().setAPNSToken(deviceToken, type: .sandbox)
+        #else
+        Auth.auth().setAPNSToken(deviceToken, type: .prod)
+        #endif
         Messaging.messaging().apnsToken = deviceToken
         NSLog("[FCM] APNs token registered len=\(deviceToken.count)")
     }
