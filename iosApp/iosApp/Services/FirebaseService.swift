@@ -73,7 +73,7 @@ final class FirebaseService {
                 .compactMap { $0 as? UIWindowScene }
                 .first(where: { $0.activationState == .foregroundActive })?
                 .keyWindow?
-                .rootViewController
+                .rootViewController as? AuthUIDelegate
         }
         NSLog("[OTP] Device path — uiDelegate=\(uiDelegate != nil ? "found" : "nil")")
         return try await PhoneAuthProvider.provider().verifyPhoneNumber(phone, uiDelegate: uiDelegate)
