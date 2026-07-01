@@ -19,6 +19,14 @@ const rzp = new Razorpay({ key_id: keyId, key_secret: keySecret });
 
 const plans = [
   {
+    slug: "PLAN_TRIAL",
+    payload: {
+      period: "monthly",
+      interval: 1,
+      item: { name: "Eduksha Trial", amount: 100, currency: "INR", description: "₹1 trial" },
+    },
+  },
+  {
     slug: "PLAN_MONTHLY",
     payload: {
       period: "monthly",

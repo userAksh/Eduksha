@@ -3,6 +3,9 @@ package com.dobi.app.feature.paywall
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,6 +25,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -30,9 +34,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Security
+import androidx.compose.material.icons.filled.VolumeOff
+import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material.icons.outlined.BarChart
 import androidx.compose.material.icons.outlined.CurrencyRupee
 import androidx.compose.material.icons.outlined.Star
@@ -52,7 +57,9 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.MediaItem
@@ -98,6 +105,16 @@ fun PaywallScreen(
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
 
+    // Paywall has a dark video/background — force white status bar icons and
+    // reapply window bar styling so any light scrim from the auth screens is cleared.
+    val view = LocalView.current
+    SideEffect {
+        if (!view.isInEditMode) {
+            val window = (view.context as Activity).window
+            WindowInsetsControllerCompat(window, view).isAppearanceLightStatusBars = false
+        }
+    }
+
     LaunchedEffect(uiState.navigateToHome) {
         if (uiState.navigateToHome) {
             viewModel.onNavigationConsumed()
@@ -115,7 +132,11 @@ fun PaywallScreen(
         val options = JSONObject().apply {
             put("name", "Eduksha")
             put("description", "AI-powered learning for your child")
-            put("subscription_id", data.subscriptionId)
+            if (data.orderId != null) {
+                put("order_id", data.orderId)
+            } else {
+                put("subscription_id", data.subscriptionId)
+            }
             put("prefill", JSONObject().apply {
                 put("email", data.userEmail ?: "")
                 put("contact", data.userPhone ?: "")
@@ -137,7 +158,7 @@ fun PaywallScreen(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
         Image(
             painter = painterResource(R.drawable.paywall_bg),
             contentDescription = null,
@@ -165,33 +186,31 @@ fun PaywallScreen(
         }
 
         Column(modifier = Modifier.fillMaxSize()) {
-            // ── Hero: video plays muted on loop over the background image ─────
             PaywallVideoPlayer(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.32f),
             )
 
-            // ── White card: bottom 53% ─────────────────────────────────────────
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.68f)
-                    .navigationBarsPadding()
-                    .padding(start = 8.dp, end = 8.dp, bottom = 10.dp),
+                    .offset(y = (-14).dp),
             ) {
                 Card(
                     modifier = Modifier.fillMaxSize(),
-                    shape = RoundedCornerShape(24.dp),
+                    shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
                     colors = CardDefaults.cardColors(containerColor = Color.White),
                     elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                 ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 18.dp)
+                    .padding(top = 20.dp)
                     .verticalScroll(rememberScrollState())
-                    .padding(start = 14.dp, end = 14.dp, bottom = 16.dp),
+                    .padding(start = 14.dp, end = 14.dp, bottom = 16.dp)
+                    .navigationBarsPadding(),
             ) {
                 PlanTabRow(
                     selected = uiState.selectedTab,
@@ -252,6 +271,7 @@ fun PaywallScreen(
                 SubscribeButton(
                     plan = if (uiState.selectedTab == PaywallTab.TRIAL) PaywallPlan.TRIAL
                            else uiState.selectedPlan,
+                    tab = uiState.selectedTab,
                     isLoading = uiState.isLoading,
                     onClick = {
                         if (uiState.selectedTab == PaywallTab.TRIAL) {
@@ -286,10 +306,11 @@ private const val PAYWALL_VIDEO_URL =
 @Composable
 private fun PaywallVideoPlayer(modifier: Modifier = Modifier) {
     val context = LocalContext.current
+    var isMuted by remember { mutableStateOf(false) }
     val player = remember {
         ExoPlayer.Builder(context).build().apply {
             setMediaItem(MediaItem.fromUri(PAYWALL_VIDEO_URL))
-            volume = 0f
+            volume = 1f
             repeatMode = Player.REPEAT_MODE_ONE
             prepare()
             playWhenReady = true
@@ -297,16 +318,43 @@ private fun PaywallVideoPlayer(modifier: Modifier = Modifier) {
     }
     DisposableEffect(Unit) { onDispose { player.release() } }
 
-    AndroidView(
-        factory = { ctx ->
-            PlayerView(ctx).apply {
-                this.player = player
-                useController = false
-                resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
-            }
-        },
-        modifier = modifier,
-    )
+    Box(modifier = modifier) {
+        AndroidView(
+            factory = { ctx ->
+                PlayerView(ctx).apply {
+                    this.player = player
+                    useController = false
+                    resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
+                }
+            },
+            modifier = Modifier.fillMaxSize(),
+        )
+
+        Box(
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .statusBarsPadding()
+                .padding(12.dp)
+                .size(36.dp)
+                .clip(RoundedCornerShape(50))
+                .background(Color.Black.copy(alpha = 0.4f))
+                .clickable(
+                    indication = null,
+                    interactionSource = remember { MutableInteractionSource() },
+                ) {
+                    isMuted = !isMuted
+                    player.volume = if (isMuted) 0f else 1f
+                },
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(
+                imageVector = if (isMuted) Icons.Default.VolumeOff else Icons.Default.VolumeUp,
+                contentDescription = if (isMuted) "Unmute" else "Mute",
+                tint = Color.White,
+                modifier = Modifier.size(18.dp),
+            )
+        }
+    }
 }
 
 // ── Tab row ──────────────────────────────────────────────────────────────────
@@ -315,7 +363,7 @@ private fun PaywallVideoPlayer(modifier: Modifier = Modifier) {
 private fun PlanTabRow(selected: PaywallTab, onSelect: (PaywallTab) -> Unit) {
     val tabs = listOf(
         PaywallTab.AUTOPAY  to "AUTO\nPAY",
-        PaywallTab.TRIAL    to "TRIAL\n@ ₹1",
+        PaywallTab.TRIAL    to "TRIAL\n3 Days Free",
         PaywallTab.PAY_ONCE to "PAY\nONCE",
     )
     Row(
@@ -528,13 +576,13 @@ private fun TrialCard() {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = "Start with just",
+                text = "Try free for",
                 color = TextSecondary,
                 fontSize = 14.sp,
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = "₹1",
+                text = "3 Days",
                 color = Purple,
                 fontSize = 48.sp,
                 fontWeight = FontWeight.ExtraBold,
@@ -546,8 +594,8 @@ private fun TrialCard() {
             )
             Spacer(Modifier.height(16.dp))
             listOf(
-                "Auto-pay setup with first charge",
-                "Cancel anytime before renewal",
+                "₹1 today (refunded within 7 days by Razorpay)",
+                "Auto-pay of ₹149 starts on day 4",
                 "Full access during trial",
             ).forEach { feature ->
                 Row(
@@ -664,6 +712,7 @@ private fun ReferralCodeSection(
 @Composable
 private fun SubscribeButton(
     plan: PaywallPlan,
+    tab: PaywallTab,
     isLoading: Boolean,
     onClick: () -> Unit,
 ) {
@@ -686,14 +735,15 @@ private fun SubscribeButton(
             )
         } else if (plan == PaywallPlan.TRIAL) {
             Text(
-                text = "⚡ START TRIAL FOR ₹1",
+                text = "⚡ START 3-DAY FREE TRIAL",
                 color = Color.White,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
             )
         } else {
             val ctaText = buildAnnotatedString {
-                append("⚡ SUBSCRIBE NOW FOR ")
+                val prefix = if (tab == PaywallTab.PAY_ONCE) "⚡ PAY NOW FOR " else "⚡ SUBSCRIBE NOW FOR "
+                append(prefix)
                 if (plan.ctaOriginalLabel != null) {
                     withStyle(
                         SpanStyle(

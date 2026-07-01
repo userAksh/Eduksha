@@ -44,6 +44,9 @@ const GEMINI_API_KEY = defineSecret("GEMINI_API_KEY");
 const RAZORPAY_KEY_ID     = defineSecret("RAZORPAY_KEY_ID");
 const RAZORPAY_KEY_SECRET = defineSecret("RAZORPAY_KEY_SECRET");
 
+// Free trial duration before first ₹149 charge.
+const TRIAL_DAYS = 3;
+
 initializeApp();
 const db = getFirestore();
 const fcm = getMessaging();
@@ -1769,10 +1772,9 @@ exports.validateImageScope = onCall(
 const { onRequest } = require("firebase-functions/v2/https");
 const crypto = require("crypto");
 
-const PLAN_MONTHLY    = "plan_SzRWiVex69GbLB"; // ₹149/month
-const PLAN_QUARTERLY  = "plan_SzRWik76iUw6lz"; // ₹249/3 months
-const PLAN_HALFYEARLY = "plan_SzRWiyEVfEO6Iu"; // ₹449/6 months
-const PLAN_TRIAL      = "plan_SzRqTUAERvbITe"; // ₹1 trial (1 billing cycle, then webhook creates monthly)
+const PLAN_MONTHLY    = "plan_T6YdyradEHL5ST"; // ₹149/month (also used for trial via offer)
+const PLAN_QUARTERLY  = "plan_T6Ydz4qePB3kWv"; // ₹249/3 months
+const PLAN_HALFYEARLY = "plan_T6YdzMfZkQabDg"; // ₹449/6 months
 
 // ── createSubscription ────────────────────────────────────────────────────────
 // Called by the app after the user picks a plan. Creates a Razorpay subscription
@@ -1795,10 +1797,8 @@ exports.createSubscription = onCall(
     });
 
     const isTrial = planType === "trial";
-    // Trial uses a dedicated ₹1 plan (1 billing cycle).
-    // After the cycle completes, the webhook creates the ₹149/month subscription.
-    const planId  = isTrial            ? PLAN_TRIAL
-                  : planType === "quarterly"  ? PLAN_QUARTERLY
+    // Trial: free for TRIAL_DAYS, then ₹149/month auto-debits via registered mandate.
+    const planId  = planType === "quarterly"  ? PLAN_QUARTERLY
                   : planType === "halfyearly" ? PLAN_HALFYEARLY
                   : PLAN_MONTHLY;
 
@@ -1844,11 +1844,59 @@ exports.createSubscription = onCall(
       plan_id:         planId,
       customer_id:     razorpayCustomerId,
       customer_notify: 0,
-      // Trial: 1 cycle at ₹1. After completion the webhook auto-creates the monthly sub.
-      total_count:     isTrial ? 1 : (planType === "quarterly" ? 4 : planType === "halfyearly" ? 2 : 12),
+      total_count:     planType === "quarterly" ? 4 : planType === "halfyearly" ? 2 : 12,
       quantity:        1,
       notes:           { userId, planType },
+      ...(isTrial ? {
+        start_at: Math.floor(Date.now() / 1000) + TRIAL_DAYS * 86400,
+      } : {}),
     };
+
+    // Cancel any previous abandoned subscription (status=created) to keep Razorpay clean.
+    const existingSubId = userDoc.exists ? userDoc.data()?.razorpaySubscriptionId : null;
+    const existingStatus = userDoc.exists ? userDoc.data()?.status : null;
+    if (existingSubId && existingStatus === "created") {
+      try {
+        await rzp.subscriptions.cancel(existingSubId, { cancel_at_cycle_end: false });
+        logger.info(`createSubscription: cancelled orphaned sub ${existingSubId} for userId=${userId}`);
+      } catch (_) { /* ignore — sub may already be cancelled or expired */ }
+    }
+
+    // ── PAY_ONCE: one-time Razorpay Order, no autopay mandate ────────────────────
+    const { tabType } = request.data;
+    if (tabType === "pay_once") {
+      const PLAN_AMOUNTS_PAISE = { monthly: 14900, quarterly: 24900, halfyearly: 44900 };
+      const amount = PLAN_AMOUNTS_PAISE[planType];
+      if (!amount) throw new HttpsError("invalid-argument", `invalid planType "${planType}" for pay_once`);
+
+      let order;
+      try {
+        order = await rzp.orders.create({
+          amount,
+          currency:        "INR",
+          receipt:         `${userId.slice(0, 10)}_${planType}`,
+          payment_capture: 1,
+          notes:           { userId, planType, paymentType: "pay_once" },
+        });
+      } catch (err) {
+        const detail = err?.error?.description || err?.error?.code || err?.message || JSON.stringify(err?.error ?? err);
+        logger.error("createSubscription: razorpay order error", { detail });
+        throw new HttpsError("internal", detail);
+      }
+
+      db.collection("subscriptions").doc(userId).set({
+        userId, planType, razorpayCustomerId,
+        razorpayOrderId: order.id,
+        paymentType:     "pay_once",
+        status:          "created",
+        createdAt:       FieldValue.serverTimestamp(),
+      }, { merge: true }).catch(err =>
+        logger.error("createSubscription: Firestore write error (pay_once)", { err })
+      );
+
+      logger.info(`createSubscription: pay_once userId=${userId} planType=${planType} orderId=${order.id}`);
+      return { orderId: order.id, keyId: RAZORPAY_KEY_ID.value() };
+    }
 
     let sub;
     try {
@@ -1907,7 +1955,59 @@ exports.razorpayWebhook = onRequest(
       return;
     }
 
-    const event   = req.body.event;
+    const event = req.body.event;
+
+    // ── PAY_ONCE: one-time order captured ────────────────────────────────────────
+    if (event === "payment.captured") {
+      const paymentEntity = req.body.payload?.payment?.entity || {};
+      const payNotes      = paymentEntity.notes || {};
+      // Subscription payments also fire payment.captured — ignore those.
+      if (payNotes.paymentType !== "pay_once" || !payNotes.userId) {
+        res.status(200).send("ok"); return;
+      }
+      const payUserId   = payNotes.userId;
+      const payPlanType = payNotes.planType || "monthly";
+      const months      = payPlanType === "quarterly" ? 3 : payPlanType === "halfyearly" ? 6 : 1;
+      const periodEnd   = new Date();
+      periodEnd.setMonth(periodEnd.getMonth() + months);
+
+      await db.collection("subscriptions").doc(payUserId).set({
+        status:            "active",
+        isPremium:         true,
+        paymentType:       "pay_once",
+        planType:          payPlanType,
+        razorpayPaymentId: paymentEntity.id,
+        razorpayOrderId:   paymentEntity.order_id,
+        activatedAt:       FieldValue.serverTimestamp(),
+        currentPeriodEnd:  periodEnd,
+        updatedAt:         FieldValue.serverTimestamp(),
+      }, { merge: true });
+
+      try {
+        const parentDoc = await db.collection("parents").doc(payUserId).get();
+        const fcmToken  = parentDoc.data()?.fcmToken;
+        if (fcmToken) {
+          const planLabel  = payPlanType === "quarterly" ? "3 months" : payPlanType === "halfyearly" ? "6 months" : "1 month";
+          const planAmount = payPlanType === "quarterly" ? "₹249" : payPlanType === "halfyearly" ? "₹449" : "₹149";
+          await getMessaging().send({
+            token: fcmToken,
+            notification: {
+              title: "Payment Successful ✅",
+              body:  `${planAmount} received! Welcome to Eduksha Premium for ${planLabel}.`,
+            },
+            data: { type: "payment_captured", planType: payPlanType },
+            android: { priority: "high" },
+          });
+        }
+      } catch (fcmErr) {
+        logger.warn(`razorpayWebhook: FCM failed pay_once userId=${payUserId}`, { fcmErr });
+      }
+
+      logger.info(`razorpayWebhook: pay_once captured userId=${payUserId} planType=${payPlanType}`);
+      res.status(200).send("ok"); return;
+    }
+
+    // ── Subscription events ───────────────────────────────────────────────────────
     const payload = req.body.payload?.subscription?.entity || {};
     const subId   = payload.id;
     const notes   = payload.notes || {};
@@ -1920,6 +2020,48 @@ exports.razorpayWebhook = onRequest(
     const subRef = db.collection("subscriptions").doc(userId);
 
     switch (event) {
+      case "subscription.authenticated": {
+        const startAt = payload.start_at ? new Date(payload.start_at * 1000) : null;
+        const snap    = await subRef.get();
+        const planType = snap.data()?.planType || "monthly";
+        const isTrial  = planType === "trial";
+
+        const authUpdate = {
+          status:                 "authenticated",
+          isPremium:              true,
+          razorpaySubscriptionId: subId,
+          firstChargeAt:          startAt,
+          updatedAt:              FieldValue.serverTimestamp(),
+        };
+        if (isTrial) authUpdate.trialStartedAt = FieldValue.serverTimestamp();
+        await subRef.set(authUpdate, { merge: true });
+
+        logger.info(`razorpayWebhook: authenticated userId=${userId} planType=${planType} isTrial=${isTrial}`);
+
+        // Only notify for trial — autopay fires subscription.charged immediately after,
+        // which sends the "Payment Successful" notification.
+        if (isTrial) {
+          try {
+            const parentDoc = await db.collection("parents").doc(userId).get();
+            const fcmToken  = parentDoc.data()?.fcmToken;
+            if (fcmToken) {
+              await getMessaging().send({
+                token: fcmToken,
+                notification: {
+                  title: "Trial Started! 🎉",
+                  body:  "Your 3-day free trial has begun. Enjoy full access to Eduksha Premium!",
+                },
+                data: { type: "trial_started", planType, event },
+                android: { priority: "high" },
+              });
+            }
+          } catch (fcmErr) {
+            logger.warn(`razorpayWebhook: FCM notification failed userId=${userId}`, { fcmErr });
+          }
+        }
+        break;
+      }
+
       case "subscription.activated":
       case "subscription.charged": {
         const chargeAt   = payload.charge_at   ? new Date(payload.charge_at * 1000)   : null;
@@ -1934,10 +2076,32 @@ exports.razorpayWebhook = onRequest(
           updatedAt:      FieldValue.serverTimestamp(),
         }, { merge: true });
 
-        // Also stamp isPremium on the parent doc for easy app-side reads
         const snap = await subRef.get();
         const planType = snap.data()?.planType || "monthly";
         logger.info(`razorpayWebhook: activated userId=${userId} planType=${planType}`);
+
+        const paisaAmount    = req.body.payload?.payment?.entity?.amount;
+        const amountStr      = paisaAmount ? `₹${Math.round(paisaAmount / 100)}` : "Your payment";
+        const paidCount      = payload.paid_count || 0;
+        const isFirstCharge  = event === "subscription.activated" || paidCount <= 1;
+        const notifBody      = isFirstCharge
+          ? `${amountStr} received! Welcome to Eduksha Premium. Your child's learning journey starts now! 🎉`
+          : `${amountStr} received. Your Eduksha Premium subscription has been renewed. 📚`;
+        try {
+          const parentDoc = await db.collection("parents").doc(userId).get();
+          const fcmToken  = parentDoc.data()?.fcmToken;
+          if (fcmToken) {
+            await getMessaging().send({
+              token: fcmToken,
+              notification: { title: "Payment Successful ✅", body: notifBody },
+              data: { type: "payment_confirmation", planType, event },
+              android: { priority: "high" },
+            });
+            logger.info(`razorpayWebhook: payment confirmation sent userId=${userId}`);
+          }
+        } catch (fcmErr) {
+          logger.warn(`razorpayWebhook: FCM notification failed userId=${userId}`, { fcmErr });
+        }
         break;
       }
 
@@ -1958,43 +2122,15 @@ exports.razorpayWebhook = onRequest(
         }, { merge: true });
         break;
 
-      case "subscription.completed": {
-        // Trial subscription (1 cycle at ₹1) finished — auto-create the monthly
-        // subscription so the user seamlessly transitions to ₹149/month.
-        // Razorpay will send the customer a payment notification to authorize it.
-        const snap = await subRef.get();
-        const planType = snap.data()?.planType;
-        const razorpayCustomerId = snap.data()?.razorpayCustomerId;
-        if (planType === "trial" && razorpayCustomerId) {
-          const Razorpay = require("razorpay");
-          const rzp = new Razorpay({
-            key_id:     RAZORPAY_KEY_ID.value(),
-            key_secret: RAZORPAY_KEY_SECRET.value(),
-          });
-          const newSub = await rzp.subscriptions.create({
-            plan_id:         PLAN_MONTHLY,
-            customer_id:     razorpayCustomerId,
-            customer_notify: 1, // Razorpay notifies user to authorize ₹149/month
-            total_count:     12,
-            notes:           { userId, planType: "monthly", fromTrial: "true" },
-          });
-          await subRef.set({
-            planType: "monthly",
-            razorpaySubscriptionId: newSub.id,
-            status:   "created",
-            updatedAt: FieldValue.serverTimestamp(),
-          }, { merge: true });
-          logger.info(`razorpayWebhook: trial→monthly userId=${userId} newSubId=${newSub.id}`);
-        } else {
-          // Non-trial subscription completed naturally (all cycles billed)
-          await subRef.set({
-            status:    "completed",
-            isPremium: false,
-            updatedAt: FieldValue.serverTimestamp(),
-          }, { merge: true });
-        }
+      case "subscription.completed":
+        // All billing cycles finished — mark expired.
+        // (Trial now uses PLAN_MONTHLY + offer so this is only hit after 12 months.)
+        await subRef.set({
+          status:    "completed",
+          isPremium: false,
+          updatedAt: FieldValue.serverTimestamp(),
+        }, { merge: true });
         break;
-      }
 
       default:
         logger.info(`razorpayWebhook: unhandled event=${event}`);

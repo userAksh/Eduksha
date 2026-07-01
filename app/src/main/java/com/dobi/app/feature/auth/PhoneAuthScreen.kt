@@ -8,7 +8,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -84,10 +83,28 @@ private val ErrorRed = Color(0xFFDC2626)
 fun PhoneAuthScreen(
     onNavigateToOtp: (Screen.OtpVerification) -> Unit,
     onNavigateToParentHome: () -> Unit,
+    startInSignUpMode: Boolean = false,
+    onStartInSignUpModeConsumed: () -> Unit = {},
     viewModel: PhoneAuthViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val activity = LocalContext.current as Activity
+    var isLogin by remember { mutableStateOf(false) }
+
+    // Switch to Sign Up if OTP screen detected an unregistered number (post-OTP safety net)
+    LaunchedEffect(startInSignUpMode) {
+        if (startInSignUpMode) {
+            isLogin = false
+            onStartInSignUpModeConsumed()
+        }
+    }
+
+    // Switch to Sign Up immediately if Firestore pre-check found the number isn't registered
+    LaunchedEffect(uiState) {
+        if (uiState is PhoneAuthViewModel.UiState.NotRegistered) {
+            isLogin = false
+        }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.navEvent.collect { event ->
@@ -103,6 +120,8 @@ fun PhoneAuthScreen(
 
     PhoneAuthContent(
         uiState = uiState,
+        isLogin = isLogin,
+        onToggleMode = { isLogin = !isLogin },
         onSendOtp = { name, phone -> viewModel.sendOtp(name, phone, activity) }
     )
 }
@@ -110,6 +129,8 @@ fun PhoneAuthScreen(
 @Composable
 private fun PhoneAuthContent(
     uiState: PhoneAuthViewModel.UiState,
+    isLogin: Boolean,
+    onToggleMode: () -> Unit,
     onSendOtp: (name: String, phone: String) -> Unit
 ) {
     var name by remember { mutableStateOf("") }
@@ -117,17 +138,13 @@ private fun PhoneAuthContent(
 
     val isLoading = uiState is PhoneAuthViewModel.UiState.Loading
     val error = (uiState as? PhoneAuthViewModel.UiState.Error)?.message
+        ?: (uiState as? PhoneAuthViewModel.UiState.NotRegistered)?.message
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
-        // imePadding sits OUTSIDE the scroll so the whole screen (hero image
-        // included) is pushed up by the keyboard; the focused TextField is then
-        // brought into view by OutlinedTextField's built-in scroll-into-view.
-        // statusBarsPadding keeps scrolling content from sliding under the
-        // system status bar — the sticky top band below paints that strip.
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -143,7 +160,9 @@ private fun PhoneAuthContent(
                 onPhoneChange = { phone = it.filter { c -> c.isDigit() }.take(10) },
                 isLoading = isLoading,
                 error = error,
-                onSendOtp = { onSendOtp(name.trim(), phone.trim()) }
+                isLogin = isLogin,
+                onToggleMode = onToggleMode,
+                onSendOtp = { onSendOtp(if (isLogin) "" else name.trim(), phone.trim()) }
             )
             FooterDivider(
                 modifier = Modifier
@@ -172,19 +191,16 @@ private fun PhoneAuthContent(
 
 @Composable
 private fun HeroSection() {
-    Row(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp)
             .background(HeroBackground),
-        verticalAlignment = Alignment.Top
     ) {
         // Left — text column (45% of width)
         Column(
             modifier = Modifier
-                .weight(0.45f)
-                .fillMaxHeight()
-                .padding(start = 22.dp, top = 16.dp, end = 4.dp)
+                .fillMaxWidth(0.45f)
+                .padding(start = 22.dp, top = 16.dp, end = 4.dp, bottom = 16.dp)
         ) {
             Text(
                 text = "Partner in your\nchild's learning",
@@ -202,15 +218,16 @@ private fun HeroSection() {
                 color = DobiTextSecondary
             )
         }
-        // Right — illustration (55% of width). Top inset matches the left column.
+        // Right — illustration (55% of width). FillWidth scales to fill the
+        // column width and auto-computes height from the image aspect ratio,
+        // so the Box (and background) end exactly where the image ends.
         Image(
             painter = painterResource(id = R.drawable.parent_login_illustration),
             contentDescription = null,
-            contentScale = ContentScale.Fit,
-            alignment = Alignment.TopEnd,
+            contentScale = ContentScale.FillWidth,
             modifier = Modifier
-                .weight(0.55f)
-                .fillMaxHeight()
+                .fillMaxWidth(0.55f)
+                .align(Alignment.TopEnd)
                 .padding(top = 16.dp)
         )
     }
@@ -226,6 +243,8 @@ private fun FormCard(
     onPhoneChange: (String) -> Unit,
     isLoading: Boolean,
     error: String?,
+    isLogin: Boolean,
+    onToggleMode: () -> Unit,
     onSendOtp: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
@@ -241,29 +260,61 @@ private fun FormCard(
                 .padding(horizontal = 24.dp)
                 .padding(top = 28.dp, bottom = 20.dp)
         ) {
-            FieldLabel(icon = Icons.Default.Person, label = "Your Name")
-            Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextField(
-                value = name,
-                onValueChange = onNameChange,
-                placeholder = {
-                    Text(
-                        "e.g. Rahul Sharma",
-                        color = DobiTextTertiary,
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 15.sp
-                    )
-                },
+            // ── Sign Up / Login toggle ────────────────────────────────────
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(58.dp),
-                shape = RoundedCornerShape(14.dp),
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words),
-                colors = textFieldColors()
-            )
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(HeroBackground)
+                    .padding(4.dp),
+            ) {
+                listOf("Sign Up" to false, "Login" to true).forEach { (label, loginMode) ->
+                    val selected = isLogin == loginMode
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(if (selected) DobiPrimary else Color.Transparent)
+                            .clickable(enabled = !selected) { onToggleMode() }
+                            .padding(vertical = 10.dp),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text(
+                            text = label,
+                            color = if (selected) Color.White else DobiTextSecondary,
+                            fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
+                            fontSize = 14.sp,
+                        )
+                    }
+                }
+            }
 
-            Spacer(modifier = Modifier.height(22.dp))
+            Spacer(modifier = Modifier.height(24.dp))
+
+            if (!isLogin) {
+                FieldLabel(icon = Icons.Default.Person, label = "Your Name")
+                Spacer(modifier = Modifier.height(10.dp))
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = onNameChange,
+                    placeholder = {
+                        Text(
+                            "e.g. Rahul Sharma",
+                            color = DobiTextTertiary,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 15.sp
+                        )
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(58.dp),
+                    shape = RoundedCornerShape(14.dp),
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words),
+                    colors = textFieldColors()
+                )
+                Spacer(modifier = Modifier.height(22.dp))
+            }
 
             FieldLabel(icon = Icons.Default.Phone, label = "Phone Number")
             Spacer(modifier = Modifier.height(10.dp))
@@ -282,7 +333,7 @@ private fun FormCard(
             Spacer(modifier = Modifier.height(28.dp))
 
             SendOtpButton(
-                enabled = name.isNotBlank() && phone.length == 10 && !isLoading,
+                enabled = (isLogin || name.isNotBlank()) && phone.length == 10 && !isLoading,
                 isLoading = isLoading,
                 onClick = { focusManager.clearFocus(); onSendOtp() }
             )

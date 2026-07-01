@@ -76,7 +76,8 @@ enum class PaywallPlan(
 }
 
 data class CheckoutData(
-    val subscriptionId: String,
+    val subscriptionId: String? = null,
+    val orderId: String? = null,
     val keyId: String,
     val userPhone: String? = null,
     val userEmail: String? = null,
